@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
+             xmlns:extendedLabel="clr-namespace:Samples"
+             x:Class="Samples.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <extendedLabel:ExtendedLabel
+                UnderlineColor="Green"
+                HasUnderline="True"
+                TextColor="Black" 
+                Text="Say Hello to the title label" />
+
+            <freakyControls:FreakyEditor
+               Placeholder="This is a freaky editor"
+               HeightRequest="250"
+               UnderlineColor="Purple"
+               HasUnderline="True"
+               AutoSize="TextChanges"
+               Keyboard="Chat"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+
