@@ -25,8 +25,8 @@ namespace Samples
 
         public Color UnderlineColor
         {
-            get => (Color)GetValue(HasUnderlineProperty);
-            set => SetValue(HasUnderlineProperty, value);
+            get => (Color)GetValue(UnderlineColorProperty);
+            set => SetValue(UnderlineColorProperty, value);
         }
     }
 }

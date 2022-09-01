@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Maui.Handlers;
+using Color = Microsoft.Maui.Graphics.Color;
+
 
 namespace MAUI.FreakyControls
 {
@@ -25,8 +27,8 @@ namespace MAUI.FreakyControls
 
         public Color UnderlineColor
         {
-            get => (Color)GetValue(HasUnderlineProperty);
-            set => SetValue(HasUnderlineProperty, value);
+            get => (Color)GetValue(UnderlineColorProperty);
+            set => SetValue(UnderlineColorProperty, value);
         }
     }
 }

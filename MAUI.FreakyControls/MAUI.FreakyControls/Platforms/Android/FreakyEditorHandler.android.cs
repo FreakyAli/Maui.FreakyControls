@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
+using AndroidX.Core.Content.Resources;
 using AndroidX.Core.Graphics;
 using Microsoft.Maui.Handlers;
 using Color = Microsoft.Maui.Graphics.Color;
@@ -15,10 +16,9 @@ namespace MAUI.FreakyControls
     {
         protected override AppCompatEditText CreatePlatformView()
         {
-           var _nativeView = new AppCompatEditText(Context)
+            var _nativeView = new AppCompatEditText(Context)
             {
                 ImeOptions = ImeAction.Done,
-                Background = null,
                 Gravity = GravityFlags.Top,
                 TextAlignment = Android.Views.TextAlignment.ViewStart,
             };
@@ -27,19 +27,17 @@ namespace MAUI.FreakyControls
             return _nativeView;
         }
 
+
         private void HandleNativeHasUnderline(bool hasUnderline, Color underlineColor)
         {
-            //if (hasUnderline)
-            //{
-            //    var AndroidColor = underlineColor.ToNativeColor();
-            //    var colorFilter = BlendModeColorFilterCompat.CreateBlendModeColorFilterCompat(
-            //        AndroidColor, BlendModeCompat.SrcIn);
-            //    PlatformView.Background?.SetColorFilter(colorFilter);
-            //}
-            //else
-            //{
-            //    PlatformView.Background?.ClearColorFilter();
-            //}
+            ColorFilter colorFilter;
+            var AndroidColor = underlineColor.ToNativeColor();
+            colorFilter = hasUnderline ?
+            BlendModeColorFilterCompat.CreateBlendModeColorFilterCompat(
+               AndroidColor, BlendModeCompat.SrcIn) :
+            BlendModeColorFilterCompat.CreateBlendModeColorFilterCompat(
+               Android.Graphics.Color.Transparent, BlendModeCompat.SrcIn);
+            PlatformView.Background?.SetColorFilter(colorFilter);
         }
     }
 }

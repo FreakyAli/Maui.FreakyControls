@@ -15,7 +15,7 @@ namespace MAUI.FreakyControls
     {
         public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
         {
-            handlers.AddHandler(typeof(IFreakyEditor), typeof(FreakyEditorHandler));
+            handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
         }
 
         /// <summary>

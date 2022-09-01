@@ -26,8 +26,9 @@
             <freakyControls:FreakyEditor
                Placeholder="This is a freaky editor"
                HeightRequest="250"
-               UnderlineColor="Purple"
-               HasUnderline="True"
+               PlaceholderColor="Black"
+               UnderlineColor="Black"
+               HasUnderline="False"
                AutoSize="TextChanges"
                Keyboard="Chat"/>
 
