@@ -8,7 +8,7 @@ using NativeView = UIKit.UITextView;
 #endif
 
 namespace MAUI.FreakyControls
-{ 
+{
     public partial class FreakyEditorHandler : ViewHandler<IFreakyEditor, NativeView>
     {
         #region ctor 
@@ -21,12 +21,13 @@ namespace MAUI.FreakyControls
 
         }
 
-        public FreakyEditorHandler(IPropertyMapper mapper = null) : base(mapper ?? FreakyEditorMapper)
+        public FreakyEditorHandler(IPropertyMapper pmapper, CommandMapper cmapper = null)
+            : base(pmapper ?? FreakyEditorMapper, cmapper ?? CommandMapper)
         {
 
         }
 
-            
+
         #endregion
 
         #region Mappers
@@ -39,10 +40,20 @@ namespace MAUI.FreakyControls
 
         public static void MapHasUnderlineWithColor(FreakyEditorHandler handler, IFreakyEditor entry)
         {
-            handler.HandleNativeHasUnderline(entry.HasUnderline,entry.UnderlineColor);
+            handler.HandleNativeHasUnderline(entry.HasUnderline, entry.UnderlineColor);
         }
 
         #endregion
+
+        protected override void ConnectHandler(NativeView platformView)
+        {
+            base.ConnectHandler(platformView);
+        }
+
+        protected override void DisconnectHandler(NativeView platformView)
+        {
+            base.DisconnectHandler(platformView);
+        }
     }
 }
 
