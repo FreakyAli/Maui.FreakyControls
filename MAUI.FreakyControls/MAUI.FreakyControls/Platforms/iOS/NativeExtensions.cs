@@ -9,15 +9,6 @@ namespace MAUI.FreakyControls.Platforms.iOS
 {
     public static class NativeExtensions
     {
-        public static CALayer BottomLineDrawer(UIColor color)
-        {
-            var border = new CALayer();
-            var width = NFloat.Parse("1.0");
-            border.BorderColor = color.CGColor;
-            border.BorderWidth = width;
-            return border;
-        }
-
         public static UIColor FromHex(this UIColor color, string hex)
         {
             int r = 0, g = 0, b = 0, a = 0;

@@ -1,11 +1,12 @@
 ﻿using System;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Handlers;
 using Color = Microsoft.Maui.Graphics.Color;
 
-
 namespace MAUI.FreakyControls
 {
-    public class FreakyEditor : Editor, IFreakyEditor
+    public class FreakyEditor : Editor
     {
         public readonly BindableProperty HasUnderlineProperty = BindableProperty.Create(
             nameof(HasUnderline),

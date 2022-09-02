@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
-             xmlns:extendedLabel="clr-namespace:Samples"
              x:Class="Samples.MainPage">
 
     <ScrollView>
@@ -17,9 +16,7 @@
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-            <extendedLabel:ExtendedLabel
-                UnderlineColor="Green"
-                HasUnderline="True"
+            <Label
                 TextColor="Black" 
                 Text="Say Hello to the title label" />
 
@@ -27,10 +24,10 @@
                Placeholder="This is a freaky editor"
                TextColor="Purple"
                Text="Something i guess"
-               HeightRequest="250"
-               PlaceholderColor="Black"
-               UnderlineColor="Blue"
                HasUnderline="False"
+               HeightRequest="250"
+               FontSize="Large"
+               PlaceholderColor="Black"
                AutoSize="TextChanges"
                Keyboard="Chat"/>
 

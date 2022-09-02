@@ -1,58 +1,22 @@
 ﻿using System;
+using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
-#if ANDROID
-using NativeView = AndroidX.AppCompat.Widget.AppCompatEditText;
-#endif
-#if IOS
-using NativeView = UIKit.UITextView;
-#endif
 
 namespace MAUI.FreakyControls
 {
-    public partial class FreakyEditorHandler : ViewHandler<IFreakyEditor, NativeView>
+    public partial class FreakyEditorHandler : EditorHandler
     {
-        #region ctor 
-
-        public static CommandMapper<IFreakyEditor, FreakyEditorHandler> CommandMapper = new(ViewCommandMapper);
-
-
-        public FreakyEditorHandler() : base(FreakyEditorMapper)
+        public FreakyEditorHandler()
         {
-
+            Mapper.AppendToMapping("HasUnderline", MapHasUnderlineWithColor);
         }
 
-        public FreakyEditorHandler(IPropertyMapper pmapper, CommandMapper cmapper = null)
-            : base(pmapper ?? FreakyEditorMapper, cmapper ?? CommandMapper)
+        private static void MapHasUnderlineWithColor(IEditorHandler editorHandler, IEditor editor)
         {
-
-        }
-
-
-        #endregion
-
-        #region Mappers
-
-        public static IPropertyMapper<IFreakyEditor, FreakyEditorHandler> FreakyEditorMapper = new PropertyMapper<IFreakyEditor, FreakyEditorHandler>(ViewMapper)
-        {
-            [nameof(IFreakyEditor.HasUnderline)] = MapHasUnderlineWithColor,
-            [nameof(IFreakyEditor.UnderlineColor)] = MapHasUnderlineWithColor
-        };
-
-        public static void MapHasUnderlineWithColor(FreakyEditorHandler handler, IFreakyEditor entry)
-        {
-            handler.HandleNativeHasUnderline(entry.HasUnderline, entry.UnderlineColor);
-        }
-
-        #endregion
-
-        protected override void ConnectHandler(NativeView platformView)
-        {
-            base.ConnectHandler(platformView);
-        }
-
-        protected override void DisconnectHandler(NativeView platformView)
-        {
-            base.DisconnectHandler(platformView);
+            if (editor is FreakyEditor freakyEditor)
+            {
+                (editorHandler as FreakyEditorHandler)?.HandleNativeHasUnderline(freakyEditor.HasUnderline, freakyEditor.UnderlineColor);
+            }
         }
     }
 }

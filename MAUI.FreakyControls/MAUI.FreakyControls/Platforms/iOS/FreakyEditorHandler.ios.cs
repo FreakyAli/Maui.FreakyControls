@@ -6,29 +6,54 @@ using Microsoft.Maui.Platform;
 using UIKit;
 using CoreAnimation;
 using static MAUI.FreakyControls.Platforms.iOS.NativeExtensions;
+using Microsoft.Maui;
 
 namespace MAUI.FreakyControls
 {
-    public partial class FreakyEditorHandler 
+    public partial class FreakyEditorHandler
     {
         CALayer bottomline;
 
-        protected override UITextView CreatePlatformView()
+        protected override MauiTextView CreatePlatformView()
         {
-            var _nativeView = new UITextView();
-            return _nativeView;
+            var uiTextView = new FreakyUITextView();
+            uiTextView.OnFrameSetCompelete += UiTextView_OnFrameSetCompelete;
+            return uiTextView;
         }
 
-        private void HandleNativeHasUnderline(bool hasUnderline, Color color)
+        private void SetBottomLine(FreakyEditor thisSharedView, FreakyUITextView thisPlatformView)
+        {
+            var uiColor = thisSharedView.UnderlineColor.ToNativeColor();
+            if (bottomline != null)
+            {
+                bottomline.RemoveFromSuperLayer();
+            }
+            bottomline = new CALayer();
+            var width = 1;
+            bottomline.BorderColor = uiColor.CGColor;
+            bottomline.BorderWidth = width;
+            bottomline.Frame = new CGRect(0, thisPlatformView.Frame.Height - 1, thisPlatformView.Frame.Width, 1.0);
+            PlatformView.Layer.AddSublayer(bottomline);
+            PlatformView.Layer.MasksToBounds = true;
+        }
+
+        private void UiTextView_OnFrameSetCompelete(object sender, EventArgs e)
+        {
+            if (VirtualView is FreakyEditor thisSharedView && thisSharedView.HasUnderline)
+            {
+                SetBottomLine(VirtualView as FreakyEditor, sender as FreakyUITextView);
+            }
+            else
+            {
+                bottomline?.RemoveFromSuperLayer();
+            }
+        }
+
+        internal void HandleNativeHasUnderline(bool hasUnderline, Color color)
         {
             if (hasUnderline)
             {
-                var uiColor = color.ToNativeColor();
-                bottomline = BottomLineDrawer(uiColor);
-                bottomline.Frame = new CGRect(x: 0, y: PlatformView.Frame.Size.Height - 5,
-                    width: PlatformView.Frame.Size.Width, height: 1);
-                PlatformView.Layer.AddSublayer(bottomline);
-                PlatformView.Layer.MasksToBounds = true;
+                SetBottomLine(VirtualView as FreakyEditor, PlatformView as FreakyUITextView);
             }
             else
             {
@@ -36,5 +61,5 @@ namespace MAUI.FreakyControls
             }
         }
     }
-}
 
+}
