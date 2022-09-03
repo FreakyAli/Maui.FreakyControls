@@ -10,25 +10,25 @@
             Padding="30,0"
             VerticalOptions="Center">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
             <Label
                 TextColor="Black" 
-                Text="Say Hello to the title label" />
+                Text="Freaky Editor below: " />
 
             <freakyControls:FreakyEditor
                Placeholder="This is a freaky editor"
                TextColor="Purple"
-               Text="Something i guess"
-               HasUnderline="False"
                HeightRequest="250"
                FontSize="Large"
-               PlaceholderColor="Black"
-               AutoSize="TextChanges"
+               Keyboard="Chat"/>
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky Entry below: " />
+
+            <freakyControls:FreakyEntry
+               Placeholder="This is a freaky entry"
+               TextColor="Purple"
+               FontSize="Large"
                Keyboard="Chat"/>
 
         </VerticalStackLayout>

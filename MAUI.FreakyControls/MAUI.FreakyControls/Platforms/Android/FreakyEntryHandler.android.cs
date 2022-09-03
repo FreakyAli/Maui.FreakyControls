@@ -1,20 +1,19 @@
 ﻿using System;
+using Android.Content.Res;
 using AndroidX.AppCompat.Widget;
+using AndroidX.Core.View;
 using Microsoft.Maui.Handlers;
 
 namespace MAUI.FreakyControls
 {
-    public partial class FreakyEntryHandler : ViewHandler<IFreakyEntry, AppCompatEditText>
+    public partial class FreakyEntryHandler
     {
-        public FreakyEntryHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) :
-            base(mapper, commandMapper)
-        {
-        }
-
         protected override AppCompatEditText CreatePlatformView()
         {
-            var nativeEntry = new AppCompatEditText(Context);
-            return nativeEntry;
+            var _nativeView = new AppCompatEditText(Context);
+            var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+            ViewCompat.SetBackgroundTintList(_nativeView, colorStateList);
+            return _nativeView;
         }
     }
 }

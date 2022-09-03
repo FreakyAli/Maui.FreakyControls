@@ -17,13 +17,28 @@ namespace MAUI.FreakyControls
 {
     public partial class FreakyEditorHandler
     {
-        internal void HandleNativeHasUnderline(bool hasUnderline, Color underlineColor)
+        protected override AppCompatEditText CreatePlatformView()
         {
-            ColorStateList colorStateList;
-            var AndroidColor = underlineColor.ToNativeColor();
-            colorStateList = ColorStateList.ValueOf(hasUnderline ? AndroidColor : Android.Graphics.Color.Transparent);
-            ViewCompat.SetBackgroundTintList(PlatformView, colorStateList);
+            var _nativeView = new AppCompatEditText(Context)
+            {
+                ImeOptions = ImeAction.Done,
+                Gravity = GravityFlags.Top,
+                TextAlignment = Android.Views.TextAlignment.ViewStart,
+            };
+            _nativeView.SetSingleLine(false);
+            var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+            ViewCompat.SetBackgroundTintList(_nativeView, colorStateList);
+            _nativeView.SetHorizontallyScrolling(false);
+            return _nativeView;
         }
+
+        //internal void HandleNativeHasUnderline(bool hasUnderline, Color underlineColor)
+        //{
+        //    ColorStateList colorStateList;
+        //    var AndroidColor = underlineColor.ToNativeColor();
+        //    colorStateList = ColorStateList.ValueOf(hasUnderline ? AndroidColor : Android.Graphics.Color.Transparent);
+        //    ViewCompat.SetBackgroundTintList(PlatformView, colorStateList);
+        //}
     }
 }
 

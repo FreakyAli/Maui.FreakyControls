@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.OS;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
@@ -8,6 +9,11 @@ namespace MAUI.FreakyControls.Platforms.Android
 {
     public abstract class FreakyMauiAppCompatActivity: MauiAppCompatActivity
     {
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+        }
+
         public override bool DispatchTouchEvent(MotionEvent ev)
         {
             try

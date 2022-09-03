@@ -1,8 +1,9 @@
 ﻿using System;
 namespace MAUI.FreakyControls
 {
-    public interface IFreakyEntry: IEntry
-    {
+	public class FreakyEntry : Entry 
+	{
+        
     }
 }
 
