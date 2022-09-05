@@ -1,4 +1,4 @@
-﻿using MAUI.FreakyControls;
+﻿using MAUI.FreakyControls.Extensions;
 
 namespace Samples;
 

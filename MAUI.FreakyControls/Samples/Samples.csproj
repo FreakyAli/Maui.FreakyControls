@@ -40,6 +40,9 @@
 
 	<ItemGroup>
 	  <None Remove="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+	  <None Remove="calendar.png" />
+	  <None Remove="Platforms\Android\Resources\drawable\" />
+	  <None Remove="Platforms\iOS\Assets.xcassets\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
@@ -49,5 +52,18 @@
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\Resources\drawable\" />
+	  <Folder Include="Platforms\iOS\Assets.xcassets\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\drawable\calendar.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AndroidResource Update="Platforms\Android\Resources\drawable\calendar.png">
+	    <SubType></SubType>
+	    <Generator></Generator>
+	  </AndroidResource>
 	</ItemGroup>
 </Project>

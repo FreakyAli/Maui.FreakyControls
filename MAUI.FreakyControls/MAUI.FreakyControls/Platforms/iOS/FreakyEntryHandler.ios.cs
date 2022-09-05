@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using CoreAnimation;
 using CoreGraphics;
+using MAUI.FreakyControls.Extensions;
+using MAUI.FreakyControls.Shared.Enums;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using UIKit;
@@ -19,6 +23,41 @@ namespace MAUI.FreakyControls
             mauiTextField.Layer.BorderWidth = 0;
             mauiTextField.Layer.BorderColor = UIColor.Clear.CGColor;
             return mauiTextField;
+        }
+
+        internal async Task HandleAndAlignImageSource(FreakyEntry entry)
+        {
+            var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
+
+            if (uiImage != null)
+            {
+                var uiView = UIImageToUIView(uiImage, entry.ImageHeight, entry.ImageWidth);
+
+                switch (entry.ImageAlignment)
+                {
+                    case ImageAlignment.Left:
+                        PlatformView.LeftViewMode = UITextFieldViewMode.Always;
+                        PlatformView.LeftView = uiView;
+                        break;
+                    case ImageAlignment.Right:
+                        PlatformView.RightViewMode = UITextFieldViewMode.Always;
+                        PlatformView.RightView = uiView;
+                        break;
+                }
+            }
+
+            PlatformView.BorderStyle = UITextBorderStyle.None;
+        }
+
+        private UIView UIImageToUIView(UIImage image, int height, int width)
+        {
+            var uiImageView = new UIImageView(image)
+            {
+                Frame = new RectangleF(0, 0, height, width)
+            };
+            UIView uiView = new UIView(new System.Drawing.Rectangle(0, 0, width + 10, height));
+            uiView.AddSubview(uiImageView);
+            return uiView;
         }
     }
 }

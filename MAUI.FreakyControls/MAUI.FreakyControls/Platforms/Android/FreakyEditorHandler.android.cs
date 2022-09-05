@@ -31,14 +31,6 @@ namespace MAUI.FreakyControls
             _nativeView.SetHorizontallyScrolling(false);
             return _nativeView;
         }
-
-        //internal void HandleNativeHasUnderline(bool hasUnderline, Color underlineColor)
-        //{
-        //    ColorStateList colorStateList;
-        //    var AndroidColor = underlineColor.ToNativeColor();
-        //    colorStateList = ColorStateList.ValueOf(hasUnderline ? AndroidColor : Android.Graphics.Color.Transparent);
-        //    ViewCompat.SetBackgroundTintList(PlatformView, colorStateList);
-        //}
     }
 }
 

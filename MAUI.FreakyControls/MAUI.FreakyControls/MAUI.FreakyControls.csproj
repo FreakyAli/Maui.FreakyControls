@@ -16,6 +16,8 @@
 	  <None Remove="Shared\" />
 	  <None Remove="Shared\FreakyEditor\" />
 	  <None Remove="Shared\FreakyEntry\" />
+	  <None Remove="Shared\Enums\" />
+	  <None Remove="Shared\Extensions\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -23,5 +25,7 @@
 	  <Folder Include="Shared\" />
 	  <Folder Include="Shared\FreakyEditor\" />
 	  <Folder Include="Shared\FreakyEntry\" />
+	  <Folder Include="Shared\Enums\" />
+	  <Folder Include="Shared\Extensions\" />
 	</ItemGroup>
 </Project>
