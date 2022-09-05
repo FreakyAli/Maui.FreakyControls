@@ -20,6 +20,7 @@
 	  <None Remove="Shared\Extensions\" />
 	  <None Remove="Platforms\Android\NativeControls\" />
 	  <None Remove="Shared\Converters\" />
+	  <None Remove="Shared\Controls\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -31,5 +32,6 @@
 	  <Folder Include="Shared\Extensions\" />
 	  <Folder Include="Platforms\Android\NativeControls\" />
 	  <Folder Include="Shared\Converters\" />
+	  <Folder Include="Shared\Controls\" />
 	</ItemGroup>
 </Project>

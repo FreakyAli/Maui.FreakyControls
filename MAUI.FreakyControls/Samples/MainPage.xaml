@@ -33,6 +33,25 @@
 
             <Label
                 TextColor="Black" 
+                Text="Regular entry below: " />
+            <Border
+                Stroke="Black"
+                Padding="10"
+                StrokeThickness="2"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <Entry
+               Placeholder="This is a freaky entry with clear button"
+               TextColor="Purple"
+               FontSize="Large"
+               ClearButtonVisibility="WhileEditing"
+               Keyboard="Chat"/>
+            </Border>
+
+             <Label
+                TextColor="Black" 
                 Text="Freaky Entry below: " />
             <Border
                 Stroke="Black"
@@ -43,7 +62,7 @@
                     <RoundRectangle CornerRadius="10" />
                 </Border.StrokeShape>
                 <freakyControls:FreakyEntry
-               Placeholder="This is a freaky entry"
+               Placeholder="This is a freaky entry with image"
                TextColor="Purple"
                FontSize="Large"
                ImagePadding="10"
@@ -54,7 +73,6 @@
                ImageSource="calendar"
                Keyboard="Chat"/>
             </Border>
-
         </VerticalStackLayout>
     </ScrollView>
 
