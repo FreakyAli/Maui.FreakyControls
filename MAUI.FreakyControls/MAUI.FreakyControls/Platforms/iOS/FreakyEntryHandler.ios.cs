@@ -13,6 +13,8 @@ namespace MAUI.FreakyControls
 {
     public partial class FreakyEntryHandler
     {
+        UIView uiView;
+
         protected override MauiTextField CreatePlatformView()
         {
             var mauiTextField = new MauiTextField
@@ -25,14 +27,15 @@ namespace MAUI.FreakyControls
             return mauiTextField;
         }
 
-        internal async Task HandleAndAlignImageSource(FreakyEntry entry)
+        internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
         {
             var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
-
             if (uiImage != null)
             {
-                var uiView = UIImageToUIView(uiImage, entry.ImageHeight, entry.ImageWidth);
-
+                uiView = UIImageToUIView(uiImage, entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);
+                uiView.UserInteractionEnabled = true;
+                var tapGesture = new UITapGestureRecognizer(OnViewTouchBegan);
+                uiView.AddGestureRecognizer(tapGesture);
                 switch (entry.ImageAlignment)
                 {
                     case ImageAlignment.Left:
@@ -49,13 +52,24 @@ namespace MAUI.FreakyControls
             PlatformView.BorderStyle = UITextBorderStyle.None;
         }
 
-        private UIView UIImageToUIView(UIImage image, int height, int width)
+        private void OnViewTouchBegan()
+        {
+            if (VirtualView is FreakyEntry entry)
+            {
+                if (entry.ImageCommand?.CanExecute(entry.ImageCommandParameter) == true)
+                {
+                    entry.ImageCommand.Execute(entry.ImageCommandParameter);
+                }
+            }
+        }
+
+        private UIView UIImageToUIView(UIImage image, int height, int width, int padding)
         {
             var uiImageView = new UIImageView(image)
             {
                 Frame = new RectangleF(0, 0, height, width)
             };
-            UIView uiView = new UIView(new System.Drawing.Rectangle(0, 0, width + 10, height));
+            UIView uiView = new UIView(new System.Drawing.Rectangle(0, 0, width + padding, height));
             uiView.AddSubview(uiImageView);
             return uiView;
         }

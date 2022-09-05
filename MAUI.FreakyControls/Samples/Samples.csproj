@@ -43,6 +43,10 @@
 	  <None Remove="calendar.png" />
 	  <None Remove="Platforms\Android\Resources\drawable\" />
 	  <None Remove="Platforms\iOS\Assets.xcassets\" />
+	  <None Remove="CommunityToolkit.Maui" />
+	  <None Remove="CommunityToolkit.Maui.Core" />
+	  <None Remove="CommunityToolkit.Maui.Markup" />
+	  <None Remove="CommunityToolkit.Mvvm" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
@@ -58,12 +62,6 @@
 	  <Folder Include="Platforms\iOS\Assets.xcassets\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <AndroidResource Remove="Platforms\Android\Resources\drawable\calendar.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AndroidResource Update="Platforms\Android\Resources\drawable\calendar.png">
-	    <SubType></SubType>
-	    <Generator></Generator>
-	  </AndroidResource>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	</ItemGroup>
 </Project>

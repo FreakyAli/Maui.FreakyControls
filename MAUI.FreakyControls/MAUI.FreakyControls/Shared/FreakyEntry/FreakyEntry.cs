@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using MAUI.FreakyControls.Shared.Enums;
 
 namespace MAUI.FreakyControls
@@ -28,6 +29,42 @@ namespace MAUI.FreakyControls
                typeof(ImageAlignment),
                typeof(FreakyEntry),
                ImageAlignment.Right);
+
+        public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
+               nameof(ImagePadding),
+               typeof(int),
+               typeof(FreakyEntry),
+               5);
+
+        public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
+              nameof(ImagePadding),
+              typeof(ICommand),
+              typeof(FreakyEntry),
+              default(ICommand));
+
+        public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
+              nameof(ImageCommandParameter),
+              typeof(object),
+              typeof(FreakyEntry),
+              default(object));
+
+        public object ImageCommandParameter
+        {
+            get => GetValue(ImageCommandParameterProperty);
+            set => SetValue(ImageCommandParameterProperty, value);
+        }
+
+        public ICommand ImageCommand
+        {
+            get => (ICommand)GetValue(ImageCommandProperty);
+            set => SetValue(ImageCommandProperty, value);
+        }
+
+        public int ImagePadding
+        {
+            get => (int)GetValue(ImagePaddingProperty);
+            set => SetValue(ImagePaddingProperty, value);
+        }
 
         public int ImageWidth
         {

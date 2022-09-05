@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
-             xmlns:extensions="clr-namespace:MAUI.FreakyControls.Extensions;assembly=MAUI.FreakyControls"
-             xmlns:staticFiles="clr-namespace:Samples.Resources.Images"
+             xmlns:samples="clr-namespace:Samples"
+             x:DataType="samples:MainViewModel"
              x:Class="Samples.MainPage">
     <ScrollView >
         <VerticalStackLayout
@@ -45,10 +45,15 @@
                 <freakyControls:FreakyEntry
                Placeholder="This is a freaky entry"
                TextColor="Purple"
+               ImagePadding="10"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
                ImageAlignment="Left"
                ImageSource="calendar"
+               ImageCommand="{Binding ImageWasTappedCommand}"
                FontSize="Large"
-               Keyboard="Chat"/>
+               Keyboard="Chat">
+                </freakyControls:FreakyEntry>
             </Border>
 
         </VerticalStackLayout>

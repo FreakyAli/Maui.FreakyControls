@@ -6,8 +6,10 @@ using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.View;
 using MAUI.FreakyControls.Extensions;
+using MAUI.FreakyControls.Platforms.Android;
 using MAUI.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
+using static Android.Views.View;
 using static Microsoft.Maui.ApplicationModel.Platform;
 
 
@@ -23,14 +25,14 @@ namespace MAUI.FreakyControls
             return _nativeView;
         }
 
-        internal async Task HandleAndAlignImageSource(FreakyEntry entry)
+        internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
         {
             var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
             if (imageBitmap != null)
             {
                 var bitmapDrawable = new BitmapDrawable(CurrentActivity.Resources,
                     Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
-
+                PlatformView.SetOnTouchListener(new FreakyEntryTouchListener(PlatformView, entry));
                 switch (entry.ImageAlignment)
                 {
                     case ImageAlignment.Left:
@@ -41,7 +43,7 @@ namespace MAUI.FreakyControls
                         break;
                 }
             }
-            PlatformView.CompoundDrawablePadding = 25;
+            PlatformView.CompoundDrawablePadding = entry.ImagePadding;
         }
     }
 }

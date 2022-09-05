@@ -17,7 +17,7 @@ namespace MAUI.FreakyControls
             {
                 if (freakyEntry.ImageSource != default(ImageSource))
                 {
-                    freakyEntryHandler.HandleAndAlignImageSource(freakyEntry);
+                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry);
                 }
             }
         }
