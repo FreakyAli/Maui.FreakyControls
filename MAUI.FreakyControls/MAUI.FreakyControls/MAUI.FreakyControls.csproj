@@ -19,6 +19,7 @@
 	  <None Remove="Shared\Enums\" />
 	  <None Remove="Shared\Extensions\" />
 	  <None Remove="Platforms\Android\NativeControls\" />
+	  <None Remove="Shared\Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -29,5 +30,6 @@
 	  <Folder Include="Shared\Enums\" />
 	  <Folder Include="Shared\Extensions\" />
 	  <Folder Include="Platforms\Android\NativeControls\" />
+	  <Folder Include="Shared\Converters\" />
 	</ItemGroup>
 </Project>

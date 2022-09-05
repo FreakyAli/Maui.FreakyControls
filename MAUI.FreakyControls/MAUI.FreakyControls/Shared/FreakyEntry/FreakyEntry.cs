@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using MAUI.FreakyControls.Shared;
 using MAUI.FreakyControls.Shared.Enums;
 
 namespace MAUI.FreakyControls

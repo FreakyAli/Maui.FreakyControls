@@ -26,27 +26,25 @@ namespace MAUI.FreakyControls.Platforms.Android
 
             if (e.Action == MotionEventActions.Up)
             {
-                if (frentry.ImageAlignment == ImageAlignment.Right)
+                if (e.RawX >= textLocation[0] + mEditText.Width - mEditText.TotalPaddingRight)
                 {
-                    if (e.RawX >= textLocation[0] + mEditText.Width - mEditText.TotalPaddingRight)
+                    if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
                     {
-                        if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
-                        {
-                            frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
-                        }
-                        return true;
+                        frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
                     }
+                    return true;
+                }
+                else if (e.RawX <= textLocation[0] + mEditText.TotalPaddingLeft)
+                {
+                    if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
+                    {
+                        frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
+                    }
+                    return true;
                 }
                 else
                 {
-                    if (e.RawX <= textLocation[0] + mEditText.TotalPaddingLeft)
-                    {
-                        if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
-                        {
-                            frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
-                        }
-                        return true;
-                    }
+                    frentry.Focus();
                 }
             }
             return true;

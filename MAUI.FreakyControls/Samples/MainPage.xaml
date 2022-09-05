@@ -45,15 +45,14 @@
                 <freakyControls:FreakyEntry
                Placeholder="This is a freaky entry"
                TextColor="Purple"
+               FontSize="Large"
                ImagePadding="10"
+               ImageCommand="{Binding ImageWasTappedCommand}"
                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-               ImageAlignment="Left"
+               ImageAlignment="Right"
                ImageSource="calendar"
-               ImageCommand="{Binding ImageWasTappedCommand}"
-               FontSize="Large"
-               Keyboard="Chat">
-                </freakyControls:FreakyEntry>
+               Keyboard="Chat"/>
             </Border>
 
         </VerticalStackLayout>
