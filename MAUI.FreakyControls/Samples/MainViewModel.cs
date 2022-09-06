@@ -16,7 +16,7 @@ namespace Samples
         private async Task ImageTappedAsync()
         {
             await MainThread.InvokeOnMainThreadAsync(() =>
-            Application.Current.MainPage.DisplayAlert("Title", "The image was click on that FreakyEntry", "Ok"));
+            Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using AndroidX.Activity;
 using View = Android.Views.View;
 
 namespace MAUI.FreakyControls.Platforms.Android

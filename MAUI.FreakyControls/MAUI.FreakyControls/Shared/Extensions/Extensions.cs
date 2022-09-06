@@ -3,6 +3,7 @@ using System.Drawing;
 using Color = Microsoft.Maui.Graphics.Color;
 using System.Reflection;
 using System.Xml;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 #if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
@@ -22,8 +23,15 @@ namespace MAUI.FreakyControls.Extensions
     {
         public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
         {
+            
             handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
             handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
+            handlers.AddHandler(typeof(FreakySvgImageView), typeof(FreakySvgImageViewHandler));
+        }
+
+        public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
+        {
+            mauiAppBuilder.UseSkiaSharp();
         }
 
         /// <summary>

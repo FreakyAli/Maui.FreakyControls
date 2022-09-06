@@ -18,7 +18,7 @@ public static class MauiProgram
             {
                 handlers.AddFreakyHandlers();
             });
-		
+		builder.InitSkiaSharp();
 		return builder.Build();
 	}
 }

@@ -11,6 +11,13 @@
             Padding="30,0"
             VerticalOptions="Center">
 
+            <freakyControls:FreakySvgImageView
+                HeightRequest="500"
+                Tapped="FreakySvgImageView_Tapped"
+                SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
+                SvgMode="AspectFit"
+                ResourceId="{x:Static samples:Constants.DotnetBot}"/>
+
             <Label
                 TextColor="Black" 
                 Text="Freaky Editor below: " />
@@ -50,7 +57,7 @@
                Keyboard="Chat"/>
             </Border>
 
-             <Label
+            <Label
                 TextColor="Black" 
                 Text="Freaky Entry below: " />
             <Border

@@ -21,6 +21,11 @@
 	  <None Remove="Platforms\Android\NativeControls\" />
 	  <None Remove="Shared\Converters\" />
 	  <None Remove="Shared\Controls\" />
+	  <None Remove="SkiaSharp.Views.Maui.Core" />
+	  <None Remove="SkiaSharp.Views.Maui.Controls" />
+	  <None Remove="SkiaSharp.Views.Maui.Controls.Compatibility" />
+	  <None Remove="SkiaSharp.Svg" />
+	  <None Remove="Shared\FreakySvgImageView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -33,5 +38,15 @@
 	  <Folder Include="Platforms\Android\NativeControls\" />
 	  <Folder Include="Shared\Converters\" />
 	  <Folder Include="Shared\Controls\" />
+	  <Folder Include="Shared\FreakySvgImageView\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.1" />
+	  <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Shared\FreakySvgImageView\FreakySvgImageView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
 	</ItemGroup>
 </Project>
