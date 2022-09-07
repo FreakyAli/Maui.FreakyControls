@@ -87,7 +87,12 @@ Note: Since the images are a part of the Entry Control, Giving unreasonable Heig
   
   SvgMode: Different modes in which you can display your SVG image wherein it uses Maui's Aspect enum with the same options that you find in `AspectMode` for a regular Maui Image control. 
   
-
+  Command/CommandParameter: Your usual combo of MVVM love.
+  
+  Tapped: A tap event in case MVVM is too boring for you :D
+  
+  
+  
  
  
  
