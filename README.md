@@ -58,7 +58,9 @@ Main feature for Freaky Entry is adding Left and Right Drawable Images with Padd
  
  ***ImageCommand/ImageCommandParameter*** : A command and command parameter for your image's tap event.
  
-Note: Since the images are a part of the Entry Control, Giving unreasonable Height/Width or Padding to the Image will distort the Image displyed in your Entry control.
+ **Please know, Our control's changes will get overriden if you use "ClearButtonVisibility" property's WhileEditing option.**
+ 
+**Note: Since the images are a part of the Entry Control, Giving unreasonable Height/Width or Padding to the Image will distort the Image displayed in your Entry control. Keep these values relative to your entry size.**
  
  
  # FreakySvgImageView: 
