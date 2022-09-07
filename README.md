@@ -1,5 +1,3 @@
-# MAUI.FreakyControls
-
 # Freaky Controls are your usual Maui Controls but a with a freaky twist to it :D
 
 Adding FreakyControlsHandlers to your MAUI app:
@@ -7,6 +5,8 @@ Adding FreakyControlsHandlers to your MAUI app:
 Add the following using statement and then Init the handlers in your MauiProgram: 
 
       using MAUI.FreakyControls.Extensions;
+      
+And then in your MauiProgram which would be something like below :       
       
       namespace Something;
       
@@ -17,7 +17,7 @@ Add the following using statement and then Init the handlers in your MauiProgram
 			.UseMauiApp<App>()
       .ConfigureMauiHandlers(handlers =>
       {
-          handlers.AddFreakyHandlers(); // To Init your freaky handlers
+          handlers.AddFreakyHandlers(); // To Init your freaky handlers for Entry and Editor
       });
 		  builder.InitSkiaSharp(); // Use this if you want to use FreakySvgImageView 
 		  return builder.Build();
@@ -27,9 +27,11 @@ Now you can use the controls in your app.
  
 # FreakyEntry: 
 
-The default underline of your Android Entry won't be annoying you anymore ;) 
+The default underline of your Android Entry/Editor won't be annoying you anymore ;) 
 
 Still want the underline? You can add it using a BoxView (Never planning to add an API for this) :D
+
+FreakyEditor for now just removes the pesky default underline, everything else is just the same as your regular MAUI Editor.
 
 Main feature for Freaky Entry is adding Left and Right Drawable Images with Padding and Commands wired with it.
 
