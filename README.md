@@ -48,15 +48,15 @@ Main feature for Freaky Entry is adding Left and Right Drawable Images with Padd
                ImageSource="calendar"
                Keyboard="Chat"/>
                
- ImageSource : Accepts a Maui ImageSource wherein you can assign the icon you want to display as a Right of Left ViewMode to your Entry.
+ ***ImageSource*** : Accepts a Maui ImageSource wherein you can assign the icon you want to display as a Right of Left ViewMode to your Entry.
  
- ImageAlignment : Align the Image to Right or Left Side of your Entry.
+ ***ImageAlignment*** : Align the Image to Right or Left Side of your Entry.
  
- ImageHeight/ImageWidth : Height or Width that you want that Image. 
+ ***ImageHeight/ImageWidth*** : Height or Width that you want that Image. 
  
- ImagePadding : The amount of padding you want your Image to have.
+ ***ImagePadding*** : The amount of padding you want your Image to have.
  
- ImageCommand/ImageCommandParameter : A command and command parameter for your image's tap event.
+ ***ImageCommand/ImageCommandParameter*** : A command and command parameter for your image's tap event.
  
 Note: Since the images are a part of the Entry Control, Giving unreasonable Height/Width or Padding to the Image will distort the Image displyed in your Entry control.
  
@@ -67,6 +67,8 @@ Note: Since the images are a part of the Entry Control, Giving unreasonable Heig
  
  Build action of all SVG images that you want to use needs to be set to `EmbeddedResource`.
  
+ 
+       xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
  
        <freakyControls:FreakySvgImageView
 		Base64String="{Binding Base64Data}"
@@ -79,19 +81,19 @@ Note: Since the images are a part of the Entry Control, Giving unreasonable Heig
 		ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 		
  
-  SvgAssembly : Assembly of the Svg image that you want to display in this view. (An Example shown below)
+  ***SvgAssembly*** : Assembly of the Svg image that you want to display in this view. (An Example shown below)
   
-  ResourceId : The String path to your Embedded SVG file that you want to display on your View.
+  ***ResourceId*** : The String path to your Embedded SVG file that you want to display on your View.
   
-  Base64String : Your SVG is not a file on your project but a Base64 string i got you homie ;) (Assembly is not needed here)
+  ***Base64String*** : Your SVG is not a file on your project but a Base64 string i got you homie ;) (Assembly is not needed here)
   
-  ImageColor: Using our Control to show icons on your app but your svg image has a different color then you would want, No problemo just use this property to change the display color of the icon, NOTE: This will change the Color of the whole SVG image and not specific parts of it, Only useful in case you wan t to change color of icons based on conditions but dont want multiple icons in your app.
+  ***ImageColor***: Using our Control to show icons on your app but your svg image has a different color then you would want, No problemo just use this property to change the display color of the icon, NOTE: This will change the Color of the whole SVG image and not specific parts of it, Only useful in case you wan t to change color of icons based on conditions but dont want multiple icons in your app.
   
-  SvgMode: Different modes in which you can display your SVG image wherein it uses Maui's Aspect enum with the same options that you find in `AspectMode` for a regular Maui Image control. 
+  ***SvgMode***: Different modes in which you can display your SVG image wherein it uses Maui's Aspect enum with the same options that you find in `AspectMode` for a regular Maui Image control. 
   
-  Command/CommandParameter: Your usual combo of MVVM love.
+  ***Command/CommandParameter***: Your usual combo of MVVM love.
   
-  Tapped: A tap event in case MVVM is too boring for you :D
+  ***Tapped***: A tap event in case MVVM is too boring for you :D
   
   
   
