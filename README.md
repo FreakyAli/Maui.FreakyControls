@@ -96,6 +96,17 @@ Note: Since the images are a part of the Entry Control, Giving unreasonable Heig
   ***Tapped***: A tap event in case MVVM is too boring for you :D
   
   
+  Example of a constant class that provides Assembly and ResourceId to the ImageView:
+  
+       public static class Constants
+	{
+	   public static readonly Assembly SvgAssembly = typeof(Constants).Assembly;
+	   public static readonly string ResourcePath = "Samples.Resources.Images.";
+	   public static readonly string DotnetBot = ResourcePath+ "dotnet_bot.svg";
+	}
+	
+Still confused? Don't Worry just check the Sample project for how to configure this :) 
+  
   
  
  
