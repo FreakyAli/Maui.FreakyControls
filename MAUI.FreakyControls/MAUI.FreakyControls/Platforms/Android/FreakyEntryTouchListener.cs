@@ -13,7 +13,7 @@ namespace MAUI.FreakyControls.Platforms.Android
         private readonly AppCompatEditText mEditText;
         private readonly FreakyEntry frentry;
 
-        public FreakyEntryTouchListener(AppCompatEditText mEditText, FreakyEntry frentry)
+        public  FreakyEntryTouchListener(AppCompatEditText mEditText, FreakyEntry frentry)
         {
             this.mEditText = mEditText;
             this.frentry = frentry;
@@ -34,6 +34,7 @@ namespace MAUI.FreakyControls.Platforms.Android
                     }
                     return true;
                 }
+
                 else if (e.RawX <= textLocation[0] + mEditText.TotalPaddingLeft)
                 {
                     if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
@@ -42,12 +43,13 @@ namespace MAUI.FreakyControls.Platforms.Android
                     }
                     return true;
                 }
-                else
-                {
-                    frentry.Focus();
-                }
             }
-            return true;
+
+            if (e.Action == MotionEventActions.Down)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

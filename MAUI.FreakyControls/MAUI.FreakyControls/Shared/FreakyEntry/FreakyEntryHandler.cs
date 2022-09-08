@@ -19,6 +19,8 @@ namespace MAUI.FreakyControls
                 {
                     freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry);
                 }
+
+                HandleAllowCopyPaste(freakyEntry);
             }
         }
     }

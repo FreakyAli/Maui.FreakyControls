@@ -49,6 +49,18 @@ namespace MAUI.FreakyControls
               typeof(FreakyEntry),
               default(object));
 
+        public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
+              nameof(Image),
+              typeof(bool),
+              typeof(FreakyEntry),
+              true);
+
+        public bool AllowCopyPaste
+        {
+            get => (bool)GetValue(AllowCopyPasteProperty);
+            set => SetValue(AllowCopyPasteProperty, value);
+        }
+
         public object ImageCommandParameter
         {
             get => GetValue(ImageCommandParameterProperty);

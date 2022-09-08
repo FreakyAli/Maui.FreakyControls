@@ -27,6 +27,11 @@ namespace MAUI.FreakyControls
             return mauiTextField;
         }
 
+        internal void HandleAllowCopyPaste(FreakyEntry entry)
+        {
+            PlatformView.Delegate = new DisableCopyPasteDelegate(entry.AllowCopyPaste);
+        }
+
         internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
         {
             var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();

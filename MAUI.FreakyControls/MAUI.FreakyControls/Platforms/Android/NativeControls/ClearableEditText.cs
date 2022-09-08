@@ -18,10 +18,12 @@ namespace MAUI.FreakyControls.Platforms.Android.NativeControls
         {
             Init(context, null, clearButtonDrawable);
         }
+
         public ClearableEditext(Context context, IAttributeSet attrs) : base(context, attrs)
         {
             Init(context, attrs);
         }
+
         public ClearableEditext(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
             Init(context, attrs);
