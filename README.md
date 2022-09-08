@@ -31,7 +31,7 @@ The default underline of your Android Entry/Editor won't be annoying you anymore
 
 Still want the underline? You can add it using a BoxView (Never planning to add an API for this) :D
 
-FreakyEditor for now just removes the pesky default underline, everything else is just the same as your regular MAUI Editor.
+FreakyEditor for now just removes the pesky default underline and gives you an option to disable copy paste funcationality , everything else is just the same as your regular MAUI Editor. (More features will be implemented on demand)
 
 Main feature for Freaky Entry is adding Left and Right Drawable Images with Padding and Commands wired with it.
 
@@ -57,6 +57,8 @@ Main feature for Freaky Entry is adding Left and Right Drawable Images with Padd
  ***ImagePadding*** : The amount of padding you want your Image to have.
  
  ***ImageCommand/ImageCommandParameter*** : A command and command parameter for your image's tap event.
+ 
+ ***AllowCopyPaste*** : Disable the copy paste long click funcationality in your freaky entry 
  
  **Please know, Our control's changes will get overriden if you use "ClearButtonVisibility" property's WhileEditing option.**
  
