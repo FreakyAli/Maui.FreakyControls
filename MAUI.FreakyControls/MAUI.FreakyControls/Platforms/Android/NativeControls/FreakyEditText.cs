@@ -79,14 +79,14 @@ namespace MAUI.FreakyControls.Platforms.Android.NativeControls
                 if (drawableBottom != null
                     && drawableBottom.Bounds.Contains(actionX, actionY))
                 {
-                    clickListener.OnClick(DrawablePosition.BOTTOM);
+                    clickListener.OnClick(DrawablePosition.Bottom);
                     return base.OnTouchEvent(e);
                 }
 
                 if (drawableTop != null
                         && drawableTop.Bounds.Contains(actionX, actionY))
                 {
-                    clickListener.OnClick(DrawablePosition.TOP);
+                    clickListener.OnClick(DrawablePosition.Top);
                     return base.OnTouchEvent(e);
                 }
 
@@ -122,7 +122,7 @@ namespace MAUI.FreakyControls.Platforms.Android.NativeControls
 
                     if (bounds.Contains(x, y) && clickListener != null)
                     {
-                        clickListener.OnClick(DrawablePosition.LEFT);
+                        clickListener.OnClick(DrawablePosition.Left);
                         e.Action = (MotionEventActions.Cancel);
                         return false;
 
@@ -176,7 +176,7 @@ namespace MAUI.FreakyControls.Platforms.Android.NativeControls
                     if (bounds.Contains(x, y) && clickListener != null)
                     {
                         clickListener
-                                .OnClick(DrawablePosition.RIGHT);
+                                .OnClick(DrawablePosition.Right);
                         e.Action = (MotionEventActions.Cancel);
                         return false;
                     }

@@ -49,8 +49,6 @@ namespace MAUI.FreakyControls
                     Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
                 var freakyEditText = (PlatformView as FreakyEditText);
                 freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
-                //PlatformView.SetOnTouchListener(new FreakyEntryTouchListener(PlatformView, entry));
-                //PlatformView.Touch += PlatformView_Touch;
                 switch (entry.ImageAlignment)
                 {
                     case ImageAlignment.Left:
@@ -62,39 +60,6 @@ namespace MAUI.FreakyControls
                 }
             }
             PlatformView.CompoundDrawablePadding = entry.ImagePadding;
-        }
-
-        private void PlatformView_Touch(object sender, Android.Views.View.TouchEventArgs e)
-        {
-
-        }
-    }
-
-    public class DrawableHandlerCallback : IDrawableClickListener
-    {
-        private readonly FreakyEntry frentry;
-
-        public DrawableHandlerCallback(FreakyEntry frentry)
-        {
-            this.frentry = frentry;
-        }
-        public void OnClick(DrawablePosition target)
-        {
-            switch (target)
-            {
-                case DrawablePosition.LEFT:
-                    if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
-                    {
-                        frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
-                    }
-                    break;
-                case DrawablePosition.RIGHT:
-                    if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
-                    {
-                        frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
-                    }
-                    break;
-            }
         }
     }
 }
