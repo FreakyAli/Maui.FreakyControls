@@ -10,6 +10,13 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
    	</PropertyGroup>
 
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	  <WarningLevel>4</WarningLevel>
+	  <LangVersion>latest</LangVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	  <LangVersion>latest</LangVersion>
+	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="Platforms\iOS\" />
 	  <None Remove="Platforms\Android\" />
@@ -26,8 +33,8 @@
 	  <None Remove="SkiaSharp.Views.Maui.Controls.Compatibility" />
 	  <None Remove="SkiaSharp.Svg" />
 	  <None Remove="Shared\FreakySvgImageView\" />
-	  <None Remove="Platforms\iOS\Delegates\" />
 	  <None Remove="Platforms\Android\NativeControls\Helpers\" />
+	  <None Remove="Platforms\iOS\NativeControls\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -41,8 +48,8 @@
 	  <Folder Include="Shared\Converters\" />
 	  <Folder Include="Shared\Controls\" />
 	  <Folder Include="Shared\FreakySvgImageView\" />
-	  <Folder Include="Platforms\iOS\Delegates\" />
 	  <Folder Include="Platforms\Android\NativeControls\Helpers\" />
+	  <Folder Include="Platforms\iOS\NativeControls\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.1" />

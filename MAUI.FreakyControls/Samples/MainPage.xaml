@@ -32,6 +32,7 @@
                 <freakyControls:FreakyEditor
                Placeholder="This is a freaky editor"
                TextColor="Purple"
+               AllowCopyPaste="False"
                BackgroundColor="White"
                HeightRequest="250"
                FontSize="Large"

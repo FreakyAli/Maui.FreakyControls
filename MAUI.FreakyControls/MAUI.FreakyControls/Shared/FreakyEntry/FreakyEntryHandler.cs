@@ -8,10 +8,10 @@ namespace MAUI.FreakyControls
     {
         public FreakyEntryHandler()
         {
-            Mapper.AppendToMapping("ImageCustomization", MapImageDrawableCustomization);
+            Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEntry);
         }
 
-        private void MapImageDrawableCustomization(IEntryHandler entryHandler, IEntry entry)
+        private void MapFreakyEntry(IEntryHandler entryHandler, IEntry entry)
         {
             if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
             {

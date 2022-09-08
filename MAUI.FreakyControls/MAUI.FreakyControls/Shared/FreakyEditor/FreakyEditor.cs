@@ -10,5 +10,16 @@ namespace MAUI.FreakyControls
 {
     public class FreakyEditor : Editor
     {
+        public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
+             nameof(AllowCopyPaste),
+             typeof(bool),
+             typeof(FreakyEditor),
+             true);
+
+        public bool AllowCopyPaste
+        {
+            get => (bool)GetValue(AllowCopyPasteProperty);
+            set => SetValue(AllowCopyPasteProperty, value);
+        }
     }
 }

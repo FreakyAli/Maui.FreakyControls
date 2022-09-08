@@ -3,6 +3,7 @@ using System.Drawing;
 using CoreAnimation;
 using CoreGraphics;
 using MAUI.FreakyControls.Extensions;
+using MAUI.FreakyControls.Platforms.iOS.NativeControls;
 using MAUI.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Handlers;
@@ -17,7 +18,7 @@ namespace MAUI.FreakyControls
 
         protected override MauiTextField CreatePlatformView()
         {
-            var mauiTextField = new MauiTextField
+            var mauiTextField = new FreakyUITextfield
             {
                 BorderStyle = UITextBorderStyle.None,
                 ClipsToBounds = true,
@@ -29,7 +30,7 @@ namespace MAUI.FreakyControls
 
         internal void HandleAllowCopyPaste(FreakyEntry entry)
         {
-            PlatformView.Delegate = new DisableCopyPasteDelegate(entry.AllowCopyPaste);
+            (PlatformView as FreakyUITextfield).AllowCopyPaste = entry.AllowCopyPaste;
         }
 
         internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
