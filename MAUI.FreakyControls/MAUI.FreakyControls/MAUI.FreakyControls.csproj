@@ -35,6 +35,7 @@
 	  <None Remove="Shared\FreakySvgImageView\" />
 	  <None Remove="Platforms\Android\NativeControls\Helpers\" />
 	  <None Remove="Platforms\iOS\NativeControls\" />
+	  <None Remove="Shared\FreakyTextInputLayout\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -50,6 +51,7 @@
 	  <Folder Include="Shared\FreakySvgImageView\" />
 	  <Folder Include="Platforms\Android\NativeControls\Helpers\" />
 	  <Folder Include="Platforms\iOS\NativeControls\" />
+	  <Folder Include="Shared\FreakyTextInputLayout\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.1" />
@@ -57,6 +59,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Shared\FreakySvgImageView\FreakySvgImageView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
 	</ItemGroup>

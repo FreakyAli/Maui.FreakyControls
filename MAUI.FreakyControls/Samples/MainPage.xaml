@@ -18,6 +18,7 @@
                 SvgMode="AspectFit"
                 ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 
+
             <Label
                 TextColor="Black" 
                 Text="Freaky Editor below: " />
@@ -42,21 +43,16 @@
             <Label
                 TextColor="Black" 
                 Text="Regular entry below: " />
-            <Border
-                Stroke="Black"
-                Padding="10"
-                StrokeThickness="2"
-                HorizontalOptions="Fill">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
-                <Entry
+            <Entry
                Placeholder="This is a freaky entry with clear button"
                TextColor="Purple"
                FontSize="Large"
                ClearButtonVisibility="WhileEditing"
                Keyboard="Chat"/>
-            </Border>
+
+            <freakyControls:FreakyTextInputLayout
+                Title="Something something"
+                />
 
             <Label
                 TextColor="Black" 
