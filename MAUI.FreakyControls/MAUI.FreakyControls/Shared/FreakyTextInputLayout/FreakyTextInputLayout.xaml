@@ -9,17 +9,19 @@
         <converter:StrokeThicknessConverter x:Key="StrokeThicknessConverter"/>
     </ContentView.Resources>
     <VerticalStackLayout Spacing="0">
-        <Grid>
+        <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Transparent">
             <Border
                 Stroke="{Binding BorderStroke,Source={x:Reference this}}"
-                Padding="10"
+                Padding="5"
                 StrokeThickness="{Binding BorderStrokeThickness,Source={x:Reference this}}"
                 HorizontalOptions="Fill">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="{Binding BorderCornerRadius,Source={x:Reference this}}"/>
                 </Border.StrokeShape>
                 <controls:FreakyEntry
-                   x:Name="EntryField" 
+                   x:Name="EntryField"
+                   BackgroundColor="Transparent"
+                   TextChanged="EntryField_TextChanged"
                    Completed="Handle_Completed"
                    FontSize="{Binding FontSize, Source={x:Reference this}}"
                    ImagePadding="{Binding ImagePadding, Source={x:Reference this}}"
@@ -43,6 +45,12 @@
                    HorizontalTextAlignment="{Binding HorizontalTextAlignment,Source={x:Reference this}}"
                    VerticalTextAlignment="{Binding VerticalTextAlignment,Source={x:Reference this}}"
                    IsTextPredictionEnabled="{Binding IsTextPredictionEnabled,Source={x:Reference this}}"
+                   ReturnCommand="{Binding ReturnCommand,Source={x:Reference this}}"
+                   ReturnCommandParameter="{Binding ReturnCommand,Source={x:Reference this}}"
+                   IsSpellCheckEnabled="{Binding IsSpellCheckEnabled,Source={x:Reference this}}"
+                   IsReadOnly="{Binding IsReadOnly,Source={x:Reference this}}"
+                   MaxLength="{Binding MaxLength,Source={x:Reference this}}"
+                   TextTransform="{Binding TextTransform,Source={x:Reference this}}"
                    Unfocused="Handle_Unfocused" 
                    Focused="Handle_Focused">
                 </controls:FreakyEntry>
@@ -51,6 +59,7 @@
                    Margin="0,0,60,0"
                    BackgroundColor="Transparent"
                    VerticalTextAlignment="Center"
+                   TextColor="{Binding TitleColor,Source={x:Reference this}}"
                    Text="{Binding Title, Source={x:Reference this}}"
                    VerticalOptions="FillAndExpand">
                 <Label.GestureRecognizers>

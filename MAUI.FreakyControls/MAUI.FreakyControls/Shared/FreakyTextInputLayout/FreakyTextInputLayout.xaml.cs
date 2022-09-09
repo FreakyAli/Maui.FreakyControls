@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using MAUI.FreakyControls.Shared.Enums;
 using System.Windows.Input;
 using Microsoft.Maui.Graphics.Text;
-using Android.Graphics.Fonts;
 
 namespace MAUI.FreakyControls;
 
@@ -14,19 +13,21 @@ public partial class FreakyTextInputLayout : ContentView
         InitializeComponent();
         LabelTitle.TranslationX = 10;
         LabelTitle.FontSize = _placeholderFontSize;
+#if ANDROID
+        _topMargin = this.BorderType == BorderType.Full ? -45 : -35;
+#endif
+#if IOS
+        _topMargin= -35;
+#endif
     }
 
+
+    private int _topMargin;
     int _placeholderFontSize = 18;
     int _titleFontSize = 14;
 
-#if ANDROID
-    int _topMargin = -45;
-#endif
-#if IOS
-    int _topMargin = -35;
-#endif
-
     public event EventHandler Completed;
+    public event EventHandler<TextChangedEventArgs> TextChanged;
 
     public static readonly BindableProperty TextProperty = BindableProperty.Create(
         nameof(Text),
@@ -63,7 +64,7 @@ public partial class FreakyTextInputLayout : ContentView
 
     public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
         nameof(Keyboard),
-        typeof(Keyboard),
+        typeof(Microsoft.Maui.Keyboard),
         typeof(FreakyTextInputLayout),
         Keyboard.Default,
         coerceValue: (o, v) => (Keyboard)v ?? Keyboard.Default
@@ -73,7 +74,7 @@ public partial class FreakyTextInputLayout : ContentView
         nameof(BorderStrokeThickness),
         typeof(double),
         typeof(FreakyTextInputLayout),
-        0
+        default(double)
         );
 
     public static readonly BindableProperty BorderStrokeProperty = BindableProperty.Create(
@@ -87,15 +88,15 @@ public partial class FreakyTextInputLayout : ContentView
        nameof(BorderCornerRadius),
        typeof(double),
        typeof(FreakyTextInputLayout),
-       0
+       default(double)
        );
 
     public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
       nameof(FontSize),
       typeof(double),
       typeof(FreakyTextInputLayout),
-      18
-      );
+      default(double)
+       );
 
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
         nameof(Image),
@@ -164,14 +165,14 @@ public partial class FreakyTextInputLayout : ContentView
          nameof(UnderlineStrokeThickness),
          typeof(double),
          typeof(FreakyTextInputLayout),
-         1
+         default(double)
         );
 
     public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(
          nameof(CharacterSpacing),
          typeof(double),
          typeof(FreakyTextInputLayout),
-         1
+         default(double)
         );
 
     public static readonly BindableProperty ClearButtonVisibilityProperty = BindableProperty.Create(
@@ -225,6 +226,119 @@ public partial class FreakyTextInputLayout : ContentView
        typeof(FreakyTextInputLayout),
        true
       );
+
+    public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(
+      nameof(ReturnCommand),
+      typeof(ICommand),
+      typeof(FreakyTextInputLayout)
+      );
+
+    public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(
+     nameof(ReturnCommandParameter),
+     typeof(object),
+     typeof(FreakyTextInputLayout)
+     );
+
+    public static readonly BindableProperty SelectionLengthProperty = BindableProperty.Create(
+     nameof(SelectionLength),
+     typeof(int),
+     typeof(FreakyTextInputLayout)
+     );
+
+    public static readonly BindableProperty IsSpellCheckEnabledProperty = BindableProperty.Create(
+     nameof(IsSpellCheckEnabled),
+     typeof(bool),
+     typeof(FreakyTextInputLayout)
+     );
+
+    public static readonly BindableProperty IsReadOnlyProperty = BindableProperty.Create(
+     nameof(IsReadOnly),
+     typeof(bool),
+     typeof(FreakyTextInputLayout)
+     );
+
+    public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(
+     nameof(MaxLength),
+     typeof(int),
+     typeof(FreakyTextInputLayout),
+     int.MaxValue
+     );
+
+    public static readonly BindableProperty TextTransformProperty = BindableProperty.Create(
+     nameof(TextTransform),
+     typeof(TextTransform),
+     typeof(FreakyTextInputLayout),
+     Microsoft.Maui.TextTransform.Default
+     );
+
+    public static readonly BindableProperty BorderTypeProperty = BindableProperty.Create(
+     nameof(BorderType),
+     typeof(BorderType),
+     typeof(FreakyTextInputLayout),
+     BorderType.None,
+     propertyChanged: BorderTypePropertyChanged
+     );
+
+    public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(
+     nameof(TitleColor),
+     typeof(Color),
+     typeof(FreakyTextInputLayout),
+     Colors.Black
+     );
+
+    public Color TitleColor
+    {
+        get => (Color)GetValue(TitleColorProperty);
+        set => SetValue(TitleColorProperty, value);
+    }
+
+    public BorderType BorderType
+    {
+        get => (BorderType)GetValue(TextTransformProperty);
+        set => SetValue(TextTransformProperty, value);
+    }
+
+    public TextTransform TextTransform
+    {
+        get => (TextTransform)GetValue(TextTransformProperty);
+        set => SetValue(TextTransformProperty, value);
+    }
+
+    public bool IsReadOnly
+    {
+        get => (bool)GetValue(IsReadOnlyProperty);
+        set => SetValue(IsReadOnlyProperty, value);
+    }
+
+    public int MaxLength
+    {
+        get => (int)GetValue(MaxLengthProperty);
+        set => SetValue(MaxLengthProperty, value);
+    }
+
+    public bool IsSpellCheckEnabled
+    {
+        get => (bool)GetValue(IsSpellCheckEnabledProperty);
+        set => SetValue(IsSpellCheckEnabledProperty, value);
+    }
+
+    public int SelectionLength
+    {
+        get => (int)GetValue(SelectionLengthProperty);
+        set => SetValue(SelectionLengthProperty, value);
+    }
+
+    public object ReturnCommandParameter
+    {
+        get => GetValue(ReturnCommandProperty);
+        set => SetValue(ReturnCommandProperty, value);
+    }
+
+    public ICommand ReturnCommand
+    {
+        get => (ICommand)GetValue(ReturnCommandProperty);
+        set => SetValue(ReturnCommandProperty, value);
+    }
 
     public bool IsTextPredictionEnabled
     {
@@ -389,10 +503,29 @@ public partial class FreakyTextInputLayout : ContentView
         set { SetValue(IsPasswordProperty, value); }
     }
 
+    [System.ComponentModel.TypeConverter(typeof(Microsoft.Maui.Converters.KeyboardTypeConverter))]
     public Keyboard Keyboard
     {
-        get { return (Keyboard)GetValue(KeyboardProperty); }
-        set { SetValue(KeyboardProperty, value); }
+        get => (Keyboard)GetValue(KeyboardProperty);
+        set => SetValue(KeyboardProperty, value);
+    }
+
+    static void BorderTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = bindable as FreakyTextInputLayout;
+        switch (control.BorderType)
+        {
+            case BorderType.None:
+                break;
+            case BorderType.Underline:
+#if IOS
+#endif
+                break;
+            case BorderType.Full:
+#if ANDROID
+#endif
+                break;
+        }
     }
 
     static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
@@ -506,5 +639,10 @@ public partial class FreakyTextInputLayout : ContentView
         {
             EntryField.IsEnabled = IsEnabled;
         }
+    }
+
+    void EntryField_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    {
+        TextChanged?.Invoke(this, e);
     }
 }

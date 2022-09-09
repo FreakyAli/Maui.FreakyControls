@@ -40,19 +40,30 @@
                Keyboard="Chat"/>
             </Border>
 
-            <Label
-                TextColor="Black" 
-                Text="Regular entry below: " />
-            <Entry
-               Placeholder="This is a freaky entry with clear button"
-               TextColor="Purple"
-               FontSize="Large"
-               ClearButtonVisibility="WhileEditing"
-               Keyboard="Chat"/>
+            <freakyControls:FreakyTextInputLayout
+                FontSize="Large"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                UnderlineColor="Black"
+                BorderType="Underline"
+                UnderlineStrokeThickness="1.5"
+                Title="Underlined TextInputLayout"/>
 
             <freakyControls:FreakyTextInputLayout
-                Title="Something something"
-                />
+                FontSize="Large"
+                BorderStroke="Black"
+                BorderType="Full"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                Title="Underlined TextInputLayout"/>
 
             <Label
                 TextColor="Black" 
