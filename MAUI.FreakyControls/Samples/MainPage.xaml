@@ -41,6 +41,7 @@
             </Border>
 
             <freakyControls:FreakyTextInputLayout
+                x:Name="yolo"
                 FontSize="Large"
                 ImageSource="calendar"
                 ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
@@ -55,6 +56,7 @@
             <freakyControls:FreakyTextInputLayout
                 FontSize="Large"
                 BorderStroke="Black"
+                TextChanged="FreakyTextInputLayout_TextChanged"
                 BorderType="Full"
                 BorderCornerRadius="10"
                 BorderStrokeThickness="2"

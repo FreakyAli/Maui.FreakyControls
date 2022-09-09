@@ -15,6 +15,11 @@ public partial class MainPage : ContentPage
     {
         await this.DisplayAlert("Yo", "Hi from the dotnet bot", "Ok");
     }
+
+    void FreakyTextInputLayout_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    {
+        yolo.Text = e.NewTextValue;
+    }
 }
 
 

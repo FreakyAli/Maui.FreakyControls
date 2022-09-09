@@ -12,7 +12,7 @@
         <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Transparent">
             <Border
                 Stroke="{Binding BorderStroke,Source={x:Reference this}}"
-                Padding="5"
+                Padding="10"
                 StrokeThickness="{Binding BorderStrokeThickness,Source={x:Reference this}}"
                 HorizontalOptions="Fill">
                 <Border.StrokeShape>
