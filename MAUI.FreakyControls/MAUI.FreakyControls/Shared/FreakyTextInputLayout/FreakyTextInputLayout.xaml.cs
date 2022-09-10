@@ -86,9 +86,9 @@ public partial class FreakyTextInputLayout : ContentView
 
     public static readonly BindableProperty BorderCornerRadiusProperty = BindableProperty.Create(
        nameof(BorderCornerRadius),
-       typeof(double),
+       typeof(CornerRadius),
        typeof(FreakyTextInputLayout),
-       default(double)
+       default(CornerRadius)
        );
 
     public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
@@ -461,9 +461,9 @@ public partial class FreakyTextInputLayout : ContentView
         set => SetValue(FontSizeProperty, value);
     }
 
-    public double BorderCornerRadius
+    public CornerRadius BorderCornerRadius
     {
-        get => (double)GetValue(BorderCornerRadiusProperty);
+        get => (CornerRadius)GetValue(BorderCornerRadiusProperty);
         set => SetValue(BorderCornerRadiusProperty, value);
     }
 
