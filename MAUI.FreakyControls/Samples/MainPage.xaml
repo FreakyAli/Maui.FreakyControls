@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             xmlns:samples="clr-namespace:Samples"
+             x:DataType="samples:MainViewModel"
+             x:Class="Samples.MainPage">
+    <ScrollView >
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <freakyControls:FreakySvgImageView
+                HeightRequest="500"
+                Tapped="FreakySvgImageView_Tapped"
+                SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
+                SvgMode="AspectFit"
+                ResourceId="{x:Static samples:Constants.DotnetBot}"/>
+
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky Editor below: " />
+            <Border
+                Stroke="Black"
+                StrokeThickness="2"
+                Padding="10"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <freakyControls:FreakyEditor
+               Placeholder="This is a freaky editor"
+               TextColor="Purple"
+               AllowCopyPaste="False"
+               BackgroundColor="White"
+               HeightRequest="250"
+               FontSize="Large"
+               Keyboard="Chat"/>
+            </Border>
+
+            <freakyControls:FreakyTextInputLayout
+                x:Name="yolo"
+                FontSize="Large"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                UnderlineColor="Black"
+                BorderType="Underline"
+                UnderlineThickness="1.5"
+                Title="Underlined TextInputLayout"/>
+
+            <freakyControls:FreakyTextInputLayout
+                TextChanged="FreakyTextInputLayout_TextChanged"
+                FontSize="Large"
+                BorderStroke="Black"
+                BorderType="Full"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                Title="Bordered TextInputLayout"/>
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky Entry below: " />
+            <Border
+                Stroke="Black"
+                Padding="10"
+                StrokeThickness="2"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <freakyControls:FreakyEntry
+               Placeholder="This is a freaky entry with image"
+               TextColor="Purple"
+               FontSize="Large"
+               ImagePadding="10"
+               AllowCopyPaste="False"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImageAlignment="Left"
+               ImageSource="calendar"
+               Keyboard="Chat"/>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

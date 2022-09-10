@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Maui.FreakyControls"
+             xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
+             x:Name="this"
+             x:Class="Maui.FreakyControls.FreakyTextInputLayout">
+    <ContentView.Resources>
+        <converter:StrokeThicknessConverter x:Key="StrokeThicknessConverter"/>
+    </ContentView.Resources>
+    <VerticalStackLayout Spacing="0">
+        <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Transparent">
+            <Border
+                Stroke="{Binding BorderStroke,Source={x:Reference this}}"
+                Padding="10"
+                StrokeThickness="{Binding BorderStrokeThickness,Source={x:Reference this}}"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{Binding BorderCornerRadius,Source={x:Reference this}}"/>
+                </Border.StrokeShape>
+                <controls:FreakyEntry
+                   x:Name="EntryField"
+                   TextChanged="EntryField_TextChanged"
+                   Completed="Handle_Completed"
+                   FontSize="{Binding FontSize, Source={x:Reference this}}"
+                   ImagePadding="{Binding ImagePadding, Source={x:Reference this}}"
+                   AllowCopyPaste="{Binding AllowCopyPaste, Source={x:Reference this}}"
+                   ImageCommand="{Binding ImageCommand, Source={x:Reference this}}"
+                   ImageCommandParameter="{Binding ImageCommandParameter, Source={x:Reference this}}"
+                   ImageHeight="{Binding ImageHeight, Source={x:Reference this}}"
+                   ImageWidth="{Binding ImageWidth, Source={x:Reference this}}"
+                   ImageSource="{Binding ImageSource, Source={x:Reference this}}"
+                   Text="{Binding Text, Source={x:Reference this}}" 
+                   ReturnType="{Binding ReturnType, Source={x:Reference this}}"
+                   IsPassword="{Binding IsPassword, Source={x:Reference this}}"
+                   Keyboard="{Binding Keyboard, Source={x:Reference this}}"
+                   TextColor="{Binding TextColor,Source={x:Reference this}}"
+                   CharacterSpacing="{Binding CharacterSpacing,Source={x:Reference this}}"
+                   ClearButtonVisibility="{Binding ClearButtonVisibility, Source={x:Reference this}}"
+                   CursorPosition="{Binding CursorPosition,Source={x:Reference this}}"
+                   FontAttributes="{Binding FontAttributes,Source={x:Reference this}}"
+                   FontAutoScalingEnabled="{Binding FontAutoScalingEnabled,Source={x:Reference this}}"
+                   FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                   HorizontalTextAlignment="{Binding HorizontalTextAlignment,Source={x:Reference this}}"
+                   VerticalTextAlignment="{Binding VerticalTextAlignment,Source={x:Reference this}}"
+                   IsTextPredictionEnabled="{Binding IsTextPredictionEnabled,Source={x:Reference this}}"
+                   ReturnCommand="{Binding ReturnCommand,Source={x:Reference this}}"
+                   ReturnCommandParameter="{Binding ReturnCommand,Source={x:Reference this}}"
+                   IsSpellCheckEnabled="{Binding IsSpellCheckEnabled,Source={x:Reference this}}"
+                   IsReadOnly="{Binding IsReadOnly,Source={x:Reference this}}"
+                   MaxLength="{Binding MaxLength,Source={x:Reference this}}"
+                   TextTransform="{Binding TextTransform,Source={x:Reference this}}"
+                   Unfocused="Handle_Unfocused" 
+                   Focused="Handle_Focused">
+                </controls:FreakyEntry>
+            </Border>
+            <Label x:Name="LabelTitle"
+                   Margin="0,0,60,0"
+                   BackgroundColor="Transparent"
+                   VerticalTextAlignment="Center"
+                   TextColor="{Binding TitleColor,Source={x:Reference this}}"
+                   Text="{Binding Title, Source={x:Reference this}}"
+                   VerticalOptions="FillAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Handle_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+        <BoxView HeightRequest="{Binding UnderlineThickness,Source={x:Reference this}}"
+                 Color="{Binding UnderlineColor,Source={x:Reference this}}"/>
+    </VerticalStackLayout>
+</ContentView>
+
