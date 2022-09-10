@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
-using MAUI.FreakyControls.Shared;
-using MAUI.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared;
+using Maui.FreakyControls.Shared.Enums;
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
     public class FreakyEntry : Entry
     {

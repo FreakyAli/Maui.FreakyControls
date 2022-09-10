@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MAUI.FreakyControls.Shared.Extensions
+namespace Maui.FreakyControls.Shared.Extensions
 {
     public static class TaskExtensions
     {

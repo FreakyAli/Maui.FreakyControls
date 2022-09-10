@@ -1,6 +1,6 @@
-﻿using MAUI.FreakyControls.Platforms.Android.NativeControls;
+﻿using Maui.FreakyControls.Platforms.Android.NativeControls;
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
     public class DrawableHandlerCallback : IDrawableClickListener
     {

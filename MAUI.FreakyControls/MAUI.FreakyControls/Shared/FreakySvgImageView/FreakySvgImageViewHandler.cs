@@ -1,7 +1,7 @@
 ﻿using System;
 using SkiaSharp.Views.Maui.Handlers;
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
 	public partial class FreakySvgImageViewHandler: SKCanvasViewHandler
     {

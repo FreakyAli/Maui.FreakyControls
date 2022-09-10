@@ -7,7 +7,7 @@ using AndroidX.AppCompat.Widget;
 using AndroidX.Core.Content;
 using Drawable2 = Android.Resource.Drawable;
 
-namespace MAUI.FreakyControls.Platforms.Android.NativeControls
+namespace Maui.FreakyControls.Platforms.Android.NativeControls
 {
     public class ClearableEditext : AppCompatEditText
     {

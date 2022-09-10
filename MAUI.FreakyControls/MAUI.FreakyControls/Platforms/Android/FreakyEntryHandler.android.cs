@@ -5,16 +5,16 @@ using Android.Graphics.Drawables;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.View;
-using MAUI.FreakyControls.Extensions;
-using MAUI.FreakyControls.Platforms.Android;
-using MAUI.FreakyControls.Platforms.Android.NativeControls;
-using MAUI.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Platforms.Android;
+using Maui.FreakyControls.Platforms.Android.NativeControls;
+using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
 using static Android.Views.View;
 using static Microsoft.Maui.ApplicationModel.Platform;
 
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
     public partial class FreakyEntryHandler
     {

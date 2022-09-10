@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
 
-namespace MAUI.FreakyControls.Shared.Controls
+namespace Maui.FreakyControls.Shared.Controls
 {
 
     public class RepeaterView : StackLayout

@@ -5,11 +5,11 @@ using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using UIKit;
 using CoreAnimation;
-using static MAUI.FreakyControls.Platforms.iOS.NativeExtensions;
+using static Maui.FreakyControls.Platforms.iOS.NativeExtensions;
 using Microsoft.Maui;
-using MAUI.FreakyControls.Platforms.iOS.NativeControls;
+using Maui.FreakyControls.Platforms.iOS.NativeControls;
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
     public partial class FreakyEditorHandler
     {

@@ -1,6 +1,6 @@
 ﻿using Android.Views;
 
-namespace MAUI.FreakyControls.Platforms.Android.NativeControls
+namespace Maui.FreakyControls.Platforms.Android.NativeControls
 {
     internal class CustomSelectionActionModeCallback : Java.Lang.Object, ActionMode.ICallback
     {

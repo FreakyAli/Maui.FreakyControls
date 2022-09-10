@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace MAUI.FreakyControls.Shared.Converters
+namespace Maui.FreakyControls.Shared.Converters
 {
     public class StrokeThicknessConverter : BaseOneWayValueConverter
     {

@@ -5,7 +5,7 @@ using CoreGraphics;
 using CoreAnimation;
 using System.Runtime.InteropServices;
 
-namespace MAUI.FreakyControls.Platforms.iOS
+namespace Maui.FreakyControls.Platforms.iOS
 {
     public static class NativeExtensions
     {

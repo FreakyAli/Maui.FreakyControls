@@ -3,7 +3,7 @@ using Android.Views;
 using View = Android.Views.View;
 
 
-namespace MAUI.FreakyControls.Platforms.Android.NativeControls
+namespace Maui.FreakyControls.Platforms.Android.NativeControls
 {
     internal class TouchHelper : Java.Lang.Object, View.IOnTouchListener
     {

@@ -7,7 +7,7 @@ using Android.Widget;
 using AndroidX.Activity;
 using View = Android.Views.View;
 
-namespace MAUI.FreakyControls.Platforms.Android
+namespace Maui.FreakyControls.Platforms.Android
 {
     public abstract class FreakyMauiAppCompatActivity: MauiAppCompatActivity
     {

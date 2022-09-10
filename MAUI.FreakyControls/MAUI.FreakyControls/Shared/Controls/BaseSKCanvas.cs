@@ -3,7 +3,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
 	public abstract class BaseSKCanvas : SKCanvasView
     {

@@ -10,11 +10,11 @@ using AndroidX.Core.Content;
 using AndroidX.Core.Content.Resources;
 using AndroidX.Core.Graphics;
 using AndroidX.Core.View;
-using MAUI.FreakyControls.Platforms.Android.NativeControls;
+using Maui.FreakyControls.Platforms.Android.NativeControls;
 using Microsoft.Maui.Handlers;
 using Color = Microsoft.Maui.Graphics.Color;
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
     public partial class FreakyEditorHandler
     {

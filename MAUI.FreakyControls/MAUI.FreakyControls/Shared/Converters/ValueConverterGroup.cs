@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace MAUI.FreakyControls.Shared.Converters
+namespace Maui.FreakyControls.Shared.Converters
 {
     /// <summary>
     /// Value converter group that will chain converters together.

@@ -2,7 +2,7 @@
 using Java.Lang;
 
 
-namespace MAUI.FreakyControls.Platforms.Android.NativeControls
+namespace Maui.FreakyControls.Platforms.Android.NativeControls
 {
     internal class TextListener : Java.Lang.Object, ITextWatcher
     {

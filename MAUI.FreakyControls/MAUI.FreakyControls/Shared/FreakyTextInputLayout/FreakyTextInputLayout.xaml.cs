@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using MAUI.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
 using Microsoft.Maui.Graphics.Text;
 
-namespace MAUI.FreakyControls;
+namespace Maui.FreakyControls;
 
 public partial class FreakyTextInputLayout : ContentView
 {

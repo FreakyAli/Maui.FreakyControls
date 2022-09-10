@@ -11,13 +11,13 @@ using NativeColor = Android.Graphics.Color;
 using NativeImage = Android.Graphics.Bitmap;
 #endif
 #if IOS
-using MAUI.FreakyControls.Platforms.iOS;
+using Maui.FreakyControls.Platforms.iOS;
 using NativeImage = UIKit.UIImage;
 using NativeColor = UIKit.UIColor;
 using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 #endif
 
-namespace MAUI.FreakyControls.Extensions
+namespace Maui.FreakyControls.Extensions
 {
     public static class Extensions
     {

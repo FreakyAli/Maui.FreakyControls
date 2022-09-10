@@ -3,7 +3,7 @@ using Foundation;
 using Microsoft.Maui.Platform;
 using ObjCRuntime;
 
-namespace MAUI.FreakyControls.Platforms.iOS.NativeControls
+namespace Maui.FreakyControls.Platforms.iOS.NativeControls
 {
     public class FreakyUITextView : MauiTextView
     {

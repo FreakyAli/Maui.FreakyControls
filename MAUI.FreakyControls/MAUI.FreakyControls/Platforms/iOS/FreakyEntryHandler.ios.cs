@@ -2,15 +2,15 @@
 using System.Drawing;
 using CoreAnimation;
 using CoreGraphics;
-using MAUI.FreakyControls.Extensions;
-using MAUI.FreakyControls.Platforms.iOS.NativeControls;
-using MAUI.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Platforms.iOS.NativeControls;
+using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using UIKit;
 
-namespace MAUI.FreakyControls
+namespace Maui.FreakyControls
 {
     public partial class FreakyEntryHandler
     {

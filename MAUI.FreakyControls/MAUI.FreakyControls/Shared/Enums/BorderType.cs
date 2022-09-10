@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MAUI.FreakyControls.Shared.Enums
+namespace Maui.FreakyControls.Shared.Enums
 {
     public enum BorderType
     {

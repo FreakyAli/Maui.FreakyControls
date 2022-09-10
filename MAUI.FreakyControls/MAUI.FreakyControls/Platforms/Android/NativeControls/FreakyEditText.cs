@@ -8,7 +8,7 @@ using AndroidX.AppCompat.Widget;
 using static Android.Views.WindowInsetsAnimation;
 using Rect = Android.Graphics.Rect;
 
-namespace MAUI.FreakyControls.Platforms.Android.NativeControls
+namespace Maui.FreakyControls.Platforms.Android.NativeControls
 {
     public class FreakyEditText : AppCompatEditText
     {

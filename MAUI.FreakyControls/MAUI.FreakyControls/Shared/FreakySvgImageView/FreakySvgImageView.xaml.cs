@@ -7,7 +7,7 @@ using System.IO;
 using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
 using SkiaSharp.Views.Maui;
 
-namespace MAUI.FreakyControls;
+namespace Maui.FreakyControls;
 
 public partial class FreakySvgImageView : BaseSKCanvas
 {
