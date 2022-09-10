@@ -50,13 +50,13 @@
                 ImageCommand="{Binding ImageWasTappedCommand}"
                 UnderlineColor="Black"
                 BorderType="Underline"
-                UnderlineStrokeThickness="1.5"
+                UnderlineThickness="1.5"
                 Title="Underlined TextInputLayout"/>
 
             <freakyControls:FreakyTextInputLayout
+                TextChanged="FreakyTextInputLayout_TextChanged"
                 FontSize="Large"
                 BorderStroke="Black"
-                TextChanged="FreakyTextInputLayout_TextChanged"
                 BorderType="Full"
                 BorderCornerRadius="10"
                 BorderStrokeThickness="2"

@@ -14,7 +14,7 @@ public partial class FreakyTextInputLayout : ContentView
         LabelTitle.TranslationX = 10;
         LabelTitle.FontSize = _placeholderFontSize;
 #if ANDROID
-        _topMargin = this.BorderType == BorderType.Full ? -45 : -35;
+        _topMargin = this.BorderType == BorderType.Full ? 35 : -45;
 #endif
 #if IOS
         _topMargin= -35;
@@ -99,7 +99,7 @@ public partial class FreakyTextInputLayout : ContentView
        );
 
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
-        nameof(Image),
+        nameof(ImageSource),
         typeof(ImageSource),
         typeof(FreakyTextInputLayout),
         default(ImageSource)
@@ -127,7 +127,7 @@ public partial class FreakyTextInputLayout : ContentView
         );
 
     public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
-          nameof(ImagePadding),
+          nameof(ImageCommand),
           typeof(ICommand),
           typeof(FreakyTextInputLayout),
           default(ICommand)
@@ -161,8 +161,8 @@ public partial class FreakyTextInputLayout : ContentView
          Colors.Black
         );
 
-    public static readonly BindableProperty UnderlineStrokeThicknessProperty = BindableProperty.Create(
-         nameof(UnderlineStrokeThickness),
+    public static readonly BindableProperty UnderlineThicknessProperty = BindableProperty.Create(
+         nameof(UnderlineThickness),
          typeof(double),
          typeof(FreakyTextInputLayout),
          default(double)
@@ -330,8 +330,8 @@ public partial class FreakyTextInputLayout : ContentView
 
     public object ReturnCommandParameter
     {
-        get => GetValue(ReturnCommandProperty);
-        set => SetValue(ReturnCommandProperty, value);
+        get => GetValue(ReturnCommandParameterProperty);
+        set => SetValue(ReturnCommandParameterProperty, value);
     }
 
     public ICommand ReturnCommand
@@ -394,10 +394,10 @@ public partial class FreakyTextInputLayout : ContentView
         set => SetValue(CharacterSpacingProperty, value);
     }
 
-    public double UnderlineStrokeThickness
+    public double UnderlineThickness
     {
-        get => (double)GetValue(UnderlineStrokeThicknessProperty);
-        set => SetValue(UnderlineStrokeThicknessProperty, value);
+        get => (double)GetValue(UnderlineThicknessProperty);
+        set => SetValue(UnderlineThicknessProperty, value);
     }
 
     public Color UnderlineColor
