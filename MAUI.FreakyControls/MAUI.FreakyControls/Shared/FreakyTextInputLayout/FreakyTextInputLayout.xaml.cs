@@ -294,8 +294,8 @@ public partial class FreakyTextInputLayout : ContentView
 
     public BorderType BorderType
     {
-        get => (BorderType)GetValue(TextTransformProperty);
-        set => SetValue(TextTransformProperty, value);
+        get => (BorderType)GetValue(BorderTypeProperty);
+        set => SetValue(BorderTypeProperty, value);
     }
 
     public TextTransform TextTransform

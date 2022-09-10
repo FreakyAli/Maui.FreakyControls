@@ -65,7 +65,7 @@
                 ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
                 ImagePadding="10"
                 ImageCommand="{Binding ImageWasTappedCommand}"
-                Title="Underlined TextInputLayout"/>
+                Title="Bordered TextInputLayout"/>
 
             <Label
                 TextColor="Black" 
