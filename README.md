@@ -63,6 +63,63 @@ Main feature for Freaky Entry is adding Left and Right Drawable Images with Padd
  **Please know, Our control's changes will get overriden if you use "ClearButtonVisibility" property's WhileEditing option.**
  
 **Note: Since the images are a part of the Entry Control, Giving unreasonable Height/Width or Padding to the Image will distort the Image displayed in your Entry control. Keep these values relative to your entry size.**
+
+
+ # FreakyTextInputLayout:
+ 
+ A Freaky TextInputLayout that also has all the freaky features from our Entry control and more.
+ 
+ ***BorderType** : An enum which let's you choose whether you would like A Full, Underlined or No borders. NOTE: This is to be used before adding Border/Underline details.
+ 
+ **If you select Full:**
+ 
+ ***BorderStroke*** : BorderStroke, of type Brush, indicates the brush used to paint the border.
+
+ ***BorderStrokeThickness***: BorderStrokeThickness, of type double, indicates the width of the border.
+
+ ***BorderCornerRadius***: BorderCornerRadius property is set to a CornerRadius Type.
+ 
+       <freakyControls:FreakyTextInputLayout
+                x:Name="yolo"
+                FontSize="Large"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                UnderlineColor="Black"
+                BorderType="Underline"
+                UnderlineThickness="1.5"
+                Title="Underlined TextInputLayout"/>
+ 
+ 
+ **If you select Underline:**
+ 
+ ***UnderlineColor***: Color of the underline drawn for the TIL
+ 
+ ***UnderlineThickness***: Underline thickness double, that decides the thickness for your underline 
+ 
+ 
+      <freakyControls:FreakyTextInputLayout
+                TextChanged="FreakyTextInputLayout_TextChanged"
+                FontSize="Large"
+                BorderStroke="Black"
+                BorderType="Full"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                Title="Bordered TextInputLayout"/>
+		
+		
+ 
+ ***Title***: Title/Placeholder for your TIL.
+ 
+ ***TitleColor***: Text color for your Title.
+ 
  
  
  # FreakySvgImageView: 
