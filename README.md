@@ -1,5 +1,20 @@
 # Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
 
+Colons can be used to align columns.
+
+| Support       | OS            |
+| ------------- |:-------------:|
+| iOS             | iOS 11.0+ |
+| Android    | API 23+ (Marshmallow)    | 
+
+
+
+Add the [NuGet](https://www.nuget.org/packages/FreakyControls) package or 
+
+Run the following command to add nuget to your .Net MAUI app:
+
+      Install-Package FreakyControls -Version 0.1.0
+
 Adding FreakyControlsHandlers to your MAUI app:
 
 Add the following using statement and then Init the handlers in your MauiProgram: 
@@ -19,9 +34,10 @@ And then in your MauiProgram which would be something like below :
       {
           handlers.AddFreakyHandlers(); // To Init your freaky handlers for Entry and Editor
       });
+                  // This line is needed for the follow issue: https://github.com/mono/SkiaSharp/issues/1979
 		  builder.InitSkiaSharp(); // Use this if you want to use FreakySvgImageView 
 		  return builder.Build();
-      }
+      }   
       
 Now you can use the controls in your app.
  
@@ -34,8 +50,6 @@ Still want the underline? You can add it using a BoxView (Never planning to add 
 FreakyEditor for now just removes the pesky default underline and gives you an option to disable copy paste funcationality , everything else is just the same as your regular MAUI Editor. (More features will be implemented on demand)
 
 Main feature for Freaky Entry is adding Left and Right Drawable Images with Padding and Commands wired with it.
-
-      xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
       
           <freakyControls:FreakyEntry
                Placeholder="This is a freaky entry with an image"
@@ -128,9 +142,7 @@ Main feature for Freaky Entry is adding Left and Right Drawable Images with Padd
  
  Build action of all SVG images that you want to use needs to be set to `EmbeddedResource`.
  
- 
-       xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
- 
+  
        <freakyControls:FreakySvgImageView
 		Base64String="{Binding Base64Data}"
 		Command="{Binding OnTapCommand}"
