@@ -8,12 +8,34 @@
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
+		<RootNamespace>Maui.FreakyControls</RootNamespace>
+
+		<Product></Product>
+		<AssemblyVersion>0.1</AssemblyVersion>
+		<AssemblyFileVersion>0.1</AssemblyFileVersion>
+		<Version>0.1</Version>
+		<NeutralLanguage>en</NeutralLanguage>
+
+		<!--Version of C# to use -->
+		<LangVersion>default</LangVersion>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Gulam Ali H, FreakyAli</Authors>
+		<Description>FreakyControls for your .Net Maui application</Description>
+		<PackageIconUrl>https://codetraveler.io/content/images/2021/10/maui_toolkit.png</PackageIconUrl>
+		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
+		<PackageLicenseUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageLicenseUrl>
+		<RepositoryType></RepositoryType>
+		<PackageTags>MAUI FreakyControls SvgImageView TextInputLayout</PackageTags>
+		<PackageReleaseNotes>Basic Implementation for all Freaky Controls</PackageReleaseNotes>
+		<Copyright>Copyright 2022</Copyright>
+		<PackOnBuild>true</PackOnBuild>
    	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 	  <WarningLevel>4</WarningLevel>
 	  <LangVersion>latest</LangVersion>
-<AssemblyName>Maui.FreakyControls</AssemblyName>
+      <AssemblyName>Maui.FreakyControls</AssemblyName>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 	  <LangVersion>latest</LangVersion>
