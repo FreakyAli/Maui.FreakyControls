@@ -1,5 +1,9 @@
 # Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
 
+Add the NuGet: https://www.nuget.org/packages/FreakyControls or Run the following command to add nuget to your .Net MAUI app:
+
+      Install-Package FreakyControls -Version 0.1.0
+
 Adding FreakyControlsHandlers to your MAUI app:
 
 Add the following using statement and then Init the handlers in your MauiProgram: 
