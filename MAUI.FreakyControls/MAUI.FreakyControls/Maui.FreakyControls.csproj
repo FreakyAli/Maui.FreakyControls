@@ -21,7 +21,7 @@
 	    <LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>Gulam Ali H, FreakyAli</Authors>
-		<Description>FreakyControls for your .Net Maui application</Description>
+		<Description>Freaky controls for your .Net Maui application</Description>
 		<PackageIconUrl>https://codetraveler.io/content/images/2021/10/maui_toolkit.png</PackageIconUrl>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
