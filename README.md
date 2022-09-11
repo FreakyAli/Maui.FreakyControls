@@ -1,7 +1,5 @@
 # Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
 
-Colons can be used to align columns.
-
 | Support       | OS            |
 | ------------- |:-------------:|
 | iOS             | iOS 11.0+ |
