@@ -1,4 +1,4 @@
-# Freaky Controls are your usual Maui Controls but a with a freaky twist to it :D
+# Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
 
 Adding FreakyControlsHandlers to your MAUI app:
 
