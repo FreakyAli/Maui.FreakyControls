@@ -17,17 +17,18 @@
 		<NeutralLanguage>en</NeutralLanguage>
 
 		<!--Version of C# to use -->
-		<LangVersion>default</LangVersion>
+		<PackageId>FreakyControls</PackageId>
+	    <LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>Gulam Ali H, FreakyAli</Authors>
 		<Description>FreakyControls for your .Net Maui application</Description>
 		<PackageIconUrl>https://codetraveler.io/content/images/2021/10/maui_toolkit.png</PackageIconUrl>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
-		<PackageLicenseUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageLicenseUrl>
+		<PackageLicenseUrl>https://github.com/FreakyAli/MAUI.FreakyControls/blob/develop/LICENSE</PackageLicenseUrl>
 		<RepositoryType></RepositoryType>
 		<PackageTags>MAUI FreakyControls SvgImageView TextInputLayout</PackageTags>
-		<PackageReleaseNotes>Basic Implementation for all Freaky Controls</PackageReleaseNotes>
+		<PackageReleaseNotes>Basic implementation for all Freaky Controls</PackageReleaseNotes>
 		<Copyright>Copyright 2022</Copyright>
 		<PackOnBuild>true</PackOnBuild>
    	</PropertyGroup>

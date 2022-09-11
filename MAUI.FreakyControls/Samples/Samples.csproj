@@ -51,9 +51,6 @@
 	<ItemGroup>
 	  <Reference Include="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
 	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\MAUI.FreakyControls\MAUI.FreakyControls.csproj" />
-	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
 	</ItemGroup>
@@ -69,5 +66,8 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\dotnet_bot.svg" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\MAUI.FreakyControls\FreakyControls.csproj" />
 	</ItemGroup>
 </Project>
