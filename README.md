@@ -5,7 +5,7 @@ Colons can be used to align columns.
 | Support       | OS            |
 | ------------- |:-------------:|
 | iOS             | iOS 11.0+ |
-| Android    | 23+ (Marshmallow)    | 
+| Android    | API 23+ (Marshmallow)    | 
 
 
 
