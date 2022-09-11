@@ -142,9 +142,7 @@ Main feature for Freaky Entry is adding Left and Right Drawable Images with Padd
  
  Build action of all SVG images that you want to use needs to be set to `EmbeddedResource`.
  
- 
-       xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
- 
+  
        <freakyControls:FreakySvgImageView
 		Base64String="{Binding Base64Data}"
 		Command="{Binding OnTapCommand}"
