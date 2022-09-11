@@ -41,8 +41,6 @@ Still want the underline? You can add it using a BoxView (Never planning to add 
 FreakyEditor for now just removes the pesky default underline and gives you an option to disable copy paste funcationality , everything else is just the same as your regular MAUI Editor. (More features will be implemented on demand)
 
 Main feature for Freaky Entry is adding Left and Right Drawable Images with Padding and Commands wired with it.
-
-      xmlns:freakyControls="clr-namespace:MAUI.FreakyControls;assembly=MAUI.FreakyControls"
       
           <freakyControls:FreakyEntry
                Placeholder="This is a freaky entry with an image"
