@@ -1,5 +1,7 @@
 ﻿using Maui.FreakyControls.Extensions;
 
+// this is to avoid the following https://docs.microsoft.com/en-us/dotnet/maui/xaml/xamlc
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Samples;
 
 public static class MauiProgram
