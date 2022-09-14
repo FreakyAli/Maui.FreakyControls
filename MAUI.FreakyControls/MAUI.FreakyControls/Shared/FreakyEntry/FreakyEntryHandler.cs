@@ -4,7 +4,7 @@ using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls
 {
-    public partial class FreakyEntryHandler : EntryHandler
+    public sealed partial class FreakyEntryHandler : EntryHandler
     {
         public FreakyEntryHandler()
         {

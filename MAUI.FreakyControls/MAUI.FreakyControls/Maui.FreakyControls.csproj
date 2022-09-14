@@ -35,7 +35,6 @@
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 	  <WarningLevel>4</WarningLevel>
 	  <LangVersion>latest</LangVersion>
-      <AssemblyName>Maui.FreakyControls</AssemblyName>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 	  <LangVersion>latest</LangVersion>
@@ -61,6 +60,10 @@
 	  <None Remove="Platforms\iOS\NativeControls\" />
 	  <None Remove="Shared\FreakyTextInputLayout\" />
 	  <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	  <None Remove="Shared\FreakyLottieView\" />
+	  <None Remove="SkiaSharp.Extended" />
+	  <None Remove="SkiaSharp.Skottie" />
+	  <None Remove="SkiaSharp.Extended.UI.Maui" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -77,6 +80,7 @@
 	  <Folder Include="Platforms\Android\NativeControls\Helpers\" />
 	  <Folder Include="Platforms\iOS\NativeControls\" />
 	  <Folder Include="Shared\FreakyTextInputLayout\" />
+	  <Folder Include="Shared\FreakyLottieView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.2" />

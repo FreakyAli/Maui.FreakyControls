@@ -5,6 +5,7 @@
              xmlns:samples="clr-namespace:Samples"
              x:DataType="samples:MainViewModel"
              x:Class="Samples.MainPage">
+
     <ScrollView >
         <VerticalStackLayout
             Spacing="25"
@@ -12,11 +13,11 @@
             VerticalOptions="Center">
 
             <freakyControls:FreakySvgImageView
-                HeightRequest="500"
-                Tapped="FreakySvgImageView_Tapped"
-                SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
-                SvgMode="AspectFit"
-                ResourceId="{x:Static samples:Constants.DotnetBot}"/>
+            HeightRequest="400"
+            Tapped="FreakySvgImageView_Tapped"
+            SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
+            SvgMode="AspectFit"
+            ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 
 
             <Label
@@ -35,7 +36,7 @@
                TextColor="Purple"
                AllowCopyPaste="False"
                BackgroundColor="White"
-               HeightRequest="250"
+               HeightRequest="200"
                FontSize="Large"
                Keyboard="Chat"/>
             </Border>

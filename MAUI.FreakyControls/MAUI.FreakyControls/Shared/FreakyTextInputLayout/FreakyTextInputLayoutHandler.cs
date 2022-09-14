@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Maui.Handlers;
 
-namespace Maui.FreakyControls.Shared
+namespace Maui.FreakyControls
 {
-    public class FreakyTextInputLayout : ContentViewHandler
+    public sealed partial class FreakyTextInputLayoutHandler : ContentViewHandler
     {
        
     }

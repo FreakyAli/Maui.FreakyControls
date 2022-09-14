@@ -47,6 +47,7 @@
 	  <None Remove="CommunityToolkit.Maui.Core" />
 	  <None Remove="CommunityToolkit.Maui.Markup" />
 	  <None Remove="CommunityToolkit.Mvvm" />
+	  <None Remove="SkiaSharp.Extended.UI.Maui" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />

@@ -1,4 +1,4 @@
-﻿ using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
@@ -19,6 +19,7 @@ public partial class FreakyTextInputLayout : ContentView
 #if IOS
         _topMargin= -35;
 #endif
+
     }
 
 
@@ -37,6 +38,8 @@ public partial class FreakyTextInputLayout : ContentView
     ///  which specify the new and old text, respectively.
     /// </summary>
     public event EventHandler<TextChangedEventArgs> TextChanged;
+
+    #region Bindable Properties
 
     public static readonly BindableProperty TextProperty = BindableProperty.Create(
         nameof(Text),
@@ -666,6 +669,8 @@ public partial class FreakyTextInputLayout : ContentView
             }
         }
     }
+
+    #endregion
 
     public new void Focus()
     {

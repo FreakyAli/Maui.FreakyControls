@@ -4,7 +4,7 @@ using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls
 {
-    public partial class FreakyEditorHandler : EditorHandler
+    public sealed partial class FreakyEditorHandler : EditorHandler
     {
         public FreakyEditorHandler()
         {
