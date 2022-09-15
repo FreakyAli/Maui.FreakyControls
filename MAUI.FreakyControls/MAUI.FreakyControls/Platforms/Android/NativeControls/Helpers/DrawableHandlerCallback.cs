@@ -1,4 +1,5 @@
-﻿using Maui.FreakyControls.Platforms.Android.NativeControls;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Platforms.Android.NativeControls;
 
 namespace Maui.FreakyControls
 {
@@ -16,16 +17,8 @@ namespace Maui.FreakyControls
             switch (target)
             {
                 case DrawablePosition.Left:
-                    if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
-                    {
-                        frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
-                    }
-                    break;
                 case DrawablePosition.Right:
-                    if (frentry.ImageCommand?.CanExecute(frentry.ImageCommandParameter) == true)
-                    {
-                        frentry.ImageCommand.Execute(frentry.ImageCommandParameter);
-                    }
+                    frentry.ImageCommand?.ExecuteIfAvailable(frentry.ImageCommandParameter);
                     break;
             }
         }
