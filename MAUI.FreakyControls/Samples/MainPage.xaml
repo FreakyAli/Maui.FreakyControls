@@ -9,16 +9,21 @@
     <ScrollView >
         <VerticalStackLayout
             Spacing="25"
-            Padding="30,0"
+            Padding="30"
             VerticalOptions="Center">
 
-            <freakyControls:FreakySvgImageView
-            HeightRequest="400"
-            Tapped="FreakySvgImageView_Tapped"
-            SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
-            SvgMode="AspectFit"
-            ResourceId="{x:Static samples:Constants.DotnetBot}"/>
+            <freakyControls:FreakyCircularImage
+                HeightRequest="200"
+                WidthRequest="200"
+                Aspect="AspectFill"
+                Source="{x:Static samples:Constants.Profile}" />
 
+            <freakyControls:FreakySvgImageView
+                HeightRequest="400"
+                Tapped="FreakySvgImageView_Tapped"
+                SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
+                SvgMode="AspectFit"
+                ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 
             <Label
                 TextColor="Black" 

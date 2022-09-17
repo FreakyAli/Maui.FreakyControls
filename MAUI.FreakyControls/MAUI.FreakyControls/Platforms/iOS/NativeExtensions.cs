@@ -9,6 +9,12 @@ namespace Maui.FreakyControls.Platforms.iOS
 {
     public static class NativeExtensions
     {
+        public static void MakeCircular(this UIView uIView)
+        {
+            uIView.ClipsToBounds = true;
+            uIView.Layer.CornerRadius = (uIView.Frame.Width + uIView.Frame.Height) / 4;
+        }
+
         public static UIColor FromHex(this UIColor color, string hex)
         {
             int r = 0, g = 0, b = 0, a = 0;

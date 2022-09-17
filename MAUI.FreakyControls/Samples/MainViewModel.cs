@@ -10,7 +10,10 @@ namespace Samples
 
         public MainViewModel()
         {
-            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync);
+            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync,new AsyncRelayCommandOptions()
+            {
+                
+            });
         }
 
         private async Task ImageTappedAsync()

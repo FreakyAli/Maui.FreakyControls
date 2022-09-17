@@ -31,19 +31,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         }
 
         public FreakyEditText(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
-
         {
-        }
-
-        protected override void OnDraw(Canvas canvas)
-        {
-            base.OnDraw(canvas);
-
-        }
-
-        protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
-        {
-            base.OnSizeChanged(w, h, oldw, oldh);
         }
 
 
