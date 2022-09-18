@@ -3,7 +3,7 @@ using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls
 {
-    public class FreakyAutoCompleteViewHandler : ContentViewHandler
+    public partial class FreakyAutoCompleteViewHandler : ContentViewHandler
     {
         
     }
