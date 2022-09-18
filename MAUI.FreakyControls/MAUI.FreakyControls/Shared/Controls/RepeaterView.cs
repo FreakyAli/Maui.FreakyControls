@@ -1,13 +1,10 @@
-﻿
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
 
-namespace Maui.FreakyControls.Shared.Controls
+namespace Maui.FreakyControls
 {
-
     public class RepeaterView : StackLayout
     {
         public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(ICollection), typeof(RepeaterView), null);
@@ -29,7 +26,6 @@ namespace Maui.FreakyControls.Shared.Controls
         public RepeaterView()
         {
             Spacing = 0d;
-
             ReloadItems();
         }
 

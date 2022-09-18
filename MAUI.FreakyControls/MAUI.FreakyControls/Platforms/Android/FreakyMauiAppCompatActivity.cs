@@ -1,10 +1,6 @@
-﻿using System;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using AndroidX.Activity;
 using View = Android.Views.View;
 
 namespace Maui.FreakyControls.Platforms.Android
@@ -16,6 +12,12 @@ namespace Maui.FreakyControls.Platforms.Android
             base.OnBackPressed();
         }
 
+        /// <summary>
+        /// A touch event handler that can be used to generally handle outside an entry field click event
+        /// so that it hides the keyboard when you do so.
+        /// </summary>
+        /// <param name="ev"></param>
+        /// <returns></returns>
         public override bool DispatchTouchEvent(MotionEvent ev)
         {
             try

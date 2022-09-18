@@ -16,6 +16,9 @@ namespace Maui.FreakyControls
              typeof(FreakyEditor),
              true);
 
+        /// <summary>
+        /// Gets and Sets if your Entry allows Copy Paste. default is true!
+        /// </summary>
         public bool AllowCopyPaste
         {
             get => (bool)GetValue(AllowCopyPasteProperty);

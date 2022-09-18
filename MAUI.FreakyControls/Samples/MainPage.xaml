@@ -5,19 +5,33 @@
              xmlns:samples="clr-namespace:Samples"
              x:DataType="samples:MainViewModel"
              x:Class="Samples.MainPage">
+
     <ScrollView >
         <VerticalStackLayout
             Spacing="25"
-            Padding="30,0"
+            Padding="30"
             VerticalOptions="Center">
 
+            <freakyControls:FreakyCircularImage
+                HeightRequest="200"
+                WidthRequest="200"
+                Aspect="AspectFill"
+                Source="{x:Static samples:Constants.Profile}" />
+
             <freakyControls:FreakySvgImageView
-                HeightRequest="500"
+                HeightRequest="400"
                 Tapped="FreakySvgImageView_Tapped"
                 SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
                 SvgMode="AspectFit"
                 ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 
+            <!--<freakyControls:FreakyAutoCompleteView
+               Placeholder="This is a freaky editor"
+               ItemsSource="{Binding SuggestionItem}"
+               TextColor="Purple"
+               BackgroundColor="White"
+               FontSize="24"               
+                />-->
 
             <Label
                 TextColor="Black" 
@@ -35,7 +49,7 @@
                TextColor="Purple"
                AllowCopyPaste="False"
                BackgroundColor="White"
-               HeightRequest="250"
+               HeightRequest="200"
                FontSize="Large"
                Keyboard="Chat"/>
             </Border>

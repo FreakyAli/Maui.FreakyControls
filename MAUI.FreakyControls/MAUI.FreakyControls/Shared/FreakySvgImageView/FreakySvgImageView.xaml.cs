@@ -1,9 +1,7 @@
 ﻿using SkiaSharp;
 using System.Reflection;
 using System.Windows.Input;
-using System;
 using System.Diagnostics;
-using System.IO;
 using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
 using SkiaSharp.Views.Maui;
 
@@ -18,13 +16,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
 
     #region bindable properties
 
-    public static readonly BindableProperty SvgProperty = BindableProperty.Create(
-        nameof(Svg),
-        typeof(string),
-        typeof(FreakySvgImageView),
-        string.Empty
-        );
-
     public static readonly BindableProperty ImageColorProperty = BindableProperty.Create(
        nameof(ImageColor),
        typeof(Color),
@@ -32,12 +23,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
        default(Color),
        propertyChanged: OnColorChangedPropertyChanged
        );
-
-    private static void OnColorChangedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var view = bindable as FreakySvgImageView;
-        view.InvalidateSurface();
-    }
 
     public static readonly BindableProperty SvgAssemblyProperty = BindableProperty.Create(
        nameof(SvgAssembly),
@@ -56,13 +41,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
         nameof(CommandParameter),
         typeof(object),
         typeof(FreakySvgImageView)
-        );
-
-    public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(
-        nameof(IsSelected),
-        typeof(bool),
-        typeof(FreakySvgImageView),
-        null
         );
 
     public static readonly BindableProperty SvgModeProperty = BindableProperty.Create(
@@ -87,57 +65,72 @@ public partial class FreakySvgImageView : BaseSKCanvas
         default(string),
         propertyChanged: RedrawCanvas
         );
+
+    private static void OnColorChangedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var view = bindable as FreakySvgImageView;
+        view.InvalidateSurface();
+    }
+
     #endregion bindable properties
 
-
-    public bool IsSelected
-    {
-        set => SetValue(IsSelectedProperty, value);
-        get => (bool)GetValue(IsSelectedProperty);
-    }
-
-    public string Svg
-    {
-        get => (string)GetValue(SvgProperty);
-        set => SetValue(SvgProperty, value);
-    }
-
+    /// <summary>
+    /// of type Assembly, specifies the Assembly for your ResourceId.
+    /// </summary>
     public Assembly SvgAssembly
     {
         get { return (Assembly)GetValue(SvgAssemblyProperty); }
         set { SetValue(SvgAssemblyProperty, value); }
     }
 
+    /// <summary>
+    /// of type Color, specifies the color you want of your SVG image
+    /// </summary>
     public Color ImageColor
     {
         get => (Color)GetValue(ImageColorProperty);
         set => SetValue(ImageColorProperty, value);
     }
 
+    /// <summary>
+    /// of type String, specifies the source of the image.
+    /// </summary>
     public string ResourceId
     {
         get => (string)GetValue(ResourceIdProperty);
         set => SetValue(ResourceIdProperty, value);
     }
 
+    /// <summary>
+    /// of type String, specifies the Base64 source of the image.
+    /// </summary>
     public string Base64String
     {
         get => (string)GetValue(Base64StringProperty);
         set => SetValue(Base64StringProperty, value);
     }
 
+    /// <summary>
+    /// of type ICommand, defines the command that's executed when the image is tapped.
+    /// </summary>
     public ICommand Command
     {
         get => (ICommand)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 
+    /// <summary>
+    /// of type object, is the parameter that's passed to Command.
+    /// </summary>
     public object CommandParameter
     {
         get => GetValue(CommandParameterProperty);
         set => SetValue(CommandParameterProperty, value);
     }
 
+    /// <summary>
+    /// of type Aspect, defines the scaling mode of the image.
+    /// </summary>
     public Aspect SvgMode
     {
         get { return (Aspect)GetValue(SvgModeProperty); }
@@ -190,7 +183,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
                 if (svgStream == null)
                 {
                     // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
-                    Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {Svg}");
+                    Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
                     return;
                 }
                 svg.Load(svgStream);
