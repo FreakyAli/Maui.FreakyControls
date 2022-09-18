@@ -38,8 +38,9 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
             handlers.AddHandler(typeof(FreakySvgImageView), typeof(FreakySvgImageViewHandler));
             handlers.AddHandler(typeof(FreakyTextInputLayout), typeof(FreakyTextInputLayoutHandler));
+            //handlers.AddHandler(typeof(FreakyAutoCompleteView),typeof(FreakyAutoCompleteViewHandler));
             handlers.AddHandler(typeof(FreakyCircularImage),typeof(FreakyCircularImageHandler));
-        }
+        } 
 
         public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
         {
