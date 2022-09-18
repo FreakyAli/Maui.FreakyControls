@@ -43,19 +43,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
 	  <None Remove="calendar.png" />
 	  <None Remove="Platforms\Android\Resources\drawable\" />
 	  <None Remove="Platforms\iOS\Assets.xcassets\" />
-	  <None Remove="CommunityToolkit.Maui" />
-	  <None Remove="CommunityToolkit.Maui.Core" />
-	  <None Remove="CommunityToolkit.Maui.Markup" />
 	  <None Remove="CommunityToolkit.Mvvm" />
-	  <None Remove="SkiaSharp.Extended.UI.Maui" />
 	  <None Remove="Resources\Images\maui_cloud.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Reference Include="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />

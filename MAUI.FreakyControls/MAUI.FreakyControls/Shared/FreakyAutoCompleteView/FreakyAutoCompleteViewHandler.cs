@@ -3,9 +3,9 @@ using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls
 {
-    public sealed partial class FreakyCircularImageHandler : ImageHandler
+    public class FreakyAutoCompleteViewHandler : ContentViewHandler
     {
-
+        
     }
 }
 

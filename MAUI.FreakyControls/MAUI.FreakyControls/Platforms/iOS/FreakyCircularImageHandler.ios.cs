@@ -4,8 +4,8 @@ using UIKit;
 
 namespace Maui.FreakyControls
 {
-	public partial class FreakyCircularImageHandler
-	{
+    public sealed partial class FreakyCircularImageHandler
+    {
         protected override UIImageView CreatePlatformView() => new FreakyCircularUIImageView();
     }
 }

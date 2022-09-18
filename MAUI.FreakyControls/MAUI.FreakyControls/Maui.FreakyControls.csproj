@@ -11,15 +11,15 @@
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
 
 		<Product></Product>
-		<AssemblyVersion>0.1</AssemblyVersion>
-		<AssemblyFileVersion>0.1</AssemblyFileVersion>
-		<Version>0.1</Version>
+		<AssemblyVersion>0.2</AssemblyVersion>
+		<AssemblyFileVersion>0.2</AssemblyFileVersion>
+		<Version>0.2</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
 		<LangVersion>latest</LangVersion>
-		<Authors>Gulam Ali H, FreakyAli</Authors>
+		<Authors>FreakyAli</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>Freaky controls for your .Net Maui application</Description>
 		<PackageIcon>icon.png</PackageIcon>
@@ -53,19 +53,15 @@
 	  <None Remove="Shared\Controls\" />
 	  <None Remove="SkiaSharp.Views.Maui.Core" />
 	  <None Remove="SkiaSharp.Views.Maui.Controls" />
-	  <None Remove="SkiaSharp.Views.Maui.Controls.Compatibility" />
 	  <None Remove="SkiaSharp.Svg" />
 	  <None Remove="Shared\FreakySvgImageView\" />
 	  <None Remove="Platforms\Android\NativeControls\Helpers\" />
 	  <None Remove="Platforms\iOS\NativeControls\" />
 	  <None Remove="Shared\FreakyTextInputLayout\" />
 	  <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-	  <None Remove="SkiaSharp.Extended" />
-	  <None Remove="SkiaSharp.Skottie" />
-	  <None Remove="SkiaSharp.Extended.UI.Maui" />
-	  <None Remove="Shared\FreakyImage\" />
 	  <None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
 	  <None Remove="Shared\ObjectModel\" />
+	  <None Remove="Shared\FreakyAutoCompleteView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -83,6 +79,7 @@
 	  <Folder Include="Platforms\iOS\NativeControls\" />
 	  <Folder Include="Shared\FreakyTextInputLayout\" />
 	  <Folder Include="Shared\ObjectModel\" />
+	  <Folder Include="Shared\FreakyAutoCompleteView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.2" />
