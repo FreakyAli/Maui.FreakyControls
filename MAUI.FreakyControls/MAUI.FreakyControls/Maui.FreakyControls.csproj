@@ -62,6 +62,7 @@
 	  <None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
 	  <None Remove="Shared\ObjectModel\" />
 	  <None Remove="Shared\FreakyAutoCompleteView\" />
+	  <None Remove="Shared\FreakyAutoCompleteView\FreakyAutoCompleteViewTextChangedEventArgs" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />

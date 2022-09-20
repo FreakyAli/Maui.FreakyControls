@@ -10,7 +10,7 @@ using Rect = Android.Graphics.Rect;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls
 {
-    public class FreakyEditText : AppCompatEditText
+    public class FreakyAutoCompeleView : AppCompatAutoCompleteTextView
     {
         private Drawable drawableRight;
         private Drawable drawableLeft;
@@ -24,16 +24,16 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         public event EventHandler? SelectionChanged;
 
 
-        public FreakyEditText(Context context) : base(context)
+        public FreakyAutoCompeleView(Context context) : base(context)
         {
 
         }
 
-        public FreakyEditText(Context context, IAttributeSet attrs) : base(context, attrs)
+        public FreakyAutoCompeleView(Context context, IAttributeSet attrs) : base(context, attrs)
         {
         }
 
-        public FreakyEditText(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
+        public FreakyAutoCompeleView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
         }
 
@@ -88,7 +88,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                     bounds = drawableLeft.Bounds;
 
                     int x, y;
-                    int extraTapArea = (int)(13*  Resources.DisplayMetrics.Density + 0.5);
+                    int extraTapArea = (int)(13 * Resources.DisplayMetrics.Density + 0.5);
 
                     x = actionX;
                     y = actionY;
@@ -200,3 +200,5 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         }
     }
 }
+
+

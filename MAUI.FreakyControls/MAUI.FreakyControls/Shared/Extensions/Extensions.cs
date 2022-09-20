@@ -23,7 +23,6 @@ namespace Maui.FreakyControls.Extensions
 {
     public static class Extensions
     {
-
         public static void ExecuteIfAvailable(this ICommand command, object parameter = null)
         {
             if (command?.CanExecute(parameter) == true)
@@ -38,7 +37,7 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
             handlers.AddHandler(typeof(FreakySvgImageView), typeof(FreakySvgImageViewHandler));
             handlers.AddHandler(typeof(FreakyTextInputLayout), typeof(FreakyTextInputLayoutHandler));
-            //handlers.AddHandler(typeof(FreakyAutoCompleteView),typeof(FreakyAutoCompleteViewHandler));
+            handlers.AddHandler(typeof(FreakyAutoCompleteView),typeof(FreakyAutoCompleteViewHandler));
             handlers.AddHandler(typeof(FreakyCircularImage),typeof(FreakyCircularImageHandler));
         } 
 
@@ -104,6 +103,14 @@ namespace Maui.FreakyControls.Extensions
                     break;
             }
             return returnValue;
+        }
+
+        internal static string FormatType(object instance, string memberPath)
+        {
+            if (!string.IsNullOrEmpty(memberPath))
+                return instance?.GetType().GetProperty(memberPath)?.GetValue(instance)?.ToString() ?? "";
+            else
+                return instance?.ToString() ?? "";
         }
     }
 }

@@ -25,13 +25,12 @@
                 SvgMode="AspectFit"
                 ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 
-            <!--<freakyControls:FreakyAutoCompleteView
-               Placeholder="This is a freaky editor"
+            <freakyControls:FreakyAutoCompleteView
+               PlaceholderText="This is a freaky editor"
                ItemsSource="{Binding SuggestionItem}"
                TextColor="Purple"
                BackgroundColor="White"
-               FontSize="24"               
-                />-->
+               />
 
             <Label
                 TextColor="Black" 
