@@ -50,7 +50,7 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
             InputTextField.EditingChanged += InputText_EditingChanged;
             this.BackgroundColor = UIColor.Purple;
             AddSubview(InputTextField);
-            //InputTextField.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;
+            InputTextField.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;
             InputTextField.LeftAnchor.ConstraintEqualTo(LeftAnchor).Active = true;
             InputTextField.WidthAnchor.ConstraintEqualTo(WidthAnchor).Active = true;
             InputTextField.HeightAnchor.ConstraintEqualTo(HeightAnchor).Active = true;
