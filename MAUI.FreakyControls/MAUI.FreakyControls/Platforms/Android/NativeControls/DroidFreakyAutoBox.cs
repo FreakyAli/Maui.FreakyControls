@@ -11,6 +11,7 @@ using AndroidX.AppCompat.Widget;
 using Java.Lang;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
+using Microsoft.Maui.Platform;
 using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls
@@ -79,7 +80,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         /// <param name="color"></param>
         public virtual void SetTextColor(Color color)
         {
-            base.SetTextColor(color.ToNativeColor());
+            base.SetTextColor(color.ToPlatform());
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         /// <param name="color">color</param>
         public virtual void SetPlaceholderTextColor(Color color)
         {
-            base.SetHintTextColor(color.ToNativeColor());
+            base.SetHintTextColor(color.ToPlatform());
         }
 
         /// <summary>

@@ -2,10 +2,11 @@
 using System.Windows.Input;
 using Maui.FreakyControls.Shared;
 using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.FreakyEntry;
 
 namespace Maui.FreakyControls
 {
-    public class FreakyEntry : Entry
+    public class FreakyEntry : Entry, IFreakyEntry
     {
         public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
                nameof(Image),

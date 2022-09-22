@@ -28,18 +28,19 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
         public UIKit.UITableView SelectionList { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IOSFreakyAutoBox"/>.
+        /// Initializes a new instance of the <see cref="iOSAutoSuggestBox"/>.
         /// </summary>
         public IOSFreakyAutoBox()
         {
             InputTextField = new FreakyUITextfield()
             {
+                BackgroundColor= UIColor.SystemPink,
                 TranslatesAutoresizingMaskIntoConstraints = false,
-                BorderStyle = UIKit.UITextBorderStyle.None,
+                BorderStyle = UITextBorderStyle.None,
+                ClipsToBounds = true,
                 ReturnKeyType = UIKit.UIReturnKeyType.Search,
                 AutocorrectionType = UITextAutocorrectionType.No
-            };
-
+            };            
             InputTextField.Layer.BorderWidth = 0;
             InputTextField.Layer.BorderColor = UIColor.Clear.CGColor;
 
@@ -47,9 +48,9 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
             InputTextField.EditingDidBegin += OnEditingDidBegin;
             InputTextField.EditingDidEnd += OnEditingDidEnd;
             InputTextField.EditingChanged += InputText_EditingChanged;
-
+            this.BackgroundColor = UIColor.Purple;
             AddSubview(InputTextField);
-            InputTextField.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;
+            //InputTextField.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;
             InputTextField.LeftAnchor.ConstraintEqualTo(LeftAnchor).Active = true;
             InputTextField.WidthAnchor.ConstraintEqualTo(WidthAnchor).Active = true;
             InputTextField.HeightAnchor.ConstraintEqualTo(HeightAnchor).Active = true;
@@ -86,7 +87,7 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
-            AddBottomBorder();
+            //AddBottomBorder();
         }
 
         private void AddBottomBorder()
@@ -163,7 +164,7 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
         public virtual void SetPlaceholderTextColor(Color color)
         {
             // See https://github.com/xamarin/Xamarin.Forms/blob/4d9a5bf3706778770026a18ae81a7dd5c4c15db4/Xamarin.Forms.Platform.iOS/Renderers/EntryRenderer.cs#L260
-            InputTextField.AttributedPlaceholder = new NSAttributedString(InputTextField.Placeholder ?? string.Empty, null, color.ToNativeColor());
+            InputTextField.AttributedPlaceholder = new NSAttributedString(InputTextField.Placeholder ?? string.Empty, null, color.ToPlatform());
         }
 
         private bool _isSuggestionListOpen;
@@ -188,8 +189,8 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
                 var viewController = InputTextField.Window?.RootViewController;
                 if (viewController == null)
                     return;
-                if (viewController.ModalViewController != null)
-                    viewController = viewController.ModalViewController;
+                if (viewController.PresentedViewController != null)
+                    viewController = viewController.PresentedViewController;
                 if (SelectionList.Superview == null)
                 {
                     viewController.Add(SelectionList);
@@ -297,7 +298,7 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
         /// <param name="color">color</param>
         public virtual void SetTextColor(Color color)
         {
-            InputTextField.TextColor = color.ToNativeColor();
+            InputTextField.TextColor = color.ToPlatform();
         }
 
         /// <summary>
@@ -336,8 +337,12 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
 
                 var item = _items.ElementAt(indexPath.Row);
 
+#if IOS14_0_OR_GREATER
+                var defConfig = cell.DefaultContentConfiguration;
+                defConfig.Text = _labelFunc(item);
+#else
                 cell.TextLabel.Text = _labelFunc(item);
-
+#endif
                 return cell;
             }
 

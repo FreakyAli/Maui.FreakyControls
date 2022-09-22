@@ -21,7 +21,9 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
 
         private IDrawableClickListener clickListener;
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public event EventHandler? SelectionChanged;
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
 
         public FreakyEditText(Context context) : base(context)

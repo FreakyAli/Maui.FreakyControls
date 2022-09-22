@@ -30,6 +30,11 @@ namespace Maui.FreakyControls
         {
             PlatformView.Enabled = VirtualView.IsEnabled;
         }
+
+        private void UpdateClearButtonVisibility()
+        {
+
+        }
     }
 }
 

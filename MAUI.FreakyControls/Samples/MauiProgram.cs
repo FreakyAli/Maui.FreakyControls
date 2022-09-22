@@ -18,10 +18,13 @@ public static class MauiProgram
 			})
             .ConfigureMauiHandlers(handlers =>
             {
-                handlers.AddFreakyHandlers();
+                handlers.AddFreakyHandlers(); 
             });
 		builder.InitSkiaSharp();
-		return builder.Build();
+
+		var mauiApp = builder.Build();
+		var fontManager = mauiApp.Services.GetService<IFontManager>();
+		return mauiApp;
 	}
 }
 

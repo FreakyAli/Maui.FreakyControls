@@ -1,4 +1,7 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+﻿using System.ComponentModel;
+using System.Windows.Input;
+using Maui.FreakyControls.Shared.Enums;
+using Font = Microsoft.Maui.Font;
 
 namespace Maui.FreakyControls;
 
@@ -58,34 +61,34 @@ public partial class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     /// <summary>
     /// Gets or sets the PlaceHolder
     /// </summary>
-    /// <seealso cref="PlaceHolderColor"/>
-    public string PlaceHolder
+    /// <seealso cref="PlaceholderColor"/>
+    public string Placeholder
     {
-        get { return (string)GetValue(PlaceHolderProperty); }
-        set { SetValue(PlaceHolderProperty, value); }
+        get { return (string)GetValue(PlaceholderProperty); }
+        set { SetValue(PlaceholderProperty, value); }
     }
 
     /// <summary>
-    /// Identifies the <see cref="PlaceHolder"/> bindable property.
+    /// Identifies the <see cref="Placeholder"/> bindable property.
     /// </summary>
-    public static readonly BindableProperty PlaceHolderProperty =
-        BindableProperty.Create(nameof(PlaceHolder), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
+    public static readonly BindableProperty PlaceholderProperty =
+        BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the foreground color of the control
     /// </summary>
-    /// <seealso cref="PlaceHolder"/>
-    public Color PlaceHolderColor
+    /// <seealso cref="Placeholder"/>
+    public Color PlaceholderColor
     {
         get { return (Color)GetValue(PlaceHolderColorProperty); }
         set { SetValue(PlaceHolderColorProperty, value); }
     }
 
     /// <summary>
-    /// Identifies the <see cref="PlaceHolderColor"/> bindable property.
+    /// Identifies the <see cref="PlaceholderColor"/> bindable property.
     /// </summary>
     public static readonly BindableProperty PlaceHolderColorProperty =
-        BindableProperty.Create(nameof(PlaceHolderColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the property path that is used to get the value for display in the
@@ -170,35 +173,567 @@ public partial class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(ItemsSourceProperty, value); }
     }
 
-    public bool IsTextPredictionEnabled => throw new NotImplementedException();
+    #region Bindable Properties
 
-    public bool IsReadOnly => throw new NotImplementedException();
 
-    public Keyboard Keyboard => throw new NotImplementedException();
+    public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(
+        nameof(ReturnType),
+        typeof(ReturnType),
+        typeof(FreakyAutoCompleteView),
+        ReturnType.Default
+        );
 
-    public int MaxLength => throw new NotImplementedException();
+    public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
+        nameof(IsPassword),
+        typeof(bool),
+        typeof(FreakyAutoCompleteView),
+        default(bool)
+        );
 
-    public int CursorPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
+        nameof(Keyboard),
+        typeof(Microsoft.Maui.Keyboard),
+        typeof(FreakyAutoCompleteView),
+        Keyboard.Default,
+        coerceValue: (o, v) => (Keyboard)v ?? Keyboard.Default
+        );
 
-    public int SelectionLength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public static readonly BindableProperty BorderStrokeThicknessProperty = BindableProperty.Create(
+        nameof(BorderStrokeThickness),
+        typeof(double),
+        typeof(FreakyAutoCompleteView),
+        default(double)
+        );
 
-    public Microsoft.Maui.Font Font => throw new NotImplementedException();
+    public static readonly BindableProperty BorderStrokeProperty = BindableProperty.Create(
+       nameof(BorderStroke),
+       typeof(Brush),
+       typeof(FreakyAutoCompleteView),
+       Brush.Black
+       );
 
-    public double CharacterSpacing => throw new NotImplementedException();
+    public static readonly BindableProperty BorderCornerRadiusProperty = BindableProperty.Create(
+       nameof(BorderCornerRadius),
+       typeof(CornerRadius),
+       typeof(FreakyAutoCompleteView),
+       default(CornerRadius)
+       );
 
-    public string Placeholder => throw new NotImplementedException();
+    public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
+      nameof(FontSize),
+      typeof(double),
+      typeof(FreakyAutoCompleteView),
+      default(double)
+       );
 
-    public Color PlaceholderColor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
+        nameof(ImageSource),
+        typeof(ImageSource),
+        typeof(FreakyAutoCompleteView),
+        default(ImageSource)
+        );
 
-    public TextAlignment HorizontalTextAlignment => throw new NotImplementedException();
+    public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
+           nameof(ImageHeight),
+           typeof(int),
+           typeof(FreakyAutoCompleteView),
+           25)
+        ;
 
-    public TextAlignment VerticalTextAlignment => throw new NotImplementedException();
+    public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
+           nameof(ImageWidth),
+           typeof(int),
+           typeof(FreakyAutoCompleteView),
+           25
+        );
 
-    public bool IsPassword => throw new NotImplementedException();
+    public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
+           nameof(ImagePadding),
+           typeof(int),
+           typeof(FreakyAutoCompleteView),
+           5
+        );
 
-    public ReturnType ReturnType => throw new NotImplementedException();
+    public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
+          nameof(ImageCommand),
+          typeof(ICommand),
+          typeof(FreakyAutoCompleteView),
+          default(ICommand)
+        );
 
-    public ClearButtonVisibility ClearButtonVisibility => throw new NotImplementedException();
+    public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
+          nameof(ImageCommandParameter),
+          typeof(object),
+          typeof(FreakyAutoCompleteView),
+          default(object)
+        );
+
+    public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
+          nameof(AllowCopyPaste),
+          typeof(bool),
+          typeof(FreakyAutoCompleteView),
+          true
+        );
+
+    public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(
+         nameof(UnderlineColor),
+         typeof(Color),
+         typeof(FreakyAutoCompleteView),
+         Colors.Black
+        );
+
+    public static readonly BindableProperty UnderlineThicknessProperty = BindableProperty.Create(
+         nameof(UnderlineThickness),
+         typeof(double),
+         typeof(FreakyAutoCompleteView),
+         default(double)
+        );
+
+    public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(
+         nameof(CharacterSpacing),
+         typeof(double),
+         typeof(FreakyAutoCompleteView),
+         default(double)
+        );
+
+    public static readonly BindableProperty ClearButtonVisibilityProperty = BindableProperty.Create(
+         nameof(ClearButtonVisibility),
+         typeof(ClearButtonVisibility),
+         typeof(FreakyAutoCompleteView),
+         Microsoft.Maui.ClearButtonVisibility.Never
+        );
+
+    public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(
+         nameof(FontAttributes),
+         typeof(FontAttributes),
+         typeof(FreakyAutoCompleteView),
+         Microsoft.Maui.Controls.FontAttributes.None
+        );
+
+    public static readonly BindableProperty CursorPositionProperty = BindableProperty.Create(
+         nameof(CursorPosition),
+         typeof(int),
+         typeof(FreakyAutoCompleteView)
+        );
+
+    public static readonly BindableProperty FontAutoScalingEnabledProperty = BindableProperty.Create(
+        nameof(FontAutoScalingEnabled),
+        typeof(bool),
+        typeof(FreakyAutoCompleteView),
+        true
+       );
+
+    public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(
+        nameof(FontFamily),
+        typeof(string),
+        typeof(FreakyAutoCompleteView)
+       );
+
+    public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(
+        nameof(HorizontalTextAlignment),
+        typeof(TextAlignment),
+        typeof(FreakyAutoCompleteView)
+       );
+
+    public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(
+       nameof(VerticalTextAlignment),
+       typeof(TextAlignment),
+       typeof(FreakyAutoCompleteView)
+      );
+
+    public static readonly BindableProperty IsTextPredictionEnabledProperty = BindableProperty.Create(
+       nameof(IsTextPredictionEnabled),
+       typeof(bool),
+       typeof(FreakyAutoCompleteView),
+       true
+      );
+
+    public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(
+      nameof(ReturnCommand),
+      typeof(ICommand),
+      typeof(FreakyAutoCompleteView)
+      );
+
+    public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(
+     nameof(ReturnCommandParameter),
+     typeof(object),
+     typeof(FreakyAutoCompleteView)
+     );
+
+    public static readonly BindableProperty SelectionLengthProperty = BindableProperty.Create(
+     nameof(SelectionLength),
+     typeof(int),
+     typeof(FreakyAutoCompleteView)
+     );
+
+    public static readonly BindableProperty IsSpellCheckEnabledProperty = BindableProperty.Create(
+     nameof(IsSpellCheckEnabled),
+     typeof(bool),
+     typeof(FreakyAutoCompleteView)
+     );
+
+    public static readonly BindableProperty IsReadOnlyProperty = BindableProperty.Create(
+     nameof(IsReadOnly),
+     typeof(bool),
+     typeof(FreakyAutoCompleteView)
+     );
+
+    public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(
+     nameof(MaxLength),
+     typeof(int),
+     typeof(FreakyAutoCompleteView),
+     int.MaxValue
+     );
+
+    public static readonly BindableProperty TextTransformProperty = BindableProperty.Create(
+     nameof(TextTransform),
+     typeof(TextTransform),
+     typeof(FreakyAutoCompleteView),
+     Microsoft.Maui.TextTransform.Default
+     );
+
+    public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(
+     nameof(TitleColor),
+     typeof(Color),
+     typeof(FreakyAutoCompleteView),
+     Colors.Black
+     );
+
+    public static readonly BindableProperty ImageAlignmentProperty = BindableProperty.Create(
+     nameof(ImageAlignment),
+     typeof(ImageAlignment),
+     typeof(FreakyAutoCompleteView),
+     ImageAlignment.Right
+     );
+
+    public static readonly BindableProperty FontProperty = BindableProperty.Create(
+      nameof(Font),
+      typeof(Font),
+      typeof(FreakyAutoCompleteView),
+      Font.Default
+      );
+
+    /// <summary>
+    /// Alignment for your Image's ViewPort, By default set to Right.
+    /// </summary>
+    public ImageAlignment ImageAlignment
+    {
+        get => (ImageAlignment)GetValue(ImageAlignmentProperty);
+        set => SetValue(ImageAlignmentProperty, value);
+    }
+
+    /// <summary>
+    /// Color of your Title Label
+    /// </summary>
+    public Color TitleColor
+    {
+        get => (Color)GetValue(TitleColorProperty);
+        set => SetValue(TitleColorProperty, value);
+    }
+
+    /// <summary>
+    /// of type TextTransform, specifies the casing of the entered text.
+    /// </summary>
+    public TextTransform TextTransform
+    {
+        get => (TextTransform)GetValue(TextTransformProperty);
+        set => SetValue(TextTransformProperty, value);
+    }
+
+    /// <summary>
+    /// of type bool, defines whether the user should be prevented from modifying text. The default value of this property is false.
+    /// </summary>
+    public bool IsReadOnly
+    {
+        get => (bool)GetValue(IsReadOnlyProperty);
+        set => SetValue(IsReadOnlyProperty, value);
+    }
+
+    /// <summary>
+    /// of type int, defines the maximum input length.
+    /// </summary>
+    public int MaxLength
+    {
+        get => (int)GetValue(MaxLengthProperty);
+        set => SetValue(MaxLengthProperty, value);
+    }
+
+    /// <summary>
+    /// of type bool, controls whether spell checking is enabled.
+    /// </summary>
+    public bool IsSpellCheckEnabled
+    {
+        get => (bool)GetValue(IsSpellCheckEnabledProperty);
+        set => SetValue(IsSpellCheckEnabledProperty, value);
+    }
+
+    /// <summary>
+    /// of type int, represents the length of selected text within the TIL.
+    /// </summary>
+    public int SelectionLength
+    {
+        get => (int)GetValue(SelectionLengthProperty);
+        set => SetValue(SelectionLengthProperty, value);
+    }
+
+    /// <summary>
+    /// of type object, specifies the parameter for the ReturnCommand
+    /// </summary>
+    public object ReturnCommandParameter
+    {
+        get => GetValue(ReturnCommandParameterProperty);
+        set => SetValue(ReturnCommandParameterProperty, value);
+    }
+
+    /// <summary>
+    /// of type ICommand, defines the command to be executed when the return key is pressed.
+    /// </summary>
+    public ICommand ReturnCommand
+    {
+        get => (ICommand)GetValue(ReturnCommandProperty);
+        set => SetValue(ReturnCommandProperty, value);
+    }
+
+    /// <summary>
+    /// of type bool, controls whether text prediction and automatic text correction is enabled.
+    /// </summary>
+    public bool IsTextPredictionEnabled
+    {
+        get => (bool)GetValue(IsTextPredictionEnabledProperty);
+        set => SetValue(IsTextPredictionEnabledProperty, value);
+    }
+
+    /// <summary>
+    /// of type TextAlignment, defines the vertical alignment of the text.
+    /// </summary>
+    public TextAlignment VerticalTextAlignment
+    {
+        get => (TextAlignment)GetValue(VerticalTextAlignmentProperty);
+        set => SetValue(VerticalTextAlignmentProperty, value);
+    }
+
+    /// <summary>
+    /// of type TextAlignment, defines the horizontal alignment of the text.
+    /// </summary>
+    public TextAlignment HorizontalTextAlignment
+    {
+        get => (TextAlignment)GetValue(HorizontalTextAlignmentProperty);
+        set => SetValue(HorizontalTextAlignmentProperty, value);
+    }
+
+    /// <summary>
+    /// of type string, defines the font family.
+    /// </summary>
+    public string FontFamily
+    {
+        get => (string)GetValue(FontFamilyProperty);
+        set => SetValue(FontFamilyProperty, value);
+    }
+
+    /// <summary>
+    /// of type bool, defines whether the text will reflect scaling preferences set in the operating system.
+    /// The default value of this property is true.
+    /// </summary>
+    public bool FontAutoScalingEnabled
+    {
+        get => (bool)GetValue(FontAutoScalingEnabledProperty);
+        set => SetValue(FontAutoScalingEnabledProperty, value);
+    }
+
+    /// <summary>
+    /// of type int, defines the position of the cursor within the TIL.
+    /// </summary>
+    public int CursorPosition
+    {
+        get => (int)GetValue(CursorPositionProperty);
+        set => SetValue(CursorPositionProperty, value);
+    }
+
+    /// <summary>
+    /// of type FontAttributes, determines text style.
+    /// </summary>
+    public FontAttributes FontAttributes
+    {
+        get => (FontAttributes)GetValue(FontAttributesProperty);
+        set => SetValue(FontAttributesProperty, value);
+    }
+
+    /// <summary>
+    /// of type ClearButtonVisibility, controls whether a clear button is displayed,
+    /// which enables the user to clear the text.
+    /// The default value of this property ensures that a clear button isn't displayed.
+    /// </summary>
+    public ClearButtonVisibility ClearButtonVisibility
+    {
+        get => (ClearButtonVisibility)GetValue(ClearButtonVisibilityProperty);
+        set => SetValue(ClearButtonVisibilityProperty, value);
+    }
+
+    /// <summary>
+    /// of type double, sets the spacing between characters in the entered text.
+    /// </summary>
+    public double CharacterSpacing
+    {
+        get => (double)GetValue(CharacterSpacingProperty);
+        set => SetValue(CharacterSpacingProperty, value);
+    }
+
+    /// <summary>
+    /// Thickness of the Underline of your TIL 
+    /// </summary>
+    public double UnderlineThickness
+    {
+        get => (double)GetValue(UnderlineThicknessProperty);
+        set => SetValue(UnderlineThicknessProperty, value);
+    }
+
+    /// <summary>
+    /// Color of your TIL Underline 
+    /// </summary>
+    public Color UnderlineColor
+    {
+        get => (Color)GetValue(UnderlineColorProperty);
+        set => SetValue(UnderlineColorProperty, value);
+    }
+
+    /// <summary>
+    /// Gets and Sets if your TIL allows Copy Paste. default is true!
+    /// </summary>
+    public bool AllowCopyPaste
+    {
+        get => (bool)GetValue(AllowCopyPasteProperty);
+        set => SetValue(AllowCopyPasteProperty, value);
+    }
+
+    /// <summary>
+    /// Command parameter for your Image tap command 
+    /// </summary>
+    public object ImageCommandParameter
+    {
+        get => GetValue(ImageCommandParameterProperty);
+        set => SetValue(ImageCommandParameterProperty, value);
+    }
+
+    /// <summary>
+    /// A command that you can use to bind with your Image that you added to your TIL's ViewPort
+    /// </summary>
+    public ICommand ImageCommand
+    {
+        get => (ICommand)GetValue(ImageCommandProperty);
+        set => SetValue(ImageCommandProperty, value);
+    }
+
+    /// <summary>
+    /// Padding of the Image that you added to the ViewPort
+    /// </summary>
+    public int ImagePadding
+    {
+        get => (int)GetValue(ImagePaddingProperty);
+        set => SetValue(ImagePaddingProperty, value);
+    }
+
+    /// <summary>
+    /// Width of the Image in your ViewPort
+    /// </summary>
+    public int ImageWidth
+    {
+        get => (int)GetValue(ImageWidthProperty);
+        set => SetValue(ImageWidthProperty, value);
+    }
+
+    /// <summary>
+    /// Height of the Image in your ViewPort
+    /// </summary>
+    public int ImageHeight
+    {
+        get => (int)GetValue(ImageHeightProperty);
+        set => SetValue(ImageHeightProperty, value);
+    }
+
+    /// <summary>
+    /// An ImageSource that you want to add to your Right ViewPort ()
+    /// </summary>
+    public ImageSource ImageSource
+    {
+        get => (ImageSource)GetValue(ImageSourceProperty);
+        set => SetValue(ImageSourceProperty, value);
+    }
+
+    /// <summary>
+    /// of type double, defines the font size.
+    /// </summary>
+    [TypeConverter(typeof(FontSizeConverter))]
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
+
+    /// <summary>
+    /// of type CornerRadius, and defines the Cornder Radius of your Border.
+    /// </summary>
+    public CornerRadius BorderCornerRadius
+    {
+        get => (CornerRadius)GetValue(BorderCornerRadiusProperty);
+        set => SetValue(BorderCornerRadiusProperty, value);
+    }
+
+    /// <summary>
+    /// of type Brush, and defines the Stroke of your Border.
+    /// </summary>
+    public Brush BorderStroke
+    {
+        get => (Brush)GetValue(BorderStrokeProperty);
+        set => SetValue(BorderStrokeProperty, value);
+    }
+
+    /// <summary>
+    /// of type double, and defines the Thickness of the border stroke.
+    /// </summary>
+    public double BorderStrokeThickness
+    {
+        get => (double)GetValue(BorderStrokeThicknessProperty);
+        set => SetValue(BorderStrokeThicknessProperty, value);
+    }
+
+    /// <summary>
+    /// of type ReturnType, specifies the appearance of the return button.
+    /// </summary>
+    public ReturnType ReturnType
+    {
+        get => (ReturnType)GetValue(ReturnTypeProperty);
+        set => SetValue(ReturnTypeProperty, value);
+    }
+
+    /// <summary>
+    /// of type bool, specifies whether the TIL should visually obscure typed text.
+    /// </summary>
+    public bool IsPassword
+    {
+        get { return (bool)GetValue(IsPasswordProperty); }
+        set { SetValue(IsPasswordProperty, value); }
+    }
+
+    /// <summary>
+    /// of type Keyboard, specifies the virtual keyboard that's displayed when entering text.
+    /// </summary>
+    [System.ComponentModel.TypeConverter(typeof(Microsoft.Maui.Converters.KeyboardTypeConverter))]
+    public Keyboard Keyboard
+    {
+        get => (Keyboard)GetValue(KeyboardProperty);
+        set => SetValue(KeyboardProperty, value);
+    }
+
+    /// <summary>
+    /// of type Font, 
+    /// </summary>
+    public Font Font
+    {
+        get => (Font)GetValue(FontProperty);
+        set => SetValue(FontProperty, value);
+    }
+
+    #endregion
 
     /// <summary>
     /// Identifies the <see cref="ItemsSource"/> bindable property.
@@ -237,7 +772,6 @@ public partial class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
 
     public void Completed()
     {
-        throw new NotImplementedException();
     }
 
     /// <summary>

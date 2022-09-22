@@ -47,24 +47,6 @@ namespace Maui.FreakyControls.Extensions
         }
 
         /// <summary>
-        /// Get native color from Maui graphics Color
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns>native Color</returns>
-        public static NativeColor ToNativeColor(this Color color)
-        {
-            var hexCode = color.ToHex();
-            NativeColor nativeColor;
-#if ANDROID
-            nativeColor = Android.Graphics.Color.ParseColor(hexCode);
-#endif
-#if IOS
-            nativeColor = UIKit.UIColor.Clear.FromHex(hexCode);
-#endif
-            return nativeColor;
-        }
-
-        /// <summary>
         /// Get native imagesource from Maui imagesource 
         /// </summary>
         /// <param name="source"></param>

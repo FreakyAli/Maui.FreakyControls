@@ -8,7 +8,7 @@
 
     <ScrollView >
         <VerticalStackLayout
-            Spacing="25"
+            Spacing="20"
             Padding="30"
             VerticalOptions="Center">
 
@@ -25,15 +25,27 @@
                 SvgMode="AspectFit"
                 ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 
-            <freakyControls:FreakyAutoCompleteView
-               PlaceholderText="This is a freaky editor"
-               ItemsSource="{Binding SuggestionItem}"
-               TextColor="Purple"
-               BackgroundColor="White"
-               />
 
             <Label
                 TextColor="Black" 
+                Text="Freaky AutoCompleteView below: " />
+            <Border
+                Stroke="Black"
+                StrokeThickness="2"
+                Padding="10"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <freakyControls:FreakyAutoCompleteView
+               Placeholder="This is a freaky autocomplete view :p"
+               ItemsSource="{Binding SuggestionItem}"
+               TextColor="Purple"
+               />
+            </Border>
+
+            <Label
+                TextColor="Black"
                 Text="Freaky Editor below: " />
             <Border
                 Stroke="Black"

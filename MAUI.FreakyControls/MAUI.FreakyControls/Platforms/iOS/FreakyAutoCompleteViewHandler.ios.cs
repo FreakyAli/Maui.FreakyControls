@@ -1,16 +1,16 @@
-﻿using System;
-using Maui.FreakyControls.Platforms.iOS.NativeControls;
+﻿using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using UIKit;
 
 namespace Maui.FreakyControls
 {
     public partial class FreakyAutoCompleteViewHandler
     {
-        static readonly int baseHeight = 10;
+        static readonly int baseHeight = 15;
 
         protected override IOSFreakyAutoBox CreatePlatformView()
         {
-            return new IOSFreakyAutoBox();
+            var view = new IOSFreakyAutoBox();
+            return view;
         }
 
         protected override void ConnectHandler(IOSFreakyAutoBox platformView)
@@ -25,12 +25,12 @@ namespace Maui.FreakyControls
 
         protected override void DisconnectHandler(IOSFreakyAutoBox platformView)
         {
-            base.DisconnectHandler(platformView);
             platformView.EditingDidBegin -= Control_EditingDidBegin;
             platformView.EditingDidEnd -= Control_EditingDidEnd;
             platformView.SuggestionChosen -= SuggestionChosen;
             platformView.TextChanged -= TextChanged;
             platformView.QuerySubmitted -= QuerySubmitted;
+            base.DisconnectHandler(platformView);
         }
 
         private void Control_EditingDidBegin(object sender, EventArgs e)
