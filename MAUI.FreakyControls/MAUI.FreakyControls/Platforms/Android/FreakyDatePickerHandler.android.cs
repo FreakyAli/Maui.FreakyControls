@@ -14,7 +14,9 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyDatePickerHandler
 {
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     DatePickerDialog? _dialog;
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
     protected override MauiDatePicker CreatePlatformView()
     {
@@ -44,7 +46,9 @@ public partial class FreakyDatePickerHandler
         }
     }
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     internal DatePickerDialog? DatePickerDialog { get { return _dialog; } }
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
@@ -88,7 +92,9 @@ public partial class FreakyDatePickerHandler
             _dialog = CreateDatePickerDialog(year, month, day);
         else
         {
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
             EventHandler? setDateLater = null;
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
             setDateLater = (sender, e) => { _dialog!.UpdateDate(year, month, day); _dialog.ShowEvent -= setDateLater; };
             _dialog.ShowEvent += setDateLater;
         }
