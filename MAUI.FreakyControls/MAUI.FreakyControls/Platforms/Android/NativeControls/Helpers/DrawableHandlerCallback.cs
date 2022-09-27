@@ -1,13 +1,14 @@
 ﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
+using Maui.FreakyControls.Shared;
 
 namespace Maui.FreakyControls
 {
     public class DrawableHandlerCallback : IDrawableClickListener
     {
-        private readonly FreakyEntry frentry;
+        private readonly IDrawableImageView frentry;
 
-        public DrawableHandlerCallback(FreakyEntry frentry)
+        public DrawableHandlerCallback(IDrawableImageView frentry)
         {
             this.frentry = frentry;
         }
@@ -18,7 +19,7 @@ namespace Maui.FreakyControls
             {
                 case DrawablePosition.Left:
                 case DrawablePosition.Right:
-                    frentry.ImageCommand?.ExecuteIfAvailable(frentry.ImageCommandParameter);
+                    frentry.ImageCommand?.ExecuteCommandIfAvailable(frentry.ImageCommandParameter);
                     break;
             }
         }
