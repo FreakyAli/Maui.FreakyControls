@@ -28,13 +28,13 @@ public partial class FreakyTextInputLayout : ContentView
     int _titleFontSize = 14;
 
     /// <summary>
-    /// raised when the user finalizes text in the TIL with the return key.
+    /// raised when the user finalizes text in the <see cref="FreakyTextInputLayout"/> with the return key.
     /// </summary>
     public event EventHandler Completed;
 
     /// <summary>
-    ///  raised when the text in the TIL changes.
-    ///  The TextChangedEventArgs object that accompanies the TextChanged event has NewTextValue and OldTextValue properties,
+    ///  raised when the text in the <see cref="FreakyTextInputLayout"/> changes.
+    ///  The <see cref="TextChangedEventArgs"/> object that accompanies the TextChanged event has NewTextValue and OldTextValue properties,
     ///  which specify the new and old text, respectively.
     /// </summary>
     public event EventHandler<TextChangedEventArgs> TextChanged;

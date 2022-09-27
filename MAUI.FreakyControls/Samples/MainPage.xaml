@@ -25,13 +25,78 @@
                 SvgMode="AspectFit"
                 ResourceId="{x:Static samples:Constants.DotnetBot}"/>
 
-            <!--<freakyControls:FreakyAutoCompleteView
-               Placeholder="This is a freaky editor"
+            <Label
+                TextColor="Black" 
+                Text="Freaky DatePicker below: " />
+            <Border
+                Stroke="Black"
+                StrokeThickness="2"
+                Padding="10"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <freakyControls:FreakyDatePicker
+               ImageSource="calendar"
+               ImageAlignment="Left"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImagePadding="10"
+               TextColor="Black"
+               FontSize="Large"
+               />
+            </Border>
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky TimePicker below: " />
+            <Border
+                Stroke="Black"
+                StrokeThickness="2"
+                Padding="10"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <freakyControls:FreakyTimePicker
+               ImageSource="calendar"
+               ImageAlignment="Left"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImagePadding="10"
+               TextColor="Black"
+               FontSize="Large"
+               />
+            </Border>
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky Picker below: " />
+            <Border
+                Stroke="Black"
+                StrokeThickness="2"
+                Padding="10"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <freakyControls:FreakyPicker
+               ImageSource="calendar"
+               ImageAlignment="Right"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImagePadding="10"
+               TextColor="Black"
+               FontSize="Large"
                ItemsSource="{Binding SuggestionItem}"
-               TextColor="Purple"
-               BackgroundColor="White"
-               FontSize="24"               
-                />-->
+               ItemDisplayBinding="{Binding .}"
+               Title="Select something :D"
+               TitleColor="LightGray"
+               />
+            </Border>
 
             <Label
                 TextColor="Black" 
@@ -105,6 +170,18 @@
                ImageSource="calendar"
                Keyboard="Chat"/>
             </Border>
+
+
+            <freakyControls:FreakyButton
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                Text="Click this freaky button"
+                HeightRequest="40"
+                LongPressed="FreakyButton_LongPressed"
+                Clicked="OnButtonClicked"
+                LongPressedCommand="{Binding FreakyLongPressedCommand}"
+                LongPressedCommandParameter="Param :D"
+                />
         </VerticalStackLayout>
     </ScrollView>
 

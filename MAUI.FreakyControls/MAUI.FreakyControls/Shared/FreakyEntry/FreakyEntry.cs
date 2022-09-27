@@ -5,7 +5,7 @@ using Maui.FreakyControls.Shared.Enums;
 
 namespace Maui.FreakyControls
 {
-    public class FreakyEntry : Entry
+    public class FreakyEntry : Entry, IDrawableImageView
     {
         public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
                nameof(Image),

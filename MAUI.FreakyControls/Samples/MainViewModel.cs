@@ -25,12 +25,16 @@ namespace Samples
             }
         }
 
+        public ICommand FreakyLongPressedCommand { get; set; }
+
         public MainViewModel()
         {
             ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync, new AsyncRelayCommandOptions()
             {
 
             });
+            FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
+
             var strSuggestionArr = new string[] {
                         "harshad@mobmaxime.com",
                         "sagar.p@mobmaxime.com",
@@ -41,6 +45,11 @@ namespace Samples
                         };
 
             SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
+        }
+
+        private async Task LongPressedAsync(object commandParam)
+        {
+            await Application.Current.MainPage.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
         }
 
         private async Task ImageTappedAsync()
