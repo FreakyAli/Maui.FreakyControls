@@ -24,7 +24,7 @@ namespace Maui.FreakyControls.Extensions
     public static class Extensions
     {
 
-        public static void ExecuteIfAvailable(this ICommand command, object parameter = null)
+        public static void ExecuteCommandIfAvailable(this ICommand command, object parameter = null)
         {
             if (command?.CanExecute(parameter) == true)
             {
@@ -33,14 +33,17 @@ namespace Maui.FreakyControls.Extensions
         }
 
         public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
-        {   
+        {
             handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
             handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
             handlers.AddHandler(typeof(FreakySvgImageView), typeof(FreakySvgImageViewHandler));
             handlers.AddHandler(typeof(FreakyTextInputLayout), typeof(FreakyTextInputLayoutHandler));
-            //handlers.AddHandler(typeof(FreakyAutoCompleteView),typeof(FreakyAutoCompleteViewHandler));
-            handlers.AddHandler(typeof(FreakyCircularImage),typeof(FreakyCircularImageHandler));
-        } 
+            handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
+            handlers.AddHandler(typeof(FreakyButton), typeof(FreakyButtonHandler));
+            handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
+            handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
+            handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
+        }
 
         public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
         {
