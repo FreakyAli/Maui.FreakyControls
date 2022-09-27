@@ -10,9 +10,9 @@ using static Microsoft.Maui.ApplicationModel.Platform;
 
 namespace Maui.FreakyControls.Platforms.Android
 {
-	public static class ControlExtensions
-	{
-        
+    public static class ControlExtensions
+    {
+
     }
 }
 

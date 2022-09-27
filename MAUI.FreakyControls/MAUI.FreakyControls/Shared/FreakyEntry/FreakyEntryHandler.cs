@@ -1,4 +1,5 @@
 ﻿using System;
+using Maui.FreakyControls.Extensions;
 using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 
@@ -17,7 +18,7 @@ namespace Maui.FreakyControls
             {
                 if (freakyEntry.ImageSource != default(ImageSource))
                 {
-                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry);
+                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
                 }
 
                 HandleAllowCopyPaste(freakyEntry);

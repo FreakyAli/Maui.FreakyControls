@@ -1,4 +1,5 @@
 ﻿using System;
+using Maui.FreakyControls.Extensions;
 using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 
@@ -18,7 +19,7 @@ public partial class FreakyTimePickerHandler : TimePickerHandler
         {
             if (freakyTimePicker.ImageSource != default(ImageSource))
             {
-                freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker);
+                freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
             }
         }
     }

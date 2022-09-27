@@ -27,6 +27,26 @@
 
             <Label
                 TextColor="Black" 
+                Text="A Regular Entry below: " />
+            <Border
+                Stroke="Black"
+                Padding="10"
+                StrokeThickness="2"
+                HorizontalOptions="Fill">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <Entry
+               Placeholder="This is your regular entry :)"
+               TextColor="Purple"
+               FontSize="Large"
+               ClearButtonVisibility="WhileEditing"
+               Keyboard="Chat"/>
+            </Border>
+
+
+            <Label
+                TextColor="Black" 
                 Text="Freaky DatePicker below: " />
             <Border
                 Stroke="Black"
@@ -170,7 +190,6 @@
                ImageSource="calendar"
                Keyboard="Chat"/>
             </Border>
-
 
             <freakyControls:FreakyButton
                 BackgroundColor="{StaticResource Primary}"
