@@ -71,6 +71,7 @@
 	  <None Remove="Shared\FreakyDatePicker\" />
 	  <None Remove="Shared\FreakyTimePicker\" />
 	  <None Remove="Shared\FreakyPicker\" />
+	  <None Remove="Shared\Wrappers\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Platforms\iOS\" />
@@ -95,6 +96,7 @@
 	  <Folder Include="Shared\FreakyDatePicker\" />
 	  <Folder Include="Shared\FreakyTimePicker\" />
 	  <Folder Include="Shared\FreakyPicker\" />
+	  <Folder Include="Shared\Wrappers\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.2" />

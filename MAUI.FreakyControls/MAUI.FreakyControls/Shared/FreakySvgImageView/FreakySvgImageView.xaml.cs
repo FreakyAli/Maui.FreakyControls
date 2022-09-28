@@ -4,6 +4,9 @@ using System.Windows.Input;
 using System.Diagnostics;
 using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
 using SkiaSharp.Views.Maui;
+using System.Net;
+using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Helpers;
 
 namespace Maui.FreakyControls;
 
@@ -11,8 +14,11 @@ public partial class FreakySvgImageView : BaseSKCanvas
 {
     private DateTime firstTap;
     public const int TAP_TIME_TRESHOLD = 200;
-
     public event EventHandler Tapped;
+
+    private SKCanvas canvas;
+    private SKImageInfo info;
+    private SKSurface surface;
 
     #region bindable properties
 
@@ -20,7 +26,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
        nameof(ImageColor),
        typeof(Color),
        typeof(FreakySvgImageView),
-       default(Color),
+       Colors.Transparent,
        propertyChanged: OnColorChangedPropertyChanged
        );
 
@@ -66,13 +72,20 @@ public partial class FreakySvgImageView : BaseSKCanvas
         propertyChanged: RedrawCanvas
         );
 
+    public static readonly BindableProperty URLProperty = BindableProperty.Create(
+        nameof(URL),
+        typeof(string),
+        typeof(FreakySvgImageView),
+        default(string),
+        propertyChanged: RedrawCanvas
+        );
+
+
     private static void OnColorChangedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = bindable as FreakySvgImageView;
         view.InvalidateSurface();
     }
-
-    #endregion bindable properties
 
     /// <summary>
     /// of type Assembly, specifies the Assembly for your ResourceId.
@@ -111,6 +124,15 @@ public partial class FreakySvgImageView : BaseSKCanvas
     }
 
     /// <summary>
+    /// of type String, specifies the Base64 source of the image.
+    /// </summary>
+    public string URL
+    {
+        get => (string)GetValue(URLProperty);
+        set => SetValue(URLProperty, value);
+    }
+
+    /// <summary>
     /// of type ICommand, defines the command that's executed when the image is tapped.
     /// </summary>
     public ICommand Command
@@ -137,10 +159,11 @@ public partial class FreakySvgImageView : BaseSKCanvas
         set { SetValue(SvgModeProperty, value); }
     }
 
+    #endregion bindable properties
+
     public FreakySvgImageView()
     {
         InitializeComponent();
-        ImageColor = Colors.Transparent;
     }
 
     private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
@@ -155,13 +178,16 @@ public partial class FreakySvgImageView : BaseSKCanvas
         }
     }
 
+
+
     protected override void DoPaintSurface(SKPaintSurfaceEventArgs skPaintSurfaceEventArgs)
     {
         try
         {
-            var info = skPaintSurfaceEventArgs.Info;
-            var surface = skPaintSurfaceEventArgs.Surface;
-            var canvas = surface.Canvas;
+            info = skPaintSurfaceEventArgs.Info;
+            surface = skPaintSurfaceEventArgs.Surface;
+            canvas = surface.Canvas;
+            canvas.Clear();
             //TODO: Figure out why drawing on coachmark is leading to surface being null
             if (skPaintSurfaceEventArgs.Surface == null)
             {
@@ -169,82 +195,14 @@ public partial class FreakySvgImageView : BaseSKCanvas
             }
 
             // TODO: Possibly look at a way to add Color Mapping by reading the Svg Image File and replacing the colors manually and using SKPaths to render the image.
-            if (string.IsNullOrEmpty(ResourceId) && string.IsNullOrEmpty(Base64String))
+            if (string.IsNullOrEmpty(ResourceId) && string.IsNullOrWhiteSpace(URL) && string.IsNullOrEmpty(Base64String))
             {
                 return;
             }
+            UpdateBase64();
+            UpdateResourceId();
+            UpdateUrlAsync().RunConcurrently();
 
-            Stream svgStream;
-            var svg = new SKSvg();
-
-            if (!string.IsNullOrWhiteSpace(ResourceId))
-            {
-                svgStream = this.SvgAssembly.GetManifestResourceStream(ResourceId);
-                if (svgStream == null)
-                {
-                    // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
-                    Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
-                    return;
-                }
-                svg.Load(svgStream);
-            }
-            else if (!string.IsNullOrWhiteSpace(Base64String))
-            {
-                try
-                {
-                    string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
-                    var byteArray = Convert.FromBase64String(base64);
-                    using (var stream = new MemoryStream(byteArray))
-                    {
-                        svg.Load(stream);
-                    }
-                }
-                catch
-                {
-                    return;
-                }
-            }
-            canvas.Translate(info.Width / 2f, info.Height / 2f);
-            var bounds = svg.Picture.CullRect;
-            var xRatio = info.Width / bounds.Width;
-            var yRatio = info.Height / bounds.Height;
-            xRatio *= .95f;
-            yRatio *= .95f;
-            float ratio;
-            switch (SvgMode)
-            {
-                case Aspect.AspectFit:
-                    ratio = Math.Min(xRatio, yRatio);
-                    canvas.Scale(ratio);
-                    break;
-
-                case Aspect.AspectFill:
-                    ratio = Math.Max(xRatio, yRatio);
-                    canvas.Scale(ratio);
-                    break;
-
-                case Aspect.Fill:
-                    canvas.Scale(xRatio, yRatio);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            canvas.Translate(-bounds.MidX, -bounds.MidY);
-
-            if (ImageColor != Colors.Transparent)
-            {
-                using (var paint = new SKPaint
-                {
-                    ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
-                    Style = SKPaintStyle.StrokeAndFill
-                })
-                {
-                    canvas.DrawPicture(svg.Picture, paint);
-                    return;
-                }
-            }
-            canvas.DrawPicture(svg.Picture);
         }
         catch (KeyNotFoundException ex)
         {
@@ -279,22 +237,186 @@ public partial class FreakySvgImageView : BaseSKCanvas
         svgIcon?.InvalidateSurface();
     }
 
-    internal void UpdateResource(string resourceId)
+    private async Task UpdateUrlAsync()
     {
-        this.ResourceId = resourceId;
-        if (SvgAssembly != null)
+        var svg = new SKSvg();
+
+        if (!string.IsNullOrWhiteSpace(URL))
         {
-            this.InvalidateSurface();
+            var cancellationToken = new CancellationToken();
+            var imageUri = new Uri(URL);
+            var stream = await DownloadHelper.GetStreamAsync(imageUri, cancellationToken);
+            var memoryStream = stream.GetMemoryStream();
+            svg.Load(memoryStream);
         }
+        else
+            return;
+
+        canvas.Translate(info.Width / 2f, info.Height / 2f);
+        var bounds = svg.Picture.CullRect;
+        var xRatio = info.Width / bounds.Width;
+        var yRatio = info.Height / bounds.Height;
+        xRatio *= .95f;
+        yRatio *= .95f;
+        float ratio;
+        switch (SvgMode)
+        {
+            case Aspect.Center:
+            case Aspect.AspectFit:
+                ratio = Math.Min(xRatio, yRatio);
+                canvas.Scale(ratio);
+                break;
+
+            case Aspect.AspectFill:
+                ratio = Math.Max(xRatio, yRatio);
+                canvas.Scale(ratio);
+                break;
+
+            case Aspect.Fill:
+                canvas.Scale(xRatio, yRatio);
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        canvas.Translate(-bounds.MidX, -bounds.MidY);
+
+        if (ImageColor != Colors.Transparent)
+        {
+            using (var paint = new SKPaint
+            {
+                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
+                Style = SKPaintStyle.StrokeAndFill
+            })
+            {
+                canvas.DrawPicture(svg.Picture, paint);
+                return;
+            }
+        }
+        canvas.DrawPicture(svg.Picture);
     }
 
-    internal void UpdateAssembly(Assembly assembly)
+    private void UpdateBase64()
     {
-        this.SvgAssembly = assembly;
+        var svg = new SKSvg();
+
+        if (!string.IsNullOrWhiteSpace(Base64String))
+        {
+            string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
+            var byteArray = Convert.FromBase64String(base64);
+            using (var stream = new MemoryStream(byteArray))
+            {
+                svg.Load(stream);
+            }
+        }
+        else
+            return;
+
+        canvas.Translate(info.Width / 2f, info.Height / 2f);
+        var bounds = svg.Picture.CullRect;
+        var xRatio = info.Width / bounds.Width;
+        var yRatio = info.Height / bounds.Height;
+        xRatio *= .95f;
+        yRatio *= .95f;
+        float ratio;
+        switch (SvgMode)
+        {
+            case Aspect.Center:
+            case Aspect.AspectFit:
+                ratio = Math.Min(xRatio, yRatio);
+                canvas.Scale(ratio);
+                break;
+
+            case Aspect.AspectFill:
+                ratio = Math.Max(xRatio, yRatio);
+                canvas.Scale(ratio);
+                break;
+
+            case Aspect.Fill:
+                canvas.Scale(xRatio, yRatio);
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        canvas.Translate(-bounds.MidX, -bounds.MidY);
+
+        if (ImageColor != Colors.Transparent)
+        {
+            using (var paint = new SKPaint
+            {
+                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
+                Style = SKPaintStyle.StrokeAndFill
+            })
+            {
+                canvas.DrawPicture(svg.Picture, paint);
+                return;
+            }
+        }
+        canvas.DrawPicture(svg.Picture);
+    }
+
+    private void UpdateResourceId()
+    {
+        Stream svgStream;
+        var svg = new SKSvg();
+
         if (!string.IsNullOrWhiteSpace(ResourceId))
         {
-            InvalidateSurface();
+            svgStream = this.SvgAssembly.GetManifestResourceStream(ResourceId);
+            if (svgStream == null)
+            {
+                // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
+                Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
+                return;
+            }
+            svg.Load(svgStream);
         }
+        else
+            return;
+
+        canvas.Translate(info.Width / 2f, info.Height / 2f);
+        var bounds = svg.Picture.CullRect;
+        var xRatio = info.Width / bounds.Width;
+        var yRatio = info.Height / bounds.Height;
+        xRatio *= .95f;
+        yRatio *= .95f;
+        float ratio;
+        switch (SvgMode)
+        {
+            case Aspect.Center:
+            case Aspect.AspectFit:
+                ratio = Math.Min(xRatio, yRatio);
+                canvas.Scale(ratio);
+                break;
+
+            case Aspect.AspectFill:
+                ratio = Math.Max(xRatio, yRatio);
+                canvas.Scale(ratio);
+                break;
+
+            case Aspect.Fill:
+                canvas.Scale(xRatio, yRatio);
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        canvas.Translate(-bounds.MidX, -bounds.MidY);
+
+        if (ImageColor != Colors.Transparent)
+        {
+            using (var paint = new SKPaint
+            {
+                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
+                Style = SKPaintStyle.StrokeAndFill
+            })
+            {
+                canvas.DrawPicture(svg.Picture, paint);
+                return;
+            }
+        }
+        canvas.DrawPicture(svg.Picture);
     }
 
     protected override void OnPropertyChanged(string propertyName = null)
