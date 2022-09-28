@@ -8,24 +8,23 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyTextInputLayout : ContentView
 {
+    private int _topMargin;
+    int _placeholderFontSize = 18;
+    int _titleFontSize = 14;
+
     public FreakyTextInputLayout()
     {
         InitializeComponent();
         LabelTitle.TranslationX = 10;
         LabelTitle.FontSize = _placeholderFontSize;
 #if ANDROID
-        _topMargin = this.BorderType == BorderType.Full ? 35 : -45;
+        _topMargin = this.BorderType == BorderType.Full ? -35 : -45;
 #endif
 #if IOS
         _topMargin= -35;
 #endif
 
     }
-
-
-    private int _topMargin;
-    int _placeholderFontSize = 18;
-    int _titleFontSize = 14;
 
     /// <summary>
     /// raised when the user finalizes text in the <see cref="FreakyTextInputLayout"/> with the return key.
