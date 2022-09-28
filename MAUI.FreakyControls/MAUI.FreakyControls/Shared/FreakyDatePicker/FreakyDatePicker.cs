@@ -8,10 +8,10 @@ namespace Maui.FreakyControls;
 public class FreakyDatePicker : DatePicker, IDrawableImageView
 {
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
-              nameof(Image),
-              typeof(ImageSource),
-              typeof(FreakyDatePicker),
-              default(ImageSource));
+            nameof(Image),
+            typeof(ImageSource),
+            typeof(FreakyDatePicker),
+            default(ImageSource));
 
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
            nameof(ImageHeight),
