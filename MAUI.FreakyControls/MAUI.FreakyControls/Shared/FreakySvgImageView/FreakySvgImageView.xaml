@@ -2,13 +2,13 @@
 <views:BaseSKCanvas xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui.FreakyControls.FreakySvgImageView"
-             x:Name="RootContentView"
-             SizeChanged="SKCanvasView_OnSizeChanged"
-             xmlns:views="clr-namespace:Maui.FreakyControls">
+             xmlns:views="clr-namespace:Maui.FreakyControls"
+             x:Name="this"
+             SizeChanged="SKCanvasView_OnSizeChanged">
     <View.GestureRecognizers>
         <TapGestureRecognizer
-            Command="{Binding Source={x:Reference RootContentView}, Path=Command}"
-            CommandParameter="{Binding Source={x:Reference RootContentView}, Path=CommandParameter}"
+            Command="{Binding Source={x:Reference this}, Path=Command}"
+            CommandParameter="{Binding Source={x:Reference this}, Path=CommandParameter}"
             Tapped="TapGestureRecognizer_OnTapped" />
     </View.GestureRecognizers>
 </views:BaseSKCanvas>

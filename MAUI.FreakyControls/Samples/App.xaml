@@ -5,6 +5,19 @@
              x:Class="Samples.App">
     <Application.Resources>
         <ResourceDictionary>
+
+            <Style TargetType="Border">
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="Stroke" Value="Black" />
+                <Setter Property="StrokeThickness" Value="2" />
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="StrokeShape">
+                    <Setter.Value>
+                        <RoundRectangle CornerRadius="10" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

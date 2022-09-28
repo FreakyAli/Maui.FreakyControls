@@ -5,7 +5,6 @@
              xmlns:samples="clr-namespace:Samples"
              x:DataType="samples:MainViewModel"
              x:Class="Samples.MainPage">
-
     <ScrollView >
         <VerticalStackLayout
             Spacing="25"
@@ -21,21 +20,15 @@
             <freakyControls:FreakySvgImageView
                 HeightRequest="400"
                 Tapped="FreakySvgImageView_Tapped"
-                SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
                 SvgMode="AspectFit"
+                SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
                 ResourceId="{x:Static samples:Constants.DotnetBot}"/>
-
+            <!--URL="{x:Static samples:Constants.SvgUrl}"-->
+            <!--Base64String="{x:Static samples:Constants.SvgBase64}"-->
             <Label
                 TextColor="Black" 
                 Text="A Regular Entry below: " />
-            <Border
-                Stroke="Black"
-                Padding="10"
-                StrokeThickness="2"
-                HorizontalOptions="Fill">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
+            <Border>
                 <Entry
                Placeholder="This is your regular entry :)"
                TextColor="Purple"
@@ -48,14 +41,7 @@
             <Label
                 TextColor="Black" 
                 Text="Freaky DatePicker below: " />
-            <Border
-                Stroke="Black"
-                StrokeThickness="2"
-                Padding="10"
-                HorizontalOptions="Fill">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
+            <Border>
                 <freakyControls:FreakyDatePicker
                ImageSource="calendar"
                ImageAlignment="Left"
@@ -71,14 +57,7 @@
             <Label
                 TextColor="Black" 
                 Text="Freaky TimePicker below: " />
-            <Border
-                Stroke="Black"
-                StrokeThickness="2"
-                Padding="10"
-                HorizontalOptions="Fill">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
+            <Border>
                 <freakyControls:FreakyTimePicker
                ImageSource="calendar"
                ImageAlignment="Left"
@@ -94,14 +73,7 @@
             <Label
                 TextColor="Black" 
                 Text="Freaky Picker below: " />
-            <Border
-                Stroke="Black"
-                StrokeThickness="2"
-                Padding="10"
-                HorizontalOptions="Fill">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
+            <Border>
                 <freakyControls:FreakyPicker
                ImageSource="calendar"
                ImageAlignment="Right"
@@ -121,14 +93,7 @@
             <Label
                 TextColor="Black" 
                 Text="Freaky Editor below: " />
-            <Border
-                Stroke="Black"
-                StrokeThickness="2"
-                Padding="10"
-                HorizontalOptions="Fill">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
+            <Border>
                 <freakyControls:FreakyEditor
                Placeholder="This is a freaky editor"
                TextColor="Purple"
@@ -169,14 +134,7 @@
             <Label
                 TextColor="Black" 
                 Text="Freaky Entry below: " />
-            <Border
-                Stroke="Black"
-                Padding="10"
-                StrokeThickness="2"
-                HorizontalOptions="Fill">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10" />
-                </Border.StrokeShape>
+            <Border>
                 <freakyControls:FreakyEntry
                Placeholder="This is a freaky entry with image"
                TextColor="Purple"
@@ -196,10 +154,7 @@
                 TextColor="White"
                 Text="Click this freaky button"
                 HeightRequest="40"
-                LongPressed="FreakyButton_LongPressed"
                 Clicked="OnButtonClicked"
-                LongPressedCommand="{Binding FreakyLongPressedCommand}"
-                LongPressedCommandParameter="Param :D"
                 />
         </VerticalStackLayout>
     </ScrollView>
