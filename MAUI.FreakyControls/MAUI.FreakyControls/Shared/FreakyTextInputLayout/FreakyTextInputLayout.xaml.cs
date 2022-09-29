@@ -9,6 +9,7 @@ namespace Maui.FreakyControls;
 public partial class FreakyTextInputLayout : ContentView
 {
     private int _topMargin;
+    private int _leftMargin;
     int _placeholderFontSize = 18;
     int _titleFontSize = 14;
 
@@ -17,13 +18,6 @@ public partial class FreakyTextInputLayout : ContentView
         InitializeComponent();
         LabelTitle.TranslationX = 10;
         LabelTitle.FontSize = _placeholderFontSize;
-#if ANDROID
-        _topMargin = this.BorderType == BorderType.Full ? -35 : -45;
-#endif
-#if IOS
-        _topMargin= -35;
-#endif
-
     }
 
     /// <summary>
@@ -640,15 +634,29 @@ public partial class FreakyTextInputLayout : ContentView
         var control = bindable as FreakyTextInputLayout;
         switch (control.BorderType)
         {
-            case BorderType.None:
-                break;
-            case BorderType.Underline:
-#if IOS
-#endif
-                break;
             case BorderType.Full:
 #if ANDROID
+                control._topMargin = -45;
 #endif
+#if IOS
+                control._topMargin = -35;
+#endif
+                control._leftMargin = 0;
+                break;
+            case BorderType.Outlined:
+#if ANDROID
+                control._topMargin = -35;
+#endif
+#if IOS
+                control._topMargin = -25;
+#endif
+                control._leftMargin = 20;
+                break;
+
+            case BorderType.None:
+            case BorderType.Underline:
+                control._leftMargin = 0;
+                control._topMargin = -35;
                 break;
         }
     }
@@ -699,7 +707,7 @@ public partial class FreakyTextInputLayout : ContentView
     {
         if (animated)
         {
-            var t1 = LabelTitle.TranslateTo(0, _topMargin, 100);
+            var t1 = LabelTitle.TranslateTo(_leftMargin, _topMargin, 100);
             var t2 = SizeTo(_titleFontSize);
             await Task.WhenAll(t1, t2);
         }
