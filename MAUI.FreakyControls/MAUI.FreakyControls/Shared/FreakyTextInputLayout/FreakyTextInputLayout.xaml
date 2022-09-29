@@ -23,7 +23,6 @@
                 </Border.StrokeShape>
                 <controls:FreakyEntry
                    x:Name="EntryField"
-                   BackgroundColor="Transparent"
                    TextChanged="EntryField_TextChanged"
                    Completed="Handle_Completed"
                    FontSize="{Binding FontSize, Source={x:Reference this}}"
