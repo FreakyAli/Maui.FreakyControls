@@ -3,16 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Maui.FreakyControls"
              xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
+             BackgroundColor="White"
              x:Name="this"
              x:Class="Maui.FreakyControls.FreakyTextInputLayout">
     <ContentView.Resources>
         <converter:StrokeThicknessConverter x:Key="StrokeThicknessConverter"/>
+        <converter:TitleBackgroundColorConverter x:Key="TitleBackgroundColorConverter"/>
+        <converter:TilPaddingConverter x:Key="TilPaddingConverter" />
     </ContentView.Resources>
     <VerticalStackLayout Spacing="0">
         <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Transparent">
             <Border
                 Stroke="{Binding BorderStroke,Source={x:Reference this}}"
-                Padding="10"
+                Padding="{Binding BorderType,Source={x:Reference this}, Converter={StaticResource TilPaddingConverter}}"
                 StrokeThickness="{Binding BorderStrokeThickness,Source={x:Reference this}}"
                 HorizontalOptions="Fill">
                 <Border.StrokeShape>
@@ -20,6 +23,7 @@
                 </Border.StrokeShape>
                 <controls:FreakyEntry
                    x:Name="EntryField"
+                   BackgroundColor="Transparent"
                    TextChanged="EntryField_TextChanged"
                    Completed="Handle_Completed"
                    FontSize="{Binding FontSize, Source={x:Reference this}}"
@@ -56,11 +60,11 @@
             </Border>
             <Label x:Name="LabelTitle"
                    Margin="0,0,60,0"
-                   BackgroundColor="Transparent"
-                   VerticalTextAlignment="Center"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   BackgroundColor="{Binding BorderType,Source={x:Reference this},Converter={StaticResource TitleBackgroundColorConverter},ConverterParameter={x:Reference this}}"
                    TextColor="{Binding TitleColor,Source={x:Reference this}}"
-                   Text="{Binding Title, Source={x:Reference this}}"
-                   VerticalOptions="FillAndExpand">
+                   Text="{Binding Title, Source={x:Reference this}}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Handle_Tapped" />
                 </Label.GestureRecognizers>
