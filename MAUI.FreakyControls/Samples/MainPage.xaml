@@ -104,6 +104,20 @@
                Keyboard="Chat"/>
             </Border>
 
+              <freakyControls:FreakyTextInputLayout
+                TextChanged="FreakyTextInputLayout_TextChanged"
+                FontSize="Large"
+                BorderStroke="Black"
+                BorderType="Outlined"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                Title="Outlined TextInputLayout"/>
+
             <freakyControls:FreakyTextInputLayout
                 x:Name="yolo"
                 FontSize="Large"
