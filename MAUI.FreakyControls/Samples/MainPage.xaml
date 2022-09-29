@@ -105,7 +105,6 @@
             </Border>
 
               <freakyControls:FreakyTextInputLayout
-                TextChanged="FreakyTextInputLayout_TextChanged"
                 FontSize="Large"
                 BorderStroke="Black"
                 BorderType="Outlined"
@@ -132,7 +131,6 @@
                 Title="Underlined TextInputLayout"/>
 
             <freakyControls:FreakyTextInputLayout
-                TextChanged="FreakyTextInputLayout_TextChanged"
                 FontSize="Large"
                 BorderStroke="Black"
                 BorderType="Full"
