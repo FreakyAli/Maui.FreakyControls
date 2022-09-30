@@ -1,11 +1,10 @@
 ﻿using System;
 using Microsoft.Maui.Handlers;
 
-namespace Maui.FreakyControls.Shared.FreakyImage
+namespace Maui.FreakyControls;
+
+public partial class FreakyImageHandler: ImageHandler
 {
-	public partial class FreakyImageHandler: ImageHandler
-	{
-		
-	}
+	
 }
 

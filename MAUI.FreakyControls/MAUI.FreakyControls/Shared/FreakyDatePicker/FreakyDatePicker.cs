@@ -59,7 +59,7 @@ public class FreakyDatePicker : DatePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// A command that you can use to bind with your Image that you added to your Entry's ViewPort
+    /// <see cref="ImageCommand"/> of type <see cref="ICommand"/> that you can use to bind with your Image that you added to your control's ViewPort
     /// </summary>
     public ICommand ImageCommand
     {
@@ -68,7 +68,7 @@ public class FreakyDatePicker : DatePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// Padding of the Image that you added to the ViewPort
+    /// Padding of the Image as <see cref="int"/> that you added to the ViewPort
     /// </summary>
     public int ImagePadding
     {
@@ -95,7 +95,7 @@ public class FreakyDatePicker : DatePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// An ImageSource that you want to add to your ViewPort
+    /// An <see cref="ImageSource"/> that you want to add to your ViewPort
     /// </summary>
     public ImageSource ImageSource
     {
@@ -104,7 +104,7 @@ public class FreakyDatePicker : DatePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// Alignment for your Image's ViewPort, By default set to Right.
+    /// <see cref="ImageAlignment"/> for your Image's ViewPort, By default set to Right.
     /// </summary>
     public ImageAlignment ImageAlignment
     {
