@@ -58,7 +58,7 @@ public class FreakyPicker : Picker, IDrawableImageView
     }
 
     /// <summary>
-    /// A command that you can use to bind with your Image that you added to your Entry's ViewPort
+    /// A command that you can use to bind with your Image that you added to your Control's ViewPort
     /// </summary>
     public ICommand ImageCommand
     {
