@@ -22,8 +22,8 @@
                 Tapped="FreakySvgImageView_Tapped"
                 SvgMode="AspectFit"
                 SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
-                ResourceId="{x:Static samples:Constants.DotnetBot}"/>
-            <!--URL="{x:Static samples:Constants.SvgUrl}"-->
+                ResourceId="{x:Static samples:Constants.DotnetBot}"
+                />
             <!--Base64String="{x:Static samples:Constants.SvgBase64}"-->
             <Label
                 TextColor="Black" 
@@ -104,7 +104,7 @@
                Keyboard="Chat"/>
             </Border>
 
-              <freakyControls:FreakyTextInputLayout
+            <freakyControls:FreakyTextInputLayout
                 FontSize="Large"
                 BorderStroke="Black"
                 BorderType="Outlined"
