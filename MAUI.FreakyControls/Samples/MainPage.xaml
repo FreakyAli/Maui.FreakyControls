@@ -25,6 +25,7 @@
                 ResourceId="{x:Static samples:Constants.DotnetBot}"
                 />
             <!--Base64String="{x:Static samples:Constants.SvgBase64}"-->
+
             <Label
                 TextColor="Black" 
                 Text="A Regular Entry below: " />

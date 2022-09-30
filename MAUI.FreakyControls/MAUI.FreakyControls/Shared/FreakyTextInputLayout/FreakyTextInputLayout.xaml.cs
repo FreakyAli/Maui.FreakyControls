@@ -301,7 +301,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Type of Border you want for your TIL, By default set to None.
+    /// Type of Border you want for your <see cref="FreakyTextInputLayout", By default set to None.
     /// </summary>
     public BorderType BorderType
     {
@@ -346,7 +346,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type int, represents the length of selected text within the TIL.
+    /// of type int, represents the length of selected text within the <see cref="FreakyTextInputLayout".
     /// </summary>
     public int SelectionLength
     {
@@ -419,7 +419,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type int, defines the position of the cursor within the TIL.
+    /// of type int, defines the position of the cursor within the <see cref="FreakyTextInputLayout"/>.
     /// </summary>
     public int CursorPosition
     {
@@ -457,7 +457,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Thickness of the Underline of your TIL 
+    /// Thickness of the Underline of your <see cref="FreakyTextInputLayout" 
     /// </summary>
     public double UnderlineThickness
     {
@@ -466,7 +466,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Color of your TIL Underline 
+    /// Color of your <see cref="FreakyTextInputLayout" Underline 
     /// </summary>
     public Color UnderlineColor
     {
@@ -484,7 +484,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Gets and Sets if your TIL allows Copy Paste. default is true!
+    /// Gets and Sets if your <see cref="FreakyTextInputLayout" allows Copy Paste. default is true!
     /// </summary>
     public bool AllowCopyPaste
     {
@@ -502,7 +502,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// A command that you can use to bind with your Image that you added to your TIL's ViewPort
+    /// A command that you can use to bind with your Image that you added to your <see cref="FreakyTextInputLayout"'s ViewPort
     /// </summary>
     public ICommand ImageCommand
     {
@@ -584,7 +584,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type string, defines the text entered into the TIL.
+    /// of type string, defines the text entered into the <see cref="FreakyTextInputLayout".
     /// </summary>
     public string Text
     {
@@ -593,7 +593,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type string, defines the text to become the placeholder for the TIL.
+    /// of type string, defines the text to become the placeholder for the <see cref="FreakyTextInputLayout".
     /// </summary>
     public string Title
     {
@@ -611,7 +611,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type bool, specifies whether the TIL should visually obscure typed text.
+    /// of type bool, specifies whether the <see cref="FreakyTextInputLayout" should visually obscure typed text.
     /// </summary>
     public bool IsPassword
     {
