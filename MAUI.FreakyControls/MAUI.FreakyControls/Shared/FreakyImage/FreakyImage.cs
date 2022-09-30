@@ -5,6 +5,9 @@ namespace Maui.FreakyControls;
 
 public class FreakyImage : Image
 {
+    /// <summary>
+    /// Called when image is loaded in your image control's viewport
+    /// </summary>
     public event EventHandler ImageLoaded;
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

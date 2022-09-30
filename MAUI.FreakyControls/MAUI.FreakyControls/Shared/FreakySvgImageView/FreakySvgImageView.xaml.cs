@@ -72,15 +72,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
         propertyChanged: RedrawCanvas
         );
 
-    public static readonly BindableProperty URLProperty = BindableProperty.Create(
-        nameof(URL),
-        typeof(string),
-        typeof(FreakySvgImageView),
-        default(string),
-        propertyChanged: RedrawCanvas
-        );
-
-
     private static void OnColorChangedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = bindable as FreakySvgImageView;
@@ -88,7 +79,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
     }
 
     /// <summary>
-    /// of type Assembly, specifies the Assembly for your ResourceId.
+    /// of type <see cref="Assembly"/>, specifies the Assembly for your ResourceId.
     /// </summary>
     public Assembly SvgAssembly
     {
@@ -97,7 +88,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
     }
 
     /// <summary>
-    /// of type Color, specifies the color you want of your SVG image
+    /// of type <see cref="Color"/>, specifies the color you want of your SVG image
     /// </summary>
     public Color ImageColor
     {
@@ -106,7 +97,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
     }
 
     /// <summary>
-    /// of type String, specifies the source of the image.
+    /// of type <see cref="string"/>, specifies the source of the image.
     /// </summary>
     public string ResourceId
     {
@@ -115,7 +106,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
     }
 
     /// <summary>
-    /// of type String, specifies the Base64 source of the image.
+    /// of type <see cref="string"/>, specifies the Base64 source of the image.
     /// </summary>
     public string Base64String
     {
@@ -123,17 +114,9 @@ public partial class FreakySvgImageView : BaseSKCanvas
         set => SetValue(Base64StringProperty, value);
     }
 
-    /// <summary>
-    /// of type String, specifies the Base64 source of the image.
-    /// </summary>
-    public string URL
-    {
-        get => (string)GetValue(URLProperty);
-        set => SetValue(URLProperty, value);
-    }
 
     /// <summary>
-    /// of type ICommand, defines the command that's executed when the image is tapped.
+    /// of type <see cref="ICommand"/>, defines the command that's executed when the image is tapped.
     /// </summary>
     public ICommand Command
     {
@@ -142,7 +125,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
     }
 
     /// <summary>
-    /// of type object, is the parameter that's passed to Command.
+    /// of type <see cref="object"/>, is the parameter that's passed to Command.
     /// </summary>
     public object CommandParameter
     {
@@ -151,7 +134,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
     }
 
     /// <summary>
-    /// of type Aspect, defines the scaling mode of the image.
+    /// of type <see cref="Aspect"/>, defines the scaling mode of the image.
     /// </summary>
     public Aspect SvgMode
     {
@@ -178,8 +161,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
         }
     }
 
-
-
     protected override void DoPaintSurface(SKPaintSurfaceEventArgs skPaintSurfaceEventArgs)
     {
         try
@@ -194,15 +175,18 @@ public partial class FreakySvgImageView : BaseSKCanvas
                 return;
             }
 
-            // TODO: Possibly look at a way to add Color Mapping by reading the Svg Image File and replacing the colors manually and using SKPaths to render the image.
-            if (string.IsNullOrEmpty(ResourceId) && string.IsNullOrWhiteSpace(URL) && string.IsNullOrEmpty(Base64String))
+            if (!string.IsNullOrWhiteSpace(ResourceId) && this.SvgAssembly != null)
+            {
+                UpdateResourceId();
+            }
+            else if (!string.IsNullOrWhiteSpace(Base64String))
+            {
+                UpdateBase64();
+            }
+            else
             {
                 return;
             }
-            UpdateBase64();
-            UpdateResourceId();
-            UpdateUrlAsync().RunConcurrently();
-
         }
         catch (KeyNotFoundException ex)
         {
@@ -219,13 +203,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
         }
     }
 
-    internal void UpdateBase64String(string source)
-    {
-        this.Base64String = source;
-        this.ResourceId = null;
-        this.InvalidateSurface();
-    }
-
     private void SKCanvasView_OnSizeChanged(object sender, EventArgs e)
     {
         InvalidateSurface();
@@ -237,80 +214,15 @@ public partial class FreakySvgImageView : BaseSKCanvas
         svgIcon?.InvalidateSurface();
     }
 
-    private async Task UpdateUrlAsync()
-    {
-        var svg = new SKSvg();
-
-        if (!string.IsNullOrWhiteSpace(URL))
-        {
-            var cancellationToken = new CancellationToken();
-            var imageUri = new Uri(URL);
-            var stream = await DownloadHelper.GetStreamAsync(imageUri, cancellationToken);
-            var memoryStream = stream.GetMemoryStream();
-            svg.Load(memoryStream);
-        }
-        else
-            return;
-
-        canvas.Translate(info.Width / 2f, info.Height / 2f);
-        var bounds = svg.Picture.CullRect;
-        var xRatio = info.Width / bounds.Width;
-        var yRatio = info.Height / bounds.Height;
-        xRatio *= .95f;
-        yRatio *= .95f;
-        float ratio;
-        switch (SvgMode)
-        {
-            case Aspect.Center:
-            case Aspect.AspectFit:
-                ratio = Math.Min(xRatio, yRatio);
-                canvas.Scale(ratio);
-                break;
-
-            case Aspect.AspectFill:
-                ratio = Math.Max(xRatio, yRatio);
-                canvas.Scale(ratio);
-                break;
-
-            case Aspect.Fill:
-                canvas.Scale(xRatio, yRatio);
-                break;
-
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-        canvas.Translate(-bounds.MidX, -bounds.MidY);
-
-        if (ImageColor != Colors.Transparent)
-        {
-            using (var paint = new SKPaint
-            {
-                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
-                Style = SKPaintStyle.StrokeAndFill
-            })
-            {
-                canvas.DrawPicture(svg.Picture, paint);
-                return;
-            }
-        }
-        canvas.DrawPicture(svg.Picture);
-    }
-
     private void UpdateBase64()
     {
         var svg = new SKSvg();
-
-        if (!string.IsNullOrWhiteSpace(Base64String))
+        string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
+        var byteArray = Convert.FromBase64String(base64);
+        using (var stream = new MemoryStream(byteArray))
         {
-            string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
-            var byteArray = Convert.FromBase64String(base64);
-            using (var stream = new MemoryStream(byteArray))
-            {
-                svg.Load(stream);
-            }
+            svg.Load(stream);
         }
-        else
-            return;
 
         canvas.Translate(info.Width / 2f, info.Height / 2f);
         var bounds = svg.Picture.CullRect;
@@ -339,6 +251,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
         canvas.Translate(-bounds.MidX, -bounds.MidY);
 
         if (ImageColor != Colors.Transparent)
@@ -353,6 +266,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
                 return;
             }
         }
+
         canvas.DrawPicture(svg.Picture);
     }
 
@@ -360,20 +274,14 @@ public partial class FreakySvgImageView : BaseSKCanvas
     {
         Stream svgStream;
         var svg = new SKSvg();
-
-        if (!string.IsNullOrWhiteSpace(ResourceId))
+        svgStream = this.SvgAssembly.GetManifestResourceStream(ResourceId);
+        if (svgStream == null)
         {
-            svgStream = this.SvgAssembly.GetManifestResourceStream(ResourceId);
-            if (svgStream == null)
-            {
-                // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
-                Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
-                return;
-            }
-            svg.Load(svgStream);
-        }
-        else
+            // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
+            Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
             return;
+        }
+        svg.Load(svgStream);
 
         canvas.Translate(info.Width / 2f, info.Height / 2f);
         var bounds = svg.Picture.CullRect;

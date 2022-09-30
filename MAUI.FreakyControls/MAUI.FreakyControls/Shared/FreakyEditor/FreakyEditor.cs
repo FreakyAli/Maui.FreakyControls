@@ -17,7 +17,7 @@ namespace Maui.FreakyControls
              true);
 
         /// <summary>
-        /// Gets and Sets if your Entry allows Copy Paste. default is true!
+        /// Gets and Sets if your Controls allows Copy Paste. default is true!
         /// </summary>
         public bool AllowCopyPaste
         {
