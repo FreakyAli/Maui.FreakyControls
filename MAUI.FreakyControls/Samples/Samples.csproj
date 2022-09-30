@@ -68,4 +68,9 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Update="AutoCompletePage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	</ItemGroup>
 </Project>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_height="25dp"
+        android:layout_width="25dp"/>
+    <LinearLayout
+        android:layout_toRightOf="@+id/checkBox"
+        android:id="@+id/layoutContent"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/imgIcon"
+            android:layout_gravity="center_vertical"
+            android:layout_height="25dp"
+            android:layout_width="25dp" />
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtSeperator"
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
+        android:layout_width="match_parent" />
+    <ImageView
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:id="@+id/sortDown"
+        android:src="@drawable/sort_down"
+        android:layout_centerVertical="true"
+        android:layout_height="11dp"
+        android:layout_width="11dp" />
+    <Button
+        android:layout_alignRight="@+id/layoutContent"
+        android:layout_alignBottom="@+id/layoutContent"
+        android:layout_alignLeft="@+id/layoutContent"
+        android:layout_alignTop="@+id/layoutContent"
+        android:id="@+id/bttClick"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+</RelativeLayout>

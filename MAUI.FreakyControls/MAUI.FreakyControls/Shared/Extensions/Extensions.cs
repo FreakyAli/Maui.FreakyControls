@@ -6,13 +6,16 @@ using System.Xml;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Maui.FreakyControls.Shared;
 using System.Windows.Input;
+using Microsoft.Maui.Controls.Compatibility.Hosting;
 #if ANDROID
+using SupportAutoCompleteRenderer = Maui.FreakyControls.Platforms.Android.SupportAutoCompleteRenderer;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeColor = Android.Graphics.Color;
 using NativeImage = Android.Graphics.Bitmap;
 #endif
 #if IOS
+using SupportAutoCompleteRenderer = Maui.FreakyControls.Platforms.iOS.SupportAutoCompleteRenderer;
 using Maui.FreakyControls.Platforms.iOS;
 using NativeImage = UIKit.UIImage;
 using NativeColor = UIKit.UIColor;
@@ -23,7 +26,6 @@ namespace Maui.FreakyControls.Extensions
 {
     public static class Extensions
     {
-
         public static void ExecuteIfAvailable(this ICommand command, object parameter = null)
         {
             if (command?.CanExecute(parameter) == true)
@@ -40,11 +42,14 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakyTextInputLayout), typeof(FreakyTextInputLayoutHandler));
             //handlers.AddHandler(typeof(FreakyAutoCompleteView),typeof(FreakyAutoCompleteViewHandler));
             handlers.AddHandler(typeof(FreakyCircularImage),typeof(FreakyCircularImageHandler));
-        } 
+            handlers.AddCompatibilityRenderer(typeof(SupportAutoComplete), typeof(SupportAutoCompleteRenderer));
+
+        }
 
         public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.UseSkiaSharp();
+            mauiAppBuilder.UseMauiCompatibility();
         }
 
         /// <summary>
