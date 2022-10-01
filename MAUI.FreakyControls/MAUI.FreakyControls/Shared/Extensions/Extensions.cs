@@ -42,7 +42,7 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakyTextInputLayout), typeof(FreakyTextInputLayoutHandler));
             //handlers.AddHandler(typeof(FreakyAutoCompleteView),typeof(FreakyAutoCompleteViewHandler));
             handlers.AddHandler(typeof(FreakyCircularImage),typeof(FreakyCircularImageHandler));
-            handlers.AddCompatibilityRenderer(typeof(SupportAutoComplete), typeof(SupportAutoCompleteRenderer));
+            handlers.AddHandler(typeof(SupportAutoComplete), typeof(SupportAutoCompleteRenderer));
 
         }
 

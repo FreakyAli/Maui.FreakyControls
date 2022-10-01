@@ -240,8 +240,8 @@ public class SupportBaseAutoCompleteRenderer<TSupportAutoComplete, TOriginal> : 
         OriginalView.SetPadding((int)SupportView.PaddingInside, 0, (int)SupportView.PaddingInside, 0);
         OriginalView.TextSize = (float)SupportView.FontSize;
         OriginalView.SetTextColor(SupportView.TextColor.ToPlatform());
-        OriginalView.TextAlignment = TextAlignment.Center;
-        OriginalView.Typeface = SpecAndroid.CreateTypeface(Context, SupportView.FontFamily.Split('#')[0]);
+        OriginalView.TextAlignment = TextAlignment.TextStart;
+        //OriginalView.Typeface = SpecAndroid.CreateTypeface(Context, SupportView.FontFamily.Split('#')[0]);
         OriginalView.Hint = SupportView.Placeholder;
 
         OriginalView.Focusable = true;

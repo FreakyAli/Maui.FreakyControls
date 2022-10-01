@@ -9,6 +9,7 @@
             <freakyControls:SupportAutoComplete x:Name="singleTitle"
                                         HeightRequest="40"
                                         HorizontalOptions="FillAndExpand"
+                                        
                                         CornerColor="Green"
                                         CornerRadius="5"
                                         CornerWidth="1"
