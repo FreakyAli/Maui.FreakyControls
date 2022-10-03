@@ -9,13 +9,13 @@ using System.Windows.Input;
 #if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
-using NativeColor = Android.Graphics.Color;
 using NativeImage = Android.Graphics.Bitmap;
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;
+#endif
+#if IOS || MACCATALYST
 using NativeImage = UIKit.UIImage;
-using NativeColor = UIKit.UIColor;
 using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 #endif
 
@@ -52,24 +52,6 @@ namespace Maui.FreakyControls.Extensions
         }
 
         /// <summary>
-        /// Get native color from Maui graphics Color
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns>native Color</returns>
-        public static NativeColor ToNativeColor(this Color color)
-        {
-            var hexCode = color.ToHex();
-            NativeColor nativeColor;
-#if ANDROID
-            nativeColor = Android.Graphics.Color.ParseColor(hexCode);
-#endif
-#if IOS
-            nativeColor = UIKit.UIColor.Clear.FromHex(hexCode);
-#endif
-            return nativeColor;
-        }
-
-        /// <summary>
         /// Get native imagesource from Maui imagesource 
         /// </summary>
         /// <param name="source"></param>
@@ -78,7 +60,7 @@ namespace Maui.FreakyControls.Extensions
         {
             var handler = GetHandler(source);
             var returnValue = (NativeImage)null;
-#if IOS
+#if IOS || MACCATALYST
             returnValue = await handler.LoadImageAsync(source);
 #endif
 #if ANDROID

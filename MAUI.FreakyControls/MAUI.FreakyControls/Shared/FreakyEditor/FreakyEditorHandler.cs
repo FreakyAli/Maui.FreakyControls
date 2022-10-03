@@ -2,22 +2,30 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 
-namespace Maui.FreakyControls
-{
-    public sealed partial class FreakyEditorHandler : EditorHandler
-    {
-        public FreakyEditorHandler()
-        {
-            Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEditor);
-        }
+namespace Maui.FreakyControls;
 
-        private void MapFreakyEditor(IEditorHandler editorHandler, IEditor editor)
+#if ANDROID || IOS
+
+public sealed partial class FreakyEditorHandler : EditorHandler
+{
+    public FreakyEditorHandler()
+    {
+        Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEditor);
+    }
+
+    private void MapFreakyEditor(IEditorHandler editorHandler, IEditor editor)
+    {
+        if (editor is FreakyEditor feditor && editorHandler is FreakyEditorHandler freakyEditorHandler)
         {
-            if (editor is FreakyEditor feditor && editorHandler is FreakyEditorHandler freakyEditorHandler)
-            {
-                HandleAllowCopyPaste(feditor);
-            }
+            HandleAllowCopyPaste(feditor);
         }
     }
 }
 
+#else
+
+public partial class FreakyEditorHandler : EditorHandler
+{
+
+}
+#endif
