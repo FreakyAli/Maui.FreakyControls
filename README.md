@@ -40,6 +40,8 @@ Now you can use the controls in your app.
 Like what you see? Want to support our repo?
 
 [![](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
+
+## Documentation
  
 For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
  
