@@ -34,7 +34,6 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
         {
             InputTextField = new FreakyUITextfield()
             {
-                BackgroundColor= UIColor.SystemPink,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 BorderStyle = UITextBorderStyle.None,
                 ClipsToBounds = true,
@@ -48,8 +47,8 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
             InputTextField.EditingDidBegin += OnEditingDidBegin;
             InputTextField.EditingDidEnd += OnEditingDidEnd;
             InputTextField.EditingChanged += InputText_EditingChanged;
-            this.BackgroundColor = UIColor.Purple;
             AddSubview(InputTextField);
+
             InputTextField.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;
             InputTextField.LeftAnchor.ConstraintEqualTo(LeftAnchor).Active = true;
             InputTextField.WidthAnchor.ConstraintEqualTo(WidthAnchor).Active = true;

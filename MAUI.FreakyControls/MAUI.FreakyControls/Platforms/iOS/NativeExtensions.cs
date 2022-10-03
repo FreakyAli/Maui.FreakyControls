@@ -114,7 +114,9 @@ namespace Maui.FreakyControls.Platforms.iOS
                 textField.InputTextField.AttributedText = newText;
         }
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public static void UpdatePlaceholder(this IOSFreakyAutoBox textField, IEntry entry, Color? defaultPlaceholderColor = null)
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             var placeholder = entry.Placeholder;
             if (placeholder == null)
