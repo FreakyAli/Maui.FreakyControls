@@ -12,7 +12,7 @@
 		<ApplicationTitle>Samples</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.samples</ApplicationId>
+		<ApplicationId>com.maui.freakycontrols.samples</ApplicationId>
 		<ApplicationIdGuid>1844AE31-3FC0-4074-8E59-6D9E6A5DF9BC</ApplicationIdGuid>
 
 		<!-- Versions -->
