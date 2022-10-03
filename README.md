@@ -5,6 +5,13 @@
 | iOS             | iOS 11.0+ |
 | Android    | API 23+ (Marshmallow)    | 
 
+
+## Documentation
+ 
+For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
+
+## Installation
+
 Add our [NuGet](https://www.nuget.org/packages/FreakyControls) package or 
 
 Run the following command to add nuget to your .Net MAUI app:
@@ -41,9 +48,6 @@ Like what you see? Want to support our repo?
 
 [![](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
 
-## Documentation
- 
-For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
  
 
  
