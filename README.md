@@ -16,7 +16,7 @@ Add our [NuGet](https://www.nuget.org/packages/FreakyControls) package or
 
 Run the following command to add nuget to your .Net MAUI app:
 
-      Install-Package FreakyControls -Version 0.1.0
+      Install-Package FreakyControls -Version xx.xx.xx
 
 Adding FreakyControlsHandlers to your MAUI app:
 
