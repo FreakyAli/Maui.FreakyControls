@@ -43,7 +43,6 @@ namespace Samples
                         "xamarin@test.com",
                         "xamarinteam@mob.com"
                         };
-
             SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
         }
 
@@ -57,6 +56,7 @@ namespace Samples
             await MainThread.InvokeOnMainThreadAsync(() =>
             Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
         }
+
     }
 }
 

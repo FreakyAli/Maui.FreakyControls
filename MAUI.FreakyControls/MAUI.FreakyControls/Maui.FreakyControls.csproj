@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -38,7 +38,7 @@
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<WarningLevel>4</WarningLevel>
 		<LangVersion>latest</LangVersion>
-		<NoWarn>1701;1702;IL2121;CS1573;CS1591;CS1570</NoWarn>
+		<NoWarn>1701;1702;IL2121;CS1573;CS1591;CS1570;CS8632</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<LangVersion>latest</LangVersion>
@@ -74,6 +74,11 @@
 		<None Remove="Shared\FreakyTimePicker\" />
 		<None Remove="Shared\FreakyPicker\" />
 		<None Remove="Shared\Wrappers\" />
+		<None Remove="Shared\FreakySignatureView\" />
+		<None Remove="Platforms\MacCatalyst\" />
+		<None Remove="Platforms\Windows\" />
+		<None Remove="Platforms\Android\NativeControls\Signature\" />
+		<None Remove="Platforms\iOS\NativeControls\Signature\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -97,6 +102,11 @@
 		<Folder Include="Shared\FreakyTimePicker\" />
 		<Folder Include="Shared\FreakyPicker\" />
 		<Folder Include="Shared\Wrappers\" />
+		<Folder Include="Shared\FreakySignatureView\" />
+		<Folder Include="Platforms\MacCatalyst\" />
+		<Folder Include="Platforms\Windows\" />
+		<Folder Include="Platforms\Android\NativeControls\Signature\" />
+		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.2" />

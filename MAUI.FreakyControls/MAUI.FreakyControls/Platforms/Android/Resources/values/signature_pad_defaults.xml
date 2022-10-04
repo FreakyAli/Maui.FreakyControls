@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="signature_pad_clear_label_text">clear</string>
+  <string name="signature_pad_prompt_text">▶</string>
+  <string name="signature_pad_caption_text">sign above the line</string>
+  <color name="signature_pad_light_color">#FFFFFF</color>
+  <color name="signature_pad_dark_color">#000000</color>
+  <dimen name="signature_pad_wide_spacing">12dip</dimen>
+  <dimen name="signature_pad_narrow_spacing">3dip</dimen>
+  <dimen name="signature_pad_line_thickness">1dip</dimen>
+  <dimen name="signature_pad_font_size">15dip</dimen>
+</resources>
