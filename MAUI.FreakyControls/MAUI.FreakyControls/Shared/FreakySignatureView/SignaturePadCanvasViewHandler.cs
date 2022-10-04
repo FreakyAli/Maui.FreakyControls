@@ -18,8 +18,11 @@ namespace Maui.FreakyControls
         public static PropertyMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> customMapper =
             new(ViewHandler.ViewMapper)
             {
-
+                [nameof(SignaturePadCanvasView.StrokeColor)] = MapStrokeColor,
+                [nameof(SignaturePadCanvasView.StrokeWidth)] = MapStrokeWidth
             };
+
+       
 
         public static CommandMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> customCommandMapper =
             new(ViewHandler.ViewCommandMapper)
@@ -50,7 +53,6 @@ namespace Maui.FreakyControls
             VirtualView.StrokesRequested += OnStrokesRequested;
             VirtualView.StrokesSpecified += OnStrokesSpecified;
             VirtualView.ClearRequested += OnClearRequested;
-            UpdateAll();
         }
 
 
@@ -64,6 +66,20 @@ namespace Maui.FreakyControls
             VirtualView.StrokesRequested -= OnStrokesRequested;
             VirtualView.StrokesSpecified -= OnStrokesSpecified;
             VirtualView.ClearRequested -= OnClearRequested;
+        }
+
+        private static void MapStrokeWidth(SignaturePadCanvasViewHandler signaturePadCanvasViewHandler,
+           SignaturePadCanvasView signaturePadCanvasView)
+        {
+            signaturePadCanvasViewHandler.PlatformView.StrokeWidth =
+               signaturePadCanvasViewHandler.VirtualView.StrokeWidth;
+        }
+
+        private static void MapStrokeColor(SignaturePadCanvasViewHandler signaturePadCanvasViewHandler,
+            SignaturePadCanvasView signaturePadCanvasView)
+        {
+            signaturePadCanvasViewHandler.PlatformView.StrokeColor =
+                signaturePadCanvasViewHandler.VirtualView.StrokeColor.ToPlatform();
         }
 
         private void OnCleared(object sender, EventArgs e)
@@ -127,46 +143,6 @@ namespace Maui.FreakyControls
             if (ctrl != null)
             {
                 ctrl.Clear();
-            }
-        }
-
-        /// <summary>
-        /// Update all the properties on the native view.
-        /// </summary>
-        private void UpdateAll()
-        {
-            if (this.PlatformView == null || VirtualView == null)
-            {
-                return;
-            }
-
-            if (VirtualView.StrokeColor != Colors.Black)
-            {
-                this.PlatformView.StrokeColor = VirtualView.StrokeColor.ToPlatform();
-            }
-            if (VirtualView.StrokeWidth > 0)
-            {
-                this.PlatformView.StrokeWidth = VirtualView.StrokeWidth;
-            }
-        }
-
-        /// <summary>
-        /// Update a specific property on the native view.
-        /// </summary>
-        private void Update(string property)
-        {
-            if (this.PlatformView == null || VirtualView == null)
-            {
-                return;
-            }
-
-            if (property == SignaturePadCanvasView.StrokeColorProperty.PropertyName)
-            {
-                this.PlatformView.StrokeColor = VirtualView.StrokeColor.ToPlatform();
-            }
-            else if (property == SignaturePadCanvasView.StrokeWidthProperty.PropertyName)
-            {
-                this.PlatformView.StrokeWidth = VirtualView.StrokeWidth;
             }
         }
     }

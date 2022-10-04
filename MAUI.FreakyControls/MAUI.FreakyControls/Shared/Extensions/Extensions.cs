@@ -44,7 +44,8 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
             handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
             handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
-            //handlers.AddHandler(typeof(FreakySignatureView), typeof(FreakySignatureViewHandler));
+            handlers.AddHandler(typeof(SignaturePadCanvasView), typeof(SignaturePadCanvasViewHandler));
+            handlers.AddHandler(typeof(SignaturePadView), typeof(SignaturePadViewHandler));
         }
 
         public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)

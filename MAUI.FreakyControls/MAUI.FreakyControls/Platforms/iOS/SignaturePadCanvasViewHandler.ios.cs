@@ -6,7 +6,7 @@ namespace Maui.FreakyControls
     public partial class SignaturePadCanvasViewHandler
     {
         protected override Platforms.iOS.SignaturePadCanvasView
-            CreatePlatformView() => new Platforms.iOS.SignaturePadCanvasView();
+            CreatePlatformView() => new();
 
         private void OnImageStreamRequested(object sender, SignaturePadCanvasView.ImageStreamRequestedEventArgs e)
         {

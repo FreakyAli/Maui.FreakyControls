@@ -2,9 +2,9 @@
 using Microsoft.Maui.Handlers;
 
 #if ANDROID
-using NativeView = Android.Views.View;
+using NativeView = Maui.FreakyControls.Platforms.Android.SignaturePadView;
 #elif IOS
-using NativeView = UIKit.UIView;
+using NativeView = Maui.FreakyControls.Platforms.iOS.SignaturePadView;
 #elif W
 #endif
 
@@ -13,20 +13,32 @@ namespace Maui.FreakyControls;
 #if ANDROID || IOS
 public partial class SignaturePadViewHandler : ViewHandler<SignaturePadView, NativeView>
 {
-    public SignaturePadViewHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper, commandMapper)
-    {
+    public static PropertyMapper<SignaturePadView, SignaturePadViewHandler> customMapper =
+            new(ViewHandler.ViewMapper)
+            {
+               
+            };
 
+
+
+    public static CommandMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> customCommandMapper =
+        new(ViewHandler.ViewCommandMapper)
+        {
+
+        };
+
+    public SignaturePadViewHandler(PropertyMapper mapper = null) : base(mapper ?? customMapper)
+    {
     }
 
-    protected override NativeView CreatePlatformView()
+    public SignaturePadViewHandler() : base(customMapper, customCommandMapper)
     {
-        throw new NotImplementedException();
     }
 }
 
 #else
 
-public partial class FreakySignatureViewHandler 
+public partial class SignaturePadViewHandler 
 {
 
 }

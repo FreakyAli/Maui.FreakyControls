@@ -11,6 +11,13 @@
             Padding="30"
             VerticalOptions="Center">
 
+            <freakyControls:SignaturePadView
+	        x:Name="signatureView"
+            HeightRequest="300"
+	        StrokeWidth="3"
+	        StrokeColor="White"
+	        BackgroundColor="Black" />
+
             <freakyControls:FreakyCircularImage
                 HeightRequest="200"
                 WidthRequest="200"
