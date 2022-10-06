@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <Maui.FreakyControls.Platforms.Android.SignaturePadCanvasView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/signature_canvas" />
+    <TextView
+        android:text="@string/signature_pad_caption_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/caption"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:includeFontPadding="true"
+        android:textColor="@color/signature_pad_dark_color"
+        android:textSize="@dimen/signature_pad_font_size"
+        android:layout_marginBottom="@dimen/signature_pad_narrow_spacing" />
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/signature_line"
+        android:layout_above="@+id/caption"
+        android:layout_height="@dimen/signature_pad_line_thickness"
+        android:background="@color/signature_pad_dark_color"
+        android:layout_marginLeft="@dimen/signature_pad_wide_spacing"
+        android:layout_marginRight="@dimen/signature_pad_wide_spacing" />
+    <TextView
+        android:text="@string/signature_pad_prompt_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signature_prompt"
+        android:layout_above="@+id/signature_line"
+        android:textStyle="bold"
+        android:textColor="@color/signature_pad_dark_color"
+        android:textSize="@dimen/signature_pad_font_size"
+        android:layout_marginLeft="@dimen/signature_pad_wide_spacing" />
+    <TextView
+        android:text="@string/signature_pad_clear_label_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/clear_label"
+        android:includeFontPadding="true"
+        android:textColor="@color/signature_pad_dark_color"
+        android:textSize="@dimen/signature_pad_font_size"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/signature_pad_wide_spacing"
+        android:layout_marginTop="@dimen/signature_pad_wide_spacing" />
+</merge>

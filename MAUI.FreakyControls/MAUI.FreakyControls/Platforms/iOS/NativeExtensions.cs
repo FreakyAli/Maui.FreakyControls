@@ -73,6 +73,31 @@ namespace Maui.FreakyControls.Platforms.iOS
 
             return UIColor.FromRGBA(r, g, b, a);
         }
+
+        public static CGSize GetSize(this UIImage image)
+        {
+            return image.Size;
+        }
+
+        public static void Invalidate(this UIView view)
+        {
+            view.SetNeedsDisplay();
+        }
+
+        public static void MoveTo(this UIBezierPath path, NFloat x, NFloat y)
+        {
+            path.MoveTo(new CGPoint(x, y));
+        }
+
+        public static void LineTo(this UIBezierPath path, NFloat x, NFloat y)
+        {
+            path.AddLineTo(new CGPoint(x, y));
+        }
+
+        public static CGSize GetSize(this UIView view)
+        {
+            return view.Bounds.Size;
+        }
     }
 }
 

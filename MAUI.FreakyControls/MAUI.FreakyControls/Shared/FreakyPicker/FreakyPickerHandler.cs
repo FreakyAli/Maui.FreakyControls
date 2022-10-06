@@ -5,6 +5,7 @@ using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
 
+#if ANDROID || IOS
 public partial class FreakyPickerHandler : PickerHandler
 {
     public FreakyPickerHandler()
@@ -25,3 +26,10 @@ public partial class FreakyPickerHandler : PickerHandler
     }
 }
 
+#else
+
+public partial class FreakyPickerHandler : PickerHandler
+{
+
+}
+#endif

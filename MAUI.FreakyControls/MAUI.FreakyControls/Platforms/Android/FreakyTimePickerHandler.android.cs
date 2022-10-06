@@ -15,10 +15,8 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyTimePickerHandler
 {
-#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     MauiTimePicker? _timePicker;
     AlertDialog? _dialog;
-#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
     protected override MauiTimePicker CreatePlatformView()
     {

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             x:Class="Samples.InputViews.InputViews"
+             Title="InputViews">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30"
+            Spacing="15">
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky Entry below: " />
+            <Border>
+                <freakyControls:FreakyEntry
+               Placeholder="This is a freaky entry with image"
+               TextColor="Purple"
+               FontSize="Large"
+               ImagePadding="10"
+               AllowCopyPaste="False"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImageAlignment="Left"
+               ImageSource="calendar"
+               Keyboard="Chat"/>
+            </Border>
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky Entry below: " />
+            <Border>
+                <freakyControls:FreakyEntry
+               Placeholder="This is a freaky entry with image"
+               TextColor="Purple"
+               FontSize="Large"
+               ImagePadding="10"
+               AllowCopyPaste="False"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImageAlignment="Right"
+               ImageSource="calendar"
+               Keyboard="Chat"/>
+            </Border>
+
+            <Label
+                TextColor="Black" 
+                Text="Freaky Editor below: " />
+            <Border>
+                <freakyControls:FreakyEditor
+               Placeholder="This is a freaky editor"
+               TextColor="Purple"
+               AllowCopyPaste="False"
+               BackgroundColor="White"
+               HeightRequest="200"
+               FontSize="Large"
+               Keyboard="Chat"/>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

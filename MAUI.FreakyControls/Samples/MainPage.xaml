@@ -1,176 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              xmlns:samples="clr-namespace:Samples"
              x:DataType="samples:MainViewModel"
              x:Class="Samples.MainPage">
-    <ScrollView >
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30"
-            VerticalOptions="Center">
-
-            <freakyControls:FreakyCircularImage
-                HeightRequest="200"
-                WidthRequest="200"
-                Aspect="AspectFill"
-                Source="{x:Static samples:Constants.Profile}" />
-
-            <freakyControls:FreakySvgImageView
-                HeightRequest="400"
-                Tapped="FreakySvgImageView_Tapped"
-                SvgMode="AspectFit"
-                SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
-                ResourceId="{x:Static samples:Constants.DotnetBot}"
-                />
-            <!--Base64String="{x:Static samples:Constants.SvgBase64}"-->
-
-            <Label
-                TextColor="Black" 
-                Text="A Regular Entry below: " />
-            <Border>
-                <Entry
-               Placeholder="This is your regular entry :)"
-               TextColor="Purple"
-               FontSize="Large"
-               ClearButtonVisibility="WhileEditing"
-               Keyboard="Chat"/>
-            </Border>
-
-
-            <Label
-                TextColor="Black" 
-                Text="Freaky DatePicker below: " />
-            <Border>
-                <freakyControls:FreakyDatePicker
-               ImageSource="calendar"
-               ImageAlignment="Left"
-               ImageCommand="{Binding ImageWasTappedCommand}"
-               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-               ImagePadding="10"
-               TextColor="Black"
-               FontSize="Large"
-               />
-            </Border>
-
-            <Label
-                TextColor="Black" 
-                Text="Freaky TimePicker below: " />
-            <Border>
-                <freakyControls:FreakyTimePicker
-               ImageSource="calendar"
-               ImageAlignment="Left"
-               ImageCommand="{Binding ImageWasTappedCommand}"
-               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-               ImagePadding="10"
-               TextColor="Black"
-               FontSize="Large"
-               />
-            </Border>
-
-            <Label
-                TextColor="Black" 
-                Text="Freaky Picker below: " />
-            <Border>
-                <freakyControls:FreakyPicker
-               ImageSource="calendar"
-               ImageAlignment="Right"
-               ImageCommand="{Binding ImageWasTappedCommand}"
-               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-               ImagePadding="10"
-               TextColor="Black"
-               FontSize="Large"
-               ItemsSource="{Binding SuggestionItem}"
-               ItemDisplayBinding="{Binding .}"
-               Title="Select something :D"
-               TitleColor="LightGray"
-               />
-            </Border>
-
-            <Label
-                TextColor="Black" 
-                Text="Freaky Editor below: " />
-            <Border>
-                <freakyControls:FreakyEditor
-               Placeholder="This is a freaky editor"
-               TextColor="Purple"
-               AllowCopyPaste="False"
-               BackgroundColor="White"
-               HeightRequest="200"
-               FontSize="Large"
-               Keyboard="Chat"/>
-            </Border>
-
-            <freakyControls:FreakyTextInputLayout
-                FontSize="Large"
-                BorderStroke="Black"
-                BorderType="Outlined"
-                BorderCornerRadius="10"
-                BorderStrokeThickness="2"
-                ImageSource="calendar"
-                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-                ImagePadding="10"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                Title="Outlined TextInputLayout"/>
-
-            <freakyControls:FreakyTextInputLayout
-                x:Name="yolo"
-                FontSize="Large"
-                ImageSource="calendar"
-                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-                ImagePadding="10"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                UnderlineColor="Black"
-                BorderType="Underline"
-                UnderlineThickness="1.5"
-                Title="Underlined TextInputLayout"/>
-
-            <freakyControls:FreakyTextInputLayout
-                FontSize="Large"
-                BorderStroke="Black"
-                BorderType="Full"
-                BorderCornerRadius="10"
-                BorderStrokeThickness="2"
-                ImageSource="calendar"
-                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-                ImagePadding="10"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                Title="Bordered TextInputLayout"/>
-
-            <Label
-                TextColor="Black" 
-                Text="Freaky Entry below: " />
-            <Border>
-                <freakyControls:FreakyEntry
-               Placeholder="This is a freaky entry with image"
-               TextColor="Purple"
-               FontSize="Large"
-               ImagePadding="10"
-               AllowCopyPaste="False"
-               ImageCommand="{Binding ImageWasTappedCommand}"
-               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-               ImageAlignment="Left"
-               ImageSource="calendar"
-               Keyboard="Chat"/>
-            </Border>
-
-            <freakyControls:FreakyButton
-                BackgroundColor="{StaticResource Primary}"
-                TextColor="White"
-                Text="Click this freaky button"
-                HeightRequest="40"
-                Clicked="OnButtonClicked"
-                />
-        </VerticalStackLayout>
-    </ScrollView>
-
+    <ListView ItemsSource="{Binding Items}"
+              ItemTapped="ListView_ItemTapped"
+              SeparatorVisibility="None"
+              SelectionMode="None"
+              CachingStrategy="RecycleElementAndDataTemplate" >
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell TextColor="Black"  Text="{Binding .}"  />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>
 

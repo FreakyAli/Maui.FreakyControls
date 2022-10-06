@@ -12,7 +12,7 @@
 		<ApplicationTitle>Samples</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.samples</ApplicationId>
+		<ApplicationId>com.maui.freakycontrols.samples</ApplicationId>
 		<ApplicationIdGuid>1844AE31-3FC0-4074-8E59-6D9E6A5DF9BC</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -48,6 +48,11 @@
 	  <None Remove="Platforms\iOS\Assets.xcassets\" />
 	  <None Remove="CommunityToolkit.Mvvm" />
 	  <None Remove="Resources\Images\maui_cloud.png" />
+	  <None Remove="ImageViews\" />
+	  <None Remove="InputViews\" />
+	  <None Remove="TextInputLayout\" />
+	  <None Remove="Pickers\" />
+	  <None Remove="SignatureView\" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
@@ -55,6 +60,11 @@
 	<ItemGroup>
 	  <Folder Include="Platforms\Android\Resources\drawable\" />
 	  <Folder Include="Platforms\iOS\Assets.xcassets\" />
+	  <Folder Include="ImageViews\" />
+	  <Folder Include="InputViews\" />
+	  <Folder Include="TextInputLayout\" />
+	  <Folder Include="Pickers\" />
+	  <Folder Include="SignatureView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
@@ -64,6 +74,23 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\dotnet_bot.svg" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Update="ImageViews\ImagesPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="InputViews\InputViews.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Pickers\PickersView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="TextInputLayout\TextInputLayoutView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="SignatureView\SignatureView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />

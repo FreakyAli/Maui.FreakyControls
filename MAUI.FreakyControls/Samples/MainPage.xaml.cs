@@ -5,9 +5,10 @@ namespace Samples;
 
 public partial class MainPage : ContentPage
 {
+    private MainViewModel vm;
     public MainPage()
     {
-        BindingContext = new MainViewModel();
+        BindingContext = vm = new MainViewModel();
         InitializeComponent();
     }
 
@@ -19,6 +20,12 @@ public partial class MainPage : ContentPage
     async void OnButtonClicked(System.Object sender, System.EventArgs e)
     {
         await this.DisplayAlert("Yo", "I am a freaky button", "Ok");
+    }
+
+    async void ListView_ItemTapped(System.Object sender, Microsoft.Maui.Controls.ItemTappedEventArgs e)
+    {
+        string route = e.Item.ToString();
+        await Shell.Current.GoToAsync(route);
     }
 }
 

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="SignaturePadView">
+    <attr name="strokeColor" format="color" />
+    <attr name="strokeWidth" format="dimension" />
+    <attr name="signatureLineColor" format="color" />
+    <attr name="signatureLineWidth" format="dimension" />
+    <attr name="signatureLineSpacing" format="dimension" />
+    <attr name="captionText" format="string" />
+    <attr name="captionTextSize" format="dimension" />
+    <attr name="captionTextColor" format="color" />
+    <attr name="signaturePromptText" format="string" />
+    <attr name="signaturePromptTextSize" format="dimension" />
+    <attr name="signaturePromptTextColor" format="color" />
+    <attr name="clearLabelText" format="string" />
+    <attr name="clearLabelTextSize" format="dimension" />
+    <attr name="clearLabelTextColor" format="color" />
+  </declare-styleable>
+</resources>
