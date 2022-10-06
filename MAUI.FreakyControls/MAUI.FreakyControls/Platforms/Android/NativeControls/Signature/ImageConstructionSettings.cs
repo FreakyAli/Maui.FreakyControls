@@ -5,13 +5,10 @@ namespace Maui.FreakyControls.Platforms.Android;
 
 public struct ImageConstructionSettings
 {
-    internal static readonly NativeColor Black = NativeColor.Black;
-    internal static readonly NativeColor Transparent = new NativeColor(0, 0, 0, 0);
-
     public static readonly bool DefaultShouldCrop = true;
     public static readonly SizeOrScale DefaultSizeOrScale = 1f;
-    public static readonly NativeColor DefaultStrokeColor = Black;
-    public static readonly NativeColor DefaultBackgroundColor = Transparent;
+    public static readonly NativeColor DefaultStrokeColor = NativeColor.Black;
+    public static readonly NativeColor DefaultBackgroundColor = NativeColor.White;
     public static readonly float DefaultStrokeWidth = 2f;
     public static readonly float DefaultPadding = 5f;
 
@@ -19,7 +16,7 @@ public struct ImageConstructionSettings
 
     public SizeOrScale? DesiredSizeOrScale { get; set; }
 
-    public NativeNullableColor StrokeColor { get; set; }
+    public NativeNullableColor StrokeColor { get; set; } 
 
     public NativeNullableColor BackgroundColor { get; set; }
 

@@ -216,7 +216,7 @@ internal partial class InkPresenter
 
     // public properties
 
-    public NativeColor StrokeColor { get; set; } = ImageConstructionSettings.Black;
+    public NativeColor StrokeColor { get; set; } = NativeColor.Black;
 
     public float StrokeWidth { get; set; } = 1f;
 

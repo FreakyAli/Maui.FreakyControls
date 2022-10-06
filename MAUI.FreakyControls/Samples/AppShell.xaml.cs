@@ -9,6 +9,7 @@ public partial class AppShell : Shell
     internal const string pickers = "Pickers";
     internal const string imageViews = "ImageViews";
     internal const string signatureView = "SignatureView";
+    internal const string signaturePreview = "ImageDisplay";
 
     public AppShell()
     {
@@ -17,7 +18,8 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(pickers, typeof(Pickers.PickersView));
         Routing.RegisterRoute(textInputLayout, typeof(TextInputLayout.TextInputLayoutView));
         Routing.RegisterRoute(imageViews, typeof(ImageViews.ImagesPage));
-        Routing.RegisterRoute(signatureView,typeof(SignatureView.SignatureView));
+        Routing.RegisterRoute(signatureView, typeof(SignatureView.SignatureView));
+        Routing.RegisterRoute(signaturePreview, typeof(SignatureView.ImageDisplay));
     }
 }
 

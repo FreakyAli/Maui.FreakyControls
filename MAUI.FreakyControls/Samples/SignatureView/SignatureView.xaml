@@ -4,11 +4,15 @@
              x:Class="Samples.SignatureView.SignatureView"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="SignatureView">
-    <Grid>
+    <Grid RowDefinitions="*, Auto" Padding="5">
         <freakyControls:FreakySignaturePadView
+          x:Name="svgPad"
+          Grid.Row="0"
           ClearText="Clear"
           StrokeWidth="5"
           SignatureLineWidth="1"
+          StrokeCompleted="FreakySignaturePadView_StrokeCompleted"
           StrokeColor="Black"/>
+        <Button Text="Convert to Image" Grid.Row="1" Command="{Binding ConversionCommand}"/>
     </Grid>
 </ContentPage>
