@@ -7,15 +7,14 @@ namespace Maui.FreakyControls;
 
 public partial class FreakySignaturePadView : ContentView
 {
-    public event EventHandler StrokeCompleted;
-    public event EventHandler Cleared;
-    //private readonly TapGestureRecognizer clearLabelTap;
-
     private const string DefaultClearLabelText = "clear";
     private const string DefaultCaptionText = "sign above the line";
 
     private static readonly Color SignaturePadDarkColor = Colors.Black;
     private static readonly Color SignaturePadLightColor = Colors.White;
+
+    public event EventHandler StrokeCompleted;
+    public event EventHandler Cleared;
 
     public FreakySignaturePadView()
     {
