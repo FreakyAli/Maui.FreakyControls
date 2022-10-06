@@ -17,6 +17,8 @@
             x:Name="SignaturePadCanvas"
             HorizontalOptions="Fill"
             VerticalOptions="Fill"
+            StrokeCompleted="OnSignatureStrokeCompleted"
+            Cleared="OnSignatureCleared"
             StrokeColor="{Binding StrokeColor,Source={x:Reference this}}"
             StrokeWidth="{Binding StrokeWidth,Source={x:Reference this}}"/>
         <Label

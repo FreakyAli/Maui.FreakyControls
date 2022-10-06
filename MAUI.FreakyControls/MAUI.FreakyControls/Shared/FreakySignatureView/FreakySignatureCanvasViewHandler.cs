@@ -63,6 +63,9 @@ namespace Maui.FreakyControls
         protected override void DisconnectHandler(NativeView platformView)
         {
             base.DisconnectHandler(platformView);
+            platformView.StrokeCompleted -= PlatformView_StrokeCompleted;
+            platformView.Cleared -= OnCleared;
+
             VirtualView.ImageStreamRequested -= OnImageStreamRequested;
             VirtualView.IsBlankRequested -= OnIsBlankRequested;
             VirtualView.PointsRequested -= OnPointsRequested;

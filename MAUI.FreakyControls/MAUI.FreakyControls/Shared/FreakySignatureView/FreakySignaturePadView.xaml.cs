@@ -20,15 +20,7 @@ public partial class FreakySignaturePadView : ContentView
     public FreakySignaturePadView()
     {
         InitializeComponent();
-        // set up events from the controls
-        SignaturePadCanvas.StrokeCompleted += delegate
-        {
-            OnSignatureStrokeCompleted();
-        };
-        SignaturePadCanvas.Cleared += delegate
-        {
-            OnSignatureCleared();
-        };
+       
         clearLabelTap = new TapGestureRecognizer
         {
             Command = new Command(() => OnClearTapped())
@@ -399,24 +391,18 @@ public partial class FreakySignaturePadView : ContentView
         Clear();
     }
 
-    private void OnSignatureCleared()
+    private void OnSignatureCleared(object sender, EventArgs e)
     {
         UpdateBindableProperties();
-
         UpdateUi();
 
         Cleared?.Invoke(this, EventArgs.Empty);
-
-        if (ClearedCommand != null && ClearedCommand.CanExecute(null))
-        {
-            ClearedCommand.Execute(null);
-        }
+        ClearedCommand.ExecuteCommandIfAvailable();
     }
 
-    private void OnSignatureStrokeCompleted()
+    private void OnSignatureStrokeCompleted(object sender, EventArgs e)
     {
         UpdateBindableProperties();
-
         UpdateUi();
 
         StrokeCompleted?.Invoke(this, EventArgs.Empty);
