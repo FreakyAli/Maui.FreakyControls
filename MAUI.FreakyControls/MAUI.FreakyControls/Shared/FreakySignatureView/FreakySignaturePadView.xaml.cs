@@ -9,7 +9,7 @@ public partial class FreakySignaturePadView : ContentView
 {
     public event EventHandler StrokeCompleted;
     public event EventHandler Cleared;
-    private readonly TapGestureRecognizer clearLabelTap;
+    //private readonly TapGestureRecognizer clearLabelTap;
 
     private const string DefaultClearLabelText = "clear";
     private const string DefaultCaptionText = "sign above the line";
@@ -20,14 +20,6 @@ public partial class FreakySignaturePadView : ContentView
     public FreakySignaturePadView()
     {
         InitializeComponent();
-       
-        clearLabelTap = new TapGestureRecognizer
-        {
-            Command = new Command(() => OnClearTapped())
-        };
-
-        ClearLabel.GestureRecognizers.Add(clearLabelTap);
-        UpdateUi();
     }
 
     public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
@@ -273,10 +265,7 @@ public partial class FreakySignaturePadView : ContentView
         if (propertyName == IsEnabledProperty.PropertyName)
         {
             SignaturePadCanvas.IsEnabled = IsEnabled;
-            if (IsEnabled)
-                ClearLabel.GestureRecognizers.Add(clearLabelTap);
-            else
-                ClearLabel.GestureRecognizers.Remove(clearLabelTap);
+            ClearLabel.IsEnabled = IsEnabled;
         }
     }
 
@@ -286,7 +275,6 @@ public partial class FreakySignaturePadView : ContentView
         set
         {
             SignaturePadCanvas.Strokes = value;
-            UpdateUi();
         }
     }
 
@@ -296,14 +284,12 @@ public partial class FreakySignaturePadView : ContentView
         set
         {
             SignaturePadCanvas.Points = value;
-            UpdateUi();
         }
     }
 
     public void Clear()
     {
         SignaturePadCanvas.Clear();
-        UpdateUi();
     }
 
     /// <summary>
@@ -386,7 +372,7 @@ public partial class FreakySignaturePadView : ContentView
         return SignaturePadCanvas.GetImageStreamAsync(format, settings);
     }
 
-    private void OnClearTapped()
+    private void OnClearTapped(object sender, EventArgs e)
     {
         Clear();
     }
@@ -394,8 +380,6 @@ public partial class FreakySignaturePadView : ContentView
     private void OnSignatureCleared(object sender, EventArgs e)
     {
         UpdateBindableProperties();
-        UpdateUi();
-
         Cleared?.Invoke(this, EventArgs.Empty);
         ClearedCommand.ExecuteCommandIfAvailable();
     }
@@ -403,8 +387,6 @@ public partial class FreakySignaturePadView : ContentView
     private void OnSignatureStrokeCompleted(object sender, EventArgs e)
     {
         UpdateBindableProperties();
-        UpdateUi();
-
         StrokeCompleted?.Invoke(this, EventArgs.Empty);
         StrokeCompletedCommand.ExecuteCommandIfAvailable();
     }
@@ -412,10 +394,5 @@ public partial class FreakySignaturePadView : ContentView
     private void UpdateBindableProperties()
     {
         SetValue(IsBlankPropertyKey, SignaturePadCanvas.IsBlank);
-    }
-
-    private void UpdateUi()
-    {
-        ClearLabel.IsVisible = !IsBlank;
     }
 }
