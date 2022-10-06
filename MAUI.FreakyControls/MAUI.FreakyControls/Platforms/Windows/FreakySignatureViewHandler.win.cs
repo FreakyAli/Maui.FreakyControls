@@ -2,7 +2,7 @@
 
 namespace Maui.FreakyControls;
 
-public partial class FreakySignatureViewHandler
+public partial class FreakySignatureCanvasViewHandler
 {
 	
 }

@@ -4,36 +4,36 @@ using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
-public class SignaturePadCanvasView : View
+public class FreakySignatureCanvasView : View
 {
     public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
         nameof(StrokeColor),
         typeof(Color),
-        typeof(SignaturePadCanvasView),
+        typeof(FreakySignatureCanvasView),
         ImageConstructionSettings.DefaultStrokeColor);
 
     public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(
         nameof(StrokeWidth),
         typeof(float),
-        typeof(SignaturePadCanvasView),
+        typeof(FreakySignatureCanvasView),
         ImageConstructionSettings.DefaultStrokeWidth);
 
     public static readonly BindableProperty ClearedCommandProperty = BindableProperty.Create(
         nameof(ClearedCommand),
         typeof(ICommand),
-        typeof(SignaturePadCanvasView),
+        typeof(FreakySignatureCanvasView),
         default(ICommand));
 
     public static readonly BindableProperty StrokeCompletedCommandProperty = BindableProperty.Create(
         nameof(StrokeCompletedCommand),
         typeof(ICommand),
-        typeof(SignaturePadCanvasView),
+        typeof(FreakySignatureCanvasView),
         default(ICommand));
 
     internal static readonly BindablePropertyKey IsBlankPropertyKey = BindableProperty.CreateReadOnly(
         nameof(IsBlank),
         typeof(bool),
-        typeof(SignaturePadCanvasView),
+        typeof(FreakySignatureCanvasView),
         true);
     public static readonly BindableProperty IsBlankProperty = IsBlankPropertyKey.BindableProperty;
 

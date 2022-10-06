@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
              x:Name="this"
-             x:Class="Maui.FreakyControls.SignaturePadView">
+             x:Class="Maui.FreakyControls.FreakySignaturePadView">
     <Grid RowSpacing="0" Padding="10" ColumnSpacing="0">
         <Image
             x:Name="BackgroundImageView"
@@ -13,7 +13,7 @@
             Opacity="{Binding BackgroundImageOpacity,Source={x:Reference this}}"
             Aspect="{Binding BackgroundImageAspect,Source={x:Reference this}}"
             Source="{Binding BackgroundImage,Source={x:Reference this}}"/>
-        <freakyControls:SignaturePadCanvasView
+        <freakyControls:FreakySignatureCanvasView
             x:Name="SignaturePadCanvas"
             HorizontalOptions="Fill"
             VerticalOptions="Fill"

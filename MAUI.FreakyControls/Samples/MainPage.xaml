@@ -4,11 +4,14 @@
              xmlns:samples="clr-namespace:Samples"
              x:DataType="samples:MainViewModel"
              x:Class="Samples.MainPage">
-    <ListView ItemsSource="{Binding Items}" ItemTapped="ListView_ItemTapped"
-              SelectionMode="None" CachingStrategy="RecycleElementAndDataTemplate" >
+    <ListView ItemsSource="{Binding Items}"
+              ItemTapped="ListView_ItemTapped"
+              SeparatorVisibility="None"
+              SelectionMode="None"
+              CachingStrategy="RecycleElementAndDataTemplate" >
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding .}"/>
+                <TextCell TextColor="Black"  Text="{Binding .}"  />
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

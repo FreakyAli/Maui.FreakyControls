@@ -3,12 +3,12 @@ using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls
 {
-    public partial class SignaturePadCanvasViewHandler
+    public partial class FreakySignatureCanvasViewHandler
     {
         protected override Platforms.Android.SignaturePadCanvasView
             CreatePlatformView() => new (this.Context);
 
-        private void OnImageStreamRequested(object sender, SignaturePadCanvasView.ImageStreamRequestedEventArgs e)
+        private void OnImageStreamRequested(object sender, FreakySignatureCanvasView.ImageStreamRequestedEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)

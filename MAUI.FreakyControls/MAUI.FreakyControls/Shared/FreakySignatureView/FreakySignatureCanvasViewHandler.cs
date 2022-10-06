@@ -13,32 +13,32 @@ using NativePoint = CoreGraphics.CGPoint;
 namespace Maui.FreakyControls
 {
 #if IOS || ANDROID
-    public partial class SignaturePadCanvasViewHandler : ViewHandler<SignaturePadCanvasView, NativeView>
+    public partial class FreakySignatureCanvasViewHandler : ViewHandler<FreakySignatureCanvasView, NativeView>
     {
-        public static PropertyMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> Mapper =
+        public static PropertyMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> Mapper =
             new(ViewHandler.ViewMapper)
             {
-                [nameof(SignaturePadCanvasView.StrokeColor)] = MapStrokeColor,
-                [nameof(SignaturePadCanvasView.StrokeWidth)] = MapStrokeWidth
+                [nameof(FreakySignatureCanvasView.StrokeColor)] = MapStrokeColor,
+                [nameof(FreakySignatureCanvasView.StrokeWidth)] = MapStrokeWidth
             };
 
        
 
-        public static CommandMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> CommandMapper =
+        public static CommandMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> CommandMapper =
             new(ViewHandler.ViewCommandMapper)
             {
             };
 
-        public SignaturePadCanvasViewHandler() : base(Mapper)
+        public FreakySignatureCanvasViewHandler() : base(Mapper)
         {
         }
 
-        public SignaturePadCanvasViewHandler(IPropertyMapper? mapper)
+        public FreakySignatureCanvasViewHandler(IPropertyMapper? mapper)
             : base(mapper ?? Mapper, CommandMapper)
         {
         }
 
-        public SignaturePadCanvasViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper)
+        public FreakySignatureCanvasViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper)
             : base(mapper ?? Mapper, commandMapper ?? CommandMapper)
         {
         }
@@ -72,15 +72,15 @@ namespace Maui.FreakyControls
             VirtualView.ClearRequested -= OnClearRequested;
         }
 
-        private static void MapStrokeWidth(SignaturePadCanvasViewHandler signaturePadCanvasViewHandler,
-           SignaturePadCanvasView signaturePadCanvasView)
+        private static void MapStrokeWidth(FreakySignatureCanvasViewHandler signaturePadCanvasViewHandler,
+           FreakySignatureCanvasView signaturePadCanvasView)
         {
             signaturePadCanvasViewHandler.PlatformView.StrokeWidth =
                signaturePadCanvasViewHandler.VirtualView.StrokeWidth;
         }
 
-        private static void MapStrokeColor(SignaturePadCanvasViewHandler signaturePadCanvasViewHandler,
-            SignaturePadCanvasView signaturePadCanvasView)
+        private static void MapStrokeColor(FreakySignatureCanvasViewHandler signaturePadCanvasViewHandler,
+            FreakySignatureCanvasView signaturePadCanvasView)
         {
             signaturePadCanvasViewHandler.PlatformView.StrokeColor =
                 signaturePadCanvasViewHandler.VirtualView.StrokeColor.ToPlatform();
@@ -96,7 +96,7 @@ namespace Maui.FreakyControls
             VirtualView?.OnStrokeCompleted();
         }
 
-        private void OnIsBlankRequested(object sender, SignaturePadCanvasView.IsBlankRequestedEventArgs e)
+        private void OnIsBlankRequested(object sender, FreakySignatureCanvasView.IsBlankRequestedEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -105,7 +105,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnPointsRequested(object sender, SignaturePadCanvasView.PointsEventArgs e)
+        private void OnPointsRequested(object sender, FreakySignatureCanvasView.PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -114,7 +114,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnPointsSpecified(object sender, SignaturePadCanvasView.PointsEventArgs e)
+        private void OnPointsSpecified(object sender, FreakySignatureCanvasView.PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -123,7 +123,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnStrokesRequested(object sender, SignaturePadCanvasView.StrokesEventArgs e)
+        private void OnStrokesRequested(object sender, FreakySignatureCanvasView.StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -132,7 +132,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnStrokesSpecified(object sender, SignaturePadCanvasView.StrokesEventArgs e)
+        private void OnStrokesSpecified(object sender, FreakySignatureCanvasView.StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)

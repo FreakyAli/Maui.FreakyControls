@@ -5,7 +5,7 @@
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="SignatureView">
     <Grid>
-        <freakyControls:SignaturePadView
+        <freakyControls:FreakySignaturePadView
           ClearText="Clear"
           StrokeWidth="5"
           SignatureLineWidth="1"

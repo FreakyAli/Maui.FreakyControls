@@ -4,9 +4,9 @@ using UIKit;
 
 namespace Maui.FreakyControls;
 
-public partial class SignaturePadCanvasViewHandler : ViewHandler<View, UIView>
+public partial class FreakySignatureCanvasViewHandler : ViewHandler<View, UIView>
 {
-    public SignaturePadCanvasViewHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper, commandMapper)
+    public FreakySignatureCanvasViewHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper, commandMapper)
     {
     }
 

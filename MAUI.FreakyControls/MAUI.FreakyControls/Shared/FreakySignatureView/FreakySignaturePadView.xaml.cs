@@ -5,7 +5,7 @@ using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
-public partial class SignaturePadView : ContentView
+public partial class FreakySignaturePadView : ContentView
 {
     public event EventHandler StrokeCompleted;
     public event EventHandler Cleared;
@@ -17,7 +17,7 @@ public partial class SignaturePadView : ContentView
     private static readonly Color SignaturePadDarkColor = Colors.Black;
     private static readonly Color SignaturePadLightColor = Colors.White;
 
-    public SignaturePadView()
+    public FreakySignaturePadView()
     {
         InitializeComponent();
         // set up events from the controls
@@ -41,95 +41,95 @@ public partial class SignaturePadView : ContentView
     public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
            nameof(StrokeColor),
            typeof(Color),
-           typeof(SignaturePadView),
+           typeof(FreakySignaturePadView),
            ImageConstructionSettings.DefaultStrokeColor);
 
     public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(
             nameof(StrokeWidth),
             typeof(float),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             ImageConstructionSettings.DefaultStrokeWidth);
 
     public static readonly BindableProperty CaptionTextProperty = BindableProperty.Create(
             nameof(CaptionText),
             typeof(string),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             DefaultCaptionText);
 
     public static readonly BindableProperty CaptionFontSizeProperty = BindableProperty.Create(
             nameof(CaptionFontSize),
             typeof(double),
-            typeof(SignaturePadView));
+            typeof(FreakySignaturePadView));
 
     public static readonly BindableProperty CaptionTextColorProperty = BindableProperty.Create(
             nameof(CaptionTextColor),
             typeof(Color),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             SignaturePadDarkColor);
 
     public static readonly BindableProperty SignatureLineColorProperty = BindableProperty.Create(
             nameof(SignatureLineColor),
             typeof(Color),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             SignaturePadDarkColor);
 
     public static readonly BindableProperty SignatureLineWidthProperty = BindableProperty.Create(
             nameof(SignatureLineWidth),
             typeof(double),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             1.0);
 
     public static readonly BindableProperty ClearTextProperty = BindableProperty.Create(
             nameof(ClearText),
             typeof(string),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             DefaultClearLabelText);
 
     public static readonly BindableProperty ClearFontSizeProperty = BindableProperty.Create(
             nameof(ClearFontSize),
             typeof(double),
-            typeof(SignaturePadView));
+            typeof(FreakySignaturePadView));
 
     public static readonly BindableProperty ClearTextColorProperty = BindableProperty.Create(
             nameof(ClearTextColor),
             typeof(Color),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             SignaturePadDarkColor);
 
     public static readonly BindableProperty BackgroundImageProperty = BindableProperty.Create(
             nameof(BackgroundImage),
             typeof(ImageSource),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             default(ImageSource));
 
     public static readonly BindableProperty BackgroundImageAspectProperty = BindableProperty.Create(
             nameof(BackgroundImageAspect),
             typeof(Aspect),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             Aspect.AspectFit);
 
     public static readonly BindableProperty BackgroundImageOpacityProperty = BindableProperty.Create(
             nameof(BackgroundImageOpacity),
             typeof(double),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             1.0);
 
     public static readonly BindableProperty ClearedCommandProperty = BindableProperty.Create(
             nameof(ClearedCommand),
             typeof(ICommand),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             default(ICommand));
 
     public static readonly BindableProperty StrokeCompletedCommandProperty = BindableProperty.Create(
             nameof(StrokeCompletedCommand),
             typeof(ICommand),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             default(ICommand));
 
     internal static readonly BindablePropertyKey IsBlankPropertyKey = BindableProperty.CreateReadOnly(
             nameof(IsBlank),
             typeof(bool),
-            typeof(SignaturePadView),
+            typeof(FreakySignaturePadView),
             true);
 
     public static readonly BindableProperty IsBlankProperty = IsBlankPropertyKey.BindableProperty;
