@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.TextInputLayout.TextInputLayoutView"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             Title="TextInputLayoutView">
+    <VerticalStackLayout Padding="30" Spacing="25">
+       
+            <freakyControls:FreakyTextInputLayout
+                FontSize="Large"
+                BorderStroke="Black"
+                BorderType="Outlined"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                Title="Outlined TextInputLayout"/>
+
+            <freakyControls:FreakyTextInputLayout
+                x:Name="yolo"
+                FontSize="Large"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                UnderlineColor="Black"
+                BorderType="Underline"
+                UnderlineThickness="1.5"
+                Title="Underlined TextInputLayout"/>
+
+            <freakyControls:FreakyTextInputLayout
+                FontSize="Large"
+                BorderStroke="Black"
+                BorderType="Full"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
+                ImageSource="calendar"
+                ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+                ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+                ImagePadding="10"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                Title="Bordered TextInputLayout"/>
+    </VerticalStackLayout>
+</ContentPage>

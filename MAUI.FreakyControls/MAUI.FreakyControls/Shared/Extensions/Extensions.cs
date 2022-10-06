@@ -37,7 +37,6 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
             handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
             handlers.AddHandler(typeof(FreakySvgImageView), typeof(FreakySvgImageViewHandler));
-            handlers.AddHandler(typeof(FreakyTextInputLayout), typeof(FreakyTextInputLayoutHandler));
             handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
             handlers.AddHandler(typeof(FreakyButton), typeof(FreakyButtonHandler));
             handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
@@ -45,7 +44,6 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
             handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
             handlers.AddHandler(typeof(SignaturePadCanvasView), typeof(SignaturePadCanvasViewHandler));
-            handlers.AddHandler(typeof(SignaturePadView), typeof(SignaturePadViewHandler));
         }
 
         public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)

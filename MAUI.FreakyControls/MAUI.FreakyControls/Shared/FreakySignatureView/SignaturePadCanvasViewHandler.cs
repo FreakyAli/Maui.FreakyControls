@@ -15,7 +15,7 @@ namespace Maui.FreakyControls
 #if IOS || ANDROID
     public partial class SignaturePadCanvasViewHandler : ViewHandler<SignaturePadCanvasView, NativeView>
     {
-        public static PropertyMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> customMapper =
+        public static PropertyMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> Mapper =
             new(ViewHandler.ViewMapper)
             {
                 [nameof(SignaturePadCanvasView.StrokeColor)] = MapStrokeColor,
@@ -24,19 +24,23 @@ namespace Maui.FreakyControls
 
        
 
-        public static CommandMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> customCommandMapper =
+        public static CommandMapper<SignaturePadCanvasView, SignaturePadCanvasViewHandler> CommandMapper =
             new(ViewHandler.ViewCommandMapper)
             {
-
             };
 
-        public SignaturePadCanvasViewHandler(PropertyMapper mapper = null) : base(mapper ?? customMapper)
+        public SignaturePadCanvasViewHandler() : base(Mapper)
         {
         }
 
-        public SignaturePadCanvasViewHandler() : base(customMapper, customCommandMapper)
+        public SignaturePadCanvasViewHandler(IPropertyMapper? mapper)
+            : base(mapper ?? Mapper, CommandMapper)
         {
+        }
 
+        public SignaturePadCanvasViewHandler(IPropertyMapper? mapper, CommandMapper? commandMapper)
+            : base(mapper ?? Mapper, commandMapper ?? CommandMapper)
+        {
         }
 
         protected override void ConnectHandler(NativeView platformView)

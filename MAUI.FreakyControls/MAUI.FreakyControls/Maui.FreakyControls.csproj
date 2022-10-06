@@ -109,7 +109,7 @@
 		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.2" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 	</ItemGroup>
 	<ItemGroup>
@@ -120,6 +120,9 @@
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
 			<SubType>
 			</SubType>
+		</MauiXaml>
+		<MauiXaml Update="Shared\FreakySignatureView\SignaturePadView.xaml">
+		  <SubType></SubType>
 		</MauiXaml>
 	</ItemGroup>
 </Project>
