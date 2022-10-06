@@ -24,7 +24,7 @@ namespace Maui.FreakyControls
                 {
                     var val = e.Settings.DesiredSizeOrScale.Value;
                     settings.DesiredSizeOrScale = new Platforms.iOS.SizeOrScale(val.X, val.Y,
-                        (Platforms.iOS.SizeOrScaleType)(int)val.Type, val.KeepAspectRatio);
+                        (SizeOrScaleType)(int)val.Type, val.KeepAspectRatio);
                 }
                 settings.ShouldCrop = e.Settings.ShouldCrop;
                 if (e.Settings.StrokeColor != null)

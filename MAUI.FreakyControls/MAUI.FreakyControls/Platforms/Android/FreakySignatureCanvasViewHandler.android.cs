@@ -24,7 +24,7 @@ namespace Maui.FreakyControls
                 {
                     var val = e.Settings.DesiredSizeOrScale.Value;
                     settings.DesiredSizeOrScale = new Platforms.Android.SizeOrScale(val.X, val.Y,
-                        (Platforms.Android.SizeOrScaleType)(int)val.Type, val.KeepAspectRatio);
+                        (SizeOrScaleType)(int)val.Type, val.KeepAspectRatio);
                 }
                 settings.ShouldCrop = e.Settings.ShouldCrop;
                 if (e.Settings.StrokeColor != null)
