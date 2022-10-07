@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using Color = Microsoft.Maui.Graphics.Color;
 using System.Reflection;

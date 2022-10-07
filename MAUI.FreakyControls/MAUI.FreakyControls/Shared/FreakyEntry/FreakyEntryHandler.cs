@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
@@ -23,7 +23,6 @@ public sealed partial class FreakyEntryHandler : EntryHandler
             {
                 freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
             }
-
             HandleAllowCopyPaste(freakyEntry);
         }
     }
