@@ -246,7 +246,6 @@ public class FreakySignatureCanvasView : View
         UpdateBindableProperties();
 
         StrokeCompleted?.Invoke(this, EventArgs.Empty);
-
         StrokeCompletedCommand.ExecuteCommandIfAvailable();
     }
 

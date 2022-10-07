@@ -2,8 +2,12 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
+             xmlns:converters="clr-namespace:Maui.FreakyControls.Shared.Converters"
              x:Name="this"
              x:Class="Maui.FreakyControls.FreakySignaturePadView">
+    <ContentView.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </ContentView.Resources>
     <Grid RowSpacing="0" Padding="10" ColumnSpacing="0">
         <Image
             x:Name="BackgroundImageView"
@@ -17,6 +21,8 @@
             x:Name="SignaturePadCanvas"
             HorizontalOptions="Fill"
             VerticalOptions="Fill"
+            StrokeCompleted="OnSignatureStrokeCompleted"
+            Cleared="OnSignatureCleared"
             StrokeColor="{Binding StrokeColor,Source={x:Reference this}}"
             StrokeWidth="{Binding StrokeWidth,Source={x:Reference this}}"/>
         <Label
@@ -25,9 +31,13 @@
             FontSize ="{Binding ClearFontSize,Source={x:Reference this}}"
             TextColor = "{Binding ClearTextColor,Source={x:Reference this}}"
             FontAttributes ="Bold"
-            IsVisible = "false"
+            IsVisible = "{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
             HorizontalOptions ="End"
-            VerticalOptions ="Start"/>
+            VerticalOptions ="Start">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnClearTapped"/>
+            </Label.GestureRecognizers>
+        </Label>
         <VerticalStackLayout
             Spacing="0"
             Padding="0"
