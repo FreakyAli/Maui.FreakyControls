@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Maui.FreakyControls.Extensions;
@@ -7,7 +8,6 @@ namespace Maui.FreakyControls;
 
 public partial class FreakySignaturePadView : ContentView
 {
-    private const string DefaultClearLabelText = "clear";
     private const string DefaultCaptionText = "sign above the line";
 
     private static readonly Color SignaturePadDarkColor = Colors.Black;
@@ -62,22 +62,29 @@ public partial class FreakySignaturePadView : ContentView
             typeof(FreakySignaturePadView),
             1.0);
 
-    public static readonly BindableProperty ClearTextProperty = BindableProperty.Create(
-            nameof(ClearText),
-            typeof(string),
-            typeof(FreakySignaturePadView),
-            DefaultClearLabelText);
-
-    public static readonly BindableProperty ClearFontSizeProperty = BindableProperty.Create(
-            nameof(ClearFontSize),
-            typeof(double),
-            typeof(FreakySignaturePadView));
-
-    public static readonly BindableProperty ClearTextColorProperty = BindableProperty.Create(
-            nameof(ClearTextColor),
+    public static readonly BindableProperty ClearImageColorProperty = BindableProperty.Create(
+            nameof(ClearImageColor),
             typeof(Color),
             typeof(FreakySignaturePadView),
-            SignaturePadDarkColor);
+            Colors.Transparent);
+
+    public static readonly BindableProperty ClearImageAssemblyProperty = BindableProperty.Create(
+            nameof(ClearImageAssembly),
+            typeof(Assembly),
+            typeof(FreakySvgImageView),
+            typeof(FreakySignaturePadView).Assembly);
+
+    public static readonly BindableProperty ClearResourceIdProperty = BindableProperty.Create(
+            nameof(ClearResourceId),
+            typeof(string),
+            typeof(FreakySvgImageView),
+            "Maui.FreakyControls.clear_icon.svg");
+
+    public static readonly BindableProperty ClearImageBase64Property = BindableProperty.Create(
+            nameof(ClearImageBase64),
+            typeof(string),
+            typeof(FreakySvgImageView),
+            default(string));
 
     public static readonly BindableProperty BackgroundImageProperty = BindableProperty.Create(
             nameof(BackgroundImage),
@@ -185,31 +192,39 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
-    /// Gets or sets the text for the label that clears the pad when clicked.
+    /// Gets or sets the color of the image that clears the pad when clicked.
     /// </summary>
-    public string ClearText
+    public Color ClearImageColor
     {
-        get => (string)GetValue(ClearTextProperty);
-        set => SetValue(ClearTextProperty, value);
+        get => (Color)GetValue(ClearImageColorProperty);
+        set => SetValue(ClearImageColorProperty, value);
     }
 
     /// <summary>
-    /// Gets or sets the font size of the label that clears the pad when clicked.
+    /// of type <see cref="Assembly"/>, specifies the Assembly for your ResourceId.
     /// </summary>
-    [TypeConverter(typeof(FontSizeConverter))]
-    public double ClearFontSize
+    public Assembly ClearImageAssembly
     {
-        get => (double)GetValue(ClearFontSizeProperty);
-        set => SetValue(ClearFontSizeProperty, value);
+        get { return (Assembly)GetValue(ClearImageAssemblyProperty); }
+        set { SetValue(ClearImageAssemblyProperty, value); }
     }
 
     /// <summary>
-    /// Gets or sets the color of the label that clears the pad when clicked.
+    /// of type <see cref="string"/>, specifies the source of the image.
     /// </summary>
-    public Color ClearTextColor
+    public string ClearResourceId
     {
-        get => (Color)GetValue(ClearTextColorProperty);
-        set => SetValue(ClearTextColorProperty, value);
+        get => (string)GetValue(ClearResourceIdProperty);
+        set => SetValue(ClearResourceIdProperty, value);
+    }
+
+    /// <summary>
+    /// of type <see cref="string"/>, specifies the Base64 source of the image.
+    /// </summary>
+    public string ClearImageBase64
+    {
+        get => (string)GetValue(ClearImageBase64Property);
+        set => SetValue(ClearImageBase64Property, value);
     }
 
     /// <summary>

@@ -25,19 +25,22 @@
             Cleared="OnSignatureCleared"
             StrokeColor="{Binding StrokeColor,Source={x:Reference this}}"
             StrokeWidth="{Binding StrokeWidth,Source={x:Reference this}}"/>
-        <Label
+        <freakyControls:FreakySvgImageView
             x:Name="ClearLabel"
-            Text = "{Binding  ClearText,Source={x:Reference this}}"
-            FontSize ="{Binding ClearFontSize,Source={x:Reference this}}"
-            TextColor = "{Binding ClearTextColor,Source={x:Reference this}}"
-            FontAttributes ="Bold"
+            SvgMode="AspectFit"
+            HeightRequest="35"
+            WidthRequest="35"
+            SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
+            ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
+            Base64String="{Binding ClearImageBase64,Source={x:Reference this}}"
+            ImageColor = "{Binding ClearImageColor,Source={x:Reference this}}"
             IsVisible = "{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
             HorizontalOptions ="End"
             VerticalOptions ="Start">
-            <Label.GestureRecognizers>
+            <View.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnClearTapped"/>
-            </Label.GestureRecognizers>
-        </Label>
+            </View.GestureRecognizers>
+        </freakyControls:FreakySvgImageView>
         <VerticalStackLayout
             Spacing="0"
             Padding="0"
