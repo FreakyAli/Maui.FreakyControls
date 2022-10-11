@@ -28,6 +28,7 @@
         <freakyControls:FreakySvgImageView
             x:Name="ClearLabel"
             SvgMode="AspectFit"
+            BackgroundColor="BlueViolet"
             HeightRequest="35"
             WidthRequest="35"
             SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"

@@ -80,6 +80,7 @@
 		<None Remove="Platforms\Android\NativeControls\Signature\" />
 		<None Remove="Platforms\iOS\NativeControls\Signature\" />
 		<None Remove="Shared\FreakyAutoCompleteView\" />
+		<None Remove="clear_icon.svg" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -134,5 +135,8 @@
 	  <None Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Platforms\iOS\{&#xA;    {">
 	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
 	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="clear_icon.svg" />
 	</ItemGroup>
 </Project>

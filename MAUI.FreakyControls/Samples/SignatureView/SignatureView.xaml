@@ -8,8 +8,8 @@
         <freakyControls:FreakySignaturePadView
           x:Name="svgPad"
           Grid.Row="0"
-          ClearText="Clear"
           StrokeWidth="5"
+          ClearImageColor="Black"
           SignatureLineWidth="1"
           StrokeCompleted="FreakySignaturePadView_StrokeCompleted"
           StrokeColor="Black"/>
