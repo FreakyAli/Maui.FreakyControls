@@ -23,6 +23,7 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     #region Properties& BindableProperties
+
     public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
            nameof(StrokeColor),
            typeof(Color),
@@ -176,7 +177,7 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
-    /// Gets or sets the color of the signature Underline.
+    /// Gets or sets the color of the signature line.
     /// </summary>
     public Color SignatureUnderlineColor
     {
@@ -185,7 +186,7 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
-    /// Gets or sets the width of the signature Underline.
+    /// Gets or sets the width of the signature line.
     /// </summary>
     public double SignatureUnderlineWidth
     {
@@ -230,7 +231,7 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
-    ///  Gets or sets the watermark image.
+    ///  Gets or sets the background image for your signature pad.
     /// </summary>
     public ImageSource BackgroundImage
     {
@@ -239,7 +240,7 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
-    ///  Gets or sets the aspect for the watermark image.
+    ///  Gets or sets the aspect for the background image.
     /// </summary>
     public Aspect BackgroundImageAspect
     {
