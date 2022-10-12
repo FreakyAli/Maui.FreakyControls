@@ -12,6 +12,10 @@
  
 For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
 
+## License 
+
+The license for this project can be found [here](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
+
 ## Installation
 
 Add our [NuGet](https://www.nuget.org/packages/FreakyControls) package or 
