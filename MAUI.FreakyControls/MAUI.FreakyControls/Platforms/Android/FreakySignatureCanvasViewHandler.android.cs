@@ -8,7 +8,7 @@ namespace Maui.FreakyControls
         protected override Platforms.Android.SignaturePadCanvasView
             CreatePlatformView() => new (this.Context);
 
-        private void OnImageStreamRequested(object sender, FreakySignatureCanvasView.ImageStreamRequestedEventArgs e)
+        private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)

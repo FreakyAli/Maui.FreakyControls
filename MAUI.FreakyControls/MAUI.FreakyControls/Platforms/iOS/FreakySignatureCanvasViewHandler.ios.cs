@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls
@@ -8,7 +9,7 @@ namespace Maui.FreakyControls
         protected override Platforms.iOS.SignaturePadCanvasView
             CreatePlatformView() => new();
 
-        private void OnImageStreamRequested(object sender, FreakySignatureCanvasView.ImageStreamRequestedEventArgs e)
+        private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)

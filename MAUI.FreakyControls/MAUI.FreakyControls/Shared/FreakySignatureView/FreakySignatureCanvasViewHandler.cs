@@ -99,7 +99,7 @@ namespace Maui.FreakyControls
             VirtualView?.OnStrokeCompleted();
         }
 
-        private void OnIsBlankRequested(object sender, FreakySignatureCanvasView.IsBlankRequestedEventArgs e)
+        private void OnIsBlankRequested(object sender, IsBlankRequestedEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -108,7 +108,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnPointsRequested(object sender, FreakySignatureCanvasView.PointsEventArgs e)
+        private void OnPointsRequested(object sender, PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -117,7 +117,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnPointsSpecified(object sender, FreakySignatureCanvasView.PointsEventArgs e)
+        private void OnPointsSpecified(object sender, PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -126,7 +126,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnStrokesRequested(object sender, FreakySignatureCanvasView.StrokesEventArgs e)
+        private void OnStrokesRequested(object sender, StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)
@@ -135,7 +135,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnStrokesSpecified(object sender, FreakySignatureCanvasView.StrokesEventArgs e)
+        private void OnStrokesSpecified(object sender, StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl != null)

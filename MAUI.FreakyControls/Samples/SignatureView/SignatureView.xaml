@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Samples.SignatureView.SignatureView"
+             xmlns:samples="clr-namespace:Samples.SignatureView"
+             x:DataType="samples:SignatureViewModel"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="SignatureView">
     <Grid RowDefinitions="*, Auto" Padding="5">
@@ -9,10 +11,12 @@
           x:Name="svgPad"
           Grid.Row="0"
           StrokeWidth="5"
-          ClearImageColor="Black"
-          SignatureLineWidth="1"
+          SignatureUnderlineWidth="1"
           StrokeCompleted="FreakySignaturePadView_StrokeCompleted"
           StrokeColor="Black"/>
-        <Button Text="Convert to Image" Grid.Row="1" Command="{Binding ConversionCommand}"/>
+        <Button
+          Text="Convert to Image"
+          Grid.Row="1"
+          Command="{Binding ConversionCommand}"/>
     </Grid>
 </ContentPage>

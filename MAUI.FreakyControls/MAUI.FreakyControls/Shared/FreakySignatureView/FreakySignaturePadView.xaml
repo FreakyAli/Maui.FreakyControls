@@ -29,6 +29,7 @@
             Grid.Column="1"
             HeightRequest="35"
             WidthRequest="35"
+            HorizontalOptions="End"
             SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
             ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
             Base64String="{Binding ClearImageBase64,Source={x:Reference this}}"
@@ -49,9 +50,9 @@
             VerticalOptions="End">
             <BoxView
                 x:Name="SignatureLine"
-                Color = "{Binding SignatureLineColor, Source={x:Reference this}}"
-                HeightRequest ="{Binding SignatureLineWidth,Source={x:Reference this}}"
-                InputTransparent ="true"
+                Color = "{Binding SignatureUnderlineColor, Source={x:Reference this}}"
+                HeightRequest ="{Binding SignatureUnderlineWidth,Source={x:Reference this}}"
+                InputTransparent ="True"
                 HorizontalOptions ="Fill"
                 VerticalOptions ="End"/>
             <Label

@@ -8,10 +8,11 @@ namespace Maui.FreakyControls;
 
 public partial class FreakySignaturePadView : ContentView
 {
-    private const string DefaultCaptionText = "sign above the line";
+    private const string defaultCaptionText = "sign above this line";
+    private const string defaultClearIcon = "Maui.FreakyControls.clear_icon.svg";
 
-    private static readonly Color SignaturePadDarkColor = Colors.Black;
-    private static readonly Color SignaturePadLightColor = Colors.White;
+    private static readonly Color signaturePadDarkColor = Colors.Black;
+    private static readonly Color signaturePadLightColor = Colors.White;
 
     public event EventHandler StrokeCompleted;
     public event EventHandler Cleared;
@@ -21,6 +22,7 @@ public partial class FreakySignaturePadView : ContentView
         InitializeComponent();
     }
 
+    #region Properties& BindableProperties
     public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
            nameof(StrokeColor),
            typeof(Color),
@@ -37,7 +39,7 @@ public partial class FreakySignaturePadView : ContentView
             nameof(CaptionText),
             typeof(string),
             typeof(FreakySignaturePadView),
-            DefaultCaptionText);
+            defaultCaptionText);
 
     public static readonly BindableProperty CaptionFontSizeProperty = BindableProperty.Create(
             nameof(CaptionFontSize),
@@ -48,16 +50,16 @@ public partial class FreakySignaturePadView : ContentView
             nameof(CaptionTextColor),
             typeof(Color),
             typeof(FreakySignaturePadView),
-            SignaturePadDarkColor);
+            signaturePadDarkColor);
 
-    public static readonly BindableProperty SignatureLineColorProperty = BindableProperty.Create(
-            nameof(SignatureLineColor),
+    public static readonly BindableProperty SignatureUnderlineColorProperty = BindableProperty.Create(
+            nameof(SignatureUnderlineColor),
             typeof(Color),
             typeof(FreakySignaturePadView),
-            SignaturePadDarkColor);
+            signaturePadDarkColor);
 
-    public static readonly BindableProperty SignatureLineWidthProperty = BindableProperty.Create(
-            nameof(SignatureLineWidth),
+    public static readonly BindableProperty SignatureUnderlineWidthProperty = BindableProperty.Create(
+            nameof(SignatureUnderlineWidth),
             typeof(double),
             typeof(FreakySignaturePadView),
             1.0);
@@ -78,7 +80,7 @@ public partial class FreakySignaturePadView : ContentView
             nameof(ClearResourceId),
             typeof(string),
             typeof(FreakySvgImageView),
-            "Maui.FreakyControls.clear_icon.svg");
+            defaultClearIcon);
 
     public static readonly BindableProperty ClearImageBase64Property = BindableProperty.Create(
             nameof(ClearImageBase64),
@@ -146,7 +148,7 @@ public partial class FreakySignaturePadView : ContentView
 
 
     /// <summary>
-    /// Gets or sets the text for the caption displayed under the signature line.
+    /// Gets or sets the text for the caption displayed under the signature Underline.
     /// </summary>
     public string CaptionText
     {
@@ -174,21 +176,21 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
-    /// Gets or sets the color of the signature line.
+    /// Gets or sets the color of the signature Underline.
     /// </summary>
-    public Color SignatureLineColor
+    public Color SignatureUnderlineColor
     {
-        get => (Color)GetValue(SignatureLineColorProperty);
-        set => SetValue(SignatureLineColorProperty, value);
+        get => (Color)GetValue(SignatureUnderlineColorProperty);
+        set => SetValue(SignatureUnderlineColorProperty, value);
     }
 
     /// <summary>
-    /// Gets or sets the width of the signature line.
+    /// Gets or sets the width of the signature Underline.
     /// </summary>
-    public double SignatureLineWidth
+    public double SignatureUnderlineWidth
     {
-        get => (double)GetValue(SignatureLineWidthProperty);
-        set => SetValue(SignatureLineWidthProperty, value);
+        get => (double)GetValue(SignatureUnderlineWidthProperty);
+        set => SetValue(SignatureUnderlineWidthProperty, value);
     }
 
     /// <summary>
@@ -271,6 +273,7 @@ public partial class FreakySignaturePadView : ContentView
         get => (ICommand)GetValue(StrokeCompletedCommandProperty);
         set => SetValue(StrokeCompletedCommandProperty, value);
     }
+    #endregion
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
@@ -285,20 +288,14 @@ public partial class FreakySignaturePadView : ContentView
 
     public IEnumerable<IEnumerable<Point>> Strokes
     {
-        get { return SignaturePadCanvas.Strokes; }
-        set
-        {
-            SignaturePadCanvas.Strokes = value;
-        }
+        get => SignaturePadCanvas.Strokes;
+        set => SignaturePadCanvas.Strokes = value;
     }
 
     public IEnumerable<Point> Points
     {
-        get { return SignaturePadCanvas.Points; }
-        set
-        {
-            SignaturePadCanvas.Points = value;
-        }
+        get => SignaturePadCanvas.Points;
+        set => SignaturePadCanvas.Points = value;
     }
 
     public void Clear()

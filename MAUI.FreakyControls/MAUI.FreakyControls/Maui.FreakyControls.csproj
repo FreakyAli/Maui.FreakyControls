@@ -81,6 +81,7 @@
 		<None Remove="Platforms\iOS\NativeControls\Signature\" />
 		<None Remove="Shared\FreakyAutoCompleteView\" />
 		<None Remove="clear_icon.svg" />
+		<None Remove="Shared\EventArgs\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -110,6 +111,7 @@
 		<Folder Include="Platforms\Android\NativeControls\Signature\" />
 		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
 		<Folder Include="Shared\FreakyAutoCompleteView\" />
+		<Folder Include="Shared\EventArgs\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />

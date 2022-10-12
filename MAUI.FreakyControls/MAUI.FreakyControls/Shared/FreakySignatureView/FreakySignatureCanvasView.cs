@@ -6,6 +6,20 @@ namespace Maui.FreakyControls;
 
 public class FreakySignatureCanvasView : View
 {
+    #region Events
+    public event EventHandler StrokeCompleted;
+    public event EventHandler Cleared;
+
+    public event EventHandler<ImageStreamRequestedEventArgs> ImageStreamRequested;
+    public event EventHandler<IsBlankRequestedEventArgs> IsBlankRequested;
+    public event EventHandler<PointsEventArgs> PointsRequested;
+    public event EventHandler<PointsEventArgs> PointsSpecified;
+    public event EventHandler<StrokesEventArgs> StrokesRequested;
+    public event EventHandler<StrokesEventArgs> StrokesSpecified;
+    public event EventHandler ClearRequested;
+    #endregion
+
+    #region Properties& BindableProperties 
     public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
         nameof(StrokeColor),
         typeof(Color),
@@ -35,48 +49,63 @@ public class FreakySignatureCanvasView : View
         typeof(bool),
         typeof(FreakySignatureCanvasView),
         true);
+
     public static readonly BindableProperty IsBlankProperty = IsBlankPropertyKey.BindableProperty;
 
     public bool IsBlank
     {
-        get { return RequestIsBlank(); }
+        get => RequestIsBlank();
     }
 
+    /// <summary>
+    /// Gets or sets the width of the signature strokes.
+    /// </summary>
     public float StrokeWidth
     {
-        get { return (float)GetValue(StrokeWidthProperty); }
-        set { SetValue(StrokeWidthProperty, value); }
+        get => (float)GetValue(StrokeWidthProperty);
+        set => SetValue(StrokeWidthProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the color of the signature strokes.
+    /// </summary>
     public Color StrokeColor
     {
-        get { return (Color)GetValue(StrokeColorProperty); }
-        set { SetValue(StrokeColorProperty, value); }
+        get => (Color)GetValue(StrokeColorProperty);
+        set => SetValue(StrokeColorProperty, value);
     }
 
     public IEnumerable<Point> Points
     {
-        get { return GetSignaturePoints(); }
-        set { SetSignaturePoints(value); }
+        get => GetSignaturePoints();
+        set => SetSignaturePoints(value);
     }
 
     public IEnumerable<IEnumerable<Point>> Strokes
     {
-        get { return GetSignatureStrokes(); }
-        set { SetSignatureStrokes(value); }
+        get => GetSignatureStrokes();
+        set => SetSignatureStrokes(value);
     }
 
+    /// <summary>
+    /// Gets or sets the command to be fired on clear button click 
+    /// </summary>
     public ICommand ClearedCommand
     {
         get => (ICommand)GetValue(ClearedCommandProperty);
         set => SetValue(ClearedCommandProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the command to be fired on stroke completed
+    /// </summary>
     public ICommand StrokeCompletedCommand
     {
         get => (ICommand)GetValue(StrokeCompletedCommandProperty);
         set => SetValue(StrokeCompletedCommandProperty, value);
     }
+
+    #endregion
 
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature.
@@ -260,46 +289,5 @@ public class FreakySignatureCanvasView : View
     private void UpdateBindableProperties()
     {
         SetValue(IsBlankPropertyKey, IsBlank);
-    }
-
-    public event EventHandler StrokeCompleted;
-    public event EventHandler Cleared;
-
-    internal event EventHandler<ImageStreamRequestedEventArgs> ImageStreamRequested;
-    internal event EventHandler<IsBlankRequestedEventArgs> IsBlankRequested;
-    internal event EventHandler<PointsEventArgs> PointsRequested;
-    internal event EventHandler<PointsEventArgs> PointsSpecified;
-    internal event EventHandler<StrokesEventArgs> StrokesRequested;
-    internal event EventHandler<StrokesEventArgs> StrokesSpecified;
-    internal event EventHandler<EventArgs> ClearRequested;
-
-    internal class ImageStreamRequestedEventArgs : EventArgs
-    {
-        public ImageStreamRequestedEventArgs(SignatureImageFormat imageFormat, ImageConstructionSettings settings)
-        {
-            ImageFormat = imageFormat;
-            Settings = settings;
-        }
-
-        public SignatureImageFormat ImageFormat { get; private set; }
-
-        public ImageConstructionSettings Settings { get; private set; }
-
-        public Task<Stream> ImageStreamTask { get; set; } = Task.FromResult<Stream>(null);
-    }
-
-    internal class IsBlankRequestedEventArgs : EventArgs
-    {
-        public bool IsBlank { get; set; } = true;
-    }
-
-    internal class PointsEventArgs : EventArgs
-    {
-        public IEnumerable<Point> Points { get; set; } = new Point[0];
-    }
-
-    internal class StrokesEventArgs : EventArgs
-    {
-        public IEnumerable<IEnumerable<Point>> Strokes { get; set; } = new Point[0][];
     }
 }
