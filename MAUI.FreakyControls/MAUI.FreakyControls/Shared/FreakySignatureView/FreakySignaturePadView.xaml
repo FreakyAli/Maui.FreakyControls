@@ -3,24 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
              xmlns:converters="clr-namespace:Maui.FreakyControls.Shared.Converters"
-             x:Name="this"
+             x:Name="this" 
              x:Class="Maui.FreakyControls.FreakySignaturePadView">
     <ContentView.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </ContentView.Resources>
-    <Grid RowSpacing="0" Padding="10" ColumnSpacing="0">
+    <Grid RowSpacing="0" Padding="10" ColumnDefinitions="*,Auto" ColumnSpacing="0">
         <Image
             x:Name="BackgroundImageView"
             InputTransparent="True"
-            VerticalOptions="Fill"
-            HorizontalOptions="Fill"
+            Grid.ColumnSpan="2"
             Opacity="{Binding BackgroundImageOpacity,Source={x:Reference this}}"
             Aspect="{Binding BackgroundImageAspect,Source={x:Reference this}}"
             Source="{Binding BackgroundImage,Source={x:Reference this}}"/>
         <freakyControls:FreakySignatureCanvasView
             x:Name="SignaturePadCanvas"
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"
+            Grid.ColumnSpan="2"
             StrokeCompleted="OnSignatureStrokeCompleted"
             Cleared="OnSignatureCleared"
             StrokeColor="{Binding StrokeColor,Source={x:Reference this}}"
@@ -28,7 +26,7 @@
         <freakyControls:FreakySvgImageView
             x:Name="ClearLabel"
             SvgMode="AspectFit"
-            BackgroundColor="BlueViolet"
+            Grid.Column="1"
             HeightRequest="35"
             WidthRequest="35"
             SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
@@ -36,16 +34,16 @@
             Base64String="{Binding ClearImageBase64,Source={x:Reference this}}"
             ImageColor = "{Binding ClearImageColor,Source={x:Reference this}}"
             IsVisible = "{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
-            HorizontalOptions ="End"
             VerticalOptions ="Start">
-            <View.GestureRecognizers>
+            <freakyControls:FreakySvgImageView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnClearTapped"/>
-            </View.GestureRecognizers>
+            </freakyControls:FreakySvgImageView.GestureRecognizers>
         </freakyControls:FreakySvgImageView>
         <VerticalStackLayout
             Spacing="0"
             Padding="0"
             Margin="0"
+            Grid.ColumnSpan="2"
             InputTransparent="True"
             HorizontalOptions="Fill"
             VerticalOptions="End">
