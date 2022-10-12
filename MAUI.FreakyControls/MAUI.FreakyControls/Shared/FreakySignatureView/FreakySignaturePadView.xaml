@@ -8,7 +8,7 @@
     <ContentView.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </ContentView.Resources>
-    <Grid RowSpacing="0" Padding="10" ColumnDefinitions="*,Auto" ColumnSpacing="0">
+    <Grid RowSpacing="0" Padding="10" ColumnDefinitions="*,35" ColumnSpacing="0">
         <Image
             x:Name="BackgroundImageView"
             InputTransparent="True"
@@ -29,13 +29,12 @@
             Grid.Column="1"
             HeightRequest="35"
             WidthRequest="35"
-            HorizontalOptions="End"
+            VerticalOptions="Start"
             SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
             ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
             Base64String="{Binding ClearImageBase64,Source={x:Reference this}}"
             ImageColor = "{Binding ClearImageColor,Source={x:Reference this}}"
-            IsVisible = "{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
-            VerticalOptions ="Start">
+            IsVisible = "{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}">
             <freakyControls:FreakySvgImageView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnClearTapped"/>
             </freakyControls:FreakySvgImageView.GestureRecognizers>
