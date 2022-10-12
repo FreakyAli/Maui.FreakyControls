@@ -3,53 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
              xmlns:converters="clr-namespace:Maui.FreakyControls.Shared.Converters"
-             x:Name="this"
+             x:Name="this" 
              x:Class="Maui.FreakyControls.FreakySignaturePadView">
     <ContentView.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </ContentView.Resources>
-    <Grid RowSpacing="0" Padding="10" ColumnSpacing="0">
+    <Grid RowSpacing="0" Padding="10" ColumnDefinitions="*,35" ColumnSpacing="0">
         <Image
             x:Name="BackgroundImageView"
             InputTransparent="True"
-            VerticalOptions="Fill"
-            HorizontalOptions="Fill"
+            Grid.ColumnSpan="2"
             Opacity="{Binding BackgroundImageOpacity,Source={x:Reference this}}"
             Aspect="{Binding BackgroundImageAspect,Source={x:Reference this}}"
             Source="{Binding BackgroundImage,Source={x:Reference this}}"/>
         <freakyControls:FreakySignatureCanvasView
             x:Name="SignaturePadCanvas"
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"
+            Grid.ColumnSpan="2"
             StrokeCompleted="OnSignatureStrokeCompleted"
             Cleared="OnSignatureCleared"
             StrokeColor="{Binding StrokeColor,Source={x:Reference this}}"
             StrokeWidth="{Binding StrokeWidth,Source={x:Reference this}}"/>
-        <Label
+        <freakyControls:FreakySvgImageView
             x:Name="ClearLabel"
-            Text = "{Binding  ClearText,Source={x:Reference this}}"
-            FontSize ="{Binding ClearFontSize,Source={x:Reference this}}"
-            TextColor = "{Binding ClearTextColor,Source={x:Reference this}}"
-            FontAttributes ="Bold"
-            IsVisible = "{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
-            HorizontalOptions ="End"
-            VerticalOptions ="Start">
-            <Label.GestureRecognizers>
+            SvgMode="AspectFit"
+            Grid.Column="1"
+            HeightRequest="35"
+            WidthRequest="35"
+            VerticalOptions="Start"
+            SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
+            ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
+            Base64String="{Binding ClearImageBase64,Source={x:Reference this}}"
+            ImageColor = "{Binding ClearImageColor,Source={x:Reference this}}"
+            IsVisible = "{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}">
+            <freakyControls:FreakySvgImageView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnClearTapped"/>
-            </Label.GestureRecognizers>
-        </Label>
+            </freakyControls:FreakySvgImageView.GestureRecognizers>
+        </freakyControls:FreakySvgImageView>
         <VerticalStackLayout
             Spacing="0"
             Padding="0"
             Margin="0"
+            Grid.ColumnSpan="2"
             InputTransparent="True"
             HorizontalOptions="Fill"
             VerticalOptions="End">
             <BoxView
                 x:Name="SignatureLine"
-                Color = "{Binding SignatureLineColor, Source={x:Reference this}}"
-                HeightRequest ="{Binding SignatureLineWidth,Source={x:Reference this}}"
-                InputTransparent ="true"
+                Color = "{Binding SignatureUnderlineColor, Source={x:Reference this}}"
+                HeightRequest ="{Binding SignatureUnderlineWidth,Source={x:Reference this}}"
+                InputTransparent ="True"
                 HorizontalOptions ="Fill"
                 VerticalOptions ="End"/>
             <Label
@@ -57,6 +59,7 @@
                 Text = "{Binding CaptionText,Source={x:Reference this}}"
                 FontSize = "{Binding CaptionFontSize, Source={x:Reference this}}"
                 TextColor = "{Binding CaptionTextColor, Source={x:Reference this}}"
+                FontFamily="{Binding CaptionFontFamily, Source={x:Reference this}}"
                 HorizontalTextAlignment = "Center"
                 InputTransparent = "True"
                 HorizontalOptions = "Fill"

@@ -1,5 +1,7 @@
 ## Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
 
+[![FreakyControls NuGet](https://img.shields.io/nuget/vpre/FreakyControls.svg?label=FreakyControls%20NuGet)](https://www.nuget.org/packages/FreakyControls)
+
 | Support       | OS            |
 | ------------- |:-------------:|
 | iOS             | iOS 11.0+ |
@@ -9,6 +11,10 @@
 ## Documentation
  
 For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
+
+## License 
+
+The license for this project can be found [here](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
 
 ## Installation
 

@@ -49,7 +49,7 @@ public partial class AutoCompleteView : ContentView
         typeof(AutoCompleteView),
         Colors.DarkGray);
 
-    public static readonly BindableProperty ItemsSourceProperty =BindableProperty.Create(
+    public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(
         nameof(ItemsSource),
         typeof(IEnumerable),
         typeof(AutoCompleteView),
