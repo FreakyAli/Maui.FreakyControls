@@ -60,6 +60,7 @@
                 Text = "{Binding CaptionText,Source={x:Reference this}}"
                 FontSize = "{Binding CaptionFontSize, Source={x:Reference this}}"
                 TextColor = "{Binding CaptionTextColor, Source={x:Reference this}}"
+                FontFamily="{Binding CaptionFontFamily, Source={x:Reference this}}"
                 HorizontalTextAlignment = "Center"
                 InputTransparent = "True"
                 HorizontalOptions = "Fill"

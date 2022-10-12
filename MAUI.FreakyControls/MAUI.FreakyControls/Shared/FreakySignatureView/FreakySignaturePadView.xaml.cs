@@ -53,6 +53,12 @@ public partial class FreakySignaturePadView : ContentView
             typeof(FreakySignaturePadView),
             signaturePadDarkColor);
 
+    public static readonly BindableProperty CaptionFontFamilyProperty = BindableProperty.Create(
+            nameof(CaptionFontFamily),
+            typeof(string),
+            typeof(FreakySignaturePadView),
+            default(string));
+
     public static readonly BindableProperty SignatureUnderlineColorProperty = BindableProperty.Create(
             nameof(SignatureUnderlineColor),
             typeof(Color),
@@ -158,6 +164,15 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
+    /// Gets or sets the font family for the caption text.
+    /// </summary>
+    public string CaptionFontFamily
+    {
+        get => (string)GetValue(CaptionFontFamilyProperty);
+        set => SetValue(CaptionFontFamilyProperty, value);
+    }
+
+    /// <summary>
     /// Gets or sets the font size of the caption.
     /// </summary>
     [TypeConverter(typeof(FontSizeConverter))]
@@ -214,6 +229,7 @@ public partial class FreakySignaturePadView : ContentView
 
     /// <summary>
     /// of type <see cref="string"/>, specifies the source of the image.
+    /// A default clear button exists if you keep this field empty
     /// </summary>
     public string ClearResourceId
     {
@@ -223,6 +239,7 @@ public partial class FreakySignaturePadView : ContentView
 
     /// <summary>
     /// of type <see cref="string"/>, specifies the Base64 source of the image.
+    /// A default clear button exists if you keep this field empty
     /// </summary>
     public string ClearImageBase64
     {
