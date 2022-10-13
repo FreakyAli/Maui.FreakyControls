@@ -15,12 +15,24 @@ namespace Samples
         }
 
         ObservableCollection<string> _suggestionItem;
+        private ObservableCollection<string> items;
+
         public ObservableCollection<string> SuggestionItem
         {
             get => _suggestionItem;
             set
             {
                 _suggestionItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> Items
+        {
+            get => items;
+            set
+            {
+                items = value;
                 OnPropertyChanged();
             }
         }
@@ -35,6 +47,15 @@ namespace Samples
             });
             FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
 
+            Items = new ObservableCollection<string>
+            {
+                AppShell.pickers,
+                AppShell.textInputLayout,
+                AppShell.inputViews,
+                AppShell.imageViews,
+                AppShell.signatureView
+            };
+
             var strSuggestionArr = new string[] {
                         "harshad@mobmaxime.com",
                         "sagar.p@mobmaxime.com",
@@ -43,7 +64,6 @@ namespace Samples
                         "xamarin@test.com",
                         "xamarinteam@mob.com"
                         };
-
             SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
         }
 
@@ -57,6 +77,7 @@ namespace Samples
             await MainThread.InvokeOnMainThreadAsync(() =>
             Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
         }
+
     }
 }
 

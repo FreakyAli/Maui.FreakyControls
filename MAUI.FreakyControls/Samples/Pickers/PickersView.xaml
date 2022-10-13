@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             x:Class="Samples.Pickers.PickersView"
+             Title="PickersView">
+    <VerticalStackLayout Padding="30" Spacing="10">
+
+        <Label
+                TextColor="Black" 
+                Text="Freaky DatePicker below: " />
+        <Border>
+            <freakyControls:FreakyDatePicker
+               ImageSource="calendar"
+               ImageAlignment="Left"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImagePadding="10"
+               TextColor="Black"
+               FontSize="Large"
+               />
+        </Border>
+
+        <Label
+                TextColor="Black" 
+                Text="Freaky TimePicker below: " />
+        <Border>
+            <freakyControls:FreakyTimePicker
+               ImageSource="calendar"
+               ImageAlignment="Left"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImagePadding="10"
+               TextColor="Black"
+               FontSize="Large"
+               />
+        </Border>
+
+        <Label
+                TextColor="Black" 
+                Text="Freaky Picker below: " />
+        <Border>
+            <freakyControls:FreakyPicker
+               ImageSource="calendar"
+               ImageAlignment="Right"
+               ImageCommand="{Binding ImageWasTappedCommand}"
+               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
+               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
+               ImagePadding="10"
+               TextColor="Black"
+               FontSize="Large"
+               ItemsSource="{Binding SuggestionItem}"
+               ItemDisplayBinding="{Binding .}"
+               Title="Select something :D"
+               TitleColor="LightGray"
+               />
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

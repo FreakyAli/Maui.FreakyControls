@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Maui.FreakyControls.Shared.Enums;
 
@@ -11,10 +11,8 @@ namespace Maui.FreakyControls.Shared.Converters
             var borderType = (BorderType)value;
 #if ANDROID
             var emptyThickness = new Thickness(10, 0, 10, 0);
-#endif
-#if IOS
+#else
             var emptyThickness = new Thickness(10);
-
 #endif
             var fullThickness = new Thickness(10);
             return borderType == BorderType.None ? emptyThickness : borderType == BorderType.Underline ? emptyThickness : fullThickness;

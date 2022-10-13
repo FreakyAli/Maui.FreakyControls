@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
 
+#if ANDROID || IOS
 public partial class FreakyDatePickerHandler : DatePickerHandler
 {
     public FreakyDatePickerHandler()
@@ -24,3 +25,8 @@ public partial class FreakyDatePickerHandler : DatePickerHandler
     }
 }
 
+#else
+public partial class FreakyDatePickerHandler : DatePickerHandler
+{
+}
+#endif

@@ -1,29 +1,39 @@
-﻿using System;
+using System;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 
-namespace Maui.FreakyControls
+namespace Maui.FreakyControls;
+
+#if ANDROID || IOS
+
+
+public sealed partial class FreakyEntryHandler : EntryHandler
 {
-    public sealed partial class FreakyEntryHandler : EntryHandler
+    public FreakyEntryHandler()
     {
-        public FreakyEntryHandler()
-        {
-            Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEntry);
-        }
+        Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEntry);
+    }
 
-        private void MapFreakyEntry(IEntryHandler entryHandler, IEntry entry)
+    private void MapFreakyEntry(IEntryHandler entryHandler, IEntry entry)
+    {
+        if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
         {
-            if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
+            if (freakyEntry.ImageSource != default(ImageSource))
             {
-                if (freakyEntry.ImageSource != default(ImageSource))
-                {
-                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
-                }
-
-                HandleAllowCopyPaste(freakyEntry);
+                freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
             }
+            HandleAllowCopyPaste(freakyEntry);
         }
     }
 }
+
+#else
+
+public partial class FreakyEntryHandler : EntryHandler
+{
+
+}
+
+#endif
 

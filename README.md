@@ -1,19 +1,28 @@
 ## Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
 
+[![FreakyControls NuGet](https://img.shields.io/nuget/vpre/FreakyControls.svg?label=FreakyControls%20NuGet)](https://www.nuget.org/packages/FreakyControls)
+
 | Support       | OS            |
 | ------------- |:-------------:|
 | iOS             | iOS 11.0+ |
 | Android    | API 23+ (Marshmallow)    | 
 
-Like what you see? Want to support our repo?
 
-[![](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
+## Documentation
+ 
+For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
+
+## License 
+
+The license for this project can be found [here](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
+
+## Installation
 
 Add our [NuGet](https://www.nuget.org/packages/FreakyControls) package or 
 
 Run the following command to add nuget to your .Net MAUI app:
 
-      Install-Package FreakyControls -Version 0.1.0
+      Install-Package FreakyControls -Version xx.xx.xx
 
 Adding FreakyControlsHandlers to your MAUI app:
 
@@ -40,8 +49,11 @@ And then in your MauiProgram which would be something like below :
       }   
       
 Now you can use the controls in your app.
- 
-For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
+
+Like what you see? Want to support our repo?
+
+[![](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
+
  
 
  
