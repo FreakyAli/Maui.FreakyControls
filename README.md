@@ -1,6 +1,13 @@
 ## Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
 
-[![FreakyControls NuGet](https://img.shields.io/nuget/vpre/FreakyControls.svg?label=FreakyControls%20NuGet)](https://www.nuget.org/packages/FreakyControls)
+<div>
+   <a href="https://www.nuget.org/packages/FreakyControls"><img src="https://img.shields.io/nuget/v/FreakyControls?color=blue&logo=nuget"></a>
+   <a href="https://www.nuget.org/packages/FreakyControls"><img src="https://img.shields.io/nuget/dt/FreakyControls.svg"></a>
+   <a href="./LICENSE"><img src="https://img.shields.io/github/license/freakyali/maui.freakycontrols"></a>
+   <a href="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols"><img src="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols/badge"></a>
+</div>
+
+## Platforms
 
 | Support       | OS            |
 | ------------- |:-------------:|
