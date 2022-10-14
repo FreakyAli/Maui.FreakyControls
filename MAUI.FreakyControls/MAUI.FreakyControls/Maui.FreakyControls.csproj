@@ -65,7 +65,7 @@
 		<None Remove="Platforms\Android\NativeControls\Helpers\" />
 		<None Remove="Platforms\iOS\NativeControls\" />
 		<None Remove="Shared\FreakyTextInputLayout\" />
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="maui_toolkit.png" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
 		<None Remove="Shared\ObjectModel\" />
 		<None Remove="Shared\FreakyButton\" />
