@@ -7,7 +7,6 @@
 | iOS             | iOS 11.0+ |
 | Android    | API 23+ (Marshmallow)    | 
 
-
 ## Documentation
  
 For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
@@ -53,6 +52,11 @@ Now you can use the controls in your app.
 Like what you see? Want to support our repo?
 
 [![](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
+
+SignatureView:
+
+<img src="https://user-images.githubusercontent.com/31090457/195843558-dbc2c1d2-939e-49fd-829f-1ac999ef732f.gif" width="200" height="450"/>
+
 
  
 
