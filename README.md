@@ -7,6 +7,7 @@
    <a href="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols"><img src="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols/badge"></a>
 </div>
 
+
 ## Platforms
 
 | Support       | OS            |
@@ -14,12 +15,12 @@
 | iOS             | iOS 11.0 + |
 | Android    | API 23+ (Marshmallow)    | 
 
+
 ## Documentation
  
 For more details and API documentation check our [Wiki](https://github.com/FreakyAli/MAUI.FreakyControls/wiki)
 
 ### Like what you saw? Want to keep this repo alive?
-
 [![](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
 
 
@@ -32,9 +33,11 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 | <img src="https://user-images.githubusercontent.com/31090457/195864114-5a32df8c-32aa-4c42-850d-398a54babca3.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195864040-2f37c110-92b3-47af-af2a-b50d895a77b5.gif" /> |
 | <img src="https://user-images.githubusercontent.com/31090457/195867103-37d65de1-6e39-42d9-9c98-705e49f4bc88.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195866605-20bf6373-53a3-44d9-9fde-c442ee1aec70.gif" /> |
 
+
 ## License 
 
 The license for this project can be found [here](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
+
 
 ## Installation
 
