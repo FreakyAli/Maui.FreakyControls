@@ -27,7 +27,7 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 
 | iOS | Android |
 | --- | --- |
-| <img src="https://user-images.githubusercontent.com/31090457/195843558-dbc2c1d2-939e-49fd-829f-1ac999ef732f.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/195855656-60d8d113-8748-44d5-a13b-5b972ffa304e.gif" width="250" height="550"/> |
+| <img src="https://user-images.githubusercontent.com/31090457/195906310-ce95f402-7bea-4de2-93dd-f76f48683acf.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/195906289-9a7dc44e-97ec-419c-807a-4aa63b739611.gif" width="250" height="550"/> |
 | <img src="https://user-images.githubusercontent.com/31090457/195860576-1d5566ac-c4dc-41d0-9c1f-38338d9192c7.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195860338-d7286795-2c4a-4e7f-be91-0ff7f01a7747.gif" /> |
 | <img src="https://user-images.githubusercontent.com/31090457/195864114-5a32df8c-32aa-4c42-850d-398a54babca3.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195864040-2f37c110-92b3-47af-af2a-b50d895a77b5.gif" /> |
 | <img src="https://user-images.githubusercontent.com/31090457/195867103-37d65de1-6e39-42d9-9c98-705e49f4bc88.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195866605-20bf6373-53a3-44d9-9fde-c442ee1aec70.gif" /> |
