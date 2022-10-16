@@ -69,7 +69,6 @@ public class SupportDropRenderer<TSupport> : Microsoft.Maui.Controls.Handlers.Co
         SupportView.BackgroundColor = Colors.Transparent;
 
         textField.Layer.BorderColor = SupportView.CornerColor.ToCGColor();
-        //textField.Font = UIFont.FromName(SupportView.FontFamily, (float)SupportView.FontSize);
         textField.Text = SupportView.Text;
     }
 

@@ -7,24 +7,22 @@
     <VerticalStackLayout Padding="10">
       <Label Text="Single title" />
             <freakyControls:SupportAutoComplete x:Name="singleTitle"
-                                        CornerColor="Green"
+                                        CornerColor="Black"
                                         CornerRadius="5"
-                                        CornerWidth="1"
+                                        CornerWidth="2"
                                         DropMode="SingleTitle"
                                         FocusCornerColor="Purple"
-                                        IsValid="{Binding IsValidSingle}"
                                         ItemsSource="{Binding ItemDemo}"
-                                        Placeholder="type here" />
+                                        Placeholder="Type here" />
 
             <Label Margin="0,20,0,0" Text="Title with Icon with description" />
             <freakyControls:SupportAutoComplete 
-                                        CornerColor="Green"
+                                        CornerColor="Black"
                                         CornerRadius="5"
-                                        CornerWidth="1"
+                                        CornerWidth="2"
                                         DropMode="FullTextAndIcon"
                                         FocusCornerColor="Purple"
                                         ItemsSource="{Binding ItemDemo}"
-                                        Placeholder="type here"
-                                        Text="{Binding TextIt}" />
+                                        Placeholder="Type here" />
     </VerticalStackLayout>
 </ContentPage>
