@@ -157,12 +157,15 @@ namespace Samples
             {
                 //get something from API
                 var newResult = new List<IAutoDropItem>();
-                newResult.Add(new YourClass("New Item 1", "New Item - DC Universe", "dc"));
-                newResult.Add(new YourClass("New Item 2", "New Item - DC Universe", "dc"));
-                newResult.Add(new YourClass("New Item 3", "New Item - DC Universe", "dc"));
-                newResult.Add(new YourClass("New Item 4", "New Item - DC Universe", "dc"));
-                newResult.Add(new YourClass("New Item 5", "New Item - DC Universe", "dc"));
 
+                for (var i = 0; i < 10; i++)
+                {
+                    newResult.Add(new YourClass("New Item 1", "New Item - DC Universe", "dc"));
+                    newResult.Add(new YourClass("New Item 2", "New Item - DC Universe", "dc"));
+                    newResult.Add(new YourClass("New Item 3", "New Item - DC Universe", "dc"));
+                    newResult.Add(new YourClass("New Item 4", "New Item - DC Universe", "dc"));
+                    newResult.Add(new YourClass("New Item 5", "New Item - DC Universe", "dc"));
+                }
                 //plz set result by new source to refresh autocomplete
                 ItemDemoAsync = newResult;
                 IsSearching = false;
@@ -271,16 +274,19 @@ namespace Samples
             ImageItemsSet = new ObservableCollection<string>();
 
             ItemDemo = new List<IAutoDropItem>();
-            ItemDemo.Add(new YourClass("Robert Downey Jr.", "Iron Man - Marvel Universe", "marvel"));
-            ItemDemo.Add(new YourClass("Chris Evans", "Captain America - Marvel Universe", "marvel"));
-            ItemDemo.Add(new YourClass("Scarlett Johansson", "Black Widow - Marvel Universe", "marvel"));
-            ItemDemo.Add(new YourClass("Tom Hiddleston", "Loki - Marvel Universe", "marvel"));
-            ItemDemo.Add(new YourClass("Mark Ruffalo", "The Hulk - Marvel Universe", "marvel"));
-            ItemDemo.Add(new YourClass("Ben Affleck", "BatMan - DC Universe", "dc"));
-            ItemDemo.Add(new YourClass("Henry Cavill", "Superman - DC Universe", "dc"));
-            ItemDemo.Add(new YourClass("Gal Gadot", "Wonder Woman - DC Universe", "dc"));
-            ItemDemo.Add(new YourClass("Ezra Miller", "The Flash - DC Universe", "dc"));
-            ItemDemo.Add(new YourClass("Jason Momoa", "Aquaman - DC Universe", "dc"));
+            for (var i = 0; i < 10; i++)
+            {
+                ItemDemo.Add(new YourClass("Robert Downey Jr.", "Iron Man - Marvel Universe", "marvel"));
+                ItemDemo.Add(new YourClass("Chris Evans", "Captain America - Marvel Universe", "marvel"));
+                ItemDemo.Add(new YourClass("Scarlett Johansson", "Black Widow - Marvel Universe", "marvel"));
+                ItemDemo.Add(new YourClass("Tom Hiddleston", "Loki - Marvel Universe", "marvel"));
+                ItemDemo.Add(new YourClass("Mark Ruffalo", "The Hulk - Marvel Universe", "marvel"));
+                ItemDemo.Add(new YourClass("Ben Affleck", "BatMan - DC Universe", "dc"));
+                ItemDemo.Add(new YourClass("Henry Cavill", "Superman - DC Universe", "dc"));
+                ItemDemo.Add(new YourClass("Gal Gadot", "Wonder Woman - DC Universe", "dc"));
+                ItemDemo.Add(new YourClass("Ezra Miller", "The Flash - DC Universe", "dc"));
+                ItemDemo.Add(new YourClass("Jason Momoa", "Aquaman - DC Universe", "dc"));
+            }
         }
     }
 }

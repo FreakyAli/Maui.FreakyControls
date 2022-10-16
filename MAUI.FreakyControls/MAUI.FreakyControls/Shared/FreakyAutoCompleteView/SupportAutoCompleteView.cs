@@ -33,9 +33,11 @@ namespace Maui.FreakyControls
 
     public class SupportAutoComplete : SupportViewDrop
     {
-        /*
-         * Properties
-         */
+        public SupportAutoComplete()
+        {
+            HeightRequest = 40;
+        }
+
         public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create("Placeholder", typeof(string), typeof(SupportAutoComplete), "");
         public string Placeholder
         {

@@ -123,7 +123,7 @@ public class SpecAndroid
                 }
                 return CACHE[fontName] as Typeface;
             }
-            catch (Exception ex)
+            catch
             {
                 return Typeface.Default;
             }
@@ -229,19 +229,11 @@ public class SupportBaseAutoCompleteRenderer<TSupportAutoComplete, TOriginal> : 
         base.OnInitializeOriginalView();
 
         OriginalView.SetSingleLine(true);
-        if (Build.VERSION.SdkInt < BuildVersionCodes.JellyBean)
-        {
-            OriginalView.SetBackgroundDrawable(gradientDrawable);
-        }
-        else
-        {
-            OriginalView.SetBackground(gradientDrawable);
-        }
+        OriginalView.Background = (gradientDrawable);
         OriginalView.SetPadding((int)SupportView.PaddingInside, 0, (int)SupportView.PaddingInside, 0);
         OriginalView.TextSize = (float)SupportView.FontSize;
         OriginalView.SetTextColor(SupportView.TextColor.ToPlatform());
         OriginalView.TextAlignment = TextAlignment.TextStart;
-        //OriginalView.Typeface = SpecAndroid.CreateTypeface(Context, SupportView.FontFamily.Split('#')[0]);
         OriginalView.Hint = SupportView.Placeholder;
 
         OriginalView.Focusable = true;
@@ -280,14 +272,7 @@ public class SupportBaseAutoCompleteRenderer<TSupportAutoComplete, TOriginal> : 
         if (e.PropertyName.Equals(nameof(SupportAutoComplete.CurrentCornerColor)))
         {
             gradientDrawable.SetStroke((int)SupportView.CornerWidth, SupportView.CurrentCornerColor.ToPlatform());
-            if (Build.VERSION.SdkInt < BuildVersionCodes.JellyBean)
-            {
-                OriginalView.SetBackgroundDrawable(gradientDrawable);
-            }
-            else
-            {
-                OriginalView.SetBackground(gradientDrawable);
-            }
+            OriginalView.Background = (gradientDrawable);
         }
         else if (e.PropertyName.Equals(nameof(SupportViewBase.Text)))
         {
@@ -367,7 +352,7 @@ public class SupportBaseAutoCompleteRenderer<TSupportAutoComplete, TOriginal> : 
         public List<IAutoDropItem> originalData, items;
         private Context mContext;
         private SupportAutoComplete ConfigStyle;
-        public Filter Filter { get; private set; }
+        public new Filter Filter { get; private set; }
         private IDropItemSelected IDropItemSelected;
 
         public DropItemAdapter(Context context, List<IAutoDropItem> storeDataLst, SupportAutoComplete _ConfigStyle, IDropItemSelected dropItemSelected) : base(context, 0)
@@ -392,7 +377,6 @@ public class SupportBaseAutoCompleteRenderer<TSupportAutoComplete, TOriginal> : 
             TextView txtTitle = null, txtDescription = null, txtSeperator = null;
             ImageView imgIcon = null;
             Button bttClick;
-            CheckBox checkBox = null;
 
             IAutoDropItem item = items[position];
 

@@ -4,12 +4,9 @@
              x:Class="Samples.AutoCompletePage"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="AutoCompletePage">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="10">
       <Label Text="Single title" />
             <freakyControls:SupportAutoComplete x:Name="singleTitle"
-                                        HeightRequest="40"
-                                        HorizontalOptions="FillAndExpand"
-                                        
                                         CornerColor="Green"
                                         CornerRadius="5"
                                         CornerWidth="1"
@@ -20,8 +17,7 @@
                                         Placeholder="type here" />
 
             <Label Margin="0,20,0,0" Text="Title with Icon with description" />
-            <freakyControls:SupportAutoComplete HeightRequest="40"
-                                        HorizontalOptions="FillAndExpand"
+            <freakyControls:SupportAutoComplete 
                                         CornerColor="Green"
                                         CornerRadius="5"
                                         CornerWidth="1"

@@ -44,7 +44,7 @@ namespace Maui.FreakyControls.Shared.Controls
             set => SetValue(HasShadowProperty, value);
         }
 
-        public static readonly BindableProperty SeperatorColorProperty = BindableProperty.Create("SeperatorColor", typeof(Color), typeof(SupportViewDrop), Color.FromHex("#f1f1f1"));
+        public static readonly BindableProperty SeperatorColorProperty = BindableProperty.Create("SeperatorColor", typeof(Color), typeof(SupportViewDrop), Color.FromArgb("#f1f1f1"));
         public Color SeperatorColor
         {
             get => (Color)GetValue(SeperatorColorProperty);
