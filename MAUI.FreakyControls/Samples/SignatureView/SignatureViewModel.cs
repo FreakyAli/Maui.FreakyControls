@@ -18,7 +18,7 @@ namespace Samples.SignatureView
 
         private async Task ExecuteCommandAsync()
         {
-            await Shell.Current.Navigation.PushAsync(new ImageDisplay(ImageStream)); ;
+            await Shell.Current.Navigation.PushAsync(new ImageDisplay(ImageStream));
         }
     }
 }

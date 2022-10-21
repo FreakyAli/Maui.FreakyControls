@@ -6,5 +6,5 @@
         Bottom,
         Left,
         Right
-    };
+    }
 }
