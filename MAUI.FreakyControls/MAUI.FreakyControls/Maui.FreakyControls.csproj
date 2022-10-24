@@ -83,6 +83,7 @@
 		<None Remove="Shared\FreakyAutoCompleteView\" />
 		<None Remove="clear_icon.svg" />
 		<None Remove="Shared\EventArgs\" />
+		<None Remove="Shared\FreakyBottomSheet\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -113,6 +114,7 @@
 		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
 		<Folder Include="Shared\FreakyAutoCompleteView\" />
 		<Folder Include="Shared\EventArgs\" />
+		<Folder Include="Shared\FreakyBottomSheet\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
@@ -131,6 +133,9 @@
 		  <SubType></SubType>
 		</MauiXaml>
 		<MauiXaml Update="Shared\FreakyAutoCompleteView\AutoCompleteView.xaml">
+		  <SubType></SubType>
+		</MauiXaml>
+		<MauiXaml Update="Shared\FreakyBottomSheet\FreakyBottomSheet.xaml">
 		  <SubType></SubType>
 		</MauiXaml>
 	</ItemGroup>

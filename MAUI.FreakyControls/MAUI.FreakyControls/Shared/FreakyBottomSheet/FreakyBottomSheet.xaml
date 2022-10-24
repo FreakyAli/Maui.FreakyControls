@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Maui.FreakyControls"
+    x:Class="Maui.FreakyControls.FreakyBottomSheet"
+    InputTransparent="True"
+    VerticalOptions="Fill"
+    x:Name="BottomSheetControlRoot"
+    HorizontalOptions="Fill">
+
+    <ContentView.Resources>
+        <!-- Grid Styles -->
+        <Style TargetType="Grid">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="RowSpacing" Value="0" />
+            <Setter Property="ColumnSpacing" Value="0" />
+            <Setter Property="VerticalOptions" Value="Fill" />
+            <Setter Property="HorizontalOptions" Value="Fill" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+        </Style>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid
+            x:Name="BackgroundFader"
+            BackgroundColor="LightGrey"
+            IsVisible="false"
+            Opacity="1"
+            IgnoreSafeArea="True">
+
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="CloseBottomSheetButton_Tapped"/>
+            </Grid.GestureRecognizers>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition x:Name="BottomSheetRowDefinition"
+                  Height="{Binding Source={x:Reference BottomSheetControlRoot}, Path=SheetHeight, Mode=OneWay}" />
+            </Grid.RowDefinitions>
+
+            <!-- Close Button -->
+            <controls:FreakySvgImageView
+                x:Name="CloseBottomSheetButton"
+                Grid.Row="0"
+                HeightRequest="40"
+                WidthRequest="40"
+                SvgMode="AspectFit"
+                IsVisible="False"
+                Opacity="0"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                Margin="0,0,0,10">
+
+                <controls:FreakySvgImageView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CloseBottomSheetButton_Tapped" />
+                </controls:FreakySvgImageView.GestureRecognizers>
+
+            </controls:FreakySvgImageView>
+
+            <!-- Enclosing Border Control for Content -->
+            <Border
+                x:Name="MainContent"
+                Grid.Row="1"
+                Padding="24,24,24,0"
+                Margin="-1"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill"
+                StrokeThickness="0"
+                TranslationY="{Binding Source={x:Reference BottomSheetControlRoot}, Path=SheetHeight, Mode=OneWay}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="32,32,0,0"/>
+                </Border.StrokeShape>
+
+                <Grid
+                    RowDefinitions="Auto,*"
+                    RowSpacing="16">
+
+                    <!-- Header Content -->
+                    <Label
+                        x:Name="HeaderLabel"
+                        Style="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderStyle, Mode=OneWay}"
+                        Text="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderText, Mode=OneWay}"
+                        Grid.Row="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
+
+                    <!-- Main Content -->
+                    <Grid
+                        x:Name="BottomSheetContentGrid"
+                        Grid.Row="1" />
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+    </ContentView.Content>
+
+</ContentView>
+
