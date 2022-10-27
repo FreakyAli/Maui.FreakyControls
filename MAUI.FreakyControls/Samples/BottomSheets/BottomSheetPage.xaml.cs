@@ -9,11 +9,11 @@ public partial class BottomSheetPage : ContentPage
 
     async void CloseMe_Clicked(System.Object sender, System.EventArgs e)
     {
-        await this.customBottomSheet.CloseBottomSheet();
+        await this.customBottomSheet.CloseAsync();
     }
 
     async void Button_Clicked(System.Object sender, System.EventArgs e)
     {
-        await this.customBottomSheet.OpenBottomSheet();
+        await this.customBottomSheet.OpenAsync();
     }
 }

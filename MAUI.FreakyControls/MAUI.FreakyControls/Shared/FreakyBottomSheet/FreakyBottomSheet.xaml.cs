@@ -73,7 +73,7 @@ public partial class FreakyBottomSheet : ContentView
 
     #endregion
 
-    public async Task OpenBottomSheet()
+    public async Task OpenAsync()
     {
         this.InputTransparent = false;
         BackgroundFader.IsVisible = true;
@@ -84,7 +84,7 @@ public partial class FreakyBottomSheet : ContentView
         _ = CloseBottomSheetButton.FadeTo(1, regularDuration, Easing.SinInOut);
     }
 
-    public async Task CloseBottomSheet()
+    public async Task CloseAsync()
     {
         await CloseBottomSheetButton.FadeTo(0, shortDuration, Easing.SinInOut);
         _ = MainContent.TranslateTo(0, SheetHeight, shortDuration, Easing.SinInOut);
@@ -96,5 +96,5 @@ public partial class FreakyBottomSheet : ContentView
     }
 
     async void CloseBottomSheetButton_Tapped(System.Object sender, System.EventArgs e) =>
-        await CloseBottomSheet();
+        await CloseAsync();
 }
