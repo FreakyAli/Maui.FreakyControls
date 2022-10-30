@@ -46,6 +46,7 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
 		<EnableCodeSigning>false</EnableCodeSigning>
+		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -83,6 +84,7 @@
 		<None Remove="Shared\FreakyAutoCompleteView\" />
 		<None Remove="clear_icon.svg" />
 		<None Remove="Shared\EventArgs\" />
+		<None Remove="Shared\FreakyCarouselView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -113,6 +115,7 @@
 		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
 		<Folder Include="Shared\FreakyAutoCompleteView\" />
 		<Folder Include="Shared\EventArgs\" />
+		<Folder Include="Shared\FreakyCarouselView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
