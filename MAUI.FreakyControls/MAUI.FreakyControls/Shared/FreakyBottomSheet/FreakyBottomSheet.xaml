@@ -4,13 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Maui.FreakyControls"
     x:Class="Maui.FreakyControls.FreakyBottomSheet"
-    InputTransparent="True"
-    VerticalOptions="Fill"
-    x:Name="BottomSheetControlRoot"
-    HorizontalOptions="Fill">
+    x:Name="this">
 
     <ContentView.Resources>
-        <!-- Grid Styles -->
         <Style TargetType="Grid">
             <Setter Property="Padding" Value="0" />
             <Setter Property="Margin" Value="0" />
@@ -23,78 +19,58 @@
     </ContentView.Resources>
 
     <ContentView.Content>
-        <Grid
-            x:Name="BackgroundFader"
-            BackgroundColor="LightGrey"
-            IsVisible="false"
-            Opacity="1"
-            IgnoreSafeArea="True">
-
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="CloseBottomSheetButton_Tapped"/>
-            </Grid.GestureRecognizers>
-
+        <Grid   BackgroundColor="{Binding FadeBackgroundColor, Source={x:Reference this}}"
+                Opacity="{Binding FadeOpacity,Source={x:Reference this}}"
+                IsVisible="False"
+                IgnoreSafeArea="True"
+                x:Name="BackgroundFader">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition x:Name="BottomSheetRowDefinition"
-                  Height="{Binding Source={x:Reference BottomSheetControlRoot}, Path=SheetHeight, Mode=OneWay}" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="{Binding SheetHeight, Source={x:Reference this}}" />
             </Grid.RowDefinitions>
+            <Grid>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BackgroundFade_Tapped"/>
+                </Grid.GestureRecognizers>
 
-            <!-- Close Button -->
-            <controls:FreakySvgImageView
+                <controls:FreakySvgImageView
                 x:Name="CloseBottomSheetButton"
                 Grid.Row="0"
+                BackgroundColor="Transparent"
                 HeightRequest="40"
+                ImageColor="{Binding CloseIconColor, Source={x:Reference this}}"
                 WidthRequest="40"
                 SvgMode="AspectFit"
                 IsVisible="False"
                 Opacity="0"
                 HorizontalOptions="Center"
-                VerticalOptions="End"
+                VerticalOptions="Center"
                 Margin="0,0,0,10">
-
-                <controls:FreakySvgImageView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CloseBottomSheetButton_Tapped" />
-                </controls:FreakySvgImageView.GestureRecognizers>
-
-            </controls:FreakySvgImageView>
-
-            <!-- Enclosing Border Control for Content -->
+                    <controls:FreakySvgImageView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CloseBottomSheetButton_Tapped" />
+                    </controls:FreakySvgImageView.GestureRecognizers>
+                </controls:FreakySvgImageView>
+            </Grid>
             <Border
                 x:Name="MainContent"
                 Grid.Row="1"
-                Padding="24,24,24,0"
-                Margin="-1"
+                BackgroundColor="{Binding BackgroundColor, Source={x:Reference SheetContent}}"
+                Padding="20,20,20,0"
                 VerticalOptions="Fill"
                 HorizontalOptions="Fill"
                 StrokeThickness="0"
-                TranslationY="{Binding Source={x:Reference BottomSheetControlRoot}, Path=SheetHeight, Mode=OneWay}">
+                TranslationY="{Binding SheetHeight, Source={x:Reference this}}">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="32,32,0,0"/>
                 </Border.StrokeShape>
 
-                <Grid
-                    RowDefinitions="Auto,*"
-                    RowSpacing="16">
-
-                    <!-- Header Content -->
-                    <Label
-                        x:Name="HeaderLabel"
-                        Style="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderStyle, Mode=OneWay}"
-                        Text="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderText, Mode=OneWay}"
-                        Grid.Row="0"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        VerticalTextAlignment="Center" />
-
-                    <!-- Main Content -->
-                    <Grid
-                        x:Name="BottomSheetContentGrid"
-                        Grid.Row="1" />
-
-                </Grid>
-
+                <ContentView
+                    Padding="0"
+                    Margin="0"
+                    BackgroundColor="{Binding SheetBackgroundColor, Source={x:Reference this}}"
+                    Content="{Binding BottomSheetContent, Source={x:Reference this}}"
+                    x:Name="SheetContent" />
             </Border>
 
         </Grid>

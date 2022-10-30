@@ -5,32 +5,18 @@
              xmlns:controls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="BottomSheetPage">
     <Grid VerticalOptions="Center">
-        <VerticalStackLayout VerticalOptions="Center" Padding="10" Spacing="10">
+        <VerticalStackLayout VerticalOptions="Center" Padding="10">
             <Button
-            Text="Open a common sheet"
-            Clicked="Button_Clicked"
-            Grid.Row="0" />
-            <Button
-            Text="Welcome to .NET MAUI!"
-            Grid.Row="1"/>
-            <Button
-            Text="Welcome to .NET MAUI!"
-            Grid.Row="2"/>
-            <Button
-            Text="Welcome to .NET MAUI!"
-            Grid.Row="3"/>
-            <Button
-            Text="Welcome to .NET MAUI!"
-            Grid.Row="4"/>
+                Text="Open a sheet"
+                Clicked="Button_Clicked"
+                Grid.Row="0" />
         </VerticalStackLayout>
-        <controls:FreakyBottomSheet
-            x:Name="customBottomSheet"
-            SheetHeight="500"
-            HeaderText="Close Sheet Example">
-            <controls:FreakyBottomSheet.BottomSheetContent>
-                <VerticalStackLayout
-                    Spacing="24">
 
+        <controls:FreakyBottomSheet
+            x:Name="customBottomSheet">
+            <controls:FreakyBottomSheet.BottomSheetContent>
+                <VerticalStackLayout 
+                    Spacing="24">
                     <Label
                         Text="You can also close the bottom sheet programatically. Press on the button below to close the bottom sheet."
                         VerticalOptions="Center"
@@ -40,7 +26,6 @@
                     <Button
                         Text="Close Me!!!!!!!"
                         Clicked="CloseMe_Clicked" />
-
                 </VerticalStackLayout>
             </controls:FreakyBottomSheet.BottomSheetContent>
         </controls:FreakyBottomSheet>

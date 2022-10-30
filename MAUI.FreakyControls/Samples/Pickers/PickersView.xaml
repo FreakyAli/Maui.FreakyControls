@@ -4,13 +4,13 @@
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              x:Class="Samples.Pickers.PickersView"
              Title="PickersView">
-    <VerticalStackLayout Padding="30" Spacing="10">
-
-        <Label
-                TextColor="Black" 
-                Text="Freaky DatePicker below: " />
-        <Border>
-            <freakyControls:FreakyDatePicker
+    <Grid Padding="20,20,20,0" RowDefinitions="*, Auto">
+        <VerticalStackLayout Grid.Row="0"  Spacing="10">
+            <Label
+            TextColor="Black" 
+            Text="Freaky DatePicker below: " />
+            <Border>
+                <freakyControls:FreakyDatePicker
                ImageSource="calendar"
                ImageAlignment="Left"
                ImageCommand="{Binding ImageWasTappedCommand}"
@@ -20,13 +20,13 @@
                TextColor="Black"
                FontSize="Large"
                />
-        </Border>
+            </Border>
 
-        <Label
+            <Label
                 TextColor="Black" 
                 Text="Freaky TimePicker below: " />
-        <Border>
-            <freakyControls:FreakyTimePicker
+            <Border>
+                <freakyControls:FreakyTimePicker
                ImageSource="calendar"
                ImageAlignment="Left"
                ImageCommand="{Binding ImageWasTappedCommand}"
@@ -36,13 +36,13 @@
                TextColor="Black"
                FontSize="Large"
                />
-        </Border>
+            </Border>
 
-        <Label
+            <Label
                 TextColor="Black" 
                 Text="Freaky Picker below: " />
-        <Border>
-            <freakyControls:FreakyPicker
+            <Border>
+                <freakyControls:FreakyPicker
                ImageSource="calendar"
                ImageAlignment="Right"
                ImageCommand="{Binding ImageWasTappedCommand}"
@@ -56,6 +56,15 @@
                Title="Select something :D"
                TitleColor="LightGray"
                />
-        </Border>
-    </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+
+        <freakyControls:FreakyButton
+                Grid.Row="1"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                CornerRadius="10"
+                FontSize="Large"
+                Text="Submit"/>
+    </Grid>
 </ContentPage>
