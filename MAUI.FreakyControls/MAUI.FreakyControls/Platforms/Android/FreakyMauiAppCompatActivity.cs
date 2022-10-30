@@ -7,11 +7,6 @@ namespace Maui.FreakyControls.Platforms.Android
 {
     public abstract class FreakyMauiAppCompatActivity: MauiAppCompatActivity
     {
-        public override void OnBackPressed()
-        {
-            base.OnBackPressed();
-        }
-
         /// <summary>
         /// A touch event handler that can be used to generally handle outside an entry field click event
         /// so that it hides the keyboard when you do so.
