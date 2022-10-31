@@ -6,6 +6,19 @@
              Title="PickersView">
     <VerticalStackLayout Padding="30" Spacing="10">
 
+        <freakyControls:CardsView ItemsSource="{Binding Monkeys}">
+            <freakyControls:CardsView.ItemTemplate>
+                <DataTemplate>
+                    <Frame>
+                        <VerticalStackLayout>
+                            <Image Source="{Binding ImageUrl}"/>
+                            <Label FontSize="Large" Text="{Binding Name}" HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </freakyControls:CardsView.ItemTemplate>
+        </freakyControls:CardsView>
+
         <Label
                 TextColor="Black" 
                 Text="Freaky DatePicker below: " />

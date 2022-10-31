@@ -3,6 +3,6 @@ namespace Maui.FreakyControls;
 
 public class PointsEventArgs : FreakyEventArgs
 {
-    public IEnumerable<Point> Points { get; set; } = new Point[0];
+    public IEnumerable<Point> Points { get; set; } = Array.Empty<Point>();
 }
 

@@ -85,6 +85,14 @@
 		<None Remove="clear_icon.svg" />
 		<None Remove="Shared\EventArgs\" />
 		<None Remove="Shared\FreakyCarouselView\" />
+		<None Remove="Shared\Behavior\" />
+		<None Remove="Shared\Delegates\" />
+		<None Remove="Shared\FreakyCarouselView\Processor\" />
+		<None Remove="Shared\FreakyCarouselView\Utility\" />
+		<None Remove="leftArrow.png" />
+		<None Remove="leftArrowBlack.png" />
+		<None Remove="rightArrow.png" />
+		<None Remove="rightArrowBlack.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -116,6 +124,10 @@
 		<Folder Include="Shared\FreakyAutoCompleteView\" />
 		<Folder Include="Shared\EventArgs\" />
 		<Folder Include="Shared\FreakyCarouselView\" />
+		<Folder Include="Shared\Behavior\" />
+		<Folder Include="Shared\Delegates\" />
+		<Folder Include="Shared\FreakyCarouselView\Processor\" />
+		<Folder Include="Shared\FreakyCarouselView\Utility\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
@@ -144,5 +156,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="clear_icon.svg" />
+	  <EmbeddedResource Include="rightArrowBlack.png" />
+	  <EmbeddedResource Include="rightArrow.png" />
+	  <EmbeddedResource Include="leftArrowBlack.png" />
+	  <EmbeddedResource Include="leftArrow.png" />
 	</ItemGroup>
 </Project>

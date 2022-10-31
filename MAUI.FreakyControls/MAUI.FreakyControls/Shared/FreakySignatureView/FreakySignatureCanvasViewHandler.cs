@@ -27,6 +27,7 @@ namespace Maui.FreakyControls
         public static CommandMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> CommandMapper =
             new(ViewHandler.ViewCommandMapper)
             {
+
             };
 
         public FreakySignatureCanvasViewHandler() : base(Mapper)
