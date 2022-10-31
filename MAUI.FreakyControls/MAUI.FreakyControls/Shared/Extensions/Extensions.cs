@@ -57,6 +57,7 @@ public static class Extensions
 
     public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
     {
+        mauiAppBuilder.UseMauiCompatibility();
         mauiAppBuilder.UseSkiaSharp();
     }
 
