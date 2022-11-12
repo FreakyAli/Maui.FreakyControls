@@ -53,7 +53,8 @@ namespace Samples
                 AppShell.textInputLayout,
                 AppShell.inputViews,
                 AppShell.imageViews,
-                AppShell.signatureView
+                AppShell.signatureView,
+                AppShell.scratchView
             };
 
             var strSuggestionArr = new string[] {

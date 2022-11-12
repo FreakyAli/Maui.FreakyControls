@@ -25,6 +25,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
 	  <EnableCodeSigning>false</EnableCodeSigning>
+	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
@@ -54,6 +55,9 @@
 	  <None Remove="Pickers\" />
 	  <None Remove="SignatureView\" />
 	  <None Remove="Nager.Country" />
+	  <None Remove="ScratchView\" />
+	  <None Remove="Resources\Images\Back.jpg" />
+	  <None Remove="Resources\Images\Front.jpg" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
@@ -66,6 +70,7 @@
 	  <Folder Include="TextInputLayout\" />
 	  <Folder Include="Pickers\" />
 	  <Folder Include="SignatureView\" />
+	  <Folder Include="ScratchView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
@@ -93,8 +98,15 @@
 	  <MauiXaml Update="SignatureView\SignatureView.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
+	  <MauiXaml Update="ScratchView\ScratchViewPage.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="**/*" />
+	  <BundleResource Include="**/*" />
 	</ItemGroup>
 </Project>
