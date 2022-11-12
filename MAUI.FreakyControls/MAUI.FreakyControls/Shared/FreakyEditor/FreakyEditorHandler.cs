@@ -23,7 +23,6 @@ public sealed partial class FreakyEditorHandler : EditorHandler
 }
 
 #else
-
 public partial class FreakyEditorHandler : EditorHandler
 {
 
