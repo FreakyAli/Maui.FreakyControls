@@ -10,9 +10,14 @@ using System.Windows.Input;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
+using PlatformTouchEffects = Maui.FreakyControls.Platforms.Android.Effects.TouchEffect;
 #endif
 #if IOS
+using PlatformTouchEffects = Maui.FreakyControls.Platforms.iOS.Effects.TouchEffect;
 using Maui.FreakyControls.Platforms.iOS;
+#endif
+#if MACCATALYST
+using PlatformTouchEffects= Maui.FreakyControls.Platforms.MacCatalyst.TouchEffect;
 #endif
 #if IOS || MACCATALYST
 using NativeImage = UIKit.UIImage;
@@ -46,6 +51,15 @@ namespace Maui.FreakyControls.Extensions
             handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
         }
 
+        public static void InitFreakyEffects(this IEffectsBuilder effects)
+        {
+            effects.Add<Effects.TouchEffect, PlatformTouchEffects>();
+        }
+
+        /// <summary>
+        /// Forced to do this for this issue : https://github.com/mono/SkiaSharp/issues/1979
+        /// </summary>
+        /// <param name="mauiAppBuilder"></param>
         public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.UseSkiaSharp();
