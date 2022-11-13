@@ -5,7 +5,7 @@ using SkiaSharp.Views.Maui.Controls;
 
 namespace Maui.FreakyControls
 {
-	public abstract class BaseSKCanvas : SKCanvasView
+    public abstract class BaseSKCanvas : SKCanvasView
     {
         protected BaseSKCanvas()
         {
