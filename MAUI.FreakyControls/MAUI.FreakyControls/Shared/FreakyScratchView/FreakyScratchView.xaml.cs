@@ -3,6 +3,7 @@ using SkiaSharp.Views.Maui;
 using System.Reflection;
 using Maui.FreakyControls.Effects;
 using Maui.FreakyControls.Extensions;
+using SkiaSharp.Views.Maui.Controls;
 
 namespace Maui.FreakyControls;
 
@@ -14,7 +15,7 @@ public partial class FreakyScratchView : ContentView
         paint.StrokeWidth = StrokeWidth;
     }
 
-    public static BindableProperty FrontImageSourceProperty =
+    public static readonly BindableProperty FrontImageSourceProperty =
         BindableProperty.Create(
             nameof(FrontImageSource),
             typeof(ImageSource),
@@ -27,7 +28,7 @@ public partial class FreakyScratchView : ContentView
         set => SetValue(FrontImageSourceProperty, value);
     }
 
-    public static BindableProperty BackImageSourceProperty =
+    public static readonly BindableProperty BackImageSourceProperty =
        BindableProperty.Create(
            nameof(BackImageSource),
            typeof(ImageSource),
@@ -40,7 +41,14 @@ public partial class FreakyScratchView : ContentView
         set => SetValue(BackImageSourceProperty, value);
     }
 
-    public static BindableProperty StrokeWidthProperty = BindableProperty.Create(nameof(StrokeWidth), typeof(float), typeof(FreakyScratchView), propertyChanged: OnStrokeWidthChanged, defaultValue: (float)100);
+    public static readonly BindableProperty StrokeWidthProperty =
+        BindableProperty.Create(
+            nameof(StrokeWidth),
+            typeof(float),
+            typeof(FreakyScratchView),
+            propertyChanged: OnStrokeWidthChanged,
+            defaultValue: (float)100);
+
     public float StrokeWidth
     {
         get => (float)GetValue(StrokeWidthProperty);
@@ -62,17 +70,16 @@ public partial class FreakyScratchView : ContentView
         StrokeJoin = SKStrokeJoin.Round
     };
 
-    private async void CanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    private void CanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
-        var bytes = await FrontImageSource?.GetBytesAsync();
-        var bitmap = SKBitmap.Decode(bytes);
-        SKCanvas canvas = e.Surface?.Canvas;
-        canvas.DrawBitmap(bitmap, e.Info.Rect);
+        //SKCanvas canvas = e.Surface.Canvas;
+        ////var bitmap = SKBitmap.Decode();
+        //canvas.DrawBitmap(bitmap, 0, 0);
 
-        foreach (SKPath path in inProgressPaths.Values)
-        {
-            canvas.DrawPath(path, paint);
-        }
+        //foreach (SKPath path in inProgressPaths.Values)
+        //{
+        //    canvas.DrawPath(path, paint);
+        //}
     }
 
     private void TouchEffect_TouchAction(object sender, TouchActionEventArgs args)

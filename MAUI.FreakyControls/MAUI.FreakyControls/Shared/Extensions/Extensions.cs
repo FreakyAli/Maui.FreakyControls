@@ -1,24 +1,22 @@
-using System;
-using System.Drawing;
-using Color = Microsoft.Maui.Graphics.Color;
-using System.Reflection;
-using System.Xml;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using Maui.FreakyControls.Shared;
 using System.Windows.Input;
+using SkiaSharp;
+using SkiaSharp.Views.Maui.Controls;
+using SkiaSharp.Views.Maui;
 #if ANDROID
+using AndroidExtensions = SkiaSharp.Views.Android.AndroidExtensions;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-using Android.Graphics;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
 using PlatformTouchEffects = Maui.FreakyControls.Platforms.Android.Effects.TouchEffect;
 #endif
 #if IOS
+using SkiaSharp.Views.iOS;
 using PlatformTouchEffects = Maui.FreakyControls.Platforms.iOS.Effects.TouchEffect;
 using Maui.FreakyControls.Platforms.iOS;
 #endif
 #if MACCATALYST
-using PlatformTouchEffects= Maui.FreakyControls.Platforms.MacCatalyst.TouchEffect;
+using PlatformTouchEffects = Maui.FreakyControls.Platforms.MacCatalyst.TouchEffect;
 #endif
 #if IOS || MACCATALYST
 using NativeImage = UIKit.UIImage;
@@ -29,7 +27,6 @@ namespace Maui.FreakyControls.Extensions
 {
     public static class Extensions
     {
-
         public static void ExecuteCommandIfAvailable(this ICommand command, object parameter = null)
         {
             if (command?.CanExecute(parameter) == true)
@@ -84,21 +81,23 @@ namespace Maui.FreakyControls.Extensions
             return returnValue;
         }
 
-        public static async Task<byte[]> GetBytesAsync(this ImageSource imageSource)
-        {
-            var nativeImage = await imageSource.ToNativeImageSourceAsync();
-#if ANDROID
-            using (var stream = new MemoryStream())
-            {
-                nativeImage.Compress(Bitmap.CompressFormat.Jpeg, 0, stream);
-                var bytes = stream.ToByteArray();
-                return bytes;
-            }
-#endif
-#if IOS || MACCATALYST
-            return nativeImage.AsPNG().AsStream().ToByteArray();
-#endif
-        }
+//        public static async Task<SKBitmap> GetSKBitmapAsync(this ImageSource imageSource)
+//        {
+//            var nativeImage = await imageSource.ToNativeImageSourceAsync();
+//#if ANDROID
+//            var skImage = AndroidExtensions.ToSKBitmap(nativeImage);
+//            SKBitmapImageSource sKBitmapImage = ;
+//            return skImage;
+//#endif
+//#if IOS
+//            var skImage = iOSExtensions.ToSKBitmap(nativeImage);
+//            return skImage;
+//#endif
+//#if MACCATALYST
+//            return new SKBitmap();
+//#endif
+
+//        }
 
         private static IImageSourceHandler GetHandler(this ImageSource source)
         {

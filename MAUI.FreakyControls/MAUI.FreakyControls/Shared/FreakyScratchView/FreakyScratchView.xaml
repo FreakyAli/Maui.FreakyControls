@@ -12,7 +12,7 @@
                    Source="{Binding Source={x:Reference this}, Path=BackImageSource}"
                    Aspect="AspectFit"/>
 
-        <skia:SKCanvasView x:Name="canvasView"
+        <skia:SKCanvasView x:Name="canvasView" BackgroundColor="Aquamarine"
                                VerticalOptions="Fill"
                                Grid.Row="0"
                                Grid.Column="0" 

@@ -10,8 +10,8 @@
                     HorizontalOptions="Center"
                     HeightRequest="200"
                     WidthRequest="200"
-                    FrontImageSource="Front"
-                    BackImageSource="Back"
+                    FrontImageSource="Front.jpg"
+                    BackImageSource="Back.jpg"
                     StrokeWidth="100"/>
     </Grid>
 </ContentPage>
