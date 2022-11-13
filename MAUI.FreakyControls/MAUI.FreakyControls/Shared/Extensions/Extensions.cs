@@ -8,6 +8,7 @@ using Maui.FreakyControls.Shared;
 using System.Windows.Input;
 #if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Android.Graphics;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
 using PlatformTouchEffects = Maui.FreakyControls.Platforms.Android.Effects.TouchEffect;
@@ -81,6 +82,22 @@ namespace Maui.FreakyControls.Extensions
             returnValue = await handler.LoadImageAsync(source, CurrentActivity);
 #endif
             return returnValue;
+        }
+
+        public static async Task<byte[]> GetBytesAsync(this ImageSource imageSource)
+        {
+            var nativeImage = await imageSource.ToNativeImageSourceAsync();
+#if ANDROID
+            using (var stream = new MemoryStream())
+            {
+                nativeImage.Compress(Bitmap.CompressFormat.Jpeg, 0, stream);
+                var bytes = stream.ToByteArray();
+                return bytes;
+            }
+#endif
+#if IOS || MACCATALYST
+            return nativeImage.AsPNG().AsStream().ToByteArray();
+#endif
         }
 
         private static IImageSourceHandler GetHandler(this ImageSource source)

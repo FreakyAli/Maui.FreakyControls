@@ -2,8 +2,17 @@
 
 public partial class ScratchViewPage : ContentPage
 {
-	public ScratchViewPage()
-	{
-		InitializeComponent();
-	}
+    public ScratchViewPage()
+    {
+        try
+        {
+            InitializeComponent();
+            BindingContext = new ScratchViewModel();
+        }
+        catch (Exception ex)
+        {
+
+
+        }
+    }
 }

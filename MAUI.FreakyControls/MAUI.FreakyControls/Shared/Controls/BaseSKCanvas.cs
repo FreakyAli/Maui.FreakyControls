@@ -5,13 +5,6 @@ using SkiaSharp.Views.Maui.Controls;
 
 namespace Maui.FreakyControls
 {
-    internal class FreakySKCanvasView : BaseSKCanvas
-    {
-        protected override void DoPaintSurface(SKPaintSurfaceEventArgs skPaintSurfaceEventArgs)
-        {
-        }
-    }
-
     public abstract class BaseSKCanvas : SKCanvasView
     {
         protected BaseSKCanvas()

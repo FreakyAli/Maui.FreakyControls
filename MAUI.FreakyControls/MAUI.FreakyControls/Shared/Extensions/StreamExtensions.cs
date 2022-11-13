@@ -10,6 +10,18 @@ namespace Maui.FreakyControls.Extensions
             memoryStream.Position = 0;
             return memoryStream;
         }
+
+        public static byte[] ToByteArray(this Stream stream)
+        {
+            using (stream)
+            {
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    stream.CopyTo(memStream);
+                    return memStream.ToArray();
+                }
+            }
+        }
     }
 }
 

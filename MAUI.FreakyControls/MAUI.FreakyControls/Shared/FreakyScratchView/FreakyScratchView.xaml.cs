@@ -2,45 +2,42 @@
 using SkiaSharp.Views.Maui;
 using System.Reflection;
 using Maui.FreakyControls.Effects;
+using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
 public partial class FreakyScratchView : ContentView
 {
-	public FreakyScratchView()
-	{
-		InitializeComponent();
+    public FreakyScratchView()
+    {
+        InitializeComponent();
         paint.StrokeWidth = StrokeWidth;
     }
 
-    public static BindableProperty FrontImageSourceProperty = BindableProperty.Create(nameof(FrontImageSource), typeof(string), typeof(FreakyScratchView), propertyChanged: OnFrontImageChanged);
-    public string FrontImageSource
+    public static BindableProperty FrontImageSourceProperty =
+        BindableProperty.Create(
+            nameof(FrontImageSource),
+            typeof(ImageSource),
+            typeof(FreakyScratchView),
+            default(ImageSource));
+
+    public ImageSource FrontImageSource
     {
-        get => (string)GetValue(FrontImageSourceProperty);
+        get => (ImageSource)GetValue(FrontImageSourceProperty);
         set => SetValue(FrontImageSourceProperty, value);
     }
 
-    static void OnFrontImageChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var control = (FreakyScratchView)bindable;
-        control.rect = control.GetBitMap(newValue.ToString());
-    }
+    public static BindableProperty BackImageSourceProperty =
+       BindableProperty.Create(
+           nameof(BackImageSource),
+           typeof(ImageSource),
+           typeof(FreakyScratchView),
+           default(ImageSource));
 
-    public static BindableProperty BackImageSourceProperty = BindableProperty.Create(nameof(BackImageSource), typeof(string), typeof(FreakyScratchView), propertyChanged: OnBackImageChanged);
-    public string BackImageSource
+    public ImageSource BackImageSource
     {
-        get => (string)GetValue(BackImageSourceProperty);
+        get => (ImageSource)GetValue(BackImageSourceProperty);
         set => SetValue(BackImageSourceProperty, value);
-    }
-
-    static void OnBackImageChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var control = (FreakyScratchView)bindable;
-
-        Assembly assembly = control.GetType().GetTypeInfo().Assembly;
-        string resourceId = $"{assembly.GetName().Name}.{newValue}";
-
-        control.BackImage.Source = ImageSource.FromResource(resourceId, assembly);
     }
 
     public static BindableProperty StrokeWidthProperty = BindableProperty.Create(nameof(StrokeWidth), typeof(float), typeof(FreakyScratchView), propertyChanged: OnStrokeWidthChanged, defaultValue: (float)100);
@@ -56,23 +53,7 @@ public partial class FreakyScratchView : ContentView
         control.paint.StrokeWidth = (float)newValue;
     }
 
-    SKBitmap GetBitMap(string resourceName)
-    {
-        SKBitmap resourceBitmap;
-        Assembly assembly = GetType().GetTypeInfo().Assembly;
-        string resourceId = $"{assembly.GetName().Name}.{resourceName}";
-
-        using (Stream stream = assembly.GetManifestResourceStream(resourceId))
-        {
-            resourceBitmap = SKBitmap.Decode(stream);
-        }
-
-        return resourceBitmap;
-    }
-
     Dictionary<long, SKPath> inProgressPaths = new Dictionary<long, SKPath>();
-    SKBitmap rect = new SKBitmap();
-
     SKPaint paint = new SKPaint
     {
         Style = SKPaintStyle.Stroke,
@@ -81,10 +62,12 @@ public partial class FreakyScratchView : ContentView
         StrokeJoin = SKStrokeJoin.Round
     };
 
-    private void CanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    private async void CanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
-        SKCanvas canvas = e.Surface.Canvas;
-        canvas.DrawBitmap(rect, e.Info.Rect);
+        var bytes = await FrontImageSource?.GetBytesAsync();
+        var bitmap = SKBitmap.Decode(bytes);
+        SKCanvas canvas = e.Surface?.Canvas;
+        canvas.DrawBitmap(bitmap, e.Info.Rect);
 
         foreach (SKPath path in inProgressPaths.Values)
         {
