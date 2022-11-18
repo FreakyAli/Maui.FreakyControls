@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Samples.TextInputLayout.TextInputLayoutView"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             BackgroundColor="White"
              Title="TextInputLayoutView">
     <VerticalStackLayout Padding="30" Spacing="25">
        
             <freakyControls:FreakyTextInputLayout
                 FontSize="Large"
-                BorderStroke="Black"
                 BorderType="Outlined"
                 BorderCornerRadius="10"
                 BorderStrokeThickness="2"
@@ -17,6 +17,17 @@
                 ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
                 ImagePadding="10"
                 ImageCommand="{Binding ImageWasTappedCommand}"
+                Title="Outlined TextInputLayout"/>
+
+         <freakyControls:FreakyTextInputLayout
+                FontSize="Large"
+                BorderStroke="{StaticResource Primary}"
+                BackgroundColor="White"
+                TextColor="{StaticResource Primary}"
+                TitleColor="{StaticResource Primary}"
+                BorderType="Outlined"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
                 Title="Outlined TextInputLayout"/>
 
             <freakyControls:FreakyTextInputLayout
