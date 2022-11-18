@@ -1,11 +1,11 @@
 ﻿using System;
-namespace Maui.FreakyControls.Shared.FreakyCheckbox
+using Microsoft.Maui.Handlers;
+
+namespace Maui.FreakyControls;
+
+public partial class FreakyCheckboxHandler: CheckBoxHandler
 {
-	public class FreakyCheckboxHandler
-	{
-		public FreakyCheckboxHandler()
-		{
-		}
-	}
+
+
 }
 

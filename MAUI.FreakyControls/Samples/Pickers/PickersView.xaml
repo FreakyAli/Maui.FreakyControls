@@ -5,7 +5,6 @@
              x:Class="Samples.Pickers.PickersView"
              Title="PickersView">
     <VerticalStackLayout Padding="30" Spacing="10">
-
         <Label
                 TextColor="Black" 
                 Text="Freaky DatePicker below: " />
