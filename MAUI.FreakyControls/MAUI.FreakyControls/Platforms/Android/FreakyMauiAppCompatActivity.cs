@@ -1,14 +1,11 @@
-﻿using Android.Content;
-using Android.Content.PM;
-using Android.Views;
+﻿using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using AndroidX.Core.Content.PM;
 using View = Android.Views.View;
 
 namespace Maui.FreakyControls.Platforms.Android
 {
-    public abstract class FreakyMauiAppCompatActivity: MauiAppCompatActivity
+    public abstract class FreakyMauiAppCompatActivity : MauiAppCompatActivity
     {
         /// <summary>
         /// A touch event handler that can be used to generally handle outside an entry field click event

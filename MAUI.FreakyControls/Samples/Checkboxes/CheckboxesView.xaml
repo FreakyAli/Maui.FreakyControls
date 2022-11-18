@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.Checkboxes.CheckboxesView"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             Title="CheckboxesView">
+    <VerticalStackLayout Padding="30" Spacing="10">
+        <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckColor="Black"
+            OutlineWidth="5"
+            Shape="RectangleRounded" 
+            />
+    </VerticalStackLayout>
+</ContentPage>
