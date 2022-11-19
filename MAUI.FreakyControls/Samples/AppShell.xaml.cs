@@ -10,7 +10,7 @@ public partial class AppShell : Shell
     internal const string imageViews = "ImageViews";
     internal const string signatureView = "SignatureView";
     internal const string signaturePreview = "ImageDisplay";
-    internal const string checkboxes = "checkboxes";
+    internal const string checkboxes = "Checkboxes";
 
     public AppShell()
     {

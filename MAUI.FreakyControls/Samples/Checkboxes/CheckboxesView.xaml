@@ -6,11 +6,26 @@
              Title="CheckboxesView">
     <VerticalStackLayout Padding="30" Spacing="10">
         <freakyControls:FreakyCheckbox
+            x:Name="disabledCheckbox"
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
-            CheckColor="Black"
-            OutlineWidth="5"
-            Shape="RectangleRounded" 
+            CheckColor="White"
+            HasCheckAnimation="False"
+            Design="Unified"
+            IsEnabled="False"
+            Shape="Rectangle"
             />
+        <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckColor="White"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            Design="Native"
+            Shape="Rectangle" />
+        <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckColor="White"
+            Shape="Circle" />
     </VerticalStackLayout>
 </ContentPage>

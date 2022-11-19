@@ -4,6 +4,7 @@ using SkiaSharp.Views.Maui;
 using System.Windows.Input;
 using SkiaSharp.Views.Maui.Controls;
 using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Enums;
 
 namespace Maui.FreakyControls;
 
@@ -60,19 +61,28 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     void OnTappedCommand(object obj)
     {
-        if (isAnimating)
-            return;
+        if (IsEnabled)
+        {
+            if (isAnimating)
+                return;
 
-        IsChecked = !IsChecked;
+            IsChecked = !IsChecked;
+        }
     }
 
     async Task AnimateToggle()
     {
-        isAnimating = true;
-        await skiaView.ScaleTo(0.85, 100);
+        if (HasCheckAnimation)
+        {
+            isAnimating = true;
+            await skiaView.ScaleTo(0.85, 100);
+        }
         skiaView.InvalidateSurface();
-        await skiaView.ScaleTo(1, 100, Easing.BounceOut);
-        isAnimating = false;
+        if (HasCheckAnimation)
+        {
+            await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+            isAnimating = false;
+        }
     }
     #endregion
 
@@ -93,7 +103,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
 
-        using (var checkfill = new SKPaint
+        using (SKPaint checkfill = new()
         {
             Style = SKPaintStyle.Fill,
             Color = FillColor.ToSKColor(),
@@ -106,10 +116,6 @@ public class FreakyCheckbox : ContentView, IDisposable
             {
                 canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), checkfill);
             }
-            else if (shape == Shape.Rectangle)
-            {
-                canvas.DrawRect(OutlineWidth, OutlineWidth, imageInfo.Width - (OutlineWidth * 2), imageInfo.Height - (OutlineWidth * 2), checkfill);
-            }
             else
             {
                 var cornerRadius = OutlineWidth;
@@ -117,42 +123,38 @@ public class FreakyCheckbox : ContentView, IDisposable
             }
         }
 
-        using (var checkPath = new SKPath())
+        using var checkPath = new SKPath();
+        if (Design == Design.Unified)
         {
-            if (Design == Design.Unified)
+            checkPath.MoveTo(.275f * imageInfo.Width, .5f * imageInfo.Height);
+            checkPath.LineTo(.425f * imageInfo.Width, .65f * imageInfo.Height);
+            checkPath.LineTo(.725f * imageInfo.Width, .375f * imageInfo.Height);
+        }
+        else
+        {
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
             {
-                checkPath.MoveTo(.275f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.425f * imageInfo.Width, .65f * imageInfo.Height);
-                checkPath.LineTo(.725f * imageInfo.Width, .375f * imageInfo.Height);
+                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
+                checkPath.LineTo(.375f * imageInfo.Width, .675f * imageInfo.Height);
+                checkPath.LineTo(.75f * imageInfo.Width, .3f * imageInfo.Height);
             }
             else
             {
-                if (DeviceInfo.Platform == DevicePlatform.iOS)
-                {
-                    checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                    checkPath.LineTo(.375f * imageInfo.Width, .675f * imageInfo.Height);
-                    checkPath.LineTo(.75f * imageInfo.Width, .3f * imageInfo.Height);
-                }
-                else
-                {
-                    checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                    checkPath.LineTo(.425f * imageInfo.Width, .7f * imageInfo.Height);
-                    checkPath.LineTo(.8f * imageInfo.Width, .275f * imageInfo.Height);
-                }
-            }
-
-            using (var checkStroke = new SKPaint
-            {
-                Style = SKPaintStyle.Stroke,
-                Color = CheckColor.ToSKColor(),
-                StrokeWidth = OutlineWidth,
-                IsAntialias = true
-            })
-            {
-                checkStroke.StrokeCap = Design == Design.Unified ? SKStrokeCap.Round : SKStrokeCap.Butt;
-                canvas.DrawPath(checkPath, checkStroke);
+                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
+                checkPath.LineTo(.425f * imageInfo.Width, .7f * imageInfo.Height);
+                checkPath.LineTo(.8f * imageInfo.Width, .275f * imageInfo.Height);
             }
         }
+
+        using var checkStroke = new SKPaint
+        {
+            Style = SKPaintStyle.Stroke,
+            Color = CheckColor.ToSKColor(),
+            StrokeWidth = OutlineWidth,
+            IsAntialias = true
+        };
+        checkStroke.StrokeCap = Design == Design.Unified ? SKStrokeCap.Round : SKStrokeCap.Butt;
+        canvas.DrawPath(checkPath, checkStroke);
     }
 
     void DrawOutline(SKPaintSurfaceEventArgs e)
@@ -172,7 +174,9 @@ public class FreakyCheckbox : ContentView, IDisposable
         {
             var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
             if (shape == Shape.Circle)
+            {
                 canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), outline);
+            }
             else
             {
                 var cornerRadius = OutlineWidth;
@@ -186,10 +190,28 @@ public class FreakyCheckbox : ContentView, IDisposable
     /// <summary>
     /// Raised when IsChecked is changed.
     /// </summary>
-    public event EventHandler<TappedEventArgs> IsCheckedChanged;
+    public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
     #endregion
 
     #region Bindable Properties
+
+    public static readonly BindableProperty HasCheckAnimationProperty =
+    BindableProperty.Create(
+        nameof(HasCheckAnimation),
+        typeof(bool),
+        typeof(FreakyCheckbox),
+        true);
+
+    /// <summary>
+    /// Gets or sets the color of the outline.
+    /// </summary>
+    /// <value>Color value of the outline</value>
+    public bool HasCheckAnimation
+    {
+        get => (bool)GetValue(HasCheckAnimationProperty);
+        set => SetValue(HasCheckAnimationProperty, value);
+    }
+
     public static readonly BindableProperty OutlineColorProperty =
     BindableProperty.Create(
         nameof(OutlineColor),
@@ -290,7 +312,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(DesignProperty, value); }
     }
 
-    public static new BindableProperty StyleProperty =
+    public static readonly new BindableProperty StyleProperty =
     BindableProperty.Create(
         nameof(Style),
         typeof(Style),
@@ -309,7 +331,7 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     static void OnStyleChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (!(bindable is FreakyCheckbox FreakyCheckbox)) return;
+        if (bindable is not FreakyCheckbox FreakyCheckbox) return;
 
         var setters = ((Style)newValue).Setters;
         var dict = new Dictionary<string, Color>();
@@ -362,7 +384,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     static async void OnIsCheckedChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is FreakyCheckbox checkbox)) return;
-        checkbox.IsCheckedChanged?.Invoke(checkbox, new TappedEventArgs((bool)newValue));
+        checkbox.CheckedChanged?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
         checkbox.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
         await checkbox.AnimateToggle();
     }
@@ -379,17 +401,3 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     #endregion
 }
-
-public enum Shape
-{
-    Circle,
-    Rectangle,
-    RectangleRounded
-}
-
-public enum Design
-{
-    Unified,
-    Native
-}
-

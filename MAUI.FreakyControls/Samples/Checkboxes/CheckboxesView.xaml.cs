@@ -7,4 +7,10 @@ public partial class CheckboxesView : ContentPage
 		InitializeComponent();
 		BindingContext = new CheckboxesViewModel();
 	}
+
+    void FreakyCheckbox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+		disabledCheckbox.IsChecked = e.Value;
+    }
+
 }
