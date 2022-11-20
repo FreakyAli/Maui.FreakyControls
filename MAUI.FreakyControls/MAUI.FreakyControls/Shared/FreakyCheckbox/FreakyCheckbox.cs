@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Windows.Input;
@@ -14,7 +14,8 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     bool isAnimating;
     SKCanvasView skiaView;
-    TapGestureRecognizer tapped = new();
+    readonly TapGestureRecognizer tapped = new();
+
     #endregion
 
     #region ctor
@@ -31,8 +32,8 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     ~FreakyCheckbox()
     {
-        tapped.Tapped -= CheckBox_Tapped;
         GestureRecognizers.Remove(tapped);
+        tapped.Tapped -= CheckBox_Tapped;
     }
 
     private void CheckBox_Tapped(object sender, EventArgs e)
@@ -305,7 +306,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         design);
 
     /// <summary>
-    /// Gets or sets the shape of the <see cref="FreakyCheckbox"/>.
+    /// Gets or sets the design of the <see cref="FreakyCheckbox"/>.
     /// </summary>
     public Design Design
     {
@@ -354,9 +355,8 @@ public class FreakyCheckbox : ContentView, IDisposable
         typeof(FreakyCheckbox));
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="T:IntelliAbb.Xamarin.Controls.FreakyCheckbox"/> is checked.
+    /// Triggered when the check changes.
     /// </summary>
-    /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
     public ICommand CheckedChangedCommand
     {
         get { return (ICommand)GetValue(CheckedChangedCommandProperty); }
@@ -373,7 +373,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         propertyChanged: OnIsCheckedChanged);
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="T:IntelliAbb.Xamarin.Controls.FreakyCheckbox"/> is checked.
+    /// Gets or sets a value indicating whether this <see cref="FreakyCheckbox"/> is checked.
     /// </summary>
     /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
     public bool IsChecked
