@@ -10,6 +10,7 @@ public partial class AppShell : Shell
     internal const string imageViews = "ImageViews";
     internal const string signatureView = "SignatureView";
     internal const string signaturePreview = "ImageDisplay";
+    internal const string checkboxes = "Checkboxes";
 
     public AppShell()
     {
@@ -20,6 +21,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(imageViews, typeof(ImageViews.ImagesPage));
         Routing.RegisterRoute(signatureView, typeof(SignatureView.SignatureView));
         Routing.RegisterRoute(signaturePreview, typeof(SignatureView.ImageDisplay));
+        Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
     }
 }
 
