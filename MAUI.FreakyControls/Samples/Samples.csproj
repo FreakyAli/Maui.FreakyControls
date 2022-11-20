@@ -25,6 +25,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
 	  <EnableCodeSigning>false</EnableCodeSigning>
+	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
@@ -54,6 +55,7 @@
 	  <None Remove="Pickers\" />
 	  <None Remove="SignatureView\" />
 	  <None Remove="Nager.Country" />
+	  <None Remove="Checkboxes\" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
@@ -66,6 +68,7 @@
 	  <Folder Include="TextInputLayout\" />
 	  <Folder Include="Pickers\" />
 	  <Folder Include="SignatureView\" />
+	  <Folder Include="Checkboxes\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
@@ -91,6 +94,9 @@
 	    <SubType></SubType>
 	  </MauiXaml>
 	  <MauiXaml Update="SignatureView\SignatureView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Checkboxes\CheckboxesView.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
 	</ItemGroup>
