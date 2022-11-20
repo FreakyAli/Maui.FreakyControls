@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Windows.Input;
@@ -15,6 +15,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     bool isAnimating;
     SKCanvasView skiaView;
     readonly TapGestureRecognizer tapped = new();
+
     #endregion
 
     #region ctor
