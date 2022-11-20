@@ -4,28 +4,53 @@
              x:Class="Samples.Checkboxes.CheckboxesView"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="CheckboxesView">
-    <VerticalStackLayout Padding="30" Spacing="10">
-        <freakyControls:FreakyCheckbox
-            x:Name="disabledCheckbox"
+    <VerticalStackLayout
+        VerticalOptions="Start"
+        HorizontalOptions="Center"
+        Padding="30"
+        Spacing="20" >
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
             CheckColor="White"
-            HasCheckAnimation="False"
+            Design="Native" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Native design"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckColor="White"
             Design="Unified"
-            IsEnabled="False"
             Shape="Rectangle"
             />
-        <freakyControls:FreakyCheckbox
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Rectangle"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
             CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
-            Design="Native"
-            Shape="Rectangle" />
-        <freakyControls:FreakyCheckbox
-            OutlineColor="{StaticResource Primary}"
-            FillColor="{StaticResource Primary}"
-            CheckColor="White"
+            Design="Unified"
             Shape="Circle" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Circle"
+            />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

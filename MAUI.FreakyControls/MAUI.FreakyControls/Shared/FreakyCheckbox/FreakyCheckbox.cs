@@ -14,8 +14,7 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     bool isAnimating;
     SKCanvasView skiaView;
-    ICommand toggleCommand;
-
+    TapGestureRecognizer tapped = new();
     #endregion
 
     #region ctor
@@ -26,40 +25,17 @@ public class FreakyCheckbox : ContentView, IDisposable
         WidthRequest = HeightRequest = size;
         HorizontalOptions = VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false);
         Content = skiaView;
-        GestureRecognizers.Add(new TapGestureRecognizer
-        {
-            Command = toggleCommand
-        });
+        tapped.Tapped += CheckBox_Tapped;
+        GestureRecognizers.Add(tapped);
     }
 
-    #endregion
-
-    #region Defaults
-
-    private static Design design => Design.Unified;
-
-    private static Shape shape => DeviceInfo.Platform == DevicePlatform.iOS ?
-                Shape.Circle : Shape.Rectangle;
-
-    private static float outlineWidth => DeviceInfo.Platform == DevicePlatform.iOS ?
-                   4.0f : 6.0f;
-
-    private static double size => 24.0;
-
-    #endregion
-
-    #region Canvas
-
-    void InitializeCanvas()
+    ~FreakyCheckbox()
     {
-        toggleCommand = new Command(OnTappedCommand);
-
-        skiaView = new SKCanvasView();
-        skiaView.PaintSurface += Handle_PaintSurface;
-        skiaView.WidthRequest = skiaView.HeightRequest = size;
+        tapped.Tapped -= CheckBox_Tapped;
+        GestureRecognizers.Remove(tapped);
     }
 
-    void OnTappedCommand(object obj)
+    private void CheckBox_Tapped(object sender, EventArgs e)
     {
         if (IsEnabled)
         {
@@ -68,6 +44,31 @@ public class FreakyCheckbox : ContentView, IDisposable
 
             IsChecked = !IsChecked;
         }
+    }
+
+    #endregion
+
+    #region Defaults
+
+    private static readonly Design design = Shared.Enums.Design.Unified;
+
+    private static readonly Shape shape = DeviceInfo.Platform == DevicePlatform.iOS ?
+                Shared.Enums.Shape.Circle : Shared.Enums.Shape.Rectangle;
+
+    private static readonly float outlineWidth = DeviceInfo.Platform == DevicePlatform.iOS ?
+                   4.0f : 6.0f;
+
+    private static readonly double size = 24.0;
+
+    #endregion
+
+    #region Canvas
+
+    void InitializeCanvas()
+    {
+        skiaView = new SKCanvasView();
+        skiaView.PaintSurface += Handle_PaintSurface;
+        skiaView.WidthRequest = skiaView.HeightRequest = size;
     }
 
     async Task AnimateToggle()
@@ -112,7 +113,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         })
         {
             var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
-            if (shape == Shape.Circle)
+            if (shape == Shared.Enums.Shape.Circle)
             {
                 canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), checkfill);
             }
@@ -173,7 +174,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         })
         {
             var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
-            if (shape == Shape.Circle)
+            if (shape == Shared.Enums.Shape.Circle)
             {
                 canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), outline);
             }
