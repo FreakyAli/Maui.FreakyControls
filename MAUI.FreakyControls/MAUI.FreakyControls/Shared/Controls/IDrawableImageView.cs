@@ -41,4 +41,3 @@ public interface IDrawableImageView
         get;
     }
 }
-

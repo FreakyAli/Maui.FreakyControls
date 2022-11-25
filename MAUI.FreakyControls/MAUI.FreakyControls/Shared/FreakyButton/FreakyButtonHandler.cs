@@ -8,4 +8,3 @@ public partial class FreakyButtonHandler : ButtonHandler
 {
     
 }
-

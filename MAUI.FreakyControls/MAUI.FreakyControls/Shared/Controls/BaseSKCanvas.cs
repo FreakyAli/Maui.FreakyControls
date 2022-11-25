@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
@@ -40,8 +40,6 @@ public abstract class BaseSKCanvas : SKCanvasView
         {
             return;
         }
-
         InvalidateSurface();
     }
 }
-

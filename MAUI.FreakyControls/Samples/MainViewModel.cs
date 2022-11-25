@@ -55,12 +55,12 @@ namespace Samples
             };
 
             var strSuggestionArr = new string[] {
-                        "harshad@mobmaxime.com",
-                        "sagar.p@mobmaxime.com",
-                        "kapil@mobmaxime.com",
-                        "harry@test.com",
-                        "xamarin@test.com",
-                        "xamarinteam@mob.com"
+                        "hello",
+                        "how are you",
+                        "some other question",
+                        "Yuhu",
+                        "Yello",
+                        "Majin buuuuuuuuuu"
                         };
             SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
         }

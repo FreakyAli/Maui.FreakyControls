@@ -10,7 +10,7 @@
         Padding="30"
         Spacing="20" >
 
-         <HorizontalStackLayout Spacing="10">
+        <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="Transparent"
@@ -23,7 +23,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Circle + Line"
+            Text="Unified design + Rectangle + Box"
             />
         </HorizontalStackLayout>
 
@@ -39,7 +39,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Circle + Line"
+            Text="Unified design + Rectangle + Line"
             />
         </HorizontalStackLayout>
 
@@ -55,20 +55,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Circle + Cross"
-            />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout Spacing="10">
-            <freakyControls:FreakyCheckbox
-            OutlineColor="{StaticResource Primary}"
-            FillColor="{StaticResource Primary}"
-            CheckColor="White"
-            Design="Native" />
-            <Label
-            HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            Text="Native design"
+            Text="Unified design + Rectangle + Cross"
             />
         </HorizontalStackLayout>
 
@@ -99,6 +86,19 @@
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
             Text="Unified design + Circle"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckColor="White"
+            Design="Native" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Native design"
             />
         </HorizontalStackLayout>
     </VerticalStackLayout>

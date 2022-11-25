@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
@@ -12,7 +12,6 @@ using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
 using static Android.Views.View;
 using static Microsoft.Maui.ApplicationModel.Platform;
-
 
 namespace Maui.FreakyControls;
 

@@ -5,4 +5,3 @@ public class IsBlankRequestedEventArgs : FreakyEventArgs
 {
     public bool IsBlank { get; set; } = true;
 }
-
