@@ -366,7 +366,6 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(CheckTypeProperty, value); }
     }
 
-
     public static readonly BindableProperty DesignProperty =
     BindableProperty.Create(
         nameof(Design),

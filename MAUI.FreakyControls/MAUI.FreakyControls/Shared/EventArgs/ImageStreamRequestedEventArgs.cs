@@ -15,4 +15,3 @@ public class ImageStreamRequestedEventArgs : FreakyEventArgs
 
     public Task<Stream> ImageStreamTask { get; set; } = Task.FromResult<Stream>(null);
 }
-

@@ -6,4 +6,3 @@ namespace Samples.Checkboxes
 		
 	}
 }
-

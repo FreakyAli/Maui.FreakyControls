@@ -73,4 +73,3 @@
                  Color="{Binding UnderlineColor,Source={x:Reference this}}"/>
     </VerticalStackLayout>
 </ContentView>
-
