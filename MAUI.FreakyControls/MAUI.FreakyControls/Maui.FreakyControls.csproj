@@ -13,9 +13,9 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.4</AssemblyVersion>
-		<AssemblyFileVersion>0.4</AssemblyFileVersion>
-		<Version>0.4-pre</Version>
+		<AssemblyVersion>0.4.1</AssemblyVersion>
+		<AssemblyFileVersion>0.4.1</AssemblyFileVersion>
+		<Version>0.4.1</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 
 		<!--Version of C# to use -->
@@ -29,7 +29,7 @@
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
 		<RepositoryType>
 		</RepositoryType>
-		<PackageTags>Maui dotnet.Maui FreakyControls uikit Signature SignatureView Svg SvgImageView CircularImage TextInputLayout</PackageTags>
+		<PackageTags>Maui dotnet.Maui .net Maui FreakyControls Checkbox uikit Signature SignatureView Svg SvgImageView CircularImage TextInputLayout</PackageTags>
 		<PackageReleaseNotes>Basic implementation for all Freaky Controls</PackageReleaseNotes>
 		<Copyright>Copyright 2022</Copyright>
 		<PackOnBuild>true</PackOnBuild>
