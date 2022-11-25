@@ -12,5 +12,3 @@ public enum Shape
     /// </summary>
     Rectangle
 }
-
-

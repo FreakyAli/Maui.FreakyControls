@@ -24,4 +24,3 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
     }
 }
-

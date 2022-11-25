@@ -7,7 +7,6 @@ namespace Maui.FreakyControls;
 
 #if ANDROID || IOS
 
-
 public sealed partial class FreakyEntryHandler : EntryHandler
 {
     public FreakyEntryHandler()

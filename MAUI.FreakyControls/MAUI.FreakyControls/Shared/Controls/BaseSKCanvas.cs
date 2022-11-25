@@ -44,4 +44,3 @@ public abstract class BaseSKCanvas : SKCanvasView
         InvalidateSurface();
     }
 }
-

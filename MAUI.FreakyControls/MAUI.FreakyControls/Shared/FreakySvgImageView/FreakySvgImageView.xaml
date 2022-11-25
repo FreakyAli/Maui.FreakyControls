@@ -12,5 +12,3 @@
             Tapped="TapGestureRecognizer_OnTapped" />
     </View.GestureRecognizers>
 </views:BaseSKCanvas>
-  
-

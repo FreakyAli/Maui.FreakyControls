@@ -5,4 +5,3 @@ public class ImagesViewModel : MainViewModel
 {
 
 }
-

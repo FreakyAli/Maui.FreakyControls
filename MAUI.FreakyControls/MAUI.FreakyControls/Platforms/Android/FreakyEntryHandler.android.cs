@@ -13,7 +13,6 @@ using Microsoft.Maui.Handlers;
 using static Android.Views.View;
 using static Microsoft.Maui.ApplicationModel.Platform;
 
-
 namespace Maui.FreakyControls;
 
 public partial class FreakyEntryHandler

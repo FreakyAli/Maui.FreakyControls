@@ -5,4 +5,3 @@ public class PointsEventArgs : FreakyEventArgs
 {
     public IEnumerable<Point> Points { get; set; } = new Point[0];
 }
-
