@@ -43,4 +43,3 @@ public partial class FreakyPickerHandler
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 }
-

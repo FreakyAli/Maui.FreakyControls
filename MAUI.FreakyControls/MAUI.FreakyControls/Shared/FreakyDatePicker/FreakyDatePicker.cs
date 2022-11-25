@@ -112,4 +112,3 @@ public class FreakyDatePicker : DatePicker, IDrawableImageView
         set => SetValue(ImageAlignmentProperty, value);
     }
 }
-

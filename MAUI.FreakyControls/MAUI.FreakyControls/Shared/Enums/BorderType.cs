@@ -23,5 +23,3 @@ public enum BorderType
     /// </summary>
     Underline
 }
-
-

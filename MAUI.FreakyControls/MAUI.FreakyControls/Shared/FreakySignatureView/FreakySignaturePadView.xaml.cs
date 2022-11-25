@@ -153,7 +153,6 @@ public partial class FreakySignaturePadView : ContentView
         set => SetValue(StrokeWidthProperty, value);
     }
 
-
     /// <summary>
     /// Gets or sets the text for the caption displayed under the signature Underline.
     /// </summary>

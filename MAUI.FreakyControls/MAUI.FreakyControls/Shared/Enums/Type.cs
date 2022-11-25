@@ -1,12 +1,12 @@
 ﻿using System;
 namespace Maui.FreakyControls.Shared.Enums
 {
-	public enum CheckType
+    public enum CheckType
     {
         Check,
         Box,
-		Line,
-		Cross,
-	}
+        Line,
+        Cross,
+    }
 }
 

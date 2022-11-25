@@ -185,7 +185,6 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     void DrawOutline(SKPaintSurfaceEventArgs e)
     {
-
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
 
