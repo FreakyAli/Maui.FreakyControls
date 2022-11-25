@@ -10,6 +10,55 @@
         Padding="30"
         Spacing="20" >
 
+         <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="Transparent"
+            CheckColor="{StaticResource Primary}"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            CheckType="Box"
+            CheckWidth="10"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Circle + Line"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckColor="White"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            CheckType="Line"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Circle + Line"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckColor="White"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            CheckType="Cross"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Circle + Cross"
+            />
+        </HorizontalStackLayout>
+
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
