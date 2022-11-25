@@ -335,7 +335,6 @@ partial class InkPresenter : View
 
     private void Invalidate(RectangleF dirtyRect)
     {
-
 #if ANDROID28_0_OR_GREATER
         Invalidate();
 #else
@@ -427,8 +426,3 @@ partial class InkPresenter : View
         return image;
     }
 }
-
-
-
-
-

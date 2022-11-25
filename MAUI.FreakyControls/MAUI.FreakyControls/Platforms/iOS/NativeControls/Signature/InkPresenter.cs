@@ -384,4 +384,3 @@ internal partial class InkPresenter
         StrokeCompleted?.Invoke(this, EventArgs.Empty);
     }
 }
-

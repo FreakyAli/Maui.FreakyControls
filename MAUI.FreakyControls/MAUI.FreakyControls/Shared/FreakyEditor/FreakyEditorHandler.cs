@@ -5,7 +5,6 @@ using Microsoft.Maui.Handlers;
 namespace Maui.FreakyControls;
 
 #if ANDROID || IOS
-
 public sealed partial class FreakyEditorHandler : EditorHandler
 {
     public FreakyEditorHandler()
@@ -21,11 +20,8 @@ public sealed partial class FreakyEditorHandler : EditorHandler
         }
     }
 }
-
 #else
-
 public partial class FreakyEditorHandler : EditorHandler
 {
-
 }
 #endif

@@ -1,32 +1,29 @@
 ﻿using Android.Text;
 using Java.Lang;
 
+namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
-namespace Maui.FreakyControls.Platforms.Android.NativeControls
+internal class TextListener : Java.Lang.Object, ITextWatcher
 {
-    internal class TextListener : Java.Lang.Object, ITextWatcher
+    public ClearableEditext objClearable { get; set; }
+    public TextListener(ClearableEditext objRef)
     {
-        public ClearableEditext objClearable { get; set; }
-        public TextListener(ClearableEditext objRef)
-        {
-            objClearable = objRef;
-        }
+        objClearable = objRef;
+    }
 
-        public void AfterTextChanged(IEditable s)
-        {
+    public void AfterTextChanged(IEditable s)
+    {
 
-        }
+    }
 
-        public void BeforeTextChanged(ICharSequence s, int start, int count, int after)
-        {
+    public void BeforeTextChanged(ICharSequence s, int start, int count, int after)
+    {
 
-        }
+    }
 
-        public void OnTextChanged(ICharSequence s, int start, int before, int count)
-        {
-            if (objClearable != null)
-                objClearable.manageClearButton();
-        }
+    public void OnTextChanged(ICharSequence s, int start, int before, int count)
+    {
+        if (objClearable != null)
+            objClearable.manageClearButton();
     }
 }
-

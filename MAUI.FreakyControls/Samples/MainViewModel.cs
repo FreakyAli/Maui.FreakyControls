@@ -41,10 +41,7 @@ namespace Samples
 
         public MainViewModel()
         {
-            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync, new AsyncRelayCommandOptions()
-            {
-
-            });
+            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync, new AsyncRelayCommandOptions());
             FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
 
             Items = new ObservableCollection<string>
@@ -81,4 +78,3 @@ namespace Samples
 
     }
 }
-

@@ -29,11 +29,7 @@ public sealed partial class FreakyEntryHandler : EntryHandler
 }
 
 #else
-
 public partial class FreakyEntryHandler : EntryHandler
 {
-
 }
-
 #endif
-

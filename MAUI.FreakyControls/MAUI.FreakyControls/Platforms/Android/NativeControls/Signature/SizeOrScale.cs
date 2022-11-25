@@ -96,8 +96,3 @@ public struct SizeOrScale
         return new SizeOrScale((float)size.Width, (float)size.Height, SizeOrScaleType.Size);
     }
 }
-
-
-
-
-

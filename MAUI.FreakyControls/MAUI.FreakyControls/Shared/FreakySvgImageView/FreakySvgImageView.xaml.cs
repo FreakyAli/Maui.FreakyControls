@@ -114,7 +114,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
         set => SetValue(Base64StringProperty, value);
     }
 
-
     /// <summary>
     /// of type <see cref="ICommand"/>, defines the command that's executed when the image is tapped.
     /// </summary>

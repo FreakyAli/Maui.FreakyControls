@@ -49,4 +49,3 @@ public partial class FreakyTimePickerHandler
         }
     }
 }
-
