@@ -175,4 +175,3 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         }
     }
 }
-

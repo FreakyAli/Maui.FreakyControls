@@ -183,4 +183,3 @@ public class FreakyMauiTimePicker : MauiTimePicker
         this.clickListener = listener;
     }
 }
-

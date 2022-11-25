@@ -184,4 +184,3 @@ public class FreakyMauiDatePicker : MauiDatePicker
         this.clickListener = listener;
     }
 }
-
