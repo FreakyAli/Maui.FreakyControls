@@ -1,10 +1,9 @@
-﻿namespace Maui.FreakyControls.Platforms.Android.NativeControls
+﻿namespace Maui.FreakyControls.Platforms.Android.NativeControls;
+
+public enum DrawablePosition
 {
-    public enum DrawablePosition
-    {
-        Top,
-        Bottom,
-        Left,
-        Right
-    }
+    Top,
+    Bottom,
+    Left,
+    Right
 }

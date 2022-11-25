@@ -6,7 +6,6 @@ using Android.Views;
 using Microsoft.Maui.Platform;
 using Rect = Android.Graphics.Rect;
 
-
 namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
 public class FreakyMauiTimePicker : MauiTimePicker
@@ -22,17 +21,14 @@ public class FreakyMauiTimePicker : MauiTimePicker
 
     public FreakyMauiTimePicker(Context context) : base(context)
     {
-
     }
 
     public FreakyMauiTimePicker(Context context, IAttributeSet attrs) : base(context, attrs)
     {
-
     }
 
     public FreakyMauiTimePicker(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
     {
-
     }
 
     public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
@@ -85,7 +81,7 @@ public class FreakyMauiTimePicker : MauiTimePicker
                 bounds = drawableLeft.Bounds;
 
                 int x, y;
-                int extraTapArea = (int)(13 * Resources.DisplayMetrics.Density + 0.5);
+                int extraTapArea = (int)((13 * Resources.DisplayMetrics.Density) + 0.5);
 
                 x = actionX;
                 y = actionY;
@@ -119,7 +115,6 @@ public class FreakyMauiTimePicker : MauiTimePicker
 
             if (drawableRight != null)
             {
-
                 bounds = null;
                 bounds = drawableRight.Bounds;
 
@@ -170,7 +165,6 @@ public class FreakyMauiTimePicker : MauiTimePicker
                 }
                 return base.OnTouchEvent(e);
             }
-
         }
         return base.OnTouchEvent(e);
     }
@@ -189,4 +183,3 @@ public class FreakyMauiTimePicker : MauiTimePicker
         this.clickListener = listener;
     }
 }
-

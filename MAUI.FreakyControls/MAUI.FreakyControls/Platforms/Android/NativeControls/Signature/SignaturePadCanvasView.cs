@@ -673,6 +673,3 @@ partial class SignaturePadCanvasView
         StrokeCompleted?.Invoke(this, e);
     }
 }
-
-
-

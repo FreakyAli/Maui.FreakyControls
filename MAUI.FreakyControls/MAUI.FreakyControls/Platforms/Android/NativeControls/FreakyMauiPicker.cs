@@ -21,7 +21,6 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
 
         public FreakyMauiPicker(Context context) : base(context)
         {
-
         }
 
         public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
@@ -102,13 +101,11 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                         clickListener.OnClick(DrawablePosition.Left);
                         e.Action = (MotionEventActions.Cancel);
                         return false;
-
                     }
                 }
 
                 if (drawableRight != null)
                 {
-
                     bounds = null;
                     bounds = drawableRight.Bounds;
 
@@ -159,7 +156,6 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                     }
                     return base.OnTouchEvent(e);
                 }
-
             }
             return base.OnTouchEvent(e);
         }
@@ -179,4 +175,3 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         }
     }
 }
-

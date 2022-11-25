@@ -22,8 +22,6 @@ namespace Maui.FreakyControls
                 [nameof(FreakySignatureCanvasView.StrokeWidth)] = MapStrokeWidth
             };
 
-       
-
         public static CommandMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> CommandMapper =
             new(ViewHandler.ViewCommandMapper)
             {
@@ -156,4 +154,3 @@ namespace Maui.FreakyControls
 #else
 #endif
 }
-

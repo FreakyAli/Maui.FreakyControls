@@ -90,6 +90,3 @@ internal static class PathSmoothing
     }
 
 }
-
-
-

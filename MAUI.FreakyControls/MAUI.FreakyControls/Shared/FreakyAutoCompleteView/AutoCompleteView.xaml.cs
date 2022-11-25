@@ -55,7 +55,6 @@ public partial class AutoCompleteView : ContentView
         typeof(AutoCompleteView),
         null);
 
-
     private readonly IEnumerable _originSuggestions = Array.Empty<object>();
 
     public AutoCompleteView()

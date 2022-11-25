@@ -128,9 +128,33 @@ public class FreakyCheckbox : ContentView, IDisposable
         using var checkPath = new SKPath();
         if (Design == Design.Unified)
         {
-            checkPath.MoveTo(.275f * imageInfo.Width, .5f * imageInfo.Height);
-            checkPath.LineTo(.425f * imageInfo.Width, .65f * imageInfo.Height);
-            checkPath.LineTo(.725f * imageInfo.Width, .375f * imageInfo.Height);
+            if (CheckType == CheckType.Check)
+            {
+                checkPath.MoveTo(.275f * imageInfo.Width, .5f * imageInfo.Height);
+                checkPath.LineTo(.425f * imageInfo.Width, .65f * imageInfo.Height);
+                checkPath.LineTo(.725f * imageInfo.Width, .375f * imageInfo.Height);
+            }
+            else if (CheckType == CheckType.Cross)
+            {
+                checkPath.MoveTo(.75f * imageInfo.Width, .25f * imageInfo.Height);
+                checkPath.LineTo(.25f * imageInfo.Width, .75f * imageInfo.Height);
+                checkPath.MoveTo(.75f * imageInfo.Width, .75f * imageInfo.Height);
+                checkPath.LineTo(.25f * imageInfo.Width, .25f * imageInfo.Height);
+            }
+            else if (CheckType == CheckType.Line)
+            {
+                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
+                checkPath.LineTo(.8f * imageInfo.Width, .5f * imageInfo.Height);
+            }
+            else
+            {
+                checkPath.MoveTo(.2f * imageInfo.Width, .8f * imageInfo.Height);
+                checkPath.LineTo(.8f * imageInfo.Width, .8f * imageInfo.Height);
+                checkPath.LineTo(.8f * imageInfo.Width, .2f * imageInfo.Height);
+                checkPath.LineTo(.2f * imageInfo.Width, .2f * imageInfo.Height);
+                checkPath.LineTo(.2f * imageInfo.Width, .8f * imageInfo.Height);
+                checkPath.Close();
+            }
         }
         else
         {
@@ -150,18 +174,18 @@ public class FreakyCheckbox : ContentView, IDisposable
 
         using var checkStroke = new SKPaint
         {
-            Style = SKPaintStyle.Stroke,
+            Style = Design == Design.Unified && CheckType == CheckType.Box ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
-            StrokeWidth = OutlineWidth,
-            IsAntialias = true
+            StrokeWidth = CheckWidth,
+            IsAntialias = true,
+            StrokeCap = Design == Design.Unified ? SKStrokeCap.Round : SKStrokeCap.Butt
         };
-        checkStroke.StrokeCap = Design == Design.Unified ? SKStrokeCap.Round : SKStrokeCap.Butt;
+
         canvas.DrawPath(checkPath, checkStroke);
     }
 
     void DrawOutline(SKPaintSurfaceEventArgs e)
     {
-
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
 
@@ -177,12 +201,23 @@ public class FreakyCheckbox : ContentView, IDisposable
             var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
             if (shape == Shared.Enums.Shape.Circle)
             {
-                canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), outline);
+                canvas.DrawCircle(
+                    imageInfo.Width / 2,
+                    imageInfo.Height / 2,
+                    (imageInfo.Width / 2) - (OutlineWidth / 2),
+                    outline);
             }
             else
             {
                 var cornerRadius = OutlineWidth;
-                canvas.DrawRoundRect(OutlineWidth, OutlineWidth, imageInfo.Width - (OutlineWidth * 2), imageInfo.Height - (OutlineWidth * 2), cornerRadius, cornerRadius, outline);
+                canvas.DrawRoundRect(
+                    OutlineWidth,
+                    OutlineWidth,
+                    imageInfo.Width - (OutlineWidth * 2),
+                    imageInfo.Height - (OutlineWidth * 2),
+                    cornerRadius,
+                    cornerRadius,
+                    outline);
             }
         }
     }
@@ -273,13 +308,30 @@ public class FreakyCheckbox : ContentView, IDisposable
         outlineWidth);
 
     /// <summary>
-    /// Gets or sets the width of the outline and check.
+    /// Gets or sets the width of the outline.
     /// </summary>
     /// <value>The width of the outline and check.</value>
     public float OutlineWidth
     {
         get { return (float)GetValue(OutlineWidthProperty); }
         set { SetValue(OutlineWidthProperty, value); }
+    }
+
+    public static readonly BindableProperty CheckWidthProperty =
+  BindableProperty.Create(
+      nameof(CheckWidth),
+      typeof(float),
+      typeof(FreakyCheckbox),
+      outlineWidth);
+
+    /// <summary>
+    /// Gets or sets the width of the check.
+    /// </summary>
+    /// <value>The width of the outline and check.</value>
+    public float CheckWidth
+    {
+        get { return (float)GetValue(CheckWidthProperty); }
+        set { SetValue(CheckWidthProperty, value); }
     }
 
     public static readonly BindableProperty ShapeProperty =
@@ -297,6 +349,23 @@ public class FreakyCheckbox : ContentView, IDisposable
         get { return (Shape)GetValue(ShapeProperty); }
         set { SetValue(ShapeProperty, value); }
     }
+
+    public static readonly BindableProperty CheckTypeProperty =
+   BindableProperty.Create(
+       nameof(CheckType),
+       typeof(CheckType),
+       typeof(FreakyCheckbox),
+       CheckType.Check);
+
+    /// <summary>
+    /// Gets or sets the type of the check on <see cref="FreakyCheckbox"/>.
+    /// </summary>
+    public CheckType CheckType
+    {
+        get { return (CheckType)GetValue(CheckTypeProperty); }
+        set { SetValue(CheckTypeProperty, value); }
+    }
+
 
     public static readonly BindableProperty DesignProperty =
     BindableProperty.Create(
@@ -370,7 +439,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         typeof(FreakyCheckbox),
         false,
         BindingMode.TwoWay,
-        propertyChanged: OnIsCheckedChanged);
+        propertyChanged: OnCheckedChanged);
 
     /// <summary>
     /// Gets or sets a value indicating whether this <see cref="FreakyCheckbox"/> is checked.
@@ -382,12 +451,37 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(IsCheckedProperty, value); }
     }
 
-    static async void OnIsCheckedChanged(BindableObject bindable, object oldValue, object newValue)
+    static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is FreakyCheckbox checkbox)) return;
         checkbox.CheckedChanged?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
         checkbox.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
         await checkbox.AnimateToggle();
+    }
+
+    public static readonly BindableProperty SizeRequestProperty =
+   BindableProperty.Create(
+       nameof(SizeRequest),
+       typeof(double),
+       typeof(FreakyCheckbox),
+       size,
+       propertyChanged: SizeRequestChanged);
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="T:IntelliAbb.Xamarin.Controls.FreakyCheckbox"/> is checked.
+    /// </summary>
+    /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
+    public double SizeRequest
+    {
+        get { return (double)GetValue(SizeRequestProperty); }
+        set { SetValue(SizeRequestProperty, value); }
+    }
+
+    static void SizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (!(bindable is FreakyCheckbox checkbox)) return;
+        checkbox.WidthRequest = checkbox.HeightRequest = (double)(newValue);
+        checkbox.skiaView.WidthRequest = checkbox.skiaView.HeightRequest = (double)(newValue);
     }
 
     #endregion

@@ -112,4 +112,3 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
         set => SetValue(ImageAlignmentProperty, value);
     }
 }
-
