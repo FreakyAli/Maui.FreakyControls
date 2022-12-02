@@ -134,10 +134,6 @@
 			<SubType>
 			</SubType>
 		</MauiXaml>
-		<MauiXaml Update="Shared\FreakyAutoCompleteView\AutoCompleteView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
 		<None Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Platforms\iOS\{&#xA;    {">

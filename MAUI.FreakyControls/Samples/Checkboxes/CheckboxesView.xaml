@@ -17,9 +17,11 @@
             CheckColor="{StaticResource Primary}"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Box"
+            IsEnabled="False"
             CheckWidth="10"
             Shape="Rectangle"
-            Design="Unified" />
+            Design="Unified"/>
+
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
@@ -32,10 +34,24 @@
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
             CheckColor="White"
+            IsEnabled="False"
+            IsChecked="True"    
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Line"
             Shape="Rectangle"
-            Design="Unified" />
+            Design="Unified" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="CheckColor" Value="White" />
+                                <Setter Property="FillColor" Value="LightGray"/>
+                                <Setter Property="OutlineColor" Value="Gray"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </freakyControls:FreakyCheckbox>
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
