@@ -13,27 +13,22 @@ public class FreakyCheckbox : ContentView, IDisposable
     #region Fields
 
     bool isAnimating;
-    SKCanvasView skiaView;
+    readonly SKCanvasView skiaView;
     readonly TapGestureRecognizer tapped = new();
-
     #endregion
 
     #region ctor
 
     public FreakyCheckbox()
     {
-        InitializeCanvas();
-        WidthRequest = HeightRequest = size;
+        skiaView = new SKCanvasView();
+        WidthRequest = HeightRequest = skiaView.WidthRequest = skiaView.HeightRequest = size;
         HorizontalOptions = VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false);
         Content = skiaView;
+
+        skiaView.PaintSurface += Handle_PaintSurface;
         tapped.Tapped += CheckBox_Tapped;
         GestureRecognizers.Add(tapped);
-    }
-
-    ~FreakyCheckbox()
-    {
-        GestureRecognizers.Remove(tapped);
-        tapped.Tapped -= CheckBox_Tapped;
     }
 
     private void CheckBox_Tapped(object sender, EventArgs e)
@@ -64,13 +59,6 @@ public class FreakyCheckbox : ContentView, IDisposable
     #endregion
 
     #region Canvas
-
-    void InitializeCanvas()
-    {
-        skiaView = new SKCanvasView();
-        skiaView.PaintSurface += Handle_PaintSurface;
-        skiaView.WidthRequest = skiaView.HeightRequest = size;
-    }
 
     async Task AnimateToggle()
     {
@@ -382,40 +370,6 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(DesignProperty, value); }
     }
 
-    public static readonly new BindableProperty StyleProperty =
-    BindableProperty.Create(
-        nameof(Style),
-        typeof(Style),
-        typeof(FreakyCheckbox),
-        propertyChanged: OnStyleChanged);
-
-    /// <summary>
-    /// Gets or sets the style for <see cref="FreakyCheckbox"/>.
-    /// </summary>
-    /// <value>The style.</value>
-    public new Style Style
-    {
-        get { return (Style)GetValue(StyleProperty); }
-        set { SetValue(StyleProperty, value); }
-    }
-
-    static void OnStyleChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (bindable is not FreakyCheckbox FreakyCheckbox) return;
-
-        var setters = ((Style)newValue).Setters;
-        var dict = new Dictionary<string, Color>();
-
-        foreach (var setter in setters)
-        {
-            dict.Add(setter.Property.PropertyName, (Color)setter.Value);
-        }
-
-        FreakyCheckbox.OutlineColor = dict[nameof(OutlineColor)];
-        FreakyCheckbox.FillColor = dict[nameof(FillColor)];
-        FreakyCheckbox.CheckColor = dict[nameof(CheckColor)];
-    }
-
     public static readonly BindableProperty CheckedChangedCommandProperty =
     BindableProperty.Create(
         nameof(CheckedChangedCommand),
@@ -455,7 +409,16 @@ public class FreakyCheckbox : ContentView, IDisposable
         if (!(bindable is FreakyCheckbox checkbox)) return;
         checkbox.CheckedChanged?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
         checkbox.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
+        checkbox.ChangeVisualState();
         await checkbox.AnimateToggle();
+    }
+
+    protected override void ChangeVisualState()
+    {
+        if (IsEnabled && IsChecked)
+            VisualStateManager.GoToState(this, CheckBox.IsCheckedVisualState);
+        else
+            base.ChangeVisualState();
     }
 
     public static readonly BindableProperty SizeRequestProperty =
@@ -467,7 +430,7 @@ public class FreakyCheckbox : ContentView, IDisposable
        propertyChanged: SizeRequestChanged);
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="T:IntelliAbb.Xamarin.Controls.FreakyCheckbox"/> is checked.
+    /// Gets or sets a value indicating the size of this <see cref="FreakyCheckbox"/>
     /// </summary>
     /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
     public double SizeRequest
@@ -489,9 +452,9 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     public void Dispose()
     {
-        skiaView.PaintSurface -= Handle_PaintSurface;
+        tapped.Tapped -= CheckBox_Tapped;
         GestureRecognizers.Clear();
+        skiaView.PaintSurface -= Handle_PaintSurface;
     }
-
     #endregion
 }

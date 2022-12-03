@@ -81,7 +81,26 @@
             CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             Design="Unified"
-            Shape="Circle" />
+            Shape="Circle" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="CheckColor" Value="White" />
+                                <Setter Property="FillColor" Value="LightGray"/>
+                                <Setter Property="OutlineColor" Value="Gray"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="IsChecked">
+                            <VisualState.Setters>
+                                <Setter Property="CheckColor" Value="White" />
+                                <Setter Property="FillColor" Value="Blue"/>
+                                <Setter Property="OutlineColor" Value="Blue"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </freakyControls:FreakyCheckbox>
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
