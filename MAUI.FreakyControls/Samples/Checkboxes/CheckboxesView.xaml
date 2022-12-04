@@ -35,6 +35,7 @@
             CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Line"
+            AnimationType="Flip"
             Shape="Rectangle"
             Design="Unified" />
             <Label
@@ -51,6 +52,7 @@
             CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Cross"
+            AnimationType="Bounce"
             Shape="Rectangle"
             Design="Unified" />
             <Label

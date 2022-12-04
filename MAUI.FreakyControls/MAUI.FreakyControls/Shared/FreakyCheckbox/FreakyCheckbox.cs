@@ -80,20 +80,23 @@ public class FreakyCheckbox : ContentView, IDisposable
         {
             switch (AnimationType)
             {
-                case AnimationType.Bounce:
+                case AnimationType.Default:
                     await skiaView.ScaleTo(0.80, 100);
                     break;
+                case AnimationType.Bounce:
+                    await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
+                    break;
                 case AnimationType.Flip:
-                    await skiaView.RotateYTo(90, 150);
+                    await skiaView.RotateYTo(90, 200);
                     break;
                 case AnimationType.Rotate:
-                    //https://github.com/dotnet/maui/issues/11852
+                    // https://github.com/dotnet/maui/issues/11852
                     // To avoid this weird issue on android,
                     // where the defualt 0.5 anchors seem to rotate the whole view
                     // into a circular motion instead of rotating on the provided anchor
                     if (DevicePlatform.Android == DeviceInfo.Platform)
                         skiaView.AnchorY = skiaView.AnchorX = 0.501;
-                    await skiaView.RotateTo(90, 150);
+                    await skiaView.RotateTo(90, 200);
                     break;
             }
         }
@@ -105,8 +108,13 @@ public class FreakyCheckbox : ContentView, IDisposable
         {
             switch (AnimationType)
             {
-                case AnimationType.Bounce:
+                case AnimationType.Default:
                     await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+                    break;
+                case AnimationType.Bounce:
+                    await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
+                    await skiaView.ScaleYTo(1, 100, Easing.BounceOut);
+                    skiaView.Scale = 1;
                     break;
                 case AnimationType.Flip:
                     skiaView.RotationY = 0;
@@ -430,7 +438,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         nameof(AnimationType),
         typeof(AnimationType),
         typeof(FreakyCheckbox),
-        AnimationType.Bounce);
+        AnimationType.Default);
 
     /// <summary>
     /// Gets or sets the design of the <see cref="FreakyCheckbox"/>.
