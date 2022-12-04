@@ -87,6 +87,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                     await skiaView.RotateYTo(90, 150);
                     break;
                 case AnimationType.Rotate:
+                    //https://github.com/dotnet/maui/issues/11852
                     // To avoid this weird issue on android,
                     // where the defualt 0.5 anchors seem to rotate the whole view
                     // into a circular motion instead of rotating on the provided anchor
