@@ -5,6 +5,7 @@ using System.Windows.Input;
 using SkiaSharp.Views.Maui.Controls;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
+using Microsoft.Maui.Controls;
 
 namespace Maui.FreakyControls;
 
@@ -48,11 +49,15 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     private static readonly Design design = Shared.Enums.Design.Unified;
 
-    private static readonly Shape shape = DeviceInfo.Platform == DevicePlatform.iOS ?
-                Shared.Enums.Shape.Circle : Shared.Enums.Shape.Rectangle;
+    private static readonly Shape shape =
+        DeviceInfo.Platform == DevicePlatform.iOS ?
+        Shared.Enums.Shape.Circle :
+        Shared.Enums.Shape.Rectangle;
 
-    private static readonly float outlineWidth = DeviceInfo.Platform == DevicePlatform.iOS ?
-                   4.0f : 6.0f;
+    private static readonly float outlineWidth =
+        DeviceInfo.Platform == DevicePlatform.iOS ?
+        4.0f :
+        6.0f;
 
     private static readonly double size = 24.0;
 
@@ -60,20 +65,58 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     #region Canvas
 
-    async Task AnimateToggle()
+    async Task ToggleAnimationAsync()
+    {
+        isAnimating = true;
+        await PreAnimateAsync();
+        skiaView.InvalidateSurface();
+        await PostAnimateAsync();
+        isAnimating = false;
+    }
+
+    async Task PreAnimateAsync()
     {
         if (HasCheckAnimation)
         {
-            isAnimating = true;
-            await skiaView.ScaleTo(0.85, 100);
-        }
-        skiaView.InvalidateSurface();
-        if (HasCheckAnimation)
-        {
-            await skiaView.ScaleTo(1, 100, Easing.BounceOut);
-            isAnimating = false;
+            switch (AnimationType)
+            {
+                case AnimationType.Bounce:
+                    await skiaView.ScaleTo(0.80, 100);
+                    break;
+                case AnimationType.Flip:
+                    await skiaView.RotateYTo(90, 150);
+                    break;
+                case AnimationType.Rotate:
+                    // To avoid this weird issue on android,
+                    // where the defualt 0.5 anchors seem to rotate the whole view
+                    // into a circular motion instead of rotating on the provided anchor
+                    if (DevicePlatform.Android == DeviceInfo.Platform)
+                        skiaView.AnchorY = skiaView.AnchorX = 0.501;
+                    await skiaView.RotateTo(90, 150);
+                    break;
+            }
         }
     }
+
+    async Task PostAnimateAsync()
+    {
+        if (HasCheckAnimation)
+        {
+            switch (AnimationType)
+            {
+                case AnimationType.Bounce:
+                    await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+                    break;
+                case AnimationType.Flip:
+                    skiaView.RotationY = 0;
+                    break;
+                case AnimationType.Rotate:
+                    skiaView.Rotation = 0;
+                    break;
+            }
+        }
+    }
+
     #endregion
 
     #region Skia
@@ -93,7 +136,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
 
-        using (SKPaint checkfill = new()
+        using (var checkfill = new SKPaint()
         {
             Style = SKPaintStyle.Fill,
             Color = FillColor.ToSKColor(),
@@ -104,12 +147,23 @@ public class FreakyCheckbox : ContentView, IDisposable
             var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
             if (shape == Shared.Enums.Shape.Circle)
             {
-                canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), checkfill);
+                canvas.DrawCircle(
+                    imageInfo.Width / 2,
+                    imageInfo.Height / 2,
+                    (imageInfo.Width / 2) - (OutlineWidth / 2),
+                    checkfill);
             }
             else
             {
                 var cornerRadius = OutlineWidth;
-                canvas.DrawRoundRect(OutlineWidth, OutlineWidth, imageInfo.Width - (OutlineWidth * 2), imageInfo.Height - (OutlineWidth * 2), cornerRadius, cornerRadius, checkfill);
+                canvas.DrawRoundRect(
+                    OutlineWidth,
+                    OutlineWidth,
+                    imageInfo.Width - (OutlineWidth * 2),
+                    imageInfo.Height - (OutlineWidth * 2),
+                    cornerRadius,
+                    cornerRadius,
+                    checkfill);
             }
         }
 
@@ -370,6 +424,22 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(DesignProperty, value); }
     }
 
+    public static readonly BindableProperty AnimationTypeProperty =
+    BindableProperty.Create(
+        nameof(AnimationType),
+        typeof(AnimationType),
+        typeof(FreakyCheckbox),
+        AnimationType.Bounce);
+
+    /// <summary>
+    /// Gets or sets the design of the <see cref="FreakyCheckbox"/>.
+    /// </summary>
+    public AnimationType AnimationType
+    {
+        get { return (AnimationType)GetValue(AnimationTypeProperty); }
+        set { SetValue(AnimationTypeProperty, value); }
+    }
+
     public static readonly BindableProperty CheckedChangedCommandProperty =
     BindableProperty.Create(
         nameof(CheckedChangedCommand),
@@ -410,7 +480,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         checkbox.CheckedChanged?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
         checkbox.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
         checkbox.ChangeVisualState();
-        await checkbox.AnimateToggle();
+        await checkbox.ToggleAnimationAsync();
     }
 
     protected override void ChangeVisualState()

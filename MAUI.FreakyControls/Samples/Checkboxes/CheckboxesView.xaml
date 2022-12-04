@@ -17,6 +17,7 @@
             CheckColor="{StaticResource Primary}"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Box"
+            AnimationType="Rotate"
             CheckWidth="10"
             Shape="Rectangle"
             Design="Unified" />
@@ -76,11 +77,10 @@
 
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
-            OutlineColor="{StaticResource Primary}"
-            FillColor="{StaticResource Primary}"
-            CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             Design="Unified"
+            IsChecked="True"
+            IsEnabled="False"
             Shape="Circle" >
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
@@ -96,6 +96,13 @@
                                 <Setter Property="CheckColor" Value="White" />
                                 <Setter Property="FillColor" Value="Blue"/>
                                 <Setter Property="OutlineColor" Value="Blue"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="CheckColor" Value="White" />
+                                <Setter Property="FillColor" Value="{StaticResource Primary}"/>
+                                <Setter Property="OutlineColor" Value="{StaticResource Primary}"/>
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
