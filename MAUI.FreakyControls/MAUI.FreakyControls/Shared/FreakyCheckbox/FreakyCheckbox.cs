@@ -54,8 +54,8 @@ public class FreakyCheckbox : ContentView, IDisposable
         Shared.Enums.Shape.Circle :
         Shared.Enums.Shape.Rectangle;
 
-    private static readonly float outlineWidth =
-        DeviceInfo.Platform == DevicePlatform.iOS ?
+    private static readonly float outlineWidth = 
+    DeviceInfo.Platform == DevicePlatform.iOS?
         4.0f :
         6.0f;
 
@@ -84,6 +84,12 @@ public class FreakyCheckbox : ContentView, IDisposable
                     await skiaView.ScaleTo(0.80, 100);
                     break;
                 case AnimationType.Bounce:
+                    // https://github.com/dotnet/maui/issues/11852
+                    // To avoid this weird issue on android,
+                    // where the defualt 0.5 anchors seem to rotate the whole view
+                    // into a circular motion instead of rotating on the provided anchor
+                    if (DevicePlatform.Android == DeviceInfo.Platform)
+                        skiaView.AnchorY = skiaView.AnchorX = 0.501;
                     await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
                     break;
                 case AnimationType.Flip:
@@ -112,8 +118,8 @@ public class FreakyCheckbox : ContentView, IDisposable
                     await skiaView.ScaleTo(1, 100, Easing.BounceOut);
                     break;
                 case AnimationType.Bounce:
-                    await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
                     await skiaView.ScaleYTo(1, 100, Easing.BounceOut);
+                    await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
                     skiaView.Scale = 1;
                     break;
                 case AnimationType.Flip:
@@ -197,7 +203,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                 checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
                 checkPath.LineTo(.8f * imageInfo.Width, .5f * imageInfo.Height);
             }
-            else
+            else if (CheckType == CheckType.Box)
             {
                 checkPath.MoveTo(.2f * imageInfo.Width, .8f * imageInfo.Height);
                 checkPath.LineTo(.8f * imageInfo.Width, .8f * imageInfo.Height);
@@ -225,7 +231,9 @@ public class FreakyCheckbox : ContentView, IDisposable
 
         using var checkStroke = new SKPaint
         {
-            Style = Design == Design.Unified && CheckType == CheckType.Box ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
+            Style = Design == Design.Unified
+            && CheckType == CheckType.Fill
+            || CheckType == CheckType.Box ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
             StrokeWidth = CheckWidth,
             IsAntialias = true,

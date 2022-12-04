@@ -19,4 +19,8 @@ public enum CheckType
     /// Cross type of check for your checkbox
     /// </summary>
     Cross,
+    /// <summary>
+    /// Fill type of check for your checkbox
+    /// </summary>
+    Fill
 }
