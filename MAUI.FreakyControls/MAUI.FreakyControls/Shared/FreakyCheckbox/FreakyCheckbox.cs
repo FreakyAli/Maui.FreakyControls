@@ -54,8 +54,8 @@ public class FreakyCheckbox : ContentView, IDisposable
         Shared.Enums.Shape.Circle :
         Shared.Enums.Shape.Rectangle;
 
-    private static readonly float outlineWidth = 
-    DeviceInfo.Platform == DevicePlatform.iOS?
+    private static readonly float outlineWidth =
+    DeviceInfo.Platform == DevicePlatform.iOS ?
         4.0f :
         6.0f;
 
@@ -93,7 +93,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                     await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
                     break;
                 case AnimationType.Flip:
-                    await skiaView.RotateYTo(90, 200);
+                    await skiaView.RotateYTo(90 , 200);
                     break;
                 case AnimationType.Rotate:
                     // https://github.com/dotnet/maui/issues/11852
@@ -102,7 +102,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                     // into a circular motion instead of rotating on the provided anchor
                     if (DevicePlatform.Android == DeviceInfo.Platform)
                         skiaView.AnchorY = skiaView.AnchorX = 0.501;
-                    await skiaView.RotateTo(90, 200);
+                    await skiaView.RotateTo(IsChecked ? 90 : -90, 200);
                     break;
             }
         }
