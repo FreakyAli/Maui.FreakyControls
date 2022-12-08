@@ -23,4 +23,11 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(signaturePreview, typeof(SignatureView.ImageDisplay));
         Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
     }
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        await Shell.Current.GoToAsync(checkboxes);
+
+    }
 }

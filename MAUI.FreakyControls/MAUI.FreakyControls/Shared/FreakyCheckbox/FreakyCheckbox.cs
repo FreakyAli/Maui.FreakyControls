@@ -84,16 +84,19 @@ public class FreakyCheckbox : ContentView, IDisposable
                     await skiaView.ScaleTo(0.80, 100);
                     break;
                 case AnimationType.Bounce:
-                    // https://github.com/dotnet/maui/issues/11852
-                    // To avoid this weird issue on android,
-                    // where the defualt 0.5 anchors seem to rotate the whole view
-                    // into a circular motion instead of rotating on the provided anchor
-                    if (DevicePlatform.Android == DeviceInfo.Platform)
-                        skiaView.AnchorY = skiaView.AnchorX = 0.501;
-                    await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
+                    if (IsChecked)
+                    {
+                        // https://github.com/dotnet/maui/issues/11852
+                        // To avoid this weird issue on android,
+                        // where the defualt 0.5 anchors seem to rotate the whole view
+                        // into a circular motion instead of rotating on the provided anchor
+                        if (DevicePlatform.Android == DeviceInfo.Platform)
+                            skiaView.AnchorY = skiaView.AnchorX = 0.501;
+                        await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
+                    }
                     break;
                 case AnimationType.Flip:
-                    await skiaView.RotateYTo(90 , 200);
+                    await skiaView.RotateYTo(90, 200);
                     break;
                 case AnimationType.Rotate:
                     // https://github.com/dotnet/maui/issues/11852
@@ -103,6 +106,36 @@ public class FreakyCheckbox : ContentView, IDisposable
                     if (DevicePlatform.Android == DeviceInfo.Platform)
                         skiaView.AnchorY = skiaView.AnchorX = 0.501;
                     await skiaView.RotateTo(IsChecked ? 90 : -90, 200);
+                    break;
+
+                case AnimationType.Slam:
+                    // https://github.com/dotnet/maui/issues/11852
+                    // To avoid this weird issue on android,
+                    // where the defualt 0.5 anchors seem to rotate the whole view
+                    // into a circular motion instead of rotating on the provided anchor
+                    if (DevicePlatform.Android == DeviceInfo.Platform)
+                        skiaView.AnchorY = skiaView.AnchorX = 0.501;
+                    if (IsChecked)
+                    {
+                        skiaView.InvalidateSurface();
+                        skiaView.Opacity = 0;
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(3.5, 100, Easing.Linear),
+                            skiaView.FadeTo(0.5, 100, Easing.Linear)
+                            );
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(3, 100, Easing.Linear),
+                            skiaView.FadeTo(0.6, 100, Easing.Linear)
+                            );
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(2.5, 100, Easing.Linear),
+                            skiaView.FadeTo(0.7, 100, Easing.Linear)
+                            );
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(2, 100, Easing.Linear),
+                            skiaView.FadeTo(0.8, 100, Easing.Linear)
+                            );
+                    }
                     break;
             }
         }
@@ -118,15 +151,24 @@ public class FreakyCheckbox : ContentView, IDisposable
                     await skiaView.ScaleTo(1, 100, Easing.BounceOut);
                     break;
                 case AnimationType.Bounce:
-                    await skiaView.ScaleYTo(1, 100, Easing.BounceOut);
-                    await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
-                    skiaView.Scale = 1;
+                    if (IsChecked)
+                    {
+                        await skiaView.ScaleYTo(1, 100, Easing.BounceOut);
+                        await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
+                        skiaView.Scale = 1;
+                    }
                     break;
                 case AnimationType.Flip:
                     skiaView.RotationY = 0;
                     break;
                 case AnimationType.Rotate:
                     skiaView.Rotation = 0;
+                    break;
+                case AnimationType.Slam:
+                    skiaView.Scale = 1;
+                    await skiaView.ScaleTo(0.8, 200, Easing.Linear);
+                    skiaView.Scale = 1;
+                    skiaView.Opacity = 1;
                     break;
             }
         }
@@ -193,15 +235,76 @@ public class FreakyCheckbox : ContentView, IDisposable
             }
             else if (CheckType == CheckType.Cross)
             {
-                checkPath.MoveTo(.75f * imageInfo.Width, .25f * imageInfo.Height);
-                checkPath.LineTo(.25f * imageInfo.Width, .75f * imageInfo.Height);
-                checkPath.MoveTo(.75f * imageInfo.Width, .75f * imageInfo.Height);
-                checkPath.LineTo(.25f * imageInfo.Width, .25f * imageInfo.Height);
+                checkPath.MoveTo(.70f * imageInfo.Width, .30f * imageInfo.Height);
+                checkPath.LineTo(.30f * imageInfo.Width, .70f * imageInfo.Height);
+                checkPath.MoveTo(.70f * imageInfo.Width, .70f * imageInfo.Height);
+                checkPath.LineTo(.30f * imageInfo.Width, .30f * imageInfo.Height);
             }
             else if (CheckType == CheckType.Line)
             {
                 checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
                 checkPath.LineTo(.8f * imageInfo.Width, .5f * imageInfo.Height);
+            }
+            else if (CheckType == CheckType.Heart)
+            {
+                checkPath.MoveTo(.5f * imageInfo.Width, .25f * imageInfo.Height);
+
+                checkPath.CubicTo(
+                    .35f * imageInfo.Width,
+                     0,
+                    .1f * imageInfo.Width,
+                    .1f * imageInfo.Height,
+                    .1f * imageInfo.Width,
+                    .3f * imageInfo.Height);
+
+                checkPath.CubicTo(
+                   .1f * imageInfo.Width,
+                   .3f * imageInfo.Height,
+                   .1f * imageInfo.Width,
+                   .6f * imageInfo.Height,
+                   .5f * imageInfo.Width,
+                   .9f * imageInfo.Height);
+
+                checkPath.CubicTo(
+                   .5f * imageInfo.Width,
+                   .9f * imageInfo.Height,
+                   .9f * imageInfo.Width,
+                   .6f * imageInfo.Height,
+                   .9f * imageInfo.Width,
+                   .3f * imageInfo.Height);
+
+
+                checkPath.CubicTo(
+                   .9f * imageInfo.Width,
+                   .1f * imageInfo.Height,
+                   .65f * imageInfo.Width,
+                    0,
+                   .5f * imageInfo.Width,
+                   .25f * imageInfo.Height);
+
+                checkPath.Close();
+            }
+
+            else if (CheckType == CheckType.Star)
+            {
+                float mid = imageInfo.Width / 2;
+                float min = Math.Min(imageInfo.Width, imageInfo.Height);
+                float half = min / 2;
+                mid = mid - half;
+
+                checkPath.MoveTo(mid + half * 0.5f, half * 0.84f);
+                // top right
+                checkPath.LineTo(mid + half * 1.5f, half * 0.84f);
+                // bottom left
+                checkPath.LineTo(mid + half * 0.68f, half * 1.45f);
+                // top tip
+                checkPath.LineTo(mid + half * 1.0f, half * 0.5f);
+                // bottom right
+                checkPath.LineTo(mid + half * 1.32f, half * 1.45f);
+                // top left
+                checkPath.LineTo(mid + half * 0.5f, half * 0.84f);
+
+                checkPath.Close();
             }
             else if (CheckType == CheckType.Box)
             {
@@ -232,7 +335,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         using var checkStroke = new SKPaint
         {
             Style = Design == Design.Unified
-            && CheckType == CheckType.Fill
+            && CheckType == CheckType.Fill || CheckType == CheckType.Star || CheckType == CheckType.Heart
             || CheckType == CheckType.Box ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
             StrokeWidth = CheckWidth,
@@ -284,7 +387,7 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     #region Events
     /// <summary>
-    /// Raised when IsChecked is changed.
+    /// Raised when <see cref="FreakyCheckbox.IsChecked"/> changes.
     /// </summary>
     public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
     #endregion

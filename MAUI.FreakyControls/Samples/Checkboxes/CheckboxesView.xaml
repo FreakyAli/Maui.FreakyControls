@@ -10,7 +10,40 @@
         Padding="30"
         Spacing="20" >
 
-         <HorizontalStackLayout Spacing="10">
+          <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            AnimationType="Rotate"
+            CheckType="Star"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Rectangle + Fill"
+            />
+        </HorizontalStackLayout>
+     
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            AnimationType="Rotate"
+            IsChecked="True"
+            CheckType="Heart"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Rectangle + Fill"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
@@ -23,6 +56,22 @@
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
             Text="Unified design + Rectangle + Fill"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            CheckType="Check"
+            AnimationType="Slam"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified design + Rectangle + Slam"
             />
         </HorizontalStackLayout>
 

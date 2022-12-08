@@ -8,19 +8,27 @@ public enum CheckType
     /// </summary>
     Check,
     /// <summary>
-    /// Box type of check for your checkbox
+    /// a Box shaped check for your checkbox
     /// </summary>
     Box,
     /// <summary>
-    /// Line type of check for your checkbox
+    /// a Line check for your checkbox
     /// </summary>
     Line,
     /// <summary>
-    /// Cross type of check for your checkbox
+    /// a Cross shaped of check for your checkbox
     /// </summary>
     Cross,
     /// <summary>
-    /// Fill type of check for your checkbox
+    /// a filled check for your checkbox
     /// </summary>
-    Fill
+    Fill,
+    /// <summary>
+    /// a Heart shaped check for your checkbox
+    /// </summary>
+    Heart,
+    /// <summary>
+    /// a Star shaped check for your checkbox
+    /// </summary>
+    Star
 }

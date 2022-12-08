@@ -6,6 +6,7 @@ public enum AnimationType
 	Default,
 	Bounce,
 	Flip,
-	Rotate
+	Rotate,
+	Slam
 }
 
