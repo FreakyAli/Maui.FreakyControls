@@ -24,10 +24,6 @@ public enum CheckType
     /// </summary>
     Fill,
     /// <summary>
-    /// a Heart shaped check for your checkbox
-    /// </summary>
-    Heart,
-    /// <summary>
     /// a Star shaped check for your checkbox
     /// </summary>
     Star

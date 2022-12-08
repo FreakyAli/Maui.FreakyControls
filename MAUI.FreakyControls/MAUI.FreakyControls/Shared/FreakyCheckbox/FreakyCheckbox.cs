@@ -6,6 +6,7 @@ using SkiaSharp.Views.Maui.Controls;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Controls;
+using Maui.FreakyControls.Shared.Extensions;
 
 namespace Maui.FreakyControls;
 
@@ -227,115 +228,43 @@ public class FreakyCheckbox : ContentView, IDisposable
         using var checkPath = new SKPath();
         if (Design == Design.Unified)
         {
-            if (CheckType == CheckType.Check)
+            switch (CheckType)
             {
-                checkPath.MoveTo(.275f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.425f * imageInfo.Width, .65f * imageInfo.Height);
-                checkPath.LineTo(.725f * imageInfo.Width, .375f * imageInfo.Height);
-            }
-            else if (CheckType == CheckType.Cross)
-            {
-                checkPath.MoveTo(.70f * imageInfo.Width, .30f * imageInfo.Height);
-                checkPath.LineTo(.30f * imageInfo.Width, .70f * imageInfo.Height);
-                checkPath.MoveTo(.70f * imageInfo.Width, .70f * imageInfo.Height);
-                checkPath.LineTo(.30f * imageInfo.Width, .30f * imageInfo.Height);
-            }
-            else if (CheckType == CheckType.Line)
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .5f * imageInfo.Height);
-            }
-            else if (CheckType == CheckType.Heart)
-            {
-                checkPath.MoveTo(.5f * imageInfo.Width, .25f * imageInfo.Height);
+                case CheckType.Check:
+                    checkPath.DrawUnifiedCheck(imageInfo);
+                    break;
+                case CheckType.Line:
+                    checkPath.DrawCenteredLine(imageInfo);
+                    break;
+                case CheckType.Cross:
+                    checkPath.DrawCross(imageInfo);
+                    break;
+                case CheckType.Star:
+                    checkPath.DrawStar(imageInfo);
+                    break;
+                case CheckType.Box:
+                    checkPath.DrawSquare(imageInfo);
+                    break;
 
-                checkPath.CubicTo(
-                    .35f * imageInfo.Width,
-                     0,
-                    .1f * imageInfo.Width,
-                    .1f * imageInfo.Height,
-                    .1f * imageInfo.Width,
-                    .3f * imageInfo.Height);
-
-                checkPath.CubicTo(
-                   .1f * imageInfo.Width,
-                   .3f * imageInfo.Height,
-                   .1f * imageInfo.Width,
-                   .6f * imageInfo.Height,
-                   .5f * imageInfo.Width,
-                   .9f * imageInfo.Height);
-
-                checkPath.CubicTo(
-                   .5f * imageInfo.Width,
-                   .9f * imageInfo.Height,
-                   .9f * imageInfo.Width,
-                   .6f * imageInfo.Height,
-                   .9f * imageInfo.Width,
-                   .3f * imageInfo.Height);
-
-
-                checkPath.CubicTo(
-                   .9f * imageInfo.Width,
-                   .1f * imageInfo.Height,
-                   .65f * imageInfo.Width,
-                    0,
-                   .5f * imageInfo.Width,
-                   .25f * imageInfo.Height);
-
-                checkPath.Close();
-            }
-
-            else if (CheckType == CheckType.Star)
-            {
-                float mid = imageInfo.Width / 2;
-                float min = Math.Min(imageInfo.Width, imageInfo.Height);
-                float half = min / 2;
-                mid = mid - half;
-
-                checkPath.MoveTo(mid + half * 0.5f, half * 0.84f);
-                // top right
-                checkPath.LineTo(mid + half * 1.5f, half * 0.84f);
-                // bottom left
-                checkPath.LineTo(mid + half * 0.68f, half * 1.45f);
-                // top tip
-                checkPath.LineTo(mid + half * 1.0f, half * 0.5f);
-                // bottom right
-                checkPath.LineTo(mid + half * 1.32f, half * 1.45f);
-                // top left
-                checkPath.LineTo(mid + half * 0.5f, half * 0.84f);
-
-                checkPath.Close();
-            }
-            else if (CheckType == CheckType.Box)
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .8f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .8f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .2f * imageInfo.Height);
-                checkPath.LineTo(.2f * imageInfo.Width, .2f * imageInfo.Height);
-                checkPath.LineTo(.2f * imageInfo.Width, .8f * imageInfo.Height);
-                checkPath.Close();
+                case CheckType.Fill:
+                default:
+                    // In case of fill no checkpaths are needed.
+                    break;
             }
         }
         else
         {
-            if (DeviceInfo.Platform == DevicePlatform.iOS)
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.375f * imageInfo.Width, .675f * imageInfo.Height);
-                checkPath.LineTo(.75f * imageInfo.Width, .3f * imageInfo.Height);
-            }
-            else
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.425f * imageInfo.Width, .7f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .275f * imageInfo.Height);
-            }
+#if IOS     
+            checkPath.DrawNativeiOSCheck(imageInfo);
+#else
+            checkPath.DrawNativeAndroidCheck(imageInfo);
+#endif
         }
 
         using var checkStroke = new SKPaint
         {
             Style = Design == Design.Unified
-            && CheckType == CheckType.Fill || CheckType == CheckType.Star || CheckType == CheckType.Heart
+            && CheckType == CheckType.Fill || CheckType == CheckType.Star
             || CheckType == CheckType.Box ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
             StrokeWidth = CheckWidth,
