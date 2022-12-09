@@ -10,35 +10,32 @@
         Padding="30"
         Spacing="20" >
 
-          <HorizontalStackLayout Spacing="10">
+        <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
-            CheckedChanged="FreakyCheckbox_CheckedChanged"
-            AnimationType="Rotate"
-            CheckType="Star"
-            Shape="Rectangle"
-            Design="Unified" />
+            CheckColor="White"
+            Design="Native" />
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle + Fill"
+            Text="Native design"
             />
         </HorizontalStackLayout>
-     
+
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
-            CheckType="Fill"
-            AnimationType="Rotate"
-            Shape="Rectangle"
+            CheckType="Check"
+            AnimationType="Slam"
+            Shape="Circle"
             Design="Unified" />
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle + Fill"
+            Text="Unified + Rectangle + Slam"
             />
         </HorizontalStackLayout>
 
@@ -54,9 +51,43 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle + Slam"
+            Text="Unified + Rectangle + Slam"
             />
         </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            AnimationType="Rotate"
+            CheckType="Star"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified + Star"
+            />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
+            OutlineColor="{StaticResource Primary}"
+            FillColor="{StaticResource Primary}"
+            CheckedChanged="FreakyCheckbox_CheckedChanged"
+            CheckType="Fill"
+            AnimationType="Rotate"
+            Shape="Rectangle"
+            Design="Unified" />
+            <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Unified + Rectangle + Fill"
+            />
+        </HorizontalStackLayout>
+
+
 
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
@@ -70,7 +101,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle + Fill"
+            Text="Unified + Rectangle + Fill"
             />
         </HorizontalStackLayout>
 
@@ -87,7 +118,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle + Box"
+            Text="Unified + Rectangle + Box"
             />
         </HorizontalStackLayout>
 
@@ -104,7 +135,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle + Line"
+            Text="Unified + Rectangle + Line"
             />
         </HorizontalStackLayout>
 
@@ -121,7 +152,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle + Cross"
+            Text="Unified + Rectangle + Cross"
             />
         </HorizontalStackLayout>
 
@@ -136,7 +167,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Rectangle"
+            Text="Unified + Rectangle"
             />
         </HorizontalStackLayout>
 
@@ -176,20 +207,7 @@
             <Label
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Center"
-            Text="Unified design + Circle"
-            />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout Spacing="10">
-            <freakyControls:FreakyCheckbox
-            OutlineColor="{StaticResource Primary}"
-            FillColor="{StaticResource Primary}"
-            CheckColor="White"
-            Design="Native" />
-            <Label
-            HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            Text="Native design"
+            Text="Unified + Circle"
             />
         </HorizontalStackLayout>
     </VerticalStackLayout>

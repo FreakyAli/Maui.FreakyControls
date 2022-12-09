@@ -55,10 +55,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         Shared.Enums.Shape.Circle :
         Shared.Enums.Shape.Rectangle;
 
-    private static readonly float outlineWidth =
-    DeviceInfo.Platform == DevicePlatform.iOS ?
-        4.0f :
-        6.0f;
+    private static readonly float outlineWidth = 6.0f;
 
     private static readonly double size = 24.0;
 
@@ -79,6 +76,12 @@ public class FreakyCheckbox : ContentView, IDisposable
     {
         if (HasCheckAnimation)
         {
+            if (Design == Design.Native)
+            {
+                await skiaView.ScaleTo(0.80, 100);
+                return;
+            }
+
             switch (AnimationType)
             {
                 case AnimationType.Default:
@@ -146,6 +149,12 @@ public class FreakyCheckbox : ContentView, IDisposable
     {
         if (HasCheckAnimation)
         {
+            if (Design == Design.Native)
+            {
+                await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+                return;
+            }
+
             switch (AnimationType)
             {
                 case AnimationType.Default:
@@ -312,6 +321,7 @@ public class FreakyCheckbox : ContentView, IDisposable
             }
         }
     }
+
     #endregion
 
     #region Events
