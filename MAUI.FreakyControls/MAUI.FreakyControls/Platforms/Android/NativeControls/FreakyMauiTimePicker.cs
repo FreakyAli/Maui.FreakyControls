@@ -109,7 +109,6 @@ public class FreakyMauiTimePicker : MauiTimePicker
                     clickListener.OnClick(DrawablePosition.Left);
                     e.Action = (MotionEventActions.Cancel);
                     return false;
-
                 }
             }
 

@@ -110,7 +110,6 @@ public class FreakyMauiDatePicker : MauiDatePicker
                     clickListener.OnClick(DrawablePosition.Left);
                     e.Action = (MotionEventActions.Cancel);
                     return false;
-
                 }
             }
 
