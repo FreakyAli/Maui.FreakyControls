@@ -13,7 +13,6 @@ namespace Maui.FreakyControls;
 public class FreakyCheckbox : ContentView, IDisposable
 {
     #region Fields
-
     bool isAnimating;
     readonly SKCanvasView skiaView;
     readonly TapGestureRecognizer tapped = new();
@@ -39,7 +38,6 @@ public class FreakyCheckbox : ContentView, IDisposable
         {
             if (isAnimating)
                 return;
-
             IsChecked = !IsChecked;
         }
     }
@@ -191,9 +189,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         e?.Surface?.Canvas?.Clear();
-
         DrawOutline(e);
-
         if (IsChecked)
             DrawCheckFilled(e);
     }
@@ -254,7 +250,6 @@ public class FreakyCheckbox : ContentView, IDisposable
                 case CheckType.Box:
                     checkPath.DrawSquare(imageInfo);
                     break;
-
                 case CheckType.Fill:
                 default:
                     // In case of fill no checkpaths are needed.
@@ -411,7 +406,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     /// <summary>
     /// Gets or sets the width of the outline.
     /// </summary>
-    /// <value>The width of the outline and check.</value>
+    /// <value>The width of the outline</value>
     public float OutlineWidth
     {
         get { return (float)GetValue(OutlineWidthProperty); }
@@ -419,7 +414,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     }
 
     public static readonly BindableProperty CheckWidthProperty =
-  BindableProperty.Create(
+    BindableProperty.Create(
       nameof(CheckWidth),
       typeof(float),
       typeof(FreakyCheckbox),
@@ -428,7 +423,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     /// <summary>
     /// Gets or sets the width of the check.
     /// </summary>
-    /// <value>The width of the outline and check.</value>
+    /// <value>The width of the check.</value>
     public float CheckWidth
     {
         get { return (float)GetValue(CheckWidthProperty); }
@@ -452,7 +447,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     }
 
     public static readonly BindableProperty CheckTypeProperty =
-   BindableProperty.Create(
+    BindableProperty.Create(
        nameof(CheckType),
        typeof(CheckType),
        typeof(FreakyCheckbox),
@@ -506,7 +501,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         typeof(FreakyCheckbox));
 
     /// <summary>
-    /// Triggered when the check changes.
+    /// Triggered when <see cref="FreakyCheckbox.IsChecked"/> changes.
     /// </summary>
     public ICommand CheckedChangedCommand
     {
@@ -551,7 +546,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     }
 
     public static readonly BindableProperty SizeRequestProperty =
-   BindableProperty.Create(
+    BindableProperty.Create(
        nameof(SizeRequest),
        typeof(double),
        typeof(FreakyCheckbox),
