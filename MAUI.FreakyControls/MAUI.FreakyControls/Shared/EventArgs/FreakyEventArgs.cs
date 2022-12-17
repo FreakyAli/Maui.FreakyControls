@@ -4,9 +4,8 @@
 namespace Maui.FreakyControls;
 
 /// <summary>
-/// 
+/// EventArgs for your freaky custom controls
 /// </summary>
 public class FreakyEventArgs : EventArgs
 {
-
 }
