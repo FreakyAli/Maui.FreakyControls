@@ -12,16 +12,16 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.4.1</AssemblyVersion>
-		<AssemblyFileVersion>0.4.1</AssemblyFileVersion>
-		<Version>0.4.1</Version>
+		<AssemblyVersion>0.4.2</AssemblyVersion>
+		<AssemblyFileVersion>0.4.2</AssemblyFileVersion>
+		<Version>0.4.2-pre</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
 		<LangVersion>latest</LangVersion>
 		<Authors>FreakyAli</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Description>Support for .net7</Description>
+		<Description>Maui.FreakyControls is a free OSS UI Kit for .NET MAUI which provides a set of controls and utilities to build modern mobile apps.</Description>
 		<PackageIcon>maui_toolkit.png</PackageIcon>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
@@ -69,7 +69,6 @@
 		<None Remove="Shared\FreakyTextInputLayout\" />
 		<None Include="maui_toolkit.png" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
-		<None Remove="Shared\ObjectModel\" />
 		<None Remove="Shared\FreakyButton\" />
 		<None Remove="Shared\Helpers\" />
 		<None Remove="Shared\FreakyDatePicker\" />
@@ -101,7 +100,6 @@
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
 		<Folder Include="Platforms\iOS\NativeControls\" />
 		<Folder Include="Shared\FreakyTextInputLayout\" />
-		<Folder Include="Shared\ObjectModel\" />
 		<Folder Include="Shared\FreakyButton\" />
 		<Folder Include="Shared\Helpers\" />
 		<Folder Include="Shared\FreakyDatePicker\" />

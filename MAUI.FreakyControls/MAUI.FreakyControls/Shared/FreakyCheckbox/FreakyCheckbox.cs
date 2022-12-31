@@ -5,35 +5,31 @@ using System.Windows.Input;
 using SkiaSharp.Views.Maui.Controls;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
+using Microsoft.Maui.Controls;
+using Maui.FreakyControls.Shared.Extensions;
 
 namespace Maui.FreakyControls;
 
 public class FreakyCheckbox : ContentView, IDisposable
 {
     #region Fields
-
     bool isAnimating;
-    SKCanvasView skiaView;
+    readonly SKCanvasView skiaView;
     readonly TapGestureRecognizer tapped = new();
-
     #endregion
 
     #region ctor
 
     public FreakyCheckbox()
     {
-        InitializeCanvas();
-        WidthRequest = HeightRequest = size;
+        skiaView = new SKCanvasView();
+        WidthRequest = HeightRequest = skiaView.WidthRequest = skiaView.HeightRequest = size;
         HorizontalOptions = VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false);
         Content = skiaView;
+
+        skiaView.PaintSurface += Handle_PaintSurface;
         tapped.Tapped += CheckBox_Tapped;
         GestureRecognizers.Add(tapped);
-    }
-
-    ~FreakyCheckbox()
-    {
-        GestureRecognizers.Remove(tapped);
-        tapped.Tapped -= CheckBox_Tapped;
     }
 
     private void CheckBox_Tapped(object sender, EventArgs e)
@@ -42,7 +38,6 @@ public class FreakyCheckbox : ContentView, IDisposable
         {
             if (isAnimating)
                 return;
-
             IsChecked = !IsChecked;
         }
     }
@@ -53,11 +48,12 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     private static readonly Design design = Shared.Enums.Design.Unified;
 
-    private static readonly Shape shape = DeviceInfo.Platform == DevicePlatform.iOS ?
-                Shared.Enums.Shape.Circle : Shared.Enums.Shape.Rectangle;
+    private static readonly Shape shape =
+        DeviceInfo.Platform == DevicePlatform.iOS ?
+        Shared.Enums.Shape.Circle :
+        Shared.Enums.Shape.Rectangle;
 
-    private static readonly float outlineWidth = DeviceInfo.Platform == DevicePlatform.iOS ?
-                   4.0f : 6.0f;
+    private static readonly float outlineWidth = 6.0f;
 
     private static readonly double size = 24.0;
 
@@ -65,27 +61,127 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     #region Canvas
 
-    void InitializeCanvas()
+    async Task ToggleAnimationAsync()
     {
-        skiaView = new SKCanvasView();
-        skiaView.PaintSurface += Handle_PaintSurface;
-        skiaView.WidthRequest = skiaView.HeightRequest = size;
+        isAnimating = true;
+        await PreAnimateAsync();
+        skiaView.InvalidateSurface();
+        await PostAnimateAsync();
+        isAnimating = false;
     }
 
-    async Task AnimateToggle()
+    async Task PreAnimateAsync()
     {
         if (HasCheckAnimation)
         {
-            isAnimating = true;
-            await skiaView.ScaleTo(0.85, 100);
-        }
-        skiaView.InvalidateSurface();
-        if (HasCheckAnimation)
-        {
-            await skiaView.ScaleTo(1, 100, Easing.BounceOut);
-            isAnimating = false;
+            if (Design == Design.Native)
+            {
+                await skiaView.ScaleTo(0.80, 100);
+                return;
+            }
+
+            switch (AnimationType)
+            {
+                case AnimationType.Default:
+                    await skiaView.ScaleTo(0.80, 100);
+                    break;
+                case AnimationType.Bounce:
+                    if (IsChecked)
+                    {
+                        // https://github.com/dotnet/maui/issues/11852
+                        // To avoid this weird issue on android,
+                        // where the defualt 0.5 anchors seem to rotate the whole view
+                        // into a circular motion instead of rotating on the provided anchor
+                        if (DevicePlatform.Android == DeviceInfo.Platform)
+                            skiaView.AnchorY = skiaView.AnchorX = 0.501;
+                        await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
+                    }
+                    break;
+                case AnimationType.Flip:
+                    await skiaView.RotateYTo(90, 200);
+                    break;
+                case AnimationType.Rotate:
+                    // https://github.com/dotnet/maui/issues/11852
+                    // To avoid this weird issue on android,
+                    // where the defualt 0.5 anchors seem to rotate the whole view
+                    // into a circular motion instead of rotating on the provided anchor
+                    if (DevicePlatform.Android == DeviceInfo.Platform)
+                        skiaView.AnchorY = skiaView.AnchorX = 0.501;
+                    await skiaView.RotateTo(IsChecked ? 90 : -90, 200);
+                    break;
+
+                case AnimationType.Slam:
+                    // https://github.com/dotnet/maui/issues/11852
+                    // To avoid this weird issue on android,
+                    // where the defualt 0.5 anchors seem to rotate the whole view
+                    // into a circular motion instead of rotating on the provided anchor
+                    if (DevicePlatform.Android == DeviceInfo.Platform)
+                        skiaView.AnchorY = skiaView.AnchorX = 0.501;
+                    if (IsChecked)
+                    {
+                        skiaView.InvalidateSurface();
+                        skiaView.Opacity = 0;
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(3.5, 100, Easing.Linear),
+                            skiaView.FadeTo(0.5, 100, Easing.Linear)
+                            );
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(3, 100, Easing.Linear),
+                            skiaView.FadeTo(0.6, 100, Easing.Linear)
+                            );
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(2.5, 100, Easing.Linear),
+                            skiaView.FadeTo(0.7, 100, Easing.Linear)
+                            );
+                        await Task.WhenAll(
+                            skiaView.ScaleTo(2, 100, Easing.Linear),
+                            skiaView.FadeTo(0.8, 100, Easing.Linear)
+                            );
+                    }
+                    break;
+            }
         }
     }
+
+    async Task PostAnimateAsync()
+    {
+        if (HasCheckAnimation)
+        {
+            if (Design == Design.Native)
+            {
+                await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+                return;
+            }
+
+            switch (AnimationType)
+            {
+                case AnimationType.Default:
+                    await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+                    break;
+                case AnimationType.Bounce:
+                    if (IsChecked)
+                    {
+                        await skiaView.ScaleYTo(1, 100, Easing.BounceOut);
+                        await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
+                        skiaView.Scale = 1;
+                    }
+                    break;
+                case AnimationType.Flip:
+                    skiaView.RotationY = 0;
+                    break;
+                case AnimationType.Rotate:
+                    skiaView.Rotation = 0;
+                    break;
+                case AnimationType.Slam:
+                    skiaView.Scale = 1;
+                    await skiaView.ScaleTo(0.8, 200, Easing.Linear);
+                    skiaView.Scale = 1;
+                    skiaView.Opacity = 1;
+                    break;
+            }
+        }
+    }
+
     #endregion
 
     #region Skia
@@ -93,9 +189,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         e?.Surface?.Canvas?.Clear();
-
         DrawOutline(e);
-
         if (IsChecked)
             DrawCheckFilled(e);
     }
@@ -105,7 +199,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
 
-        using (SKPaint checkfill = new()
+        using (var checkfill = new SKPaint()
         {
             Style = SKPaintStyle.Fill,
             Color = FillColor.ToSKColor(),
@@ -116,65 +210,66 @@ public class FreakyCheckbox : ContentView, IDisposable
             var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
             if (shape == Shared.Enums.Shape.Circle)
             {
-                canvas.DrawCircle(imageInfo.Width / 2, imageInfo.Height / 2, (imageInfo.Width / 2) - (OutlineWidth / 2), checkfill);
+                canvas.DrawCircle(
+                    imageInfo.Width / 2,
+                    imageInfo.Height / 2,
+                    (imageInfo.Width / 2) - (OutlineWidth / 2),
+                    checkfill);
             }
             else
             {
                 var cornerRadius = OutlineWidth;
-                canvas.DrawRoundRect(OutlineWidth, OutlineWidth, imageInfo.Width - (OutlineWidth * 2), imageInfo.Height - (OutlineWidth * 2), cornerRadius, cornerRadius, checkfill);
+                canvas.DrawRoundRect(
+                    OutlineWidth,
+                    OutlineWidth,
+                    imageInfo.Width - (OutlineWidth * 2),
+                    imageInfo.Height - (OutlineWidth * 2),
+                    cornerRadius,
+                    cornerRadius,
+                    checkfill);
             }
         }
 
         using var checkPath = new SKPath();
         if (Design == Design.Unified)
         {
-            if (CheckType == CheckType.Check)
+            switch (CheckType)
             {
-                checkPath.MoveTo(.275f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.425f * imageInfo.Width, .65f * imageInfo.Height);
-                checkPath.LineTo(.725f * imageInfo.Width, .375f * imageInfo.Height);
-            }
-            else if (CheckType == CheckType.Cross)
-            {
-                checkPath.MoveTo(.75f * imageInfo.Width, .25f * imageInfo.Height);
-                checkPath.LineTo(.25f * imageInfo.Width, .75f * imageInfo.Height);
-                checkPath.MoveTo(.75f * imageInfo.Width, .75f * imageInfo.Height);
-                checkPath.LineTo(.25f * imageInfo.Width, .25f * imageInfo.Height);
-            }
-            else if (CheckType == CheckType.Line)
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .5f * imageInfo.Height);
-            }
-            else
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .8f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .8f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .2f * imageInfo.Height);
-                checkPath.LineTo(.2f * imageInfo.Width, .2f * imageInfo.Height);
-                checkPath.LineTo(.2f * imageInfo.Width, .8f * imageInfo.Height);
-                checkPath.Close();
+                case CheckType.Check:
+                    checkPath.DrawUnifiedCheck(imageInfo);
+                    break;
+                case CheckType.Line:
+                    checkPath.DrawCenteredLine(imageInfo);
+                    break;
+                case CheckType.Cross:
+                    checkPath.DrawCross(imageInfo);
+                    break;
+                case CheckType.Star:
+                    checkPath.DrawStar(imageInfo);
+                    break;
+                case CheckType.Box:
+                    checkPath.DrawSquare(imageInfo);
+                    break;
+                case CheckType.Fill:
+                default:
+                    // In case of fill no checkpaths are needed.
+                    break;
             }
         }
         else
         {
-            if (DeviceInfo.Platform == DevicePlatform.iOS)
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.375f * imageInfo.Width, .675f * imageInfo.Height);
-                checkPath.LineTo(.75f * imageInfo.Width, .3f * imageInfo.Height);
-            }
-            else
-            {
-                checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
-                checkPath.LineTo(.425f * imageInfo.Width, .7f * imageInfo.Height);
-                checkPath.LineTo(.8f * imageInfo.Width, .275f * imageInfo.Height);
-            }
+#if IOS     
+            checkPath.DrawNativeiOSCheck(imageInfo);
+#else
+            checkPath.DrawNativeAndroidCheck(imageInfo);
+#endif
         }
 
         using var checkStroke = new SKPaint
         {
-            Style = Design == Design.Unified && CheckType == CheckType.Box ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
+            Style = Design == Design.Unified
+            && CheckType == CheckType.Fill || CheckType == CheckType.Star
+            || CheckType == CheckType.Box ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
             StrokeWidth = CheckWidth,
             IsAntialias = true,
@@ -221,11 +316,12 @@ public class FreakyCheckbox : ContentView, IDisposable
             }
         }
     }
+
     #endregion
 
     #region Events
     /// <summary>
-    /// Raised when IsChecked is changed.
+    /// Raised when <see cref="FreakyCheckbox.IsChecked"/> changes.
     /// </summary>
     public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
     #endregion
@@ -310,7 +406,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     /// <summary>
     /// Gets or sets the width of the outline.
     /// </summary>
-    /// <value>The width of the outline and check.</value>
+    /// <value>The width of the outline</value>
     public float OutlineWidth
     {
         get { return (float)GetValue(OutlineWidthProperty); }
@@ -318,7 +414,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     }
 
     public static readonly BindableProperty CheckWidthProperty =
-  BindableProperty.Create(
+    BindableProperty.Create(
       nameof(CheckWidth),
       typeof(float),
       typeof(FreakyCheckbox),
@@ -327,7 +423,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     /// <summary>
     /// Gets or sets the width of the check.
     /// </summary>
-    /// <value>The width of the outline and check.</value>
+    /// <value>The width of the check.</value>
     public float CheckWidth
     {
         get { return (float)GetValue(CheckWidthProperty); }
@@ -351,7 +447,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     }
 
     public static readonly BindableProperty CheckTypeProperty =
-   BindableProperty.Create(
+    BindableProperty.Create(
        nameof(CheckType),
        typeof(CheckType),
        typeof(FreakyCheckbox),
@@ -382,38 +478,20 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(DesignProperty, value); }
     }
 
-    public static readonly new BindableProperty StyleProperty =
+    public static readonly BindableProperty AnimationTypeProperty =
     BindableProperty.Create(
-        nameof(Style),
-        typeof(Style),
+        nameof(AnimationType),
+        typeof(AnimationType),
         typeof(FreakyCheckbox),
-        propertyChanged: OnStyleChanged);
+        AnimationType.Default);
 
     /// <summary>
-    /// Gets or sets the style for <see cref="FreakyCheckbox"/>.
+    /// Gets or sets the design of the <see cref="FreakyCheckbox"/>.
     /// </summary>
-    /// <value>The style.</value>
-    public new Style Style
+    public AnimationType AnimationType
     {
-        get { return (Style)GetValue(StyleProperty); }
-        set { SetValue(StyleProperty, value); }
-    }
-
-    static void OnStyleChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (bindable is not FreakyCheckbox FreakyCheckbox) return;
-
-        var setters = ((Style)newValue).Setters;
-        var dict = new Dictionary<string, Color>();
-
-        foreach (var setter in setters)
-        {
-            dict.Add(setter.Property.PropertyName, (Color)setter.Value);
-        }
-
-        FreakyCheckbox.OutlineColor = dict[nameof(OutlineColor)];
-        FreakyCheckbox.FillColor = dict[nameof(FillColor)];
-        FreakyCheckbox.CheckColor = dict[nameof(CheckColor)];
+        get { return (AnimationType)GetValue(AnimationTypeProperty); }
+        set { SetValue(AnimationTypeProperty, value); }
     }
 
     public static readonly BindableProperty CheckedChangedCommandProperty =
@@ -423,7 +501,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         typeof(FreakyCheckbox));
 
     /// <summary>
-    /// Triggered when the check changes.
+    /// Triggered when <see cref="FreakyCheckbox.IsChecked"/> changes.
     /// </summary>
     public ICommand CheckedChangedCommand
     {
@@ -455,11 +533,20 @@ public class FreakyCheckbox : ContentView, IDisposable
         if (!(bindable is FreakyCheckbox checkbox)) return;
         checkbox.CheckedChanged?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
         checkbox.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
-        await checkbox.AnimateToggle();
+        checkbox.ChangeVisualState();
+        await checkbox.ToggleAnimationAsync();
+    }
+
+    protected override void ChangeVisualState()
+    {
+        if (IsEnabled && IsChecked)
+            VisualStateManager.GoToState(this, CheckBox.IsCheckedVisualState);
+        else
+            base.ChangeVisualState();
     }
 
     public static readonly BindableProperty SizeRequestProperty =
-   BindableProperty.Create(
+    BindableProperty.Create(
        nameof(SizeRequest),
        typeof(double),
        typeof(FreakyCheckbox),
@@ -467,7 +554,7 @@ public class FreakyCheckbox : ContentView, IDisposable
        propertyChanged: SizeRequestChanged);
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="T:IntelliAbb.Xamarin.Controls.FreakyCheckbox"/> is checked.
+    /// Gets or sets a value indicating the size of this <see cref="FreakyCheckbox"/>
     /// </summary>
     /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
     public double SizeRequest
@@ -489,9 +576,9 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     public void Dispose()
     {
-        skiaView.PaintSurface -= Handle_PaintSurface;
+        tapped.Tapped -= CheckBox_Tapped;
         GestureRecognizers.Clear();
+        skiaView.PaintSurface -= Handle_PaintSurface;
     }
-
     #endregion
 }
