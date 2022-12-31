@@ -34,7 +34,6 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 | <img src="https://user-images.githubusercontent.com/31090457/195867103-37d65de1-6e39-42d9-9c98-705e49f4bc88.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195866605-20bf6373-53a3-44d9-9fde-c442ee1aec70.gif" /> |
 | <img src="https://user-images.githubusercontent.com/31090457/210124414-9db3bf89-2079-4e45-8fb5-2f9ae6438e44.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/210124403-a70fd95b-3668-4d5c-9973-e56aec4de514.gif" width="250" height="550"/> |
 
-
 ## License 
 
 The license for this project can be found [here](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
