@@ -20,7 +20,7 @@ public enum CheckType
     /// </summary>
     Cross,
     /// <summary>
-    /// a filled check for your checkbox
+    /// a Filled check for your checkbox
     /// </summary>
     Fill,
     /// <summary>
