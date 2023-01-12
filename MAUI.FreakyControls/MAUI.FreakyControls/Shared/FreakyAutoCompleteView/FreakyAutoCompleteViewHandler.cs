@@ -16,6 +16,8 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompl
        {
            [nameof(FreakyAutoCompleteView.Text)] = MapText,
            [nameof(FreakyAutoCompleteView.ItemsSource)] = MapItemsSource,
+           [nameof(FreakyAutoCompleteView.BackgroundColor)]= MapBackgroundColor,
+           [nameof(FreakyAutoCompleteView.Background)] = MapBackground
        };
 
     public static CommandMapper<FreakyAutoCompleteView, FreakyAutoCompleteViewHandler> CommandMapper =

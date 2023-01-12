@@ -11,6 +11,14 @@
             Padding="30"
             Spacing="15">
 
+            <Label TextColor="Black" Text="AutoCompleteView below:"/>
+            <Border>
+                <freakyControls:FreakyAutoCompleteView
+                Text="AutoComplete"
+                TextColor="Black"
+                />
+            </Border>
+
             <Label
                 TextColor="Black" 
                 Text="Freaky Entry below: " />

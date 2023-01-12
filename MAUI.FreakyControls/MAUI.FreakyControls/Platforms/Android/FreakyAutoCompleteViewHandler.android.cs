@@ -11,7 +11,7 @@ using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyAutoCompleteViewHandler 
+public partial class FreakyAutoCompleteViewHandler
 {
     private AppCompatAutoCompleteTextView NativeControl => PlatformView as AppCompatAutoCompleteTextView;
 
@@ -85,6 +85,13 @@ public partial class FreakyAutoCompleteViewHandler
         {
             handler.NativeControl.Text = view.Text;
         }
+    }
+
+    public static void MapBackgroundColor(FreakyAutoCompleteViewHandler handler, FreakyAutoCompleteView view)
+    {
+        var nativeColor = view.BackgroundColor.ToPlatform();
+        handler.PlatformView.SetBackgroundColor(nativeColor);
+
     }
 
     public static void MapItemsSource(FreakyAutoCompleteViewHandler handler, FreakyAutoCompleteView view)

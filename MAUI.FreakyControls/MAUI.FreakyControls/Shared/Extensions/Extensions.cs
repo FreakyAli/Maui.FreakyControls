@@ -58,6 +58,7 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
         handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
+        handlers.AddHandler(typeof(FreakyAutoCompleteView), typeof(FreakyAutoCompleteViewHandler));
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
     }
 

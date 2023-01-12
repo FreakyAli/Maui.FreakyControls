@@ -84,6 +84,15 @@ public partial class FreakyAutoCompleteViewHandler
         }
     }
 
+    public static void MapBackgroundColor(FreakyAutoCompleteViewHandler handler, FreakyAutoCompleteView view)
+    {
+        var nativeColor = view.BackgroundColor.ToPlatform();
+        if (handler.PlatformView.BackgroundColor != nativeColor)
+        {
+            handler.PlatformView.BackgroundColor = nativeColor;
+        }
+    }
+
     public static void MapItemsSource(FreakyAutoCompleteViewHandler handler, FreakyAutoCompleteView view)
     {
         handler.SetItemsSource();
