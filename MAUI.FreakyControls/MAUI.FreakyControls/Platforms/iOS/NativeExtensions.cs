@@ -13,6 +13,15 @@ namespace Maui.FreakyControls.Platforms.iOS;
 
 public static class NativeExtensions
 {
+    public static UIViewController GetCurrentViewController(this UIApplication app)
+    {
+        var viewController = app.KeyWindow.RootViewController;
+        while (viewController.PresentedViewController != null)
+            viewController = viewController.PresentedViewController;
+
+        return viewController;
+    }
+
     internal static UIView UiImageToUiView(this UIImage image, int height, int width, int padding)
     {
         var uiImageView = new UIImageView(image)

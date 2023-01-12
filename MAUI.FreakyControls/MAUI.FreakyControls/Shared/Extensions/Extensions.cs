@@ -31,6 +31,23 @@ public static class Extensions
         }
     }
 
+    public static T FindInParent<T>(this View view)
+       where T : View
+    {
+        var itemToCheck = view.Parent;
+        while (itemToCheck != null)
+        {
+            if (itemToCheck is T found)
+            {
+                return found;
+            }
+
+            itemToCheck = itemToCheck.Parent;
+        }
+
+        return null;
+    }
+
     public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
     {
         handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
