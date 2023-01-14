@@ -9,7 +9,6 @@ public partial class ImagesPage : ContentPage
 	}
 
     void FreakySvgImageView_Tapped(System.Object sender, System.EventArgs e)
-    {
-			
+    {		
     }
 }

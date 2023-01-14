@@ -11,5 +11,3 @@ public enum Design
     /// </summary>
     Native
 }
-
-

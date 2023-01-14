@@ -13,4 +13,3 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         public void OnDestroyActionMode(ActionMode mode) { }
     }
 }
-

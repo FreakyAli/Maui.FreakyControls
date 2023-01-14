@@ -72,3 +72,7 @@ And then in your MauiProgram which would be something like below :
       }   
       
 Now you can use the controls in your app.
+
+## Activity 
+
+![Alt](https://repobeats.axiom.co/api/embed/37b730ec7020123a37b048636c0babfac3b4a014.svg "Repobeats analytics image")

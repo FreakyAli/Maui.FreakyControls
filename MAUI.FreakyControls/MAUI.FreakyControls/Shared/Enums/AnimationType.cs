@@ -1,4 +1,3 @@
-﻿using System;
 namespace Maui.FreakyControls.Shared.Enums;
 
 public enum AnimationType
@@ -24,4 +23,3 @@ public enum AnimationType
     /// </summary>
     Slam
 }
-

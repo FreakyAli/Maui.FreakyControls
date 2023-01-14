@@ -1,9 +1,6 @@
-﻿using System;
-using UIKit;
-
+using System;
 namespace Maui.FreakyControls;
 
 public partial class FreakyButtonHandler
 {
 }
-

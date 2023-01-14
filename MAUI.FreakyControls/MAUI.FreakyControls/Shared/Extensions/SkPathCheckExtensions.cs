@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SkiaSharp;
 
 namespace Maui.FreakyControls.Shared.Extensions;
@@ -106,4 +106,3 @@ public static class SkPathCheckExtensions
         checkPath.Close();
     }
 }
-
