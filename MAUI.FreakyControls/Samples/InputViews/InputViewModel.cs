@@ -29,7 +29,6 @@ public class InputViewModel : MainViewModel
 
     public InputViewModel()
     {
-
         var countryProvider = new CountryProvider();
         var countries = countryProvider.GetCountries().Select(x => x.OfficialName);
         Countries = new List<string>(countries);

@@ -90,6 +90,6 @@ public partial class FreakyTimePickerHandler
         _dialog = null;
     }
 
-    bool Use24HourView => VirtualView != null && (DateFormat.Is24HourFormat(PlatformView?.Context)
+    bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
             && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 }
