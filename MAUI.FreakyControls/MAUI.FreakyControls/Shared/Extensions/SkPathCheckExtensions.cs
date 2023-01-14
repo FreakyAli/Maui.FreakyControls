@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SkiaSharp;
 
 namespace Maui.FreakyControls.Shared.Extensions;
