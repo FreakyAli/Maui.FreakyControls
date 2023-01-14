@@ -106,4 +106,3 @@ public static class SkPathCheckExtensions
         checkPath.Close();
     }
 }
-

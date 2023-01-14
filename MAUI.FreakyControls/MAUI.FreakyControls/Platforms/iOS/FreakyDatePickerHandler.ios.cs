@@ -50,4 +50,3 @@ public partial class FreakyDatePickerHandler
         }
     }
 }
-

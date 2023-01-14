@@ -15,4 +15,3 @@ namespace Maui.FreakyControls.Platforms.iOS.NativeControls
         }
     }
 }
-
