@@ -2,10 +2,9 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Maui.FreakyControls"
-             BackgroundColor="Green"
              x:Name="this"
              x:Class="Maui.FreakyControls.AutoCompleteView">
-    <VerticalStackLayout>
+    <Grid>
         <controls:FreakyEntry
             Text="{Binding Text, Source={x:Reference this}}"
             TextColor="{Binding TextColor, Source={x:Reference this}}"
@@ -13,7 +12,7 @@
         <CollectionView
             ItemsSource="{Binding ItemsSource, Source={x:Reference this}}"
             IsVisible="false"/>
-    </VerticalStackLayout>
+    </Grid>
 </ContentView>
 
 

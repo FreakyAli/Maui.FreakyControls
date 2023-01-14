@@ -104,4 +104,8 @@ public partial class AutoCompleteView : ContentView
         get => (Color)GetValue(PlaceholderColorProperty);
         set => SetValue(PlaceholderColorProperty, value);
     }
+
+    void FreakyEntry_Focused(System.Object sender, Microsoft.Maui.Controls.FocusEventArgs e)
+    {
+    }
 }
