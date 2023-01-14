@@ -18,5 +18,4 @@ public class ImageDisplay : ContentPage
         var imageSource = ImageSource.FromStream(() => stream);
         imageView.Source = imageSource;
     }
-
 }

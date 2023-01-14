@@ -24,4 +24,3 @@ public enum AnimationType
     /// </summary>
     Slam
 }
-

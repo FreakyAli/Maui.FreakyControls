@@ -14,7 +14,7 @@
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
 		<AssemblyVersion>0.4.2</AssemblyVersion>
 		<AssemblyFileVersion>0.4.2</AssemblyFileVersion>
-		<Version>0.4.2-pre</Version>
+		<Version>0.4.2</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -29,7 +29,7 @@
 		</RepositoryType>
 		<PackageTags>Maui dotnet.Maui .net Maui FreakyControls Checkbox uikit Signature SignatureView Svg SvgImageView CircularImage TextInputLayout</PackageTags>
 		<PackageReleaseNotes>Basic implementation for all Freaky Controls</PackageReleaseNotes>
-		<Copyright>Copyright 2022</Copyright>
+		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
 		<NoWarn>1701;1702;IL2121;CS1573;CS1591;CS1570;CS8632</NoWarn>
@@ -129,10 +129,6 @@
 			</SubType>
 		</MauiXaml>
 		<MauiXaml Update="Shared\FreakySignatureView\SignaturePadView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="Shared\FreakyAutoCompleteView\AutoCompleteView.xaml">
 			<SubType>
 			</SubType>
 		</MauiXaml>
