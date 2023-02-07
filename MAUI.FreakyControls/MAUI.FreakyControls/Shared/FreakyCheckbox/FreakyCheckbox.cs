@@ -199,35 +199,57 @@ public class FreakyCheckbox : ContentView, IDisposable
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
 
-        using (var checkfill = new SKPaint()
+        var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
+        using var checkfill = new SKPaint()
         {
             Style = SKPaintStyle.Fill,
             Color = FillColor.ToSKColor(),
             StrokeJoin = SKStrokeJoin.Round,
             IsAntialias = true
-        })
+        };
+
+        using var checkBoxStroke = new SKPaint()
         {
-            var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
-            if (shape == Shared.Enums.Shape.Circle)
-            {
-                canvas.DrawCircle(
-                    imageInfo.Width / 2,
-                    imageInfo.Height / 2,
-                    (imageInfo.Width / 2) - (OutlineWidth / 2),
-                    checkfill);
-            }
-            else
-            {
-                var cornerRadius = OutlineWidth;
-                canvas.DrawRoundRect(
-                    OutlineWidth,
-                    OutlineWidth,
-                    imageInfo.Width - (OutlineWidth * 2),
-                    imageInfo.Height - (OutlineWidth * 2),
-                    cornerRadius,
-                    cornerRadius,
-                    checkfill);
-            }
+            Style = SKPaintStyle.Stroke,
+            Color = OutlineColor.ToSKColor(),
+            StrokeWidth = OutlineWidth,
+            StrokeJoin = SKStrokeJoin.Round,
+            IsAntialias = true
+        };
+
+        if (shape == Shared.Enums.Shape.Circle)
+        {
+            canvas.DrawCircle(
+                imageInfo.Width / 2,
+                imageInfo.Height / 2,
+                (imageInfo.Width / 2) - (OutlineWidth / 2),
+                checkfill);
+
+            canvas.DrawCircle(
+                imageInfo.Width / 2,
+                imageInfo.Height / 2,
+                (imageInfo.Width / 2) - (OutlineWidth / 2),
+                checkBoxStroke);
+        }
+        else
+        {
+            canvas.DrawRoundRect(
+                OutlineWidth,
+                OutlineWidth,
+                imageInfo.Width - (OutlineWidth * 2),
+                imageInfo.Height - (OutlineWidth * 2),
+                OutlineWidth,
+                OutlineWidth,
+                checkfill);
+
+            canvas.DrawRoundRect(
+                OutlineWidth,
+                OutlineWidth,
+                imageInfo.Width - (OutlineWidth * 2),
+                imageInfo.Height - (OutlineWidth * 2),
+                OutlineWidth,
+                OutlineWidth,
+                checkBoxStroke);
         }
 
         using var checkPath = new SKPath();
@@ -369,7 +391,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         nameof(FillColor),
         typeof(Color),
         typeof(FreakyCheckbox),
-        Colors.Black);
+        Colors.White);
 
     /// <summary>
     /// Gets or sets the color of the fill.
@@ -386,7 +408,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         nameof(CheckColor),
         typeof(Color),
         typeof(FreakyCheckbox),
-        Colors.White);
+        Colors.Black);
 
     /// <summary>
     /// Gets or sets the color of the check.

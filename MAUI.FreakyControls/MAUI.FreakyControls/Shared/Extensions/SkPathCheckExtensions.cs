@@ -5,6 +5,12 @@ namespace Maui.FreakyControls.Shared.Extensions;
 
 public static class SkPathCheckExtensions
 {
+    public static void DrawNativeRadioButtonCheck(this SKPath checkPath, SKImageInfo imageInfo, double radii)
+    {
+        checkPath.AddCircle(.5f * imageInfo.Width, .5f * imageInfo.Height, (float)radii);
+        checkPath.Close();
+    }
+
     public static void DrawNativeiOSCheck(this SKPath checkPath, SKImageInfo imageInfo)
     {
         checkPath.MoveTo(.2f * imageInfo.Width, .5f * imageInfo.Height);
