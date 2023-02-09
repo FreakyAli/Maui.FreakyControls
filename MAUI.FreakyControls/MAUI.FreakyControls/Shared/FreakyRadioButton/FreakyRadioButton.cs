@@ -284,11 +284,11 @@ namespace Maui.FreakyControls
 
         public static readonly BindableProperty SizeRequestProperty =
         BindableProperty.Create(
-        nameof(SizeRequest),
-        typeof(double),
-        typeof(FreakyRadioButton),
-        size,
-        propertyChanged: SizeRequestChanged);
+            nameof(SizeRequest),
+            typeof(double),
+            typeof(FreakyRadioButton),
+            size,
+            propertyChanged: SizeRequestChanged);
 
         /// <summary>
         /// Gets or sets a value indicating the size of this <see cref="FreakyRadioButton"/>
@@ -307,27 +307,6 @@ namespace Maui.FreakyControls
             RadioButton.skiaView.WidthRequest = RadioButton.skiaView.HeightRequest = (double)(newValue);
         }
 
-        public static readonly BindableProperty GroupNameProperty =
-        BindableProperty.Create(
-            nameof(GroupName),
-            typeof(string),
-            typeof(FreakyRadioButton),
-            defaultGroupName,
-            propertyChanged: OnGroupNameChanged);
-
-        /// <summary>
-        /// Gets or sets the value which indicates which group of <see cref="FreakyRadioButton"/>, this button belongs to.
-        /// </summary>
-        public string GroupName
-        {
-            get => (string)GetValue(GroupNameProperty);
-            set => SetValue(GroupNameProperty, value);
-        }
-
-        static void OnGroupNameChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-
-        }
         #endregion
 
         protected override void ChangeVisualState()

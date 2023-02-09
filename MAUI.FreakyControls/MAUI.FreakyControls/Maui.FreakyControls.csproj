@@ -42,6 +42,12 @@
 		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
 		<None Remove="Platforms\Android\" />
@@ -78,6 +84,7 @@
 		<None Remove="Shared\EventArgs\" />
 		<None Remove="Shared\FreakyCheckbox\" />
 		<None Remove="Shared\FreakyRadioButton\" />
+		<None Remove="CommunityToolkit.Mvvm" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -113,6 +120,7 @@
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Shared\FreakySvgImageView\FreakySvgImageView.xaml">
