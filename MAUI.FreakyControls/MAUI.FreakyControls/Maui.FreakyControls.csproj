@@ -120,7 +120,6 @@
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Shared\FreakySvgImageView\FreakySvgImageView.xaml">
