@@ -13,7 +13,11 @@
         <freakyControls:FreakyRadioGroup Spacing="10"
                                          SelectedIndex="{Binding CheckedRadioButton}"
                                          Orientation="Vertical">
-            <freakyControls:FreakyRadioButton/>
+            <freakyControls:FreakyRadioButton
+                OutlineColor="{StaticResource Tertiary}"
+                FillColor="{StaticResource Primary}"
+                CheckColor="White"
+                />
 
             <freakyControls:FreakyRadioButton/>
 
