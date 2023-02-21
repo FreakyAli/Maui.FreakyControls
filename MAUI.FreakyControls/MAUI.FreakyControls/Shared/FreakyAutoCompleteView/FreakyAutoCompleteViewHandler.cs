@@ -1,10 +1,14 @@
 ﻿using Microsoft.Maui.Handlers;
+#if ANDROID
+using NativeView = AndroidX.AppCompat.Widget.AppCompatAutoCompleteTextView;
+#elif IOS
+using NativeView = Maui.FreakyControls.Platforms.iOS.NativeAutoCompleteView;
+#endif
 
 namespace Maui.FreakyControls;
 
 #if IOS || ANDROID
-
-public partial class FreakyAutoCompleteViewHandler
+public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompleteView, NativeView>
 {
     public static PropertyMapper<FreakyAutoCompleteView, FreakyAutoCompleteViewHandler> Mapper =
             new(ViewHandler.ViewMapper)
@@ -32,6 +36,5 @@ public partial class FreakyAutoCompleteViewHandler
     {
     }
 }
-
 #endif
 

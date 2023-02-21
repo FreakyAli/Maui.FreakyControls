@@ -5,15 +5,10 @@ using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Controls.Platform;
-using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
-
-
-public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompleteView, AppCompatAutoCompleteTextView>
+public partial class FreakyAutoCompleteViewHandler
 {
-    private AppCompatAutoCompleteTextView NativeControl => PlatformView as AppCompatAutoCompleteTextView;
-
     protected override AppCompatAutoCompleteTextView CreatePlatformView()
     {
         var autoComplete = new AppCompatAutoCompleteTextView(Context)
@@ -22,7 +17,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompl
         };
 
         GradientDrawable gd = new GradientDrawable();
-        gd.SetColor(global::Android.Graphics.Color.Transparent);
+        gd.SetColor(Android.Graphics.Color.Transparent);
         autoComplete.SetBackground(gd);
         autoComplete.SetSingleLine(true);
         autoComplete.ImeOptions = ImeAction.Done;
@@ -33,6 +28,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompl
 
         return autoComplete;
     }
+
     protected override void ConnectHandler(AppCompatAutoCompleteTextView platformView)
     {
         PlatformView.TextChanged += PlatformView_TextChanged;
@@ -57,13 +53,13 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompl
 
     private void PlatformView_EditorAction(object sender, TextView.EditorActionEventArgs e)
     {
-        if (e.ActionId == Android.Views.InputMethods.ImeAction.Done)
+        if (e.ActionId == ImeAction.Done)
         {
             VirtualView.TriggerCompleted();
         }
     }
 
-    private void PlatformView_ItemClicked(object sender, Android.Widget.AdapterView.ItemClickEventArgs e)
+    private void PlatformView_ItemClicked(object sender, AdapterView.ItemClickEventArgs e)
     {
         if (VirtualView.SelectedText != PlatformView.Text)
         {
@@ -84,16 +80,16 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompl
             Android.Resource.Layout.SimpleDropDownItem1Line,
             VirtualView.ItemsSource.ToList());
 
-        NativeControl.Adapter = adapter;
+        PlatformView.Adapter = adapter;
 
         adapter.NotifyDataSetChanged();
     }
 
     public static void MapText(FreakyAutoCompleteViewHandler handler, FreakyAutoCompleteView view)
     {
-        if (handler.NativeControl.Text != view.Text)
+        if (handler.PlatformView.Text != view.Text)
         {
-            handler.NativeControl.Text = view.Text;
+            handler.PlatformView.Text = view.Text;
         }
     }
 

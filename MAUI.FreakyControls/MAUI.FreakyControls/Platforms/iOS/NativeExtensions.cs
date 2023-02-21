@@ -1,13 +1,7 @@
-﻿using System;
-using UIKit;
-using Foundation;
+﻿using UIKit;
 using CoreGraphics;
-using CoreAnimation;
 using System.Runtime.InteropServices;
 using System.Drawing;
-using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.Shared.Enums;
-using Maui.FreakyControls.Shared;
 
 namespace Maui.FreakyControls.Platforms.iOS;
 
@@ -96,5 +90,31 @@ public static class NativeExtensions
     public static CGSize GetSize(this UIView view)
     {
         return view.Bounds.Size;
+    }
+
+    public static UIViewController GetTopViewController(this UIApplication app)
+    {
+        var viewController = app.KeyWindow.RootViewController;
+        while (viewController.PresentedViewController != null)
+            viewController = viewController.PresentedViewController;
+
+        return viewController;
+    }
+
+    public static T FindInParents<T>(this View view)
+        where T : View
+    {
+        var itemToCheck = view.Parent;
+        while (itemToCheck != null)
+        {
+            if (itemToCheck is T found)
+            {
+                return found;
+            }
+
+            itemToCheck = itemToCheck.Parent;
+        }
+
+        return null;
     }
 }
