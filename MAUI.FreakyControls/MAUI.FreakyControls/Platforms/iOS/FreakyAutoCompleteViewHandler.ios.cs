@@ -94,7 +94,7 @@ public partial class FreakyAutoCompleteViewHandler
         var relativePosition = UIApplication.SharedApplication.KeyWindow;
         var relativeFrame = PlatformView.Superview.ConvertRectToView(PlatformView.Frame, relativePosition);
 
-        PlatformView.Draw(ctrl, PlatformView.Layer, VirtualView as FreakyAutoCompleteView, relativeFrame.X, relativeFrame.Y);
+        PlatformView.Draw(ctrl, PlatformView.Layer, VirtualView, relativeFrame.X, relativeFrame.Y);
     }
 
     private void AutoCompleteViewSourceOnSelected(object sender, SelectedItemChangedEventArgs args)
