@@ -11,8 +11,8 @@
             Padding="30"
             Spacing="15">
 
-            <freakyControls:FreakyAutoCompleteTextField Title="Fruit">
-                <freakyControls:FreakyAutoCompleteTextField.ItemsSource>
+            <freakyControls:FreakyAutoCompleteView>
+                <freakyControls:FreakyAutoCompleteView.ItemsSource>
                     <x:String>Apple</x:String>
                     <x:String>Orange</x:String>
                     <x:String>Banana</x:String>
@@ -38,9 +38,8 @@
                     <x:String>Pomegranate</x:String>
                     <x:String>Raspberry</x:String>
                     <x:String>Tomato</x:String>
-                </freakyControls:FreakyAutoCompleteTextField.ItemsSource>
-            </freakyControls:FreakyAutoCompleteTextField>
-
+                </freakyControls:FreakyAutoCompleteView.ItemsSource>
+            </freakyControls:FreakyAutoCompleteView>
 
             <Label
                 TextColor="Black" 

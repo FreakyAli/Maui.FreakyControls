@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
-using Microsoft.Maui.Handlers;
 using Path = Microsoft.Maui.Controls.Shapes.Path;
 
 namespace Maui.FreakyControls;
@@ -383,8 +382,6 @@ public class FreakyAutoCompleteTextField : InputField
 
     public override bool HasValue => !string.IsNullOrEmpty(Text);
 
-    
-
     protected override void OnHandlerChanged()
     {
         AutoCompleteView.TextChanged += AutoCompleteView_TextChanged;
@@ -469,6 +466,7 @@ public class FreakyAutoCompleteTextField : InputField
         propertyChanged: (bindable, oldValue, newValue) => (bindable as FreakyAutoCompleteTextField).AutoCompleteView.TextColor = (Color)newValue);
 
 }
+
 public class FreakyAutoCompleteView : View
 {
     public FreakyAutoCompleteView()
@@ -476,7 +474,7 @@ public class FreakyAutoCompleteView : View
         ItemsSource = new List<string>();
     }
 
-    public event EventHandler<TextChangedEventArgs> TextChanged;
+    public event EventHandler<TextChangedEventArgs> TextChanged;    
 
     public event EventHandler Completed;
 
@@ -543,16 +541,6 @@ public class FreakyAutoCompleteView : View
             typeof(object),
             typeof(FreakyAutoCompleteView),
             null);
-}
-
-public interface IAutoCompleteView : IView
-{
-    string Text { get; set; }
-    string SelectedText { get; set; }
-    Color TextColor { get; set; }
-    IList<string> ItemsSource { get; set; }
-
-    void Completed();
 }
 
 public static class UraniumShapes

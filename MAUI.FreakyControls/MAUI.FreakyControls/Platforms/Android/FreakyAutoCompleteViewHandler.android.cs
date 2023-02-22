@@ -1,5 +1,4 @@
-﻿using Android.Content;
-using Android.Graphics.Drawables;
+﻿using Android.Graphics.Drawables;
 using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
@@ -25,7 +24,6 @@ public partial class FreakyAutoCompleteViewHandler
         {
             autoComplete.SetTextColor(VirtualView.TextColor.ToAndroid());
         }
-
         return autoComplete;
     }
 
@@ -96,18 +94,5 @@ public partial class FreakyAutoCompleteViewHandler
     public static void MapItemsSource(FreakyAutoCompleteViewHandler handler, FreakyAutoCompleteView view)
     {
         handler.SetItemsSource();
-    }
-}
-
-internal class BoxArrayAdapter : ArrayAdapter
-{
-    private readonly IList<string> _objects;
-
-    public BoxArrayAdapter(
-        Context context,
-        int textViewResourceId,
-        List<string> objects) : base(context, textViewResourceId, objects)
-    {
-        _objects = objects;
     }
 }
