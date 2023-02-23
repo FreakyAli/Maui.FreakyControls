@@ -81,7 +81,7 @@ public class NativeAutoCompleteView : MauiTextField, IUITextFieldDelegate
             var m = e.Margin;
             frame = new CGRect(_drawnFrame.X + p.Left + m.Left,
                 //this.Frame.Y,
-                y - this.Frame.Y - _drawnFrame.Y - layer.Frame.Y + _drawnFrame.Height,
+                y - this.Frame.Y - _drawnFrame.Y - layer.Frame.Y - _drawnFrame.Height,
                 _drawnFrame.Width,
                 AutocompleteTableViewHeight);
             view = _scrollView;
