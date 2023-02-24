@@ -11,32 +11,17 @@
             Padding="30"
             Spacing="15">
 
-            <!--<freakyControls:ComboBox x:Name="ComboBox"
-                                     ItemsSource="{Binding SuggestionItem}"
-                                     Placeholder="Hello there"
-                                     Visual="Material">
-
-                <freakyControls:ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding .}" Padding="5,5,0,0"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </freakyControls:ComboBox.ItemTemplate>
-            </freakyControls:ComboBox>-->
-
             <Label
                 TextColor="Black" 
                 Text="Freaky Entry below: " />
-            <Border>
                 <freakyControls:AutoCompleteView
+               x:Name="QueryView"
                PlaceholderText="This is a freaky autocomplete"
                TextColor="Black"
-               TextChanged="AutoCompleteView_TextChanged"
-               QuerySubmitted="AutoCompleteView_QuerySubmitted"
+               TextChanged="SuggestBox_TextChanged"
+               QuerySubmitted="SuggestBox_QuerySubmitted"
                DisplayMemberPath="{Binding .}"
                ItemsSource="{Binding Countries}"/>
-            </Border>
 
             <Label
                 TextColor="Black" 

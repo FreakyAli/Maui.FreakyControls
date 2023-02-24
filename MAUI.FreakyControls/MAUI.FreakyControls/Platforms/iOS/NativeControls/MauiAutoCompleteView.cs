@@ -31,13 +31,11 @@ public class iOSAutoSuggestBox : UIView
     {
         InputTextField = new UIKit.UITextField()
         {
-            //BackgroundColor= UIColor.Blue,
             TranslatesAutoresizingMaskIntoConstraints = false,
             BorderStyle = UIKit.UITextBorderStyle.None,
             ReturnKeyType = UIKit.UIReturnKeyType.Search,
-            AutocorrectionType = UITextAutocorrectionType.No
+            AutocorrectionType = UITextAutocorrectionType.No,
         };
-        this.BackgroundColor = UIColor.Green;
         InputTextField.ShouldReturn = InputText_OnShouldReturn;
         InputTextField.EditingDidBegin += OnEditingDidBegin;
         InputTextField.EditingDidEnd += OnEditingDidEnd;
@@ -45,7 +43,6 @@ public class iOSAutoSuggestBox : UIView
 
         ClipsToBounds = true;
         Layer.CornerRadius = 0;
-        //Layer.MaskedCorners = new CoreAnimation.CACornerMask();
 
         AddSubview(InputTextField);
         InputTextField.TopAnchor.ConstraintEqualTo(this.TopAnchor).Active = true;
@@ -53,7 +50,6 @@ public class iOSAutoSuggestBox : UIView
         InputTextField.WidthAnchor.ConstraintEqualTo(this.WidthAnchor).Active = true;
         InputTextField.HeightAnchor.ConstraintEqualTo(this.HeightAnchor).Active = true;
         SelectionList = new UIKit.UITableView() { TranslatesAutoresizingMaskIntoConstraints = false };
-
         UIKit.UIKeyboard.Notifications.ObserveWillShow(OnKeyboardShow);
         UIKit.UIKeyboard.Notifications.ObserveWillHide(OnKeyboardHide);
     }
@@ -148,7 +144,7 @@ public class iOSAutoSuggestBox : UIView
             IsSuggestionListOpen = true;
         }
         else
-        {
+        {   
             IsSuggestionListOpen = false;
         }
     }
@@ -321,6 +317,7 @@ public class iOSAutoSuggestBox : UIView
     /// </summary>
     public event EventHandler<AutoSuggestBoxSuggestionChosenEventArgs> SuggestionChosen;
 
+
     private class TableSource<T> : UITableViewSource
     {
         readonly IEnumerable<T> _items;
@@ -343,10 +340,13 @@ public class iOSAutoSuggestBox : UIView
             var item = _items.ElementAt(indexPath.Row);
 
 #if IOS14_2_OR_GREATER
+            cell.BackgroundColor = UIColor.Purple;
             cell.DefaultContentConfiguration.Text = _labelFunc(item);
+            cell.DefaultContentConfiguration.TextProperties.Color = UIColor.Black;
 #else
 
             cell.TextLabel.Text = _labelFunc(item);
+            cell.TextLabel.TextColor = UIColor.Black;
 #endif
             return cell;
         }

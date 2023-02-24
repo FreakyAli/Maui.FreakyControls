@@ -34,12 +34,18 @@ public partial class AutoCompleteHandler : ViewHandler<AutoCompleteView, NativeA
              new(ViewHandler.ViewMapper)
              {
                  //[nameof(AutoCompleteView.TextColor)] = MapTextColor,
-                 //[nameof(AutoCompleteView.Text)] = MapText,
+                 [nameof(AutoCompleteView.Text)] = MapText,
                  //[nameof(AutoCompleteView.PlaceholderText)] = MapPlaceHolderText,
                  //[nameof(AutoCompleteView.PlaceholderTextColor)] = MapPlaceHolderTextColor,
-                 //[nameof(AutoCompleteView.ItemsSource)] = MapItemSource,
+                 [nameof(AutoCompleteView.ItemsSource)] = MapItemSource,
+                 [nameof(AutoCompleteView.DisplayMemberPath)]= MapDisplayMember,
                  //[nameof(AutoCompleteView.IsEnabled)] = MapIsEnabled,
              };
+
+    private static void MapDisplayMember(AutoCompleteHandler handler, AutoCompleteView view)
+    {
+        handler.UpdateDisplayMemberPath();
+    }
 
     private static void MapItemSource(AutoCompleteHandler handler, AutoCompleteView view)
     {
