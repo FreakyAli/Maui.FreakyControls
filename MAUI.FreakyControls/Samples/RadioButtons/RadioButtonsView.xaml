@@ -19,14 +19,12 @@
                 OutlineColor="{StaticResource Tertiary}"
                 FillColor="{StaticResource Primary}"
                 CheckColor="White"
-
                 />
 
             <freakyControls:FreakyRadioButton/>
 
             <HorizontalStackLayout Spacing="10" >
                 <freakyControls:FreakyRadioButton
-                IsChecked="True"
                 />
                 <Label
                 HorizontalTextAlignment="Start"
@@ -45,6 +43,5 @@
             />
             </HorizontalStackLayout>
         </freakyControls:FreakyRadioGroup>
-
     </VerticalStackLayout>
 </ContentPage>

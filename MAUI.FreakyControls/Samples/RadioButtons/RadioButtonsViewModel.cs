@@ -18,6 +18,7 @@ public class RadioButtonsViewModel : MainViewModel
 
     public RadioButtonsViewModel()
     {
+        CheckedRadioButton = 2;
         SelectedIndexCommand = new Command<FreakyRadioButtonEventArgs>(ExecuteSelectedIndexCommand) { };
     }
 

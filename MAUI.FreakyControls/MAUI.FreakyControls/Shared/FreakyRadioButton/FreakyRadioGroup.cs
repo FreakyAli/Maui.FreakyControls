@@ -19,9 +19,12 @@ public class FreakyRadioGroup : StackLayout
         typeof(int),
         typeof(FreakyRadioGroup),
         -1,
+        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldValue, newValue) =>
         {
             ((FreakyRadioGroup)bindable).UpdateCheckedStates();
+            ((FreakyRadioGroup)bindable).SetDefaultCheckedRadioButton();
+
         });
 
     /// <summary>
@@ -53,6 +56,16 @@ public class FreakyRadioGroup : StackLayout
     {
         int index = 0;
         LoopChildren(Children, index);
+    }
+
+    private void SetDefaultCheckedRadioButton()
+    {
+        if (SelectedIndex < 0 || SelectedIndex >= radioButtons.Count)
+        {
+            return;
+        }
+
+        radioButtons[SelectedIndex].IsChecked = true;
     }
 
     protected override void OnChildAdded(Element child)
