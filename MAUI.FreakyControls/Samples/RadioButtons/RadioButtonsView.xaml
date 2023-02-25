@@ -3,26 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Samples.RadioButtons.RadioButtonsView"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             xmlns:samples="clr-namespace:Samples"
              Title="RadioButtonsView">
     <VerticalStackLayout
         VerticalOptions="Start"
         HorizontalOptions="Center"
         Padding="30"
         Spacing="20">
+        <Label Text="Group 1: " HorizontalTextAlignment="Start" FontSize="Large"/>
         <freakyControls:FreakyRadioGroup
             Spacing="10"
             SelectedRadioButtonChanged="FreakyRadioGroup_SelectedRadioButtonChanged"
             SelectedRadioButtonChangedCommand="{Binding SelectedIndexCommand}"
             SelectedIndex="{Binding CheckedRadioButton}"
             Orientation="Vertical">
-            <freakyControls:FreakyRadioButton
+
+            <HorizontalStackLayout Spacing="10" >
+
+                <freakyControls:FreakyRadioButton
                 OutlineColor="{StaticResource Tertiary}"
                 FillColor="{StaticResource Primary}"
                 CheckColor="White"
                 />
 
-            <freakyControls:FreakyRadioButton/>
+                <Label Text="Color Scheme"/>
 
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="10" >
+                <freakyControls:FreakyRadioButton HorizontalOptions="Start"/>
+                <freakyControls:FreakySvgImageView
+                    HeightRequest="50"
+                    SvgMode="AspectFit"
+                    SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
+                    ResourceId="{x:Static samples:Constants.DotnetBot}" 
+                    WidthRequest="50" />
+            </HorizontalStackLayout>
+
+        </freakyControls:FreakyRadioGroup>
+
+        <Label Text="Group 2: " HorizontalTextAlignment="Start" FontSize="Large"/>
+
+        <freakyControls:FreakyRadioGroup Spacing="10">
             <HorizontalStackLayout Spacing="10" >
                 <freakyControls:FreakyRadioButton
                 />
