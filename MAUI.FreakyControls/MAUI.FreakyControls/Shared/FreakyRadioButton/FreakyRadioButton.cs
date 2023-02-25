@@ -14,7 +14,9 @@ namespace Maui.FreakyControls
         bool isAnimating;
         readonly SKCanvasView skiaView;
         readonly TapGestureRecognizer tapped = new();
-        private const string defaultGroupName = "FreakyRadioGroup";
+        private const string defaultName = "RadioButton";
+        private static readonly float outlineWidth = 6.0f;
+        private static readonly double size = 24.0;
         #endregion
 
         public FreakyRadioButton()
@@ -28,12 +30,6 @@ namespace Maui.FreakyControls
             tapped.Tapped += Radiobutton_Tapped;
             GestureRecognizers.Add(tapped);
         }
-
-        #region Defaults
-        private static readonly float outlineWidth = 6.0f;
-        private static readonly double size = 24.0;
-        #endregion
-
 
         async Task ToggleAnimationAsync()
         {
@@ -305,6 +301,24 @@ namespace Maui.FreakyControls
             if (!(bindable is FreakyRadioButton RadioButton)) return;
             RadioButton.WidthRequest = RadioButton.HeightRequest = (double)(newValue);
             RadioButton.skiaView.WidthRequest = RadioButton.skiaView.HeightRequest = (double)(newValue);
+        }
+
+        public static readonly BindableProperty NameProperty =
+        BindableProperty.Create(
+            nameof(Name),
+            typeof(string),
+            typeof(FreakyRadioButton),
+            defaultName,
+            propertyChanged: SizeRequestChanged);
+
+        /// <summary>
+        /// Gets or sets a value indicating the identifier of this <see cref="FreakyRadioButton"/>
+        /// </summary>
+        /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
+        public string Name
+        {
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
         }
 
         #endregion

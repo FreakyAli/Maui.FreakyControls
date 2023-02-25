@@ -10,39 +10,6 @@
         Padding="30"
         Spacing="20" >
 
-        <freakyControls:FreakyRadioGroup Spacing="10"
-                                         SelectedIndex="{Binding CheckedRadioButton}"
-                                         Orientation="Vertical">
-            <freakyControls:FreakyRadioButton
-                OutlineColor="{StaticResource Tertiary}"
-                FillColor="{StaticResource Primary}"
-                CheckColor="White"
-                />
-
-            <freakyControls:FreakyRadioButton/>
-
-            <HorizontalStackLayout Spacing="10" >
-                <freakyControls:FreakyRadioButton
-             
-              />
-                <Label
-                HorizontalTextAlignment="Start"
-                VerticalTextAlignment="Center"
-                Text="Native design"
-                />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="10" >
-                <freakyControls:FreakyRadioButton
-              />
-                <Label
-            HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            Text="Native design"
-            />
-            </HorizontalStackLayout>
-        </freakyControls:FreakyRadioGroup>
-
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"

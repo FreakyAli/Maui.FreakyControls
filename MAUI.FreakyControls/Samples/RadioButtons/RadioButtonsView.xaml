@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.RadioButtons.RadioButtonsView"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             Title="RadioButtonsView">
+    <VerticalStackLayout
+        VerticalOptions="Start"
+        HorizontalOptions="Center"
+        Padding="30"
+        Spacing="20">
+        <freakyControls:FreakyRadioGroup
+            Spacing="10"
+            SelectedRadioButtonChanged="FreakyRadioGroup_SelectedRadioButtonChanged"
+            SelectedRadioButtonChangedCommand="{Binding SelectedIndexCommand}"
+            SelectedIndex="{Binding CheckedRadioButton}"
+            Orientation="Vertical">
+            <freakyControls:FreakyRadioButton
+                OutlineColor="{StaticResource Tertiary}"
+                FillColor="{StaticResource Primary}"
+                CheckColor="White"
+
+                />
+
+            <freakyControls:FreakyRadioButton/>
+
+            <HorizontalStackLayout Spacing="10" >
+                <freakyControls:FreakyRadioButton
+                IsChecked="True"
+                />
+                <Label
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Text="Native design"
+                />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="10" >
+                <freakyControls:FreakyRadioButton
+              />
+                <Label
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            Text="Native design"
+            />
+            </HorizontalStackLayout>
+        </freakyControls:FreakyRadioGroup>
+
+    </VerticalStackLayout>
+</ContentPage>
