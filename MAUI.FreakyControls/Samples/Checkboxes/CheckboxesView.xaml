@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Samples.Checkboxes.CheckboxesView"
@@ -27,6 +27,7 @@
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
+            CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Check"
             AnimationType="Slam"
@@ -43,6 +44,7 @@
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
+            CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Check"
             AnimationType="Slam"
@@ -59,6 +61,7 @@
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
+            CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             AnimationType="Rotate"
             CheckType="Star"
@@ -75,6 +78,7 @@
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
+            CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Fill"
             AnimationType="Rotate"
@@ -87,12 +91,11 @@
             />
         </HorizontalStackLayout>
 
-
-
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
             OutlineColor="{StaticResource Primary}"
             FillColor="{StaticResource Primary}"
+            CheckColor="White"
             CheckedChanged="FreakyCheckbox_CheckedChanged"
             CheckType="Box"
             AnimationType="Bounce"

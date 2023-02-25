@@ -12,9 +12,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.4.2</AssemblyVersion>
-		<AssemblyFileVersion>0.4.2</AssemblyFileVersion>
-		<Version>0.4.2</Version>
+		<AssemblyVersion>0.4.3</AssemblyVersion>
+		<AssemblyFileVersion>0.4.3</AssemblyFileVersion>
+		<Version>0.4.3-pre</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -27,8 +27,8 @@
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
 		<RepositoryType>
 		</RepositoryType>
-		<PackageTags>Maui dotnet.Maui .net Maui FreakyControls Checkbox uikit Signature SignatureView Svg SvgImageView CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>Basic implementation for all Freaky Controls</PackageReleaseNotes>
+		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls Checkbox uikit Signature Radiobutton SignatureView Svg SvgImageView CircularImage TextInputLayout</PackageTags>
+		<PackageReleaseNotes>Say Hello to RadioButtons and RadioButtonGroup</PackageReleaseNotes>
 		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
@@ -42,12 +42,11 @@
 		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
-		<EnableCodeSigning>false</EnableCodeSigning>
-		<CreatePackage>false</CreatePackage>
-	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-		<CreatePackage>false</CreatePackage>
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -84,6 +83,8 @@
 		<None Remove="clear_icon.svg" />
 		<None Remove="Shared\EventArgs\" />
 		<None Remove="Shared\FreakyCheckbox\" />
+		<None Remove="Shared\FreakyRadioButton\" />
+		<None Remove="CommunityToolkit.Mvvm" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -114,6 +115,7 @@
 		<Folder Include="Shared\FreakyAutoCompleteView\" />
 		<Folder Include="Shared\EventArgs\" />
 		<Folder Include="Shared\FreakyCheckbox\" />
+		<Folder Include="Shared\FreakyRadioButton\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />

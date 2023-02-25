@@ -13,7 +13,7 @@
 | Support       | OS            |
 | ------------- |:-------------:|
 | iOS             | iOS 11.0 + |
-| Android    | API 23+ (Marshmallow)    | 
+| Android    | API 23+ (Marshmallow) | 
 
 
 ## Documentation
@@ -22,7 +22,6 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 
 ### Like what you saw? Want to keep this repo alive?
 [![](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
-
 
 ## Previews:
 
@@ -33,10 +32,12 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 | <img src="https://user-images.githubusercontent.com/31090457/195864114-5a32df8c-32aa-4c42-850d-398a54babca3.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195864040-2f37c110-92b3-47af-af2a-b50d895a77b5.gif" /> |
 | <img src="https://user-images.githubusercontent.com/31090457/195867103-37d65de1-6e39-42d9-9c98-705e49f4bc88.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195866605-20bf6373-53a3-44d9-9fde-c442ee1aec70.gif" /> |
 | <img src="https://user-images.githubusercontent.com/31090457/210124414-9db3bf89-2079-4e45-8fb5-2f9ae6438e44.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/210124403-a70fd95b-3668-4d5c-9973-e56aec4de514.gif" width="250" height="550"/> |
+| <img src="https://user-images.githubusercontent.com/31090457/221354808-a022a9ea-2692-4a3b-b8a6-a9a9040ca855.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/221354804-fdc55267-4e67-424c-a1ea-960517c8510c.gif" width="250" height="550"/>| 
 
 ## License 
 
 The license for this project can be found [here](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
+
 
 
 ## Installation
@@ -74,5 +75,11 @@ And then in your MauiProgram which would be something like below :
 Now you can use the controls in your app.
 
 ## Activity 
+
+Sparkline: 
+
+[![Sparkline](https://stars.medv.io/FreakyAli/Maui.FreakyControls.svg)](https://stars.medv.io/FreakyAli/Maui.FreakyControls)
+
+RepoBeats:
 
 ![Alt](https://repobeats.axiom.co/api/embed/37b730ec7020123a37b048636c0babfac3b4a014.svg "Repobeats analytics image")
