@@ -114,7 +114,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
         set => SetValue(Base64StringProperty, value);
     }
 
-
     /// <summary>
     /// of type <see cref="ICommand"/>, defines the command that's executed when the image is tapped.
     /// </summary>
@@ -153,7 +152,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
     {
         var time = Math.Round((DateTime.Now - firstTap).TotalMilliseconds, MidpointRounding.AwayFromZero);
 
-        //Check to avoid handling multiple tap events at same time using treshold
+        //Check to avoid handling multiple tap events at same time using threshold
         if (time > TAP_TIME_TRESHOLD)
         {
             firstTap = DateTime.Now;

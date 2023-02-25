@@ -1,4 +1,4 @@
-﻿using Samples.InputViews;
+using Samples.InputViews;
 
 namespace Samples;
 
@@ -11,6 +11,8 @@ public partial class AppShell : Shell
     internal const string signatureView = "SignatureView";
     internal const string signaturePreview = "ImageDisplay";
     internal const string scratchView = "ScratchView";
+    internal const string checkboxes = "Checkboxes";
+    internal const string radioButtons= "RadioButtons";
 
     public AppShell()
     {
@@ -22,6 +24,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(signatureView, typeof(SignatureView.SignatureView));
         Routing.RegisterRoute(signaturePreview, typeof(SignatureView.ImageDisplay));
         Routing.RegisterRoute(scratchView, typeof(ScratchView.ScratchViewPage));
+        Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
+        Routing.RegisterRoute(radioButtons, typeof(RadioButtons.RadioButtonsView));
     }
 }
-

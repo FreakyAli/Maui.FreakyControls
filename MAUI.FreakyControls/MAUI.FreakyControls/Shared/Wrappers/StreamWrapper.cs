@@ -102,4 +102,3 @@ namespace Maui.FreakyControls.Shared.Wrappers
         }
     }
 }
-

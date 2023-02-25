@@ -24,4 +24,3 @@ public static class StreamExtensions
         }
     }
 }
-

@@ -2,27 +2,25 @@
 using Maui.FreakyControls.Platforms.Android.NativeControls;
 using Maui.FreakyControls.Shared;
 
-namespace Maui.FreakyControls
+namespace Maui.FreakyControls;
+
+public class DrawableHandlerCallback : IDrawableClickListener
 {
-    public class DrawableHandlerCallback : IDrawableClickListener
+    private readonly IDrawableImageView frentry;
+
+    public DrawableHandlerCallback(IDrawableImageView frentry)
     {
-        private readonly IDrawableImageView frentry;
+        this.frentry = frentry;
+    }
 
-        public DrawableHandlerCallback(IDrawableImageView frentry)
+    public void OnClick(DrawablePosition target)
+    {
+        switch (target)
         {
-            this.frentry = frentry;
-        }
-
-        public void OnClick(DrawablePosition target)
-        {
-            switch (target)
-            {
-                case DrawablePosition.Left:
-                case DrawablePosition.Right:
-                    frentry.ImageCommand?.ExecuteCommandIfAvailable(frentry.ImageCommandParameter);
-                    break;
-            }
+            case DrawablePosition.Left:
+            case DrawablePosition.Right:
+                frentry.ImageCommand?.ExecuteCommandIfAvailable(frentry.ImageCommandParameter);
+                break;
         }
     }
 }
-

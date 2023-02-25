@@ -39,5 +39,3 @@ public struct ImageConstructionSettings
         Padding = Padding ?? DefaultPadding;
     }
 }
-
-

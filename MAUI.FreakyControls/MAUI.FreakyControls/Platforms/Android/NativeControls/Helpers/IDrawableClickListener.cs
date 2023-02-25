@@ -1,7 +1,6 @@
-﻿namespace Maui.FreakyControls.Platforms.Android.NativeControls
+﻿namespace Maui.FreakyControls.Platforms.Android.NativeControls;
+
+public interface IDrawableClickListener
 {
-    public interface IDrawableClickListener
-    {
-        public void OnClick(DrawablePosition target);
-    }
+    public void OnClick(DrawablePosition target);
 }

@@ -111,4 +111,3 @@ public class FreakyPicker : Picker, IDrawableImageView
         set => SetValue(ImageAlignmentProperty, value);
     }
 }
-

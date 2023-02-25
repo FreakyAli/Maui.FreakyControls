@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -11,42 +11,39 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.3</AssemblyVersion>
-		<AssemblyFileVersion>0.3</AssemblyFileVersion>
-		<Version>0.3</Version>
+		<AssemblyVersion>0.4.3</AssemblyVersion>
+		<AssemblyFileVersion>0.4.3</AssemblyFileVersion>
+		<Version>0.4.3-pre</Version>
 		<NeutralLanguage>en</NeutralLanguage>
-
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
 		<LangVersion>latest</LangVersion>
 		<Authors>FreakyAli</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Description>Freaky controls for your .Net Maui application</Description>
+		<Description>Maui.FreakyControls is a free OSS UI Kit for .NET MAUI which provides a set of controls and utilities to build modern mobile apps.</Description>
 		<PackageIcon>maui_toolkit.png</PackageIcon>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
 		<RepositoryType>
 		</RepositoryType>
-		<PackageTags>Maui dotnet.Maui FreakyControls SignatureView SvgImageView CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>Basic implementation for all Freaky Controls</PackageReleaseNotes>
-		<Copyright>Copyright 2022</Copyright>
+		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls Checkbox uikit Signature Radiobutton SignatureView Svg SvgImageView CircularImage TextInputLayout</PackageTags>
+		<PackageReleaseNotes>Say Hello to RadioButtons and RadioButtonGroup</PackageReleaseNotes>
+		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
+		<NoWarn>1701;1702;IL2121;CS1573;CS1591;CS1570;CS8632</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<WarningLevel>4</WarningLevel>
 		<LangVersion>latest</LangVersion>
-		<NoWarn>1701;1702;IL2121;CS1573;CS1591;CS1570;CS8632</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
-		<EnableCodeSigning>false</EnableCodeSigning>
-		<CreatePackage>false</CreatePackage>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -67,9 +64,7 @@
 		<None Remove="Platforms\iOS\NativeControls\" />
 		<None Remove="Shared\FreakyTextInputLayout\" />
 		<None Include="maui_toolkit.png" Pack="true" Visible="false" PackagePath="" />
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
-		<None Remove="Shared\ObjectModel\" />
 		<None Remove="Shared\FreakyButton\" />
 		<None Remove="Shared\Helpers\" />
 		<None Remove="Shared\FreakyDatePicker\" />
@@ -87,6 +82,9 @@
 		<None Remove="Shared\Effects\" />
 		<None Remove="Platforms\Android\Effects\" />
 		<None Remove="Platforms\iOS\Effects\" />
+		<None Remove="Shared\FreakyCheckbox\" />
+		<None Remove="Shared\FreakyRadioButton\" />
+		<None Remove="CommunityToolkit.Mvvm" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -103,7 +101,6 @@
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
 		<Folder Include="Platforms\iOS\NativeControls\" />
 		<Folder Include="Shared\FreakyTextInputLayout\" />
-		<Folder Include="Shared\ObjectModel\" />
 		<Folder Include="Shared\FreakyButton\" />
 		<Folder Include="Shared\Helpers\" />
 		<Folder Include="Shared\FreakyDatePicker\" />
@@ -120,6 +117,8 @@
 		<Folder Include="Shared\Effects\" />
 		<Folder Include="Platforms\Android\Effects\" />
 		<Folder Include="Platforms\iOS\Effects\" />
+		<Folder Include="Shared\FreakyCheckbox\" />
+		<Folder Include="Shared\FreakyRadioButton\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
@@ -135,18 +134,16 @@
 			</SubType>
 		</MauiXaml>
 		<MauiXaml Update="Shared\FreakySignatureView\SignaturePadView.xaml">
-		  <SubType></SubType>
-		</MauiXaml>
-		<MauiXaml Update="Shared\FreakyAutoCompleteView\AutoCompleteView.xaml">
-		  <SubType></SubType>
+			<SubType>
+			</SubType>
 		</MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Platforms\iOS\{&#xA;    {">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-	  </None>
+		<None Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Platforms\iOS\{&#xA;    {">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Include="clear_icon.svg" />
+		<EmbeddedResource Include="clear_icon.svg" />
 	</ItemGroup>
 </Project>

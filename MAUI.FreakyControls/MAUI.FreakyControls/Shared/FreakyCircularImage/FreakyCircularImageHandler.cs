@@ -1,11 +1,8 @@
 ﻿using System;
 using Microsoft.Maui.Handlers;
 
-namespace Maui.FreakyControls
+namespace Maui.FreakyControls;
+
+public sealed partial class FreakyCircularImageHandler : ImageHandler
 {
-    public sealed partial class FreakyCircularImageHandler : ImageHandler
-    {
-
-    }
 }
-

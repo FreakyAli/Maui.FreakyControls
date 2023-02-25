@@ -88,8 +88,4 @@ internal static class PathSmoothing
         smoothedPath.LineTo(last.X, last.Y);
         smoothedPoints.Add(last);
     }
-
 }
-
-
-

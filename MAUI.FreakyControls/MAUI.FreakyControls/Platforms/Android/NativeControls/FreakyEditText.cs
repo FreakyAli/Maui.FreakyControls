@@ -23,7 +23,6 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
 
         public FreakyEditText(Context context) : base(context)
         {
-
         }
 
         public FreakyEditText(Context context, IAttributeSet attrs) : base(context, attrs)
@@ -33,7 +32,6 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         public FreakyEditText(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
         }
-
 
         public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
                 Drawable right, Drawable bottom)
@@ -85,7 +83,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                     bounds = drawableLeft.Bounds;
 
                     int x, y;
-                    int extraTapArea = (int)(13*  Resources.DisplayMetrics.Density + 0.5);
+                    int extraTapArea = (int)((13 * Resources.DisplayMetrics.Density) + 0.5);
 
                     x = actionX;
                     y = actionY;
@@ -113,13 +111,11 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                         clickListener.OnClick(DrawablePosition.Left);
                         e.Action = (MotionEventActions.Cancel);
                         return false;
-
                     }
                 }
 
                 if (drawableRight != null)
                 {
-
                     bounds = null;
                     bounds = drawableRight.Bounds;
 
@@ -170,7 +166,6 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                     }
                     return base.OnTouchEvent(e);
                 }
-
             }
             return base.OnTouchEvent(e);
         }

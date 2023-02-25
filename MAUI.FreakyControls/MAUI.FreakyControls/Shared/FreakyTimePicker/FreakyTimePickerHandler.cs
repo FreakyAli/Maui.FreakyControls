@@ -6,7 +6,6 @@ using Microsoft.Maui.Handlers;
 namespace Maui.FreakyControls;
 
 #if ANDROID || IOS
-
 public partial class FreakyTimePickerHandler : TimePickerHandler
 {
     public FreakyTimePickerHandler()
@@ -26,10 +25,8 @@ public partial class FreakyTimePickerHandler : TimePickerHandler
         }
     }
 }
-
 #else
 public partial class FreakyTimePickerHandler : TimePickerHandler
 {
-
 }
 #endif

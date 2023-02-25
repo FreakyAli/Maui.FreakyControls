@@ -5,4 +5,3 @@ public class StrokesEventArgs : FreakyEventArgs
 {
     public IEnumerable<IEnumerable<Point>> Strokes { get; set; } = new Point[0][];
 }
-
