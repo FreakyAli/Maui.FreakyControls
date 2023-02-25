@@ -24,6 +24,5 @@ public class RadioButtonsViewModel : MainViewModel
 
     private void ExecuteSelectedIndexCommand(FreakyRadioButtonEventArgs obj)
     {
-
     }
 }

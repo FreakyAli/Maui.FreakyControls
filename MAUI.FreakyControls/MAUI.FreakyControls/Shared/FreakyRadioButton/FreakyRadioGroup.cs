@@ -24,7 +24,6 @@ public class FreakyRadioGroup : StackLayout
         {
             ((FreakyRadioGroup)bindable).UpdateCheckedStates();
             ((FreakyRadioGroup)bindable).SetDefaultCheckedRadioButton();
-
         });
 
     /// <summary>

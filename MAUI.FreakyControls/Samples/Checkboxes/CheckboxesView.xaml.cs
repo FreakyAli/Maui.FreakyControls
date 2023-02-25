@@ -10,6 +10,5 @@ public partial class CheckboxesView : ContentPage
 
     void FreakyCheckbox_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-
     }
 }
