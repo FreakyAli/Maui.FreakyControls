@@ -51,7 +51,7 @@ namespace Samples
                 AppShell.inputViews,
                 AppShell.imageViews,
                 AppShell.signatureView,
-                AppShell.scratchView
+                AppShell.scratchView,
                 AppShell.checkboxes,
                 AppShell.radioButtons
             };

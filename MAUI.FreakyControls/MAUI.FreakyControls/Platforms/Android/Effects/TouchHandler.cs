@@ -79,7 +79,7 @@ public static class ContextExtensions
     }
 }
 
-public class TouchHandler : FreakyControls.Effects.TouchHandlerBase<View>
+public class TouchHandler : TouchHandlerBase<View>
 {
     View _view;
     bool _capture;
@@ -180,7 +180,10 @@ public class TouchHandler : FreakyControls.Effects.TouchHandlerBase<View>
             case MotionEventActions.PointerDown:
                 FireEvent(this, id, TouchActionType.Pressed, screenPointerCoords, true);
 
-                _idToTouchHandlerDictionary.Add(id, this);
+                if (!_idToTouchHandlerDictionary.ContainsKey(id))
+                {
+                    _idToTouchHandlerDictionary.Add(id, this);
+                }
 
                 _capture = Capture;
 
@@ -341,4 +344,3 @@ public class TouchHandler : FreakyControls.Effects.TouchHandlerBase<View>
             new TouchActionEventArgs(id, actionType, point, isInContact));
     }
 }
-

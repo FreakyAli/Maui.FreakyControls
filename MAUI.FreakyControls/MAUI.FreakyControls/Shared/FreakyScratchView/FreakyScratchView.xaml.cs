@@ -15,40 +15,37 @@ public partial class FreakyScratchView : ContentView
         paint.StrokeWidth = StrokeWidth;
     }
 
-    public static readonly BindableProperty FrontImageSourceProperty =
-        BindableProperty.Create(
-            nameof(FrontImageSource),
-            typeof(ImageSource),
-            typeof(FreakyScratchView),
-            default(ImageSource));
-
-    public ImageSource FrontImageSource
+    public static BindableProperty FrontImageSourceProperty = BindableProperty.Create(nameof(FrontImageSource), typeof(string), typeof(FreakyScratchView), propertyChanged: OnFrontImageChanged);
+    public string FrontImageSource
     {
-        get => (ImageSource)GetValue(FrontImageSourceProperty);
+        get => (string)GetValue(FrontImageSourceProperty);
         set => SetValue(FrontImageSourceProperty, value);
     }
 
-    public static readonly BindableProperty BackImageSourceProperty =
-       BindableProperty.Create(
-           nameof(BackImageSource),
-           typeof(ImageSource),
-           typeof(FreakyScratchView),
-           default(ImageSource));
-
-    public ImageSource BackImageSource
+    static void OnFrontImageChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        get => (ImageSource)GetValue(BackImageSourceProperty);
+        var control = (FreakyScratchView)bindable;
+        control.rect = control.GetBitMap(newValue.ToString());
+    }
+
+    public static BindableProperty BackImageSourceProperty = BindableProperty.Create(nameof(BackImageSource), typeof(string), typeof(FreakyScratchView), propertyChanged: OnBackImageChanged);
+    public string BackImageSource
+    {
+        get => (string)GetValue(BackImageSourceProperty);
         set => SetValue(BackImageSourceProperty, value);
     }
 
-    public static readonly BindableProperty StrokeWidthProperty =
-        BindableProperty.Create(
-            nameof(StrokeWidth),
-            typeof(float),
-            typeof(FreakyScratchView),
-            propertyChanged: OnStrokeWidthChanged,
-            defaultValue: (float)100);
+    static void OnBackImageChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (FreakyScratchView)bindable;
 
+        Assembly assembly = control.GetType().GetTypeInfo().Assembly;
+        string resourceId = $"{assembly.GetName().Name}.{newValue}";
+
+        control.BackImage.Source = ImageSource.FromResource(resourceId, assembly);
+    }
+
+    public static BindableProperty StrokeWidthProperty = BindableProperty.Create(nameof(StrokeWidth), typeof(float), typeof(FreakyScratchView), propertyChanged: OnStrokeWidthChanged, defaultValue: (float)100);
     public float StrokeWidth
     {
         get => (float)GetValue(StrokeWidthProperty);
@@ -61,7 +58,23 @@ public partial class FreakyScratchView : ContentView
         control.paint.StrokeWidth = (float)newValue;
     }
 
+    SKBitmap GetBitMap(string resourceName)
+    {
+        SKBitmap resourceBitmap;
+        Assembly assembly = GetType().GetTypeInfo().Assembly;
+        string resourceId = $"{assembly.GetName().Name}.{resourceName}";
+
+        using (Stream stream = assembly.GetManifestResourceStream(resourceId))
+        {
+            resourceBitmap = SKBitmap.Decode(stream);
+        }
+
+        return resourceBitmap;
+    }
+
     Dictionary<long, SKPath> inProgressPaths = new Dictionary<long, SKPath>();
+    SKBitmap rect = new SKBitmap();
+
     SKPaint paint = new SKPaint
     {
         Style = SKPaintStyle.Stroke,
@@ -72,14 +85,13 @@ public partial class FreakyScratchView : ContentView
 
     private void CanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
-        //SKCanvas canvas = e.Surface.Canvas;
-        ////var bitmap = SKBitmap.Decode();
-        //canvas.DrawBitmap(bitmap, 0, 0);
+        SKCanvas canvas = e.Surface.Canvas;
+        canvas.DrawBitmap(rect, e.Info.Rect);
 
-        //foreach (SKPath path in inProgressPaths.Values)
-        //{
-        //    canvas.DrawPath(path, paint);
-        //}
+        foreach (SKPath path in inProgressPaths.Values)
+        {
+            canvas.DrawPath(path, paint);
+        }
     }
 
     private void TouchEffect_TouchAction(object sender, TouchActionEventArgs args)

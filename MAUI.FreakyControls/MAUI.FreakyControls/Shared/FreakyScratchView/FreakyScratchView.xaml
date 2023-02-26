@@ -6,17 +6,20 @@
              x:Name="this"
              x:Class="Maui.FreakyControls.FreakyScratchView">
     <Grid>
-        <Image Grid.Row="0"
-                   x:Name="BackImage"
-                   Grid.Column="0"
-                   Source="{Binding Source={x:Reference this}, Path=BackImageSource}"
-                   Aspect="AspectFit"/>
+        <Image
+            Grid.Row="0"
+            x:Name="BackImage"
+            Grid.Column="0"
+            Source="{Binding Source={x:Reference this}, Path=BackImageSource}"
+            Aspect="AspectFit"/>
 
-        <skia:SKCanvasView x:Name="canvasView" BackgroundColor="Aquamarine"
-                               VerticalOptions="Fill"
-                               Grid.Row="0"
-                               Grid.Column="0" 
-                               PaintSurface="CanvasView_PaintSurface"/>
+        <skia:SKCanvasView
+            x:Name="canvasView"
+            BackgroundColor="Aquamarine"
+            VerticalOptions="Fill"
+            Grid.Row="0"
+            Grid.Column="0" 
+            PaintSurface="CanvasView_PaintSurface"/>
         <Grid.Effects>
             <effects:TouchEffect Capture="True"
                             TouchAction="TouchEffect_TouchAction" />

@@ -2,16 +2,21 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Samples.ScratchView.ScratchViewPage"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             xmlns:views="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls.Effects;assembly=Maui.FreakyControls"
              Title="ScratchViewPage">
-    <Grid>
-        <freakyControls:FreakyScratchView
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    HeightRequest="200"
-                    WidthRequest="200"
-                    FrontImageSource="Front.jpg"
-                    BackImageSource="Back.jpg"
-                    StrokeWidth="100"/>
+    <Grid
+        BackgroundColor="White">
+        <views:SKCanvasView 
+        x:Name="canvasView" 
+        PaintSurface="OnPaint" 
+        EnableTouchEvents="True">
+        </views:SKCanvasView>
+        <Grid.Effects>
+            <freakyControls:TouchEffect 
+                x:Name="touchEffect"
+                Capture="True"
+                TouchAction="OnTouchEffectAction" />
+        </Grid.Effects>
     </Grid>
 </ContentPage>
