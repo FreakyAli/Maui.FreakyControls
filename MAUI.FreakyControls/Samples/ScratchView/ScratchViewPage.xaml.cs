@@ -10,7 +10,6 @@ public partial class ScratchViewPage : ContentPage
     {
         InitializeComponent();
         BindingContext = new ScratchViewModel();
-
     }
 
     //private ISKScene _scene;

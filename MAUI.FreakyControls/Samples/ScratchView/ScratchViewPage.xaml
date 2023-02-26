@@ -9,7 +9,8 @@
         BackgroundColor="White">
         <views:SKCanvasView 
         x:Name="canvasView" 
-        PaintSurface="OnPaint" 
+        PaintSurface="OnPaint"
+        BackgroundColor="Blue"
         EnableTouchEvents="True">
         </views:SKCanvasView>
         <Grid.Effects>
