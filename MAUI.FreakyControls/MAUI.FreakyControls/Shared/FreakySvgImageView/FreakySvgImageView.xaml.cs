@@ -7,6 +7,7 @@ using SkiaSharp.Views.Maui;
 using System.Net;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Helpers;
+using System.Net.Security;
 
 namespace Maui.FreakyControls;
 
@@ -174,18 +175,27 @@ public partial class FreakySvgImageView : BaseSKCanvas
                 return;
             }
 
+            SKSvg svg;
+
             if (!string.IsNullOrWhiteSpace(ResourceId) && this.SvgAssembly != null)
             {
-                UpdateResourceId();
+                svg = GetSvgImageHandlerFromResource();
             }
             else if (!string.IsNullOrWhiteSpace(Base64String))
             {
-                UpdateBase64();
+                svg = GetSvgImageHandlerFromBase64();
             }
+            //else if (!string.IsNullOrWhiteSpace(Uri))
+            //{
+            //    svg = await Task.Run(async () => await GetSvgImageHandlerFromUriAsync());
+            //}
             else
             {
                 return;
             }
+
+            MainThread.BeginInvokeOnMainThread(() =>
+             UpdateCanvas(svg));
         }
         catch (KeyNotFoundException ex)
         {
@@ -213,7 +223,21 @@ public partial class FreakySvgImageView : BaseSKCanvas
         svgIcon?.InvalidateSurface();
     }
 
-    private void UpdateBase64()
+    private SKSvg GetSvgImageHandlerFromResource()
+    {
+        var svg = new SKSvg();
+        var svgStream = this.SvgAssembly.GetManifestResourceStream(ResourceId);
+        if (svgStream == null)
+        {
+            // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
+            Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
+            return null;
+        }
+        svg.Load(svgStream);
+        return svg;
+    }
+
+    private SKSvg GetSvgImageHandlerFromBase64()
     {
         var svg = new SKSvg();
         string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
@@ -222,66 +246,11 @@ public partial class FreakySvgImageView : BaseSKCanvas
         {
             svg.Load(stream);
         }
-
-        canvas.Translate(info.Width / 2f, info.Height / 2f);
-        var bounds = svg.Picture.CullRect;
-        var xRatio = info.Width / bounds.Width;
-        var yRatio = info.Height / bounds.Height;
-        xRatio *= .95f;
-        yRatio *= .95f;
-        float ratio;
-        switch (SvgMode)
-        {
-            case Aspect.Center:
-            case Aspect.AspectFit:
-                ratio = Math.Min(xRatio, yRatio);
-                canvas.Scale(ratio);
-                break;
-
-            case Aspect.AspectFill:
-                ratio = Math.Max(xRatio, yRatio);
-                canvas.Scale(ratio);
-                break;
-
-            case Aspect.Fill:
-                canvas.Scale(xRatio, yRatio);
-                break;
-
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        canvas.Translate(-bounds.MidX, -bounds.MidY);
-
-        if (ImageColor != Colors.Transparent)
-        {
-            using (var paint = new SKPaint
-            {
-                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
-                Style = SKPaintStyle.StrokeAndFill
-            })
-            {
-                canvas.DrawPicture(svg.Picture, paint);
-                return;
-            }
-        }
-
-        canvas.DrawPicture(svg.Picture);
+        return svg;
     }
 
-    private void UpdateResourceId()
+    private void UpdateCanvas(SKSvg svg)
     {
-        Stream svgStream;
-        var svg = new SKSvg();
-        svgStream = this.SvgAssembly.GetManifestResourceStream(ResourceId);
-        if (svgStream == null)
-        {
-            // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
-            Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
-            return;
-        }
-        svg.Load(svgStream);
-
         canvas.Translate(info.Width / 2f, info.Height / 2f);
         var bounds = svg.Picture.CullRect;
         var xRatio = info.Width / bounds.Width;
@@ -309,6 +278,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
         canvas.Translate(-bounds.MidX, -bounds.MidY);
 
         if (ImageColor != Colors.Transparent)
@@ -323,6 +293,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
                 return;
             }
         }
+
         canvas.DrawPicture(svg.Picture);
     }
 

@@ -27,6 +27,7 @@
                 SvgMode="AspectFit"
                 Base64String="{x:Static samples:Constants.SvgBase64}"/>
 
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
