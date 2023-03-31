@@ -23,6 +23,13 @@ public partial class FreakySvgImageView : BaseSKCanvas
 
     #region bindable properties
 
+    public static readonly BindableProperty SourceProperty = BindableProperty.Create(
+        nameof(Source),
+        typeof(SvgImageSource),
+        typeof(FreakySvgImageView),
+        default(SvgImageSource)
+        );
+
     public static readonly BindableProperty ImageColorProperty = BindableProperty.Create(
        nameof(ImageColor),
        typeof(Color),
@@ -140,6 +147,13 @@ public partial class FreakySvgImageView : BaseSKCanvas
     {
         get { return (Aspect)GetValue(SvgModeProperty); }
         set { SetValue(SvgModeProperty, value); }
+    }
+
+    [System.ComponentModel.TypeConverter(typeof(SvgImageSourceConverter))]
+    public SvgImageSource Source
+    {
+        get { return (SvgImageSource)GetValue(SourceProperty); }
+        set { SetValue(SourceProperty, value); }
     }
 
     #endregion bindable properties

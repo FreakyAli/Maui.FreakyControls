@@ -19,6 +19,11 @@
             <freakyControls:FreakySvgImageView
                 HeightRequest="300"
                 SvgMode="AspectFit"
+                Source="{x:Static samples:Constants.SvgBase64}"/>
+
+            <freakyControls:FreakySvgImageView
+                HeightRequest="300"
+                SvgMode="AspectFit"
                 SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
                 ResourceId="{x:Static samples:Constants.DotnetBot}" />
 
