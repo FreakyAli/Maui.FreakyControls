@@ -37,7 +37,7 @@ public partial class FreakyEntryHandler
         var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
         if (uiImage != null)
         {
-            var uiView = uiImage.UiImageToUiView(entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);
+            var uiView = uiImage.UIImageToUIView(entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);
             uiView.UserInteractionEnabled = true;
             var tapGesture = new UITapGestureRecognizer(OnViewTouchBegan);
             uiView.AddGestureRecognizer(tapGesture);
