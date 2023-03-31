@@ -185,17 +185,12 @@ public partial class FreakySvgImageView : BaseSKCanvas
             {
                 svg = GetSvgImageHandlerFromBase64();
             }
-            //else if (!string.IsNullOrWhiteSpace(Uri))
-            //{
-            //    svg = await Task.Run(async () => await GetSvgImageHandlerFromUriAsync());
-            //}
             else
             {
                 return;
             }
 
-            MainThread.BeginInvokeOnMainThread(() =>
-             UpdateCanvas(svg));
+            UpdateCanvas(svg);
         }
         catch (KeyNotFoundException ex)
         {
