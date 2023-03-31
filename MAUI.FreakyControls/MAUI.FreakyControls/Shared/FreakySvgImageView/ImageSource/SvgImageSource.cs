@@ -62,6 +62,11 @@ public abstract partial class SvgImageSource : Element
         return tcs.Task;
     }
 
+    public static SvgImageSource FromBase64(string base64)
+    {
+        return new Base64SvgImageSource { Base64 = base64 };
+    }
+
     public static SvgImageSource FromFile(string file)
     {
         return new FileSvgImageSource { File = file };
