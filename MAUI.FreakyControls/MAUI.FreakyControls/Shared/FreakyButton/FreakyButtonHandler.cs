@@ -2,6 +2,8 @@ using System;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Handlers;
 
-public partial class FreakyButtonHandler : ButtonHandler
+namespace Maui.FreakyControls;
+
+public partial class FreakyButtonHandler : ContentViewHandler
 {
 }
