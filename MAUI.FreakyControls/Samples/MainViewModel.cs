@@ -52,7 +52,8 @@ namespace Samples
                 AppShell.imageViews,
                 AppShell.signatureView,
                 AppShell.checkboxes,
-                AppShell.radioButtons
+                AppShell.radioButtons,
+                AppShell.buttons
             };
 
             var strSuggestionArr = new string[] {

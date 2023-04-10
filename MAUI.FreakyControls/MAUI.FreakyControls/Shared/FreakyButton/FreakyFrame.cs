@@ -7,8 +7,3 @@ public class FreakyFrame : Frame
 {
     
 }
-
-public partial class FreakyFrameHandler : FrameRenderer
-{
-    
-}

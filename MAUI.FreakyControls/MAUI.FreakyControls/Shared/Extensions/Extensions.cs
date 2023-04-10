@@ -9,10 +9,12 @@ using System.Windows.Input;
 #if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
+using NativeColorEffect = Maui.FreakyControls.ColorOverlayEffectAndroid;
 using NativeImage = Android.Graphics.Bitmap;
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;
+using NativeColorEffect = Maui.FreakyControls.ColorOverlayEffectiOS;
 #endif
 #if IOS || MACCATALYST
 using NativeImage = UIKit.UIImage;
@@ -31,12 +33,34 @@ public static class Extensions
         }
     }
 
+
+    public static void InitFreakyControls(this MauiAppBuilder builder)
+    {
+        builder.ConfigureMauiHandlers(handlers =>
+         {
+             handlers.AddFreakyHandlers(); // To Init your freaky handlers for Entry and Editor
+         });
+        // This line is needed for the follow issue: https://github.com/mono/SkiaSharp/issues/1979
+        builder.InitSkiaSharp(); // Use this if you want to use FreakySvgImageView
+
+        builder.ConfigureEffects(effects =>
+        {
+            effects.InitFreakyEffects();
+        });
+    }
+
+    internal static void InitFreakyEffects(this IEffectsBuilder effects)
+    {
+        effects.Add<ColorOverlayEffect, NativeColorEffect>();
+    }
+
+    [Obsolete("AddFreakyHandlers is deprecated, please use InitFreakyEffects to initialize your freaky controls.")]
     public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
     {
         handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
         handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
         handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
-        handlers.AddHandler(typeof(FreakyButton), typeof(FreakyButtonHandler));
+        handlers.AddHandler(typeof(FreakyFrame), typeof(FreakyFrameHandler));
         handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
         handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
@@ -44,6 +68,7 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
     }
 
+    [Obsolete("Please use InitFreakyEffects to initialize your freaky controls.")]
     public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.UseSkiaSharp();

@@ -5,6 +5,11 @@ using AndroidView = Android.Views;
 using Android.Views.Accessibility;
 using Microsoft.Maui.Controls.Platform;
 using static Android.Views.View;
+using Android.Graphics;
+using Android.Widget;
+using Color = Microsoft.Maui.Graphics.Color;
+using Microsoft.Maui.Platform;
+using AndroidX.Core.Graphics;
 
 namespace Maui.FreakyControls;
 
@@ -108,5 +113,53 @@ internal sealed class GestureFrameRendererAccessibilityDelegate : AccessibilityD
         base.OnInitializeAccessibilityNodeInfo(host, info);
         info.ClassName = "android.widget.Button";
         info.Clickable = true;
+    }
+}
+
+public class ColorOverlayEffectAndroid : PlatformEffect
+{
+    protected override void OnAttached()
+    {
+        var effect = (ColorOverlayEffect)Element.Effects.FirstOrDefault(e => e is ColorOverlayEffect);
+        if (effect == null)
+            return;
+
+        if (!(Control is ImageView))
+            return;
+
+        SetOverlay(effect.Color);
+    }
+
+    void SetOverlay(Color color)
+    {
+        var formsImage = (Image)Element;
+        if (formsImage?.Source == null)
+            return;
+
+        try
+        {
+            var drawable = ((ImageView)Control).Drawable.Mutate();
+            drawable.SetColorFilter(BlendModeColorFilterCompat.CreateBlendModeColorFilterCompat(color.ToPlatform(), BlendModeCompat.SrcAtop));
+            drawable.Alpha = color.ToPlatform().A;
+
+            ((ImageView)Control).SetImageDrawable(drawable);
+            ((IVisualElementController)Element).PlatformSizeChanged();
+        }
+        catch (NullReferenceException)
+        {
+            return;
+        }
+        catch (ObjectDisposedException)
+        {
+            return;
+        }
+    }
+
+    protected override void OnDetached()
+    {
+        //if (!(Control is ImageView) || ((ImageView)Control).Drawable == null || originalImage == null)
+        //    return;
+
+        //((ImageView)Control).SetImageDrawable(originalImage);
     }
 }

@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.Buttons.ButtonsView"
+             xmlns:controls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             Title="ButtonsView">
+
+     <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SmallButton" TargetType="Button">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:Double" Default="-1">
+                            <On Platform="iOS" Value="20" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextColor">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="Gray" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>                
+            </Style>
+            
+            <Style x:Key="DefaultFlexButton" TargetType="controls:FreakyButton">
+                <Setter Property="BackgroundColor" Value="#6279B8" />
+                <Setter Property="ForegroundColor" Value="#ffffff" />
+                <Setter Property="HighlightForegroundColor" Value="#49516F" />
+                <Setter Property="HighlightBackgroundColor" Value="#8EA4D2" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout 
+            Spacing="10" 
+            Padding="0,10,0,10" 
+            WidthRequest="380" 
+            HorizontalOptions="Center">
+
+            <!-- Standard Button -->
+            <controls:FreakyButton
+                x:Name="DemoButton"
+                HorizontalOptions="Center"
+                IconOrientation="Left"
+                WidthRequest="76"
+                HeightRequest="76"
+                Padding="0"
+                IconPadding="0"
+                CornerRadius="38"
+                Icon="lightbulb.png"
+                AccessibleName="Light bulb"
+                ForegroundColor="#ffffff"
+                HighlightForegroundColor="#49516F"
+                BackgroundColor="#6279B8"
+                HighlightBackgroundColor="#8EA4D2"
+                BorderColor="#8EA4D2"
+                HighlightBorderColor="#8EA4D2"
+                BorderThickness="3"
+                TouchedDown="DemoButton_TouchedDown"
+                TouchedUp="DemoButton_TouchedUp"
+                TouchCanceled="DemoButton_TouchedCanceled" />
+
+            <Label x:Name="ButtonStatus" Text="Untouched" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+
+            <BoxView BackgroundColor="#eee" HeightRequest="1" Margin="0,20"/>
+
+            <!-- Small Buttons -->
+            <Label Text="Small Buttons" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">
+                <controls:FreakyButton
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    Icon="lightbulb.png"
+                    VerticalOptions="Start"
+                    Style="{StaticResource DefaultFlexButton}"/>
+
+                <controls:FreakyButton
+                    HeightRequest="40"
+                    CornerRadius="20"                    
+                    Text="Pill Button"
+                    FontSize="Small"                    
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="Start"
+                    ForegroundColor="#ffffff"
+                    HighlightForegroundColor="#49516F"
+                    BackgroundColor="#6279B8"
+                    HighlightBackgroundColor="#8EA4D2"/>
+
+                <controls:FreakyButton
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    IsEnabled="false"
+                    Icon="lightbulb.png"
+                    ForegroundColor="#ffffff"
+                    HighlightForegroundColor="#49516F"
+                    BackgroundColor="#6279B8"
+                    HighlightBackgroundColor="#8EA4D2"/>
+            </StackLayout>
+
+            <BoxView BackgroundColor="#eee" HeightRequest="1" Margin="0,20"/>
+
+            <!-- Wide Button with Icon-->
+            <Label Text="Wide Button with Icon" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+            <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Margin="0,-10,0,0">
+                <Button Text="IsEnabled" Clicked="ToggleIsEnabled_Clicked" Style="{StaticResource SmallButton}" />
+                <Label Text="|" TextColor="Gray" VerticalOptions="Center"/>
+                <Button Text="IconOrientation" Clicked="ToggleIconOrientation_Clicked" Style="{StaticResource SmallButton}" />
+                <Label Text="|" TextColor="Gray" VerticalOptions="Center"/>
+                <Button Text="HasShadow" Clicked="ToggleHasShadow_Clicked" Style="{StaticResource SmallButton}" />
+            </StackLayout>
+
+            <controls:FreakyButton
+                x:Name="WideButton"
+                ClickedCommand="{Binding ButtonClickedCommand}"
+                IconOrientation="Right"
+                HorizontalOptions="Center"
+                Padding="0"
+                WidthRequest="300"
+                HeightRequest="76"
+                HasShadow="false"
+                CornerRadius="22"
+                Icon="lightbulb.png"
+                Text="Icon and Text"
+                BorderThickness="0,0,0,4"
+                BorderColor="#49516F"
+                HighlightBorderColor="#6279B8"
+                ForegroundColor="#ffffff"
+                HighlightForegroundColor="#49516F"
+                BackgroundColor="#6279B8"
+                HighlightBackgroundColor="#8EA4D2"/>
+
+            <BoxView BackgroundColor="#eee" HeightRequest="1" Margin="0,10"/>
+
+            <!-- Buttons without background -->
+            <Label Text="Round Buttons without Background" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+
+                <controls:FreakyButton
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    Icon="left.png"
+                    ForegroundColor="#6279B8"
+                    HighlightForegroundColor="#ffffff"
+                    BackgroundColor="Transparent"
+                    HighlightBackgroundColor="#6279B8"/>
+
+                <controls:FreakyButton
+                    HorizontalOptions="Center"
+                    WidthRequest="76"
+                    HeightRequest="76"
+                    CornerRadius="38"
+                    Icon="lightbulb.png"
+                    ForegroundColor="#6279B8"
+                    HighlightForegroundColor="#ffffff"
+                    BackgroundColor="White"
+                    HighlightBackgroundColor="#6279B8"
+                    BorderColor="#6279B8"
+                    HighlightBorderColor="#49516F"
+                    Clicked="ButtonWithoutBackground_Clicked"
+                    BorderThickness="2"/>
+
+                <controls:FreakyButton
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    Icon="right.png"
+                    ForegroundColor="#6279B8"
+                    HighlightForegroundColor="#ffffff"
+                    BackgroundColor="Transparent"
+                    HighlightBackgroundColor="#6279B8"/>
+            </StackLayout>
+
+            <BoxView BackgroundColor="#eee" HeightRequest="1" Margin="0,10"/>
+
+            <!-- Wide Text -->
+            <Label Text="Button with multi-line text and border" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+
+            <controls:FreakyButton
+                HorizontalOptions="Center"
+                Text="Button with text only and different font family, attributes and size"
+                FontAttributes="Bold"
+                FontFamily="TimesNewRomanPSMT"
+                MaxLines="-1"
+                HeightRequest="100"
+                Margin="20,0"
+                FontSize="24"
+                ForegroundColor="#ffffff"
+                HighlightForegroundColor="#49516F"
+                BackgroundColor="#6279B8"
+                HighlightBackgroundColor="#8EA4D2"
+                BorderThickness="4"
+                BorderColor="#49516F"
+                HighlightBorderColor="#6279B8"/>
+
+            <BoxView BackgroundColor="#eee" HeightRequest="1" Margin="0,10"/>
+
+            <!-- Wide Text -->
+            <Label Text="Toggle Button" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+
+            <Button Text="Toggle IsToggled" Clicked="ToggleIsToggled_Clicked" Margin="0,-10,0,0" HorizontalOptions="Center" Style="{StaticResource SmallButton}" />
+
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+
+                <controls:FreakyButton
+                    HorizontalOptions="Center"
+                    WidthRequest="120"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    Text="True"
+                    ToggleMode="true"
+                    IsToggled="true"
+                    Toggled="Handle_Toggled"
+                    ForegroundColor="#ffffff"
+                    HighlightForegroundColor="#ffffff"
+                    BackgroundColor="#6279B8"
+                    HighlightBackgroundColor="#49516F"/>
+
+                <controls:FreakyButton
+                    HorizontalOptions="Center"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    Icon="check.png"
+                    ToggleMode="true"
+                    IsToggled="{Binding IsToggled}"
+                    ForegroundColor="#ffffff"
+                    HighlightForegroundColor="#ffffff"
+                    BackgroundColor="#6279B8"
+                    HighlightBackgroundColor="#49516F"/>
+
+                <controls:FreakyButton
+                    HorizontalOptions="Center"
+                    WidthRequest="120"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    Text="False"
+                    ToggleMode="true"
+                    IsToggled="false"
+                    Toggled="Handle_Toggled"
+                    ForegroundColor="#ffffff"
+                    HighlightForegroundColor="#ffffff"
+                    BackgroundColor="#6279B8"
+                    HighlightBackgroundColor="#49516F"/>
+            </StackLayout>
+
+            <BoxView BackgroundColor="#eee" HeightRequest="1" Margin="0,10"/>
+
+            <!-- Color Icons -->
+            <Label Text="Colorized Icon" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+            <Button Text="Toggle IconTintEnabled" Clicked="ToggleIconTintEnabled" Style="{StaticResource SmallButton}" />
+
+            <controls:FreakyButton
+                x:Name="ColorIconButton"
+                HorizontalOptions="Center"
+                IconOrientation="Left"
+                WidthRequest="76"
+                HeightRequest="76"
+                CornerRadius="38"
+                Padding="15"
+                Icon="flag.png"
+                ForegroundColor="#ffffff"
+                HighlightForegroundColor="#49516F"
+                BackgroundColor="#6279B8"
+                HighlightBackgroundColor="#8EA4D2"
+                BorderColor="#8EA4D2"
+                HighlightBorderColor="#8EA4D2"
+                BorderThickness="3"
+                IconTintEnabled="False"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

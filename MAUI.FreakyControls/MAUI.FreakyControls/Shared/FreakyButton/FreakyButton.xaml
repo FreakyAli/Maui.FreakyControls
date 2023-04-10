@@ -1,11 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Maui.FreakyControls"
+              x:Name="this"
              x:Class="Maui.FreakyControls.FreakyButton">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <controls:FreakyFrame
+        x:Name="Border"
+        BackgroundColor="{Binding Source={x:Reference this}, Path=BorderColor}"
+        CornerRadius="{Binding Source={x:Reference this}, Path=CornerRadius}"
+        Padding="{Binding Source={x:Reference this}, Path=BorderThickness}"
+        HasShadow="{Binding Source={x:Reference this}, Path=HasShadow}">
+        
+        <controls:FreakyFrame.BorderColor>
+            <!--- HACK: Temporary Bugfix for Xamarin.Forms 3.0 bug https://github.com/xamarin/Xamarin.Forms/issues/2634 -->
+            <OnPlatform x:TypeArguments="Color" Default="Transparent">
+                <!--<On Platform="Android" Value="{Binding Source={x:Reference this}, Path=BorderColor}" />-->
+            </OnPlatform>
+        </controls:FreakyFrame.BorderColor>
+
+        <controls:FreakyFrame.GestureRecognizers>
+            <controls:TouchGestureRecognizer x:Name="TouchRecognizer" />
+        </controls:FreakyFrame.GestureRecognizers>
+        
+        <controls:FreakyFrame
+            x:Name="Container"
+            BackgroundColor="{Binding Source={x:Reference this}, Path=BackgroundColor}"
+            CornerRadius="{Binding Source={x:Reference this}, Path=InnerCornerRadius}"
+            Padding="0"
+            Margin="0"
+            HasShadow="false">
+            <controls:FreakyFrame.BorderColor>
+                <!--- HACK: Temporary Bugfix for Xamarin.Forms 3.0 bug https://github.com/xamarin/Xamarin.Forms/issues/2634 -->
+                <OnPlatform x:TypeArguments="Color" Default="Transparent">
+                    <!--<On Platform="Android" Value="{Binding Source={x:Reference this}, Path=BackgroundColor}" />-->
+                </OnPlatform>
+            </controls:FreakyFrame.BorderColor>
+            
+            <AbsoluteLayout> 
+                <FlexLayout 
+                    x:Name="ContainerContent"                    
+                    Margin="{Binding Source={x:Reference this}, Path=Padding}"
+                    Direction="Row" 
+                    AlignItems="Center" 
+                    JustifyContent="Center">
+                    
+                    <Image 
+                        x:Name="ButtonIcon"
+                        Margin="{Binding Source={x:Reference this}, Path=IconPadding}"
+                        Source="{Binding Source={x:Reference this}, Path=Icon}" />
+
+                    <Label
+                        x:Name="ButtonText"
+                        HorizontalTextAlignment="Center"
+                        MaxLines="{Binding Source={x:Reference this}, Path=MaxLines}"
+                        Text="{Binding Source={x:Reference this}, Path=Text}"
+                        FontSize="{Binding Source={x:Reference this}, Path=FontSize}"
+                        FontAttributes="{Binding Source={x:Reference this}, Path=FontAttributes}"
+                        FontFamily="{Binding Source={x:Reference this}, Path=FontFamily}"
+                        TextColor="{Binding Source={x:Reference this}, Path=ForegroundColor}" />
+                </FlexLayout>                
+            </AbsoluteLayout>
+        </controls:FreakyFrame>
+    </controls:FreakyFrame>
 </ContentView>
