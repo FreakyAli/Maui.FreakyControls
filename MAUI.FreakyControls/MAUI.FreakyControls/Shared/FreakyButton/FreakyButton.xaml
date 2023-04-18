@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.FreakyControls.FreakyButton">
+    <Frame CornerRadius="8"
+           x:Name="button"
+           IsClippedToBounds="True"
+           BackgroundColor="Transparent"
+           BorderColor="Transparent"
+           Padding="14,10">
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+        </Frame.GestureRecognizers>
+        <Grid
+            InputTransparent="True"
+            RowDefinitions="Auto, *, Auto">
+            <Image
+                BackgroundColor="Transparent"
+                Grid.Row="0"/>
+            <Label
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            Text="Welcome to .NET MAUI!"
+            HorizontalTextAlignment="Center" />
+            <Image
+                BackgroundColor="Transparent"
+                Grid.Row="2"/>
+        </Grid>
+    </Frame>
+</ContentView>
+

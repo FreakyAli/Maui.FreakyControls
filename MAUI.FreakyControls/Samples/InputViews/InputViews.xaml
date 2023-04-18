@@ -11,6 +11,10 @@
             Padding="30"
             Spacing="15">
 
+            <Button Text="Something Something"/>
+
+            <freakyControls:FreakyButton  />
+
             <Label
                 TextColor="Black" 
                 Text="Freaky Entry below: " />
