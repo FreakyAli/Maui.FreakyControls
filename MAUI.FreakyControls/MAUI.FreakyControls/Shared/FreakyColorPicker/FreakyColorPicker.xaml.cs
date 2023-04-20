@@ -1,4 +1,6 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+﻿using System.Windows.Input;
+using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Enums;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 
@@ -14,7 +16,22 @@ public partial class FreakyColorPicker : ContentView
     /// <summary>
     /// Occurs when the Picked Color changes
     /// </summary>
-    public event EventHandler<Color> PickedColorChanged;
+    public event EventHandler<FreakyColorPickerEventArgs> PickedColorChanged;
+
+    public static readonly BindableProperty PickedColorChangedCommandProperty
+       = BindableProperty.Create(
+           nameof(PickedColorChangedCommand),
+           typeof(ICommand),
+           typeof(FreakyColorPicker));
+
+    /// <summary>
+    /// Get the current Picked Color
+    /// </summary>
+    public ICommand PickedColorChangedCommand
+    {
+        get { return (ICommand)GetValue(PickedColorChangedCommandProperty); }
+        set { SetValue(PickedColorChangedCommandProperty, value); }
+    }
 
     public static readonly BindableProperty PickedColorProperty
         = BindableProperty.Create(
@@ -31,6 +48,21 @@ public partial class FreakyColorPicker : ContentView
         private set { SetValue(PickedColorProperty, value); }
     }
 
+    public static readonly BindableProperty PointerColorProperty
+        = BindableProperty.Create(
+            nameof(PointerColor),
+            typeof(Color),
+            typeof(FreakyColorPicker),
+            Colors.White);
+
+    /// <summary>
+    /// Get the current Picked Color
+    /// </summary>
+    public Color PointerColor
+    {
+        get { return (Color)GetValue(PointerColorProperty); }
+        set { SetValue(PointerColorProperty, value); }
+    }
 
     public static readonly BindableProperty GradientColorStyleProperty
         = BindableProperty.Create(
@@ -79,29 +111,29 @@ public partial class FreakyColorPicker : ContentView
 
     public static readonly BindableProperty ColorListDirectionProperty
         = BindableProperty.Create(
-            nameof(ColorListDirection),
-            typeof(ColorListDirection),
+            nameof(ColorDirection),
+            typeof(ColorDirection),
             typeof(FreakyColorPicker),
-            ColorListDirection.Horizontal,
+            ColorDirection.Horizontal,
             BindingMode.OneTime);
 
     /// <summary>
     /// Sets the Color List flow Direction
     /// </summary>
-    public ColorListDirection ColorListDirection
+    public ColorDirection ColorDirection
     {
-        get { return (ColorListDirection)GetValue(ColorListDirectionProperty); }
+        get { return (ColorDirection)GetValue(ColorListDirectionProperty); }
         set { SetValue(ColorListDirectionProperty, value); }
     }
 
 
     public static readonly BindableProperty PointerCircleDiameterUnitsProperty
-        = BindableProperty.Create(
-            nameof(PointerCircleDiameterUnits),
-            typeof(double),
-            typeof(FreakyColorPicker),
-            0.6,
-            BindingMode.OneTime);
+         = BindableProperty.Create(
+             nameof(PointerCircleDiameterUnits),
+             typeof(double),
+             typeof(FreakyColorPicker),
+             0.6,
+             BindingMode.OneTime);
 
     /// <summary>
     /// Sets the Picker Pointer Size
@@ -135,7 +167,58 @@ public partial class FreakyColorPicker : ContentView
     }
 
 
+    public static readonly BindableProperty PointerPositionXProperty
+       = BindableProperty.Create(
+           nameof(PointerPositionX),
+           typeof(double),
+           typeof(FreakyColorPicker),
+           0.0,
+           propertyChanged: PointerPositionChanged
+           );
+
+    public double PointerPositionX
+    {
+        get { return (double)GetValue(PointerPositionXProperty); }
+        set { SetValue(PointerPositionXProperty, value); }
+    }
+
+    public static readonly BindableProperty PointerPositionYProperty
+        = BindableProperty.Create(
+           nameof(PointerPositionY),
+           typeof(double),
+           typeof(FreakyColorPicker),
+           0.0,
+           propertyChanged: PointerPositionChanged
+           );
+
+    public double PointerPositionY
+    {
+        get { return (double)GetValue(PointerPositionYProperty); }
+        set { SetValue(PointerPositionYProperty, value); }
+    }
+
+    private static void PointerPositionChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var freakyColorPicker = (FreakyColorPicker)bindable;
+        freakyColorPicker.SetPointer(freakyColorPicker.PointerPositionX, freakyColorPicker.PointerPositionY);
+    }
+
+    private void SetPointer(double xPositionUnits, double yPositionUnits)
+    {
+        // Calculate actual X Position
+        var xPosition = SkCanvasView.CanvasSize.Width
+                                 * xPositionUnits;
+        // Calculate actual Y Position
+        var yPosition = SkCanvasView.CanvasSize.Height
+                                 * yPositionUnits;
+
+        // Update as last touch Position on Canvas
+        _lastTouchPoint = new SKPoint(Convert.ToSingle(xPosition), Convert.ToSingle(yPosition));
+        SkCanvasView.InvalidateSurface();
+    }
+
     private SKPoint _lastTouchPoint = new SKPoint();
+    private bool _checkPointerInitPositionDone = false;
 
     private void SkCanvasView_OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
@@ -163,7 +246,7 @@ public partial class FreakyColorPicker : ContentView
             // create the gradient shader between Colors
             using (var shader = SKShader.CreateLinearGradient(
                 new SKPoint(0, 0),
-                ColorListDirection == ColorListDirection.Horizontal ?
+                ColorDirection == ColorDirection.Horizontal ?
                     new SKPoint(skCanvasWidth, 0) : new SKPoint(0, skCanvasHeight),
                 colors.ToArray(),
                 null,
@@ -185,7 +268,7 @@ public partial class FreakyColorPicker : ContentView
             // create the gradient shader 
             using (var shader = SKShader.CreateLinearGradient(
                 new SKPoint(0, 0),
-                ColorListDirection == ColorListDirection.Horizontal ?
+                ColorDirection == ColorDirection.Horizontal ?
                     new SKPoint(0, skCanvasHeight) : new SKPoint(skCanvasWidth, 0),
                 colors,
                 null,
@@ -194,6 +277,16 @@ public partial class FreakyColorPicker : ContentView
                 paint.Shader = shader;
                 skCanvas.DrawPaint(paint);
             }
+        }
+
+        if (!_checkPointerInitPositionDone)
+        {
+            var x = ((float)skCanvasWidth * (float)PointerPositionX);
+            var y = ((float)skCanvasHeight * (float)PointerPositionY);
+
+            _lastTouchPoint = new SKPoint(x, y);
+
+            _checkPointerInitPositionDone = true;
         }
 
         // Picking the Pixel Color values on the Touch Point
@@ -223,7 +316,7 @@ public partial class FreakyColorPicker : ContentView
         using (SKPaint paintTouchPoint = new SKPaint())
         {
             paintTouchPoint.Style = SKPaintStyle.Fill;
-            paintTouchPoint.Color = SKColors.White;
+            paintTouchPoint.Color = PointerColor.ToSKColor();
             paintTouchPoint.IsAntialias = true;
 
             var valueToCalcAgainst = (skCanvasWidth > skCanvasHeight) ? skCanvasWidth : skCanvasHeight;
@@ -254,7 +347,9 @@ public partial class FreakyColorPicker : ContentView
 
         // Set selected color
         PickedColor = touchPointColor.ToMauiColor();
-        PickedColorChanged?.Invoke(this, PickedColor);
+        var eventArgs = new FreakyColorPickerEventArgs { Color = this.PickedColor, PointerX = this.PointerPositionX, PointerY = this.PointerPositionY };
+        PickedColorChanged?.Invoke(this, eventArgs);
+        PickedColorChangedCommand?.ExecuteCommandIfAvailable(eventArgs);
     }
 
     private void SkCanvasView_OnTouch(object sender, SKTouchEventArgs e)
@@ -281,65 +376,65 @@ public partial class FreakyColorPicker : ContentView
         {
             return new SKColor[]
             {
-                        SKColors.Transparent
+                SKColors.Transparent
             };
         }
         else if (GradientColorStyle == GradientColorStyle.ColorsToDarkStyle)
         {
             return new SKColor[]
             {
-                        SKColors.Transparent,
-                        SKColors.Black
+                SKColors.Transparent,
+                SKColors.Black
             };
         }
         else if (GradientColorStyle == GradientColorStyle.DarkToColorsStyle)
         {
             return new SKColor[]
             {
-                        SKColors.Black,
-                        SKColors.Transparent
+                SKColors.Black,
+                SKColors.Transparent
             };
         }
         else if (GradientColorStyle == GradientColorStyle.ColorsToLightStyle)
         {
             return new SKColor[]
             {
-                        SKColors.Transparent,
-                        SKColors.White
+                SKColors.Transparent,
+                SKColors.White
             };
         }
         else if (GradientColorStyle == GradientColorStyle.LightToColorsStyle)
         {
             return new SKColor[]
             {
-                        SKColors.White,
-                        SKColors.Transparent
+                SKColors.White,
+                SKColors.Transparent
             };
         }
         else if (GradientColorStyle == GradientColorStyle.LightToColorsToDarkStyle)
         {
             return new SKColor[]
             {
-                        SKColors.White,
-                        SKColors.Transparent,
-                        SKColors.Black
+                SKColors.White,
+                SKColors.Transparent,
+                SKColors.Black
             };
         }
         else if (GradientColorStyle == GradientColorStyle.DarkToColorsToLightStyle)
         {
             return new SKColor[]
             {
-                        SKColors.Black,
-                        SKColors.Transparent,
-                        SKColors.White
+                SKColors.Black,
+                SKColors.Transparent,
+                SKColors.White
             };
         }
         else
         {
             return new SKColor[]
             {
-                    SKColors.Transparent,
-                    SKColors.Black
+                SKColors.Transparent,
+                SKColors.Black
             };
         }
     }

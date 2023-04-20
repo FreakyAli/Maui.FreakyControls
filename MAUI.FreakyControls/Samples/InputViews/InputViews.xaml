@@ -11,37 +11,6 @@
             Padding="30"
             Spacing="15">
 
-            <freakyControls:FreakyColorPicker
-	            x:Name="ColorPicker"
-	            ColorFlowDirection="Horizontal"
-	            ColorSpectrumStyle="TintToHueToShadeStyle"
-	            HeightRequest="200"
-	            HorizontalOptions="FillAndExpand"
-	            PickedColorChanged="ColorPicker_PickedColorChanged"
-	            PointerRingBorderUnits="0.3"
-	            PointerRingDiameterUnits="0.7"
-	            PointerRingPositionXUnits="0.6"
-	            PointerRingPositionYUnits="0.6">
-                <freakyControls:FreakyColorPicker.BaseColorList>
-                    <x:Array Type="{x:Type x:String}">
-                        <!--  Red  -->
-                        <x:String>#ff0000</x:String>
-                        <!--  Yellow  -->
-                        <x:String>#ffff00</x:String>
-                        <!--  Green (Lime)  -->
-                        <x:String>#00ff00</x:String>
-                        <!--  Aqua  -->
-                        <x:String>#00ffff</x:String>
-                        <!--  Blue  -->
-                        <x:String>#0000ff</x:String>
-                        <!--  Fuchsia  -->
-                        <x:String>#ff00ff</x:String>
-                        <!--  Red  -->
-                        <x:String>#ff0000</x:String>
-                    </x:Array>
-                </freakyControls:FreakyColorPicker.BaseColorList>
-            </freakyControls:FreakyColorPicker>
-
             <Label
                 TextColor="Black" 
                 Text="Freaky Entry below: " />

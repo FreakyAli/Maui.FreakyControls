@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.ColorPicker.ColorPickerView"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             xmlns:colorpicker="clr-namespace:Samples.ColorPicker"
+             x:DataType="colorpicker:ColorPickerViewModel"
+             Title="ColorPickerView">
+    <Grid RowDefinitions="3*,2*" RowSpacing="10" Padding="10">
+        <freakyControls:FreakyColorPicker
+            x:Name="ColorPicker"
+            Grid.Row="0"
+            PickedColorChangedCommand="{Binding ColorPickerCommand}"
+            ColorDirection="Vertical"
+            GradientColorStyle="DarkToColorsToLightStyle"
+            PickedColorChanged="ColorPicker_PickedColorChanged"
+            PointerPositionX="1.0"
+            PointerPositionY="1.0"
+            PointerColor="Green"
+            />
+
+        <VerticalStackLayout Grid.Row="1">
+            <Border>
+                <freakyControls:FreakyEntry
+                Text="{Binding ColorHex}"/>
+            </Border>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -10,4 +10,3 @@ public enum GradientColorStyle
     LightToColorsToDarkStyle,
     DarkToColorsToLightStyle
 }
-

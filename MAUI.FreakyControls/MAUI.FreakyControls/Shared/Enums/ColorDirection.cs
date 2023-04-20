@@ -1,8 +1,7 @@
 ﻿namespace Maui.FreakyControls.Shared.Enums;
 
-public enum ColorListDirection
+public enum ColorDirection
 {
     Horizontal,
     Vertical
 }
-

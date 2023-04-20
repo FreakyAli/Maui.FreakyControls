@@ -12,6 +12,7 @@ public partial class AppShell : Shell
     internal const string signaturePreview = "ImageDisplay";
     internal const string checkboxes = "Checkboxes";
     internal const string radioButtons= "RadioButtons";
+    internal const string colorPicker = "ColorPicker";
 
     public AppShell()
     {
@@ -24,5 +25,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(signaturePreview, typeof(SignatureView.ImageDisplay));
         Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
         Routing.RegisterRoute(radioButtons, typeof(RadioButtons.RadioButtonsView));
+        Routing.RegisterRoute(colorPicker, typeof(ColorPicker.ColorPickerView));
     }
 }
