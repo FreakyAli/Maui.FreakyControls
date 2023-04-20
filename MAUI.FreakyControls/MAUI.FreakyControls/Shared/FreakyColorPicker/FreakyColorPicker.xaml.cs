@@ -288,7 +288,7 @@ public partial class FreakyColorPicker : ContentView
 
             _checkPointerInitPositionDone = true;
         }
-
+         
         // Picking the Pixel Color values on the Touch Point
 
         // Represent the color of the current Touch point
