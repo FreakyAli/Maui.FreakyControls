@@ -3,10 +3,14 @@
 <div>
    <a href="https://www.nuget.org/packages/FreakyControls"><img src="https://img.shields.io/nuget/v/FreakyControls?color=blue&logo=nuget"></a>
    <a href="https://www.nuget.org/packages/FreakyControls"><img src="https://img.shields.io/nuget/dt/FreakyControls.svg"></a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=shield"/></a>
    <a href="./LICENSE"><img src="https://img.shields.io/github/license/freakyali/maui.freakycontrols"></a>
    <a href="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols"><img src="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols/badge"></a>
 </div>
 
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_large)
 
 ## Platforms
 
