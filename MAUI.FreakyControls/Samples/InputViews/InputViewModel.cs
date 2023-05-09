@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Nager.Country;
 using static System.Net.Mime.MediaTypeNames;
 using Maui.FreakyControls;
 
@@ -25,13 +24,8 @@ public class InputViewModel : MainViewModel
         }
     }
 
-    public List<string> Countries { get; }
-
     public InputViewModel()
     {
-        var countryProvider = new CountryProvider();
-        var countries = countryProvider.GetCountries().Select(x => x.OfficialName);
-        Countries = new List<string>(countries);
     }
 
     public bool CustomSearchFunctionSwitchIsToggled

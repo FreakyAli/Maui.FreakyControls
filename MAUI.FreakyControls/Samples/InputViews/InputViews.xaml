@@ -11,6 +11,11 @@
             Padding="30"
             Spacing="15">
 
+
+            <freakyControls:FreakyStateLayout BackgroundColor="{StaticResource Primary}">
+                <Label Text="YOLO"/>
+            </freakyControls:FreakyStateLayout>
+
             <Label
                 TextColor="Black" 
                 Text="Freaky Entry below: " />

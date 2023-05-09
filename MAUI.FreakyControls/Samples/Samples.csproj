@@ -65,6 +65,7 @@
 	  <None Remove="Checkboxes\" />
 	  <None Remove="RadioButtons\" />
 	  <None Remove="ColorPicker\" />
+	  <None Remove="StateLayout\" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
@@ -80,10 +81,10 @@
 	  <Folder Include="Checkboxes\" />
 	  <Folder Include="RadioButtons\" />
 	  <Folder Include="ColorPicker\" />
+	  <Folder Include="StateLayout\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-	  <PackageReference Include="Nager.Country" Version="3.1.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />

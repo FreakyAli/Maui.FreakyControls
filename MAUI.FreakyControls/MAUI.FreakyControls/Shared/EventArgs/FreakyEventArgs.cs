@@ -8,4 +8,8 @@ namespace Maui.FreakyControls;
 /// </summary>
 public class FreakyEventArgs : EventArgs
 {
+    /// <summary>
+    /// Generic data you receive from a freaky event
+    /// </summary>
+    public object Data { get; set; }
 }
