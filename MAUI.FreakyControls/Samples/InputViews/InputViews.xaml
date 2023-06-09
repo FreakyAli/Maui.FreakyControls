@@ -12,8 +12,25 @@
             Spacing="15">
 
 
-            <freakyControls:FreakyStateLayout BackgroundColor="{StaticResource Primary}">
-                <Label Text="YOLO"/>
+            <freakyControls:FreakyStateLayout Padding="20,10" BackgroundColor="Red">
+                <freakyControls:FreakyStateLayout.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </freakyControls:FreakyStateLayout.StrokeShape>
+                <freakyControls:FreakyStateLayout.Triggers>
+                    <Trigger TargetType="freakyControls:FreakyStateLayout" Property="Status" Value="Pressed">
+                        <Setter Property="BackgroundColor" Value="Green" />
+                    </Trigger>
+                </freakyControls:FreakyStateLayout.Triggers>
+
+                <Label Text="Test" TextColor="White">
+                    <Label.Triggers>
+                        <DataTrigger Binding="{Binding Source={RelativeSource AncestorType={x:Type freakyControls:FreakyStateLayout}}, Path=State}"
+                        TargetType="Label"
+                        Value="Pressed">
+                            <Setter Property="TextColor" Value="Blue" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
             </freakyControls:FreakyStateLayout>
 
             <Label

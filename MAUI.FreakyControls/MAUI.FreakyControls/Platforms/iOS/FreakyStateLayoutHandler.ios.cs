@@ -9,6 +9,7 @@ public partial class FreakyStateLayoutHandler
 {
     protected override Microsoft.Maui.Platform.ContentView CreatePlatformView()
     {
+
         return new NativeStateLayout(this.VirtualView);
     }
 }

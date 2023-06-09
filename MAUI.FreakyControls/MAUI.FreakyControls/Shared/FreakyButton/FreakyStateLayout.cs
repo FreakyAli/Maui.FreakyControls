@@ -11,7 +11,7 @@ public class FreakyStateLayout : Border
     /// <summary>
     /// Backing BindableProperty for the <see cref="Status"/> property.
     /// </summary>
-    public static readonly BindableProperty StateProperty =
+    public static readonly BindableProperty StatusProperty =
                         BindableProperty.Create(
                             nameof(Status),
                             typeof(StateLayoutStatus),
@@ -24,8 +24,8 @@ public class FreakyStateLayout : Border
     /// </summary>
     public StateLayoutStatus Status
     {
-        get => (StateLayoutStatus)GetValue(StateProperty);
-        set => SetValue(StateProperty, value);
+        get => (StateLayoutStatus)GetValue(StatusProperty);
+        set => SetValue(StatusProperty, value);
     }
 
     #endregion Bindable Properties
