@@ -7,6 +7,7 @@ namespace Maui.FreakyControls.Platforms.Android;
 
 public abstract class FreakyMauiAppCompatActivity : MauiAppCompatActivity
 {
+
     /// <summary>
     /// A touch event handler that can be used to generally handle outside an entry field click event
     /// so that it hides the keyboard when you do so.
@@ -15,19 +16,11 @@ public abstract class FreakyMauiAppCompatActivity : MauiAppCompatActivity
     /// <returns></returns>
     public override bool DispatchTouchEvent(MotionEvent ev)
     {
-        /// <summary>
-        /// A touch event handler that can be used to generally handle outside an entry field click event
-        /// so that it hides the keyboard when you do so.
-        /// </summary>
-        /// <param name="ev"></param>
-        /// <returns></returns>
-        public override bool DispatchTouchEvent(MotionEvent ev)
-=        try
+        try
         {
             View view = CurrentFocus;
             if (view != null && (ev.Action == MotionEventActions.Up || ev.Action == MotionEventActions.Move) &&
-                view is EditText &&
-                !view.Class.Name.StartsWith("android.webkit."))
+                view is EditText && !view.Class.Name.StartsWith("android.webkit."))
             {
                 int[] Touch = new int[2];
                 view.GetLocationOnScreen(Touch);
