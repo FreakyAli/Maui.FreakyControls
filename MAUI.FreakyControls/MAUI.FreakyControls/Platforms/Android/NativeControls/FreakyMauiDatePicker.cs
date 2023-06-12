@@ -22,17 +22,14 @@ public class FreakyMauiDatePicker : MauiDatePicker
 
     public FreakyMauiDatePicker(Context context) : base(context)
     {
-
     }
 
     public FreakyMauiDatePicker(Context context, IAttributeSet attrs) : base(context, attrs)
     {
-
     }
 
     public FreakyMauiDatePicker(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
     {
-
     }
 
     public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
@@ -85,7 +82,7 @@ public class FreakyMauiDatePicker : MauiDatePicker
                 bounds = drawableLeft.Bounds;
 
                 int x, y;
-                int extraTapArea = (int)(13 * Resources.DisplayMetrics.Density + 0.5);
+                int extraTapArea = (int)((13 * Resources.DisplayMetrics.Density) + 0.5);
 
                 x = actionX;
                 y = actionY;
@@ -113,13 +110,11 @@ public class FreakyMauiDatePicker : MauiDatePicker
                     clickListener.OnClick(DrawablePosition.Left);
                     e.Action = (MotionEventActions.Cancel);
                     return false;
-
                 }
             }
 
             if (drawableRight != null)
             {
-
                 bounds = null;
                 bounds = drawableRight.Bounds;
 
@@ -170,7 +165,6 @@ public class FreakyMauiDatePicker : MauiDatePicker
                 }
                 return base.OnTouchEvent(e);
             }
-
         }
         return base.OnTouchEvent(e);
     }
@@ -189,4 +183,3 @@ public class FreakyMauiDatePicker : MauiDatePicker
         this.clickListener = listener;
     }
 }
-

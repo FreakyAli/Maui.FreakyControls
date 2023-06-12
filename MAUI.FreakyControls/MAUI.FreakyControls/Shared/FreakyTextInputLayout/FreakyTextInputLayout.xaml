@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Maui.FreakyControls"
              xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
-             BackgroundColor="White"
              x:Name="this"
              x:Class="Maui.FreakyControls.FreakyTextInputLayout">
     <ContentView.Resources>
@@ -14,6 +13,7 @@
     <VerticalStackLayout Spacing="0">
         <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Transparent">
             <Border
+                BackgroundColor="Transparent"
                 Stroke="{Binding BorderStroke,Source={x:Reference this}}"
                 Padding="{Binding BorderType,Source={x:Reference this}, Converter={StaticResource TilPaddingConverter}}"
                 StrokeThickness="{Binding BorderStrokeThickness,Source={x:Reference this}}"
@@ -24,6 +24,7 @@
                 <controls:FreakyEntry
                    x:Name="EntryField"
                    TextChanged="EntryField_TextChanged"
+                   BackgroundColor="Transparent"
                    Completed="Handle_Completed"
                    FontSize="{Binding FontSize, Source={x:Reference this}}"
                    ImagePadding="{Binding ImagePadding, Source={x:Reference this}}"
@@ -72,4 +73,3 @@
                  Color="{Binding UnderlineColor,Source={x:Reference this}}"/>
     </VerticalStackLayout>
 </ContentView>
-

@@ -28,5 +28,3 @@ public partial class MainPage : ContentPage
         await Shell.Current.GoToAsync(route);
     }
 }
-
-

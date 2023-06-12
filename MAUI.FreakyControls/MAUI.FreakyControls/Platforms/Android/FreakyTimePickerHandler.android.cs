@@ -62,7 +62,6 @@ public partial class FreakyTimePickerHandler
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
-
     void ShowPickerDialog()
     {
         if (VirtualView == null)
@@ -91,7 +90,6 @@ public partial class FreakyTimePickerHandler
         _dialog = null;
     }
 
-    bool Use24HourView => VirtualView != null && (DateFormat.Is24HourFormat(PlatformView?.Context)
-            && VirtualView.Format == "t" || VirtualView.Format == "HH:mm");
+    bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
+            && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 }
-

@@ -25,11 +25,8 @@ public partial class FreakyPickerHandler : PickerHandler
         }
     }
 }
-
 #else
-
 public partial class FreakyPickerHandler : PickerHandler
 {
-
 }
 #endif

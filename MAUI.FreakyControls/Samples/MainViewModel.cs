@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
@@ -41,10 +41,7 @@ namespace Samples
 
         public MainViewModel()
         {
-            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync, new AsyncRelayCommandOptions()
-            {
-
-            });
+            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync, new AsyncRelayCommandOptions());
             FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
 
             Items = new ObservableCollection<string>
@@ -55,15 +52,17 @@ namespace Samples
                 AppShell.imageViews,
                 AppShell.signatureView,
                 AppShell.bottomSheet
+                AppShell.checkboxes,
+                AppShell.radioButtons
             };
 
             var strSuggestionArr = new string[] {
-                        "harshad@mobmaxime.com",
-                        "sagar.p@mobmaxime.com",
-                        "kapil@mobmaxime.com",
-                        "harry@test.com",
-                        "xamarin@test.com",
-                        "xamarinteam@mob.com"
+                        "hello",
+                        "how are you",
+                        "some other question",
+                        "Yuhu",
+                        "Yello",
+                        "Majin buuuuuuuuuu"
                         };
             SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
         }
@@ -78,7 +77,5 @@ namespace Samples
             await MainThread.InvokeOnMainThreadAsync(() =>
             Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
         }
-
     }
 }
-

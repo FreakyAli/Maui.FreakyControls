@@ -2,21 +2,19 @@ using System;
 using System.Globalization;
 using Maui.FreakyControls.Shared.Enums;
 
-namespace Maui.FreakyControls.Shared.Converters
+namespace Maui.FreakyControls.Shared.Converters;
+
+public class TilPaddingConverter : BaseOneWayValueConverter
 {
-    public class TilPaddingConverter : BaseOneWayValueConverter
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var borderType = (BorderType)value;
+        var borderType = (BorderType)value;
 #if ANDROID
-            var emptyThickness = new Thickness(10, 0, 10, 0);
+        var emptyThickness = new Thickness(10, 0, 10, 0);
 #else
-            var emptyThickness = new Thickness(10);
+        var emptyThickness = new Thickness(10);
 #endif
-            var fullThickness = new Thickness(10);
-            return borderType == BorderType.None ? emptyThickness : borderType == BorderType.Underline ? emptyThickness : fullThickness;
-        }
+        var fullThickness = new Thickness(10);
+        return borderType == BorderType.None ? emptyThickness : borderType == BorderType.Underline ? emptyThickness : fullThickness;
     }
 }
-

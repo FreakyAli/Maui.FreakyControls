@@ -47,8 +47,3 @@ internal class InkStroke
 
     internal bool IsDirty { get; set; }
 }
-
-
-
-
-

@@ -15,4 +15,3 @@ public partial class FreakySignatureCanvasViewHandler : ViewHandler<View, UIView
         return new UIView();
     }
 }
-

@@ -14,7 +14,7 @@ public partial class SignatureView : ContentPage
     async void FreakySignaturePadView_StrokeCompleted(System.Object sender, System.EventArgs e)
     {
         viewModel.ImageStream = Stream.Null;
-        var imageStream = await svgPad.GetImageStreamAsync(Maui.FreakyControls.SignatureImageFormat.Jpeg);
+        var imageStream = await svgPad.GetImageStreamAsync(Maui.FreakyControls.SignatureImageFormat.Jpeg, shouldCrop:false);
         viewModel.ImageStream = imageStream;
     }
 }

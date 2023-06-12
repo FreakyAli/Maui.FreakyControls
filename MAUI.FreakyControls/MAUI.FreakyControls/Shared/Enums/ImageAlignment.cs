@@ -1,16 +1,15 @@
 ﻿using System;
-namespace Maui.FreakyControls.Shared.Enums
-{
-    public enum ImageAlignment
-    {
-        /// <summary>
-        /// Aligns your control to the left view port of the view. 
-        /// </summary>
-        Left,
+namespace Maui.FreakyControls.Shared.Enums;
 
-        /// <summary>
-        /// Aligns your control to the right view port of the view.
-        /// </summary>
-        Right
-    }
+public enum ImageAlignment
+{
+    /// <summary>
+    /// Aligns your control to the left view port of the view. 
+    /// </summary>
+    Left,
+
+    /// <summary>
+    /// Aligns your control to the right view port of the view.
+    /// </summary>
+    Right
 }
