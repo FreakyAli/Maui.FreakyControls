@@ -5,7 +5,8 @@
              xmlns:controls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="BottomSheetPage">
     <Grid VerticalOptions="Center">
-        <VerticalStackLayout VerticalOptions="Center" Padding="10">
+
+        <VerticalStackLayout Padding="10" Grid.Row="1">
             <Button
                 Text="Open a sheet"
                 Clicked="Button_Clicked"

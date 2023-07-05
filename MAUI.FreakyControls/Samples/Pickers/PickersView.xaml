@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              x:Class="Samples.Pickers.PickersView"
              Title="PickersView">
     <Grid Padding="20,20,20,0" RowDefinitions="*, Auto">
-        <VerticalStackLayout Grid.Row="0"  Spacing="10">
+
+
+        <VerticalStackLayout Padding="30" Spacing="10">
             <Label
-            TextColor="Black" 
-            Text="Freaky DatePicker below: " />
-            <Border>
-                <freakyControls:FreakyDatePicker
-    <VerticalStackLayout Padding="30" Spacing="10">
-        <Label
                 TextColor="Black" 
                 Text="Freaky DatePicker below: " />
-        <Border>
-            <freakyControls:FreakyDatePicker
+            <Border>
+                <freakyControls:FreakyDatePicker
                ImageSource="calendar"
                ImageAlignment="Left"
                ImageCommand="{Binding ImageWasTappedCommand}"
@@ -65,12 +61,13 @@
             </Border>
         </VerticalStackLayout>
 
-        <freakyControls:FreakyButton
+        <Button
                 Grid.Row="1"
                 BackgroundColor="{StaticResource Primary}"
                 TextColor="White"
                 CornerRadius="10"
                 FontSize="Large"
                 Text="Submit"/>
+
     </Grid>
 </ContentPage>

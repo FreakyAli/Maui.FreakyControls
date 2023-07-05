@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace Samples;
 
@@ -10,6 +12,7 @@ public partial class MainPage : ContentPage
     {
         BindingContext = vm = new MainViewModel();
         InitializeComponent();
+        //On<iOS>().SetUseSafeArea(false);
     }
 
     async void FreakySvgImageView_Tapped(object sender, System.EventArgs e)
@@ -26,5 +29,6 @@ public partial class MainPage : ContentPage
     {
         string route = e.Item.ToString();
         await Shell.Current.GoToAsync(route);
+        
     }
 }
