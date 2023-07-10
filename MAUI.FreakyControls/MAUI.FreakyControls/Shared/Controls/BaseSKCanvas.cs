@@ -1,4 +1,3 @@
-using System;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
@@ -12,7 +11,7 @@ public abstract class BaseSKCanvas : SKCanvasView
         BackgroundColor = Colors.Transparent;
     }
 
-    protected sealed override void OnPaintSurface(SKPaintSurfaceEventArgs e)
+    protected override sealed void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         //TODO: Figure out why drawing on coachmark is leading to surface being null
         if (e.Surface == null)

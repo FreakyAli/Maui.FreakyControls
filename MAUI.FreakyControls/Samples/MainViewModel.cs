@@ -1,8 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
 using Application = Microsoft.Maui.Controls.Application;
 
 namespace Samples
@@ -14,7 +12,7 @@ namespace Samples
             get; set;
         }
 
-        ObservableCollection<string> _suggestionItem;
+        private ObservableCollection<string> _suggestionItem;
         private ObservableCollection<string> items;
 
         public ObservableCollection<string> SuggestionItem

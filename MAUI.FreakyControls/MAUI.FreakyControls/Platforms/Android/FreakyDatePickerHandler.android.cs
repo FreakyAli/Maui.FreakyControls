@@ -1,4 +1,3 @@
-using System;
 using Android.App;
 using Android.Content.Res;
 using Android.Graphics;
@@ -14,7 +13,7 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyDatePickerHandler
 {
-    DatePickerDialog? _dialog;
+    private DatePickerDialog? _dialog;
 
     protected override MauiDatePicker CreatePlatformView()
     {
@@ -44,7 +43,8 @@ public partial class FreakyDatePickerHandler
         }
     }
 
-    internal DatePickerDialog? DatePickerDialog { get { return _dialog; } }
+    internal DatePickerDialog? DatePickerDialog
+    { get { return _dialog; } }
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
     {
@@ -60,6 +60,7 @@ public partial class FreakyDatePickerHandler
                 case ImageAlignment.Left:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
                     break;
+
                 case ImageAlignment.Right:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
                     break;
@@ -68,8 +69,7 @@ public partial class FreakyDatePickerHandler
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
-
-    void ShowPickerDialog()
+    private void ShowPickerDialog()
     {
         if (VirtualView == null)
             return;
@@ -81,7 +81,7 @@ public partial class FreakyDatePickerHandler
         ShowPickerDialog(date.Year, date.Month - 1, date.Day);
     }
 
-    void ShowPickerDialog(int year, int month, int day)
+    private void ShowPickerDialog(int year, int month, int day)
     {
         if (_dialog == null)
             _dialog = CreateDatePickerDialog(year, month, day);
@@ -95,9 +95,8 @@ public partial class FreakyDatePickerHandler
         _dialog.Show();
     }
 
-    void HidePickerDialog()
+    private void HidePickerDialog()
     {
         _dialog?.Hide();
     }
 }
-

@@ -1,13 +1,12 @@
-﻿using System;
-namespace Maui.FreakyControls.Extensions;
+﻿namespace Maui.FreakyControls.Extensions;
 
 public static class TaskExtensions
 {
-    /// <summary> 
-    /// Runs the Task in a concurrent thread without waiting for it to complete. This will start the task if it is not already running. 
-    /// </summary> 
-    /// <param name="task">The task to run.</param> 
-    /// <remarks>This is usually used to avoid warning messages about not waiting for the task to complete.</remarks> 
+    /// <summary>
+    /// Runs the Task in a concurrent thread without waiting for it to complete. This will start the task if it is not already running.
+    /// </summary>
+    /// <param name="task">The task to run.</param>
+    /// <remarks>This is usually used to avoid warning messages about not waiting for the task to complete.</remarks>
     public static void RunConcurrently(this Task task)
     {
         if (task == null)

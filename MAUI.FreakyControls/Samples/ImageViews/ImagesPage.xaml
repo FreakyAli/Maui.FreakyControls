@@ -1,32 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Samples.ImageViews.ImagesPage"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             xmlns:samples="clr-namespace:Samples"
-             Title="ImageViews">
+<ContentPage
+    x:Class="Samples.ImageViews.ImagesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    xmlns:samples="clr-namespace:Samples"
+    Title="ImageViews">
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30"
-            Spacing="10">
+        <VerticalStackLayout Padding="30" Spacing="10">
 
             <freakyControls:FreakyCircularImage
-                HeightRequest="300"
-                WidthRequest="300"
                 Aspect="AspectFill"
-                Source="{x:Static samples:Constants.Profile}" />
+                HeightRequest="300"
+                Source="{x:Static samples:Constants.Profile}"
+                WidthRequest="300" />
 
             <freakyControls:FreakySvgImageView
                 HeightRequest="300"
-                SvgMode="AspectFit"
+                ResourceId="{x:Static samples:Constants.DotnetBot}"
                 SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
-                ResourceId="{x:Static samples:Constants.DotnetBot}" />
+                SvgMode="AspectFit" />
 
             <freakyControls:FreakySvgImageView
+                Base64String="{x:Static samples:Constants.SvgBase64}"
                 HeightRequest="300"
-                SvgMode="AspectFit"
-                Base64String="{x:Static samples:Constants.SvgBase64}"/>
-
+                SvgMode="AspectFit" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

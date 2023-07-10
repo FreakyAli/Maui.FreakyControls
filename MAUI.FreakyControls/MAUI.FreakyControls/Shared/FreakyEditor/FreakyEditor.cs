@@ -1,12 +1,4 @@
-﻿using System;
-using Maui.FreakyControls.Shared;
-using Maui.FreakyControls.Shared.Enums;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Handlers;
-using Color = Microsoft.Maui.Graphics.Color;
-
-namespace Maui.FreakyControls
+﻿namespace Maui.FreakyControls
 {
     public class FreakyEditor : Editor
     {

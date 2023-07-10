@@ -8,7 +8,7 @@ public partial class RadioButtonsView : ContentPage
         BindingContext = new RadioButtonsViewModel();
     }
 
-    void FreakyRadioGroup_SelectedRadioButtonChanged(System.Object sender, Maui.FreakyControls.FreakyRadioButtonEventArgs e)
+    private void FreakyRadioGroup_SelectedRadioButtonChanged(System.Object sender, Maui.FreakyControls.FreakyRadioButtonEventArgs e)
     {
     }
 }

@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
+﻿using Maui.FreakyControls.Shared.Enums;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
-using Microsoft.Maui.Graphics.Text;
 
 namespace Maui.FreakyControls;
 
@@ -10,8 +9,8 @@ public partial class FreakyTextInputLayout : ContentView
 {
     private int _topMargin;
     private int _leftMargin;
-    int _placeholderFontSize = 18;
-    int _titleFontSize = 14;
+    private int _placeholderFontSize = 18;
+    private int _titleFontSize = 14;
 
     public FreakyTextInputLayout()
     {
@@ -457,7 +456,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Thickness of the Underline of your <see cref="FreakyTextInputLayout" 
+    /// Thickness of the Underline of your <see cref="FreakyTextInputLayout"
     /// </summary>
     public double UnderlineThickness
     {
@@ -466,7 +465,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Color of your <see cref="FreakyTextInputLayout" Underline 
+    /// Color of your <see cref="FreakyTextInputLayout" Underline
     /// </summary>
     public Color UnderlineColor
     {
@@ -493,7 +492,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Command parameter for your Image tap command 
+    /// Command parameter for your Image tap command
     /// </summary>
     public object ImageCommandParameter
     {
@@ -629,7 +628,7 @@ public partial class FreakyTextInputLayout : ContentView
         set => SetValue(KeyboardProperty, value);
     }
 
-    static void BorderTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void BorderTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = bindable as FreakyTextInputLayout;
         switch (control.BorderType)
@@ -643,6 +642,7 @@ public partial class FreakyTextInputLayout : ContentView
 #endif
                 control._leftMargin = 0;
                 break;
+
             case BorderType.Outlined:
 #if ANDROID
                 control._topMargin = -35;
@@ -661,7 +661,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
+    private static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
     {
         var control = bindable as FreakyTextInputLayout;
         if (!control.EntryField.IsFocused)
@@ -677,7 +677,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    #endregion
+    #endregion Bindable Properties
 
     public new void Focus()
     {
@@ -687,7 +687,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    async void Handle_Focused(object sender, FocusEventArgs e)
+    private async void Handle_Focused(object sender, FocusEventArgs e)
     {
         if (string.IsNullOrEmpty(Text))
         {
@@ -695,7 +695,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    async void Handle_Unfocused(object sender, FocusEventArgs e)
+    private async void Handle_Unfocused(object sender, FocusEventArgs e)
     {
         if (string.IsNullOrEmpty(Text))
         {
@@ -703,7 +703,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    async Task TransitionToTitle(bool animated)
+    private async Task TransitionToTitle(bool animated)
     {
         if (animated)
         {
@@ -719,7 +719,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    async Task TransitionToPlaceholder(bool animated)
+    private async Task TransitionToPlaceholder(bool animated)
     {
         if (animated)
         {
@@ -735,7 +735,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    void Handle_Tapped(object sender, EventArgs e)
+    private void Handle_Tapped(object sender, EventArgs e)
     {
         if (IsEnabled)
         {
@@ -743,7 +743,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    Task SizeTo(int fontSize)
+    private Task SizeTo(int fontSize)
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
 
@@ -761,7 +761,7 @@ public partial class FreakyTextInputLayout : ContentView
         return taskCompletionSource.Task;
     }
 
-    void Handle_Completed(object sender, EventArgs e)
+    private void Handle_Completed(object sender, EventArgs e)
     {
         Completed?.Invoke(this, e);
     }
@@ -776,7 +776,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    void EntryField_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    private void EntryField_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
     {
         TextChanged?.Invoke(this, e);
     }

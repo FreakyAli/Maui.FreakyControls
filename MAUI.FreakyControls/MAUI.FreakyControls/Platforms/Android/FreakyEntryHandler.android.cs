@@ -1,16 +1,11 @@
-using System;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.View;
 using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.Platforms.Android;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
 using Maui.FreakyControls.Shared.Enums;
-using Microsoft.Maui.Handlers;
-using static Android.Views.View;
 using static Microsoft.Maui.ApplicationModel.Platform;
 
 namespace Maui.FreakyControls;
@@ -53,6 +48,7 @@ public partial class FreakyEntryHandler
                 case ImageAlignment.Left:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
                     break;
+
                 case ImageAlignment.Right:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
                     break;

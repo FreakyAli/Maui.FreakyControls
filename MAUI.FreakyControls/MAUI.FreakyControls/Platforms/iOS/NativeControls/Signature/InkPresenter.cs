@@ -1,13 +1,11 @@
 ﻿using CoreGraphics;
 using Foundation;
 using UIKit;
-
-using NativePath = UIKit.UIBezierPath;
-using NativeRect = CoreGraphics.CGRect;
-using NativePoint = CoreGraphics.CGPoint;
-using NativeSize = CoreGraphics.CGSize;
 using NativeColor = UIKit.UIColor;
 using NativeImage = UIKit.UIImage;
+using NativePath = UIKit.UIBezierPath;
+using NativePoint = CoreGraphics.CGPoint;
+using NativeRect = CoreGraphics.CGRect;
 
 namespace Maui.FreakyControls.Platforms.iOS;
 
@@ -35,7 +33,7 @@ internal partial class InkPresenter : UIView
         Opaque = false;
     }
 
-    // If you put SignaturePad inside a ScrollView, this line of code prevent that the gesture inside 
+    // If you put SignaturePad inside a ScrollView, this line of code prevent that the gesture inside
     // an InkPresenter are dispatched to the ScrollView below
     public override bool GestureRecognizerShouldBegin(UIGestureRecognizer gestureRecognizer) => false;
 

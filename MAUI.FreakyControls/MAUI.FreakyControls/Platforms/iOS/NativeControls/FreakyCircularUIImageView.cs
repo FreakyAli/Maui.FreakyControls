@@ -1,7 +1,5 @@
-﻿using System;
-using CoreGraphics;
+﻿using CoreGraphics;
 using Microsoft.Maui.Platform;
-using UIKit;
 
 namespace Maui.FreakyControls.Platforms.iOS.NativeControls;
 
