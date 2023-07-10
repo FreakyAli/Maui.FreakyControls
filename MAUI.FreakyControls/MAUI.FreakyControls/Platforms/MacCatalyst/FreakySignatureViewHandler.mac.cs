@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Maui.Handlers;
+﻿using Microsoft.Maui.Handlers;
 using UIKit;
 
 namespace Maui.FreakyControls;

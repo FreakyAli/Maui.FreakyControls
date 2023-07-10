@@ -1,22 +1,22 @@
-using System;
-using SkiaSharp;
-using SkiaSharp.Views.Maui;
-using System.Windows.Input;
-using SkiaSharp.Views.Maui.Controls;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
-using Microsoft.Maui.Controls;
 using Maui.FreakyControls.Shared.Extensions;
+using SkiaSharp;
+using SkiaSharp.Views.Maui;
+using SkiaSharp.Views.Maui.Controls;
+using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
 public class FreakyCheckbox : ContentView, IDisposable
 {
     #region Fields
-    bool isAnimating;
-    readonly SKCanvasView skiaView;
-    readonly TapGestureRecognizer tapped = new();
-    #endregion
+
+    private bool isAnimating;
+    private readonly SKCanvasView skiaView;
+    private readonly TapGestureRecognizer tapped = new();
+
+    #endregion Fields
 
     #region ctor
 
@@ -42,7 +42,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         }
     }
 
-    #endregion
+    #endregion ctor
 
     #region Defaults
 
@@ -57,11 +57,11 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     private static readonly double size = 24.0;
 
-    #endregion
+    #endregion Defaults
 
     #region Canvas
 
-    async Task ToggleAnimationAsync()
+    private async Task ToggleAnimationAsync()
     {
         isAnimating = true;
         await PreAnimateAsync();
@@ -70,7 +70,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         isAnimating = false;
     }
 
-    async Task PreAnimateAsync()
+    private async Task PreAnimateAsync()
     {
         if (HasCheckAnimation)
         {
@@ -85,6 +85,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                 case AnimationType.Default:
                     await skiaView.ScaleTo(0.80, 100);
                     break;
+
                 case AnimationType.Bounce:
                     if (IsChecked)
                     {
@@ -97,9 +98,11 @@ public class FreakyCheckbox : ContentView, IDisposable
                         await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
                     }
                     break;
+
                 case AnimationType.Flip:
                     await skiaView.RotateYTo(90, 200);
                     break;
+
                 case AnimationType.Rotate:
                     // https://github.com/dotnet/maui/issues/11852
                     // To avoid this weird issue on android,
@@ -143,7 +146,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         }
     }
 
-    async Task PostAnimateAsync()
+    private async Task PostAnimateAsync()
     {
         if (HasCheckAnimation)
         {
@@ -158,6 +161,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                 case AnimationType.Default:
                     await skiaView.ScaleTo(1, 100, Easing.BounceOut);
                     break;
+
                 case AnimationType.Bounce:
                     if (IsChecked)
                     {
@@ -166,12 +170,15 @@ public class FreakyCheckbox : ContentView, IDisposable
                         skiaView.Scale = 1;
                     }
                     break;
+
                 case AnimationType.Flip:
                     skiaView.RotationY = 0;
                     break;
+
                 case AnimationType.Rotate:
                     skiaView.Rotation = 0;
                     break;
+
                 case AnimationType.Slam:
                     skiaView.Scale = 1;
                     await skiaView.ScaleTo(0.8, 200, Easing.Linear);
@@ -182,11 +189,11 @@ public class FreakyCheckbox : ContentView, IDisposable
         }
     }
 
-    #endregion
+    #endregion Canvas
 
     #region Skia
 
-    void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         e?.Surface?.Canvas?.Clear();
         DrawOutline(e);
@@ -194,7 +201,7 @@ public class FreakyCheckbox : ContentView, IDisposable
             DrawCheckFilled(e);
     }
 
-    void DrawCheckFilled(SKPaintSurfaceEventArgs e)
+    private void DrawCheckFilled(SKPaintSurfaceEventArgs e)
     {
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
@@ -260,18 +267,23 @@ public class FreakyCheckbox : ContentView, IDisposable
                 case CheckType.Check:
                     checkPath.DrawUnifiedCheck(imageInfo);
                     break;
+
                 case CheckType.Line:
                     checkPath.DrawCenteredLine(imageInfo);
                     break;
+
                 case CheckType.Cross:
                     checkPath.DrawCross(imageInfo);
                     break;
+
                 case CheckType.Star:
                     checkPath.DrawStar(imageInfo);
                     break;
+
                 case CheckType.Box:
                     checkPath.DrawSquare(imageInfo);
                     break;
+
                 case CheckType.Fill:
                 default:
                     // In case of fill no checkpaths are needed.
@@ -280,7 +292,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         }
         else
         {
-#if IOS     
+#if IOS
             checkPath.DrawNativeiOSCheck(imageInfo);
 #else
             checkPath.DrawNativeAndroidCheck(imageInfo);
@@ -303,7 +315,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         canvas.DrawPath(checkPath, checkStroke);
     }
 
-    void DrawOutline(SKPaintSurfaceEventArgs e)
+    private void DrawOutline(SKPaintSurfaceEventArgs e)
     {
         var imageInfo = e.Info;
         var canvas = e?.Surface?.Canvas;
@@ -341,14 +353,16 @@ public class FreakyCheckbox : ContentView, IDisposable
         }
     }
 
-    #endregion
+    #endregion Skia
 
     #region Events
+
     /// <summary>
     /// Raised when <see cref="FreakyCheckbox.IsChecked"/> changes.
     /// </summary>
     public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
-    #endregion
+
+    #endregion Events
 
     #region Bindable Properties
 
@@ -552,7 +566,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(IsCheckedProperty, value); }
     }
 
-    static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
+    private static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is FreakyCheckbox checkbox)) return;
         checkbox.CheckedChanged?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
@@ -587,14 +601,14 @@ public class FreakyCheckbox : ContentView, IDisposable
         set { SetValue(SizeRequestProperty, value); }
     }
 
-    static void SizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void SizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is FreakyCheckbox checkbox)) return;
         checkbox.WidthRequest = checkbox.HeightRequest = (double)(newValue);
         checkbox.skiaView.WidthRequest = checkbox.skiaView.HeightRequest = (double)(newValue);
     }
 
-    #endregion
+    #endregion Bindable Properties
 
     #region IDisposable
 
@@ -604,5 +618,6 @@ public class FreakyCheckbox : ContentView, IDisposable
         GestureRecognizers.Clear();
         skiaView.PaintSurface -= Handle_PaintSurface;
     }
-    #endregion
+
+    #endregion IDisposable
 }

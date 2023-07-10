@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Maui.FreakyControls.Shared.Enums;
 using System.Globalization;
-using Maui.FreakyControls.Shared.Enums;
 
 namespace Maui.FreakyControls.Shared.Converters;
 

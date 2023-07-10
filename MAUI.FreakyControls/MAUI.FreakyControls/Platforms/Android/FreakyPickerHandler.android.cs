@@ -1,5 +1,4 @@
-﻿using System;
-using Android.Content.Res;
+﻿using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using AndroidX.Core.View;
@@ -35,6 +34,7 @@ public partial class FreakyPickerHandler
                 case ImageAlignment.Left:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
                     break;
+
                 case ImageAlignment.Right:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
                     break;

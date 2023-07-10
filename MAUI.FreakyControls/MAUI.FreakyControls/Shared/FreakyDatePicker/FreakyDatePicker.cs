@@ -1,7 +1,5 @@
-﻿using System;
-using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
-using Maui.FreakyControls.Shared;
 
 namespace Maui.FreakyControls;
 
@@ -50,7 +48,7 @@ public class FreakyDatePicker : DatePicker, IDrawableImageView
           default(object));
 
     /// <summary>
-    /// Command parameter for your Image tap command 
+    /// Command parameter for your Image tap command
     /// </summary>
     public object ImageCommandParameter
     {

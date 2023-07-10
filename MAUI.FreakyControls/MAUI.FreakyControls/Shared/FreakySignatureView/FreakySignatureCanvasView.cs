@@ -1,25 +1,34 @@
-﻿using System;
+﻿using Maui.FreakyControls.Extensions;
 using System.Windows.Input;
-using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
 public class FreakySignatureCanvasView : View
 {
     #region Events
+
     public event EventHandler StrokeCompleted;
+
     public event EventHandler Cleared;
 
     public event EventHandler<ImageStreamRequestedEventArgs> ImageStreamRequested;
-    public event EventHandler<IsBlankRequestedEventArgs> IsBlankRequested;
-    public event EventHandler<PointsEventArgs> PointsRequested;
-    public event EventHandler<PointsEventArgs> PointsSpecified;
-    public event EventHandler<StrokesEventArgs> StrokesRequested;
-    public event EventHandler<StrokesEventArgs> StrokesSpecified;
-    public event EventHandler ClearRequested;
-    #endregion
 
-    #region Properties& BindableProperties 
+    public event EventHandler<IsBlankRequestedEventArgs> IsBlankRequested;
+
+    public event EventHandler<PointsEventArgs> PointsRequested;
+
+    public event EventHandler<PointsEventArgs> PointsSpecified;
+
+    public event EventHandler<StrokesEventArgs> StrokesRequested;
+
+    public event EventHandler<StrokesEventArgs> StrokesSpecified;
+
+    public event EventHandler ClearRequested;
+
+    #endregion Events
+
+    #region Properties& BindableProperties
+
     public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
         nameof(StrokeColor),
         typeof(Color),
@@ -88,7 +97,7 @@ public class FreakySignatureCanvasView : View
     }
 
     /// <summary>
-    /// Gets or sets the command to be fired on clear button click 
+    /// Gets or sets the command to be fired on clear button click
     /// </summary>
     public ICommand ClearedCommand
     {
@@ -105,7 +114,7 @@ public class FreakySignatureCanvasView : View
         set => SetValue(StrokeCompletedCommandProperty, value);
     }
 
-    #endregion
+    #endregion Properties& BindableProperties
 
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature.

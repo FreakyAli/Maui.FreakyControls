@@ -1,5 +1,4 @@
-﻿using System;
-using Foundation;
+﻿using Foundation;
 using Microsoft.Maui.Platform;
 using ObjCRuntime;
 

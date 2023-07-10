@@ -1,19 +1,19 @@
 ﻿using Android.Content;
+using Android.Graphics;
 using Android.Views;
 using System.Drawing;
-using Android.Graphics;
-
-using NativeRect = System.Drawing.RectangleF;
-using NativePoint = System.Drawing.PointF;
+using Application = Android.App.Application;
 using NativeColor = Android.Graphics.Color;
 using NativeImage = Android.Graphics.Bitmap;
 using NativePath = Android.Graphics.Path;
-using Application = Android.App.Application;
-using View = Android.Views.View;
-using Path = Android.Graphics.Path;
+using NativePoint = System.Drawing.PointF;
+using NativeRect = System.Drawing.RectangleF;
 using Paint = Android.Graphics.Paint;
-using Rect = Android.Graphics.Rect;
+
+using Path = Android.Graphics.Path;
+
 using SizeF = System.Drawing.SizeF;
+using View = Android.Views.View;
 
 namespace Maui.FreakyControls.Platforms.Android;
 
@@ -27,6 +27,7 @@ internal partial class InkPresenter
 
     // used to determine rectangle that needs to be redrawn
     private float dirtyRectLeft;
+
     private float dirtyRectTop;
     private float dirtyRectRight;
     private float dirtyRectBottom;
@@ -198,7 +199,7 @@ internal partial class InkPresenter
     }
 }
 
-partial class InkPresenter : View
+internal partial class InkPresenter : View
 {
     static InkPresenter()
     {
@@ -230,9 +231,11 @@ partial class InkPresenter : View
             case MotionEventActions.Down:
                 TouchesBegan(e);
                 return true;
+
             case MotionEventActions.Move:
                 TouchesMoved(e);
                 return true;
+
             case MotionEventActions.Up:
                 TouchesEnded(e);
                 return true;

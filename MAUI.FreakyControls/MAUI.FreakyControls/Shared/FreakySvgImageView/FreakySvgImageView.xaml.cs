@@ -1,12 +1,9 @@
 ﻿using SkiaSharp;
+using SkiaSharp.Views.Maui;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Input;
-using System.Diagnostics;
 using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
-using SkiaSharp.Views.Maui;
-using System.Net;
-using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.Shared.Helpers;
 
 namespace Maui.FreakyControls;
 
@@ -14,6 +11,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
 {
     private DateTime firstTap;
     public const int TAP_TIME_TRESHOLD = 200;
+
     public event EventHandler Tapped;
 
     private SKCanvas canvas;

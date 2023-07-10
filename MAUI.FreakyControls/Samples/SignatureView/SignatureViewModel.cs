@@ -1,7 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using Maui.FreakyControls;
 
 namespace Samples.SignatureView
 {

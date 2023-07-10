@@ -1,66 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             xmlns:inputViews="clr-namespace:Samples.InputViews"
-             x:Class="Samples.InputViews.InputViews"
-             x:DataType="inputViews:InputViewModel"
-             Title="InputViews">
+<ContentPage
+    x:Class="Samples.InputViews.InputViews"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    xmlns:inputViews="clr-namespace:Samples.InputViews"
+    Title="InputViews"
+    x:DataType="inputViews:InputViewModel">
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30"
-            Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
 
-            <Label
-                TextColor="Black" 
-                Text="Freaky Entry below: " />
+            <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry
-               Placeholder="This is a freaky entry with image"
-               TextColor="Purple"
-               FontSize="Large"
-               ImagePadding="10"
-               AllowCopyPaste="False"
-               ImageCommand="{Binding ImageWasTappedCommand}"
-               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-               ImageAlignment="Left"
-               ImageSource="calendar"
-               Keyboard="Chat"/>
+                    AllowCopyPaste="False"
+                    FontSize="Large"
+                    ImageAlignment="Left"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky entry with image"
+                    TextColor="Purple" />
             </Border>
 
-            <Label
-                TextColor="Black" 
-                Text="Freaky Entry below: " />
+            <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry
-               Placeholder="This is a freaky entry with image"
-               TextColor="Purple"
-               FontSize="Large"
-               ImagePadding="10"
-               AllowCopyPaste="False"
-               ImageCommand="{Binding ImageWasTappedCommand}"
-               ImageHeight="{OnPlatform 25, iOS=25, Android=40}"
-               ImageWidth="{OnPlatform 25, iOS=25, Android=40}"
-               ImageAlignment="Right"
-               ImageSource="calendar"
-               Keyboard="Chat"/>
+                    AllowCopyPaste="False"
+                    FontSize="Large"
+                    ImageAlignment="Right"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky entry with image"
+                    TextColor="Purple" />
             </Border>
 
-            <Label
-                TextColor="Black" 
-                Text="Freaky Editor below: " />
+            <Label Text="Freaky Editor below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEditor
-               Placeholder="This is a freaky editor"
-               TextColor="Purple"
-               AllowCopyPaste="False"
-               BackgroundColor="White"
-               HeightRequest="200"
-               FontSize="Large"
-               Keyboard="Chat"/>
+                    AllowCopyPaste="False"
+                    BackgroundColor="White"
+                    FontSize="Large"
+                    HeightRequest="200"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky editor"
+                    TextColor="Purple" />
             </Border>
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

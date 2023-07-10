@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Maui.FreakyControls.Shared.Wrappers;
 using System.Diagnostics;
-using Maui.FreakyControls.Shared.Wrappers;
 
 namespace Maui.FreakyControls.Shared.Helpers;
 
@@ -13,7 +12,7 @@ public static class DownloadHelper
         return stream;
     }
 
-    static async Task<Stream> DownloadStreamAsync(Uri uri, CancellationToken cancellationToken)
+    private static async Task<Stream> DownloadStreamAsync(Uri uri, CancellationToken cancellationToken)
     {
         try
         {

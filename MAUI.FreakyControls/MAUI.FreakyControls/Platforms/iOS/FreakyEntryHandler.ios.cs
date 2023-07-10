@@ -1,13 +1,7 @@
-﻿using System;
-using System.Drawing;
-using CoreAnimation;
-using CoreGraphics;
-using Maui.FreakyControls.Extensions;
+﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.iOS;
 using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using Maui.FreakyControls.Shared.Enums;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using UIKit;
 
@@ -47,6 +41,7 @@ public partial class FreakyEntryHandler
                     PlatformView.LeftViewMode = UITextFieldViewMode.Always;
                     PlatformView.LeftView = uiView;
                     break;
+
                 case ImageAlignment.Right:
                     PlatformView.RightViewMode = UITextFieldViewMode.Always;
                     PlatformView.RightView = uiView;

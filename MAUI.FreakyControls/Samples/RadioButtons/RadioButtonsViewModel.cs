@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Maui.FreakyControls;
 using System.Windows.Input;
-using Maui.FreakyControls;
 
 namespace Samples.RadioButtons;
 

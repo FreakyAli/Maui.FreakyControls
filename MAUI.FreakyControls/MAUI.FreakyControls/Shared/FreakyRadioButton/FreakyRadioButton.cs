@@ -1,23 +1,24 @@
-﻿using System;
-using System.Windows.Input;
-using Maui.FreakyControls.Extensions;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Extensions;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
-using Maui.FreakyControls.Shared.Extensions;
+using System.Windows.Input;
 
 namespace Maui.FreakyControls
 {
     public class FreakyRadioButton : ContentView, IDisposable
     {
         #region Fields
-        bool isAnimating;
-        readonly SKCanvasView skiaView;
-        readonly TapGestureRecognizer tapped = new();
+
+        private bool isAnimating;
+        private readonly SKCanvasView skiaView;
+        private readonly TapGestureRecognizer tapped = new();
         private const string defaultName = "RadioButton";
         private static readonly float outlineWidth = 6.0f;
         private static readonly double size = 24.0;
-        #endregion
+
+        #endregion Fields
 
         public FreakyRadioButton()
         {
@@ -31,7 +32,7 @@ namespace Maui.FreakyControls
             GestureRecognizers.Add(tapped);
         }
 
-        async Task ToggleAnimationAsync()
+        private async Task ToggleAnimationAsync()
         {
             isAnimating = true;
             await skiaView.ScaleTo(0.80, 100);
@@ -51,7 +52,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
             e?.Surface?.Canvas?.Clear();
             DrawOutline(e);
@@ -64,7 +65,7 @@ namespace Maui.FreakyControls
         /// This method creates a filled radiobutton that that uses two SKPaint objects to avoid design flaws when creating a filled radiobutton
         /// </summary>
         /// <param name="e"></param>
-        void DrawCheckFilled(SKPaintSurfaceEventArgs e)
+        private void DrawCheckFilled(SKPaintSurfaceEventArgs e)
         {
             var imageInfo = e.Info;
             var canvas = e?.Surface?.Canvas;
@@ -119,7 +120,7 @@ namespace Maui.FreakyControls
         /// Method to create a unchecked version of the <see cref="FreakyRadioButton"/>
         /// </summary>
         /// <param name="e"></param>
-        void DrawOutline(SKPaintSurfaceEventArgs e)
+        private void DrawOutline(SKPaintSurfaceEventArgs e)
         {
             var imageInfo = e.Info;
             var canvas = e?.Surface?.Canvas;
@@ -142,11 +143,13 @@ namespace Maui.FreakyControls
         }
 
         #region Events
+
         /// <summary>
         /// Raised when <see cref="FreakyRadioButton.IsChecked"/> changes.
         /// </summary>
         public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
-        #endregion
+
+        #endregion Events
 
         #region Bindable Properties
 
@@ -269,7 +272,7 @@ namespace Maui.FreakyControls
             set { SetValue(IsCheckedProperty, value); }
         }
 
-        static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
+        private static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (!(bindable is FreakyRadioButton radioButton)) return;
             radioButton.CheckedChanged?.Invoke(radioButton, new CheckedChangedEventArgs((bool)newValue));
@@ -296,7 +299,7 @@ namespace Maui.FreakyControls
             set { SetValue(SizeRequestProperty, value); }
         }
 
-        static void SizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void SizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (!(bindable is FreakyRadioButton RadioButton)) return;
             RadioButton.WidthRequest = RadioButton.HeightRequest = (double)(newValue);
@@ -321,7 +324,7 @@ namespace Maui.FreakyControls
             set { SetValue(NameProperty, value); }
         }
 
-        #endregion
+        #endregion Bindable Properties
 
         protected override void ChangeVisualState()
         {
@@ -329,7 +332,7 @@ namespace Maui.FreakyControls
             base.ChangeVisualState();
         }
 
-        void ApplyIsCheckedState()
+        private void ApplyIsCheckedState()
         {
             if (IsChecked)
             {

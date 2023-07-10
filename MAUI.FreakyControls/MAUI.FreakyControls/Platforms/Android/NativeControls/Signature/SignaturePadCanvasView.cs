@@ -1,27 +1,14 @@
-﻿using System;
-using Android.Content;
-using Android.Graphics.Drawables;
+﻿using Android.Content;
+using Android.Graphics;
 using Android.Util;
 using Android.Views;
-using Android.Widget;
-using Microsoft.Maui.Graphics;
-using Android.Hardware.Lights;
-using Microsoft.Maui;
-using System.Collections.Generic;
-using System.Linq;
-using Android.App;
-using Android.Runtime;
-
-using NativeRect = System.Drawing.RectangleF;
-using NativePoint = System.Drawing.PointF;
-using NativeSize = System.Drawing.SizeF;
-using NativeColor = Android.Graphics.Color;
-using SignaturePadCanvasView = Maui.FreakyControls.Platforms.Android.SignaturePadCanvasView;
-using NativeImage = Android.Graphics.Bitmap;
-using View = Android.Views.View;
 using FrameLayout = Android.Widget.FrameLayout;
+using NativeColor = Android.Graphics.Color;
+using NativeImage = Android.Graphics.Bitmap;
+using NativePoint = System.Drawing.PointF;
+using NativeRect = System.Drawing.RectangleF;
+using NativeSize = System.Drawing.SizeF;
 using Paint = Android.Graphics.Paint;
-using Android.Graphics;
 
 namespace Maui.FreakyControls.Platforms.Android;
 
@@ -184,7 +171,7 @@ public partial class SignaturePadCanvasView : FrameLayout
     }
 }
 
-partial class SignaturePadCanvasView
+public partial class SignaturePadCanvasView
 {
     public event EventHandler StrokeCompleted;
 

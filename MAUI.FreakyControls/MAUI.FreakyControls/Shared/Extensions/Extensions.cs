@@ -1,9 +1,12 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
+
 #if ANDROID
+
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
+
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;
@@ -73,17 +76,21 @@ public static class Extensions
             case UriImageSource:
                 returnValue = new ImageLoaderSourceHandler();
                 break;
+
             case FileImageSource:
                 returnValue = new FileImageSourceHandler();
                 break;
+
             case StreamImageSource:
                 returnValue = new StreamImagesourceHandler();
                 break;
+
             case FontImageSource:
                 returnValue = new FontImageSourceHandler();
                 break;
         }
         return returnValue;
     }
+
 #endif
 }

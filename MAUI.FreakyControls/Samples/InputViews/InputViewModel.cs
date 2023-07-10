@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using Nager.Country;
-using static System.Net.Mime.MediaTypeNames;
-using Maui.FreakyControls;
+﻿using Nager.Country;
 
 namespace Samples.InputViews;
 

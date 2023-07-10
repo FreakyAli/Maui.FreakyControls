@@ -10,7 +10,7 @@ internal static class PathSmoothing
     /// Also outputs a List of the points corresponding to the smoothed path.
     /// </summary>
     /// <remarks>
-    /// Implemented using a modified version of the code in the solution at 
+    /// Implemented using a modified version of the code in the solution at
     /// http://stackoverflow.com/questions/8702696/drawing-smooth-curves-methods-needed
     /// </remarks>
     public static InkStroke SmoothedPathWithGranularity(InkStroke currentPath, int granularity)

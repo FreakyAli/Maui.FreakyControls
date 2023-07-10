@@ -1,12 +1,11 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Maui.FreakyControls.Shared.Wrappers
 {
-    class StreamWrapper : Stream
+    internal class StreamWrapper : Stream
     {
-        readonly Stream _wrapped;
-        IDisposable _additionalDisposable;
+        private readonly Stream _wrapped;
+        private IDisposable _additionalDisposable;
 
         public StreamWrapper(Stream wrapped)
             : this(wrapped, null)

@@ -1,6 +1,4 @@
 ﻿using Maui.FreakyControls;
-using Maui.FreakyControls.Extensions;
-using System.Linq;
 
 namespace Samples.SignatureView;
 

@@ -1,5 +1,4 @@
-﻿using System;
-namespace Maui.FreakyControls.Extensions;
+﻿namespace Maui.FreakyControls.Extensions;
 
 public static class StreamExtensions
 {
