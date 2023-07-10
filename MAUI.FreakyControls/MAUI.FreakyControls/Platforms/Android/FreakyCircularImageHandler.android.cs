@@ -1,6 +1,4 @@
-﻿using System;
-using Android.Widget;
-using AndroidX.AppCompat.Widget;
+﻿using Android.Widget;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
 
 namespace Maui.FreakyControls;

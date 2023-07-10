@@ -1,13 +1,5 @@
-﻿using System;
-using CoreGraphics;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Handlers;
+﻿using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using Microsoft.Maui.Platform;
-using UIKit;
-using CoreAnimation;
-using static Maui.FreakyControls.Platforms.iOS.NativeExtensions;
-using Microsoft.Maui;
-using Maui.FreakyControls.Platforms.iOS.NativeControls;
 
 namespace Maui.FreakyControls
 {

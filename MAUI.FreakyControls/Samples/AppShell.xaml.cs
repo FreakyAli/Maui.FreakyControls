@@ -1,6 +1,4 @@
-﻿using Samples.InputViews;
-
-namespace Samples;
+﻿namespace Samples;
 
 public partial class AppShell : Shell
 {
@@ -11,7 +9,7 @@ public partial class AppShell : Shell
     internal const string signatureView = "SignatureView";
     internal const string signaturePreview = "ImageDisplay";
     internal const string checkboxes = "Checkboxes";
-    internal const string radioButtons= "RadioButtons";
+    internal const string radioButtons = "RadioButtons";
 
     public AppShell()
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using Maui.FreakyControls.Extensions;
-using System.Drawing;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Platforms.iOS;
 using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Platform;
 using UIKit;
-using Maui.FreakyControls.Platforms.iOS;
 
 namespace Maui.FreakyControls;
 
@@ -34,6 +32,7 @@ public partial class FreakyDatePickerHandler
                     PlatformView.LeftViewMode = UITextFieldViewMode.Always;
                     PlatformView.LeftView = uiView;
                     break;
+
                 case ImageAlignment.Right:
                     PlatformView.RightViewMode = UITextFieldViewMode.Always;
                     PlatformView.RightView = uiView;

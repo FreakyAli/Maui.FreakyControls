@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Maui.FreakyControls.Extensions;
 using System.Windows.Input;
-using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
@@ -43,7 +42,7 @@ public class FreakyRadioGroup : StackLayout
         typeof(FreakyRadioGroup));
 
     /// <summary>
-    /// SelectedIndex of <see cref="FreakyRadioButton"/> in this Group 
+    /// SelectedIndex of <see cref="FreakyRadioButton"/> in this Group
     /// </summary>
     public int SelectedIndex
     {
@@ -108,7 +107,7 @@ public class FreakyRadioGroup : StackLayout
         string name = selectedRadioButton.Name;
         var eventArgs = new FreakyRadioButtonEventArgs(name, index);
         this.SelectedRadioButtonChangedCommand?.ExecuteCommandIfAvailable(eventArgs);
-        SelectedRadioButtonChanged?.Invoke(this,eventArgs);
+        SelectedRadioButtonChanged?.Invoke(this, eventArgs);
     }
 
     private int FindIndex(FreakyRadioButton radioButton)

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Maui.FreakyControls;
+﻿namespace Maui.FreakyControls;
 
 public class ZoomImage : Image
 {
@@ -59,6 +57,7 @@ public class ZoomImage : Image
                 StartX = (1 - AnchorX) * Width;
                 StartY = (1 - AnchorY) * Height;
                 break;
+
             case GestureStatus.Running:
                 AnchorX = Clamp((1 - (StartX + e.TotalX) / Width), 0, 1);
                 AnchorY = Clamp((1 - (StartY + e.TotalY) / Height), 0, 1);
@@ -76,6 +75,7 @@ public class ZoomImage : Image
                 AnchorX = e.ScaleOrigin.X;
                 AnchorY = e.ScaleOrigin.Y;
                 break;
+
             case GestureStatus.Running:
                 if (e.Scale < 0 || Math.Abs(LastScale - e.Scale) > (LastScale * 1.3) - LastScale)
                 { return; }
@@ -83,6 +83,7 @@ public class ZoomImage : Image
                 var current = (Scale + (e.Scale - 1)) * (StartScale);
                 Scale = Clamp(current, MIN_SCALE * (1 - OVERSHOOT), MAX_SCALE * (1 + OVERSHOOT));
                 break;
+
             case GestureStatus.Completed:
                 if (Scale > MAX_SCALE)
                     this.ScaleTo(MAX_SCALE, 250, Easing.SpringOut);

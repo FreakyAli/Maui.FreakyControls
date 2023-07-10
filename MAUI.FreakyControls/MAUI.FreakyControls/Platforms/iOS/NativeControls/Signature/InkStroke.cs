@@ -1,6 +1,6 @@
-﻿using NativePath = UIKit.UIBezierPath;
+﻿using NativeColor = UIKit.UIColor;
+using NativePath = UIKit.UIBezierPath;
 using NativePoint = CoreGraphics.CGPoint;
-using NativeColor = UIKit.UIColor;
 
 namespace Maui.FreakyControls.Platforms.iOS;
 

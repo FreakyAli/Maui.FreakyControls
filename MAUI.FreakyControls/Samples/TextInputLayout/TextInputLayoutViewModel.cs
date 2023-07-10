@@ -1,6 +1,5 @@
-﻿using System;
-namespace Samples.TextInputLayout;
+﻿namespace Samples.TextInputLayout;
 
 public class TextInputLayoutViewModel : MainViewModel
-{   
+{
 }

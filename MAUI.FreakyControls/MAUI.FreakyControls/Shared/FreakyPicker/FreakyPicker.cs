@@ -1,5 +1,4 @@
-﻿using System;
-using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
@@ -49,7 +48,7 @@ public class FreakyPicker : Picker, IDrawableImageView
           default(object));
 
     /// <summary>
-    /// Command parameter for your Image tap command 
+    /// Command parameter for your Image tap command
     /// </summary>
     public object ImageCommandParameter
     {

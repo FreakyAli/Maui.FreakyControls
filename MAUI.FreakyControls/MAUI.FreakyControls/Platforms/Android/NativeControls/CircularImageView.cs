@@ -1,14 +1,10 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.OS;
+using Android.Util;
 using AndroidX.AppCompat.Widget;
 using Paint = Android.Graphics.Paint;
 using Rect = Android.Graphics.Rect;
-using Color = Android.Graphics.Color;
-using Android.Util;
-using Microsoft.Maui.Graphics;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 

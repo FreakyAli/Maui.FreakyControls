@@ -1,68 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Samples.RadioButtons.RadioButtonsView"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             xmlns:samples="clr-namespace:Samples"
-             Title="RadioButtonsView">
+<ContentPage
+    x:Class="Samples.RadioButtons.RadioButtonsView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    xmlns:samples="clr-namespace:Samples"
+    Title="RadioButtonsView">
     <VerticalStackLayout
-        VerticalOptions="Start"
-        HorizontalOptions="Center"
         Padding="30"
-        Spacing="20">
-        <Label Text="Group 1: " HorizontalTextAlignment="Start" FontSize="Large"/>
+        HorizontalOptions="Center"
+        Spacing="20"
+        VerticalOptions="Start">
+        <Label
+            FontSize="Large"
+            HorizontalTextAlignment="Start"
+            Text="Group 1: " />
         <freakyControls:FreakyRadioGroup
-            Spacing="10"
+            Orientation="Vertical"
+            SelectedIndex="{Binding CheckedRadioButton}"
             SelectedRadioButtonChanged="FreakyRadioGroup_SelectedRadioButtonChanged"
             SelectedRadioButtonChangedCommand="{Binding SelectedIndexCommand}"
-            SelectedIndex="{Binding CheckedRadioButton}"
-            Orientation="Vertical">
+            Spacing="10">
 
-            <HorizontalStackLayout Spacing="10" >
+            <HorizontalStackLayout Spacing="10">
 
                 <freakyControls:FreakyRadioButton
-                OutlineColor="{StaticResource Tertiary}"
-                FillColor="{StaticResource Primary}"
-                CheckColor="White"
-                />
+                    CheckColor="White"
+                    FillColor="{StaticResource Primary}"
+                    OutlineColor="{StaticResource Tertiary}" />
 
-                <Label Text="Color Scheme"/>
-
+                <Label Text="Color Scheme" />
             </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10" >
-                <freakyControls:FreakyRadioButton HorizontalOptions="Start"/>
+            <HorizontalStackLayout Spacing="10">
+                <freakyControls:FreakyRadioButton HorizontalOptions="Start" />
                 <freakyControls:FreakySvgImageView
                     HeightRequest="50"
-                    SvgMode="AspectFit"
+                    ResourceId="{x:Static samples:Constants.DotnetBot}"
                     SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
-                    ResourceId="{x:Static samples:Constants.DotnetBot}" 
+                    SvgMode="AspectFit"
                     WidthRequest="50" />
             </HorizontalStackLayout>
-
         </freakyControls:FreakyRadioGroup>
 
-        <Label Text="Group 2: " HorizontalTextAlignment="Start" FontSize="Large"/>
+        <Label
+            FontSize="Large"
+            HorizontalTextAlignment="Start"
+            Text="Group 2: " />
 
         <freakyControls:FreakyRadioGroup Spacing="10">
-            <HorizontalStackLayout Spacing="10" >
-                <freakyControls:FreakyRadioButton
-                />
+            <HorizontalStackLayout Spacing="10">
+                <freakyControls:FreakyRadioButton />
                 <Label
-                HorizontalTextAlignment="Start"
-                VerticalTextAlignment="Center"
-                Text="Native design"
-                />
+                    HorizontalTextAlignment="Start"
+                    Text="Native design"
+                    VerticalTextAlignment="Center" />
             </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10" >
-                <freakyControls:FreakyRadioButton
-              />
+            <HorizontalStackLayout Spacing="10">
+                <freakyControls:FreakyRadioButton />
                 <Label
-            HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            Text="Native design"
-            />
+                    HorizontalTextAlignment="Start"
+                    Text="Native design"
+                    VerticalTextAlignment="Center" />
             </HorizontalStackLayout>
         </freakyControls:FreakyRadioGroup>
     </VerticalStackLayout>

@@ -1,6 +1,6 @@
-﻿using NativePoint = System.Drawing.PointF;
-using NativeColor = Android.Graphics.Color;
+﻿using NativeColor = Android.Graphics.Color;
 using NativePath = Android.Graphics.Path;
+using NativePoint = System.Drawing.PointF;
 
 namespace Maui.FreakyControls.Platforms.Android;
 

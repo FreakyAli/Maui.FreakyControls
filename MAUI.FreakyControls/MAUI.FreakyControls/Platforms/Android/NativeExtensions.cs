@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using Android.App;
-using Android.Content.Res;
+﻿using Android.App;
 using Android.Graphics;
-using Android.OS;
-using Android.Util;
-using Android.Views;
+using System.Collections;
 using ArrayList = Java.Util.ArrayList;
 using View = Android.Views.View;
 
@@ -33,7 +29,7 @@ public static class NativeExtensions
         var displayMetrics = activity.Resources.DisplayMetrics;
         var density = displayMetrics.Density;
         return density;
-#else       
+#else
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.WindowManager.DefaultDisplay.GetMetrics(displayMetrics);
         return displayMetrics.Density;

@@ -1,6 +1,5 @@
 ﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
-using Maui.FreakyControls.Shared;
 
 namespace Maui.FreakyControls;
 

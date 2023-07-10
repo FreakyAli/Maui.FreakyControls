@@ -43,10 +43,10 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-	  <CreatePackage>false</CreatePackage>
+		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
-	  <CreatePackage>false</CreatePackage>
+		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -79,7 +79,6 @@
 		<None Remove="Platforms\Windows\" />
 		<None Remove="Platforms\Android\NativeControls\Signature\" />
 		<None Remove="Platforms\iOS\NativeControls\Signature\" />
-		<None Remove="Shared\FreakyAutoCompleteView\" />
 		<None Remove="clear_icon.svg" />
 		<None Remove="Shared\EventArgs\" />
 		<None Remove="Shared\FreakyCheckbox\" />
@@ -112,7 +111,6 @@
 		<Folder Include="Platforms\Windows\" />
 		<Folder Include="Platforms\Android\NativeControls\Signature\" />
 		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
-		<Folder Include="Shared\FreakyAutoCompleteView\" />
 		<Folder Include="Shared\EventArgs\" />
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
@@ -134,11 +132,6 @@
 			<SubType>
 			</SubType>
 		</MauiXaml>
-	</ItemGroup>
-	<ItemGroup>
-		<None Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Platforms\iOS\{&#xA;    {">
-			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-		</None>
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="clear_icon.svg" />
