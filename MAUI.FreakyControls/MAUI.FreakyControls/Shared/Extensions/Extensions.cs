@@ -1,10 +1,4 @@
-using System;
-using System.Drawing;
-using Color = Microsoft.Maui.Graphics.Color;
-using System.Reflection;
-using System.Xml;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using Maui.FreakyControls.Shared;
 using System.Windows.Input;
 #if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -27,7 +21,7 @@ public static class Extensions
     {
         if (command?.CanExecute(parameter) == true)
         {
-            command.Execute(parameter);
+            command?.Execute(parameter);
         }
     }
 
@@ -49,8 +43,10 @@ public static class Extensions
         mauiAppBuilder.UseSkiaSharp();
     }
 
+#if ANDROID || IOS || MACCATALYST
+
     /// <summary>
-    /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/> 
+    /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
@@ -69,9 +65,9 @@ public static class Extensions
 
     private static IImageSourceHandler GetHandler(this ImageSource source)
     {
-        //ImageSource handler to return 
+        //ImageSource handler to return
         IImageSourceHandler returnValue = null;
-        //check the specific source type and return the correct ImageSource handler 
+        //check the specific source type and return the correct ImageSource handler
         switch (source)
         {
             case UriImageSource:
@@ -89,4 +85,5 @@ public static class Extensions
         }
         return returnValue;
     }
+#endif
 }
