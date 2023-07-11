@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Extensions;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;

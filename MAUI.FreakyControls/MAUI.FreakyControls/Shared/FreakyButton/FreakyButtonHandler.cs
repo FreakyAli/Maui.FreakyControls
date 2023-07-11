@@ -1,4 +1,7 @@
 using Microsoft.Maui.Handlers;
+namespace Maui.FreakyControls;
+
+namespace Maui.FreakyControls;
 
 namespace Maui.FreakyControls;
 
