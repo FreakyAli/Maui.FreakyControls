@@ -1,4 +1,4 @@
-﻿using Android.Content.Res;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using AndroidX.Core.View;
