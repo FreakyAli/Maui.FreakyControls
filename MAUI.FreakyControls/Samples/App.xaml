@@ -1,8 +1,9 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Samples"
-             x:Class="Samples.App">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application
+    x:Class="Samples.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Samples">
     <Application.Resources>
         <ResourceDictionary>
 
@@ -10,7 +11,7 @@
                 <Setter Property="Padding" Value="10" />
                 <Setter Property="Stroke" Value="Black" />
                 <Setter Property="StrokeThickness" Value="2" />
-                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="StrokeShape">
                     <Setter.Value>
                         <RoundRectangle CornerRadius="10" />
@@ -25,4 +26,3 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
-

@@ -1,15 +1,14 @@
-﻿using System;
-namespace Maui.FreakyControls.Shared.Enums;
+﻿namespace Maui.FreakyControls.Shared.Enums;
 
 public enum BorderType
 {
     /// <summary>
-    /// Borderless control 
+    /// Borderless control
     /// </summary>
     None,
 
     /// <summary>
-    /// Rectangular border to your control 
+    /// Rectangular border to your control
     /// </summary>
     Full,
 

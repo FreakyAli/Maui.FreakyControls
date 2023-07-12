@@ -1,14 +1,12 @@
-﻿using System.ComponentModel;
-using CoreGraphics;
+﻿using CoreGraphics;
 using Foundation;
+using System.ComponentModel;
 using UIKit;
-
-using NativePath = UIKit.UIBezierPath;
-using NativeRect = CoreGraphics.CGRect;
-using NativePoint = CoreGraphics.CGPoint;
-using NativeSize = CoreGraphics.CGSize;
 using NativeColor = UIKit.UIColor;
 using NativeImage = UIKit.UIImage;
+using NativePoint = CoreGraphics.CGPoint;
+using NativeRect = CoreGraphics.CGRect;
+using NativeSize = CoreGraphics.CGSize;
 
 namespace Maui.FreakyControls.Platforms.iOS;
 

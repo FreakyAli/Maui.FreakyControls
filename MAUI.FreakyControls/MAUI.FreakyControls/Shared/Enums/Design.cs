@@ -6,6 +6,7 @@ public enum Design
     ///  A common design for cross-platform control
     /// </summary>
     Unified,
+
     /// <summary>
     /// A native design for cross-platform control
     /// </summary>

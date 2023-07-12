@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.Maui.Platform;
+﻿using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls
 {
     public partial class FreakySignatureCanvasViewHandler
     {
         protected override Platforms.Android.SignaturePadCanvasView
-            CreatePlatformView() => new (this.Context);
+            CreatePlatformView() => new(this.Context);
 
         private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
         {

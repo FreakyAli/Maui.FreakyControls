@@ -1,5 +1,4 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Util;
 using Android.Views;
@@ -15,7 +14,7 @@ public class FreakyMauiTimePicker : MauiTimePicker
     private Drawable drawableTop;
     private Drawable drawableBottom;
 
-    int actionX, actionY;
+    private int actionX, actionY;
 
     private IDrawableClickListener clickListener;
 
@@ -126,12 +125,12 @@ public class FreakyMauiTimePicker : MauiTimePicker
                 //  CALCULATING X AND Y CO-ORDINATE LIES INTO THE DRAWBABLE
                 //  BOUND. - this process help to increase the tappable area of
                 //  the rectangle.
-                // 
+                //
                 x = (int)(actionX + extraTapArea);
                 y = (int)(actionY - extraTapArea);
 
-                // Since this is right drawable subtract the value of x from the width 
-                // of view. so that width - tappedarea will result in x co-ordinate in drawable bound. 
+                // Since this is right drawable subtract the value of x from the width
+                // of view. so that width - tappedarea will result in x co-ordinate in drawable bound.
                 //
                 x = Width - x;
 

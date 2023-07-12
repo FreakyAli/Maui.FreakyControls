@@ -1,4 +1,3 @@
-﻿using System;
 using Microsoft.Maui.Handlers;
 using UIKit;
 

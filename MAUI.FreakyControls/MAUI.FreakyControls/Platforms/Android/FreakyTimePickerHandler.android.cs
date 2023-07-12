@@ -1,4 +1,3 @@
-using System;
 using Android.App;
 using Android.Content.Res;
 using Android.Graphics;
@@ -15,8 +14,8 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyTimePickerHandler
 {
-    MauiTimePicker? _timePicker;
-    AlertDialog? _dialog;
+    private MauiTimePicker? _timePicker;
+    private AlertDialog? _dialog;
 
     protected override MauiTimePicker CreatePlatformView()
     {
@@ -54,6 +53,7 @@ public partial class FreakyTimePickerHandler
                 case ImageAlignment.Left:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
                     break;
+
                 case ImageAlignment.Right:
                     freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
                     break;
@@ -62,7 +62,7 @@ public partial class FreakyTimePickerHandler
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
-    void ShowPickerDialog()
+    private void ShowPickerDialog()
     {
         if (VirtualView == null)
             return;
@@ -71,16 +71,16 @@ public partial class FreakyTimePickerHandler
         ShowPickerDialog(time.Hours, time.Minutes);
     }
 
-    // This overload is here so we can pass in the current values from the dialog 
+    // This overload is here so we can pass in the current values from the dialog
     // on an orientation change (so that orientation changes don't cause the user's date selection progress
     // to be lost). Not useful until we have orientation changed events.
-    void ShowPickerDialog(int hour, int minute)
+    private void ShowPickerDialog(int hour, int minute)
     {
         _dialog = CreateTimePickerDialog(hour, minute);
         _dialog.Show();
     }
 
-    void HidePickerDialog()
+    private void HidePickerDialog()
     {
         if (_dialog != null)
         {
@@ -90,6 +90,6 @@ public partial class FreakyTimePickerHandler
         _dialog = null;
     }
 
-    bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
+    private bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
             && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 }

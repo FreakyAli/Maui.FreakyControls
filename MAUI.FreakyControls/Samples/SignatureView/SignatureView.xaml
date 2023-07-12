@@ -1,22 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Samples.SignatureView.SignatureView"
-             xmlns:samples="clr-namespace:Samples.SignatureView"
-             x:DataType="samples:SignatureViewModel"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             Title="SignatureView">
-    <Grid RowDefinitions="*, Auto" Padding="5">
+<ContentPage
+    x:Class="Samples.SignatureView.SignatureView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    xmlns:samples="clr-namespace:Samples.SignatureView"
+    Title="SignatureView"
+    x:DataType="samples:SignatureViewModel">
+    <Grid Padding="5" RowDefinitions="*, Auto">
         <freakyControls:FreakySignaturePadView
-          x:Name="svgPad"
-          Grid.Row="0"
-          StrokeWidth="5"
-          SignatureUnderlineWidth="1"
-          StrokeCompleted="FreakySignaturePadView_StrokeCompleted"
-          StrokeColor="Black"/>
+            x:Name="svgPad"
+            Grid.Row="0"
+            SignatureUnderlineWidth="1"
+            StrokeColor="Black"
+            StrokeCompleted="FreakySignaturePadView_StrokeCompleted"
+            StrokeWidth="5" />
         <Button
-          Text="Convert to Image"
-          Grid.Row="1"
-          Command="{Binding ConversionCommand}"/>
+            Grid.Row="1"
+            Command="{Binding ConversionCommand}"
+            Text="Convert to Image" />
     </Grid>
 </ContentPage>

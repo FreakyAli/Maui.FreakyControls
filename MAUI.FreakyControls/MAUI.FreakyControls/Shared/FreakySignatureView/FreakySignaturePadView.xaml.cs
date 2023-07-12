@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+using Maui.FreakyControls.Extensions;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
@@ -15,6 +15,7 @@ public partial class FreakySignaturePadView : ContentView
     private static readonly Color signaturePadLightColor = Colors.White;
 
     public event EventHandler StrokeCompleted;
+
     public event EventHandler Cleared;
 
     public FreakySignaturePadView()
@@ -274,7 +275,7 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
-    /// Gets or sets the command to be fired on clear button click 
+    /// Gets or sets the command to be fired on clear button click
     /// </summary>
     public ICommand ClearedCommand
     {
@@ -290,7 +291,8 @@ public partial class FreakySignaturePadView : ContentView
         get => (ICommand)GetValue(StrokeCompletedCommandProperty);
         set => SetValue(StrokeCompletedCommandProperty, value);
     }
-    #endregion
+
+    #endregion Properties& BindableProperties
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {

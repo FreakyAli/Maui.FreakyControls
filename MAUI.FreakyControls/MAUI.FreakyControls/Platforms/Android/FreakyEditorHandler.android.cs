@@ -1,18 +1,9 @@
-﻿using System;
-using Android.Content.Res;
-using Android.Graphics;
-using Android.Graphics.Drawables;
+﻿using Android.Content.Res;
 using Android.Views;
 using Android.Views.InputMethods;
-using Android.Widget;
 using AndroidX.AppCompat.Widget;
-using AndroidX.Core.Content;
-using AndroidX.Core.Content.Resources;
-using AndroidX.Core.Graphics;
 using AndroidX.Core.View;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
-using Microsoft.Maui.Handlers;
-using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls
 {

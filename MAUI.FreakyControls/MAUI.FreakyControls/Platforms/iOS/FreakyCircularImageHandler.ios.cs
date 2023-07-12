@@ -1,5 +1,4 @@
-﻿using System;
-using Maui.FreakyControls.Platforms.iOS.NativeControls;
+﻿using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using UIKit;
 
 namespace Maui.FreakyControls
@@ -9,4 +8,3 @@ namespace Maui.FreakyControls
         protected override UIImageView CreatePlatformView() => new FreakyCircularUIImageView();
     }
 }
-

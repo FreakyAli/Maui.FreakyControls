@@ -16,7 +16,7 @@ public struct ImageConstructionSettings
 
     public SizeOrScale? DesiredSizeOrScale { get; set; }
 
-    public NativeNullableColor StrokeColor { get; set; } 
+    public NativeNullableColor StrokeColor { get; set; }
 
     public NativeNullableColor BackgroundColor { get; set; }
 

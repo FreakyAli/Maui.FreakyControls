@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
-using Maui.FreakyControls.Shared;
-using Maui.FreakyControls.Shared.Enums;
 
 namespace Maui.FreakyControls
 {
@@ -65,7 +63,7 @@ namespace Maui.FreakyControls
         }
 
         /// <summary>
-        /// Command parameter for your Image tap command 
+        /// Command parameter for your Image tap command
         /// </summary>
         public object ImageCommandParameter
         {

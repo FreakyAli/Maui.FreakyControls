@@ -1,5 +1,4 @@
-﻿using System;
-using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;

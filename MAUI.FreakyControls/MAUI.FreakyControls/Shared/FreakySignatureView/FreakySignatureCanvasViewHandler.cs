@@ -1,9 +1,11 @@
-﻿using System;
-using Microsoft.Maui.Handlers;
+﻿using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
+
 #if ANDROID
+
 using NativeView = Maui.FreakyControls.Platforms.Android.SignaturePadCanvasView;
 using NativePoint = System.Drawing.PointF;
+
 #elif IOS
 using NativeView = Maui.FreakyControls.Platforms.iOS.SignaturePadCanvasView;
 using NativePoint = CoreGraphics.CGPoint;
@@ -13,6 +15,7 @@ using NativePoint = CoreGraphics.CGPoint;
 namespace Maui.FreakyControls
 {
 #if IOS || ANDROID
+
     public partial class FreakySignatureCanvasViewHandler : ViewHandler<FreakySignatureCanvasView, NativeView>
     {
         public static PropertyMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> Mapper =
@@ -56,7 +59,6 @@ namespace Maui.FreakyControls
             VirtualView.StrokesSpecified += OnStrokesSpecified;
             VirtualView.ClearRequested += OnClearRequested;
         }
-
 
         protected override void DisconnectHandler(NativeView platformView)
         {
@@ -151,6 +153,7 @@ namespace Maui.FreakyControls
             }
         }
     }
+
 #else
 #endif
 }

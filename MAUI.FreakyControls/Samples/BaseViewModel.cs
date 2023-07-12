@@ -1,9 +1,8 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Samples;
 
-public class BaseViewModel: BindableObject
+public class BaseViewModel : BindableObject
 {
     protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
     {

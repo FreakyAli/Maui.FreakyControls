@@ -10,6 +10,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
 
         public bool OnPrepareActionMode(ActionMode mode, IMenu menu) => true;
 
-        public void OnDestroyActionMode(ActionMode mode) { }
+        public void OnDestroyActionMode(ActionMode mode)
+        { }
     }
 }
