@@ -86,9 +86,8 @@
 		<None Remove="CommunityToolkit.Mvvm" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Platforms\iOS\" />
-		<Folder Include="Platforms\Android\" />
-		<Folder Include="Shared\" />
+		<Folder Include="Platforms\Android\Effects\" />
+		<Folder Include="Platforms\iOS\Effects\" />
 		<Folder Include="Shared\FreakyEditor\" />
 		<Folder Include="Shared\FreakyEntry\" />
 		<Folder Include="Shared\Enums\" />
@@ -105,6 +104,7 @@
 		<Folder Include="Shared\FreakyDatePicker\" />
 		<Folder Include="Shared\FreakyTimePicker\" />
 		<Folder Include="Shared\FreakyPicker\" />
+		<Folder Include="Shared\Effects\" />
 		<Folder Include="Shared\Wrappers\" />
 		<Folder Include="Shared\FreakySignatureView\" />
 		<Folder Include="Platforms\MacCatalyst\" />
