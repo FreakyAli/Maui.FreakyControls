@@ -10,13 +10,10 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
-            <Button Text="Something Something" />
-
             <freakyControls:MaterialButton
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="{StaticResource Primary}"
-                ButtonType="Filled"
-                Animation="Fade"
+                Animation="Scale"
                 Text="A button i suppose"
                 TextColor="White" />
 

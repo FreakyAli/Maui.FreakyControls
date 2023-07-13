@@ -1,48 +1,18 @@
 ﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.TouchPress;
-using Microsoft.Maui.Controls;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public enum MaterialButtonType
-{
-    Elevated, Filled, Tonal, Outlined, Text
-}
-
 public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
 {
     #region Attributes and Properties
-
-    private bool _initialized = false;
-
-    private StackLayout _stcLayout;
-
-    private ContentView _leadingIconContentView;
-
-    private ContentView _trailingIconContentView;
-
-    private Label _textLabel;
-
-    private ActivityIndicator _activityIndicator;
-
-    private ContentView _cntActivityIndicator;
-
-    private Frame _frameLayout;
+    
 
     #endregion Attributes and Properties
 
     #region Bindable properties
-
-    public static readonly BindableProperty ButtonTypeProperty =
-        BindableProperty.Create(nameof(ButtonType), typeof(MaterialButtonType), typeof(MaterialButton), defaultValue: MaterialButtonType.Filled);
-
-    public MaterialButtonType ButtonType
-    {
-        get { return (MaterialButtonType)GetValue(ButtonTypeProperty); }
-        set { SetValue(ButtonTypeProperty, value); }
-    }
 
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MaterialButton), defaultValue: null);
@@ -215,15 +185,6 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(ToUpperProperty, value); }
     }
 
-    public static readonly BindableProperty CustomActivityIndicatorProperty =
-        BindableProperty.Create(nameof(CustomActivityIndicator), typeof(View), typeof(MaterialButton), defaultValue: null);
-
-    public View CustomActivityIndicator
-    {
-        get { return (View)GetValue(CustomActivityIndicatorProperty); }
-        set { SetValue(CustomActivityIndicatorProperty, value); }
-    }
-
     public static readonly BindableProperty ActivityIndicatorSizeProperty =
         BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(MaterialButton), defaultValue: 24.0);
 
@@ -251,15 +212,6 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(SpacingProperty, value); }
     }
 
-    public static readonly BindableProperty ContentIsExpandedProperty =
-        BindableProperty.Create(nameof(ContentIsExpanded), typeof(bool), typeof(MaterialButton), defaultValue: false);
-
-    public bool ContentIsExpanded
-    {
-        get { return (bool)GetValue(ContentIsExpandedProperty); }
-        set { SetValue(ContentIsExpandedProperty, value); }
-    }
-
     public event EventHandler Clicked;
 
     #endregion Bindable properties
@@ -268,253 +220,18 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
 
     public MaterialButton()
     {
-        if (Children == null)
-            return;
-
-        if (!_initialized)
-            Initialize();
+        InitializeComponent();
     }
 
     #endregion Constructors
 
     #region Methods
 
-    private void Initialize()
-    {
-        _initialized = true;
-
-        MinimumHeightRequest = 40;
-        HeightRequest = 40;
-
-        _frameLayout = new Frame
-        {
-            HasShadow = false,
-            CornerRadius = Convert.ToInt32(CornerRadius),
-            Padding = Padding
-        };
-        // Todo Fix this shit up
-        Children.Add(_frameLayout);
-
-        _stcLayout = new StackLayout
-        {
-            Orientation = StackOrientation.Horizontal,
-            Spacing = Spacing,
-            HorizontalOptions = ContentIsExpanded ? LayoutOptions.FillAndExpand : LayoutOptions.Center,
-        };
-        _frameLayout.Content = _stcLayout;
-
-        _leadingIconContentView = new ContentView
-        {
-            VerticalOptions = LayoutOptions.Center,
-            WidthRequest = IconSize,
-            HeightRequest = IconSize,
-            IsVisible = false
-        };
-        _stcLayout.Children.Add(_leadingIconContentView);
-
-        _textLabel = new Label
-        {
-            LineBreakMode = LineBreakMode.NoWrap,
-            VerticalOptions = LayoutOptions.Center,
-            HorizontalOptions = ContentIsExpanded ? LayoutOptions.CenterAndExpand : LayoutOptions.Center,
-            Text = ToUpper ? Text?.ToUpper() : Text,
-            FontSize = FontSize,
-            FontFamily = FontFamily,
-
-        };
-        _stcLayout.Children.Add(_textLabel);
-
-        _trailingIconContentView = new ContentView
-        {
-            VerticalOptions = LayoutOptions.Center,
-            WidthRequest = IconSize,
-            HeightRequest = IconSize,
-            IsVisible = false
-        };
-        _stcLayout.Children.Add(_trailingIconContentView);
-
-        _cntActivityIndicator = new ContentView
-        {
-            VerticalOptions = LayoutOptions.Center,
-            HorizontalOptions = LayoutOptions.Center,
-            WidthRequest = ActivityIndicatorSize,
-            HeightRequest = ActivityIndicatorSize,
-            IsVisible = false
-        };
-        //TODO Fix this shit up
-        this.Children.Add(_cntActivityIndicator);
-
-        Effects.Add(new TouchAndPressEffect());
-
-        SetButtonType();
-    }
-
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        if (Children == null)
-            return;
-
-        if (!_initialized)
-            Initialize();
-
-        switch (propertyName)
-        {
-            case nameof(ButtonType):
-            case nameof(TextColor):
-            case nameof(BackgroundColor):
-            case nameof(BorderColor):
-                SetButtonType();
-                break;
-            case nameof(base.Opacity):
-            case nameof(base.Scale):
-            case nameof(base.IsVisible):
-                base.OnPropertyChanged(propertyName);
-                break;
-            case nameof(Text):
-            case nameof(ToUpper):
-                _textLabel.Text = ToUpper ? Text?.ToUpper() : Text;
-                break;
-            case nameof(FontSize):
-                _textLabel.FontSize = FontSize;
-                break;
-            case nameof(FontFamily):
-                _textLabel.FontFamily = FontFamily;
-                break;
-            case nameof(CornerRadius):
-                _frameLayout.CornerRadius = Convert.ToInt32(CornerRadius);
-                break;
-            case nameof(LeadingIcon):
-                if (LeadingIcon != null)
-                {
-                    _leadingIconContentView.Content = LeadingIcon;
-                    _leadingIconContentView.IsVisible = true;
-                }
-                break;
-            case nameof(TrailingIcon):
-                if (TrailingIcon != null)
-                {
-                    _trailingIconContentView.Content = TrailingIcon;
-                    _trailingIconContentView.IsVisible = true;
-                }
-                break;
-            case nameof(IconSize):
-                _leadingIconContentView.HeightRequest = IconSize;
-                _leadingIconContentView.WidthRequest = IconSize;
-                _trailingIconContentView.HeightRequest = IconSize;
-                _trailingIconContentView.WidthRequest = IconSize;
-                break;
-            case nameof(IsEnabled):
+        base.OnPropertyChanged(propertyName);
+        if(propertyName == nameof(IsEnabled))
                 VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled");
-                break;
-            case nameof(ActivityIndicatorSize):
-                _cntActivityIndicator.HeightRequest = ActivityIndicatorSize;
-                _cntActivityIndicator.WidthRequest = ActivityIndicatorSize;
-                break;
-            case nameof(CustomActivityIndicator):
-                if (CustomActivityIndicator != null)
-                {
-                    _cntActivityIndicator.Content = CustomActivityIndicator;
-                }
-                break;
-            case nameof(BusyColor):
-                if (CustomActivityIndicator == null)
-                {
-                    if (_activityIndicator == null)
-                    {
-                        _activityIndicator = new ActivityIndicator();
-                        _cntActivityIndicator.Content = _activityIndicator;
-                    }
-
-                    _activityIndicator.Color = BusyColor;
-                }
-                break;
-            case nameof(IsBusy):
-                if (IsBusy)
-                {
-                    if (CustomActivityIndicator == null)
-                    {
-                        if (_activityIndicator == null)
-                        {
-                            _activityIndicator = new ActivityIndicator { Color = BusyColor };
-                            _cntActivityIndicator.Content = _activityIndicator;
-                        }
-
-                        _activityIndicator.IsVisible = true;
-                        _activityIndicator.IsRunning = true;
-                    }
-
-                    _cntActivityIndicator.IsVisible = true;
-
-                    _frameLayout.IsVisible = false;
-                }
-                else
-                {
-                    _frameLayout.IsVisible = true;
-
-                    if (CustomActivityIndicator == null)
-                    {
-                        if (_activityIndicator == null)
-                        {
-                            _activityIndicator = new ActivityIndicator();
-                            _cntActivityIndicator.Content = _activityIndicator;
-                        }
-
-                        _activityIndicator.IsVisible = false;
-                        _activityIndicator.IsRunning = false;
-                    }
-
-                    _cntActivityIndicator.IsVisible = false;
-                }
-                break;
-
-            case nameof(Padding):
-                _frameLayout.Padding = Padding;
-                break;
-            case nameof(Spacing):
-                _stcLayout.Spacing = Spacing;
-                break;
-            case nameof(ContentIsExpanded):
-                _stcLayout.HorizontalOptions = ContentIsExpanded ? LayoutOptions.FillAndExpand : LayoutOptions.Center;
-                _textLabel.HorizontalOptions = ContentIsExpanded ? LayoutOptions.CenterAndExpand : LayoutOptions.Center;
-                break;
-        }
-    }
-
-    public void SetButtonType()
-    {
-        switch (ButtonType)
-        {
-            case MaterialButtonType.Elevated:
-                _textLabel.TextColor = TextColor;
-                _frameLayout.BackgroundColor = BackgroundColor;
-                _frameLayout.BorderColor = BackgroundColor;
-                _frameLayout.HasShadow = true;
-                break;
-            case MaterialButtonType.Filled:
-                _textLabel.TextColor = TextColor;
-                _frameLayout.BackgroundColor = BackgroundColor;
-                _frameLayout.BorderColor = Colors.Transparent;
-                _frameLayout.HasShadow = false;
-                break;
-            case MaterialButtonType.Tonal:
-                _textLabel.TextColor = TextColor;
-                _frameLayout.BackgroundColor = BackgroundColor;
-                _frameLayout.BorderColor = Colors.Transparent;
-                _frameLayout.HasShadow = false;
-                break;
-            case MaterialButtonType.Outlined:
-                _textLabel.TextColor=TextColor;
-                _frameLayout.BackgroundColor = BackgroundColor;
-                _frameLayout.BorderColor = BorderColor;
-                _frameLayout.HasShadow = false;
-                break;
-            case MaterialButtonType.Text:
-                _textLabel.TextColor = TextColor;
-                _frameLayout.BackgroundColor = Colors.Transparent;
-                _frameLayout.BorderColor = Colors.Transparent;
-                _frameLayout.HasShadow = false;
-                break;
-        }
     }
 
     public void ConsumeEvent(EventType gestureType)
@@ -524,11 +241,11 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
 
     public void ExecuteAction()
     {
-        if (IsEnabled && Command != null && Command.CanExecute(CommandParameter))
-            Command.Execute(CommandParameter);
+        if (IsEnabled)
+            Command?.ExecuteCommandIfAvailable(CommandParameter);
 
         if (IsEnabled && Clicked != null)
-            Clicked.Invoke(this, null);
+            Clicked.Invoke(this, EventArgs.Empty);
     }
 
     #endregion Methods

@@ -1,27 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Maui.FreakyControls.MaterialButton">
-    <!--<Frame CornerRadius="8"
-           x:Name="button"
-           IsClippedToBounds="True"
-           BackgroundColor="Transparent"
-           BorderColor="Transparent"
-           Padding="14,10">
-        <Grid
-            InputTransparent="True"
-            RowDefinitions="Auto, *, Auto">
-            <Image
-                BackgroundColor="Transparent"
-                Grid.Row="0" />
-            <Label
-            Grid.Row="1"
-            BackgroundColor="Transparent"
-            Text="Welcome to .NET MAUI!"
-            HorizontalTextAlignment="Center" />
-            <Image
-                BackgroundColor="Transparent"
-                Grid.Row="2" />
-        </Grid>
-    </Frame>-->
+             x:Class="Maui.FreakyControls.MaterialButton"
+             xmlns:touch="clr-namespace:Maui.FreakyControls.TouchPress"
+             HeightRequest="40"
+             xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
+             x:Name="this">
+    <Grid.Resources>
+        <converter:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </Grid.Resources>
+    <Grid.Effects>
+        <touch:TouchAndPressEffect/>
+    </Grid.Effects>
+    <Frame HasShadow="False"
+           BackgroundColor="{Binding BackgroundColor, Source={x:Reference this}}"
+           BorderColor="{Binding BorderColor, Source={x:Reference this}}"
+           CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
+           Padding="{Binding Padding, Source={x:Reference this}}">
+        <StackLayout HorizontalOptions="Center"
+                     Spacing="{Binding Spacing, Source={x:Reference this}}"
+                     Orientation="Horizontal">
+            <ContentView VerticalOptions="Center"
+                         IsVisible="False"
+                         Content="{Binding LeadingIcon,Source={x:Reference this}}"
+                         HeightRequest="{Binding IconSize, Source={x:Reference this}}"
+                         WidthRequest="{Binding IconSize, Source={x:Reference this}}">
+            </ContentView>
+
+            <Label LineBreakMode="NoWrap"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   TextColor="{Binding TextColor, Source={x:Reference this}}"
+                   FontSize="{Binding FontSize, Source={x:Reference this}}"
+                   IsVisible="{Binding IsBusy,Source={x:Reference this},Converter={StaticResource InverseBoolConverter}}"
+                   FontFamily="{Binding FontFamily, Source={x:Reference this}}"
+                   Text="{Binding Text,Source={x:Reference this}}" />
+
+            <ActivityIndicator VerticalOptions="Center"
+                         HorizontalOptions="Center"
+                         IsRunning="{Binding IsBusy,Source={x:Reference this}}"
+                         IsVisible="{Binding IsBusy,Source={x:Reference this}}"
+                         Color="{Binding BusyColor, Source={x:Reference this}}"
+                         HeightRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
+                         WidthRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
+                         >
+            </ActivityIndicator>
+
+             <ContentView VerticalOptions="Center"
+                         IsVisible="False"
+                         Content="{Binding TrailingIcon,Source={x:Reference this}}"
+                         HeightRequest="{Binding IconSize, Source={x:Reference this}}"
+                         WidthRequest="{Binding IconSize, Source={x:Reference this}}">
+            </ContentView>
+        </StackLayout>
+
+    </Frame>
+
 </Grid>
