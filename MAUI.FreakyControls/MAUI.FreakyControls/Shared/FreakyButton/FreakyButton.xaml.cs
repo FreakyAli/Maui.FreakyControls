@@ -7,11 +7,6 @@ namespace Maui.FreakyControls;
 
 public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
 {
-    #region Attributes and Properties
-    
-
-    #endregion Attributes and Properties
-
     #region Bindable properties
 
     public static readonly BindableProperty CommandProperty =
@@ -28,8 +23,8 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
 
     public object CommandParameter
     {
-        get { return (object)GetValue(CommandParameterProperty); }
-        set { SetValue(CommandParameterProperty, value); }
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
     }
 
     public static readonly new BindableProperty IsEnabledProperty =
@@ -78,11 +73,11 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty CornerRadiusProperty =
-        BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(MaterialButton), defaultValue: 20.0);
+        BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(MaterialButton), default(CornerRadius));
 
-    public double CornerRadius
+    public CornerRadius CornerRadius
     {
-        get { return (double)GetValue(CornerRadiusProperty); }
+        get { return (CornerRadius)GetValue(CornerRadiusProperty); }
         set { SetValue(CornerRadiusProperty, value); }
     }
 
@@ -221,6 +216,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     public MaterialButton()
     {
         InitializeComponent();
+        this.Effects.Add(new TouchAndPressEffect());
     }
 
     #endregion Constructors
@@ -230,8 +226,8 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
-        if(propertyName == nameof(IsEnabled))
-                VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled");
+        if (propertyName == nameof(IsEnabled))
+            VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled");
     }
 
     public void ConsumeEvent(EventType gestureType)
@@ -247,6 +243,5 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         if (IsEnabled && Clicked != null)
             Clicked.Invoke(this, EventArgs.Empty);
     }
-
     #endregion Methods
 }

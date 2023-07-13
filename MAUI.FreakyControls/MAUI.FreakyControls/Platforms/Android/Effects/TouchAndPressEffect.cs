@@ -10,6 +10,11 @@ public class TouchAndPressEffect : PlatformEffect
     private View _view;
     private ITouchAndPressEffectConsumer _touchAndPressEffectConsumer;
 
+    public TouchAndPressEffect()
+    {
+        
+    }
+
     protected override void OnAttached()
     {
         _view = Control ?? Container;

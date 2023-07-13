@@ -107,8 +107,6 @@
 		<Folder Include="Shared\Effects\" />
 		<Folder Include="Shared\Wrappers\" />
 		<Folder Include="Shared\FreakySignatureView\" />
-		<Folder Include="Platforms\MacCatalyst\" />
-		<Folder Include="Platforms\Windows\" />
 		<Folder Include="Platforms\Android\NativeControls\Signature\" />
 		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
 		<Folder Include="Shared\EventArgs\" />

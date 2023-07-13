@@ -1,19 +1,21 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
-using TouchAndPressEffect = Maui.FreakyControls.TouchPress.TouchAndPressEffect;
-using TouchReleaseEffect = Maui.FreakyControls.TouchPress.TouchReleaseEffect;
-
+using TouchAndPressRoutingEffect = Maui.FreakyControls.TouchPress.TouchAndPressEffect;
+using TouchReleaseRoutingEffect = Maui.FreakyControls.TouchPress.TouchReleaseEffect;
+#if MACCATALYST
+using Maui.FreakyControls.Platforms.MacCatalyst;
+#endif
+#if WINDOWS
+using Maui.FreakyControls.Platforms.Windows;
+#endif
 #if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Maui.FreakyControls.Platforms.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
-using PlatformTouchAndPressEffect = Maui.FreakyControls.Platforms.Android.TouchAndPressEffect;
-using PlatformTouchReleaseEffect = Maui.FreakyControls.Platforms.Android.TouchReleaseEffect;
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;
-using PlatformTouchAndPressEffect = Maui.FreakyControls.Platforms.iOS.TouchAndPressEffect;
-using PlatformTouchReleaseEffect = Maui.FreakyControls.Platforms.iOS.TouchReleaseEffect;
 #endif
 #if IOS || MACCATALYST
 using NativeImage = UIKit.UIImage;
@@ -35,12 +37,10 @@ public static class Extensions
     public static void InitializeFreakyControls(this MauiAppBuilder builder)
     {
         builder.ConfigureMauiHandlers(builders => builders.AddFreakyHandlers());
-        builder.ConfigureEffects(effects => {
-
-#if Android || IOS
-            effects.Add<TouchAndPressEffect, PlatformTouchAndPressEffect>();
-            effects.Add<TouchReleaseEffect, PlatformTouchReleaseEffect>();
-#endif
+        builder.ConfigureEffects(effects =>
+        {
+            effects.Add<TouchAndPressRoutingEffect, TouchAndPressEffect>();
+            effects.Add<TouchReleaseRoutingEffect, TouchReleaseEffect>();
         });
     }
 
