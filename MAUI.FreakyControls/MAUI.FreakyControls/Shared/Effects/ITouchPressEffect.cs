@@ -6,8 +6,6 @@ public interface ITouchAndPressEffectConsumer
 
     bool IsEnabled { get; set; }
     AnimationTypes Animation { get; set; }
-    ICustomAnimation CustomAnimation { get; set; }
-    double? AnimationParameter { get; set; }
 
     void ExecuteAction();
 }

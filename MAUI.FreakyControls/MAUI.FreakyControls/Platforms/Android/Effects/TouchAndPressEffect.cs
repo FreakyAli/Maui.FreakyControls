@@ -12,7 +12,6 @@ public class TouchAndPressEffect : PlatformEffect
 
     public TouchAndPressEffect()
     {
-        
     }
 
     protected override void OnAttached()

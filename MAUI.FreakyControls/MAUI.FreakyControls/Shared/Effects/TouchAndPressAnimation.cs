@@ -31,11 +31,9 @@ public static class TouchAndPressAnimation
             Task.Run(async () =>
             {
                 if (touchAndPressEffectConsumer.Animation == AnimationTypes.Fade)
-                    await view.FadeTo(touchAndPressEffectConsumer.AnimationParameter.HasValue ? touchAndPressEffectConsumer.AnimationParameter.Value : 0.6, 100);
+                    await view.FadeTo(0.6, 100);
                 else if (touchAndPressEffectConsumer.Animation == AnimationTypes.Scale)
-                    await view.ScaleTo(touchAndPressEffectConsumer.AnimationParameter.HasValue ? touchAndPressEffectConsumer.AnimationParameter.Value : 0.95, 100);
-                else if (touchAndPressEffectConsumer.Animation == AnimationTypes.Custom && touchAndPressEffectConsumer.CustomAnimation != null)
-                    await touchAndPressEffectConsumer.CustomAnimation.SetAnimation(view);
+                    await view.ScaleTo(0.95, 100);
             });
         }
     }
@@ -50,8 +48,6 @@ public static class TouchAndPressAnimation
                     await view.FadeTo(1, 100);
                 else if (touchAndPressEffectConsumer.Animation == AnimationTypes.Scale)
                     await view.ScaleTo(1, 100);
-                else if (touchAndPressEffectConsumer.Animation == AnimationTypes.Custom && touchAndPressEffectConsumer.CustomAnimation != null)
-                    await touchAndPressEffectConsumer.CustomAnimation.RestoreAnimation(view);
             });
         }
     }

@@ -27,7 +27,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set => SetValue(CommandParameterProperty, value);
     }
 
-    public static readonly new BindableProperty IsEnabledProperty =
+    public new static readonly BindableProperty IsEnabledProperty =
         BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(MaterialButton), defaultValue: true);
 
     public new bool IsEnabled
@@ -45,24 +45,6 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(AnimationProperty, value); }
     }
 
-    public static readonly BindableProperty AnimationParameterProperty =
-        BindableProperty.Create(nameof(AnimationParameter), typeof(double?), typeof(MaterialButton), defaultValue: 0.7);
-
-    public double? AnimationParameter
-    {
-        get { return (double?)GetValue(AnimationParameterProperty); }
-        set { SetValue(AnimationParameterProperty, value); }
-    }
-
-    public static readonly BindableProperty CustomAnimationProperty =
-        BindableProperty.Create(nameof(CustomAnimation), typeof(ICustomAnimation), typeof(MaterialButton), defaultValue: null);
-
-    public ICustomAnimation CustomAnimation
-    {
-        get { return (ICustomAnimation)GetValue(CustomAnimationProperty); }
-        set { SetValue(CustomAnimationProperty, value); }
-    }
-
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialButton), defaultValue: null);
 
@@ -73,7 +55,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty CornerRadiusProperty =
-        BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(MaterialButton), default(CornerRadius));
+        BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(MaterialButton), new CornerRadius(10));
 
     public CornerRadius CornerRadius
     {
@@ -91,7 +73,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.Black);
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.White);
 
     public Color TextColor
     {
@@ -99,8 +81,8 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(TextColorProperty, value); }
     }
 
-    public static readonly new BindableProperty BackgroundColorProperty =
-        BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.White);
+    public new static readonly BindableProperty BackgroundColorProperty =
+       BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.Black);
 
     public new Color BackgroundColor
     {
@@ -109,7 +91,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty BorderColorProperty =
-        BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.Black);
+        BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.White);
 
     public Color BorderColor
     {
@@ -118,7 +100,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty BusyColorProperty =
-        BindableProperty.Create(nameof(BusyColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.Gray);
+        BindableProperty.Create(nameof(BusyColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.White);
 
     public Color BusyColor
     {
@@ -145,7 +127,13 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty LeadingIconProperty =
-        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(MaterialButton), defaultValue: null);
+        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(MaterialButton), defaultValue: null, propertyChanged: OnLeadingIconChanged);
+
+    private static void OnLeadingIconChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var freakyButton = bindable as MaterialButton;
+        freakyButton.leadingContentView.Content = newValue as View;
+    }
 
     public View LeadingIcon
     {
@@ -154,7 +142,13 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty TrailingIconProperty =
-        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(MaterialButton), defaultValue: null);
+        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(MaterialButton), defaultValue: null, propertyChanged: OnTrailingIconChanged);
+
+    private static void OnTrailingIconChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var freakyButton = bindable as MaterialButton;
+        freakyButton.trailingContentView.Content = newValue as View;
+    }
 
     public View TrailingIcon
     {
@@ -171,17 +165,8 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(IconSizeProperty, value); }
     }
 
-    public static readonly BindableProperty ToUpperProperty =
-        BindableProperty.Create(nameof(ToUpper), typeof(bool), typeof(MaterialButton), defaultValue: false);
-
-    public bool ToUpper
-    {
-        get { return (bool)GetValue(ToUpperProperty); }
-        set { SetValue(ToUpperProperty, value); }
-    }
-
     public static readonly BindableProperty ActivityIndicatorSizeProperty =
-        BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(MaterialButton), defaultValue: 24.0);
+        BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(MaterialButton), defaultValue: 30.0);
 
     public double ActivityIndicatorSize
     {
@@ -189,7 +174,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(ActivityIndicatorSizeProperty, value); }
     }
 
-    public static readonly new BindableProperty PaddingProperty =
+    public new static readonly BindableProperty PaddingProperty =
         BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(MaterialButton), defaultValue: new Thickness(12, 0));
 
     public new Thickness Padding
@@ -232,7 +217,8 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
 
     public void ConsumeEvent(EventType gestureType)
     {
-        TouchAndPressAnimation.Animate(this, gestureType);
+        if (IsEnabled)
+            TouchAndPressAnimation.Animate(this, gestureType);
     }
 
     public void ExecuteAction()
@@ -243,5 +229,6 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         if (IsEnabled && Clicked != null)
             Clicked.Invoke(this, EventArgs.Empty);
     }
+
     #endregion Methods
 }

@@ -1,4 +1,3 @@
-using System;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Handlers;
 

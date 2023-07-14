@@ -21,7 +21,7 @@
             Orientation="Horizontal"
             Spacing="{Binding Spacing, Source={x:Reference this}}">
             <ContentView
-                Content="{Binding LeadingIcon, Source={x:Reference this}}"
+                x:Name="leadingContentView"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"
                 IsVisible="False"
                 VerticalOptions="Center"
@@ -47,7 +47,7 @@
                 Color="{Binding BusyColor, Source={x:Reference this}}" />
 
             <ContentView
-                Content="{Binding TrailingIcon, Source={x:Reference this}}"
+                x:Name="trailingContentView"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"
                 IsVisible="False"
                 VerticalOptions="Center"

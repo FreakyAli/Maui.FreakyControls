@@ -10,12 +10,20 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
+            <Button />
+
             <freakyControls:MaterialButton
+                Animation="Fade"
                 BackgroundColor="{StaticResource Primary}"
-                BorderColor="{StaticResource Primary}"
-                Animation="Scale"
+                BorderColor="Yellow"
+                BusyColor="White"
+                IconSize="30"
                 Text="A button i suppose"
-                TextColor="White" />
+                TextColor="White">
+                <freakyControls:MaterialButton.LeadingIcon>
+                    <Image Source="calendar.png" />
+                </freakyControls:MaterialButton.LeadingIcon>
+            </freakyControls:MaterialButton>
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>

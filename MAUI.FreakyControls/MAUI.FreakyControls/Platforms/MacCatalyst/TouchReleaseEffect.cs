@@ -1,9 +1,4 @@
 ﻿using Microsoft.Maui.Controls.Platform;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Maui.FreakyControls.Platforms.MacCatalyst
 {
@@ -11,7 +6,6 @@ namespace Maui.FreakyControls.Platforms.MacCatalyst
     {
         protected override void OnAttached()
         {
-
         }
 
         protected override void OnDetached()
@@ -22,7 +16,6 @@ namespace Maui.FreakyControls.Platforms.MacCatalyst
     {
         protected override void OnAttached()
         {
-
         }
 
         protected override void OnDetached()

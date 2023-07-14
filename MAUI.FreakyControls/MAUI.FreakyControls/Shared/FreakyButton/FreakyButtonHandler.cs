@@ -1,7 +1,5 @@
-using Microsoft.Maui.Handlers;
-
 namespace Maui.FreakyControls;
 
-public partial class FreakyButtonHandler 
+public partial class FreakyButtonHandler
 {
 }

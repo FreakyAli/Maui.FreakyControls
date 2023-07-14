@@ -2,6 +2,7 @@ using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
 using TouchAndPressRoutingEffect = Maui.FreakyControls.TouchPress.TouchAndPressEffect;
 using TouchReleaseRoutingEffect = Maui.FreakyControls.TouchPress.TouchReleaseEffect;
+
 #if MACCATALYST
 using Maui.FreakyControls.Platforms.MacCatalyst;
 #endif
@@ -9,10 +10,12 @@ using Maui.FreakyControls.Platforms.MacCatalyst;
 using Maui.FreakyControls.Platforms.Windows;
 #endif
 #if ANDROID
+
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Maui.FreakyControls.Platforms.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
+
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;

@@ -8,7 +8,7 @@ public partial class InputViews : ContentPage
         this.BindingContext = new InputViewModel();
     }
 
-    void Button_Clicked(System.Object sender, System.EventArgs e)
+    private void Button_Clicked(System.Object sender, System.EventArgs e)
     {
     }
 }
