@@ -53,7 +53,6 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
         handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
         handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
-        //handlers.AddHandler(typeof(MaterialButton), typeof(FreakyButtonHandler));
         handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
         handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
