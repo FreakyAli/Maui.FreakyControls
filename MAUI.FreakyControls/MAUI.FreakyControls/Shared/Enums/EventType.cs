@@ -1,4 +1,4 @@
-﻿namespace Maui.FreakyControls.TouchPress;
+﻿namespace Maui.FreakyControls.Shared.Enums;
 
 public enum EventType
 {

@@ -4,7 +4,7 @@ using View = Android.Views.View;
 
 namespace Maui.FreakyControls.Platforms.Android;
 
-public class TouchReleaseEffect : PlatformEffect
+internal class TouchReleaseEffect : PlatformEffect
 {
     private Action _onRelease;
     private View _view;
@@ -15,7 +15,7 @@ public class TouchReleaseEffect : PlatformEffect
 
         if (_view != null)
         {
-            var touchReleaseEffect = (Maui.FreakyControls.TouchPress.TouchReleaseEffect)Element.Effects.FirstOrDefault(x => x is TouchReleaseEffect);
+            var touchReleaseEffect = (Maui.FreakyControls.Shared.TouchPress.TouchReleaseEffect)Element.Effects.FirstOrDefault(x => x is TouchReleaseEffect);
             if (touchReleaseEffect != null && touchReleaseEffect.OnRelease != null)
             {
                 _onRelease = touchReleaseEffect.OnRelease;

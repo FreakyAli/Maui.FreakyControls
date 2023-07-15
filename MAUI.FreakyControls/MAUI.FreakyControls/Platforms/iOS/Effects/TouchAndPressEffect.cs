@@ -1,11 +1,12 @@
 ﻿using Foundation;
-using Maui.FreakyControls.TouchPress;
+using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.TouchPress;
 using Microsoft.Maui.Controls.Platform;
 using UIKit;
 
 namespace Maui.FreakyControls.Platforms.iOS
 {
-    public class TouchAndPressEffect : PlatformEffect
+    internal class TouchAndPressEffect : PlatformEffect
     {
         private UIView _view;
         private TouchAndPressGestureRecognizer _touchAndPressGestureRecognizer;

@@ -1,8 +1,10 @@
-﻿namespace Maui.FreakyControls.TouchPress;
+﻿using Maui.FreakyControls.Shared.Enums;
+
+namespace Maui.FreakyControls.Shared.TouchPress;
 
 internal interface ITouchPressEffect
 {
-    AnimationTypes Animation { get; set; }
+    ButtonAnimations Animation { get; set; }
 
     bool IsEnabled { get; set; }
 

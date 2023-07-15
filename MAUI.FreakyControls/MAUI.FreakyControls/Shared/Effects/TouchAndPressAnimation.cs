@@ -1,4 +1,6 @@
-﻿namespace Maui.FreakyControls.TouchPress;
+﻿using Maui.FreakyControls.Shared.Enums;
+
+namespace Maui.FreakyControls.Shared.TouchPress;
 
 internal static class TouchAndPressAnimation
 {
@@ -29,15 +31,15 @@ internal static class TouchAndPressAnimation
 
     private static void RestoreAnimation(View view, ITouchPressEffect touchAndPressEffectConsumer)
     {
-        if (touchAndPressEffectConsumer.Animation != AnimationTypes.None)
+        if (touchAndPressEffectConsumer.Animation != ButtonAnimations.None)
         {
             Task.Run(async () =>
             {
-                if (touchAndPressEffectConsumer.Animation == AnimationTypes.Fade)
+                if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Fade)
                     await view.FadeTo(1, 500);
-                else if (touchAndPressEffectConsumer.Animation == AnimationTypes.Scale)
+                else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Scale)
                     await view.ScaleTo(1, 100);
-                else if (touchAndPressEffectConsumer.Animation == AnimationTypes.FadeAndScale)
+                else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.FadeAndScale)
                 {
                     await Task.WhenAll(view.ScaleTo(1, 100), view.FadeTo(1, 500));
                 }
@@ -47,15 +49,15 @@ internal static class TouchAndPressAnimation
 
     private static void SetAnimation(View view, ITouchPressEffect touchAndPressEffectConsumer)
     {
-        if (touchAndPressEffectConsumer.Animation != AnimationTypes.None && touchAndPressEffectConsumer.IsEnabled)
+        if (touchAndPressEffectConsumer.Animation != ButtonAnimations.None && touchAndPressEffectConsumer.IsEnabled)
         {
             Task.Run(async () =>
             {
-                if (touchAndPressEffectConsumer.Animation == AnimationTypes.Fade)
+                if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Fade)
                     await view.FadeTo(0.7, 100);
-                else if (touchAndPressEffectConsumer.Animation == AnimationTypes.Scale)
+                else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Scale)
                     await view.ScaleTo(0.95, 100);
-                else if (touchAndPressEffectConsumer.Animation == AnimationTypes.FadeAndScale)
+                else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.FadeAndScale)
                 {
                     await Task.WhenAll(view.ScaleTo(0.95, 100), view.FadeTo(0.7, 100));
                 }

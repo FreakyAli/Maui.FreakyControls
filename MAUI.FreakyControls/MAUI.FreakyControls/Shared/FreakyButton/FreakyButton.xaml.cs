@@ -1,5 +1,6 @@
 ﻿using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.TouchPress;
+using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.TouchPress;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
@@ -14,7 +15,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
         BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(FreakyButton), defaultValue: 30.0);
 
     public static readonly BindableProperty AnimationProperty =
-        BindableProperty.Create(nameof(Animation), typeof(AnimationTypes), typeof(FreakyButton), defaultValue: AnimationTypes.Fade);
+        BindableProperty.Create(nameof(Animation), typeof(ButtonAnimations), typeof(FreakyButton), defaultValue: ButtonAnimations.Fade);
 
     public static readonly BindableProperty AreIconsDistantProperty =
        BindableProperty.Create(nameof(AreIconsDistant), typeof(bool), typeof(FreakyButton), defaultValue: true, propertyChanged: OnIconsAreExpandedChanged);
@@ -120,9 +121,9 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
         set { SetValue(ActivityIndicatorSizeProperty, value); }
     }
 
-    public AnimationTypes Animation
+    public ButtonAnimations Animation
     {
-        get => (AnimationTypes)GetValue(AnimationProperty);
+        get => (ButtonAnimations)GetValue(AnimationProperty);
         set => SetValue(AnimationProperty, value);
     }
 

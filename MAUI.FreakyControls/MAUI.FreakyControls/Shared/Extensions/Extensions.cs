@@ -1,7 +1,7 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
-using TouchAndPressRoutingEffect = Maui.FreakyControls.TouchPress.TouchAndPressEffect;
-using TouchReleaseRoutingEffect = Maui.FreakyControls.TouchPress.TouchReleaseEffect;
+using TouchAndPressRoutingEffect = Maui.FreakyControls.Shared.TouchPress.TouchAndPressEffect;
+using TouchReleaseRoutingEffect = Maui.FreakyControls.Shared.TouchPress.TouchReleaseEffect;
 
 #if MACCATALYST
 using Maui.FreakyControls.Platforms.MacCatalyst;

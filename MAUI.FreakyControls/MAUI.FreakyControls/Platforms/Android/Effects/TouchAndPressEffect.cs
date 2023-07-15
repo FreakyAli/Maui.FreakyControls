@@ -1,11 +1,12 @@
 ﻿using Android.Views;
-using Maui.FreakyControls.TouchPress;
+using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.TouchPress;
 using Microsoft.Maui.Controls.Platform;
 using View = Android.Views.View;
 
 namespace Maui.FreakyControls.Platforms.Android;
 
-public class TouchAndPressEffect : PlatformEffect
+internal class TouchAndPressEffect : PlatformEffect
 {
     private ITouchPressEffect _touchAndPressEffectConsumer;
     private View _view;

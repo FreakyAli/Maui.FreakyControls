@@ -1,4 +1,4 @@
-﻿namespace Maui.FreakyControls.TouchPress;
+﻿namespace Maui.FreakyControls.Shared.TouchPress;
 
 internal class TouchReleaseEffect : RoutingEffect
 {
