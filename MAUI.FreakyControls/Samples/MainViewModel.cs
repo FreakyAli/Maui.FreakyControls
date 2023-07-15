@@ -7,35 +7,9 @@ namespace Samples
 {
     public class MainViewModel : BaseViewModel
     {
-        public ICommand ImageWasTappedCommand
-        {
-            get; set;
-        }
-
         private ObservableCollection<string> _suggestionItem;
+
         private ObservableCollection<string> items;
-
-        public ObservableCollection<string> SuggestionItem
-        {
-            get => _suggestionItem;
-            set
-            {
-                _suggestionItem = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<string> Items
-        {
-            get => items;
-            set
-            {
-                items = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand FreakyLongPressedCommand { get; set; }
 
         public MainViewModel()
         {
@@ -50,7 +24,8 @@ namespace Samples
                 AppShell.imageViews,
                 AppShell.signatureView,
                 AppShell.checkboxes,
-                AppShell.radioButtons
+                AppShell.radioButtons,
+                AppShell.buttons
             };
 
             var strSuggestionArr = new string[] {
@@ -64,15 +39,42 @@ namespace Samples
             SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
         }
 
-        private async Task LongPressedAsync(object commandParam)
+        public ICommand FreakyLongPressedCommand { get; set; }
+
+        public ICommand ImageWasTappedCommand
         {
-            await Application.Current.MainPage.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
+            get; set;
+        }
+
+        public ObservableCollection<string> Items
+        {
+            get => items;
+            set
+            {
+                items = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> SuggestionItem
+        {
+            get => _suggestionItem;
+            set
+            {
+                _suggestionItem = value;
+                OnPropertyChanged();
+            }
         }
 
         private async Task ImageTappedAsync()
         {
             await MainThread.InvokeOnMainThreadAsync(() =>
             Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
+        }
+
+        private async Task LongPressedAsync(object commandParam)
+        {
+            await Application.Current.MainPage.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
         }
     }
 }

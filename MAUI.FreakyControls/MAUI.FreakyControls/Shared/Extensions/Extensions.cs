@@ -1,9 +1,18 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
+using TouchAndPressRoutingEffect = Maui.FreakyControls.TouchPress.TouchAndPressEffect;
+using TouchReleaseRoutingEffect = Maui.FreakyControls.TouchPress.TouchReleaseEffect;
 
+#if MACCATALYST
+using Maui.FreakyControls.Platforms.MacCatalyst;
+#endif
+#if WINDOWS
+using Maui.FreakyControls.Platforms.Windows;
+#endif
 #if ANDROID
 
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Maui.FreakyControls.Platforms.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
 
@@ -28,12 +37,27 @@ public static class Extensions
         }
     }
 
-    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
+    public static void InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
+    {
+        if (useSkiaSharp)
+        {
+            builder.UseSkiaSharp();
+        }
+        builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
+        builder.ConfigureEffects(effects =>effects.AddEffects());
+    }
+
+    private static void AddEffects(this IEffectsBuilder effects)
+    {
+        effects.Add<TouchAndPressRoutingEffect, TouchAndPressEffect>();
+        effects.Add<TouchReleaseRoutingEffect, TouchReleaseEffect>();
+    }
+
+    private static void AddHandlers(this IMauiHandlersCollection handlers)
     {
         handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
         handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
         handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
-        handlers.AddHandler(typeof(FreakyButton), typeof(FreakyButtonHandler));
         handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
         handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
@@ -41,6 +65,10 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
     }
 
+    [Obsolete("Please use InitializeFreakyControls instead.")]
+    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers) => handlers.AddHandlers();
+
+    [Obsolete("Please use InitializeFreakyControls instead.")]
     public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.UseSkiaSharp();
