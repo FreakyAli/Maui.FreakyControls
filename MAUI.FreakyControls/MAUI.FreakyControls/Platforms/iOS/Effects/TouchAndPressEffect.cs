@@ -14,7 +14,7 @@ namespace Maui.FreakyControls.Platforms.iOS
         {
             _view = Control ?? Container;
 
-            if (Element is ITouchAndPressEffectConsumer touchAndPressEffectConsumer)
+            if (Element is ITouchPressEffect touchAndPressEffectConsumer)
             {
                 _view.UserInteractionEnabled = true;
 
@@ -33,9 +33,9 @@ namespace Maui.FreakyControls.Platforms.iOS
 
         private sealed class TouchAndPressGestureRecognizer : UIGestureRecognizer
         {
-            private readonly ITouchAndPressEffectConsumer _touchAndPressEffectConsumer;
+            private readonly ITouchPressEffect _touchAndPressEffectConsumer;
 
-            public TouchAndPressGestureRecognizer(ITouchAndPressEffectConsumer touchAndPressEffectConsumer)
+            public TouchAndPressGestureRecognizer(ITouchPressEffect touchAndPressEffectConsumer)
             {
                 _touchAndPressEffectConsumer = touchAndPressEffectConsumer;
             }

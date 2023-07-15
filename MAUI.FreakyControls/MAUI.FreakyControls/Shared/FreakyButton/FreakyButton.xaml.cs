@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyButton : Grid, ITouchAndPressEffectConsumer
+public partial class FreakyButton : Grid, ITouchPressEffect
 {
     #region Bindable properties
 

@@ -1,10 +1,10 @@
 ﻿namespace Maui.FreakyControls.TouchPress;
 
-public static class TouchAndPressAnimation
+internal static class TouchAndPressAnimation
 {
     public static void Animate(View view, EventType gestureType)
     {
-        var touchAndPressEffectConsumer = view as ITouchAndPressEffectConsumer;
+        var touchAndPressEffectConsumer = view as ITouchPressEffect;
 
         switch (gestureType)
         {
@@ -24,7 +24,7 @@ public static class TouchAndPressAnimation
         }
     }
 
-    private static void SetAnimation(View view, ITouchAndPressEffectConsumer touchAndPressEffectConsumer)
+    private static void SetAnimation(View view, ITouchPressEffect touchAndPressEffectConsumer)
     {
         if (touchAndPressEffectConsumer.Animation != AnimationTypes.None && touchAndPressEffectConsumer.IsEnabled)
         {
@@ -42,7 +42,7 @@ public static class TouchAndPressAnimation
         }
     }
 
-    private static void RestoreAnimation(View view, ITouchAndPressEffectConsumer touchAndPressEffectConsumer)
+    private static void RestoreAnimation(View view, ITouchPressEffect touchAndPressEffectConsumer)
     {
         if (touchAndPressEffectConsumer.Animation != AnimationTypes.None)
         {

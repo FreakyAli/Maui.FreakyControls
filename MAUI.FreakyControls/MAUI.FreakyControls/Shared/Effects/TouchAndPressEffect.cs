@@ -1,5 +1,5 @@
 ﻿namespace Maui.FreakyControls.TouchPress;
 
-public class TouchAndPressEffect : RoutingEffect
+internal class TouchAndPressEffect : RoutingEffect
 {
 }

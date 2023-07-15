@@ -1,10 +1,10 @@
 ﻿namespace Maui.FreakyControls.TouchPress;
 
-public class TouchReleaseEffect : RoutingEffect
+internal class TouchReleaseEffect : RoutingEffect
 {
     public Action OnRelease { get; set; }
 
-    public TouchReleaseEffect(Action onRelease) //: base($"{Effects.EffectIdPrefix}.{nameof(TouchReleaseEffect)}")
+    public TouchReleaseEffect(Action onRelease) 
     {
         OnRelease = onRelease;
     }

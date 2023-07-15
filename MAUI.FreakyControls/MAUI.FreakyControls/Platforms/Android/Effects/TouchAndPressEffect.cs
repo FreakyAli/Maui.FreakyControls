@@ -8,7 +8,7 @@ namespace Maui.FreakyControls.Platforms.Android;
 public class TouchAndPressEffect : PlatformEffect
 {
     private View _view;
-    private ITouchAndPressEffectConsumer _touchAndPressEffectConsumer;
+    private ITouchPressEffect _touchAndPressEffectConsumer;
 
     public TouchAndPressEffect()
     {
@@ -18,7 +18,7 @@ public class TouchAndPressEffect : PlatformEffect
     {
         _view = Control ?? Container;
 
-        if (_view != null && Element is ITouchAndPressEffectConsumer touchAndPressEffectConsumer)
+        if (_view != null && Element is ITouchPressEffect touchAndPressEffectConsumer)
         {
             _view.Touch += OnViewOnTouch;
             _touchAndPressEffectConsumer = touchAndPressEffectConsumer;
