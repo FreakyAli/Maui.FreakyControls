@@ -80,6 +80,8 @@ Fossa:
 
 <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=shield"/></a>
 
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_large)
+
 Sparkline: 
 
 [![Sparkline](https://stars.medv.io/FreakyAli/Maui.FreakyControls.svg)](https://stars.medv.io/FreakyAli/Maui.FreakyControls)
