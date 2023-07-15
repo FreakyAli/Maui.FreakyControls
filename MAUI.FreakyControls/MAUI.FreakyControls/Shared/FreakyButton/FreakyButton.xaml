@@ -1,58 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Grid
-    x:Class="Maui.FreakyControls.MaterialButton"
+    x:Class="Maui.FreakyControls.FreakyButton"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
     x:Name="this"
-    HeightRequest="50">
+    HeightRequest="55">
     <Grid.Resources>
         <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
     </Grid.Resources>
     <Border
         Padding="{Binding Padding, Source={x:Reference this}}"
         BackgroundColor="{Binding BackgroundColor, Source={x:Reference this}}"
+        StrokeThickness="{Binding BorderWidth, Source={x:Reference this}}"
         Stroke="{Binding BorderColor, Source={x:Reference this}}">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" />
         </Border.StrokeShape>
-        <StackLayout
-            HorizontalOptions="Center"
-            Orientation="Horizontal"
-            Spacing="{Binding Spacing, Source={x:Reference this}}">
+        <Grid
+            x:Name="mainGrid"
+            HorizontalOptions="Fill"
+            ColumnDefinitions="1*, 3*, 1*"
+            ColumnSpacing="{Binding Spacing, Source={x:Reference this}}">
             <ContentView
+                Grid.Column="0"
                 x:Name="leadingContentView"
-                HeightRequest="{Binding IconSize, Source={x:Reference this}}"
                 IsVisible="False"
+                HeightRequest="{Binding IconSize, Source={x:Reference this}}"
                 VerticalOptions="Center"
                 WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
 
             <Label
+                Grid.Column="1"
+                x:Name="txtLabel"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HorizontalOptions="Center"
-                IsVisible="{Binding IsBusy, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
-                LineBreakMode="NoWrap"
+                FontAttributes="{Binding FontAttributes, Source={x:Reference this}}"
+                LineBreakMode="{Binding LineBreakMode, Source={x:Reference this}}"
+                TextTransform="{Binding TextTransform, Source={x:Reference this}}"
+                VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}"
+                CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference this}}"
+                FontAutoScalingEnabled="{Binding FontAutoScalingEnabled, Source={x:Reference this}}"
                 Text="{Binding Text, Source={x:Reference this}}"
+                TextType="{Binding TextType, Source={x:Reference this}}"
                 TextColor="{Binding TextColor, Source={x:Reference this}}"
-                VerticalOptions="Center" />
+                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference this}}" />
 
             <ActivityIndicator
+                Grid.Column="1"
+                x:Name="activityIndicator"
+                TranslationY="35"
                 HeightRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
                 HorizontalOptions="Center"
                 IsRunning="{Binding IsBusy, Source={x:Reference this}}"
-                IsVisible="{Binding IsBusy, Source={x:Reference this}}"
                 VerticalOptions="Center"
                 WidthRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
                 Color="{Binding BusyColor, Source={x:Reference this}}" />
 
             <ContentView
+                Grid.Column="2"
                 x:Name="trailingContentView"
-                HeightRequest="{Binding IconSize, Source={x:Reference this}}"
                 IsVisible="False"
+                HeightRequest="{Binding IconSize, Source={x:Reference this}}"
                 VerticalOptions="Center"
                 WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
-        </StackLayout>
+        </Grid>
 
     </Border>
 

@@ -5,12 +5,12 @@ using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
+public partial class FreakyButton : Grid, ITouchAndPressEffectConsumer
 {
     #region Bindable properties
 
     public static readonly BindableProperty CommandProperty =
-        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MaterialButton), defaultValue: null);
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FreakyButton), defaultValue: null);
 
     public ICommand Command
     {
@@ -19,7 +19,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty CommandParameterProperty =
-        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(MaterialButton), defaultValue: null);
+        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FreakyButton), defaultValue: null);
 
     public object CommandParameter
     {
@@ -28,7 +28,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public new static readonly BindableProperty IsEnabledProperty =
-        BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(MaterialButton), defaultValue: true);
+        BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(FreakyButton), defaultValue: true);
 
     public new bool IsEnabled
     {
@@ -36,8 +36,33 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(IsEnabledProperty, value); }
     }
 
+    public static readonly BindableProperty AreIconsDistantProperty =
+       BindableProperty.Create(nameof(AreIconsDistant), typeof(bool), typeof(FreakyButton), defaultValue: true, propertyChanged: OnIconsAreExpandedChanged);
+
+    private static void OnIconsAreExpandedChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var freakyButton = bindable as FreakyButton;
+        var areIconsExpanded =(bool) newValue;
+        freakyButton.mainGrid.HorizontalOptions = areIconsExpanded ? LayoutOptions.Fill : LayoutOptions.Center;
+    }
+
+    public bool FontAutoScalingEnabled
+    {
+        get { return (bool)GetValue(FontAutoScalingEnabledProperty); }
+        set { SetValue(FontAutoScalingEnabledProperty, value); }
+    }
+
+    public static readonly BindableProperty FontAutoScalingEnabledProperty =
+        BindableProperty.Create(nameof(FontAutoScalingEnabled), typeof(bool), typeof(FreakyButton), defaultValue: true);
+
+    public bool AreIconsDistant
+    {
+        get { return (bool)GetValue(AreIconsDistantProperty); }
+        set { SetValue(AreIconsDistantProperty, value); }
+    }
+
     public static readonly BindableProperty AnimationProperty =
-        BindableProperty.Create(nameof(Animation), typeof(AnimationTypes), typeof(MaterialButton), defaultValue: AnimationTypes.Fade);
+        BindableProperty.Create(nameof(Animation), typeof(AnimationTypes), typeof(FreakyButton), defaultValue: AnimationTypes.Fade);
 
     public AnimationTypes Animation
     {
@@ -45,8 +70,44 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(AnimationProperty, value); }
     }
 
+    public static readonly BindableProperty FontAttributesProperty =
+       BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(FreakyButton), defaultValue: FontAttributes.None);
+
+    public FontAttributes FontAttributes
+    {
+        get { return (FontAttributes)GetValue(FontAttributesProperty); }
+        set { SetValue(FontAttributesProperty, value); }
+    }
+
+    public static readonly BindableProperty TextDecorationsProperty =
+      BindableProperty.Create(nameof(TextDecorations), typeof(TextDecorations), typeof(FreakyButton), defaultValue: TextDecorations.None);
+
+    public TextDecorations TextDecorations
+    {
+        get { return (TextDecorations)GetValue(TextDecorationsProperty); }
+        set { SetValue(TextDecorationsProperty, value); }
+    }
+
+    public static readonly BindableProperty LineBreakModeProperty =
+     BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(FreakyButton), defaultValue: LineBreakMode.NoWrap);
+
+    public LineBreakMode LineBreakMode
+    {
+        get { return (LineBreakMode)GetValue(LineBreakModeProperty); }
+        set { SetValue(LineBreakModeProperty, value); }
+    }
+
+    public static readonly BindableProperty TextTransformProperty =
+     BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(FreakyButton), defaultValue: TextTransform.None);
+
+    public TextTransform TextTransform
+    {
+        get { return (TextTransform)GetValue(TextTransformProperty); }
+        set { SetValue(TextTransformProperty, value); }
+    }
+
     public static readonly BindableProperty TextProperty =
-        BindableProperty.Create(nameof(Text), typeof(string), typeof(MaterialButton), defaultValue: null);
+        BindableProperty.Create(nameof(Text), typeof(string), typeof(FreakyButton), defaultValue: null);
 
     public string Text
     {
@@ -54,8 +115,38 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(TextProperty, value); }
     }
 
+    public static readonly BindableProperty HorizontalTextAlignmentProperty =
+       BindableProperty.Create(
+           nameof(HorizontalTextAlignment),
+           typeof(TextAlignment),
+           typeof(FreakyButton),
+           TextAlignment.Center);
+
+    public TextAlignment HorizontalTextAlignment
+    {
+        get { return (TextAlignment)GetValue(HorizontalTextAlignmentProperty); }
+        set { SetValue(HorizontalTextAlignmentProperty, value); }
+    }
+
+    public static readonly BindableProperty VerticalTextAlignmentProperty =
+        BindableProperty.Create(
+            nameof(VerticalTextAlignment),
+            typeof(TextAlignment),
+            typeof(FreakyButton),
+            TextAlignment.Center);
+
+    public TextAlignment VerticalTextAlignment
+    {
+        get { return (TextAlignment)GetValue(VerticalTextAlignmentProperty); }
+        set { SetValue(VerticalTextAlignmentProperty, value); }
+    }
+
     public static readonly BindableProperty CornerRadiusProperty =
-        BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(MaterialButton), new CornerRadius(10));
+        BindableProperty.Create(
+            nameof(CornerRadius),
+            typeof(CornerRadius),
+            typeof(FreakyButton),
+            new CornerRadius(10));
 
     public CornerRadius CornerRadius
     {
@@ -64,7 +155,27 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty IsBusyProperty =
-        BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(MaterialButton), defaultValue: false);
+        BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(FreakyButton), defaultValue: false, propertyChanged:OnIsBusyPropertyChanged);
+
+    private async static void OnIsBusyPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var freakyButton = bindable as FreakyButton;
+        var isBusy = (bool)newValue;
+        if (isBusy)
+        {
+            await freakyButton.txtLabel.TranslateTo(0, -35, 300, Easing.Linear);
+            freakyButton.txtLabel.IsVisible = false;
+            freakyButton.activityIndicator.IsVisible = true;
+            await freakyButton.activityIndicator.TranslateTo(0, 0, 200, Easing.Linear);
+        }
+        else
+        {
+            freakyButton.txtLabel.IsVisible = false;
+            freakyButton.txtLabel.IsVisible = true;
+            freakyButton.activityIndicator.TranslationY = 35;
+            freakyButton.txtLabel.TranslationY = 0;
+        }
+    }
 
     public bool IsBusy
     {
@@ -73,7 +184,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.White);
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.White);
 
     public Color TextColor
     {
@@ -82,7 +193,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public new static readonly BindableProperty BackgroundColorProperty =
-       BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.Black);
+       BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.Black);
 
     public new Color BackgroundColor
     {
@@ -91,7 +202,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty BorderColorProperty =
-        BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.White);
+        BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.White);
 
     public Color BorderColor
     {
@@ -100,7 +211,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty BusyColorProperty =
-        BindableProperty.Create(nameof(BusyColor), typeof(Color), typeof(MaterialButton), defaultValue: Colors.White);
+        BindableProperty.Create(nameof(BusyColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.White);
 
     public Color BusyColor
     {
@@ -109,7 +220,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty FontSizeProperty =
-        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(MaterialButton), defaultValue: Microsoft.Maui.Font.Default.Size);
+        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(FreakyButton), defaultValue: Microsoft.Maui.Font.Default.Size);
 
     public double FontSize
     {
@@ -117,8 +228,17 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(FontSizeProperty, value); }
     }
 
+    public static readonly BindableProperty BorderWidthProperty =
+       BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(FreakyButton), defaultValue: Button.BorderWidthProperty.DefaultValue);
+
+    public double BorderWidth
+    {
+        get { return (double)GetValue(BorderWidthProperty); }
+        set { SetValue(BorderWidthProperty, value); }
+    }
+
     public static readonly BindableProperty FontFamilyProperty =
-        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(MaterialButton), defaultValue: null);
+        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(FreakyButton), defaultValue: null);
 
     public string FontFamily
     {
@@ -127,12 +247,20 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty LeadingIconProperty =
-        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(MaterialButton), defaultValue: null, propertyChanged: OnLeadingIconChanged);
+        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(FreakyButton), defaultValue: null, propertyChanged: OnLeadingIconChanged);
 
     private static void OnLeadingIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var freakyButton = bindable as MaterialButton;
-        freakyButton.leadingContentView.Content = newValue as View;
+        var freakyButton = bindable as FreakyButton;
+        if (newValue != null)
+        {
+            freakyButton.leadingContentView.IsVisible = true;
+            freakyButton.leadingContentView.Content = newValue as View;
+        }
+        else
+        {
+            freakyButton.leadingContentView.IsVisible = true;
+        }
     }
 
     public View LeadingIcon
@@ -142,12 +270,20 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty TrailingIconProperty =
-        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(MaterialButton), defaultValue: null, propertyChanged: OnTrailingIconChanged);
+        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(FreakyButton), defaultValue: null, propertyChanged: OnTrailingIconChanged);
 
     private static void OnTrailingIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var freakyButton = bindable as MaterialButton;
-        freakyButton.trailingContentView.Content = newValue as View;
+        var freakyButton = bindable as FreakyButton;
+        if (newValue != null)
+        {
+            freakyButton.trailingContentView.IsVisible = true;
+            freakyButton.trailingContentView.Content = newValue as View;
+        }
+        else
+        {
+            freakyButton.trailingContentView.IsVisible = true;
+        }
     }
 
     public View TrailingIcon
@@ -157,7 +293,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty IconSizeProperty =
-        BindableProperty.Create(nameof(IconSize), typeof(double), typeof(MaterialButton), defaultValue: 24.0);
+        BindableProperty.Create(nameof(IconSize), typeof(double), typeof(FreakyButton), defaultValue: 24.0);
 
     public double IconSize
     {
@@ -165,8 +301,17 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
         set { SetValue(IconSizeProperty, value); }
     }
 
+    public static readonly BindableProperty CharacterSpacingProperty =
+    BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(FreakyButton), Button.CharacterSpacingProperty.DefaultValue);
+
+    public double CharacterSpacing
+    {
+        get { return (double)GetValue(CharacterSpacingProperty); }
+        set { SetValue(CharacterSpacingProperty, value); }
+    }
+
     public static readonly BindableProperty ActivityIndicatorSizeProperty =
-        BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(MaterialButton), defaultValue: 30.0);
+        BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(FreakyButton), defaultValue: 30.0);
 
     public double ActivityIndicatorSize
     {
@@ -175,7 +320,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public new static readonly BindableProperty PaddingProperty =
-        BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(MaterialButton), defaultValue: new Thickness(12, 0));
+        BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(FreakyButton), defaultValue: new Thickness(12, 0));
 
     public new Thickness Padding
     {
@@ -184,12 +329,21 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
     }
 
     public static readonly BindableProperty SpacingProperty =
-        BindableProperty.Create(nameof(Spacing), typeof(int), typeof(MaterialButton), defaultValue: 12);
+        BindableProperty.Create(nameof(Spacing), typeof(int), typeof(FreakyButton), defaultValue: 12);
 
     public int Spacing
     {
         get { return (int)GetValue(SpacingProperty); }
         set { SetValue(SpacingProperty, value); }
+    }
+
+    public static readonly BindableProperty TextTypeProperty =
+       BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(FreakyButton), defaultValue: TextType.Text);
+
+    public TextType TextType
+    {
+        get { return (TextType)GetValue(TextTypeProperty); }
+        set { SetValue(TextTypeProperty, value); }
     }
 
     public event EventHandler Clicked;
@@ -198,7 +352,7 @@ public partial class MaterialButton : Grid, ITouchAndPressEffectConsumer
 
     #region Constructors
 
-    public MaterialButton()
+    public FreakyButton()
     {
         InitializeComponent();
         this.Effects.Add(new TouchAndPressEffect());
