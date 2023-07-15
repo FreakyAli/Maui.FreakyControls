@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.ButtonsView.ButtonsView"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             Title="ButtonsView">
+    <VerticalStackLayout VerticalOptions="Center" Spacing="10" Padding="10">
+          <freakyControls:FreakyButton
+                Animation="FadeAndScale"
+                BackgroundColor="{StaticResource Primary}"
+                BorderColor="Black"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                BusyColor="White"
+                IconSize="30"
+                Text="A button I suppose"
+                TextColor="White">
+                <freakyControls:FreakyButton.TrailingIcon>
+                    <Image Source="calendar.png" />
+                </freakyControls:FreakyButton.TrailingIcon>
+            </freakyControls:FreakyButton>
+
+         <freakyControls:FreakyButton
+                Animation="FadeAndScale"
+                BackgroundColor="{StaticResource Primary}"
+                BorderColor="Black"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                BusyColor="White"
+                IconSize="30"
+                Text="A button I suppose"
+                TextColor="White">
+                <freakyControls:FreakyButton.LeadingIcon>
+                    <Image Source="calendar.png" />
+                </freakyControls:FreakyButton.LeadingIcon>
+            </freakyControls:FreakyButton>
+
+         <freakyControls:FreakyButton
+                Animation="FadeAndScale"
+                BackgroundColor="{StaticResource Primary}"
+                BorderColor="Black"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                BusyColor="White"
+                IconSize="30"
+                Text="A button I suppose"
+                TextColor="White"/>
+
+         <freakyControls:FreakyButton
+                Animation="FadeAndScale"
+                BackgroundColor="{StaticResource Primary}"
+                BorderColor="Black"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                BusyColor="White"
+                IconSize="30"
+                IsBusy="True"
+                Text="A button I suppose"
+                TextColor="White">
+            </freakyControls:FreakyButton>
+    </VerticalStackLayout>
+</ContentPage>

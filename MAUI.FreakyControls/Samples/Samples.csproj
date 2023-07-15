@@ -64,6 +64,7 @@
 	  <None Remove="Nager.Country" />
 	  <None Remove="Checkboxes\" />
 	  <None Remove="RadioButtons\" />
+	  <None Remove="ButtonsView\" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
@@ -78,6 +79,7 @@
 	  <Folder Include="SignatureView\" />
 	  <Folder Include="Checkboxes\" />
 	  <Folder Include="RadioButtons\" />
+	  <Folder Include="ButtonsView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />

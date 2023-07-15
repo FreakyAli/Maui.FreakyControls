@@ -9,23 +9,6 @@
     x:DataType="inputViews:InputViewModel">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
-            <freakyControls:FreakyButton
-                Animation="FadeAndScale"
-                BackgroundColor="{StaticResource Primary}"
-                BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                BusyColor="White"
-                IconSize="30"
-                IsBusy="{Binding IsBusy}"
-                Command="{Binding OnButtonClickedCommand}"
-                Text="A button I suppose"
-                TextColor="White">
-                <freakyControls:FreakyButton.TrailingIcon>
-                    <Image Source="calendar.png" />
-                </freakyControls:FreakyButton.TrailingIcon>
-            </freakyControls:FreakyButton>
-
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry
