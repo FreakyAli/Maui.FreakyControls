@@ -5,8 +5,10 @@ using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyButton : Grid, ITouchPressEffect
+public partial class FreakyButton : ContentView, ITouchPressEffect
 {
+    public static readonly string IsBusyVisualState = "Busy";
+
     #region Bindable properties
 
     public static readonly BindableProperty CommandProperty =
@@ -14,8 +16,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public ICommand Command
     {
-        get { return (ICommand)GetValue(CommandProperty); }
-        set { SetValue(CommandProperty, value); }
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
     }
 
     public static readonly BindableProperty CommandParameterProperty =
@@ -32,8 +34,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public new bool IsEnabled
     {
-        get { return (bool)GetValue(IsEnabledProperty); }
-        set { SetValue(IsEnabledProperty, value); }
+        get => (bool)GetValue(IsEnabledProperty);
+        set => SetValue(IsEnabledProperty, value);
     }
 
     public static readonly BindableProperty AreIconsDistantProperty =
@@ -48,8 +50,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public bool FontAutoScalingEnabled
     {
-        get { return (bool)GetValue(FontAutoScalingEnabledProperty); }
-        set { SetValue(FontAutoScalingEnabledProperty, value); }
+        get => (bool)GetValue(FontAutoScalingEnabledProperty);
+        set => SetValue(FontAutoScalingEnabledProperty, value);
     }
 
     public static readonly BindableProperty FontAutoScalingEnabledProperty =
@@ -57,8 +59,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public bool AreIconsDistant
     {
-        get { return (bool)GetValue(AreIconsDistantProperty); }
-        set { SetValue(AreIconsDistantProperty, value); }
+        get => (bool)GetValue(AreIconsDistantProperty);
+        set => SetValue(AreIconsDistantProperty, value);
     }
 
     public static readonly BindableProperty AnimationProperty =
@@ -66,8 +68,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public AnimationTypes Animation
     {
-        get { return (AnimationTypes)GetValue(AnimationProperty); }
-        set { SetValue(AnimationProperty, value); }
+        get => (AnimationTypes)GetValue(AnimationProperty);
+        set => SetValue(AnimationProperty, value);
     }
 
     public static readonly BindableProperty FontAttributesProperty =
@@ -75,8 +77,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public FontAttributes FontAttributes
     {
-        get { return (FontAttributes)GetValue(FontAttributesProperty); }
-        set { SetValue(FontAttributesProperty, value); }
+        get => (FontAttributes)GetValue(FontAttributesProperty);
+        set => SetValue(FontAttributesProperty, value);
     }
 
     public static readonly BindableProperty TextDecorationsProperty =
@@ -84,8 +86,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public TextDecorations TextDecorations
     {
-        get { return (TextDecorations)GetValue(TextDecorationsProperty); }
-        set { SetValue(TextDecorationsProperty, value); }
+        get => (TextDecorations)GetValue(TextDecorationsProperty);
+        set => SetValue(TextDecorationsProperty, value);
     }
 
     public static readonly BindableProperty LineBreakModeProperty =
@@ -93,8 +95,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public LineBreakMode LineBreakMode
     {
-        get { return (LineBreakMode)GetValue(LineBreakModeProperty); }
-        set { SetValue(LineBreakModeProperty, value); }
+        get => (LineBreakMode)GetValue(LineBreakModeProperty);
+        set => SetValue(LineBreakModeProperty, value);
     }
 
     public static readonly BindableProperty TextTransformProperty =
@@ -102,8 +104,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public TextTransform TextTransform
     {
-        get { return (TextTransform)GetValue(TextTransformProperty); }
-        set { SetValue(TextTransformProperty, value); }
+        get => (TextTransform)GetValue(TextTransformProperty);
+        set => SetValue(TextTransformProperty, value);
     }
 
     public static readonly BindableProperty TextProperty =
@@ -111,8 +113,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public string Text
     {
-        get { return (string)GetValue(TextProperty); }
-        set { SetValue(TextProperty, value); }
+        get => (string)GetValue(TextProperty);
+        set => SetValue(TextProperty, value);
     }
 
     public static readonly BindableProperty HorizontalTextAlignmentProperty =
@@ -124,8 +126,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public TextAlignment HorizontalTextAlignment
     {
-        get { return (TextAlignment)GetValue(HorizontalTextAlignmentProperty); }
-        set { SetValue(HorizontalTextAlignmentProperty, value); }
+        get => (TextAlignment)GetValue(HorizontalTextAlignmentProperty);
+        set => SetValue(HorizontalTextAlignmentProperty, value);
     }
 
     public static readonly BindableProperty VerticalTextAlignmentProperty =
@@ -137,8 +139,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public TextAlignment VerticalTextAlignment
     {
-        get { return (TextAlignment)GetValue(VerticalTextAlignmentProperty); }
-        set { SetValue(VerticalTextAlignmentProperty, value); }
+        get => (TextAlignment)GetValue(VerticalTextAlignmentProperty);
+        set => SetValue(VerticalTextAlignmentProperty, value);
     }
 
     public static readonly BindableProperty CornerRadiusProperty =
@@ -150,8 +152,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public CornerRadius CornerRadius
     {
-        get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-        set { SetValue(CornerRadiusProperty, value); }
+        get => (CornerRadius)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
     }
 
     public static readonly BindableProperty IsBusyProperty =
@@ -179,8 +181,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public bool IsBusy
     {
-        get { return (bool)GetValue(IsBusyProperty); }
-        set { SetValue(IsBusyProperty, value); }
+        get => (bool)GetValue(IsBusyProperty);
+        set => SetValue(IsBusyProperty, value);
     }
 
     public static readonly BindableProperty TextColorProperty =
@@ -188,8 +190,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public Color TextColor
     {
-        get { return (Color)GetValue(TextColorProperty); }
-        set { SetValue(TextColorProperty, value); }
+        get => (Color)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
     }
 
     public new static readonly BindableProperty BackgroundColorProperty =
@@ -197,8 +199,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public new Color BackgroundColor
     {
-        get { return (Color)GetValue(BackgroundColorProperty); }
-        set { SetValue(BackgroundColorProperty, value); }
+        get => (Color)GetValue(BackgroundColorProperty);
+        set => SetValue(BackgroundColorProperty, value);
     }
 
     public static readonly BindableProperty BorderColorProperty =
@@ -206,8 +208,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public Color BorderColor
     {
-        get { return (Color)GetValue(BorderColorProperty); }
-        set { SetValue(BorderColorProperty, value); }
+        get => (Color)GetValue(BorderColorProperty);
+        set => SetValue(BorderColorProperty, value);
     }
 
     public static readonly BindableProperty BusyColorProperty =
@@ -215,8 +217,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public Color BusyColor
     {
-        get { return (Color)GetValue(BusyColorProperty); }
-        set { SetValue(BusyColorProperty, value); }
+        get => (Color)GetValue(BusyColorProperty);
+        set => SetValue(BusyColorProperty, value);
     }
 
     public static readonly BindableProperty FontSizeProperty =
@@ -224,8 +226,8 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public double FontSize
     {
-        get { return (double)GetValue(FontSizeProperty); }
-        set { SetValue(FontSizeProperty, value); }
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
     }
 
     public static readonly BindableProperty BorderWidthProperty =
@@ -233,7 +235,7 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     public double BorderWidth
     {
-        get { return (double)GetValue(BorderWidthProperty); }
+        get => (double)GetValue(BorderWidthProperty);
         set { SetValue(BorderWidthProperty, value); }
     }
 
@@ -362,11 +364,20 @@ public partial class FreakyButton : Grid, ITouchPressEffect
 
     #region Methods
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void ChangeVisualState()
     {
-        base.OnPropertyChanged(propertyName);
-        if (propertyName == nameof(IsEnabled))
-            VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled");
+        if(IsBusy)
+        {
+            VisualStateManager.GoToState(this, FreakyButton.IsBusyVisualState);
+        }
+        else if (IsEnabled)
+        {
+            VisualStateManager.GoToState(this, VisualStateManager.CommonStates.Normal);
+        }
+        else
+        {
+            VisualStateManager.GoToState(this, VisualStateManager.CommonStates.Disabled);
+        }
     }
 
     public void ConsumeEvent(EventType gestureType)

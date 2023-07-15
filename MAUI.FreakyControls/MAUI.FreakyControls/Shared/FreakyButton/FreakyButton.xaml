@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Grid
+<ContentView
     x:Class="Maui.FreakyControls.FreakyButton"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
     x:Name="this"
     HeightRequest="55">
-    <Grid.Resources>
+    <ContentView.Resources>
         <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
-    </Grid.Resources>
+    </ContentView.Resources>
     <Border
         Padding="{Binding Padding, Source={x:Reference this}}"
         BackgroundColor="{Binding BackgroundColor, Source={x:Reference this}}"
@@ -68,4 +68,4 @@
 
     </Border>
 
-</Grid>
+</ContentView>
