@@ -37,8 +37,12 @@ public static class Extensions
         }
     }
 
-    public static void InitializeFreakyControls(this MauiAppBuilder builder)
+    public static void InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp= true)
     {
+        if (useSkiaSharp)
+        {
+            builder.UseSkiaSharp();
+        }
         builder.ConfigureMauiHandlers(builders => builders.AddFreakyHandlers());
         builder.ConfigureEffects(effects =>
         {
@@ -60,6 +64,7 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
     }
 
+    [Obsolete("Please use InitializeFreakyControls instead.")]
     public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.UseSkiaSharp();
