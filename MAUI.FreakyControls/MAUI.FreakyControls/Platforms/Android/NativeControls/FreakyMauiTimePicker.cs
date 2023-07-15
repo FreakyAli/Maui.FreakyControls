@@ -9,14 +9,12 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
 public class FreakyMauiTimePicker : MauiTimePicker
 {
-    private Drawable drawableRight;
-    private Drawable drawableLeft;
-    private Drawable drawableTop;
-    private Drawable drawableBottom;
-
     private int actionX, actionY;
-
     private IDrawableClickListener clickListener;
+    private Drawable drawableBottom;
+    private Drawable drawableLeft;
+    private Drawable drawableRight;
+    private Drawable drawableTop;
 
     public FreakyMauiTimePicker(Context context) : base(context)
     {
@@ -28,28 +26,6 @@ public class FreakyMauiTimePicker : MauiTimePicker
 
     public FreakyMauiTimePicker(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
     {
-    }
-
-    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
-           Drawable right, Drawable bottom)
-    {
-        if (left != null)
-        {
-            drawableLeft = left;
-        }
-        if (right != null)
-        {
-            drawableRight = right;
-        }
-        if (top != null)
-        {
-            drawableTop = top;
-        }
-        if (bottom != null)
-        {
-            drawableBottom = bottom;
-        }
-        base.SetCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
     }
 
     public override bool OnTouchEvent(MotionEvent e)
@@ -167,6 +143,33 @@ public class FreakyMauiTimePicker : MauiTimePicker
         return base.OnTouchEvent(e);
     }
 
+    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
+               Drawable right, Drawable bottom)
+    {
+        if (left != null)
+        {
+            drawableLeft = left;
+        }
+        if (right != null)
+        {
+            drawableRight = right;
+        }
+        if (top != null)
+        {
+            drawableTop = top;
+        }
+        if (bottom != null)
+        {
+            drawableBottom = bottom;
+        }
+        base.SetCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+    }
+
+    public void SetDrawableClickListener(IDrawableClickListener listener)
+    {
+        this.clickListener = listener;
+    }
+
     protected override void JavaFinalize()
     {
         drawableRight = null;
@@ -174,10 +177,5 @@ public class FreakyMauiTimePicker : MauiTimePicker
         drawableLeft = null;
         drawableTop = null;
         base.JavaFinalize();
-    }
-
-    public void SetDrawableClickListener(IDrawableClickListener listener)
-    {
-        this.clickListener = listener;
     }
 }

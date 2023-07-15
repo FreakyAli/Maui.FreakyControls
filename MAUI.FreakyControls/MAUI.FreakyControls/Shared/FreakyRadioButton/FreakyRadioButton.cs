@@ -11,12 +11,12 @@ namespace Maui.FreakyControls
     {
         #region Fields
 
-        private bool isAnimating;
-        private readonly SKCanvasView skiaView;
-        private readonly TapGestureRecognizer tapped = new();
         private const string defaultName = "RadioButton";
         private static readonly float outlineWidth = 6.0f;
         private static readonly double size = 24.0;
+        private readonly SKCanvasView skiaView;
+        private readonly TapGestureRecognizer tapped = new();
+        private bool isAnimating;
 
         #endregion Fields
 
@@ -32,32 +32,29 @@ namespace Maui.FreakyControls
             GestureRecognizers.Add(tapped);
         }
 
-        private async Task ToggleAnimationAsync()
+        public void Dispose()
         {
-            isAnimating = true;
-            await skiaView.ScaleTo(0.80, 100);
-            skiaView.InvalidateSurface();
-            await skiaView.ScaleTo(1, 100, Easing.BounceOut);
-            isAnimating = false;
+            tapped.Tapped -= Radiobutton_Tapped;
+            GestureRecognizers.Clear();
+            skiaView.PaintSurface -= Handle_PaintSurface;
         }
 
-        private void Radiobutton_Tapped(object sender, EventArgs e)
+        protected override void ChangeVisualState()
         {
-            if (IsEnabled)
-            {
-                if (isAnimating)
-                    return;
-                if (!IsChecked)
-                    IsChecked = true;
-            }
+            ApplyIsCheckedState();
+            base.ChangeVisualState();
         }
 
-        private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void ApplyIsCheckedState()
         {
-            e?.Surface?.Canvas?.Clear();
-            DrawOutline(e);
             if (IsChecked)
-                DrawCheckFilled(e);
+            {
+                VisualStateManager.GoToState(this, RadioButton.CheckedVisualState);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, RadioButton.UncheckedVisualState);
+            }
         }
 
         /// <summary>
@@ -142,6 +139,34 @@ namespace Maui.FreakyControls
             }
         }
 
+        private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        {
+            e?.Surface?.Canvas?.Clear();
+            DrawOutline(e);
+            if (IsChecked)
+                DrawCheckFilled(e);
+        }
+
+        private void Radiobutton_Tapped(object sender, EventArgs e)
+        {
+            if (IsEnabled)
+            {
+                if (isAnimating)
+                    return;
+                if (!IsChecked)
+                    IsChecked = true;
+            }
+        }
+
+        private async Task ToggleAnimationAsync()
+        {
+            isAnimating = true;
+            await skiaView.ScaleTo(0.80, 100);
+            skiaView.InvalidateSurface();
+            await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+            isAnimating = false;
+        }
+
         #region Events
 
         /// <summary>
@@ -153,39 +178,18 @@ namespace Maui.FreakyControls
 
         #region Bindable Properties
 
-        public static readonly BindableProperty HasCheckAnimationProperty =
+        public static readonly BindableProperty CheckColorProperty =
         BindableProperty.Create(
-            nameof(HasCheckAnimation),
-            typeof(bool),
+            nameof(CheckColor),
+            typeof(Color),
             typeof(FreakyRadioButton),
-            true);
+            Colors.Black);
 
-        /// <summary>
-        /// Gets or sets the color of the outline.
-        /// </summary>
-        /// <value>Color value of the outline</value>
-        public bool HasCheckAnimation
-        {
-            get => (bool)GetValue(HasCheckAnimationProperty);
-            set => SetValue(HasCheckAnimationProperty, value);
-        }
-
-        public static readonly BindableProperty OutlineColorProperty =
+        public static readonly BindableProperty CheckedChangedCommandProperty =
         BindableProperty.Create(
-        nameof(OutlineColor),
-        typeof(Color),
-        typeof(FreakyRadioButton),
-        Colors.Black);
-
-        /// <summary>
-        /// Gets or sets the color of the outline.
-        /// </summary>
-        /// <value>Color value of the outline</value>
-        public Color OutlineColor
-        {
-            get { return (Color)GetValue(OutlineColorProperty); }
-            set { SetValue(OutlineColorProperty, value); }
-        }
+            nameof(CheckedChangedCommand),
+            typeof(ICommand),
+            typeof(FreakyRadioButton));
 
         public static readonly BindableProperty FillColorProperty =
         BindableProperty.Create(
@@ -194,22 +198,51 @@ namespace Maui.FreakyControls
             typeof(FreakyRadioButton),
             Colors.White);
 
-        /// <summary>
-        /// Gets or sets the color of the fill.
-        /// </summary>
-        /// <value>Color value of the fill.</value>
-        public Color FillColor
-        {
-            get { return (Color)GetValue(FillColorProperty); }
-            set { SetValue(FillColorProperty, value); }
-        }
-
-        public static readonly BindableProperty CheckColorProperty =
-        BindableProperty.Create(
-            nameof(CheckColor),
-            typeof(Color),
+        public static readonly BindableProperty HasCheckAnimationProperty =
+                                BindableProperty.Create(
+            nameof(HasCheckAnimation),
+            typeof(bool),
             typeof(FreakyRadioButton),
-            Colors.Black);
+            true);
+
+        public static readonly BindableProperty IsCheckedProperty =
+                BindableProperty.Create(
+                    nameof(IsChecked),
+                    typeof(bool),
+                    typeof(FreakyRadioButton),
+                    false,
+                    BindingMode.TwoWay,
+                    propertyChanged: OnCheckedChanged);
+
+        public static readonly BindableProperty NameProperty =
+                BindableProperty.Create(
+                    nameof(Name),
+                    typeof(string),
+                    typeof(FreakyRadioButton),
+                    defaultName,
+                    propertyChanged: SizeRequestChanged);
+
+        public static readonly BindableProperty OutlineColorProperty =
+                BindableProperty.Create(
+                nameof(OutlineColor),
+                typeof(Color),
+                typeof(FreakyRadioButton),
+                Colors.Black);
+
+        public static readonly BindableProperty OutlineWidthProperty =
+                BindableProperty.Create(
+                    nameof(OutlineWidth),
+                    typeof(float),
+                    typeof(FreakyRadioButton),
+                    outlineWidth);
+
+        public static readonly BindableProperty SizeRequestProperty =
+                BindableProperty.Create(
+                    nameof(SizeRequest),
+                    typeof(double),
+                    typeof(FreakyRadioButton),
+                    size,
+                    propertyChanged: SizeRequestChanged);
 
         /// <summary>
         /// Gets or sets the color of the check.
@@ -221,29 +254,6 @@ namespace Maui.FreakyControls
             set { SetValue(CheckColorProperty, value); }
         }
 
-        public static readonly BindableProperty OutlineWidthProperty =
-        BindableProperty.Create(
-            nameof(OutlineWidth),
-            typeof(float),
-            typeof(FreakyRadioButton),
-            outlineWidth);
-
-        /// <summary>
-        /// Gets or sets the width of the outline.
-        /// </summary>
-        /// <value>The width of the outline</value>
-        public float OutlineWidth
-        {
-            get { return (float)GetValue(OutlineWidthProperty); }
-            set { SetValue(OutlineWidthProperty, value); }
-        }
-
-        public static readonly BindableProperty CheckedChangedCommandProperty =
-        BindableProperty.Create(
-            nameof(CheckedChangedCommand),
-            typeof(ICommand),
-            typeof(FreakyRadioButton));
-
         /// <summary>
         /// Triggered when <see cref="FreakyRadioButton.IsChecked"/> changes.
         /// </summary>
@@ -253,14 +263,25 @@ namespace Maui.FreakyControls
             set { SetValue(CheckedChangedCommandProperty, value); }
         }
 
-        public static readonly BindableProperty IsCheckedProperty =
-        BindableProperty.Create(
-            nameof(IsChecked),
-            typeof(bool),
-            typeof(FreakyRadioButton),
-            false,
-            BindingMode.TwoWay,
-            propertyChanged: OnCheckedChanged);
+        /// <summary>
+        /// Gets or sets the color of the fill.
+        /// </summary>
+        /// <value>Color value of the fill.</value>
+        public Color FillColor
+        {
+            get { return (Color)GetValue(FillColorProperty); }
+            set { SetValue(FillColorProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the color of the outline.
+        /// </summary>
+        /// <value>Color value of the outline</value>
+        public bool HasCheckAnimation
+        {
+            get => (bool)GetValue(HasCheckAnimationProperty);
+            set => SetValue(HasCheckAnimationProperty, value);
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="FreakyRadioButton"/> is checked.
@@ -272,22 +293,35 @@ namespace Maui.FreakyControls
             set { SetValue(IsCheckedProperty, value); }
         }
 
-        private static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
+        /// <summary>
+        /// Gets or sets a value indicating the identifier of this <see cref="FreakyRadioButton"/>
+        /// </summary>
+        /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
+        public string Name
         {
-            if (!(bindable is FreakyRadioButton radioButton)) return;
-            radioButton.CheckedChanged?.Invoke(radioButton, new CheckedChangedEventArgs((bool)newValue));
-            radioButton.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
-            radioButton.ChangeVisualState();
-            await radioButton.ToggleAnimationAsync();
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
         }
 
-        public static readonly BindableProperty SizeRequestProperty =
-        BindableProperty.Create(
-            nameof(SizeRequest),
-            typeof(double),
-            typeof(FreakyRadioButton),
-            size,
-            propertyChanged: SizeRequestChanged);
+        /// <summary>
+        /// Gets or sets the color of the outline.
+        /// </summary>
+        /// <value>Color value of the outline</value>
+        public Color OutlineColor
+        {
+            get { return (Color)GetValue(OutlineColorProperty); }
+            set { SetValue(OutlineColorProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of the outline.
+        /// </summary>
+        /// <value>The width of the outline</value>
+        public float OutlineWidth
+        {
+            get { return (float)GetValue(OutlineWidthProperty); }
+            set { SetValue(OutlineWidthProperty, value); }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating the size of this <see cref="FreakyRadioButton"/>
@@ -299,6 +333,15 @@ namespace Maui.FreakyControls
             set { SetValue(SizeRequestProperty, value); }
         }
 
+        private static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (!(bindable is FreakyRadioButton radioButton)) return;
+            radioButton.CheckedChanged?.Invoke(radioButton, new CheckedChangedEventArgs((bool)newValue));
+            radioButton.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
+            radioButton.ChangeVisualState();
+            await radioButton.ToggleAnimationAsync();
+        }
+
         private static void SizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (!(bindable is FreakyRadioButton RadioButton)) return;
@@ -306,49 +349,6 @@ namespace Maui.FreakyControls
             RadioButton.skiaView.WidthRequest = RadioButton.skiaView.HeightRequest = (double)(newValue);
         }
 
-        public static readonly BindableProperty NameProperty =
-        BindableProperty.Create(
-            nameof(Name),
-            typeof(string),
-            typeof(FreakyRadioButton),
-            defaultName,
-            propertyChanged: SizeRequestChanged);
-
-        /// <summary>
-        /// Gets or sets a value indicating the identifier of this <see cref="FreakyRadioButton"/>
-        /// </summary>
-        /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
-        public string Name
-        {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
-        }
-
         #endregion Bindable Properties
-
-        protected override void ChangeVisualState()
-        {
-            ApplyIsCheckedState();
-            base.ChangeVisualState();
-        }
-
-        private void ApplyIsCheckedState()
-        {
-            if (IsChecked)
-            {
-                VisualStateManager.GoToState(this, RadioButton.CheckedVisualState);
-            }
-            else
-            {
-                VisualStateManager.GoToState(this, RadioButton.UncheckedVisualState);
-            }
-        }
-
-        public void Dispose()
-        {
-            tapped.Tapped -= Radiobutton_Tapped;
-            GestureRecognizers.Clear();
-            skiaView.PaintSurface -= Handle_PaintSurface;
-        }
     }
 }

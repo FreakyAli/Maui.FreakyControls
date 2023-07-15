@@ -50,15 +50,22 @@ public struct SizeOrScale
         KeepAspectRatio = keepAspectRatio;
     }
 
+    public bool IsValid => X > 0 && Y > 0;
+    public bool KeepAspectRatio { get; set; }
+    public SizeOrScaleType Type { get; set; }
     public float X { get; set; }
 
     public float Y { get; set; }
 
-    public SizeOrScaleType Type { get; set; }
+    public static implicit operator SizeOrScale(float scale)
+    {
+        return new SizeOrScale(scale, SizeOrScaleType.Scale);
+    }
 
-    public bool KeepAspectRatio { get; set; }
-
-    public bool IsValid => X > 0 && Y > 0;
+    public static implicit operator SizeOrScale(Size size)
+    {
+        return new SizeOrScale((float)size.Width, (float)size.Height, SizeOrScaleType.Size);
+    }
 
     public Size GetScale(float width, float height)
     {
@@ -82,15 +89,5 @@ public struct SizeOrScale
         {
             return new Size(X, Y);
         }
-    }
-
-    public static implicit operator SizeOrScale(float scale)
-    {
-        return new SizeOrScale(scale, SizeOrScaleType.Scale);
-    }
-
-    public static implicit operator SizeOrScale(Size size)
-    {
-        return new SizeOrScale((float)size.Width, (float)size.Height, SizeOrScaleType.Size);
     }
 }

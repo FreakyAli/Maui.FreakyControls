@@ -7,8 +7,8 @@ namespace Maui.FreakyControls.Platforms.Android;
 internal class InkStroke
 {
     private NativeColor color;
-    private float width;
     private IList<NativePoint> inkPoints;
+    private float width;
 
     public InkStroke(NativePath path, IList<NativePoint> points, NativeColor color, float width)
     {
@@ -16,13 +16,6 @@ internal class InkStroke
         inkPoints = points;
         NativeColor = color;
         Width = width;
-    }
-
-    public NativePath Path { get; private set; }
-
-    public IList<NativePoint> GetPoints()
-    {
-        return inkPoints;
     }
 
     public NativeColor NativeColor
@@ -35,6 +28,8 @@ internal class InkStroke
         }
     }
 
+    public NativePath Path { get; private set; }
+
     public float Width
     {
         get { return width; }
@@ -46,4 +41,9 @@ internal class InkStroke
     }
 
     internal bool IsDirty { get; set; }
+
+    public IList<NativePoint> GetPoints()
+    {
+        return inkPoints;
+    }
 }

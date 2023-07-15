@@ -15,14 +15,14 @@ public partial class MainPage : ContentPage
         await this.DisplayAlert("Yo", "Hi from the dotnet bot", "Ok");
     }
 
-    private async void OnButtonClicked(System.Object sender, System.EventArgs e)
-    {
-        await this.DisplayAlert("Yo", "I am a freaky button", "Ok");
-    }
-
     private async void ListView_ItemTapped(System.Object sender, Microsoft.Maui.Controls.ItemTappedEventArgs e)
     {
         string route = e.Item.ToString();
         await Shell.Current.GoToAsync(route);
+    }
+
+    private async void OnButtonClicked(System.Object sender, System.EventArgs e)
+    {
+        await this.DisplayAlert("Yo", "I am a freaky button", "Ok");
     }
 }

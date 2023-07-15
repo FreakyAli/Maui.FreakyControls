@@ -7,8 +7,13 @@ namespace Maui.FreakyControls.Platforms.Android;
 
 public class TouchAndPressEffect : PlatformEffect
 {
-    private View _view;
     private ITouchPressEffect _touchAndPressEffectConsumer;
+    private View _view;
+    private float? firstX;
+
+    private float? firstY;
+
+    private bool ignored;
 
     public TouchAndPressEffect()
     {
@@ -32,10 +37,6 @@ public class TouchAndPressEffect : PlatformEffect
             _view.Touch -= OnViewOnTouch;
         }
     }
-
-    private float? firstX;
-    private float? firstY;
-    private bool ignored;
 
     private void OnViewOnTouch(object sender, View.TouchEventArgs e)
     {

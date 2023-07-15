@@ -22,28 +22,6 @@ public class CircularImageView : AppCompatImageView
     {
     }
 
-    protected override void OnDraw(Canvas canvas)
-    {
-        Drawable drawable = this.Drawable;
-
-        if (drawable == null)
-        {
-            return;
-        }
-
-        if (Width == 0 || Height == 0)
-        {
-            return;
-        }
-        Bitmap b = ((BitmapDrawable)drawable).Bitmap;
-        Bitmap bitmap = b.Copy(Bitmap.Config.Argb8888, true);
-
-        int w = Width, h = Height;
-
-        Bitmap roundBitmap = GetRoundedCroppedBitmap(bitmap, w);
-        canvas.DrawBitmap(roundBitmap, 0, 0, null);
-    }
-
     public static Bitmap GetRoundedCroppedBitmap(Bitmap bmp, int radius)
     {
         Bitmap sbmp;
@@ -74,5 +52,27 @@ public class CircularImageView : AppCompatImageView
         paint.SetXfermode(new PorterDuffXfermode(PorterDuff.Mode.SrcIn));
         canvas.DrawBitmap(sbmp, rect, rect, paint);
         return output;
+    }
+
+    protected override void OnDraw(Canvas canvas)
+    {
+        Drawable drawable = this.Drawable;
+
+        if (drawable == null)
+        {
+            return;
+        }
+
+        if (Width == 0 || Height == 0)
+        {
+            return;
+        }
+        Bitmap b = ((BitmapDrawable)drawable).Bitmap;
+        Bitmap bitmap = b.Copy(Bitmap.Config.Argb8888, true);
+
+        int w = Width, h = Height;
+
+        Bitmap roundBitmap = GetRoundedCroppedBitmap(bitmap, w);
+        canvas.DrawBitmap(roundBitmap, 0, 0, null);
     }
 }

@@ -11,6 +11,8 @@ public abstract class BaseSKCanvas : SKCanvasView
         BackgroundColor = Colors.Transparent;
     }
 
+    protected abstract void DoPaintSurface(SKPaintSurfaceEventArgs skPaintSurfaceEventArgs);
+
     protected override sealed void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         //TODO: Figure out why drawing on coachmark is leading to surface being null
@@ -28,8 +30,6 @@ public abstract class BaseSKCanvas : SKCanvasView
 
         DoPaintSurface(e);
     }
-
-    protected abstract void DoPaintSurface(SKPaintSurfaceEventArgs skPaintSurfaceEventArgs);
 
     protected override void OnPropertyChanged(string propertyName = null)
     {

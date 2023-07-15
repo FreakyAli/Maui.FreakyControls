@@ -11,7 +11,6 @@ public class ImageStreamRequestedEventArgs : FreakyEventArgs
 
     public SignatureImageFormat ImageFormat { get; private set; }
 
-    public ImageConstructionSettings Settings { get; private set; }
-
     public Task<Stream> ImageStreamTask { get; set; } = Task.FromResult<Stream>(null);
+    public ImageConstructionSettings Settings { get; private set; }
 }

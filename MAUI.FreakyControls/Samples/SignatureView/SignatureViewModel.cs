@@ -5,14 +5,14 @@ namespace Samples.SignatureView
 {
     public class SignatureViewModel : MainViewModel
     {
-        public ICommand ConversionCommand { get; }
-
-        public Stream ImageStream { get; set; }
-
         public SignatureViewModel()
         {
             ConversionCommand = new AsyncRelayCommand(ExecuteCommandAsync);
         }
+
+        public ICommand ConversionCommand { get; }
+
+        public Stream ImageStream { get; set; }
 
         private async Task ExecuteCommandAsync()
         {

@@ -2,10 +2,10 @@
 
 internal class TouchReleaseEffect : RoutingEffect
 {
-    public Action OnRelease { get; set; }
-
-    public TouchReleaseEffect(Action onRelease) 
+    public TouchReleaseEffect(Action onRelease)
     {
         OnRelease = onRelease;
     }
+
+    public Action OnRelease { get; set; }
 }

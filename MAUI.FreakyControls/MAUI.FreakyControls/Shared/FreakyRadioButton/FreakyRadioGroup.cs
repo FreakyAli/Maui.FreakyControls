@@ -5,13 +5,6 @@ namespace Maui.FreakyControls;
 
 public class FreakyRadioGroup : StackLayout
 {
-    private List<FreakyRadioButton> radioButtons = new List<FreakyRadioButton>();
-
-    /// <summary>
-    /// Triggered when <see cref="FreakyRadioGroup.SelectedIndex"/> changes.
-    /// </summary>
-    public event EventHandler<FreakyRadioButtonEventArgs> SelectedRadioButtonChanged;
-
     public static readonly BindableProperty SelectedIndexProperty =
     BindableProperty.Create(
         nameof(SelectedIndex),
@@ -25,21 +18,18 @@ public class FreakyRadioGroup : StackLayout
             ((FreakyRadioGroup)bindable).SetDefaultCheckedRadioButton();
         });
 
-    /// <summary>
-    /// Triggered when <see cref="FreakyRadioGroup.SelectedIndex"/> changes.
-    /// Has the <see cref="FreakyRadioButtonEventArgs"/> as a Command Parameter
-    /// </summary>
-    public ICommand SelectedRadioButtonChangedCommand
-    {
-        get { return (ICommand)GetValue(SelectedRadioButtonChangedCommandProperty); }
-        set { SetValue(SelectedRadioButtonChangedCommandProperty, value); }
-    }
-
     public static readonly BindableProperty SelectedRadioButtonChangedCommandProperty =
     BindableProperty.Create(
         nameof(SelectedRadioButtonChangedCommand),
         typeof(ICommand),
         typeof(FreakyRadioGroup));
+
+    private List<FreakyRadioButton> radioButtons = new List<FreakyRadioButton>();
+
+    /// <summary>
+    /// Triggered when <see cref="FreakyRadioGroup.SelectedIndex"/> changes.
+    /// </summary>
+    public event EventHandler<FreakyRadioButtonEventArgs> SelectedRadioButtonChanged;
 
     /// <summary>
     /// SelectedIndex of <see cref="FreakyRadioButton"/> in this Group
@@ -50,20 +40,14 @@ public class FreakyRadioGroup : StackLayout
         set => SetValue(SelectedIndexProperty, value);
     }
 
-    private void UpdateCheckedStates()
+    /// <summary>
+    /// Triggered when <see cref="FreakyRadioGroup.SelectedIndex"/> changes.
+    /// Has the <see cref="FreakyRadioButtonEventArgs"/> as a Command Parameter
+    /// </summary>
+    public ICommand SelectedRadioButtonChangedCommand
     {
-        int index = 0;
-        LoopChildren(Children, index);
-    }
-
-    private void SetDefaultCheckedRadioButton()
-    {
-        if (SelectedIndex < 0 || SelectedIndex >= radioButtons.Count)
-        {
-            return;
-        }
-
-        radioButtons[SelectedIndex].IsChecked = true;
+        get { return (ICommand)GetValue(SelectedRadioButtonChangedCommandProperty); }
+        set { SetValue(SelectedRadioButtonChangedCommandProperty, value); }
     }
 
     protected override void OnChildAdded(Element child)
@@ -86,28 +70,6 @@ public class FreakyRadioGroup : StackLayout
                 }
             }
         }
-    }
-
-    private void RadioButton_CheckedChanged(object sender, EventArgs e)
-    {
-        if (!(sender is FreakyRadioButton selectedRadioButton) || !selectedRadioButton.IsChecked)
-        {
-            return;
-        }
-
-        foreach (var radioButton in radioButtons)
-        {
-            if (radioButton != selectedRadioButton)
-            {
-                radioButton.IsChecked = false;
-            }
-        }
-
-        int index = FindIndex(selectedRadioButton);
-        string name = selectedRadioButton.Name;
-        var eventArgs = new FreakyRadioButtonEventArgs(name, index);
-        this.SelectedRadioButtonChangedCommand?.ExecuteCommandIfAvailable(eventArgs);
-        SelectedRadioButtonChanged?.Invoke(this, eventArgs);
     }
 
     private int FindIndex(FreakyRadioButton radioButton)
@@ -157,5 +119,43 @@ public class FreakyRadioGroup : StackLayout
                 LoopChildren(((Layout)child).Children, index);
             }
         }
+    }
+
+    private void RadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        if (!(sender is FreakyRadioButton selectedRadioButton) || !selectedRadioButton.IsChecked)
+        {
+            return;
+        }
+
+        foreach (var radioButton in radioButtons)
+        {
+            if (radioButton != selectedRadioButton)
+            {
+                radioButton.IsChecked = false;
+            }
+        }
+
+        int index = FindIndex(selectedRadioButton);
+        string name = selectedRadioButton.Name;
+        var eventArgs = new FreakyRadioButtonEventArgs(name, index);
+        this.SelectedRadioButtonChangedCommand?.ExecuteCommandIfAvailable(eventArgs);
+        SelectedRadioButtonChanged?.Invoke(this, eventArgs);
+    }
+
+    private void SetDefaultCheckedRadioButton()
+    {
+        if (SelectedIndex < 0 || SelectedIndex >= radioButtons.Count)
+        {
+            return;
+        }
+
+        radioButtons[SelectedIndex].IsChecked = true;
+    }
+
+    private void UpdateCheckedStates()
+    {
+        int index = 0;
+        LoopChildren(Children, index);
     }
 }

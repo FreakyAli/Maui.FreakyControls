@@ -5,7 +5,7 @@ namespace Maui.FreakyControls;
 
 public interface IDrawableImageView
 {
-    public object ImageCommandParameter
+    public ImageAlignment ImageAlignment
     {
         get;
     }
@@ -15,12 +15,7 @@ public interface IDrawableImageView
         get;
     }
 
-    public int ImagePadding
-    {
-        get;
-    }
-
-    public int ImageWidth
+    public object ImageCommandParameter
     {
         get;
     }
@@ -30,12 +25,17 @@ public interface IDrawableImageView
         get;
     }
 
+    public int ImagePadding
+    {
+        get;
+    }
+
     public ImageSource ImageSource
     {
         get;
     }
 
-    public ImageAlignment ImageAlignment
+    public int ImageWidth
     {
         get;
     }

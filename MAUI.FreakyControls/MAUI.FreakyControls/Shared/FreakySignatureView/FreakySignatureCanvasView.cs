@@ -7,9 +7,9 @@ public class FreakySignatureCanvasView : View
 {
     #region Events
 
-    public event EventHandler StrokeCompleted;
-
     public event EventHandler Cleared;
+
+    public event EventHandler ClearRequested;
 
     public event EventHandler<ImageStreamRequestedEventArgs> ImageStreamRequested;
 
@@ -19,27 +19,15 @@ public class FreakySignatureCanvasView : View
 
     public event EventHandler<PointsEventArgs> PointsSpecified;
 
+    public event EventHandler StrokeCompleted;
+
     public event EventHandler<StrokesEventArgs> StrokesRequested;
 
     public event EventHandler<StrokesEventArgs> StrokesSpecified;
 
-    public event EventHandler ClearRequested;
-
     #endregion Events
 
     #region Properties& BindableProperties
-
-    public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
-        nameof(StrokeColor),
-        typeof(Color),
-        typeof(FreakySignatureCanvasView),
-        ImageConstructionSettings.DefaultStrokeColor);
-
-    public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(
-        nameof(StrokeWidth),
-        typeof(float),
-        typeof(FreakySignatureCanvasView),
-        ImageConstructionSettings.DefaultStrokeWidth);
 
     public static readonly BindableProperty ClearedCommandProperty = BindableProperty.Create(
         nameof(ClearedCommand),
@@ -47,11 +35,25 @@ public class FreakySignatureCanvasView : View
         typeof(FreakySignatureCanvasView),
         default(ICommand));
 
+    public static readonly BindableProperty IsBlankProperty = IsBlankPropertyKey.BindableProperty;
+
+    public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
+                nameof(StrokeColor),
+        typeof(Color),
+        typeof(FreakySignatureCanvasView),
+        ImageConstructionSettings.DefaultStrokeColor);
+
     public static readonly BindableProperty StrokeCompletedCommandProperty = BindableProperty.Create(
         nameof(StrokeCompletedCommand),
         typeof(ICommand),
         typeof(FreakySignatureCanvasView),
         default(ICommand));
+
+    public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(
+            nameof(StrokeWidth),
+        typeof(float),
+        typeof(FreakySignatureCanvasView),
+        ImageConstructionSettings.DefaultStrokeWidth);
 
     internal static readonly BindablePropertyKey IsBlankPropertyKey = BindableProperty.CreateReadOnly(
         nameof(IsBlank),
@@ -59,20 +61,24 @@ public class FreakySignatureCanvasView : View
         typeof(FreakySignatureCanvasView),
         true);
 
-    public static readonly BindableProperty IsBlankProperty = IsBlankPropertyKey.BindableProperty;
+    /// <summary>
+    /// Gets or sets the command to be fired on clear button click
+    /// </summary>
+    public ICommand ClearedCommand
+    {
+        get => (ICommand)GetValue(ClearedCommandProperty);
+        set => SetValue(ClearedCommandProperty, value);
+    }
 
     public bool IsBlank
     {
         get => RequestIsBlank();
     }
 
-    /// <summary>
-    /// Gets or sets the width of the signature strokes.
-    /// </summary>
-    public float StrokeWidth
+    public IEnumerable<Point> Points
     {
-        get => (float)GetValue(StrokeWidthProperty);
-        set => SetValue(StrokeWidthProperty, value);
+        get => GetSignaturePoints();
+        set => SetSignaturePoints(value);
     }
 
     /// <summary>
@@ -84,27 +90,6 @@ public class FreakySignatureCanvasView : View
         set => SetValue(StrokeColorProperty, value);
     }
 
-    public IEnumerable<Point> Points
-    {
-        get => GetSignaturePoints();
-        set => SetSignaturePoints(value);
-    }
-
-    public IEnumerable<IEnumerable<Point>> Strokes
-    {
-        get => GetSignatureStrokes();
-        set => SetSignatureStrokes(value);
-    }
-
-    /// <summary>
-    /// Gets or sets the command to be fired on clear button click
-    /// </summary>
-    public ICommand ClearedCommand
-    {
-        get => (ICommand)GetValue(ClearedCommandProperty);
-        set => SetValue(ClearedCommandProperty, value);
-    }
-
     /// <summary>
     /// Gets or sets the command to be fired on stroke completed
     /// </summary>
@@ -114,7 +99,27 @@ public class FreakySignatureCanvasView : View
         set => SetValue(StrokeCompletedCommandProperty, value);
     }
 
+    public IEnumerable<IEnumerable<Point>> Strokes
+    {
+        get => GetSignatureStrokes();
+        set => SetSignatureStrokes(value);
+    }
+
+    /// <summary>
+    /// Gets or sets the width of the signature strokes.
+    /// </summary>
+    public float StrokeWidth
+    {
+        get => (float)GetValue(StrokeWidthProperty);
+        set => SetValue(StrokeWidthProperty, value);
+    }
+
     #endregion Properties& BindableProperties
+
+    public void Clear()
+    {
+        ClearRequested?.Invoke(this, null);
+    }
 
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature.
@@ -243,40 +248,12 @@ public class FreakySignatureCanvasView : View
         return args.ImageStreamTask;
     }
 
-    public void Clear()
+    internal void OnCleared()
     {
-        ClearRequested?.Invoke(this, null);
-    }
+        UpdateBindableProperties();
 
-    private IEnumerable<Point> GetSignaturePoints()
-    {
-        var args = new PointsEventArgs();
-        PointsRequested?.Invoke(this, args);
-        return args.Points;
-    }
-
-    private void SetSignaturePoints(IEnumerable<Point> points)
-    {
-        PointsSpecified?.Invoke(this, new PointsEventArgs { Points = points });
-    }
-
-    private IEnumerable<IEnumerable<Point>> GetSignatureStrokes()
-    {
-        var args = new StrokesEventArgs();
-        StrokesRequested?.Invoke(this, args);
-        return args.Strokes;
-    }
-
-    private void SetSignatureStrokes(IEnumerable<IEnumerable<Point>> strokes)
-    {
-        StrokesSpecified?.Invoke(this, new StrokesEventArgs { Strokes = strokes });
-    }
-
-    private bool RequestIsBlank()
-    {
-        var args = new IsBlankRequestedEventArgs();
-        IsBlankRequested?.Invoke(this, args);
-        return args.IsBlank;
+        Cleared?.Invoke(this, EventArgs.Empty);
+        ClearedCommand.ExecuteCommandIfAvailable();
     }
 
     internal void OnStrokeCompleted()
@@ -287,12 +264,35 @@ public class FreakySignatureCanvasView : View
         StrokeCompletedCommand.ExecuteCommandIfAvailable();
     }
 
-    internal void OnCleared()
+    private IEnumerable<Point> GetSignaturePoints()
     {
-        UpdateBindableProperties();
+        var args = new PointsEventArgs();
+        PointsRequested?.Invoke(this, args);
+        return args.Points;
+    }
 
-        Cleared?.Invoke(this, EventArgs.Empty);
-        ClearedCommand.ExecuteCommandIfAvailable();
+    private IEnumerable<IEnumerable<Point>> GetSignatureStrokes()
+    {
+        var args = new StrokesEventArgs();
+        StrokesRequested?.Invoke(this, args);
+        return args.Strokes;
+    }
+
+    private bool RequestIsBlank()
+    {
+        var args = new IsBlankRequestedEventArgs();
+        IsBlankRequested?.Invoke(this, args);
+        return args.IsBlank;
+    }
+
+    private void SetSignaturePoints(IEnumerable<Point> points)
+    {
+        PointsSpecified?.Invoke(this, new PointsEventArgs { Points = points });
+    }
+
+    private void SetSignatureStrokes(IEnumerable<IEnumerable<Point>> strokes)
+    {
+        StrokesSpecified?.Invoke(this, new StrokesEventArgs { Strokes = strokes });
     }
 
     private void UpdateBindableProperties()

@@ -9,6 +9,20 @@ namespace Maui.FreakyControls
 {
     public partial class FreakyEditorHandler
     {
+        internal void HandleAllowCopyPaste(FreakyEditor editor)
+        {
+            if (editor.AllowCopyPaste)
+            {
+                PlatformView.CustomInsertionActionModeCallback = null;
+                PlatformView.CustomSelectionActionModeCallback = null;
+            }
+            else
+            {
+                PlatformView.CustomInsertionActionModeCallback = new CustomInsertionActionModeCallback();
+                PlatformView.CustomSelectionActionModeCallback = new CustomSelectionActionModeCallback();
+            }
+        }
+
         protected override AppCompatEditText CreatePlatformView()
         {
             var _nativeView = new AppCompatEditText(Context)
@@ -22,20 +36,6 @@ namespace Maui.FreakyControls
             ViewCompat.SetBackgroundTintList(_nativeView, colorStateList);
             _nativeView.SetHorizontallyScrolling(false);
             return _nativeView;
-        }
-
-        internal void HandleAllowCopyPaste(FreakyEditor editor)
-        {
-            if (editor.AllowCopyPaste)
-            {
-                PlatformView.CustomInsertionActionModeCallback = null;
-                PlatformView.CustomSelectionActionModeCallback = null;
-            }
-            else
-            {
-                PlatformView.CustomInsertionActionModeCallback = new CustomInsertionActionModeCallback();
-                PlatformView.CustomSelectionActionModeCallback = new CustomSelectionActionModeCallback();
-            }
         }
     }
 }

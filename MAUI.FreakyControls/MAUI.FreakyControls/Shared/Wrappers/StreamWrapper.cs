@@ -21,6 +21,8 @@ namespace Maui.FreakyControls.Shared.Wrappers
             _additionalDisposable = additionalDisposable;
         }
 
+        public event EventHandler Disposed;
+
         public override bool CanRead
         {
             get { return _wrapped.CanRead; }
@@ -47,7 +49,21 @@ namespace Maui.FreakyControls.Shared.Wrappers
             set { _wrapped.Position = value; }
         }
 
-        public event EventHandler Disposed;
+        public static async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken, HttpClient client)
+        {
+            var response = await client.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+            {
+                Trace.WriteLine("Could not retrieve {Uri}, status code {StatusCode}");
+                Trace.WriteLine(uri);
+                Trace.WriteLine(response.StatusCode);
+                return null;
+            }
+
+            // the HttpResponseMessage needs to be disposed of after the calling code is done with the stream
+            // otherwise the stream may get disposed before the caller can use it
+            return new StreamWrapper(await response.Content.ReadAsStreamAsync().ConfigureAwait(false), response);
+        }
 
         public override void Flush()
         {
@@ -82,22 +98,6 @@ namespace Maui.FreakyControls.Shared.Wrappers
             _additionalDisposable = null;
 
             base.Dispose(disposing);
-        }
-
-        public static async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken, HttpClient client)
-        {
-            var response = await client.GetAsync(uri, cancellationToken).ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-            {
-                Trace.WriteLine("Could not retrieve {Uri}, status code {StatusCode}");
-                Trace.WriteLine(uri);
-                Trace.WriteLine(response.StatusCode);
-                return null;
-            }
-
-            // the HttpResponseMessage needs to be disposed of after the calling code is done with the stream
-            // otherwise the stream may get disposed before the caller can use it
-            return new StreamWrapper(await response.Content.ReadAsStreamAsync().ConfigureAwait(false), response);
         }
     }
 }

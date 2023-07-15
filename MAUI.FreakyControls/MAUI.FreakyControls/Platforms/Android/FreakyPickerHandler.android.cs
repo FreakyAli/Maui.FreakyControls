@@ -12,14 +12,6 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyPickerHandler
 {
-    protected override MauiPicker CreatePlatformView()
-    {
-        var picker = new FreakyMauiPicker(Context);
-        var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
-        ViewCompat.SetBackgroundTintList(picker, colorStateList);
-        return picker;
-    }
-
     internal async Task HandleAndAlignImageSourceAsync(FreakyPicker entry)
     {
         var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
@@ -41,5 +33,13 @@ public partial class FreakyPickerHandler
             }
         }
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
+    }
+
+    protected override MauiPicker CreatePlatformView()
+    {
+        var picker = new FreakyMauiPicker(Context);
+        var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+        ViewCompat.SetBackgroundTintList(picker, colorStateList);
+        return picker;
     }
 }

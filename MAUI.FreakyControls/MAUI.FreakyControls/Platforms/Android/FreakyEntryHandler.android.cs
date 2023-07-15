@@ -12,14 +12,6 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyEntryHandler
 {
-    protected override AppCompatEditText CreatePlatformView()
-    {
-        var _nativeView = new FreakyEditText(Context);
-        var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
-        ViewCompat.SetBackgroundTintList(_nativeView, colorStateList);
-        return _nativeView;
-    }
-
     internal void HandleAllowCopyPaste(FreakyEntry entry)
     {
         if (entry.AllowCopyPaste)
@@ -55,5 +47,13 @@ public partial class FreakyEntryHandler
             }
         }
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
+    }
+
+    protected override AppCompatEditText CreatePlatformView()
+    {
+        var _nativeView = new FreakyEditText(Context);
+        var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+        ViewCompat.SetBackgroundTintList(_nativeView, colorStateList);
+        return _nativeView;
     }
 }

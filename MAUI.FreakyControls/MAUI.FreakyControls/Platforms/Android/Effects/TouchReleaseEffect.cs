@@ -6,9 +6,8 @@ namespace Maui.FreakyControls.Platforms.Android;
 
 public class TouchReleaseEffect : PlatformEffect
 {
-    private View _view;
-
     private Action _onRelease;
+    private View _view;
 
     protected override void OnAttached()
     {

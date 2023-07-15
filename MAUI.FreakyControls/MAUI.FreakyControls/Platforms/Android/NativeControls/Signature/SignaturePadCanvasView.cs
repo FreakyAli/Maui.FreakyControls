@@ -34,19 +34,6 @@ public partial class SignaturePadCanvasView : FrameLayout
         Initialize();
     }
 
-    private void Initialize()
-    {
-        inkPresenter = new InkPresenter(Context)
-        {
-            LayoutParameters = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MatchParent, FrameLayout.LayoutParams.MatchParent)
-        };
-        inkPresenter.StrokeCompleted += OnStrokeCompleted;
-        AddView(inkPresenter);
-
-        StrokeWidth = ImageConstructionSettings.DefaultStrokeWidth;
-        StrokeColor = ImageConstructionSettings.DefaultStrokeColor;
-    }
-
     /// <summary>
     /// Gets or sets the color of the strokes for the signature.
     /// </summary>
@@ -88,6 +75,15 @@ public partial class SignaturePadCanvasView : FrameLayout
         inkPresenter.Clear();
 
         OnCleared();
+    }
+
+    public override bool OnInterceptTouchEvent(MotionEvent ev)
+    {
+        // don't accept touch when the view is disabled
+        if (!Enabled)
+            return true;
+
+        return base.OnInterceptTouchEvent(ev);
     }
 
     private Bitmap GetImageInternal(System.Drawing.SizeF scale, System.Drawing.RectangleF signatureBounds, System.Drawing.SizeF imageSize, float strokeWidth, NativeColor strokeColor, NativeColor backgroundColor)
@@ -161,21 +157,25 @@ public partial class SignaturePadCanvasView : FrameLayout
         return null;
     }
 
-    public override bool OnInterceptTouchEvent(MotionEvent ev)
+    private void Initialize()
     {
-        // don't accept touch when the view is disabled
-        if (!Enabled)
-            return true;
+        inkPresenter = new InkPresenter(Context)
+        {
+            LayoutParameters = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MatchParent, FrameLayout.LayoutParams.MatchParent)
+        };
+        inkPresenter.StrokeCompleted += OnStrokeCompleted;
+        AddView(inkPresenter);
 
-        return base.OnInterceptTouchEvent(ev);
+        StrokeWidth = ImageConstructionSettings.DefaultStrokeWidth;
+        StrokeColor = ImageConstructionSettings.DefaultStrokeColor;
     }
 }
 
 public partial class SignaturePadCanvasView
 {
-    public event EventHandler StrokeCompleted;
-
     public event EventHandler Cleared;
+
+    public event EventHandler StrokeCompleted;
 
     public bool IsBlank => inkPresenter == null ? true : inkPresenter.GetStrokes().Count == 0;
 
@@ -208,36 +208,6 @@ public partial class SignaturePadCanvasView
             // make a deep copy
             return inkPresenter.GetStrokes().Select(s => s.GetPoints().ToArray()).ToArray();
         }
-    }
-
-    public NativeRect GetSignatureBounds(float padding = 5f)
-    {
-        if (IsBlank)
-        {
-            return NativeRect.Empty;
-        }
-
-        var size = this.GetSize();
-        double xMin = size.Width, xMax = 0, yMin = size.Height, yMax = 0;
-        foreach (var point in inkPresenter.GetStrokes().SelectMany(stroke => stroke.GetPoints()))
-        {
-            xMin = point.X <= 0 ? 0 : Math.Min(xMin, point.X);
-            yMin = point.Y <= 0 ? 0 : Math.Min(yMin, point.Y);
-            xMax = point.X >= size.Width ? size.Width : Math.Max(xMax, point.X);
-            yMax = point.Y >= size.Height ? size.Height : Math.Max(yMax, point.Y);
-        }
-
-        var spacing = (StrokeWidth / 2f) + padding;
-        xMin = Math.Max(0, xMin - spacing);
-        yMin = Math.Max(0, yMin - spacing);
-        xMax = Math.Min(size.Width, xMax + spacing);
-        yMax = Math.Min(size.Height, yMax + spacing);
-
-        return new NativeRect(
-            (float)xMin,
-            (float)yMin,
-            (float)xMax - (float)xMin,
-            (float)yMax - (float)yMin);
     }
 
     /// <summary>
@@ -514,78 +484,34 @@ public partial class SignaturePadCanvasView
         return Task.FromResult<Stream>(null);
     }
 
-    private bool GetImageConstructionArguments(ImageConstructionSettings settings, out NativeSize scale, out NativeRect signatureBounds, out NativeSize imageSize, out float strokeWidth, out NativeColor strokeColor, out NativeColor backgroundColor)
+    public NativeRect GetSignatureBounds(float padding = 5f)
     {
-        settings.ApplyDefaults((float)StrokeWidth, StrokeColor);
-
-        if (IsBlank || settings.DesiredSizeOrScale?.IsValid != true)
+        if (IsBlank)
         {
-            scale = default(NativeSize);
-            signatureBounds = default(NativeRect);
-            imageSize = default(NativeSize);
-            strokeWidth = default(float);
-            strokeColor = default(NativeColor);
-            backgroundColor = default(NativeColor);
-
-            return false;
+            return NativeRect.Empty;
         }
 
-        var sizeOrScale = settings.DesiredSizeOrScale.Value;
-        var viewSize = this.GetSize();
-
-        imageSize = sizeOrScale.GetSize((float)viewSize.Width, (float)viewSize.Height);
-        scale = sizeOrScale.GetScale((float)imageSize.Width, (float)imageSize.Height);
-
-        if (settings.ShouldCrop == true)
+        var size = this.GetSize();
+        double xMin = size.Width, xMax = 0, yMin = size.Height, yMax = 0;
+        foreach (var point in inkPresenter.GetStrokes().SelectMany(stroke => stroke.GetPoints()))
         {
-            signatureBounds = GetSignatureBounds(settings.Padding.Value);
-
-            if (sizeOrScale.Type == SizeOrScaleType.Size)
-            {
-                // if a specific size was set, scale to that
-                var scaleX = imageSize.Width / (float)signatureBounds.Width;
-                var scaleY = imageSize.Height / (float)signatureBounds.Height;
-                if (sizeOrScale.KeepAspectRatio)
-                {
-                    scaleX = scaleY = Math.Min((float)scaleX, (float)scaleY);
-                }
-                scale = new NativeSize((float)scaleX, (float)scaleY);
-            }
-            else if (sizeOrScale.Type == SizeOrScaleType.Scale)
-            {
-                imageSize.Width = signatureBounds.Width * scale.Width;
-                imageSize.Height = signatureBounds.Height * scale.Height;
-            }
-        }
-        else
-        {
-            signatureBounds = new NativeRect(0, 0, viewSize.Width, viewSize.Height);
+            xMin = point.X <= 0 ? 0 : Math.Min(xMin, point.X);
+            yMin = point.Y <= 0 ? 0 : Math.Min(yMin, point.Y);
+            xMax = point.X >= size.Width ? size.Width : Math.Max(xMax, point.X);
+            yMax = point.Y >= size.Height ? size.Height : Math.Max(yMax, point.Y);
         }
 
-        strokeWidth = settings.StrokeWidth.Value;
-        strokeColor = (NativeColor)settings.StrokeColor;
-        backgroundColor = (NativeColor)settings.BackgroundColor;
+        var spacing = (StrokeWidth / 2f) + padding;
+        xMin = Math.Max(0, xMin - spacing);
+        yMin = Math.Max(0, yMin - spacing);
+        xMax = Math.Min(size.Width, xMax + spacing);
+        yMax = Math.Min(size.Height, yMax + spacing);
 
-        return true;
-    }
-
-    public void LoadStrokes(NativePoint[][] loadedStrokes)
-    {
-        // clear any existing paths or points.
-        Clear();
-
-        // there is nothing
-        if (loadedStrokes == null || loadedStrokes.Length == 0)
-        {
-            return;
-        }
-
-        inkPresenter.AddStrokes(loadedStrokes, StrokeColor, (float)StrokeWidth);
-
-        if (!IsBlank)
-        {
-            OnStrokeCompleted();
-        }
+        return new NativeRect(
+            (float)xMin,
+            (float)yMin,
+            (float)xMax - (float)xMin,
+            (float)yMax - (float)yMin);
     }
 
     /// <summary>
@@ -643,6 +569,80 @@ public partial class SignaturePadCanvasView
         {
             OnStrokeCompleted();
         }
+    }
+
+    public void LoadStrokes(NativePoint[][] loadedStrokes)
+    {
+        // clear any existing paths or points.
+        Clear();
+
+        // there is nothing
+        if (loadedStrokes == null || loadedStrokes.Length == 0)
+        {
+            return;
+        }
+
+        inkPresenter.AddStrokes(loadedStrokes, StrokeColor, (float)StrokeWidth);
+
+        if (!IsBlank)
+        {
+            OnStrokeCompleted();
+        }
+    }
+
+    private bool GetImageConstructionArguments(ImageConstructionSettings settings, out NativeSize scale, out NativeRect signatureBounds, out NativeSize imageSize, out float strokeWidth, out NativeColor strokeColor, out NativeColor backgroundColor)
+    {
+        settings.ApplyDefaults((float)StrokeWidth, StrokeColor);
+
+        if (IsBlank || settings.DesiredSizeOrScale?.IsValid != true)
+        {
+            scale = default(NativeSize);
+            signatureBounds = default(NativeRect);
+            imageSize = default(NativeSize);
+            strokeWidth = default(float);
+            strokeColor = default(NativeColor);
+            backgroundColor = default(NativeColor);
+
+            return false;
+        }
+
+        var sizeOrScale = settings.DesiredSizeOrScale.Value;
+        var viewSize = this.GetSize();
+
+        imageSize = sizeOrScale.GetSize((float)viewSize.Width, (float)viewSize.Height);
+        scale = sizeOrScale.GetScale((float)imageSize.Width, (float)imageSize.Height);
+
+        if (settings.ShouldCrop == true)
+        {
+            signatureBounds = GetSignatureBounds(settings.Padding.Value);
+
+            if (sizeOrScale.Type == SizeOrScaleType.Size)
+            {
+                // if a specific size was set, scale to that
+                var scaleX = imageSize.Width / (float)signatureBounds.Width;
+                var scaleY = imageSize.Height / (float)signatureBounds.Height;
+                if (sizeOrScale.KeepAspectRatio)
+                {
+                    scaleX = scaleY = Math.Min((float)scaleX, (float)scaleY);
+                }
+                scale = new NativeSize((float)scaleX, (float)scaleY);
+            }
+            else if (sizeOrScale.Type == SizeOrScaleType.Scale)
+            {
+                imageSize.Width = signatureBounds.Width * scale.Width;
+                imageSize.Height = signatureBounds.Height * scale.Height;
+            }
+        }
+        else
+        {
+            signatureBounds = new NativeRect(0, 0, viewSize.Width, viewSize.Height);
+        }
+
+        strokeWidth = settings.StrokeWidth.Value;
+        strokeColor = (NativeColor)settings.StrokeColor;
+        backgroundColor = (NativeColor)settings.BackgroundColor;
+
+        return true;
     }
 
     private void OnCleared()

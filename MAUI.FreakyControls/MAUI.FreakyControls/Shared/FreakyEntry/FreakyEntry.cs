@@ -5,23 +5,11 @@ namespace Maui.FreakyControls
 {
     public class FreakyEntry : Entry, IDrawableImageView
     {
-        public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
-               nameof(Image),
-               typeof(ImageSource),
-               typeof(FreakyEntry),
-               default(ImageSource));
-
-        public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
-               nameof(ImageHeight),
-               typeof(int),
-               typeof(FreakyEntry),
-               25);
-
-        public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
-               nameof(ImageWidth),
-               typeof(int),
-               typeof(FreakyEntry),
-               25);
+        public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
+              nameof(AllowCopyPaste),
+              typeof(bool),
+              typeof(FreakyEntry),
+              true);
 
         public static readonly BindableProperty ImageAlignmentProperty = BindableProperty.Create(
                nameof(ImageAlignment),
@@ -29,11 +17,11 @@ namespace Maui.FreakyControls
                typeof(FreakyEntry),
                ImageAlignment.Right);
 
-        public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
-               nameof(ImagePadding),
-               typeof(int),
-               typeof(FreakyEntry),
-               5);
+        public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
+              nameof(ImageCommandParameter),
+              typeof(object),
+              typeof(FreakyEntry),
+              default(object));
 
         public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
               nameof(ImagePadding),
@@ -41,17 +29,29 @@ namespace Maui.FreakyControls
               typeof(FreakyEntry),
               default(ICommand));
 
-        public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
-              nameof(ImageCommandParameter),
-              typeof(object),
-              typeof(FreakyEntry),
-              default(object));
+        public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
+               nameof(ImageHeight),
+               typeof(int),
+               typeof(FreakyEntry),
+               25);
 
-        public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
-              nameof(AllowCopyPaste),
-              typeof(bool),
-              typeof(FreakyEntry),
-              true);
+        public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
+               nameof(ImagePadding),
+               typeof(int),
+               typeof(FreakyEntry),
+               5);
+
+        public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
+                                                               nameof(Image),
+               typeof(ImageSource),
+               typeof(FreakyEntry),
+               default(ImageSource));
+
+        public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
+               nameof(ImageWidth),
+               typeof(int),
+               typeof(FreakyEntry),
+               25);
 
         /// <summary>
         /// Gets and Sets if your Entry allows Copy Paste. default is true!
@@ -63,12 +63,12 @@ namespace Maui.FreakyControls
         }
 
         /// <summary>
-        /// Command parameter for your Image tap command
+        /// Alignment for your Image's ViewPort, By default set to Right.
         /// </summary>
-        public object ImageCommandParameter
+        public ImageAlignment ImageAlignment
         {
-            get => GetValue(ImageCommandParameterProperty);
-            set => SetValue(ImageCommandParameterProperty, value);
+            get => (ImageAlignment)GetValue(ImageAlignmentProperty);
+            set => SetValue(ImageAlignmentProperty, value);
         }
 
         /// <summary>
@@ -81,21 +81,12 @@ namespace Maui.FreakyControls
         }
 
         /// <summary>
-        /// Padding of the Image that you added to the ViewPort
+        /// Command parameter for your Image tap command
         /// </summary>
-        public int ImagePadding
+        public object ImageCommandParameter
         {
-            get => (int)GetValue(ImagePaddingProperty);
-            set => SetValue(ImagePaddingProperty, value);
-        }
-
-        /// <summary>
-        /// Width of the Image in your ViewPort
-        /// </summary>
-        public int ImageWidth
-        {
-            get => (int)GetValue(ImageWidthProperty);
-            set => SetValue(ImageWidthProperty, value);
+            get => GetValue(ImageCommandParameterProperty);
+            set => SetValue(ImageCommandParameterProperty, value);
         }
 
         /// <summary>
@@ -108,6 +99,15 @@ namespace Maui.FreakyControls
         }
 
         /// <summary>
+        /// Padding of the Image that you added to the ViewPort
+        /// </summary>
+        public int ImagePadding
+        {
+            get => (int)GetValue(ImagePaddingProperty);
+            set => SetValue(ImagePaddingProperty, value);
+        }
+
+        /// <summary>
         /// An ImageSource that you want to add to your ViewPort
         /// </summary>
         public ImageSource ImageSource
@@ -117,12 +117,12 @@ namespace Maui.FreakyControls
         }
 
         /// <summary>
-        /// Alignment for your Image's ViewPort, By default set to Right.
+        /// Width of the Image in your ViewPort
         /// </summary>
-        public ImageAlignment ImageAlignment
+        public int ImageWidth
         {
-            get => (ImageAlignment)GetValue(ImageAlignmentProperty);
-            set => SetValue(ImageAlignmentProperty, value);
+            get => (int)GetValue(ImageWidthProperty);
+            set => SetValue(ImageWidthProperty, value);
         }
     }
 }

@@ -15,6 +15,32 @@ public partial class FreakyDatePickerHandler
 {
     private DatePickerDialog? _dialog;
 
+    internal DatePickerDialog? DatePickerDialog
+    { get { return _dialog; } }
+
+    internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
+    {
+        var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
+        if (imageBitmap != null)
+        {
+            var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
+                Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
+            var freakyEditText = PlatformView as FreakyMauiDatePicker;
+            freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
+            switch (entry.ImageAlignment)
+            {
+                case ImageAlignment.Left:
+                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
+                    break;
+
+                case ImageAlignment.Right:
+                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
+                    break;
+            }
+        }
+        PlatformView.CompoundDrawablePadding = entry.ImagePadding;
+    }
+
     protected override MauiDatePicker CreatePlatformView()
     {
         var mauiDatePicker = new FreakyMauiDatePicker(Context)
@@ -43,30 +69,9 @@ public partial class FreakyDatePickerHandler
         }
     }
 
-    internal DatePickerDialog? DatePickerDialog
-    { get { return _dialog; } }
-
-    internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
+    private void HidePickerDialog()
     {
-        var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
-        if (imageBitmap != null)
-        {
-            var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
-                Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
-            var freakyEditText = PlatformView as FreakyMauiDatePicker;
-            freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
-            switch (entry.ImageAlignment)
-            {
-                case ImageAlignment.Left:
-                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
-                    break;
-
-                case ImageAlignment.Right:
-                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
-                    break;
-            }
-        }
-        PlatformView.CompoundDrawablePadding = entry.ImagePadding;
+        _dialog?.Hide();
     }
 
     private void ShowPickerDialog()
@@ -93,10 +98,5 @@ public partial class FreakyDatePickerHandler
         }
 
         _dialog.Show();
-    }
-
-    private void HidePickerDialog()
-    {
-        _dialog?.Hide();
     }
 }

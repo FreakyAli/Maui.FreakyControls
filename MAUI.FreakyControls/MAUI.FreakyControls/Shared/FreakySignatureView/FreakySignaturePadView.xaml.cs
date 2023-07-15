@@ -14,93 +14,16 @@ public partial class FreakySignaturePadView : ContentView
     private static readonly Color signaturePadDarkColor = Colors.Black;
     private static readonly Color signaturePadLightColor = Colors.White;
 
-    public event EventHandler StrokeCompleted;
-
-    public event EventHandler Cleared;
-
     public FreakySignaturePadView()
     {
         InitializeComponent();
     }
 
+    public event EventHandler Cleared;
+
+    public event EventHandler StrokeCompleted;
+
     #region Properties& BindableProperties
-
-    public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
-           nameof(StrokeColor),
-           typeof(Color),
-           typeof(FreakySignaturePadView),
-           ImageConstructionSettings.DefaultStrokeColor);
-
-    public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(
-            nameof(StrokeWidth),
-            typeof(float),
-            typeof(FreakySignaturePadView),
-            ImageConstructionSettings.DefaultStrokeWidth);
-
-    public static readonly BindableProperty CaptionTextProperty = BindableProperty.Create(
-            nameof(CaptionText),
-            typeof(string),
-            typeof(FreakySignaturePadView),
-            defaultCaptionText);
-
-    public static readonly BindableProperty CaptionFontSizeProperty = BindableProperty.Create(
-            nameof(CaptionFontSize),
-            typeof(double),
-            typeof(FreakySignaturePadView));
-
-    public static readonly BindableProperty CaptionTextColorProperty = BindableProperty.Create(
-            nameof(CaptionTextColor),
-            typeof(Color),
-            typeof(FreakySignaturePadView),
-            signaturePadDarkColor);
-
-    public static readonly BindableProperty CaptionFontFamilyProperty = BindableProperty.Create(
-            nameof(CaptionFontFamily),
-            typeof(string),
-            typeof(FreakySignaturePadView),
-            default(string));
-
-    public static readonly BindableProperty SignatureUnderlineColorProperty = BindableProperty.Create(
-            nameof(SignatureUnderlineColor),
-            typeof(Color),
-            typeof(FreakySignaturePadView),
-            signaturePadDarkColor);
-
-    public static readonly BindableProperty SignatureUnderlineWidthProperty = BindableProperty.Create(
-            nameof(SignatureUnderlineWidth),
-            typeof(double),
-            typeof(FreakySignaturePadView),
-            1.0);
-
-    public static readonly BindableProperty ClearImageColorProperty = BindableProperty.Create(
-            nameof(ClearImageColor),
-            typeof(Color),
-            typeof(FreakySignaturePadView),
-            Colors.Transparent);
-
-    public static readonly BindableProperty ClearImageAssemblyProperty = BindableProperty.Create(
-            nameof(ClearImageAssembly),
-            typeof(Assembly),
-            typeof(FreakySvgImageView),
-            typeof(FreakySignaturePadView).Assembly);
-
-    public static readonly BindableProperty ClearResourceIdProperty = BindableProperty.Create(
-            nameof(ClearResourceId),
-            typeof(string),
-            typeof(FreakySvgImageView),
-            defaultClearIcon);
-
-    public static readonly BindableProperty ClearImageBase64Property = BindableProperty.Create(
-            nameof(ClearImageBase64),
-            typeof(string),
-            typeof(FreakySvgImageView),
-            default(string));
-
-    public static readonly BindableProperty BackgroundImageProperty = BindableProperty.Create(
-            nameof(BackgroundImage),
-            typeof(ImageSource),
-            typeof(FreakySignaturePadView),
-            default(ImageSource));
 
     public static readonly BindableProperty BackgroundImageAspectProperty = BindableProperty.Create(
             nameof(BackgroundImageAspect),
@@ -114,11 +37,84 @@ public partial class FreakySignaturePadView : ContentView
             typeof(FreakySignaturePadView),
             1.0);
 
+    public static readonly BindableProperty BackgroundImageProperty = BindableProperty.Create(
+            nameof(BackgroundImage),
+            typeof(ImageSource),
+            typeof(FreakySignaturePadView),
+            default(ImageSource));
+
+    public static readonly BindableProperty CaptionFontFamilyProperty = BindableProperty.Create(
+            nameof(CaptionFontFamily),
+            typeof(string),
+            typeof(FreakySignaturePadView),
+            default(string));
+
+    public static readonly BindableProperty CaptionFontSizeProperty = BindableProperty.Create(
+            nameof(CaptionFontSize),
+            typeof(double),
+            typeof(FreakySignaturePadView));
+
+    public static readonly BindableProperty CaptionTextColorProperty = BindableProperty.Create(
+            nameof(CaptionTextColor),
+            typeof(Color),
+            typeof(FreakySignaturePadView),
+            signaturePadDarkColor);
+
+    public static readonly BindableProperty CaptionTextProperty = BindableProperty.Create(
+            nameof(CaptionText),
+            typeof(string),
+            typeof(FreakySignaturePadView),
+            defaultCaptionText);
+
     public static readonly BindableProperty ClearedCommandProperty = BindableProperty.Create(
             nameof(ClearedCommand),
             typeof(ICommand),
             typeof(FreakySignaturePadView),
             default(ICommand));
+
+    public static readonly BindableProperty ClearImageAssemblyProperty = BindableProperty.Create(
+            nameof(ClearImageAssembly),
+            typeof(Assembly),
+            typeof(FreakySvgImageView),
+            typeof(FreakySignaturePadView).Assembly);
+
+    public static readonly BindableProperty ClearImageBase64Property = BindableProperty.Create(
+            nameof(ClearImageBase64),
+            typeof(string),
+            typeof(FreakySvgImageView),
+            default(string));
+
+    public static readonly BindableProperty ClearImageColorProperty = BindableProperty.Create(
+            nameof(ClearImageColor),
+            typeof(Color),
+            typeof(FreakySignaturePadView),
+            Colors.Transparent);
+
+    public static readonly BindableProperty ClearResourceIdProperty = BindableProperty.Create(
+            nameof(ClearResourceId),
+            typeof(string),
+            typeof(FreakySvgImageView),
+            defaultClearIcon);
+
+    public static readonly BindableProperty IsBlankProperty = IsBlankPropertyKey.BindableProperty;
+
+    public static readonly BindableProperty SignatureUnderlineColorProperty = BindableProperty.Create(
+            nameof(SignatureUnderlineColor),
+            typeof(Color),
+            typeof(FreakySignaturePadView),
+            signaturePadDarkColor);
+
+    public static readonly BindableProperty SignatureUnderlineWidthProperty = BindableProperty.Create(
+            nameof(SignatureUnderlineWidth),
+            typeof(double),
+            typeof(FreakySignaturePadView),
+            1.0);
+
+    public static readonly BindableProperty StrokeColorProperty = BindableProperty.Create(
+                                                                       nameof(StrokeColor),
+           typeof(Color),
+           typeof(FreakySignaturePadView),
+           ImageConstructionSettings.DefaultStrokeColor);
 
     public static readonly BindableProperty StrokeCompletedCommandProperty = BindableProperty.Create(
             nameof(StrokeCompletedCommand),
@@ -126,126 +122,17 @@ public partial class FreakySignaturePadView : ContentView
             typeof(FreakySignaturePadView),
             default(ICommand));
 
+    public static readonly BindableProperty StrokeWidthProperty = BindableProperty.Create(
+                nameof(StrokeWidth),
+            typeof(float),
+            typeof(FreakySignaturePadView),
+            ImageConstructionSettings.DefaultStrokeWidth);
+
     internal static readonly BindablePropertyKey IsBlankPropertyKey = BindableProperty.CreateReadOnly(
             nameof(IsBlank),
             typeof(bool),
             typeof(FreakySignaturePadView),
             true);
-
-    public static readonly BindableProperty IsBlankProperty = IsBlankPropertyKey.BindableProperty;
-
-    public bool IsBlank => (bool)GetValue(IsBlankProperty);
-
-    /// <summary>
-    /// Gets or sets the color of the signature strokes.
-    /// </summary>
-    public Color StrokeColor
-    {
-        get => (Color)GetValue(StrokeColorProperty);
-        set => SetValue(StrokeColorProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the width of the signature strokes.
-    /// </summary>
-    public float StrokeWidth
-    {
-        get => (float)GetValue(StrokeWidthProperty);
-        set => SetValue(StrokeWidthProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the text for the caption displayed under the signature Underline.
-    /// </summary>
-    public string CaptionText
-    {
-        get => (string)GetValue(CaptionTextProperty);
-        set => SetValue(CaptionTextProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the font family for the caption text.
-    /// </summary>
-    public string CaptionFontFamily
-    {
-        get => (string)GetValue(CaptionFontFamilyProperty);
-        set => SetValue(CaptionFontFamilyProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the font size of the caption.
-    /// </summary>
-    [TypeConverter(typeof(FontSizeConverter))]
-    public double CaptionFontSize
-    {
-        get => (double)GetValue(CaptionFontSizeProperty);
-        set => SetValue(CaptionFontSizeProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the color of the caption text.
-    /// </summary>
-    public Color CaptionTextColor
-    {
-        get => (Color)GetValue(CaptionTextColorProperty);
-        set => SetValue(CaptionTextColorProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the color of the signature line.
-    /// </summary>
-    public Color SignatureUnderlineColor
-    {
-        get => (Color)GetValue(SignatureUnderlineColorProperty);
-        set => SetValue(SignatureUnderlineColorProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the width of the signature line.
-    /// </summary>
-    public double SignatureUnderlineWidth
-    {
-        get => (double)GetValue(SignatureUnderlineWidthProperty);
-        set => SetValue(SignatureUnderlineWidthProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the color of the image that clears the pad when clicked.
-    /// </summary>
-    public Color ClearImageColor
-    {
-        get => (Color)GetValue(ClearImageColorProperty);
-        set => SetValue(ClearImageColorProperty, value);
-    }
-
-    /// <summary>
-    /// of type <see cref="Assembly"/>, specifies the Assembly for your ResourceId.
-    /// </summary>
-    public Assembly ClearImageAssembly
-    {
-        get { return (Assembly)GetValue(ClearImageAssemblyProperty); }
-        set { SetValue(ClearImageAssemblyProperty, value); }
-    }
-
-    /// <summary>
-    /// of type <see cref="string"/>, specifies the source of the image.
-    /// A default clear button exists if you keep this field empty
-    /// </summary>
-    public string ClearResourceId
-    {
-        get => (string)GetValue(ClearResourceIdProperty);
-        set => SetValue(ClearResourceIdProperty, value);
-    }
-
-    /// <summary>
-    /// of type <see cref="string"/>, specifies the Base64 source of the image.
-    /// A default clear button exists if you keep this field empty
-    /// </summary>
-    public string ClearImageBase64
-    {
-        get => (string)GetValue(ClearImageBase64Property);
-        set => SetValue(ClearImageBase64Property, value);
-    }
 
     /// <summary>
     ///  Gets or sets the background image for your signature pad.
@@ -275,12 +162,116 @@ public partial class FreakySignaturePadView : ContentView
     }
 
     /// <summary>
+    /// Gets or sets the font family for the caption text.
+    /// </summary>
+    public string CaptionFontFamily
+    {
+        get => (string)GetValue(CaptionFontFamilyProperty);
+        set => SetValue(CaptionFontFamilyProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the font size of the caption.
+    /// </summary>
+    [TypeConverter(typeof(FontSizeConverter))]
+    public double CaptionFontSize
+    {
+        get => (double)GetValue(CaptionFontSizeProperty);
+        set => SetValue(CaptionFontSizeProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the text for the caption displayed under the signature Underline.
+    /// </summary>
+    public string CaptionText
+    {
+        get => (string)GetValue(CaptionTextProperty);
+        set => SetValue(CaptionTextProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the color of the caption text.
+    /// </summary>
+    public Color CaptionTextColor
+    {
+        get => (Color)GetValue(CaptionTextColorProperty);
+        set => SetValue(CaptionTextColorProperty, value);
+    }
+
+    /// <summary>
     /// Gets or sets the command to be fired on clear button click
     /// </summary>
     public ICommand ClearedCommand
     {
         get => (ICommand)GetValue(ClearedCommandProperty);
         set => SetValue(ClearedCommandProperty, value);
+    }
+
+    /// <summary>
+    /// of type <see cref="Assembly"/>, specifies the Assembly for your ResourceId.
+    /// </summary>
+    public Assembly ClearImageAssembly
+    {
+        get { return (Assembly)GetValue(ClearImageAssemblyProperty); }
+        set { SetValue(ClearImageAssemblyProperty, value); }
+    }
+
+    /// <summary>
+    /// of type <see cref="string"/>, specifies the Base64 source of the image.
+    /// A default clear button exists if you keep this field empty
+    /// </summary>
+    public string ClearImageBase64
+    {
+        get => (string)GetValue(ClearImageBase64Property);
+        set => SetValue(ClearImageBase64Property, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the color of the image that clears the pad when clicked.
+    /// </summary>
+    public Color ClearImageColor
+    {
+        get => (Color)GetValue(ClearImageColorProperty);
+        set => SetValue(ClearImageColorProperty, value);
+    }
+
+    /// <summary>
+    /// of type <see cref="string"/>, specifies the source of the image.
+    /// A default clear button exists if you keep this field empty
+    /// </summary>
+    public string ClearResourceId
+    {
+        get => (string)GetValue(ClearResourceIdProperty);
+        set => SetValue(ClearResourceIdProperty, value);
+    }
+
+    public bool IsBlank => (bool)GetValue(IsBlankProperty);
+
+    /// <summary>
+    /// Gets or sets the color of the signature line.
+    /// </summary>
+    public Color SignatureUnderlineColor
+    {
+        get => (Color)GetValue(SignatureUnderlineColorProperty);
+        set => SetValue(SignatureUnderlineColorProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the width of the signature line.
+    /// </summary>
+    public double SignatureUnderlineWidth
+    {
+        get => (double)GetValue(SignatureUnderlineWidthProperty);
+        set => SetValue(SignatureUnderlineWidthProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the color of the signature strokes.
+    /// </summary>
+    public Color StrokeColor
+    {
+        get => (Color)GetValue(StrokeColorProperty);
+        set => SetValue(StrokeColorProperty, value);
     }
 
     /// <summary>
@@ -292,29 +283,27 @@ public partial class FreakySignaturePadView : ContentView
         set => SetValue(StrokeCompletedCommandProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the width of the signature strokes.
+    /// </summary>
+    public float StrokeWidth
+    {
+        get => (float)GetValue(StrokeWidthProperty);
+        set => SetValue(StrokeWidthProperty, value);
+    }
+
     #endregion Properties& BindableProperties
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    public IEnumerable<Point> Points
     {
-        base.OnPropertyChanged(propertyName);
-
-        if (propertyName == IsEnabledProperty.PropertyName)
-        {
-            SignaturePadCanvas.IsEnabled = IsEnabled;
-            ClearLabel.IsEnabled = IsEnabled;
-        }
+        get => SignaturePadCanvas.Points;
+        set => SignaturePadCanvas.Points = value;
     }
 
     public IEnumerable<IEnumerable<Point>> Strokes
     {
         get => SignaturePadCanvas.Strokes;
         set => SignaturePadCanvas.Strokes = value;
-    }
-
-    public IEnumerable<Point> Points
-    {
-        get => SignaturePadCanvas.Points;
-        set => SignaturePadCanvas.Points = value;
     }
 
     public void Clear()
@@ -400,6 +389,17 @@ public partial class FreakySignaturePadView : ContentView
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, settings);
+    }
+
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+
+        if (propertyName == IsEnabledProperty.PropertyName)
+        {
+            SignaturePadCanvas.IsEnabled = IsEnabled;
+            ClearLabel.IsEnabled = IsEnabled;
+        }
     }
 
     private void OnClearTapped(object sender, EventArgs e)

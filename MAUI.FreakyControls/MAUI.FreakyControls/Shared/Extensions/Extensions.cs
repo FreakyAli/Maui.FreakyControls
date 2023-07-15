@@ -37,7 +37,7 @@ public static class Extensions
         }
     }
 
-    public static void InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp= true)
+    public static void InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
     {
         if (useSkiaSharp)
         {

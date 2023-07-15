@@ -2,8 +2,8 @@
 
 public class ZoomImage : Image
 {
-    private const double MIN_SCALE = 1;
     private const double MAX_SCALE = 4;
+    private const double MIN_SCALE = 1;
     private const double OVERSHOOT = 0.15;
     private double StartScale, LastScale;
     private double StartX, StartY;
@@ -35,18 +35,14 @@ public class ZoomImage : Image
         return base.OnMeasure(widthConstraint, heightConstraint);
     }
 
-    private void OnTapped(object sender, EventArgs e)
+    private T Clamp<T>(T value, T minimum, T maximum) where T : IComparable
     {
-        if (Scale > MIN_SCALE)
-        {
-            this.ScaleTo(MIN_SCALE, 250, Easing.CubicInOut);
-            this.TranslateTo(0, 0, 250, Easing.CubicInOut);
-        }
+        if (value.CompareTo(minimum) < 0)
+            return minimum;
+        else if (value.CompareTo(maximum) > 0)
+            return maximum;
         else
-        {
-            AnchorX = AnchorY = 0.5; //TODO tapped position
-            this.ScaleTo(MAX_SCALE, 250, Easing.CubicInOut);
-        }
+            return value;
     }
 
     private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
@@ -93,13 +89,17 @@ public class ZoomImage : Image
         }
     }
 
-    private T Clamp<T>(T value, T minimum, T maximum) where T : IComparable
+    private void OnTapped(object sender, EventArgs e)
     {
-        if (value.CompareTo(minimum) < 0)
-            return minimum;
-        else if (value.CompareTo(maximum) > 0)
-            return maximum;
+        if (Scale > MIN_SCALE)
+        {
+            this.ScaleTo(MIN_SCALE, 250, Easing.CubicInOut);
+            this.TranslateTo(0, 0, 250, Easing.CubicInOut);
+        }
         else
-            return value;
+        {
+            AnchorX = AnchorY = 0.5; //TODO tapped position
+            this.ScaleTo(MAX_SCALE, 250, Easing.CubicInOut);
+        }
     }
 }

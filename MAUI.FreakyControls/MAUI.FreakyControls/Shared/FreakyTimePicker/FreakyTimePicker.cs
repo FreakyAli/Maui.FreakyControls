@@ -5,41 +5,11 @@ namespace Maui.FreakyControls;
 
 public class FreakyTimePicker : TimePicker, IDrawableImageView
 {
-    public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
-             nameof(Image),
-             typeof(ImageSource),
-             typeof(FreakyDatePicker),
-             default(ImageSource));
-
-    public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
-           nameof(ImageHeight),
-           typeof(int),
-           typeof(FreakyDatePicker),
-           25);
-
-    public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
-           nameof(ImageWidth),
-           typeof(int),
-           typeof(FreakyDatePicker),
-           25);
-
     public static readonly BindableProperty ImageAlignmentProperty = BindableProperty.Create(
            nameof(ImageAlignment),
            typeof(ImageAlignment),
            typeof(FreakyDatePicker),
            ImageAlignment.Right);
-
-    public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
-           nameof(ImagePadding),
-           typeof(int),
-           typeof(FreakyDatePicker),
-           5);
-
-    public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
-          nameof(ImagePadding),
-          typeof(ICommand),
-          typeof(FreakyDatePicker),
-          default(ICommand));
 
     public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
           nameof(ImageCommandParameter),
@@ -47,13 +17,43 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
           typeof(FreakyDatePicker),
           default(object));
 
+    public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
+          nameof(ImagePadding),
+          typeof(ICommand),
+          typeof(FreakyDatePicker),
+          default(ICommand));
+
+    public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
+           nameof(ImageHeight),
+           typeof(int),
+           typeof(FreakyDatePicker),
+           25);
+
+    public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
+           nameof(ImagePadding),
+           typeof(int),
+           typeof(FreakyDatePicker),
+           5);
+
+    public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
+                                 nameof(Image),
+             typeof(ImageSource),
+             typeof(FreakyDatePicker),
+             default(ImageSource));
+
+    public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
+           nameof(ImageWidth),
+           typeof(int),
+           typeof(FreakyDatePicker),
+           25);
+
     /// <summary>
-    /// Command parameter for your Image tap command
+    /// <see cref="ImageAlignment"/> for your Image's ViewPort, By default set to Right.
     /// </summary>
-    public object ImageCommandParameter
+    public ImageAlignment ImageAlignment
     {
-        get => GetValue(ImageCommandParameterProperty);
-        set => SetValue(ImageCommandParameterProperty, value);
+        get => (ImageAlignment)GetValue(ImageAlignmentProperty);
+        set => SetValue(ImageAlignmentProperty, value);
     }
 
     /// <summary>
@@ -66,21 +66,12 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// Padding of the Image that you added to the ViewPort
+    /// Command parameter for your Image tap command
     /// </summary>
-    public int ImagePadding
+    public object ImageCommandParameter
     {
-        get => (int)GetValue(ImagePaddingProperty);
-        set => SetValue(ImagePaddingProperty, value);
-    }
-
-    /// <summary>
-    /// Width of the Image in your ViewPort
-    /// </summary>
-    public int ImageWidth
-    {
-        get => (int)GetValue(ImageWidthProperty);
-        set => SetValue(ImageWidthProperty, value);
+        get => GetValue(ImageCommandParameterProperty);
+        set => SetValue(ImageCommandParameterProperty, value);
     }
 
     /// <summary>
@@ -93,6 +84,15 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
+    /// Padding of the Image that you added to the ViewPort
+    /// </summary>
+    public int ImagePadding
+    {
+        get => (int)GetValue(ImagePaddingProperty);
+        set => SetValue(ImagePaddingProperty, value);
+    }
+
+    /// <summary>
     /// An <see cref="ImageSource"/> that you want to add to your ViewPort
     /// </summary>
     public ImageSource ImageSource
@@ -102,11 +102,11 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// <see cref="ImageAlignment"/> for your Image's ViewPort, By default set to Right.
+    /// Width of the Image in your ViewPort
     /// </summary>
-    public ImageAlignment ImageAlignment
+    public int ImageWidth
     {
-        get => (ImageAlignment)GetValue(ImageAlignmentProperty);
-        set => SetValue(ImageAlignmentProperty, value);
+        get => (int)GetValue(ImageWidthProperty);
+        set => SetValue(ImageWidthProperty, value);
     }
 }

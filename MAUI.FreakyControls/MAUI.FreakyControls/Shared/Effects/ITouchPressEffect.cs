@@ -2,8 +2,11 @@
 
 internal interface ITouchPressEffect
 {
-    void ConsumeEvent(EventType gestureType);
-    bool IsEnabled { get; set; }
     AnimationTypes Animation { get; set; }
+
+    bool IsEnabled { get; set; }
+
+    void ConsumeEvent(EventType gestureType);
+
     void ExecuteAction();
 }

@@ -14,30 +14,11 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyTimePickerHandler
 {
-    private MauiTimePicker? _timePicker;
     private AlertDialog? _dialog;
+    private MauiTimePicker? _timePicker;
 
-    protected override MauiTimePicker CreatePlatformView()
-    {
-        _timePicker = new FreakyMauiTimePicker(Context)
-        {
-            ShowPicker = ShowPickerDialog,
-            HidePicker = HidePickerDialog
-        };
-
-        var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
-        ViewCompat.SetBackgroundTintList(_timePicker, colorStateList);
-        return _timePicker;
-    }
-
-    protected override void DisconnectHandler(MauiTimePicker platformView)
-    {
-        if (_dialog != null)
-        {
-            _dialog.Hide();
-            _dialog = null;
-        }
-    }
+    private bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
+            && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
     {
@@ -62,6 +43,38 @@ public partial class FreakyTimePickerHandler
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
+    protected override MauiTimePicker CreatePlatformView()
+    {
+        _timePicker = new FreakyMauiTimePicker(Context)
+        {
+            ShowPicker = ShowPickerDialog,
+            HidePicker = HidePickerDialog
+        };
+
+        var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+        ViewCompat.SetBackgroundTintList(_timePicker, colorStateList);
+        return _timePicker;
+    }
+
+    protected override void DisconnectHandler(MauiTimePicker platformView)
+    {
+        if (_dialog != null)
+        {
+            _dialog.Hide();
+            _dialog = null;
+        }
+    }
+
+    private void HidePickerDialog()
+    {
+        if (_dialog != null)
+        {
+            _dialog.Hide();
+        }
+
+        _dialog = null;
+    }
+
     private void ShowPickerDialog()
     {
         if (VirtualView == null)
@@ -79,17 +92,4 @@ public partial class FreakyTimePickerHandler
         _dialog = CreateTimePickerDialog(hour, minute);
         _dialog.Show();
     }
-
-    private void HidePickerDialog()
-    {
-        if (_dialog != null)
-        {
-            _dialog.Hide();
-        }
-
-        _dialog = null;
-    }
-
-    private bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
-            && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 }

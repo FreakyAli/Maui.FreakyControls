@@ -12,60 +12,58 @@
     <Border
         Padding="{Binding Padding, Source={x:Reference this}}"
         BackgroundColor="{Binding BackgroundColor, Source={x:Reference this}}"
-        StrokeThickness="{Binding BorderWidth, Source={x:Reference this}}"
-        Stroke="{Binding BorderColor, Source={x:Reference this}}">
+        Stroke="{Binding BorderColor, Source={x:Reference this}}"
+        StrokeThickness="{Binding BorderWidth, Source={x:Reference this}}">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" />
         </Border.StrokeShape>
         <Grid
             x:Name="mainGrid"
-            HorizontalOptions="Fill"
             ColumnDefinitions="1*, 3*, 1*"
-            ColumnSpacing="{Binding Spacing, Source={x:Reference this}}">
+            ColumnSpacing="{Binding Spacing, Source={x:Reference this}}"
+            HorizontalOptions="Fill">
             <ContentView
-                Grid.Column="0"
                 x:Name="leadingContentView"
-                IsVisible="False"
+                Grid.Column="0"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"
+                IsVisible="False"
                 VerticalOptions="Center"
                 WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
 
             <Label
-                Grid.Column="1"
                 x:Name="txtLabel"
+                Grid.Column="1"
+                CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference this}}"
+                FontAttributes="{Binding FontAttributes, Source={x:Reference this}}"
+                FontAutoScalingEnabled="{Binding FontAutoScalingEnabled, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                FontAttributes="{Binding FontAttributes, Source={x:Reference this}}"
+                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference this}}"
                 LineBreakMode="{Binding LineBreakMode, Source={x:Reference this}}"
-                TextTransform="{Binding TextTransform, Source={x:Reference this}}"
-                VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}"
-                CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference this}}"
-                FontAutoScalingEnabled="{Binding FontAutoScalingEnabled, Source={x:Reference this}}"
                 Text="{Binding Text, Source={x:Reference this}}"
-                TextType="{Binding TextType, Source={x:Reference this}}"
                 TextColor="{Binding TextColor, Source={x:Reference this}}"
-                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference this}}" />
+                TextTransform="{Binding TextTransform, Source={x:Reference this}}"
+                TextType="{Binding TextType, Source={x:Reference this}}"
+                VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}" />
 
             <ActivityIndicator
-                Grid.Column="1"
                 x:Name="activityIndicator"
-                TranslationY="35"
+                Grid.Column="1"
                 HeightRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
                 HorizontalOptions="Center"
                 IsRunning="{Binding IsBusy, Source={x:Reference this}}"
+                TranslationY="35"
                 VerticalOptions="Center"
                 WidthRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
                 Color="{Binding BusyColor, Source={x:Reference this}}" />
 
             <ContentView
-                Grid.Column="2"
                 x:Name="trailingContentView"
-                IsVisible="False"
+                Grid.Column="2"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"
+                IsVisible="False"
                 VerticalOptions="Center"
                 WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
         </Grid>
-
     </Border>
-
 </ContentView>

@@ -2,8 +2,8 @@
 
 public partial class ButtonsView : ContentPage
 {
-	public ButtonsView()
-	{
-		InitializeComponent();
-	}
+    public ButtonsView()
+    {
+        InitializeComponent();
+    }
 }

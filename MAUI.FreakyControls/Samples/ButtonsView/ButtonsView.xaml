@@ -1,191 +1,193 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Samples.ButtonsView.ButtonsView"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             Title="ButtonsView">
+<ContentPage
+    x:Class="Samples.ButtonsView.ButtonsView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    Title="ButtonsView">
     <ScrollView>
-    <VerticalStackLayout VerticalOptions="Center" Spacing="20" Padding="10">
-          <freakyControls:FreakyButton
+        <VerticalStackLayout
+            Padding="10"
+            Spacing="20"
+            VerticalOptions="Center">
+            <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
-                LineBreakMode="CharacterWrap"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
+                LineBreakMode="CharacterWrap"
                 Text="Edged icon trailing with fade and scale"
-                TextColor="White">
+                TextColor="White"
+                VerticalTextAlignment="Center">
                 <freakyControls:FreakyButton.TrailingIcon>
                     <Image Source="calendar.png" />
                 </freakyControls:FreakyButton.TrailingIcon>
             </freakyControls:FreakyButton>
 
-         <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="Fade"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
                 Text="Edged icon with Fade"
-                TextColor="White">
+                TextColor="White"
+                VerticalTextAlignment="Center">
                 <freakyControls:FreakyButton.LeadingIcon>
                     <Image Source="calendar.png" />
                 </freakyControls:FreakyButton.LeadingIcon>
             </freakyControls:FreakyButton>
 
-          <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="Scale"
                 AreIconsDistant="False"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
                 Text="With close icon trailing"
-                TextColor="White">
+                TextColor="White"
+                VerticalTextAlignment="Center">
                 <freakyControls:FreakyButton.TrailingIcon>
                     <Image Source="calendar.png" />
                 </freakyControls:FreakyButton.TrailingIcon>
             </freakyControls:FreakyButton>
 
-         <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="None"
                 AreIconsDistant="False"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                LineBreakMode="WordWrap"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
+                LineBreakMode="WordWrap"
                 Text="Close icon leading no animation"
-                TextColor="White">
+                TextColor="White"
+                VerticalTextAlignment="Center">
                 <freakyControls:FreakyButton.LeadingIcon>
                     <Image Source="calendar.png" />
                 </freakyControls:FreakyButton.LeadingIcon>
             </freakyControls:FreakyButton>
 
-        <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
                 Text="A normal button I suppose"
-                TextColor="White"/>
-        
-         <freakyControls:FreakyButton
+                TextColor="White"
+                VerticalTextAlignment="Center" />
+
+            <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
+                IconSize="30"
                 IsEnabled="False"
-                IconSize="30"
                 Text="A normal disabled button"
-                TextColor="White">
-             <VisualStateManager.VisualStateGroups>
+                TextColor="White"
+                VerticalTextAlignment="Center">
+                <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Disabled">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" Value="LightGray" />
-                                <Setter Property="TextColor" Value="Black"/>
+                                <Setter Property="TextColor" Value="Black" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Busy">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="Purple"/>
-                            <Setter Property="BusyColor" Value="Black"/>
-                        </VisualState.Setters>
-                         </VisualState>
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Purple" />
+                                <Setter Property="BusyColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                                <Setter Property="TextColor" Value="White"/>
+                                <Setter Property="TextColor" Value="White" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
-        </freakyControls:FreakyButton>
+            </freakyControls:FreakyButton>
 
-         <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
+                IconSize="30"
                 IsBusy="True"
-                IconSize="30"
                 Text="A normal busy button"
-                TextColor="White">
-             <VisualStateManager.VisualStateGroups>
+                TextColor="White"
+                VerticalTextAlignment="Center">
+                <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Disabled">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" Value="LightGray" />
-                                <Setter Property="TextColor" Value="Black"/>
+                                <Setter Property="TextColor" Value="Black" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Busy">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="Purple"/>
-                            <Setter Property="BusyColor" Value="Black"/>
-                        </VisualState.Setters>
-                         </VisualState>
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Purple" />
+                                <Setter Property="BusyColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                                <Setter Property="TextColor" Value="White"/>
+                                <Setter Property="TextColor" Value="White" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
-        </freakyControls:FreakyButton>
+            </freakyControls:FreakyButton>
 
-        <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
-                TextTransform="Uppercase"
                 Text="UppErCAse"
-                TextColor="White">
-            </freakyControls:FreakyButton>
+                TextColor="White"
+                TextTransform="Uppercase"
+                VerticalTextAlignment="Center" />
 
-        <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
-                TextTransform="Lowercase"
                 Text="LoWeRCasE"
-                TextColor="White">
-            </freakyControls:FreakyButton>
+                TextColor="White"
+                TextTransform="Lowercase"
+                VerticalTextAlignment="Center" />
 
-         <freakyControls:FreakyButton
+            <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BackgroundColor="{StaticResource Primary}"
                 BorderColor="Black"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
                 BusyColor="White"
+                HorizontalTextAlignment="Center"
                 IconSize="30"
-                TextTransform="None"
                 Text="How EveR you LIKE"
-                TextColor="White">
-            </freakyControls:FreakyButton>
-    </VerticalStackLayout></ScrollView>
+                TextColor="White"
+                TextTransform="None"
+                VerticalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

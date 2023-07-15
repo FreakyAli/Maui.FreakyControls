@@ -2,15 +2,15 @@
 
 public partial class AppShell : Shell
 {
-    internal const string inputViews = "InputViews";
-    internal const string textInputLayout = "TextInputLayouts";
-    internal const string pickers = "Pickers";
-    internal const string imageViews = "ImageViews";
-    internal const string signatureView = "SignatureView";
-    internal const string signaturePreview = "ImageDisplay";
-    internal const string checkboxes = "Checkboxes";
-    internal const string radioButtons = "RadioButtons";
     internal const string buttons = "Buttons";
+    internal const string checkboxes = "Checkboxes";
+    internal const string imageViews = "ImageViews";
+    internal const string inputViews = "InputViews";
+    internal const string pickers = "Pickers";
+    internal const string radioButtons = "RadioButtons";
+    internal const string signaturePreview = "ImageDisplay";
+    internal const string signatureView = "SignatureView";
+    internal const string textInputLayout = "TextInputLayouts";
 
     public AppShell()
     {

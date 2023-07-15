@@ -1,8 +1,5 @@
-﻿using System;
-namespace Samples.ButtonsView;
+﻿namespace Samples.ButtonsView;
 
 public class ButtonsViewModel : MainViewModel
 {
-	
 }
-

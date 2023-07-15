@@ -1,20 +1,29 @@
-﻿using System.Windows.Input;
-using Nager.Country;
+﻿using Nager.Country;
+using System.Windows.Input;
 
 namespace Samples.InputViews;
 
 public class InputViewModel : MainViewModel
 {
-    private string _searchCountry = string.Empty;
     private bool _customSearchFunctionSwitchIsToggled;
+    private string _searchCountry = string.Empty;
     private bool isBusy;
 
-    public string SearchCountry
+    public InputViewModel()
     {
-        get => _searchCountry;
+        var countryProvider = new CountryProvider();
+        var countries = countryProvider.GetCountries().Select(x => x.OfficialName);
+        Countries = new List<string>(countries);
+    }
+
+    public List<string> Countries { get; }
+
+    public bool CustomSearchFunctionSwitchIsToggled
+    {
+        get => _customSearchFunctionSwitchIsToggled;
         set
         {
-            _searchCountry = value;
+            _customSearchFunctionSwitchIsToggled = value;
             OnPropertyChanged();
         }
     }
@@ -25,26 +34,17 @@ public class InputViewModel : MainViewModel
         set => SetProperty(ref isBusy, value);
     }
 
-    public List<string> Countries { get; }
-
     public ICommand OnButtonClickedCommand
     {
-        get => new Command(()=>IsBusy = !IsBusy);
+        get => new Command(() => IsBusy = !IsBusy);
     }
 
-    public InputViewModel()
+    public string SearchCountry
     {
-        var countryProvider = new CountryProvider();
-        var countries = countryProvider.GetCountries().Select(x => x.OfficialName);
-        Countries = new List<string>(countries);
-    }
-
-    public bool CustomSearchFunctionSwitchIsToggled
-    {
-        get => _customSearchFunctionSwitchIsToggled;
+        get => _searchCountry;
         set
         {
-            _customSearchFunctionSwitchIsToggled = value;
+            _searchCountry = value;
             OnPropertyChanged();
         }
     }
