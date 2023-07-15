@@ -55,7 +55,7 @@ Add the following using statement and then Init the handlers in your MauiProgram
 
       using MAUI.FreakyControls.Extensions;
       
-**For Version 4.3 and below:**      
+### For Version 4.3 and below:   
       
       namespace Something;
       
@@ -73,7 +73,7 @@ Add the following using statement and then Init the handlers in your MauiProgram
 		  return builder.Build();
       } 
 
-**Post version 4.3:**
+### Post version 4.3:
 
    namespace Samples;
 
@@ -89,7 +89,8 @@ Add the following using statement and then Init the handlers in your MauiProgram
                      fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                      fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                  });
-		//Initialization is now a one-liner and the old methods have been deprecated and will be removed in future updates.
+	    //Initialization is now a one-liner and the old methods have been deprecated and will be removed in future updates.
+        //Takes one argument if you would like to init Skiasharp through FreakyControls or not (Used for RadioButton, Checkbox & SVGImageView)
              builder.InitializeFreakyControls();
              return builder.Build();
          }
