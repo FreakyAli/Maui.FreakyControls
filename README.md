@@ -5,6 +5,7 @@
    <a href="https://www.nuget.org/packages/FreakyControls"><img src="https://img.shields.io/nuget/dt/FreakyControls.svg"></a>
    <a href="./LICENSE"><img src="https://img.shields.io/github/license/freakyali/maui.freakycontrols"></a>
    <a href="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols"><img src="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols/badge"></a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=shield"/></a>
 </div>
 
 
@@ -44,17 +45,17 @@ The license for this project can be found [here](https://github.com/FreakyAli/Ma
 
 Add our [NuGet](https://www.nuget.org/packages/FreakyControls) package or 
 
-Run the following command to add nuget to your .Net MAUI app:
+Run the following command to add our Nuget to your .Net MAUI app:
 
       Install-Package FreakyControls -Version xx.xx.xx
 
-Adding FreakyControlsHandlers to your MAUI app:
+**Adding FreakyControlsHandlers to your MAUI app**:
 
 Add the following using statement and then Init the handlers in your MauiProgram: 
 
       using MAUI.FreakyControls.Extensions;
       
-And then in your MauiProgram which would be something like below :       
+**For Version 4.3 and below:**      
       
       namespace Something;
       
@@ -70,15 +71,34 @@ And then in your MauiProgram which would be something like below :
                   // This line is needed for the following issue: https://github.com/mono/SkiaSharp/issues/1979
 		  builder.InitSkiaSharp(); // Use this if you want to use FreakySvgImageView 
 		  return builder.Build();
-      }   
-      
+      } 
+
+**Post version 4.3:**
+
+   namespace Samples;
+
+     public static class MauiProgram
+     {
+         public static MauiApp CreateMauiApp()
+        {
+             var builder = MauiApp.CreateBuilder();
+             builder
+                 .UseMauiApp<App>()
+                 .ConfigureFonts(fonts =>
+                 {
+                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                 });
+		//Initialization is now a one-liner and the old methods have been deprecated and will be removed in future updates.
+             builder.InitializeFreakyControls();
+             return builder.Build();
+         }
+      }
 Now you can use the controls in your app.
 
 ## Activity 
 
 Fossa: 
-
-<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=shield"/></a>
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_large)
 
