@@ -67,7 +67,7 @@ And then in your MauiProgram which would be something like below :
       {
           handlers.AddFreakyHandlers(); // To Init your freaky handlers for Entry and Editor
       });
-                  // This line is needed for the follow issue: https://github.com/mono/SkiaSharp/issues/1979
+                  // This line is needed for the following issue: https://github.com/mono/SkiaSharp/issues/1979
 		  builder.InitSkiaSharp(); // Use this if you want to use FreakySvgImageView 
 		  return builder.Build();
       }   
@@ -75,6 +75,10 @@ And then in your MauiProgram which would be something like below :
 Now you can use the controls in your app.
 
 ## Activity 
+
+Fossa: 
+
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=shield"/></a>
 
 Sparkline: 
 
