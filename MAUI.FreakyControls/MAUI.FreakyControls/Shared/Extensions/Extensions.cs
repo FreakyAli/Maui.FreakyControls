@@ -43,7 +43,7 @@ public static class Extensions
         {
             builder.UseSkiaSharp();
         }
-        builder.ConfigureMauiHandlers(builders => builders.AddFreakyHandlers());
+        builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
         builder.ConfigureEffects(effects =>
         {
             effects.Add<TouchAndPressRoutingEffect, TouchAndPressEffect>();
@@ -51,8 +51,7 @@ public static class Extensions
         });
     }
 
-    [Obsolete("Please use InitializeFreakyControls instead.")]
-    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
+    private static void AddHandlers(this IMauiHandlersCollection handlers)
     {
         handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
         handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
@@ -63,6 +62,9 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
     }
+
+    [Obsolete("Please use InitializeFreakyControls instead.")]
+    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers) => handlers.AddHandlers();
 
     [Obsolete("Please use InitializeFreakyControls instead.")]
     public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
