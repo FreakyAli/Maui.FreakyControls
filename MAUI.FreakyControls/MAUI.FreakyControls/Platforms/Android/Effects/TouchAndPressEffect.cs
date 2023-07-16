@@ -52,28 +52,7 @@ internal class TouchAndPressEffect : PlatformEffect
                 break;
 
             case MotionEventActions.Move:
-                var motionEvent = e.Event;
-
-                if (motionEvent != null)
-                {
-                    var x = motionEvent.GetX();
-                    var y = motionEvent.GetY();
-
-                    if (!this.firstX.HasValue || !this.firstY.HasValue)
-                    {
-                        this.firstX = x;
-                        this.firstY = y;
-                    }
-
-                    var maxDelta = 10;
-                    var deltaX = Math.Abs(x - this.firstX.Value);
-                    var deltaY = Math.Abs(y - this.firstY.Value);
-                    if (!this.ignored && (deltaX > maxDelta || deltaY > maxDelta))
-                    {
-                        this.ignored = true;
-                        _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Ignored);
-                    }
-                }
+                OnPointerMoved(e.Event);
                 break;
 
             case MotionEventActions.ButtonRelease:
@@ -102,6 +81,30 @@ internal class TouchAndPressEffect : PlatformEffect
             this.ignored = false;
             this.firstX = null;
             this.firstY = null;
+        }
+    }
+
+    private void OnPointerMoved(MotionEvent motionEvent)
+    {
+        if (motionEvent != null)
+        {
+            var x = motionEvent.GetX();
+            var y = motionEvent.GetY();
+
+            if (!this.firstX.HasValue || !this.firstY.HasValue)
+            {
+                this.firstX = x;
+                this.firstY = y;
+            }
+
+            var maxDelta = 10;
+            var deltaX = Math.Abs(x - this.firstX.Value);
+            var deltaY = Math.Abs(y - this.firstY.Value);
+            if (!this.ignored && (deltaX > maxDelta || deltaY > maxDelta))
+            {
+                this.ignored = true;
+                _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Ignored);
+            }
         }
     }
 }
