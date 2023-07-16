@@ -57,18 +57,6 @@ internal class TouchAndPressEffect : PlatformEffect
                 _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Pressing);
                 break;
 
-            case MotionEventActions.HoverEnter:
-                break;
-
-            case MotionEventActions.HoverExit:
-                break;
-
-            case MotionEventActions.HoverMove:
-                break;
-
-            case MotionEventActions.Mask:
-                break;
-
             case MotionEventActions.Move:
                 var motionEvent = e.Event;
 
@@ -93,10 +81,6 @@ internal class TouchAndPressEffect : PlatformEffect
                     }
                 }
                 break;
-
-            case MotionEventActions.Outside:
-                break;
-
             case MotionEventActions.Pointer1Down:
                 _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Pressing);
                 break;
@@ -105,21 +89,16 @@ internal class TouchAndPressEffect : PlatformEffect
                 _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Released);
                 break;
 
+            case MotionEventActions.Outside:
+            case MotionEventActions.HoverEnter:
+            case MotionEventActions.HoverExit:
+            case MotionEventActions.HoverMove:
+            case MotionEventActions.Mask:
             case MotionEventActions.Pointer2Down:
-                break;
-
             case MotionEventActions.Pointer2Up:
-                break;
-
             case MotionEventActions.Pointer3Down:
-                break;
-
             case MotionEventActions.Pointer3Up:
-                break;
-
             case MotionEventActions.PointerIdMask:
-                break;
-
             case MotionEventActions.PointerIdShift:
                 break;
 

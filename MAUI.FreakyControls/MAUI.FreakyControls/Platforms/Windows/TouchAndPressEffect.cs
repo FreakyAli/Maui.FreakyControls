@@ -1,8 +1,7 @@
-﻿using Microsoft.Maui.Controls.Platform;
-
+﻿using System;
 namespace Maui.FreakyControls.Platforms.Windows;
 
-internal class TouchReleaseEffect : PlatformEffect
+internal class TouchAndPressEffect : PlatformEffect
 {
     protected override void OnAttached()
     {

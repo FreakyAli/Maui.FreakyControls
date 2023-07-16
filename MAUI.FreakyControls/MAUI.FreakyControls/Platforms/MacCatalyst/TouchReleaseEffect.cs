@@ -1,25 +1,14 @@
 ﻿using Microsoft.Maui.Controls.Platform;
 
-namespace Maui.FreakyControls.Platforms.MacCatalyst
+namespace Maui.FreakyControls.Platforms.MacCatalyst;
+
+internal class TouchReleaseEffect : PlatformEffect
 {
-    internal class TouchAndPressEffect : PlatformEffect
+    protected override void OnAttached()
     {
-        protected override void OnAttached()
-        {
-        }
-
-        protected override void OnDetached()
-        {
-        }
     }
-    internal class TouchReleaseEffect : PlatformEffect
-    {
-        protected override void OnAttached()
-        {
-        }
 
-        protected override void OnDetached()
-        {
-        }
+    protected override void OnDetached()
+    {
     }
 }

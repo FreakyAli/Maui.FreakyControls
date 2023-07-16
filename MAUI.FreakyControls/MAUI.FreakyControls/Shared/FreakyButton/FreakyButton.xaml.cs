@@ -357,7 +357,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     public FreakyButton()
     {
         InitializeComponent();
-        this.Effects.Add(new TouchAndPressEffect());
+        this.Effects.Add(new TouchAndPressRoutingEffect());
     }
 
     #endregion Constructors
