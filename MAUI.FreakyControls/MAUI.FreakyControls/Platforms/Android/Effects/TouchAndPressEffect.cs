@@ -41,18 +41,12 @@ internal class TouchAndPressEffect : PlatformEffect
     {
         switch (e.Event.ActionMasked)
         {
-            case MotionEventActions.ButtonPress:
-                _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Pressing);
-                break;
-
-            case MotionEventActions.ButtonRelease:
-                _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Released);
-                break;
-
             case MotionEventActions.Cancel:
                 _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Cancelled);
                 break;
 
+            case MotionEventActions.Pointer1Down:
+            case MotionEventActions.ButtonPress:
             case MotionEventActions.Down:
                 _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Pressing);
                 break;
@@ -81,14 +75,14 @@ internal class TouchAndPressEffect : PlatformEffect
                     }
                 }
                 break;
-            case MotionEventActions.Pointer1Down:
-                _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Pressing);
-                break;
 
+            case MotionEventActions.ButtonRelease:
+            case MotionEventActions.Up:
             case MotionEventActions.Pointer1Up:
                 _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Released);
                 break;
 
+            default:
             case MotionEventActions.Outside:
             case MotionEventActions.HoverEnter:
             case MotionEventActions.HoverExit:
@@ -101,13 +95,6 @@ internal class TouchAndPressEffect : PlatformEffect
             case MotionEventActions.PointerIdMask:
             case MotionEventActions.PointerIdShift:
                 break;
-
-            case MotionEventActions.Up:
-                _touchAndPressEffectConsumer?.ConsumeEvent(EventType.Released);
-                break;
-
-            default:
-                throw new ArgumentOutOfRangeException();
         }
 
         if (e.Event.ActionMasked != MotionEventActions.Move)
