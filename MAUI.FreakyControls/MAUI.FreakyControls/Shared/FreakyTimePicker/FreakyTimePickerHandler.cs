@@ -14,13 +14,9 @@ public partial class FreakyTimePickerHandler : TimePickerHandler
     private void MapTimePicker(ITimePickerHandler timePickerHandler, ITimePicker timePicker)
     {
         if (timePicker is FreakyTimePicker freakyTimePicker &&
-                    timePickerHandler is FreakyTimePickerHandler freakyTimePickerHandler)
-        {
+            timePickerHandler is FreakyTimePickerHandler freakyTimePickerHandler)
             if (freakyTimePicker.ImageSource != default(ImageSource))
-            {
                 freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
-            }
-        }
     }
 }
 #else

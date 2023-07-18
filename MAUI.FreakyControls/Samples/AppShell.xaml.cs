@@ -1,4 +1,11 @@
-﻿namespace Samples;
+﻿using Samples.Checkboxes;
+using Samples.ImageViews;
+using Samples.Pickers;
+using Samples.RadioButtons;
+using Samples.SignatureView;
+using Samples.TextInputLayout;
+
+namespace Samples;
 
 public partial class AppShell : Shell
 {
@@ -16,13 +23,13 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
         Routing.RegisterRoute(inputViews, typeof(InputViews.InputViews));
-        Routing.RegisterRoute(pickers, typeof(Pickers.PickersView));
-        Routing.RegisterRoute(textInputLayout, typeof(TextInputLayout.TextInputLayoutView));
-        Routing.RegisterRoute(imageViews, typeof(ImageViews.ImagesPage));
+        Routing.RegisterRoute(pickers, typeof(PickersView));
+        Routing.RegisterRoute(textInputLayout, typeof(TextInputLayoutView));
+        Routing.RegisterRoute(imageViews, typeof(ImagesPage));
         Routing.RegisterRoute(signatureView, typeof(SignatureView.SignatureView));
-        Routing.RegisterRoute(signaturePreview, typeof(SignatureView.ImageDisplay));
-        Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
-        Routing.RegisterRoute(radioButtons, typeof(RadioButtons.RadioButtonsView));
+        Routing.RegisterRoute(signaturePreview, typeof(ImageDisplay));
+        Routing.RegisterRoute(checkboxes, typeof(CheckboxesView));
+        Routing.RegisterRoute(radioButtons, typeof(RadioButtonsView));
         Routing.RegisterRoute(buttons, typeof(ButtonsView.ButtonsView));
     }
 }

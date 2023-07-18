@@ -5,10 +5,10 @@ namespace Maui.FreakyControls.Shared.Helpers;
 
 public static class DownloadHelper
 {
-    internal static async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken = default(CancellationToken))
+    internal static async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        Stream stream = await DownloadStreamAsync(uri, cancellationToken).ConfigureAwait(false);
+        var stream = await DownloadStreamAsync(uri, cancellationToken).ConfigureAwait(false);
         return stream;
     }
 

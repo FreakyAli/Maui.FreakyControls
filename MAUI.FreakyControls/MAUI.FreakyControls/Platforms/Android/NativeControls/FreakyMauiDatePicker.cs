@@ -9,14 +9,13 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
 public class FreakyMauiDatePicker : MauiDatePicker
 {
-    private Drawable drawableRight;
-    private Drawable drawableLeft;
-    private Drawable drawableTop;
-    private Drawable drawableBottom;
-
     private int actionX, actionY;
 
     private IDrawableClickListener clickListener;
+    private Drawable drawableBottom;
+    private Drawable drawableLeft;
+    private Drawable drawableRight;
+    private Drawable drawableTop;
 
     public FreakyMauiDatePicker(Context context) : base(context)
     {
@@ -26,29 +25,34 @@ public class FreakyMauiDatePicker : MauiDatePicker
     {
     }
 
-    public FreakyMauiDatePicker(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
+    public FreakyMauiDatePicker(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs,
+        defStyleAttr)
     {
     }
 
     public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
-           Drawable right, Drawable bottom)
+        Drawable right, Drawable bottom)
     {
         if (left != null)
         {
             drawableLeft = left;
         }
+
         if (right != null)
         {
             drawableRight = right;
         }
+
         if (top != null)
         {
             drawableTop = top;
         }
+
         if (bottom != null)
         {
             drawableBottom = bottom;
         }
+
         base.SetCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
     }
 
@@ -67,7 +71,7 @@ public class FreakyMauiDatePicker : MauiDatePicker
             }
 
             if (drawableTop != null
-                    && drawableTop.Bounds.Contains(actionX, actionY))
+                && drawableTop.Bounds.Contains(actionX, actionY))
             {
                 clickListener.OnClick(DrawablePosition.Top);
                 return base.OnTouchEvent(e);
@@ -157,13 +161,15 @@ public class FreakyMauiDatePicker : MauiDatePicker
                 if (bounds.Contains(x, y) && clickListener != null)
                 {
                     clickListener
-                            .OnClick(DrawablePosition.Right);
+                        .OnClick(DrawablePosition.Right);
                     e.Action = (MotionEventActions.Cancel);
                     return false;
                 }
+
                 return base.OnTouchEvent(e);
             }
         }
+
         return base.OnTouchEvent(e);
     }
 

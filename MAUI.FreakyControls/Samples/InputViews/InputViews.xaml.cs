@@ -5,6 +5,6 @@ public partial class InputViews : ContentPage
     public InputViews()
     {
         InitializeComponent();
-        this.BindingContext = new InputViewModel();
+        BindingContext = new InputViewModel();
     }
 }

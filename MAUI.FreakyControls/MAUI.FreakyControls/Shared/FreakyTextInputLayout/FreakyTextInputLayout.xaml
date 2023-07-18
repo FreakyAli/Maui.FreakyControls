@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentView
     x:Class="Maui.FreakyControls.FreakyTextInputLayout"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -7,7 +8,6 @@
     xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
     x:Name="this">
     <ContentView.Resources>
-        <converter:StrokeThicknessConverter x:Key="StrokeThicknessConverter" />
         <converter:TitleBackgroundColorConverter x:Key="TitleBackgroundColorConverter" />
         <converter:TilPaddingConverter x:Key="TilPaddingConverter" />
     </ContentView.Resources>

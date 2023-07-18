@@ -1,4 +1,5 @@
 ﻿using Maui.FreakyControls.Shared.Enums;
+using Microsoft.Maui.Converters;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -7,10 +8,10 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyTextInputLayout : ContentView
 {
-    private int _topMargin;
     private int _leftMargin;
-    private int _placeholderFontSize = 18;
-    private int _titleFontSize = 14;
+    private readonly int _placeholderFontSize = 18;
+    private readonly int _titleFontSize = 14;
+    private int _topMargin;
 
     public FreakyTextInputLayout()
     {
@@ -20,16 +21,105 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// raised when the user finalizes text in the <see cref="FreakyTextInputLayout"/> with the return key.
+    ///     raised when the user finalizes text in the <see cref="FreakyTextInputLayout" /> with the return key.
     /// </summary>
     public event EventHandler Completed;
 
     /// <summary>
-    ///  raised when the text in the <see cref="FreakyTextInputLayout"/> changes.
-    ///  The <see cref="TextChangedEventArgs"/> object that accompanies the TextChanged event has NewTextValue and OldTextValue properties,
-    ///  which specify the new and old text, respectively.
+    ///     raised when the text in the <see cref="FreakyTextInputLayout" /> changes.
+    ///     The <see cref="TextChangedEventArgs" /> object that accompanies the TextChanged event has NewTextValue and
+    ///     OldTextValue properties,
+    ///     which specify the new and old text, respectively.
     /// </summary>
     public event EventHandler<TextChangedEventArgs> TextChanged;
+
+    public new void Focus()
+    {
+        if (IsEnabled) EntryField.Focus();
+    }
+
+    private async void Handle_Focused(object sender, FocusEventArgs e)
+    {
+        if (string.IsNullOrEmpty(Text)) await TransitionToTitle(true);
+    }
+
+    private async void Handle_Unfocused(object sender, FocusEventArgs e)
+    {
+        if (string.IsNullOrEmpty(Text)) await TransitionToPlaceholder(true);
+    }
+
+    private async Task TransitionToTitle(bool animated)
+    {
+        if (animated)
+        {
+            var t1 = LabelTitle.TranslateTo(_leftMargin, _topMargin, 100);
+            var t2 = SizeTo(_titleFontSize);
+            await Task.WhenAll(t1, t2);
+        }
+        else
+        {
+            LabelTitle.TranslationX = 0;
+            LabelTitle.TranslationY = -30;
+            LabelTitle.FontSize = 14;
+        }
+    }
+
+    private async Task TransitionToPlaceholder(bool animated)
+    {
+        if (animated)
+        {
+            var t1 = LabelTitle.TranslateTo(10, 0, 250, Easing.Linear);
+            var t2 = SizeTo(_placeholderFontSize);
+            await Task.WhenAll(t1, t2);
+        }
+        else
+        {
+            LabelTitle.TranslationX = 10;
+            LabelTitle.TranslationY = 0;
+            LabelTitle.FontSize = _placeholderFontSize;
+        }
+    }
+
+    private void Handle_Tapped(object sender, EventArgs e)
+    {
+        if (IsEnabled) EntryField.Focus();
+    }
+
+    private Task SizeTo(int fontSize)
+    {
+        var taskCompletionSource = new TaskCompletionSource<bool>();
+
+        // setup information for animation
+        Action<double> callback = input => { LabelTitle.FontSize = input; };
+        var startingHeight = LabelTitle.FontSize;
+        double endingHeight = fontSize;
+        uint rate = 10;
+        uint length = 250;
+        var easing = Easing.Linear;
+
+        // now start animation with all the setup information
+        LabelTitle.Animate("animate", callback, startingHeight, endingHeight, rate, length, easing,
+            (v, c) => taskCompletionSource.SetResult(c));
+
+        return taskCompletionSource.Task;
+    }
+
+    private void Handle_Completed(object sender, EventArgs e)
+    {
+        Completed?.Invoke(this, e);
+    }
+
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+
+        if (propertyName == nameof(IsEnabled)) EntryField.IsEnabled = IsEnabled;
+    }
+
+    private void EntryField_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        TextChanged?.Invoke(this, e);
+    }
 
     #region Bindable Properties
 
@@ -41,257 +131,252 @@ public partial class FreakyTextInputLayout : ContentView
         BindingMode.TwoWay,
         null,
         HandleBindingPropertyChangedDelegate
-        );
+    );
 
     public static readonly BindableProperty TitleProperty = BindableProperty.Create(
         nameof(Title),
         typeof(string),
         typeof(FreakyTextInputLayout),
         string.Empty,
-        BindingMode.TwoWay,
-        null
-        );
+        BindingMode.TwoWay
+    );
 
     public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(
         nameof(ReturnType),
         typeof(ReturnType),
         typeof(FreakyTextInputLayout),
         ReturnType.Default
-        );
+    );
 
     public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
         nameof(IsPassword),
         typeof(bool),
         typeof(FreakyTextInputLayout),
         default(bool)
-        );
+    );
 
     public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
         nameof(Keyboard),
-        typeof(Microsoft.Maui.Keyboard),
+        typeof(Keyboard),
         typeof(FreakyTextInputLayout),
         Keyboard.Default,
         coerceValue: (o, v) => (Keyboard)v ?? Keyboard.Default
-        );
+    );
 
     public static readonly BindableProperty BorderStrokeThicknessProperty = BindableProperty.Create(
         nameof(BorderStrokeThickness),
         typeof(double),
         typeof(FreakyTextInputLayout),
         default(double)
-        );
+    );
 
     public static readonly BindableProperty BorderStrokeProperty = BindableProperty.Create(
-       nameof(BorderStroke),
-       typeof(Brush),
-       typeof(FreakyTextInputLayout),
-       Brush.Black
-       );
+        nameof(BorderStroke),
+        typeof(Brush),
+        typeof(FreakyTextInputLayout),
+        Brush.Black
+    );
 
     public static readonly BindableProperty BorderCornerRadiusProperty = BindableProperty.Create(
-       nameof(BorderCornerRadius),
-       typeof(CornerRadius),
-       typeof(FreakyTextInputLayout),
-       default(CornerRadius)
-       );
+        nameof(BorderCornerRadius),
+        typeof(CornerRadius),
+        typeof(FreakyTextInputLayout),
+        default(CornerRadius)
+    );
 
     public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
-      nameof(FontSize),
-      typeof(double),
-      typeof(FreakyTextInputLayout),
-      default(double)
-       );
+        nameof(FontSize),
+        typeof(double),
+        typeof(FreakyTextInputLayout),
+        default(double)
+    );
 
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
         nameof(ImageSource),
         typeof(ImageSource),
-        typeof(FreakyTextInputLayout),
-        default(ImageSource)
-        );
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
-           nameof(ImageHeight),
-           typeof(int),
-           typeof(FreakyTextInputLayout),
-           25)
-        ;
+        nameof(ImageHeight),
+        typeof(int),
+        typeof(FreakyTextInputLayout),
+        25);
 
     public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
-           nameof(ImageWidth),
-           typeof(int),
-           typeof(FreakyTextInputLayout),
-           25
-        );
+        nameof(ImageWidth),
+        typeof(int),
+        typeof(FreakyTextInputLayout),
+        25
+    );
 
     public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
-           nameof(ImagePadding),
-           typeof(int),
-           typeof(FreakyTextInputLayout),
-           5
-        );
+        nameof(ImagePadding),
+        typeof(int),
+        typeof(FreakyTextInputLayout),
+        5
+    );
 
     public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
-          nameof(ImageCommand),
-          typeof(ICommand),
-          typeof(FreakyTextInputLayout),
-          default(ICommand)
-        );
+        nameof(ImageCommand),
+        typeof(ICommand),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
-          nameof(ImageCommandParameter),
-          typeof(object),
-          typeof(FreakyTextInputLayout),
-          default(object)
-        );
+        nameof(ImageCommandParameter),
+        typeof(object),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
-          nameof(AllowCopyPaste),
-          typeof(bool),
-          typeof(FreakyTextInputLayout),
-          true
-        );
+        nameof(AllowCopyPaste),
+        typeof(bool),
+        typeof(FreakyTextInputLayout),
+        true
+    );
 
     public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
-          nameof(TextColor),
-          typeof(Color),
-          typeof(FreakyTextInputLayout),
-          Colors.Black
-        );
+        nameof(TextColor),
+        typeof(Color),
+        typeof(FreakyTextInputLayout),
+        Colors.Black
+    );
 
     public static readonly BindableProperty UnderlineColorProperty = BindableProperty.Create(
-         nameof(UnderlineColor),
-         typeof(Color),
-         typeof(FreakyTextInputLayout),
-         Colors.Black
-        );
+        nameof(UnderlineColor),
+        typeof(Color),
+        typeof(FreakyTextInputLayout),
+        Colors.Black
+    );
 
     public static readonly BindableProperty UnderlineThicknessProperty = BindableProperty.Create(
-         nameof(UnderlineThickness),
-         typeof(double),
-         typeof(FreakyTextInputLayout),
-         default(double)
-        );
+        nameof(UnderlineThickness),
+        typeof(double),
+        typeof(FreakyTextInputLayout),
+        default(double)
+    );
 
     public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(
-         nameof(CharacterSpacing),
-         typeof(double),
-         typeof(FreakyTextInputLayout),
-         default(double)
-        );
+        nameof(CharacterSpacing),
+        typeof(double),
+        typeof(FreakyTextInputLayout),
+        default(double)
+    );
 
     public static readonly BindableProperty ClearButtonVisibilityProperty = BindableProperty.Create(
-         nameof(ClearButtonVisibility),
-         typeof(ClearButtonVisibility),
-         typeof(FreakyTextInputLayout),
-         Microsoft.Maui.ClearButtonVisibility.Never
-        );
+        nameof(ClearButtonVisibility),
+        typeof(ClearButtonVisibility),
+        typeof(FreakyTextInputLayout),
+        ClearButtonVisibility.Never
+    );
 
     public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(
-         nameof(FontAttributes),
-         typeof(FontAttributes),
-         typeof(FreakyTextInputLayout),
-         Microsoft.Maui.Controls.FontAttributes.None
-        );
+        nameof(FontAttributes),
+        typeof(FontAttributes),
+        typeof(FreakyTextInputLayout),
+        FontAttributes.None
+    );
 
     public static readonly BindableProperty CursorPositionProperty = BindableProperty.Create(
-         nameof(CursorPosition),
-         typeof(int),
-         typeof(FreakyTextInputLayout)
-        );
+        nameof(CursorPosition),
+        typeof(int),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty FontAutoScalingEnabledProperty = BindableProperty.Create(
         nameof(FontAutoScalingEnabled),
         typeof(bool),
         typeof(FreakyTextInputLayout),
         true
-       );
+    );
 
     public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(
         nameof(FontFamily),
         typeof(string),
         typeof(FreakyTextInputLayout)
-       );
+    );
 
     public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(
         nameof(HorizontalTextAlignment),
         typeof(TextAlignment),
         typeof(FreakyTextInputLayout)
-       );
+    );
 
     public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(
-       nameof(VerticalTextAlignment),
-       typeof(TextAlignment),
-       typeof(FreakyTextInputLayout)
-      );
+        nameof(VerticalTextAlignment),
+        typeof(TextAlignment),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty IsTextPredictionEnabledProperty = BindableProperty.Create(
-       nameof(IsTextPredictionEnabled),
-       typeof(bool),
-       typeof(FreakyTextInputLayout),
-       true
-      );
+        nameof(IsTextPredictionEnabled),
+        typeof(bool),
+        typeof(FreakyTextInputLayout),
+        true
+    );
 
     public static readonly BindableProperty ReturnCommandProperty = BindableProperty.Create(
-      nameof(ReturnCommand),
-      typeof(ICommand),
-      typeof(FreakyTextInputLayout)
-      );
+        nameof(ReturnCommand),
+        typeof(ICommand),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty ReturnCommandParameterProperty = BindableProperty.Create(
-     nameof(ReturnCommandParameter),
-     typeof(object),
-     typeof(FreakyTextInputLayout)
-     );
+        nameof(ReturnCommandParameter),
+        typeof(object),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty SelectionLengthProperty = BindableProperty.Create(
-     nameof(SelectionLength),
-     typeof(int),
-     typeof(FreakyTextInputLayout)
-     );
+        nameof(SelectionLength),
+        typeof(int),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty IsSpellCheckEnabledProperty = BindableProperty.Create(
-     nameof(IsSpellCheckEnabled),
-     typeof(bool),
-     typeof(FreakyTextInputLayout)
-     );
+        nameof(IsSpellCheckEnabled),
+        typeof(bool),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty IsReadOnlyProperty = BindableProperty.Create(
-     nameof(IsReadOnly),
-     typeof(bool),
-     typeof(FreakyTextInputLayout)
-     );
+        nameof(IsReadOnly),
+        typeof(bool),
+        typeof(FreakyTextInputLayout)
+    );
 
     public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(
-     nameof(MaxLength),
-     typeof(int),
-     typeof(FreakyTextInputLayout),
-     int.MaxValue
-     );
+        nameof(MaxLength),
+        typeof(int),
+        typeof(FreakyTextInputLayout),
+        int.MaxValue
+    );
 
     public static readonly BindableProperty TextTransformProperty = BindableProperty.Create(
-     nameof(TextTransform),
-     typeof(TextTransform),
-     typeof(FreakyTextInputLayout),
-     Microsoft.Maui.TextTransform.Default
-     );
+        nameof(TextTransform),
+        typeof(TextTransform),
+        typeof(FreakyTextInputLayout),
+        TextTransform.Default
+    );
 
     public static readonly BindableProperty BorderTypeProperty = BindableProperty.Create(
-     nameof(BorderType),
-     typeof(BorderType),
-     typeof(FreakyTextInputLayout),
-     BorderType.None,
-     propertyChanged: BorderTypePropertyChanged
-     );
+        nameof(BorderType),
+        typeof(BorderType),
+        typeof(FreakyTextInputLayout),
+        BorderType.None,
+        propertyChanged: BorderTypePropertyChanged
+    );
 
     public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(
-     nameof(TitleColor),
-     typeof(Color),
-     typeof(FreakyTextInputLayout),
-     Colors.Black
-     );
+        nameof(TitleColor),
+        typeof(Color),
+        typeof(FreakyTextInputLayout),
+        Colors.Black
+    );
 
     /// <summary>
-    /// Color of your Title Label
+    ///     Color of your Title Label
     /// </summary>
     public Color TitleColor
     {
@@ -300,7 +385,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Type of Border you want for your <see cref="FreakyTextInputLayout", By default set to None.
+    ///     Type of Border you want for your <see cref="FreakyTextInputLayout", By default set to None.
     /// </summary>
     public BorderType BorderType
     {
@@ -309,7 +394,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type TextTransform, specifies the casing of the entered text.
+    ///     of type TextTransform, specifies the casing of the entered text.
     /// </summary>
     public TextTransform TextTransform
     {
@@ -318,7 +403,8 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type bool, defines whether the user should be prevented from modifying text. The default value of this property is false.
+    ///     of type bool, defines whether the user should be prevented from modifying text. The default value of this property
+    ///     is false.
     /// </summary>
     public bool IsReadOnly
     {
@@ -327,7 +413,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type int, defines the maximum input length.
+    ///     of type int, defines the maximum input length.
     /// </summary>
     public int MaxLength
     {
@@ -336,7 +422,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type bool, controls whether spell checking is enabled.
+    ///     of type bool, controls whether spell checking is enabled.
     /// </summary>
     public bool IsSpellCheckEnabled
     {
@@ -345,7 +431,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type int, represents the length of selected text within the <see cref="FreakyTextInputLayout".
+    ///     of type int, represents the length of selected text within the <see cref="FreakyTextInputLayout".
     /// </summary>
     public int SelectionLength
     {
@@ -354,7 +440,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type object, specifies the parameter for the ReturnCommand
+    ///     of type object, specifies the parameter for the ReturnCommand
     /// </summary>
     public object ReturnCommandParameter
     {
@@ -363,7 +449,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type ICommand, defines the command to be executed when the return key is pressed.
+    ///     of type ICommand, defines the command to be executed when the return key is pressed.
     /// </summary>
     public ICommand ReturnCommand
     {
@@ -372,7 +458,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type bool, controls whether text prediction and automatic text correction is enabled.
+    ///     of type bool, controls whether text prediction and automatic text correction is enabled.
     /// </summary>
     public bool IsTextPredictionEnabled
     {
@@ -381,7 +467,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type TextAlignment, defines the vertical alignment of the text.
+    ///     of type TextAlignment, defines the vertical alignment of the text.
     /// </summary>
     public TextAlignment VerticalTextAlignment
     {
@@ -390,7 +476,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type TextAlignment, defines the horizontal alignment of the text.
+    ///     of type TextAlignment, defines the horizontal alignment of the text.
     /// </summary>
     public TextAlignment HorizontalTextAlignment
     {
@@ -399,7 +485,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type string, defines the font family.
+    ///     of type string, defines the font family.
     /// </summary>
     public string FontFamily
     {
@@ -408,8 +494,8 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type bool, defines whether the text will reflect scaling preferences set in the operating system.
-    /// The default value of this property is true.
+    ///     of type bool, defines whether the text will reflect scaling preferences set in the operating system.
+    ///     The default value of this property is true.
     /// </summary>
     public bool FontAutoScalingEnabled
     {
@@ -418,7 +504,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type int, defines the position of the cursor within the <see cref="FreakyTextInputLayout"/>.
+    ///     of type int, defines the position of the cursor within the <see cref="FreakyTextInputLayout" />.
     /// </summary>
     public int CursorPosition
     {
@@ -427,7 +513,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type FontAttributes, determines text style.
+    ///     of type FontAttributes, determines text style.
     /// </summary>
     public FontAttributes FontAttributes
     {
@@ -436,9 +522,9 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type ClearButtonVisibility, controls whether a clear button is displayed,
-    /// which enables the user to clear the text.
-    /// The default value of this property ensures that a clear button isn't displayed.
+    ///     of type ClearButtonVisibility, controls whether a clear button is displayed,
+    ///     which enables the user to clear the text.
+    ///     The default value of this property ensures that a clear button isn't displayed.
     /// </summary>
     public ClearButtonVisibility ClearButtonVisibility
     {
@@ -447,7 +533,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type double, sets the spacing between characters in the entered text.
+    ///     of type double, sets the spacing between characters in the entered text.
     /// </summary>
     public double CharacterSpacing
     {
@@ -456,7 +542,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Thickness of the Underline of your <see cref="FreakyTextInputLayout"
+    ///     Thickness of the Underline of your <see cref="FreakyTextInputLayout"
     /// </summary>
     public double UnderlineThickness
     {
@@ -465,7 +551,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Color of your <see cref="FreakyTextInputLayout" Underline
+    ///     Color of your <see cref="FreakyTextInputLayout" Underline
     /// </summary>
     public Color UnderlineColor
     {
@@ -474,7 +560,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type Color, defines the color of the entered text.
+    ///     of type Color, defines the color of the entered text.
     /// </summary>
     public Color TextColor
     {
@@ -483,7 +569,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Gets and Sets if your <see cref="FreakyTextInputLayout" allows Copy Paste. default is true!
+    ///     Gets and Sets if your <see cref="FreakyTextInputLayout" allows Copy Paste. default is true!
     /// </summary>
     public bool AllowCopyPaste
     {
@@ -492,7 +578,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Command parameter for your Image tap command
+    ///     Command parameter for your Image tap command
     /// </summary>
     public object ImageCommandParameter
     {
@@ -501,7 +587,9 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// A command that you can use to bind with your Image that you added to your <see cref="FreakyTextInputLayout"'s ViewPort
+    ///     A command that you can use to bind with your Image that you added to your
+    ///     <see cref="FreakyTextInputLayout"'s ViewPort
+    ///
     /// </summary>
     public ICommand ImageCommand
     {
@@ -510,7 +598,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Padding of the Image that you added to the ViewPort
+    ///     Padding of the Image that you added to the ViewPort
     /// </summary>
     public int ImagePadding
     {
@@ -519,7 +607,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Width of the Image in your ViewPort
+    ///     Width of the Image in your ViewPort
     /// </summary>
     public int ImageWidth
     {
@@ -528,7 +616,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// Height of the Image in your ViewPort
+    ///     Height of the Image in your ViewPort
     /// </summary>
     public int ImageHeight
     {
@@ -537,7 +625,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// An ImageSource that you want to add to your Right ViewPort ()
+    ///     An ImageSource that you want to add to your Right ViewPort ()
     /// </summary>
     public ImageSource ImageSource
     {
@@ -546,7 +634,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type double, defines the font size.
+    ///     of type double, defines the font size.
     /// </summary>
     [TypeConverter(typeof(FontSizeConverter))]
     public double FontSize
@@ -556,7 +644,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type CornerRadius, and defines the Cornder Radius of your Border.
+    ///     of type CornerRadius, and defines the Cornder Radius of your Border.
     /// </summary>
     public CornerRadius BorderCornerRadius
     {
@@ -565,7 +653,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type Brush, and defines the Stroke of your Border.
+    ///     of type Brush, and defines the Stroke of your Border.
     /// </summary>
     public Brush BorderStroke
     {
@@ -574,7 +662,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type double, and defines the Thickness of the border stroke.
+    ///     of type double, and defines the Thickness of the border stroke.
     /// </summary>
     public double BorderStrokeThickness
     {
@@ -583,7 +671,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type string, defines the text entered into the <see cref="FreakyTextInputLayout".
+    ///     of type string, defines the text entered into the <see cref="FreakyTextInputLayout".
     /// </summary>
     public string Text
     {
@@ -592,7 +680,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type string, defines the text to become the placeholder for the <see cref="FreakyTextInputLayout".
+    ///     of type string, defines the text to become the placeholder for the <see cref="FreakyTextInputLayout".
     /// </summary>
     public string Title
     {
@@ -601,7 +689,7 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type ReturnType, specifies the appearance of the return button.
+    ///     of type ReturnType, specifies the appearance of the return button.
     /// </summary>
     public ReturnType ReturnType
     {
@@ -610,18 +698,18 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
-    /// of type bool, specifies whether the <see cref="FreakyTextInputLayout" should visually obscure typed text.
+    ///     of type bool, specifies whether the <see cref="FreakyTextInputLayout" should visually obscure typed text.
     /// </summary>
     public bool IsPassword
     {
-        get { return (bool)GetValue(IsPasswordProperty); }
-        set { SetValue(IsPasswordProperty, value); }
+        get => (bool)GetValue(IsPasswordProperty);
+        set => SetValue(IsPasswordProperty, value);
     }
 
     /// <summary>
-    /// of type Keyboard, specifies the virtual keyboard that's displayed when entering text.
+    ///     of type Keyboard, specifies the virtual keyboard that's displayed when entering text.
     /// </summary>
-    [System.ComponentModel.TypeConverter(typeof(Microsoft.Maui.Converters.KeyboardTypeConverter))]
+    [TypeConverter(typeof(KeyboardTypeConverter))]
     public Keyboard Keyboard
     {
         get => (Keyboard)GetValue(KeyboardProperty);
@@ -661,123 +749,18 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    private static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
+    private static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue,
+        object newValue)
     {
         var control = bindable as FreakyTextInputLayout;
         if (!control.EntryField.IsFocused)
         {
             if (!string.IsNullOrEmpty((string)newValue))
-            {
                 await control.TransitionToTitle(false);
-            }
             else
-            {
                 await control.TransitionToPlaceholder(false);
-            }
         }
     }
 
     #endregion Bindable Properties
-
-    public new void Focus()
-    {
-        if (IsEnabled)
-        {
-            EntryField.Focus();
-        }
-    }
-
-    private async void Handle_Focused(object sender, FocusEventArgs e)
-    {
-        if (string.IsNullOrEmpty(Text))
-        {
-            await TransitionToTitle(true);
-        }
-    }
-
-    private async void Handle_Unfocused(object sender, FocusEventArgs e)
-    {
-        if (string.IsNullOrEmpty(Text))
-        {
-            await TransitionToPlaceholder(true);
-        }
-    }
-
-    private async Task TransitionToTitle(bool animated)
-    {
-        if (animated)
-        {
-            var t1 = LabelTitle.TranslateTo(_leftMargin, _topMargin, 100);
-            var t2 = SizeTo(_titleFontSize);
-            await Task.WhenAll(t1, t2);
-        }
-        else
-        {
-            LabelTitle.TranslationX = 0;
-            LabelTitle.TranslationY = -30;
-            LabelTitle.FontSize = 14;
-        }
-    }
-
-    private async Task TransitionToPlaceholder(bool animated)
-    {
-        if (animated)
-        {
-            var t1 = LabelTitle.TranslateTo(10, 0, 250, Easing.Linear);
-            var t2 = SizeTo(_placeholderFontSize);
-            await Task.WhenAll(t1, t2);
-        }
-        else
-        {
-            LabelTitle.TranslationX = 10;
-            LabelTitle.TranslationY = 0;
-            LabelTitle.FontSize = _placeholderFontSize;
-        }
-    }
-
-    private void Handle_Tapped(object sender, EventArgs e)
-    {
-        if (IsEnabled)
-        {
-            EntryField.Focus();
-        }
-    }
-
-    private Task SizeTo(int fontSize)
-    {
-        var taskCompletionSource = new TaskCompletionSource<bool>();
-
-        // setup information for animation
-        Action<double> callback = input => { LabelTitle.FontSize = input; };
-        double startingHeight = LabelTitle.FontSize;
-        double endingHeight = fontSize;
-        uint rate = 10;
-        uint length = 250;
-        Easing easing = Easing.Linear;
-
-        // now start animation with all the setup information
-        LabelTitle.Animate("animate", callback, startingHeight, endingHeight, rate, length, easing, (v, c) => taskCompletionSource.SetResult(c));
-
-        return taskCompletionSource.Task;
-    }
-
-    private void Handle_Completed(object sender, EventArgs e)
-    {
-        Completed?.Invoke(this, e);
-    }
-
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        base.OnPropertyChanged(propertyName);
-
-        if (propertyName == nameof(IsEnabled))
-        {
-            EntryField.IsEnabled = IsEnabled;
-        }
-    }
-
-    private void EntryField_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
-    {
-        TextChanged?.Invoke(this, e);
-    }
 }

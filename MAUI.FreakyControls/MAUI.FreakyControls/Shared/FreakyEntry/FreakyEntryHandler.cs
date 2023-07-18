@@ -1,6 +1,4 @@
-using System;
 using Maui.FreakyControls.Extensions;
-using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
@@ -19,9 +17,7 @@ public sealed partial class FreakyEntryHandler : EntryHandler
         if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
         {
             if (freakyEntry.ImageSource != default(ImageSource))
-            {
                 freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
-            }
             HandleAllowCopyPaste(freakyEntry);
         }
     }

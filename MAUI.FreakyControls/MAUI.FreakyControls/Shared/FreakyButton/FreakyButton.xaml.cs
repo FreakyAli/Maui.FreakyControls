@@ -2,6 +2,7 @@
 using Maui.FreakyControls.Shared.Enums;
 using Maui.FreakyControls.Shared.TouchPress;
 using System.Windows.Input;
+using Font = Microsoft.Maui.Font;
 
 namespace Maui.FreakyControls;
 
@@ -9,37 +10,51 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 {
     public static readonly string IsBusyVisualState = "Busy";
 
+    #region Constructors
+
+    public FreakyButton()
+    {
+        InitializeComponent();
+        Effects.Add(new TouchAndPressRoutingEffect());
+    }
+
+    #endregion Constructors
+
     #region Bindable properties
 
     public static readonly BindableProperty ActivityIndicatorSizeProperty =
-        BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(FreakyButton), defaultValue: 30.0);
+        BindableProperty.Create(nameof(ActivityIndicatorSize), typeof(double), typeof(FreakyButton), 30.0);
 
     public static readonly BindableProperty AnimationProperty =
-        BindableProperty.Create(nameof(Animation), typeof(ButtonAnimations), typeof(FreakyButton), defaultValue: ButtonAnimations.Fade);
+        BindableProperty.Create(nameof(Animation), typeof(ButtonAnimations), typeof(FreakyButton),
+            ButtonAnimations.Fade);
 
     public static readonly BindableProperty AreIconsDistantProperty =
-       BindableProperty.Create(nameof(AreIconsDistant), typeof(bool), typeof(FreakyButton), defaultValue: true, propertyChanged: OnIconsAreExpandedChanged);
+        BindableProperty.Create(nameof(AreIconsDistant), typeof(bool), typeof(FreakyButton), true,
+            propertyChanged: OnIconsAreExpandedChanged);
 
     public new static readonly BindableProperty BackgroundColorProperty =
-       BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.Black);
+        BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(FreakyButton), Colors.Black);
 
     public static readonly BindableProperty BorderColorProperty =
-        BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.White);
+        BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(FreakyButton), Colors.White);
 
     public static readonly BindableProperty BorderWidthProperty =
-       BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(FreakyButton), defaultValue: Button.BorderWidthProperty.DefaultValue);
+        BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(FreakyButton),
+            Button.BorderWidthProperty.DefaultValue);
 
     public static readonly BindableProperty BusyColorProperty =
-        BindableProperty.Create(nameof(BusyColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.White);
+        BindableProperty.Create(nameof(BusyColor), typeof(Color), typeof(FreakyButton), Colors.White);
 
     public static readonly BindableProperty CharacterSpacingProperty =
-    BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(FreakyButton), Button.CharacterSpacingProperty.DefaultValue);
+        BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(FreakyButton),
+            Button.CharacterSpacingProperty.DefaultValue);
 
     public static readonly BindableProperty CommandParameterProperty =
-        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FreakyButton), defaultValue: null);
+        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FreakyButton), null);
 
     public static readonly BindableProperty CommandProperty =
-                                            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FreakyButton), defaultValue: null);
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FreakyButton), null);
 
     public static readonly BindableProperty CornerRadiusProperty =
         BindableProperty.Create(
@@ -49,62 +64,68 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
             new CornerRadius(10));
 
     public static readonly BindableProperty FontAttributesProperty =
-       BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(FreakyButton), defaultValue: FontAttributes.None);
+        BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(FreakyButton),
+            FontAttributes.None);
 
     public static readonly BindableProperty FontAutoScalingEnabledProperty =
-        BindableProperty.Create(nameof(FontAutoScalingEnabled), typeof(bool), typeof(FreakyButton), defaultValue: true);
+        BindableProperty.Create(nameof(FontAutoScalingEnabled), typeof(bool), typeof(FreakyButton), true);
 
     public static readonly BindableProperty FontFamilyProperty =
-        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(FreakyButton), defaultValue: null);
+        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(FreakyButton), null);
 
     public static readonly BindableProperty FontSizeProperty =
-        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(FreakyButton), defaultValue: Microsoft.Maui.Font.Default.Size);
+        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(FreakyButton), Font.Default.Size);
 
     public static readonly BindableProperty HorizontalTextAlignmentProperty =
-       BindableProperty.Create(
-           nameof(HorizontalTextAlignment),
-           typeof(TextAlignment),
-           typeof(FreakyButton),
-           TextAlignment.Center);
+        BindableProperty.Create(
+            nameof(HorizontalTextAlignment),
+            typeof(TextAlignment),
+            typeof(FreakyButton),
+            TextAlignment.Center);
 
     public static readonly BindableProperty IconSizeProperty =
-        BindableProperty.Create(nameof(IconSize), typeof(double), typeof(FreakyButton), defaultValue: 24.0);
+        BindableProperty.Create(nameof(IconSize), typeof(double), typeof(FreakyButton), 24.0);
 
     public static readonly BindableProperty IsBusyProperty =
-        BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(FreakyButton), defaultValue: false, propertyChanged: OnIsBusyPropertyChanged);
+        BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(FreakyButton), false,
+            propertyChanged: OnIsBusyPropertyChanged);
 
     public new static readonly BindableProperty IsEnabledProperty =
-        BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(FreakyButton), defaultValue: true);
+        BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(FreakyButton), true);
 
     public static readonly BindableProperty LeadingIconProperty =
-        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(FreakyButton), defaultValue: null, propertyChanged: OnLeadingIconChanged);
+        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(FreakyButton), null,
+            propertyChanged: OnLeadingIconChanged);
 
     public static readonly BindableProperty LineBreakModeProperty =
-     BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(FreakyButton), defaultValue: LineBreakMode.NoWrap);
+        BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(FreakyButton),
+            LineBreakMode.NoWrap);
 
     public new static readonly BindableProperty PaddingProperty =
-        BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(FreakyButton), defaultValue: new Thickness(12, 0));
+        BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(FreakyButton), new Thickness(12, 0));
 
     public static readonly BindableProperty SpacingProperty =
-        BindableProperty.Create(nameof(Spacing), typeof(int), typeof(FreakyButton), defaultValue: 12);
+        BindableProperty.Create(nameof(Spacing), typeof(int), typeof(FreakyButton), 12);
 
     public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(FreakyButton), defaultValue: Colors.White);
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(FreakyButton), Colors.White);
 
     public static readonly BindableProperty TextDecorationsProperty =
-      BindableProperty.Create(nameof(TextDecorations), typeof(TextDecorations), typeof(FreakyButton), defaultValue: TextDecorations.None);
+        BindableProperty.Create(nameof(TextDecorations), typeof(TextDecorations), typeof(FreakyButton),
+            TextDecorations.None);
 
     public static readonly BindableProperty TextProperty =
-        BindableProperty.Create(nameof(Text), typeof(string), typeof(FreakyButton), defaultValue: null);
+        BindableProperty.Create(nameof(Text), typeof(string), typeof(FreakyButton), null);
 
     public static readonly BindableProperty TextTransformProperty =
-     BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(FreakyButton), defaultValue: TextTransform.None);
+        BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(FreakyButton), TextTransform.None);
 
     public static readonly BindableProperty TextTypeProperty =
-       BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(FreakyButton), defaultValue: TextType.Text);
+        BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(FreakyButton), TextType.Text);
 
     public static readonly BindableProperty TrailingIconProperty =
-        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(FreakyButton), defaultValue: null, propertyChanged: OnTrailingIconChanged);
+        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(FreakyButton), null,
+            propertyChanged: OnTrailingIconChanged);
 
     public static readonly BindableProperty VerticalTextAlignmentProperty =
         BindableProperty.Create(
@@ -117,8 +138,8 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     public double ActivityIndicatorSize
     {
-        get { return (double)GetValue(ActivityIndicatorSizeProperty); }
-        set { SetValue(ActivityIndicatorSizeProperty, value); }
+        get => (double)GetValue(ActivityIndicatorSizeProperty);
+        set => SetValue(ActivityIndicatorSizeProperty, value);
     }
 
     public ButtonAnimations Animation
@@ -148,7 +169,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     public double BorderWidth
     {
         get => (double)GetValue(BorderWidthProperty);
-        set { SetValue(BorderWidthProperty, value); }
+        set => SetValue(BorderWidthProperty, value);
     }
 
     public Color BusyColor
@@ -159,8 +180,8 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     public double CharacterSpacing
     {
-        get { return (double)GetValue(CharacterSpacingProperty); }
-        set { SetValue(CharacterSpacingProperty, value); }
+        get => (double)GetValue(CharacterSpacingProperty);
+        set => SetValue(CharacterSpacingProperty, value);
     }
 
     public ICommand Command
@@ -195,8 +216,8 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     public string FontFamily
     {
-        get { return (string)GetValue(FontFamilyProperty); }
-        set { SetValue(FontFamilyProperty, value); }
+        get => (string)GetValue(FontFamilyProperty);
+        set => SetValue(FontFamilyProperty, value);
     }
 
     public double FontSize
@@ -213,8 +234,8 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     public double IconSize
     {
-        get { return (double)GetValue(IconSizeProperty); }
-        set { SetValue(IconSizeProperty, value); }
+        get => (double)GetValue(IconSizeProperty);
+        set => SetValue(IconSizeProperty, value);
     }
 
     public bool IsBusy
@@ -231,8 +252,8 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     public View LeadingIcon
     {
-        get { return (View)GetValue(LeadingIconProperty); }
-        set { SetValue(LeadingIconProperty, value); }
+        get => (View)GetValue(LeadingIconProperty);
+        set => SetValue(LeadingIconProperty, value);
     }
 
     public LineBreakMode LineBreakMode
@@ -243,14 +264,14 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     public new Thickness Padding
     {
-        get { return (Thickness)GetValue(PaddingProperty); }
-        set { SetValue(PaddingProperty, value); }
+        get => (Thickness)GetValue(PaddingProperty);
+        set => SetValue(PaddingProperty, value);
     }
 
     public int Spacing
     {
-        get { return (int)GetValue(SpacingProperty); }
-        set { SetValue(SpacingProperty, value); }
+        get => (int)GetValue(SpacingProperty);
+        set => SetValue(SpacingProperty, value);
     }
 
     public string Text
@@ -279,14 +300,14 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     public TextType TextType
     {
-        get { return (TextType)GetValue(TextTypeProperty); }
-        set { SetValue(TextTypeProperty, value); }
+        get => (TextType)GetValue(TextTypeProperty);
+        set => SetValue(TextTypeProperty, value);
     }
 
     public View TrailingIcon
     {
-        get { return (View)GetValue(TrailingIconProperty); }
-        set { SetValue(TrailingIconProperty, value); }
+        get => (View)GetValue(TrailingIconProperty);
+        set => SetValue(TrailingIconProperty, value);
     }
 
     public TextAlignment VerticalTextAlignment
@@ -352,16 +373,6 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
 
     #endregion Bindable properties
 
-    #region Constructors
-
-    public FreakyButton()
-    {
-        InitializeComponent();
-        this.Effects.Add(new TouchAndPressRoutingEffect());
-    }
-
-    #endregion Constructors
-
     #region Methods
 
     public void ConsumeEvent(EventType gestureType)
@@ -382,17 +393,11 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     protected override void ChangeVisualState()
     {
         if (IsBusy)
-        {
-            VisualStateManager.GoToState(this, FreakyButton.IsBusyVisualState);
-        }
+            VisualStateManager.GoToState(this, IsBusyVisualState);
         else if (IsEnabled)
-        {
             VisualStateManager.GoToState(this, VisualStateManager.CommonStates.Normal);
-        }
         else
-        {
             VisualStateManager.GoToState(this, VisualStateManager.CommonStates.Disabled);
-        }
     }
 
     #endregion Methods

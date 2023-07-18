@@ -14,7 +14,7 @@ public partial class FreakyEntryHandler
         var mauiTextField = new FreakyUITextfield
         {
             BorderStyle = UITextBorderStyle.None,
-            ClipsToBounds = true,
+            ClipsToBounds = true
         };
         mauiTextField.Layer.BorderWidth = 0;
         mauiTextField.Layer.BorderColor = UIColor.Clear.CGColor;
@@ -53,8 +53,6 @@ public partial class FreakyEntryHandler
     private void OnViewTouchBegan()
     {
         if (VirtualView is FreakyEntry entry)
-        {
             entry.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
-        }
     }
 }

@@ -14,6 +14,7 @@ public class TilPaddingConverter : BaseOneWayValueConverter
         var emptyThickness = new Thickness(10);
 #endif
         var fullThickness = new Thickness(10);
-        return borderType == BorderType.None ? emptyThickness : borderType == BorderType.Underline ? emptyThickness : fullThickness;
+        return borderType == BorderType.None ? emptyThickness :
+            borderType == BorderType.Underline ? emptyThickness : fullThickness;
     }
 }

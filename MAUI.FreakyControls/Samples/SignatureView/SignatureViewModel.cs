@@ -1,22 +1,21 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 
-namespace Samples.SignatureView
+namespace Samples.SignatureView;
+
+public class SignatureViewModel : MainViewModel
 {
-    public class SignatureViewModel : MainViewModel
+    public SignatureViewModel()
     {
-        public ICommand ConversionCommand { get; }
+        ConversionCommand = new AsyncRelayCommand(ExecuteCommandAsync);
+    }
 
-        public Stream ImageStream { get; set; }
+    public ICommand ConversionCommand { get; }
 
-        public SignatureViewModel()
-        {
-            ConversionCommand = new AsyncRelayCommand(ExecuteCommandAsync);
-        }
+    public Stream ImageStream { get; set; }
 
-        private async Task ExecuteCommandAsync()
-        {
-            await Shell.Current.Navigation.PushAsync(new ImageDisplay(ImageStream));
-        }
+    private async Task ExecuteCommandAsync()
+    {
+        await Shell.Current.Navigation.PushAsync(new ImageDisplay(ImageStream));
     }
 }

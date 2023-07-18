@@ -2,6 +2,6 @@ using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyImageHandler : ImageHandler
+public class FreakyImageHandler : ImageHandler
 {
 }

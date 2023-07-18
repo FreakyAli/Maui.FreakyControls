@@ -44,8 +44,6 @@ public partial class FreakyDatePickerHandler
     private void OnViewTouchBegan()
     {
         if (VirtualView is FreakyDatePicker entry)
-        {
             entry.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
-        }
     }
 }

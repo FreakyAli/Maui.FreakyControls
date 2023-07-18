@@ -35,6 +35,7 @@ public class CircularImageView : AppCompatImageView
         {
             return;
         }
+
         Bitmap b = ((BitmapDrawable)drawable).Bitmap;
         Bitmap bitmap = b.Copy(Bitmap.Config.Argb8888, true);
 
@@ -70,7 +71,7 @@ public class CircularImageView : AppCompatImageView
         paint.Dither = (true);
         canvas.DrawARGB(0, 0, 0, 0);
         canvas.DrawCircle(((radius / 2) + 0.7f),
-                ((radius / 2) + 0.7f), ((radius / 2) + 0.1f), paint);
+            ((radius / 2) + 0.7f), ((radius / 2) + 0.1f), paint);
         paint.SetXfermode(new PorterDuffXfermode(PorterDuff.Mode.SrcIn));
         canvas.DrawBitmap(sbmp, rect, rect, paint);
         return output;

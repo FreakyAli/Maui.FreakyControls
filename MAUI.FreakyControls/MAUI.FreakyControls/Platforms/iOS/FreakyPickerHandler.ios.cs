@@ -44,8 +44,6 @@ public partial class FreakyPickerHandler
     private void OnViewTouchBegan()
     {
         if (VirtualView is FreakyPicker entry)
-        {
             entry.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
-        }
     }
 }

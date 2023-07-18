@@ -15,7 +15,7 @@ namespace Maui.FreakyControls
             {
                 ImeOptions = ImeAction.Done,
                 Gravity = GravityFlags.Top,
-                TextAlignment = Android.Views.TextAlignment.ViewStart,
+                TextAlignment = Android.Views.TextAlignment.ViewStart
             };
             _nativeView.SetSingleLine(false);
             var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);

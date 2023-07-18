@@ -1,6 +1,6 @@
-using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
-using TouchAndPressRoutingEffect = Maui.FreakyControls.Shared.TouchPress.TouchAndPressRoutingEffect;
+using Maui.FreakyControls.Shared.TouchPress;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using TouchReleaseRoutingEffect = Maui.FreakyControls.Shared.TouchPress.ToouchReleaseRoutingEffect;
 
 #if MACCATALYST
@@ -31,20 +31,14 @@ public static class Extensions
 {
     public static void ExecuteCommandIfAvailable(this ICommand command, object parameter = null)
     {
-        if (command?.CanExecute(parameter) == true)
-        {
-            command?.Execute(parameter);
-        }
+        if (command?.CanExecute(parameter) == true) command?.Execute(parameter);
     }
 
     public static void InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
     {
-        if (useSkiaSharp)
-        {
-            builder.UseSkiaSharp();
-        }
+        if (useSkiaSharp) builder.UseSkiaSharp();
         builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
-        builder.ConfigureEffects(effects =>effects.AddEffects());
+        builder.ConfigureEffects(effects => effects.AddEffects());
     }
 
     private static void AddEffects(this IEffectsBuilder effects)
@@ -66,7 +60,10 @@ public static class Extensions
     }
 
     [Obsolete("Please use InitializeFreakyControls instead.")]
-    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers) => handlers.AddHandlers();
+    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers)
+    {
+        handlers.AddHandlers();
+    }
 
     [Obsolete("Please use InitializeFreakyControls instead.")]
     public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
@@ -77,7 +74,7 @@ public static class Extensions
 #if ANDROID || IOS || MACCATALYST
 
     /// <summary>
-    /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
+    ///     Get native <see cref="NativeImage" /> from Maui <see cref="ImageSource" />
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
@@ -117,6 +114,7 @@ public static class Extensions
                 returnValue = new FontImageSourceHandler();
                 break;
         }
+
         return returnValue;
     }
 

@@ -17,12 +17,11 @@ internal partial class InkPresenter : UIView
     }
 
     public InkPresenter()
-        : base()
     {
         Initialize();
     }
 
-    public InkPresenter(CGRect frame)
+    public InkPresenter(NativeRect frame)
         : base(frame)
     {
         Initialize();
@@ -35,12 +34,15 @@ internal partial class InkPresenter : UIView
 
     // If you put SignaturePad inside a ScrollView, this line of code prevent that the gesture inside
     // an InkPresenter are dispatched to the ScrollView below
-    public override bool GestureRecognizerShouldBegin(UIGestureRecognizer gestureRecognizer) => false;
+    public override bool GestureRecognizerShouldBegin(UIGestureRecognizer gestureRecognizer)
+    {
+        return false;
+    }
 
     public override void TouchesBegan(NSSet touches, UIEvent evt)
     {
         // create a new path and set the options
-        currentPath = new InkStroke(UIBezierPath.Create(), new List<CGPoint>(), StrokeColor, StrokeWidth);
+        currentPath = new InkStroke(UIBezierPath.Create(), new List<NativePoint>(), StrokeColor, StrokeWidth);
 
         // obtain the location of the touch
         var touch = touches.AnyObject as UITouch;
@@ -57,10 +59,7 @@ internal partial class InkPresenter : UIView
     public override void TouchesMoved(NSSet touches, UIEvent evt)
     {
         // something may have happened (clear) so start the stroke again
-        if (currentPath == null)
-        {
-            TouchesBegan(touches, evt);
-        }
+        if (currentPath == null) TouchesBegan(touches, evt);
 
         // obtain the location of the touch
         var touch = touches.AnyObject as UITouch;
@@ -115,7 +114,7 @@ internal partial class InkPresenter : UIView
         OnStrokeCompleted();
     }
 
-    public override void Draw(CGRect rect)
+    public override void Draw(NativeRect rect)
     {
         base.Draw(rect);
 
@@ -130,16 +129,10 @@ internal partial class InkPresenter : UIView
         }
 
         // re-create
-        if (bitmapBuffer == null)
-        {
-            bitmapBuffer = CreateBufferImage();
-        }
+        if (bitmapBuffer == null) bitmapBuffer = CreateBufferImage();
 
         // if there are no lines, the the bitmap will be null
-        if (bitmapBuffer != null)
-        {
-            bitmapBuffer.Draw(CGPoint.Empty);
-        }
+        if (bitmapBuffer != null) bitmapBuffer.Draw(NativePoint.Empty);
 
         // draw the current path over the old paths
         if (currentPath != null)
@@ -157,10 +150,7 @@ internal partial class InkPresenter : UIView
 
     private UIImage CreateBufferImage()
     {
-        if (paths == null || paths.Count == 0)
-        {
-            return null;
-        }
+        if (paths == null || paths.Count == 0) return null;
 
         var size = Bounds.Size;
         UIGraphics.BeginImageContextWithOptions(size, false, ScreenDensity);
@@ -201,30 +191,22 @@ internal partial class InkPresenter
 
     public static float ScreenDensity;
 
-    private readonly List<InkStroke> paths = new List<InkStroke>();
+    private readonly List<InkStroke> paths = new();
+
+    private NativeImage bitmapBuffer;
     private InkStroke currentPath;
+    private float dirtyRectBottom;
 
     // used to determine rectangle that needs to be redrawn
     private float dirtyRectLeft;
-    private float dirtyRectTop;
     private float dirtyRectRight;
-    private float dirtyRectBottom;
-
-    private NativeImage bitmapBuffer;
+    private float dirtyRectTop;
 
     // public properties
 
     public NativeColor StrokeColor { get; set; } = NativeColor.Black;
 
     public float StrokeWidth { get; set; } = 1f;
-
-    // private properties
-
-#if __IOS__
-    private float Width => (float)Bounds.Width;
-
-    private float Height => (float)Bounds.Height;
-#endif
 
     private bool ShouldRedrawBufferImage
     {
@@ -238,8 +220,8 @@ internal partial class InkPresenter
             }
 
             return sizeChanged ||
-                (bitmapBuffer != null && paths.Count == 0) ||
-                paths.Any(p => p.IsDirty);
+                   (bitmapBuffer != null && paths.Count == 0) ||
+                   paths.Any(p => p.IsDirty);
         }
     }
 
@@ -277,10 +259,7 @@ internal partial class InkPresenter
 
     public void AddStroke(NativePoint[] strokePoints, NativeColor color, float width)
     {
-        if (AddStrokeInternal(strokePoints, color, width))
-        {
-            this.Invalidate();
-        }
+        if (AddStrokeInternal(strokePoints, color, width)) this.Invalidate();
     }
 
     public void AddStrokes(IEnumerable<NativePoint[]> strokes, NativeColor color, float width)
@@ -288,34 +267,21 @@ internal partial class InkPresenter
         var changed = false;
 
         foreach (var stroke in strokes)
-        {
             if (AddStrokeInternal(stroke, color, width))
-            {
                 changed = true;
-            }
-        }
 
-        if (changed)
-        {
-            this.Invalidate();
-        }
+        if (changed) this.Invalidate();
     }
 
     private bool AddStrokeInternal(IEnumerable<NativePoint> points, NativeColor color, float width)
     {
         var strokePoints = points?.ToList();
 
-        if (strokePoints == null || strokePoints.Count == 0)
-        {
-            return false;
-        }
+        if (strokePoints == null || strokePoints.Count == 0) return false;
 
         var newpath = new NativePath();
         newpath.MoveTo(strokePoints[0].X, strokePoints[0].Y);
-        foreach (var point in strokePoints.Skip(1))
-        {
-            newpath.LineTo(point.X, point.Y);
-        }
+        foreach (var point in strokePoints.Skip(1)) newpath.LineTo(point.X, point.Y);
 
         paths.Add(new InkStroke(newpath, strokePoints, color, width));
 
@@ -335,7 +301,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Update the bounds for the rectangle to be redrawn if necessary for the given point.
+    ///     Update the bounds for the rectangle to be redrawn if necessary for the given point.
     /// </summary>
     private void UpdateBounds(NativePoint touch)
     {
@@ -343,7 +309,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Update the bounds for the rectangle to be redrawn if necessary for the given point.
+    ///     Update the bounds for the rectangle to be redrawn if necessary for the given point.
     /// </summary>
     private void UpdateBounds(float touchX, float touchY)
     {
@@ -359,7 +325,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
+    ///     Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
     /// </summary>
     private void ResetBounds(NativePoint touch)
     {
@@ -367,7 +333,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
+    ///     Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
     /// </summary>
     private void ResetBounds(float touchX, float touchY)
     {
@@ -381,4 +347,12 @@ internal partial class InkPresenter
     {
         StrokeCompleted?.Invoke(this, EventArgs.Empty);
     }
+
+    // private properties
+
+#if __IOS__
+    private float Width => (float)Bounds.Width;
+
+    private float Height => (float)Bounds.Height;
+#endif
 }

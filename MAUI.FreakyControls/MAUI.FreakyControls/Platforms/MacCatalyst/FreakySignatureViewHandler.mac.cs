@@ -5,7 +5,8 @@ namespace Maui.FreakyControls;
 
 public partial class FreakySignatureCanvasViewHandler : ViewHandler<View, UIView>
 {
-    public FreakySignatureCanvasViewHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper, commandMapper)
+    public FreakySignatureCanvasViewHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper,
+        commandMapper)
     {
     }
 

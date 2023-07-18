@@ -65,25 +65,15 @@ public struct SizeOrScale
     public NativeSize GetScale(float width, float height)
     {
         if (Type == SizeOrScaleType.Scale)
-        {
             return new NativeSize(X, Y);
-        }
-        else
-        {
-            return new NativeSize(X / width, Y / height);
-        }
+        return new NativeSize(X / width, Y / height);
     }
 
     public NativeSize GetSize(float width, float height)
     {
         if (Type == SizeOrScaleType.Scale)
-        {
             return new NativeSize(width * X, height * Y);
-        }
-        else
-        {
-            return new NativeSize(X, Y);
-        }
+        return new NativeSize(X, Y);
     }
 
     public static implicit operator SizeOrScale(float scale)

@@ -1,4 +1,6 @@
-﻿namespace Samples.RadioButtons;
+﻿using Maui.FreakyControls;
+
+namespace Samples.RadioButtons;
 
 public partial class RadioButtonsView : ContentPage
 {
@@ -8,7 +10,7 @@ public partial class RadioButtonsView : ContentPage
         BindingContext = new RadioButtonsViewModel();
     }
 
-    private void FreakyRadioGroup_SelectedRadioButtonChanged(System.Object sender, Maui.FreakyControls.FreakyRadioButtonEventArgs e)
+    private void FreakyRadioGroup_SelectedRadioButtonChanged(object sender, FreakyRadioButtonEventArgs e)
     {
     }
 }

@@ -59,7 +59,7 @@ public static class SkPathCheckExtensions
     {
         float mid = imageInfo.Width / 2;
         float min = Math.Min(imageInfo.Width, imageInfo.Height);
-        float half = min / 2;
+        var half = min / 2;
         mid = mid - half;
 
         checkPath.MoveTo(mid + half * 0.5f, half * 0.84f);
@@ -78,35 +78,35 @@ public static class SkPathCheckExtensions
 
         checkPath.CubicTo(
             .35f * imageInfo.Width,
-             0,
+            0,
             .1f * imageInfo.Width,
             .1f * imageInfo.Height,
             .1f * imageInfo.Width,
             .3f * imageInfo.Height);
 
         checkPath.CubicTo(
-           .1f * imageInfo.Width,
-           .3f * imageInfo.Height,
-           .1f * imageInfo.Width,
-           .6f * imageInfo.Height,
-           .5f * imageInfo.Width,
-           .9f * imageInfo.Height);
+            .1f * imageInfo.Width,
+            .3f * imageInfo.Height,
+            .1f * imageInfo.Width,
+            .6f * imageInfo.Height,
+            .5f * imageInfo.Width,
+            .9f * imageInfo.Height);
 
         checkPath.CubicTo(
-           .5f * imageInfo.Width,
-           .9f * imageInfo.Height,
-           .9f * imageInfo.Width,
-           .6f * imageInfo.Height,
-           .9f * imageInfo.Width,
-           .3f * imageInfo.Height);
+            .5f * imageInfo.Width,
+            .9f * imageInfo.Height,
+            .9f * imageInfo.Width,
+            .6f * imageInfo.Height,
+            .9f * imageInfo.Width,
+            .3f * imageInfo.Height);
 
         checkPath.CubicTo(
-           .9f * imageInfo.Width,
-           .1f * imageInfo.Height,
-           .65f * imageInfo.Width,
+            .9f * imageInfo.Width,
+            .1f * imageInfo.Height,
+            .65f * imageInfo.Width,
             0,
-           .5f * imageInfo.Width,
-           .25f * imageInfo.Height);
+            .5f * imageInfo.Width,
+            .25f * imageInfo.Height);
 
         checkPath.Close();
     }

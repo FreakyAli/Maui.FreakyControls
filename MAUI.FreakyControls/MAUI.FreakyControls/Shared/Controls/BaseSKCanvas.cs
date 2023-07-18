@@ -14,10 +14,7 @@ public abstract class BaseSKCanvas : SKCanvasView
     protected override sealed void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         //TODO: Figure out why drawing on coachmark is leading to surface being null
-        if (e.Surface == null)
-        {
-            return;
-        }
+        if (e.Surface == null) return;
 
         e.Surface.Canvas.Clear(SKColors.Transparent);
 
@@ -35,10 +32,7 @@ public abstract class BaseSKCanvas : SKCanvasView
     {
         base.OnPropertyChanged(propertyName);
 
-        if (propertyName != nameof(IsVisible))
-        {
-            return;
-        }
+        if (propertyName != nameof(IsVisible)) return;
         InvalidateSurface();
     }
 }

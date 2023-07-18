@@ -9,142 +9,19 @@ namespace Maui.FreakyControls;
 
 public partial class FreakySvgImageView : BaseSKCanvas
 {
-    private DateTime firstTap;
     public const int TAP_TIME_TRESHOLD = 200;
 
-    public event EventHandler Tapped;
-
     private SKCanvas canvas;
+    private DateTime firstTap;
     private SKImageInfo info;
     private SKSurface surface;
-
-    #region bindable properties
-
-    public static readonly BindableProperty ImageColorProperty = BindableProperty.Create(
-       nameof(ImageColor),
-       typeof(Color),
-       typeof(FreakySvgImageView),
-       Colors.Transparent,
-       propertyChanged: OnColorChangedPropertyChanged
-       );
-
-    public static readonly BindableProperty SvgAssemblyProperty = BindableProperty.Create(
-       nameof(SvgAssembly),
-       typeof(Assembly),
-       typeof(FreakySvgImageView),
-       default(Assembly)
-       );
-
-    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
-        nameof(Command),
-        typeof(ICommand),
-        typeof(FreakySvgImageView)
-        );
-
-    public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
-        nameof(CommandParameter),
-        typeof(object),
-        typeof(FreakySvgImageView)
-        );
-
-    public static readonly BindableProperty SvgModeProperty = BindableProperty.Create(
-       nameof(SvgMode),
-       typeof(Aspect),
-       typeof(FreakySvgImageView),
-       Aspect.AspectFit
-       );
-
-    public static readonly BindableProperty ResourceIdProperty = BindableProperty.Create(
-        nameof(ResourceId),
-        typeof(string),
-        typeof(FreakySvgImageView),
-        default(string),
-        propertyChanged: RedrawCanvas
-        );
-
-    public static readonly BindableProperty Base64StringProperty = BindableProperty.Create(
-        nameof(Base64String),
-        typeof(string),
-        typeof(FreakySvgImageView),
-        default(string),
-        propertyChanged: RedrawCanvas
-        );
-
-    private static void OnColorChangedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var view = bindable as FreakySvgImageView;
-        view.InvalidateSurface();
-    }
-
-    /// <summary>
-    /// of type <see cref="Assembly"/>, specifies the Assembly for your ResourceId.
-    /// </summary>
-    public Assembly SvgAssembly
-    {
-        get { return (Assembly)GetValue(SvgAssemblyProperty); }
-        set { SetValue(SvgAssemblyProperty, value); }
-    }
-
-    /// <summary>
-    /// of type <see cref="Color"/>, specifies the color you want of your SVG image
-    /// </summary>
-    public Color ImageColor
-    {
-        get => (Color)GetValue(ImageColorProperty);
-        set => SetValue(ImageColorProperty, value);
-    }
-
-    /// <summary>
-    /// of type <see cref="string"/>, specifies the source of the image.
-    /// </summary>
-    public string ResourceId
-    {
-        get => (string)GetValue(ResourceIdProperty);
-        set => SetValue(ResourceIdProperty, value);
-    }
-
-    /// <summary>
-    /// of type <see cref="string"/>, specifies the Base64 source of the image.
-    /// </summary>
-    public string Base64String
-    {
-        get => (string)GetValue(Base64StringProperty);
-        set => SetValue(Base64StringProperty, value);
-    }
-
-    /// <summary>
-    /// of type <see cref="ICommand"/>, defines the command that's executed when the image is tapped.
-    /// </summary>
-    public ICommand Command
-    {
-        get => (ICommand)GetValue(CommandProperty);
-        set => SetValue(CommandProperty, value);
-    }
-
-    /// <summary>
-    /// of type <see cref="object"/>, is the parameter that's passed to Command.
-    /// </summary>
-    public object CommandParameter
-    {
-        get => GetValue(CommandParameterProperty);
-        set => SetValue(CommandParameterProperty, value);
-    }
-
-    /// <summary>
-    /// of type <see cref="Aspect"/>, defines the scaling mode of the image.
-    /// </summary>
-    public Aspect SvgMode
-    {
-        get { return (Aspect)GetValue(SvgModeProperty); }
-        set { SetValue(SvgModeProperty, value); }
-    }
-
-    #endregion bindable properties
 
     public FreakySvgImageView()
     {
         InitializeComponent();
     }
+
+    public event EventHandler Tapped;
 
     private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
     {
@@ -167,28 +44,20 @@ public partial class FreakySvgImageView : BaseSKCanvas
             canvas = surface.Canvas;
             canvas.Clear();
             //TODO: Figure out why drawing on coachmark is leading to surface being null
-            if (skPaintSurfaceEventArgs.Surface == null)
-            {
-                return;
-            }
+            if (skPaintSurfaceEventArgs.Surface == null) return;
 
-            if (!string.IsNullOrWhiteSpace(ResourceId) && this.SvgAssembly != null)
-            {
+            if (!string.IsNullOrWhiteSpace(ResourceId) && SvgAssembly != null)
                 UpdateResourceId();
-            }
             else if (!string.IsNullOrWhiteSpace(Base64String))
-            {
                 UpdateBase64();
-            }
             else
-            {
                 return;
-            }
         }
         catch (KeyNotFoundException ex)
         {
             Trace.TraceError(ex.Message);
-            Trace.TraceError("KeyNotFoundException is usually thrown because one or more elements in your SVG file do not have the offset property set to a value i.e. not in the correct format");
+            Trace.TraceError(
+                "KeyNotFoundException is usually thrown because one or more elements in your SVG file do not have the offset property set to a value i.e. not in the correct format");
             Trace.TraceError(ex.StackTrace);
             Trace.TraceError(ex.Source);
         }
@@ -207,14 +76,14 @@ public partial class FreakySvgImageView : BaseSKCanvas
 
     private static void RedrawCanvas(BindableObject bindable, object oldvalue, object newvalue)
     {
-        FreakySvgImageView svgIcon = bindable as FreakySvgImageView;
+        var svgIcon = bindable as FreakySvgImageView;
         svgIcon?.InvalidateSurface();
     }
 
     private void UpdateBase64()
     {
         var svg = new SKSvg();
-        string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
+        var base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
         var byteArray = Convert.FromBase64String(base64);
         using (var stream = new MemoryStream(byteArray))
         {
@@ -252,7 +121,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
         canvas.Translate(-bounds.MidX, -bounds.MidY);
 
         if (ImageColor != Colors.Transparent)
-        {
             using (var paint = new SKPaint
             {
                 ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
@@ -262,7 +130,6 @@ public partial class FreakySvgImageView : BaseSKCanvas
                 canvas.DrawPicture(svg.Picture, paint);
                 return;
             }
-        }
 
         canvas.DrawPicture(svg.Picture);
     }
@@ -271,13 +138,14 @@ public partial class FreakySvgImageView : BaseSKCanvas
     {
         Stream svgStream;
         var svg = new SKSvg();
-        svgStream = this.SvgAssembly.GetManifestResourceStream(ResourceId);
+        svgStream = SvgAssembly.GetManifestResourceStream(ResourceId);
         if (svgStream == null)
         {
             // TODO: write log entry notifying that this Svg does not have a matching EmbeddedResource
             Trace.TraceError($"SKSvgImage: Embedded Resource not found for Svg: {ResourceId}");
             return;
         }
+
         svg.Load(svgStream);
 
         canvas.Translate(info.Width / 2f, info.Height / 2f);
@@ -307,10 +175,10 @@ public partial class FreakySvgImageView : BaseSKCanvas
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
         canvas.Translate(-bounds.MidX, -bounds.MidY);
 
         if (ImageColor != Colors.Transparent)
-        {
             using (var paint = new SKPaint
             {
                 ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
@@ -320,7 +188,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
                 canvas.DrawPicture(svg.Picture, paint);
                 return;
             }
-        }
+
         canvas.DrawPicture(svg.Picture);
     }
 
@@ -330,9 +198,127 @@ public partial class FreakySvgImageView : BaseSKCanvas
 
         if (propertyName != nameof(ResourceId) &&
             propertyName != nameof(SvgMode))
-        {
             return;
-        }
         InvalidateSurface();
     }
+
+    #region bindable properties
+
+    public static readonly BindableProperty ImageColorProperty = BindableProperty.Create(
+        nameof(ImageColor),
+        typeof(Color),
+        typeof(FreakySvgImageView),
+        Colors.Transparent,
+        propertyChanged: OnColorChangedPropertyChanged
+    );
+
+    public static readonly BindableProperty SvgAssemblyProperty = BindableProperty.Create(
+        nameof(SvgAssembly),
+        typeof(Assembly),
+        typeof(FreakySvgImageView)
+    );
+
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+        nameof(Command),
+        typeof(ICommand),
+        typeof(FreakySvgImageView)
+    );
+
+    public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
+        nameof(CommandParameter),
+        typeof(object),
+        typeof(FreakySvgImageView)
+    );
+
+    public static readonly BindableProperty SvgModeProperty = BindableProperty.Create(
+        nameof(SvgMode),
+        typeof(Aspect),
+        typeof(FreakySvgImageView),
+        Aspect.AspectFit
+    );
+
+    public static readonly BindableProperty ResourceIdProperty = BindableProperty.Create(
+        nameof(ResourceId),
+        typeof(string),
+        typeof(FreakySvgImageView),
+        propertyChanged: RedrawCanvas
+    );
+
+    public static readonly BindableProperty Base64StringProperty = BindableProperty.Create(
+        nameof(Base64String),
+        typeof(string),
+        typeof(FreakySvgImageView),
+        propertyChanged: RedrawCanvas
+    );
+
+    private static void OnColorChangedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var view = bindable as FreakySvgImageView;
+        view.InvalidateSurface();
+    }
+
+    /// <summary>
+    ///     of type <see cref="Assembly" />, specifies the Assembly for your ResourceId.
+    /// </summary>
+    public Assembly SvgAssembly
+    {
+        get => (Assembly)GetValue(SvgAssemblyProperty);
+        set => SetValue(SvgAssemblyProperty, value);
+    }
+
+    /// <summary>
+    ///     of type <see cref="Color" />, specifies the color you want of your SVG image
+    /// </summary>
+    public Color ImageColor
+    {
+        get => (Color)GetValue(ImageColorProperty);
+        set => SetValue(ImageColorProperty, value);
+    }
+
+    /// <summary>
+    ///     of type <see cref="string" />, specifies the source of the image.
+    /// </summary>
+    public string ResourceId
+    {
+        get => (string)GetValue(ResourceIdProperty);
+        set => SetValue(ResourceIdProperty, value);
+    }
+
+    /// <summary>
+    ///     of type <see cref="string" />, specifies the Base64 source of the image.
+    /// </summary>
+    public string Base64String
+    {
+        get => (string)GetValue(Base64StringProperty);
+        set => SetValue(Base64StringProperty, value);
+    }
+
+    /// <summary>
+    ///     of type <see cref="ICommand" />, defines the command that's executed when the image is tapped.
+    /// </summary>
+    public ICommand Command
+    {
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+
+    /// <summary>
+    ///     of type <see cref="object" />, is the parameter that's passed to Command.
+    /// </summary>
+    public object CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
+    }
+
+    /// <summary>
+    ///     of type <see cref="Aspect" />, defines the scaling mode of the image.
+    /// </summary>
+    public Aspect SvgMode
+    {
+        get => (Aspect)GetValue(SvgModeProperty);
+        set => SetValue(SvgModeProperty, value);
+    }
+
+    #endregion bindable properties
 }

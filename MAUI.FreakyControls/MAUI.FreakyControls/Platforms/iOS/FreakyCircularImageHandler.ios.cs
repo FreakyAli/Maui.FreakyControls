@@ -1,10 +1,12 @@
 ﻿using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using UIKit;
 
-namespace Maui.FreakyControls
+namespace Maui.FreakyControls;
+
+public sealed partial class FreakyCircularImageHandler
 {
-    public sealed partial class FreakyCircularImageHandler
+    protected override UIImageView CreatePlatformView()
     {
-        protected override UIImageView CreatePlatformView() => new FreakyCircularUIImageView();
+        return new FreakyCircularUIImageView();
     }
 }

@@ -15,6 +15,11 @@ public partial class FreakyDatePickerHandler
 {
     private DatePickerDialog? _dialog;
 
+    internal DatePickerDialog? DatePickerDialog
+    {
+        get { return _dialog; }
+    }
+
     protected override MauiDatePicker CreatePlatformView()
     {
         var mauiDatePicker = new FreakyMauiDatePicker(Context)
@@ -43,9 +48,6 @@ public partial class FreakyDatePickerHandler
         }
     }
 
-    internal DatePickerDialog? DatePickerDialog
-    { get { return _dialog; } }
-
     internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
     {
         var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
@@ -66,6 +68,7 @@ public partial class FreakyDatePickerHandler
                     break;
             }
         }
+
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
@@ -88,7 +91,11 @@ public partial class FreakyDatePickerHandler
         else
         {
             EventHandler? setDateLater = null;
-            setDateLater = (sender, e) => { _dialog!.UpdateDate(year, month, day); _dialog.ShowEvent -= setDateLater; };
+            setDateLater = (sender, e) =>
+            {
+                _dialog!.UpdateDate(year, month, day);
+                _dialog.ShowEvent -= setDateLater;
+            };
             _dialog.ShowEvent += setDateLater;
         }
 

@@ -54,6 +54,7 @@ public partial class FreakyEntryHandler
                     break;
             }
         }
+
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 }

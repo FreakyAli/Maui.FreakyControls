@@ -6,49 +6,46 @@ namespace Maui.FreakyControls;
 public class FreakyTimePicker : TimePicker, IDrawableImageView
 {
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
-             nameof(Image),
-             typeof(ImageSource),
-             typeof(FreakyDatePicker),
-             default(ImageSource));
+        nameof(Image),
+        typeof(ImageSource),
+        typeof(FreakyDatePicker));
 
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
-           nameof(ImageHeight),
-           typeof(int),
-           typeof(FreakyDatePicker),
-           25);
+        nameof(ImageHeight),
+        typeof(int),
+        typeof(FreakyDatePicker),
+        25);
 
     public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
-           nameof(ImageWidth),
-           typeof(int),
-           typeof(FreakyDatePicker),
-           25);
+        nameof(ImageWidth),
+        typeof(int),
+        typeof(FreakyDatePicker),
+        25);
 
     public static readonly BindableProperty ImageAlignmentProperty = BindableProperty.Create(
-           nameof(ImageAlignment),
-           typeof(ImageAlignment),
-           typeof(FreakyDatePicker),
-           ImageAlignment.Right);
+        nameof(ImageAlignment),
+        typeof(ImageAlignment),
+        typeof(FreakyDatePicker),
+        ImageAlignment.Right);
 
     public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
-           nameof(ImagePadding),
-           typeof(int),
-           typeof(FreakyDatePicker),
-           5);
+        nameof(ImagePadding),
+        typeof(int),
+        typeof(FreakyDatePicker),
+        5);
 
     public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
-          nameof(ImagePadding),
-          typeof(ICommand),
-          typeof(FreakyDatePicker),
-          default(ICommand));
+        nameof(ImagePadding),
+        typeof(ICommand),
+        typeof(FreakyDatePicker));
 
     public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
-          nameof(ImageCommandParameter),
-          typeof(object),
-          typeof(FreakyDatePicker),
-          default(object));
+        nameof(ImageCommandParameter),
+        typeof(object),
+        typeof(FreakyDatePicker));
 
     /// <summary>
-    /// Command parameter for your Image tap command
+    ///     Command parameter for your Image tap command
     /// </summary>
     public object ImageCommandParameter
     {
@@ -57,7 +54,7 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// A command that you can use to bind with your Image that you added to your Entry's ViewPort
+    ///     A command that you can use to bind with your Image that you added to your Entry's ViewPort
     /// </summary>
     public ICommand ImageCommand
     {
@@ -66,7 +63,7 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// Padding of the Image that you added to the ViewPort
+    ///     Padding of the Image that you added to the ViewPort
     /// </summary>
     public int ImagePadding
     {
@@ -75,7 +72,7 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// Width of the Image in your ViewPort
+    ///     Width of the Image in your ViewPort
     /// </summary>
     public int ImageWidth
     {
@@ -84,7 +81,7 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// Height of the Image in your ViewPort
+    ///     Height of the Image in your ViewPort
     /// </summary>
     public int ImageHeight
     {
@@ -93,7 +90,7 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// An <see cref="ImageSource"/> that you want to add to your ViewPort
+    ///     An <see cref="ImageSource" /> that you want to add to your ViewPort
     /// </summary>
     public ImageSource ImageSource
     {
@@ -102,7 +99,7 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     }
 
     /// <summary>
-    /// <see cref="ImageAlignment"/> for your Image's ViewPort, By default set to Right.
+    ///     <see cref="ImageAlignment" /> for your Image's ViewPort, By default set to Right.
     /// </summary>
     public ImageAlignment ImageAlignment
     {

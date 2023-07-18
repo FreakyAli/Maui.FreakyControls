@@ -63,25 +63,15 @@ public struct SizeOrScale
     public Size GetScale(float width, float height)
     {
         if (Type == SizeOrScaleType.Scale)
-        {
             return new Size(X, Y);
-        }
-        else
-        {
-            return new Size(X / width, Y / height);
-        }
+        return new Size(X / width, Y / height);
     }
 
     public Size GetSize(float width, float height)
     {
         if (Type == SizeOrScaleType.Scale)
-        {
             return new Size(width * X, height * Y);
-        }
-        else
-        {
-            return new Size(X, Y);
-        }
+        return new Size(X, Y);
     }
 
     public static implicit operator SizeOrScale(float scale)

@@ -4,8 +4,15 @@ namespace Samples.InputViews;
 
 public class InputViewModel : MainViewModel
 {
-    private string _searchCountry = string.Empty;
     private bool _customSearchFunctionSwitchIsToggled;
+    private string _searchCountry = string.Empty;
+
+    public InputViewModel()
+    {
+        var countryProvider = new CountryProvider();
+        var countries = countryProvider.GetCountries().Select(x => x.OfficialName);
+        Countries = new List<string>(countries);
+    }
 
     public string SearchCountry
     {
@@ -18,13 +25,6 @@ public class InputViewModel : MainViewModel
     }
 
     public List<string> Countries { get; }
-
-    public InputViewModel()
-    {
-        var countryProvider = new CountryProvider();
-        var countries = countryProvider.GetCountries().Select(x => x.OfficialName);
-        Countries = new List<string>(countries);
-    }
 
     public bool CustomSearchFunctionSwitchIsToggled
     {

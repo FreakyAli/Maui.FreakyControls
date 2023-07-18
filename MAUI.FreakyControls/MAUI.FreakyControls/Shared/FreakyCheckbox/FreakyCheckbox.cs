@@ -10,6 +10,26 @@ namespace Maui.FreakyControls;
 
 public class FreakyCheckbox : ContentView, IDisposable
 {
+    #region IDisposable
+
+    public void Dispose()
+    {
+        tapped.Tapped -= CheckBox_Tapped;
+        GestureRecognizers.Clear();
+        skiaView.PaintSurface -= Handle_PaintSurface;
+    }
+
+    #endregion IDisposable
+
+    #region Events
+
+    /// <summary>
+    ///     Raised when <see cref="FreakyCheckbox.IsChecked" /> changes.
+    /// </summary>
+    public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
+
+    #endregion Events
+
     #region Fields
 
     private bool isAnimating;
@@ -46,12 +66,10 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     #region Defaults
 
-    private static readonly Design design = Shared.Enums.Design.Unified;
+    private static readonly Design design = Design.Unified;
 
     private static readonly Shape shape =
-        DeviceInfo.Platform == DevicePlatform.iOS ?
-        Shared.Enums.Shape.Circle :
-        Shared.Enums.Shape.Rectangle;
+        DeviceInfo.Platform == DevicePlatform.iOS ? Shape.Circle : Shape.Rectangle;
 
     private static readonly float outlineWidth = 6.0f;
 
@@ -97,6 +115,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                             skiaView.AnchorY = skiaView.AnchorX = 0.501;
                         await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
                     }
+
                     break;
 
                 case AnimationType.Flip:
@@ -127,20 +146,21 @@ public class FreakyCheckbox : ContentView, IDisposable
                         await Task.WhenAll(
                             skiaView.ScaleTo(3.5, 100, Easing.Linear),
                             skiaView.FadeTo(0.5, 100, Easing.Linear)
-                            );
+                        );
                         await Task.WhenAll(
                             skiaView.ScaleTo(3, 100, Easing.Linear),
                             skiaView.FadeTo(0.6, 100, Easing.Linear)
-                            );
+                        );
                         await Task.WhenAll(
                             skiaView.ScaleTo(2.5, 100, Easing.Linear),
                             skiaView.FadeTo(0.7, 100, Easing.Linear)
-                            );
+                        );
                         await Task.WhenAll(
                             skiaView.ScaleTo(2, 100, Easing.Linear),
                             skiaView.FadeTo(0.8, 100, Easing.Linear)
-                            );
+                        );
                     }
+
                     break;
             }
         }
@@ -169,6 +189,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                         await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
                         skiaView.Scale = 1;
                     }
+
                     break;
 
                 case AnimationType.Flip:
@@ -207,7 +228,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         var canvas = e?.Surface?.Canvas;
 
         var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
-        using var checkfill = new SKPaint()
+        using var checkfill = new SKPaint
         {
             Style = SKPaintStyle.Fill,
             Color = FillColor.ToSKColor(),
@@ -215,7 +236,7 @@ public class FreakyCheckbox : ContentView, IDisposable
             IsAntialias = true
         };
 
-        using var checkBoxStroke = new SKPaint()
+        using var checkBoxStroke = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
             Color = OutlineColor.ToSKColor(),
@@ -224,18 +245,18 @@ public class FreakyCheckbox : ContentView, IDisposable
             IsAntialias = true
         };
 
-        if (shape == Shared.Enums.Shape.Circle)
+        if (shape == Shape.Circle)
         {
             canvas.DrawCircle(
                 imageInfo.Width / 2,
                 imageInfo.Height / 2,
-                (imageInfo.Width / 2) - (OutlineWidth / 2),
+                imageInfo.Width / 2 - OutlineWidth / 2,
                 checkfill);
 
             canvas.DrawCircle(
                 imageInfo.Width / 2,
                 imageInfo.Height / 2,
-                (imageInfo.Width / 2) - (OutlineWidth / 2),
+                imageInfo.Width / 2 - OutlineWidth / 2,
                 checkBoxStroke);
         }
         else
@@ -243,8 +264,8 @@ public class FreakyCheckbox : ContentView, IDisposable
             canvas.DrawRoundRect(
                 OutlineWidth,
                 OutlineWidth,
-                imageInfo.Width - (OutlineWidth * 2),
-                imageInfo.Height - (OutlineWidth * 2),
+                imageInfo.Width - OutlineWidth * 2,
+                imageInfo.Height - OutlineWidth * 2,
                 OutlineWidth,
                 OutlineWidth,
                 checkfill);
@@ -252,8 +273,8 @@ public class FreakyCheckbox : ContentView, IDisposable
             canvas.DrawRoundRect(
                 OutlineWidth,
                 OutlineWidth,
-                imageInfo.Width - (OutlineWidth * 2),
-                imageInfo.Height - (OutlineWidth * 2),
+                imageInfo.Width - OutlineWidth * 2,
+                imageInfo.Height - OutlineWidth * 2,
                 OutlineWidth,
                 OutlineWidth,
                 checkBoxStroke);
@@ -301,11 +322,12 @@ public class FreakyCheckbox : ContentView, IDisposable
 
         using var checkStroke = new SKPaint
         {
-            Style = (Design == Design.Unified) &&
-            (CheckType == CheckType.Fill) ||
-            (CheckType == CheckType.Star) ||
-            (CheckType == CheckType.Box) ?
-            SKPaintStyle.Fill : SKPaintStyle.Stroke,
+            Style = (Design == Design.Unified &&
+                     CheckType == CheckType.Fill) ||
+                    CheckType == CheckType.Star ||
+                    CheckType == CheckType.Box
+                ? SKPaintStyle.Fill
+                : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
             StrokeWidth = CheckWidth,
             IsAntialias = true,
@@ -330,12 +352,12 @@ public class FreakyCheckbox : ContentView, IDisposable
         })
         {
             var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
-            if (shape == Shared.Enums.Shape.Circle)
+            if (shape == Shape.Circle)
             {
                 canvas.DrawCircle(
                     imageInfo.Width / 2,
                     imageInfo.Height / 2,
-                    (imageInfo.Width / 2) - (OutlineWidth / 2),
+                    imageInfo.Width / 2 - OutlineWidth / 2,
                     outline);
             }
             else
@@ -344,8 +366,8 @@ public class FreakyCheckbox : ContentView, IDisposable
                 canvas.DrawRoundRect(
                     OutlineWidth,
                     OutlineWidth,
-                    imageInfo.Width - (OutlineWidth * 2),
-                    imageInfo.Height - (OutlineWidth * 2),
+                    imageInfo.Width - OutlineWidth * 2,
+                    imageInfo.Height - OutlineWidth * 2,
                     cornerRadius,
                     cornerRadius,
                     outline);
@@ -355,26 +377,17 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     #endregion Skia
 
-    #region Events
-
-    /// <summary>
-    /// Raised when <see cref="FreakyCheckbox.IsChecked"/> changes.
-    /// </summary>
-    public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
-
-    #endregion Events
-
     #region Bindable Properties
 
     public static readonly BindableProperty HasCheckAnimationProperty =
-    BindableProperty.Create(
-        nameof(HasCheckAnimation),
-        typeof(bool),
-        typeof(FreakyCheckbox),
-        true);
+        BindableProperty.Create(
+            nameof(HasCheckAnimation),
+            typeof(bool),
+            typeof(FreakyCheckbox),
+            true);
 
     /// <summary>
-    /// Gets or sets the color of the outline.
+    ///     Gets or sets the color of the outline.
     /// </summary>
     /// <value>Color value of the outline</value>
     public bool HasCheckAnimation
@@ -384,186 +397,186 @@ public class FreakyCheckbox : ContentView, IDisposable
     }
 
     public static readonly BindableProperty OutlineColorProperty =
-    BindableProperty.Create(
-        nameof(OutlineColor),
-        typeof(Color),
-        typeof(FreakyCheckbox),
-        Colors.Black);
+        BindableProperty.Create(
+            nameof(OutlineColor),
+            typeof(Color),
+            typeof(FreakyCheckbox),
+            Colors.Black);
 
     /// <summary>
-    /// Gets or sets the color of the outline.
+    ///     Gets or sets the color of the outline.
     /// </summary>
     /// <value>Color value of the outline</value>
     public Color OutlineColor
     {
-        get { return (Color)GetValue(OutlineColorProperty); }
-        set { SetValue(OutlineColorProperty, value); }
+        get => (Color)GetValue(OutlineColorProperty);
+        set => SetValue(OutlineColorProperty, value);
     }
 
     public static readonly BindableProperty FillColorProperty =
-    BindableProperty.Create(
-        nameof(FillColor),
-        typeof(Color),
-        typeof(FreakyCheckbox),
-        Colors.White);
+        BindableProperty.Create(
+            nameof(FillColor),
+            typeof(Color),
+            typeof(FreakyCheckbox),
+            Colors.White);
 
     /// <summary>
-    /// Gets or sets the color of the fill.
+    ///     Gets or sets the color of the fill.
     /// </summary>
     /// <value>Color value of the fill.</value>
     public Color FillColor
     {
-        get { return (Color)GetValue(FillColorProperty); }
-        set { SetValue(FillColorProperty, value); }
+        get => (Color)GetValue(FillColorProperty);
+        set => SetValue(FillColorProperty, value);
     }
 
     public static readonly BindableProperty CheckColorProperty =
-    BindableProperty.Create(
-        nameof(CheckColor),
-        typeof(Color),
-        typeof(FreakyCheckbox),
-        Colors.Black);
+        BindableProperty.Create(
+            nameof(CheckColor),
+            typeof(Color),
+            typeof(FreakyCheckbox),
+            Colors.Black);
 
     /// <summary>
-    /// Gets or sets the color of the check.
+    ///     Gets or sets the color of the check.
     /// </summary>
     /// <value>Color of the check.</value>
     public Color CheckColor
     {
-        get { return (Color)GetValue(CheckColorProperty); }
-        set { SetValue(CheckColorProperty, value); }
+        get => (Color)GetValue(CheckColorProperty);
+        set => SetValue(CheckColorProperty, value);
     }
 
     public static readonly BindableProperty OutlineWidthProperty =
-    BindableProperty.Create(
-        nameof(OutlineWidth),
-        typeof(float),
-        typeof(FreakyCheckbox),
-        outlineWidth);
+        BindableProperty.Create(
+            nameof(OutlineWidth),
+            typeof(float),
+            typeof(FreakyCheckbox),
+            outlineWidth);
 
     /// <summary>
-    /// Gets or sets the width of the outline.
+    ///     Gets or sets the width of the outline.
     /// </summary>
     /// <value>The width of the outline</value>
     public float OutlineWidth
     {
-        get { return (float)GetValue(OutlineWidthProperty); }
-        set { SetValue(OutlineWidthProperty, value); }
+        get => (float)GetValue(OutlineWidthProperty);
+        set => SetValue(OutlineWidthProperty, value);
     }
 
     public static readonly BindableProperty CheckWidthProperty =
-    BindableProperty.Create(
-      nameof(CheckWidth),
-      typeof(float),
-      typeof(FreakyCheckbox),
-      outlineWidth);
+        BindableProperty.Create(
+            nameof(CheckWidth),
+            typeof(float),
+            typeof(FreakyCheckbox),
+            outlineWidth);
 
     /// <summary>
-    /// Gets or sets the width of the check.
+    ///     Gets or sets the width of the check.
     /// </summary>
     /// <value>The width of the check.</value>
     public float CheckWidth
     {
-        get { return (float)GetValue(CheckWidthProperty); }
-        set { SetValue(CheckWidthProperty, value); }
+        get => (float)GetValue(CheckWidthProperty);
+        set => SetValue(CheckWidthProperty, value);
     }
 
     public static readonly BindableProperty ShapeProperty =
-    BindableProperty.Create(
-        nameof(Shape),
-        typeof(Shape),
-        typeof(FreakyCheckbox),
-        shape);
+        BindableProperty.Create(
+            nameof(Shape),
+            typeof(Shape),
+            typeof(FreakyCheckbox),
+            shape);
 
     /// <summary>
-    /// Gets or sets the shape of the <see cref="FreakyCheckbox"/>.
+    ///     Gets or sets the shape of the <see cref="FreakyCheckbox" />.
     /// </summary>
     public Shape Shape
     {
-        get { return (Shape)GetValue(ShapeProperty); }
-        set { SetValue(ShapeProperty, value); }
+        get => (Shape)GetValue(ShapeProperty);
+        set => SetValue(ShapeProperty, value);
     }
 
     public static readonly BindableProperty CheckTypeProperty =
-    BindableProperty.Create(
-       nameof(CheckType),
-       typeof(CheckType),
-       typeof(FreakyCheckbox),
-       CheckType.Check);
+        BindableProperty.Create(
+            nameof(CheckType),
+            typeof(CheckType),
+            typeof(FreakyCheckbox),
+            CheckType.Check);
 
     /// <summary>
-    /// Gets or sets the type of the check on <see cref="FreakyCheckbox"/>.
+    ///     Gets or sets the type of the check on <see cref="FreakyCheckbox" />.
     /// </summary>
     public CheckType CheckType
     {
-        get { return (CheckType)GetValue(CheckTypeProperty); }
-        set { SetValue(CheckTypeProperty, value); }
+        get => (CheckType)GetValue(CheckTypeProperty);
+        set => SetValue(CheckTypeProperty, value);
     }
 
     public static readonly BindableProperty DesignProperty =
-    BindableProperty.Create(
-        nameof(Design),
-        typeof(Design),
-        typeof(FreakyCheckbox),
-        design);
+        BindableProperty.Create(
+            nameof(Design),
+            typeof(Design),
+            typeof(FreakyCheckbox),
+            design);
 
     /// <summary>
-    /// Gets or sets the design of the <see cref="FreakyCheckbox"/>.
+    ///     Gets or sets the design of the <see cref="FreakyCheckbox" />.
     /// </summary>
     public Design Design
     {
-        get { return (Design)GetValue(DesignProperty); }
-        set { SetValue(DesignProperty, value); }
+        get => (Design)GetValue(DesignProperty);
+        set => SetValue(DesignProperty, value);
     }
 
     public static readonly BindableProperty AnimationTypeProperty =
-    BindableProperty.Create(
-        nameof(AnimationType),
-        typeof(AnimationType),
-        typeof(FreakyCheckbox),
-        AnimationType.Default);
+        BindableProperty.Create(
+            nameof(AnimationType),
+            typeof(AnimationType),
+            typeof(FreakyCheckbox),
+            AnimationType.Default);
 
     /// <summary>
-    /// Gets or sets the design of the <see cref="FreakyCheckbox"/>.
+    ///     Gets or sets the design of the <see cref="FreakyCheckbox" />.
     /// </summary>
     public AnimationType AnimationType
     {
-        get { return (AnimationType)GetValue(AnimationTypeProperty); }
-        set { SetValue(AnimationTypeProperty, value); }
+        get => (AnimationType)GetValue(AnimationTypeProperty);
+        set => SetValue(AnimationTypeProperty, value);
     }
 
     public static readonly BindableProperty CheckedChangedCommandProperty =
-    BindableProperty.Create(
-        nameof(CheckedChangedCommand),
-        typeof(ICommand),
-        typeof(FreakyCheckbox));
+        BindableProperty.Create(
+            nameof(CheckedChangedCommand),
+            typeof(ICommand),
+            typeof(FreakyCheckbox));
 
     /// <summary>
-    /// Triggered when <see cref="FreakyCheckbox.IsChecked"/> changes.
+    ///     Triggered when <see cref="FreakyCheckbox.IsChecked" /> changes.
     /// </summary>
     public ICommand CheckedChangedCommand
     {
-        get { return (ICommand)GetValue(CheckedChangedCommandProperty); }
-        set { SetValue(CheckedChangedCommandProperty, value); }
+        get => (ICommand)GetValue(CheckedChangedCommandProperty);
+        set => SetValue(CheckedChangedCommandProperty, value);
     }
 
     public static readonly BindableProperty IsCheckedProperty =
-    BindableProperty.Create(
-        nameof(IsChecked),
-        typeof(bool),
-        typeof(FreakyCheckbox),
-        false,
-        BindingMode.TwoWay,
-        propertyChanged: OnCheckedChanged);
+        BindableProperty.Create(
+            nameof(IsChecked),
+            typeof(bool),
+            typeof(FreakyCheckbox),
+            false,
+            BindingMode.TwoWay,
+            propertyChanged: OnCheckedChanged);
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FreakyCheckbox"/> is checked.
+    ///     Gets or sets a value indicating whether this <see cref="FreakyCheckbox" /> is checked.
     /// </summary>
     /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
     public bool IsChecked
     {
-        get { return (bool)GetValue(IsCheckedProperty); }
-        set { SetValue(IsCheckedProperty, value); }
+        get => (bool)GetValue(IsCheckedProperty);
+        set => SetValue(IsCheckedProperty, value);
     }
 
     private static async void OnCheckedChanged(BindableObject bindable, object oldValue, object newValue)
@@ -584,40 +597,29 @@ public class FreakyCheckbox : ContentView, IDisposable
     }
 
     public static readonly BindableProperty SizeRequestProperty =
-    BindableProperty.Create(
-       nameof(SizeRequest),
-       typeof(double),
-       typeof(FreakyCheckbox),
-       size,
-       propertyChanged: SizeRequestChanged);
+        BindableProperty.Create(
+            nameof(SizeRequest),
+            typeof(double),
+            typeof(FreakyCheckbox),
+            size,
+            propertyChanged: SizeRequestChanged);
 
     /// <summary>
-    /// Gets or sets a value indicating the size of this <see cref="FreakyCheckbox"/>
+    ///     Gets or sets a value indicating the size of this <see cref="FreakyCheckbox" />
     /// </summary>
     /// <value><c>true</c> if is checked; otherwise, <c>false</c>.</value>
     public double SizeRequest
     {
-        get { return (double)GetValue(SizeRequestProperty); }
-        set { SetValue(SizeRequestProperty, value); }
+        get => (double)GetValue(SizeRequestProperty);
+        set => SetValue(SizeRequestProperty, value);
     }
 
     private static void SizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (!(bindable is FreakyCheckbox checkbox)) return;
-        checkbox.WidthRequest = checkbox.HeightRequest = (double)(newValue);
-        checkbox.skiaView.WidthRequest = checkbox.skiaView.HeightRequest = (double)(newValue);
+        checkbox.WidthRequest = checkbox.HeightRequest = (double)newValue;
+        checkbox.skiaView.WidthRequest = checkbox.skiaView.HeightRequest = (double)newValue;
     }
 
     #endregion Bindable Properties
-
-    #region IDisposable
-
-    public void Dispose()
-    {
-        tapped.Tapped -= CheckBox_Tapped;
-        GestureRecognizers.Clear();
-        skiaView.PaintSurface -= Handle_PaintSurface;
-    }
-
-    #endregion IDisposable
 }

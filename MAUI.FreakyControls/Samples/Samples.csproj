@@ -112,4 +112,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
 	</ItemGroup>
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionSamplesHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 </Project>

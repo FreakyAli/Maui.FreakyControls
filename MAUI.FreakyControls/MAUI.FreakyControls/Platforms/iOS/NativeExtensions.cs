@@ -1,6 +1,6 @@
 ﻿using CoreGraphics;
 using System.Drawing;
-using System.Runtime.InteropServices;
+using System.Globalization;
 using UIKit;
 
 namespace Maui.FreakyControls.Platforms.iOS;
@@ -13,7 +13,7 @@ public static class NativeExtensions
         {
             Frame = new RectangleF(0, 0, height, width)
         };
-        UIView uiView = new UIView(new System.Drawing.Rectangle(0, 0, width + padding, height));
+        var uiView = new UIView(new Rectangle(0, 0, width + padding, height));
         uiView.AddSubview(uiImageView);
         return uiView;
     }
@@ -34,40 +34,41 @@ public static class NativeExtensions
         switch (hex.Length)
         {
             case 2:
-                r = int.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
-                g = int.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
-                b = int.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
+                r = int.Parse(hex, NumberStyles.AllowHexSpecifier);
+                g = int.Parse(hex, NumberStyles.AllowHexSpecifier);
+                b = int.Parse(hex, NumberStyles.AllowHexSpecifier);
                 a = 255;
                 break;
 
             case 3:
-                r = int.Parse(hex.Substring(0, 1), System.Globalization.NumberStyles.AllowHexSpecifier);
-                g = int.Parse(hex.Substring(1, 1), System.Globalization.NumberStyles.AllowHexSpecifier);
-                b = int.Parse(hex.Substring(2, 1), System.Globalization.NumberStyles.AllowHexSpecifier);
+                r = int.Parse(hex.Substring(0, 1), NumberStyles.AllowHexSpecifier);
+                g = int.Parse(hex.Substring(1, 1), NumberStyles.AllowHexSpecifier);
+                b = int.Parse(hex.Substring(2, 1), NumberStyles.AllowHexSpecifier);
                 a = 255;
                 break;
 
             case 4:
-                r = int.Parse(hex.Substring(0, 1), System.Globalization.NumberStyles.AllowHexSpecifier);
-                g = int.Parse(hex.Substring(1, 1), System.Globalization.NumberStyles.AllowHexSpecifier);
-                b = int.Parse(hex.Substring(2, 1), System.Globalization.NumberStyles.AllowHexSpecifier);
-                a = int.Parse(hex.Substring(3, 1), System.Globalization.NumberStyles.AllowHexSpecifier);
+                r = int.Parse(hex.Substring(0, 1), NumberStyles.AllowHexSpecifier);
+                g = int.Parse(hex.Substring(1, 1), NumberStyles.AllowHexSpecifier);
+                b = int.Parse(hex.Substring(2, 1), NumberStyles.AllowHexSpecifier);
+                a = int.Parse(hex.Substring(3, 1), NumberStyles.AllowHexSpecifier);
                 break;
 
             case 6:
-                r = int.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                g = int.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                b = int.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+                r = int.Parse(hex.Substring(0, 2), NumberStyles.AllowHexSpecifier);
+                g = int.Parse(hex.Substring(2, 2), NumberStyles.AllowHexSpecifier);
+                b = int.Parse(hex.Substring(4, 2), NumberStyles.AllowHexSpecifier);
                 a = 255;
                 break;
 
             case 8:
-                r = int.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                g = int.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                b = int.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
-                a = int.Parse(hex.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+                r = int.Parse(hex.Substring(0, 2), NumberStyles.AllowHexSpecifier);
+                g = int.Parse(hex.Substring(2, 2), NumberStyles.AllowHexSpecifier);
+                b = int.Parse(hex.Substring(4, 2), NumberStyles.AllowHexSpecifier);
+                a = int.Parse(hex.Substring(6, 2), NumberStyles.AllowHexSpecifier);
                 break;
         }
+
         return UIColor.FromRGBA(r, g, b, a);
     }
 
@@ -81,12 +82,12 @@ public static class NativeExtensions
         view.SetNeedsDisplay();
     }
 
-    public static void MoveTo(this UIBezierPath path, NFloat x, NFloat y)
+    public static void MoveTo(this UIBezierPath path, nfloat x, nfloat y)
     {
         path.MoveTo(new CGPoint(x, y));
     }
 
-    public static void LineTo(this UIBezierPath path, NFloat x, NFloat y)
+    public static void LineTo(this UIBezierPath path, nfloat x, nfloat y)
     {
         path.AddLineTo(new CGPoint(x, y));
     }

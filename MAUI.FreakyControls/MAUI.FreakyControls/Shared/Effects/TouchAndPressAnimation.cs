@@ -32,7 +32,6 @@ internal static class TouchAndPressAnimation
     private static void RestoreAnimation(View view, ITouchPressEffect touchAndPressEffectConsumer)
     {
         if (touchAndPressEffectConsumer.Animation != ButtonAnimations.None)
-        {
             Task.Run(async () =>
             {
                 if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Fade)
@@ -40,17 +39,13 @@ internal static class TouchAndPressAnimation
                 else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Scale)
                     await view.ScaleTo(1, 100);
                 else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.FadeAndScale)
-                {
                     await Task.WhenAll(view.ScaleTo(1, 100), view.FadeTo(1, 500));
-                }
             });
-        }
     }
 
     private static void SetAnimation(View view, ITouchPressEffect touchAndPressEffectConsumer)
     {
         if (touchAndPressEffectConsumer.Animation != ButtonAnimations.None && touchAndPressEffectConsumer.IsEnabled)
-        {
             Task.Run(async () =>
             {
                 if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Fade)
@@ -58,10 +53,7 @@ internal static class TouchAndPressAnimation
                 else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.Scale)
                     await view.ScaleTo(0.95, 100);
                 else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.FadeAndScale)
-                {
                     await Task.WhenAll(view.ScaleTo(0.95, 100), view.FadeTo(0.7, 100));
-                }
             });
-        }
     }
 }

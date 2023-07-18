@@ -23,16 +23,17 @@ internal partial class InkPresenter
     public static float ScreenDensity;
 
     private readonly List<InkStroke> paths = new List<InkStroke>();
+
+    private NativeImage bitmapBuffer;
     private InkStroke currentPath;
+    private float dirtyRectBottom;
 
     // used to determine rectangle that needs to be redrawn
     private float dirtyRectLeft;
 
-    private float dirtyRectTop;
     private float dirtyRectRight;
-    private float dirtyRectBottom;
 
-    private NativeImage bitmapBuffer;
+    private float dirtyRectTop;
 
     // public properties
 
@@ -54,8 +55,8 @@ internal partial class InkPresenter
             }
 
             return sizeChanged ||
-                (bitmapBuffer != null && paths.Count == 0) ||
-                paths.Any(p => p.IsDirty);
+                   (bitmapBuffer != null && paths.Count == 0) ||
+                   paths.Any(p => p.IsDirty);
         }
     }
 
@@ -151,7 +152,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Update the bounds for the rectangle to be redrawn if necessary for the given point.
+    ///     Update the bounds for the rectangle to be redrawn if necessary for the given point.
     /// </summary>
     private void UpdateBounds(NativePoint touch)
     {
@@ -159,7 +160,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Update the bounds for the rectangle to be redrawn if necessary for the given point.
+    ///     Update the bounds for the rectangle to be redrawn if necessary for the given point.
     /// </summary>
     private void UpdateBounds(float touchX, float touchY)
     {
@@ -175,7 +176,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
+    ///     Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
     /// </summary>
     private void ResetBounds(NativePoint touch)
     {
@@ -183,7 +184,7 @@ internal partial class InkPresenter
     }
 
     /// <summary>
-    /// Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
+    ///     Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
     /// </summary>
     private void ResetBounds(float touchX, float touchY)
     {
@@ -240,6 +241,7 @@ internal partial class InkPresenter : View
                 TouchesEnded(e);
                 return true;
         }
+
         return false;
     }
 
@@ -342,10 +344,10 @@ internal partial class InkPresenter : View
         Invalidate();
 #else
         using (var rect = new Rect(
-            (int)(dirtyRect.Left - 0.5f),
-            (int)(dirtyRect.Top - 0.5f),
-            (int)(dirtyRect.Right + 0.5f),
-            (int)(dirtyRect.Bottom + 0.5f)))
+                   (int)(dirtyRect.Left - 0.5f),
+                   (int)(dirtyRect.Top - 0.5f),
+                   (int)(dirtyRect.Right + 0.5f),
+                   (int)(dirtyRect.Bottom + 0.5f)))
         {
             Invalidate(rect);
         }

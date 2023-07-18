@@ -1,9 +1,5 @@
-﻿namespace Samples.Pickers
+﻿namespace Samples.Pickers;
+
+public class PickersViewModel : MainViewModel
 {
-    public class PickersViewModel : MainViewModel
-    {
-        public PickersViewModel()
-        {
-        }
-    }
 }

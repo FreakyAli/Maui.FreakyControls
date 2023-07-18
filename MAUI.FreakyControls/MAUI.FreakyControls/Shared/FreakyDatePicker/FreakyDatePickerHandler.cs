@@ -1,4 +1,3 @@
-using System;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Handlers;
 
@@ -16,12 +15,8 @@ public partial class FreakyDatePickerHandler : DatePickerHandler
     {
         if (datePicker is FreakyDatePicker freakyDatePicker &&
             datePickerHandler is FreakyDatePickerHandler freakyDatePickerHandler)
-        {
             if (freakyDatePicker.ImageSource != default(ImageSource))
-            {
-                freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently() ;
-            }
-        }
+                freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently();
     }
 }
 

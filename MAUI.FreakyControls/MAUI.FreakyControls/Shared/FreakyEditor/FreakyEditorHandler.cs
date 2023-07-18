@@ -13,9 +13,7 @@ public sealed partial class FreakyEditorHandler : EditorHandler
     private void MapFreakyEditor(IEditorHandler editorHandler, IEditor editor)
     {
         if (editor is FreakyEditor feditor && editorHandler is FreakyEditorHandler freakyEditorHandler)
-        {
             HandleAllowCopyPaste(feditor);
-        }
     }
 }
 #else

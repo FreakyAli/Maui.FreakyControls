@@ -59,8 +59,8 @@ public class ZoomImage : Image
                 break;
 
             case GestureStatus.Running:
-                AnchorX = Clamp((1 - (StartX + e.TotalX) / Width), 0, 1);
-                AnchorY = Clamp((1 - (StartY + e.TotalY) / Height), 0, 1);
+                AnchorX = Clamp(1 - (StartX + e.TotalX) / Width, 0, 1);
+                AnchorY = Clamp(1 - (StartY + e.TotalY) / Height, 0, 1);
                 break;
         }
     }
@@ -77,10 +77,9 @@ public class ZoomImage : Image
                 break;
 
             case GestureStatus.Running:
-                if (e.Scale < 0 || Math.Abs(LastScale - e.Scale) > (LastScale * 1.3) - LastScale)
-                { return; }
+                if (e.Scale < 0 || Math.Abs(LastScale - e.Scale) > LastScale * 1.3 - LastScale) return;
                 LastScale = e.Scale;
-                var current = (Scale + (e.Scale - 1)) * (StartScale);
+                var current = (Scale + (e.Scale - 1)) * StartScale;
                 Scale = Clamp(current, MIN_SCALE * (1 - OVERSHOOT), MAX_SCALE * (1 + OVERSHOOT));
                 break;
 
@@ -97,9 +96,8 @@ public class ZoomImage : Image
     {
         if (value.CompareTo(minimum) < 0)
             return minimum;
-        else if (value.CompareTo(maximum) > 0)
+        if (value.CompareTo(maximum) > 0)
             return maximum;
-        else
-            return value;
+        return value;
     }
 }

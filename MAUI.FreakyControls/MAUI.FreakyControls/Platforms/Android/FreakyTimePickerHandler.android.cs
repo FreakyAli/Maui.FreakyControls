@@ -14,8 +14,11 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyTimePickerHandler
 {
-    private MauiTimePicker? _timePicker;
     private AlertDialog? _dialog;
+    private MauiTimePicker? _timePicker;
+
+    private bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
+        && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 
     protected override MauiTimePicker CreatePlatformView()
     {
@@ -59,6 +62,7 @@ public partial class FreakyTimePickerHandler
                     break;
             }
         }
+
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
@@ -89,7 +93,4 @@ public partial class FreakyTimePickerHandler
 
         _dialog = null;
     }
-
-    private bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
-            && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 }

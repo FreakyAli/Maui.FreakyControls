@@ -8,8 +8,8 @@ namespace Maui.FreakyControls.Platforms.Android;
 public abstract class FreakyMauiAppCompatActivity : MauiAppCompatActivity
 {
     /// <summary>
-    /// A touch event handler that can be used to generally handle outside an entry field click event
-    /// so that it hides the keyboard when you do so.
+    ///     A touch event handler that can be used to generally handle outside an entry field click event
+    ///     so that it hides the keyboard when you do so.
     /// </summary>
     /// <param name="ev"></param>
     /// <returns></returns>
@@ -27,13 +27,14 @@ public abstract class FreakyMauiAppCompatActivity : MauiAppCompatActivity
                 float x = ev.RawX + view.Left - Touch[0];
                 float y = ev.RawY + view.Top - Touch[1];
                 if (x < view.Left || x > view.Right || y < view.Top || y > view.Bottom)
-                    ((InputMethodManager)GetSystemService(InputMethodService)).
-                        HideSoftInputFromWindow((Window.DecorView.ApplicationWindowToken), 0);
+                    ((InputMethodManager)GetSystemService(InputMethodService)).HideSoftInputFromWindow(
+                        (Window.DecorView.ApplicationWindowToken), 0);
             }
         }
         catch
         {
         }
+
         return base.DispatchTouchEvent(ev);
     }
 }
