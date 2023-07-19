@@ -1,8 +1,8 @@
-using Maui.FreakyControls.Extensions;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 

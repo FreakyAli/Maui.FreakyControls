@@ -1,5 +1,7 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Graphics;
+using Android.Util;
 using System.Collections;
 using ArrayList = Java.Util.ArrayList;
 using View = Android.Views.View;
@@ -8,6 +10,12 @@ namespace Maui.FreakyControls.Platforms.Android;
 
 public static class NativeExtensions
 {
+    public static float DpToPixels(this Context context, float valueInDp)
+    {
+        DisplayMetrics metrics = context.Resources.DisplayMetrics;
+        return TypedValue.ApplyDimension(ComplexUnitType.Dip, valueInDp, metrics);
+    }
+
     public static ArrayList ToArrayList(this ICollection input)
     {
         return input.Count == 0 ? new ArrayList() : new ArrayList(input);

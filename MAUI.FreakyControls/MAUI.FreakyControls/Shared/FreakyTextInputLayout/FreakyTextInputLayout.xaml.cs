@@ -1,16 +1,16 @@
-﻿using Maui.FreakyControls.Shared.Enums;
-using Microsoft.Maui.Converters;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Maui.FreakyControls.Shared.Enums;
+using Microsoft.Maui.Converters;
 
 namespace Maui.FreakyControls;
 
 public partial class FreakyTextInputLayout : ContentView
 {
-    private int _leftMargin;
     private readonly int _placeholderFontSize = 18;
     private readonly int _titleFontSize = 14;
+    private int _leftMargin;
     private int _topMargin;
 
     public FreakyTextInputLayout()
@@ -589,6 +589,7 @@ public partial class FreakyTextInputLayout : ContentView
     /// <summary>
     ///     A command that you can use to bind with your Image that you added to your
     ///     <see cref="FreakyTextInputLayout"'s ViewPort
+    ///
     ///
     /// </summary>
     public ICommand ImageCommand

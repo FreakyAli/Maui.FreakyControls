@@ -86,9 +86,6 @@
 		<None Remove="CommunityToolkit.Mvvm" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Platforms\iOS\" />
-		<Folder Include="Platforms\Android\" />
-		<Folder Include="Shared\" />
 		<Folder Include="Shared\FreakyEditor\" />
 		<Folder Include="Shared\FreakyEntry\" />
 		<Folder Include="Shared\Enums\" />

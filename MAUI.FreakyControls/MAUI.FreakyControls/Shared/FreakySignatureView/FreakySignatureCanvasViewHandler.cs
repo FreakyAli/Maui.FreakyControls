@@ -1,4 +1,5 @@
 ﻿#if ANDROID
+
 using NativeView = Maui.FreakyControls.Platforms.Android.SignaturePadCanvasView;
 using NativePoint = System.Drawing.PointF;
 
@@ -8,8 +9,8 @@ using NativePoint = CoreGraphics.CGPoint;
 #else
 #endif
 
-using Microsoft.Maui.Platform;
 using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls
 {

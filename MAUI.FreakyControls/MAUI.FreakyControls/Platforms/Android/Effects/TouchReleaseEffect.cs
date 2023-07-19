@@ -16,7 +16,7 @@ internal class TouchReleaseEffect : PlatformEffect
         if (_view != null)
         {
             var touchReleaseEffect =
-                (Maui.FreakyControls.Shared.TouchPress.ToouchReleaseRoutingEffect)Element.Effects.FirstOrDefault(x =>
+                (Maui.FreakyControls.Shared.TouchPress.TouchReleaseRoutingEffect)Element.Effects.FirstOrDefault(x =>
                     x is TouchReleaseEffect);
             if (touchReleaseEffect != null && touchReleaseEffect.OnRelease != null)
             {

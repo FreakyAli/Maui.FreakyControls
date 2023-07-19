@@ -1,8 +1,6 @@
 using System.Windows.Input;
 using Maui.FreakyControls.Shared.TouchPress;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using TouchReleaseRoutingEffect = Maui.FreakyControls.Shared.TouchPress.ToouchReleaseRoutingEffect;
-
 #if MACCATALYST
 using Maui.FreakyControls.Platforms.MacCatalyst;
 #endif
@@ -57,6 +55,7 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
         handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
+        handlers.AddHandler(typeof(FreakySlider), typeof(FreakySliderHandler));
     }
 
     [Obsolete("Please use InitializeFreakyControls instead.")]

@@ -9,7 +9,7 @@ namespace Maui.FreakyControls;
 
 public partial class FreakySvgImageView : BaseSKCanvas
 {
-    public const int TAP_TIME_TRESHOLD = 200;
+    public const int TAP_TIME_THRESHOLD = 200;
 
     private SKCanvas canvas;
     private DateTime firstTap;
@@ -28,7 +28,7 @@ public partial class FreakySvgImageView : BaseSKCanvas
         var time = Math.Round((DateTime.Now - firstTap).TotalMilliseconds, MidpointRounding.AwayFromZero);
 
         //Check to avoid handling multiple tap events at same time using threshold
-        if (time > TAP_TIME_TRESHOLD)
+        if (time > TAP_TIME_THRESHOLD)
         {
             firstTap = DateTime.Now;
             Tapped?.Invoke(this, e);

@@ -1,11 +1,10 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1703.2
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{FA323AEE-85A9-4D5D-9726-03C7D1FD71A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Samples.csproj", "{FA323AEE-85A9-4D5D-9726-03C7D1FD71A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.FreakyControls", "MAUI.FreakyControls\Maui.FreakyControls.csproj", "{864B4829-7286-4921-A185-DA67FE0D1155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.FreakyControls", "MAUI.FreakyControls\Maui.FreakyControls.csproj", "{864B4829-7286-4921-A185-DA67FE0D1155}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,16 +14,13 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FA323AEE-85A9-4D5D-9726-03C7D1FD71A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA323AEE-85A9-4D5D-9726-03C7D1FD71A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA323AEE-85A9-4D5D-9726-03C7D1FD71A2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{FA323AEE-85A9-4D5D-9726-03C7D1FD71A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA323AEE-85A9-4D5D-9726-03C7D1FD71A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{864B4829-7286-4921-A185-DA67FE0D1155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{864B4829-7286-4921-A185-DA67FE0D1155}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{864B4829-7286-4921-A185-DA67FE0D1155}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{864B4829-7286-4921-A185-DA67FE0D1155}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C80669FA-43B5-4B68-9819-30BFD1915031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C80669FA-43B5-4B68-9819-30BFD1915031}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C80669FA-43B5-4B68-9819-30BFD1915031}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C80669FA-43B5-4B68-9819-30BFD1915031}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
