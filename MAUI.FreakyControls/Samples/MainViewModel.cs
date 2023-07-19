@@ -24,7 +24,8 @@ public class MainViewModel : BaseViewModel
             AppShell.signatureView,
             AppShell.checkboxes,
             AppShell.radioButtons,
-            AppShell.buttons
+            AppShell.buttons,
+            AppShell.slider
         };
 
         var strSuggestionArr = new[]

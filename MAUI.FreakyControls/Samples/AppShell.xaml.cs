@@ -18,6 +18,7 @@ public partial class AppShell : Shell
     internal const string signaturePreview = "ImageDisplay";
     internal const string signatureView = "SignatureView";
     internal const string textInputLayout = "TextInputLayouts";
+    internal const string slider = "SliderView";
 
     public AppShell()
     {
@@ -31,5 +32,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(checkboxes, typeof(CheckboxesView));
         Routing.RegisterRoute(radioButtons, typeof(RadioButtonsView));
         Routing.RegisterRoute(buttons, typeof(ButtonsView.ButtonsView));
+        Routing.RegisterRoute(slider, typeof(SliderView.SliderView));
     }
 }
