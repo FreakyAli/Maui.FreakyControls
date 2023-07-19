@@ -3,11 +3,11 @@ using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Util;
-using Color = Android.Graphics.Color;
+using AndroidX.Core.Graphics;
 using System.Collections;
 using ArrayList = Java.Util.ArrayList;
+using Color = Android.Graphics.Color;
 using View = Android.Views.View;
-using AndroidX.Core.Graphics;
 
 namespace Maui.FreakyControls.Platforms.Android;
 
@@ -16,12 +16,12 @@ public static class NativeExtensions
     public static void SetColorFilter(this Drawable drawable, Color color, ColorFilterMode mode)
     {
 #if ANDROID29_0_OR_GREATER
-            var blendModeCompat = GetBlendFilterMode(mode);
-            drawable.SetColorFilter(
-                        BlendModeColorFilterCompat.CreateBlendModeColorFilterCompat(
-                        color,
-                        blendModeCompat
-                        ));
+        var blendModeCompat = GetBlendFilterMode(mode);
+        drawable.SetColorFilter(
+                    BlendModeColorFilterCompat.CreateBlendModeColorFilterCompat(
+                    color,
+                    blendModeCompat
+                    ));
 #else
             var porterMode= GetPorterFilterMode(mode);
             drawable.SetColorFilter(color, PorterDuff.Mode.SrcIn, porterMode);

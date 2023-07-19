@@ -4,11 +4,10 @@ using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-using static Maui.FreakyControls.Platforms.Android.NativeExtensions;
-using Microsoft.Maui.Platform;
 using Maui.FreakyControls.Platforms.Android;
-using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Platform;
+using static Maui.FreakyControls.Platforms.Android.NativeExtensions;
 
 namespace Maui.FreakyControls;
 
@@ -70,7 +69,5 @@ public partial class FreakySliderHandler
         int thumbTop = (seekbar.Height / 2 - thumb.IntrinsicHeight / 2);
 
         thumb.SetBounds(thumb.Bounds.Left, thumbTop, thumb.Bounds.Left + thumb.IntrinsicWidth, thumbTop + thumb.IntrinsicHeight);
-
     }
 }
-

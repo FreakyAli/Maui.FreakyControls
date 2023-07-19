@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Maui.FreakyControls.Shared.Enums;
+using Microsoft.Maui.Converters;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Maui.FreakyControls.Shared.Enums;
-using Microsoft.Maui.Converters;
 
 namespace Maui.FreakyControls;
 

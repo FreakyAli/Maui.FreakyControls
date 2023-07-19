@@ -11,7 +11,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
-            <freakyControls:FreakySlider/>
+            <freakyControls:FreakySlider />
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>

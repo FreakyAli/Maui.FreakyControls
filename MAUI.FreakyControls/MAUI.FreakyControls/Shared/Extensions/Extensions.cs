@@ -1,6 +1,7 @@
 using System.Windows.Input;
 using Maui.FreakyControls.Shared.TouchPress;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+
 #if MACCATALYST
 using Maui.FreakyControls.Platforms.MacCatalyst;
 #endif
