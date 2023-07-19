@@ -7,6 +7,8 @@ using Android.Widget;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Maui.FreakyControls.Platforms.Android.NativeExtensions;
 using Microsoft.Maui.Platform;
+using Maui.FreakyControls.Platforms.Android;
+using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
 
@@ -19,9 +21,12 @@ public partial class FreakySliderHandler
             var customSlider = (FreakySlider)sliderHandler.VirtualView;
 
             if (customSlider.ThumbColor != Colors.Transparent)
-                sliderHandler.PlatformView.Thumb.SetColorFilter(customSlider.ThumbColor.ToPlatform(), PorterDuff.Mode.SrcIn);
+            {
+                sliderHandler.PlatformView.Thumb.
+                    SetColorFilter(customSlider.ThumbColor.ToPlatform(), ColorFilterMode.SrcIn);
+            }
 
-            BuildVersionCodes androidVersion = Build.VERSION.SdkInt;
+            var androidVersion = Build.VERSION.SdkInt;
 
             if (androidVersion >= BuildVersionCodes.M)
             {

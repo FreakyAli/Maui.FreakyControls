@@ -14,7 +14,9 @@ public partial class FreakySliderHandler : SliderHandler
     {
         if (slider is FreakySlider freakySlider && handler is FreakySliderHandler sliderHandler)
         {
-            //ApplyBounds(sliderHandler);
+#if ANDROID
+            ApplyBounds(sliderHandler);
+#endif
             HandleSliderChanges(sliderHandler);
         }
     }
