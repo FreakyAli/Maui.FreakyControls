@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Maui.FreakyControls"
+             x:Name="this"
+             x:Class="Maui.FreakyControls.MaterialSlider">
+    <VerticalStackLayout Spacing="2">
+            <StackLayout x:Name="stcHeader" Margin="0,0,14,2" Orientation="Horizontal">
+                <Label
+                    IsVisible="false"
+                    Text="{Binding LabelText, Source={x:Reference this}}"
+                    TextColor="{Binding LabelTextColor, Source={x:Reference this}}"
+                    FontSize="{Binding LabelSize, Source={x:Reference this}}"
+                    LineBreakMode="NoWrap"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    IsVisible="{Binding LabelValueIsVisible, Source={x:Reference this}}"
+                    TextColor="{Binding LabelValueColor, Source={x:Reference this}}"
+                    FontSize="{Binding LabelValueSize, Source={x:Reference this}}"
+                    LineBreakMode="NoWrap"
+                    HorizontalTextAlignment="End"
+                    VerticalTextAlignment="Center" />
+            </StackLayout>
+            <Grid Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="50" Margin="0">
+                <controls:CustomImage x:Name="bckgImage" IsVisible="false" Margin="10,0"  />
+                <StackLayout Orientation="Horizontal"  VerticalOptions="FillAndExpand" >
+                    <controls:CustomImageButton x:Name="imgMinimum" IsVisible="false" HorizontalOptions="Start" />
+                    <Label x:Name="lblMinimum" IsVisible="false" HorizontalOptions="Start" VerticalOptions="Center" />
+                    <controls:FreakySlider x:Name="slider" VerticalOptions="Center" Margin="0,10,0,10"  HorizontalOptions="FillAndExpand" ValueChanged="OnValueChanged"  />
+                    <Label x:Name="lblMaximum" IsVisible="false" HorizontalOptions="End" VerticalOptions="Center"  />
+                    <controls:CustomImageButton x:Name="imgMaximum" IsVisible="false" HorizontalOptions="End" />
+                </StackLayout>
+            </Grid>
+            <Label x:Name="lblAssistive" IsVisible="false" LineBreakMode="NoWrap" Margin="0,0,14,0" HorizontalTextAlignment="Start" />
+    </VerticalStackLayout>
+</ContentView>

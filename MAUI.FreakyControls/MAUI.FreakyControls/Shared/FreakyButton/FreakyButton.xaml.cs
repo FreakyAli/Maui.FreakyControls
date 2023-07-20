@@ -1,7 +1,7 @@
-﻿using Maui.FreakyControls.Extensions;
+﻿using System.Windows.Input;
+using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
 using Maui.FreakyControls.Shared.TouchPress;
-using System.Windows.Input;
 using Font = Microsoft.Maui.Font;
 
 namespace Maui.FreakyControls;
@@ -51,17 +51,13 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
             Button.CharacterSpacingProperty.DefaultValue);
 
     public static readonly BindableProperty CommandParameterProperty =
-        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FreakyButton), null);
+        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(FreakyButton));
 
     public static readonly BindableProperty CommandProperty =
-        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FreakyButton), null);
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(FreakyButton));
 
     public static readonly BindableProperty CornerRadiusProperty =
-        BindableProperty.Create(
-            nameof(CornerRadius),
-            typeof(CornerRadius),
-            typeof(FreakyButton),
-            new CornerRadius(10));
+        BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(FreakyButton), new CornerRadius(10));
 
     public static readonly BindableProperty FontAttributesProperty =
         BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(FreakyButton),
@@ -71,16 +67,13 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
         BindableProperty.Create(nameof(FontAutoScalingEnabled), typeof(bool), typeof(FreakyButton), true);
 
     public static readonly BindableProperty FontFamilyProperty =
-        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(FreakyButton), null);
+        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(FreakyButton));
 
     public static readonly BindableProperty FontSizeProperty =
         BindableProperty.Create(nameof(FontSize), typeof(double), typeof(FreakyButton), Font.Default.Size);
 
     public static readonly BindableProperty HorizontalTextAlignmentProperty =
-        BindableProperty.Create(
-            nameof(HorizontalTextAlignment),
-            typeof(TextAlignment),
-            typeof(FreakyButton),
+        BindableProperty.Create(nameof(HorizontalTextAlignment), typeof(TextAlignment), typeof(FreakyButton),
             TextAlignment.Center);
 
     public static readonly BindableProperty IconSizeProperty =
@@ -94,7 +87,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
         BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(FreakyButton), true);
 
     public static readonly BindableProperty LeadingIconProperty =
-        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(FreakyButton), null,
+        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(FreakyButton),
             propertyChanged: OnLeadingIconChanged);
 
     public static readonly BindableProperty LineBreakModeProperty =
@@ -115,7 +108,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
             TextDecorations.None);
 
     public static readonly BindableProperty TextProperty =
-        BindableProperty.Create(nameof(Text), typeof(string), typeof(FreakyButton), null);
+        BindableProperty.Create(nameof(Text), typeof(string), typeof(FreakyButton));
 
     public static readonly BindableProperty TextTransformProperty =
         BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(FreakyButton), TextTransform.None);
@@ -124,15 +117,11 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
         BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(FreakyButton), TextType.Text);
 
     public static readonly BindableProperty TrailingIconProperty =
-        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(FreakyButton), null,
+        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(FreakyButton),
             propertyChanged: OnTrailingIconChanged);
 
     public static readonly BindableProperty VerticalTextAlignmentProperty =
-        BindableProperty.Create(
-            nameof(VerticalTextAlignment),
-            typeof(TextAlignment),
-            typeof(FreakyButton),
-            TextAlignment.Center);
+        BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment),typeof(FreakyButton), TextAlignment.Center);
 
     public event EventHandler Clicked;
 
@@ -327,6 +316,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     {
         var freakyButton = bindable as FreakyButton;
         var isBusy = (bool)newValue;
+
         if (isBusy)
         {
             await freakyButton.txtLabel.TranslateTo(0, -35, 300, Easing.Linear);
@@ -346,6 +336,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     private static void OnLeadingIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var freakyButton = bindable as FreakyButton;
+
         if (newValue != null)
         {
             freakyButton.leadingContentView.IsVisible = true;
@@ -360,6 +351,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     private static void OnTrailingIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var freakyButton = bindable as FreakyButton;
+
         if (newValue != null)
         {
             freakyButton.trailingContentView.IsVisible = true;

@@ -1,34 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Samples.SliderView.SliderView"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             xmlns:sliderview="clr-namespace:Samples.SliderView"
-             x:DataType="sliderview:SliderViewModel"
-             Title="SliderView">
+<ContentPage
+    x:Class="Samples.SliderView.SliderView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    xmlns:sliderview="clr-namespace:Samples.SliderView"
+    Title="SliderView"
+    x:DataType="sliderview:SliderViewModel">
     <VerticalStackLayout>
 
-        <Label Text="{Binding Label1}"/>
+        <Label Text="{Binding Label1}" />
 
-        <freakyControls:FreakySlider Minimum="0" Maximum="1000" Value="{Binding Label1, Mode=TwoWay}"/>
+        <freakyControls:MaterialSlider
+            MaximumValue="1000"
+            MinimumIcon="calendar.png"
+            MaximumIcon="calendar.png"
+            MinimumValue="0"
+            Value="{Binding Label1, Mode=TwoWay}" />
 
-        <Label/>
-                <freakyControls:FreakySlider/>
+        <Label />
+        <freakyControls:FreakySlider />
 
-        <Label/>
-                <freakyControls:FreakySlider/>
+        <Label />
+        <freakyControls:FreakySlider />
 
-        <Label/>
-                <freakyControls:FreakySlider/>
+        <Label />
+        <freakyControls:FreakySlider />
 
-        <Label/>
-                <freakyControls:FreakySlider/>
+        <Label />
+        <freakyControls:FreakySlider />
 
-        <Label/>
-                <freakyControls:FreakySlider/>
+        <Label />
+        <freakyControls:FreakySlider />
 
-        <Label/>
-                <freakyControls:FreakySlider/>
+        <Label />
+        <freakyControls:FreakySlider />
 
 
     </VerticalStackLayout>
