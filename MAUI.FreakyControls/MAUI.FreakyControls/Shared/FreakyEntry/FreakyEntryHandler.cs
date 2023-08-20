@@ -18,11 +18,14 @@ public sealed partial class FreakyEntryHandler : EntryHandler
     {
         if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
         {
-            if (freakyEntry.ImageSource != default(ImageSource))
+            if (PlatformView != null && VirtualView != null)
             {
-                freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
+                if (freakyEntry.ImageSource != default(ImageSource))
+                {
+                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
+                }
+                HandleAllowCopyPaste(freakyEntry);
             }
-            HandleAllowCopyPaste(freakyEntry);
         }
     }
 }

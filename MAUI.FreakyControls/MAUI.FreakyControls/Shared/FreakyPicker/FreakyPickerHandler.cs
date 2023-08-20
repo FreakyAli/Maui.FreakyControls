@@ -18,9 +18,12 @@ public partial class FreakyPickerHandler : PickerHandler
         if (picker is FreakyPicker freakyTimePicker &&
                            pickerHandler is FreakyPickerHandler freakyTimePickerHandler)
         {
-            if (freakyTimePicker.ImageSource != default(ImageSource))
+            if (PlatformView != null && VirtualView != null)
             {
-                freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
+                if (freakyTimePicker.ImageSource != default(ImageSource))
+                {
+                    freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
+                }
             }
         }
     }
