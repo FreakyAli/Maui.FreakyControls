@@ -17,9 +17,12 @@ public partial class FreakyDatePickerHandler : DatePickerHandler
         if (datePicker is FreakyDatePicker freakyDatePicker &&
             datePickerHandler is FreakyDatePickerHandler freakyDatePickerHandler)
         {
-            if (freakyDatePicker.ImageSource != default(ImageSource))
+            if (PlatformView != null && VirtualView != null)
             {
-                freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently() ;
+                if (freakyDatePicker.ImageSource != default(ImageSource))
+                {
+                    freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently();
+                }
             }
         }
     }

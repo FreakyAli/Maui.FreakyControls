@@ -14,7 +14,10 @@ public sealed partial class FreakyEditorHandler : EditorHandler
     {
         if (editor is FreakyEditor feditor && editorHandler is FreakyEditorHandler freakyEditorHandler)
         {
-            HandleAllowCopyPaste(feditor);
+            if (PlatformView != null && VirtualView != null)
+            {
+                HandleAllowCopyPaste(feditor);
+            }
         }
     }
 }
