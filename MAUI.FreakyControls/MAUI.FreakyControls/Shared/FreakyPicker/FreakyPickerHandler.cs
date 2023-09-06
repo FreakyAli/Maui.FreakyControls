@@ -13,18 +13,26 @@ public partial class FreakyPickerHandler : PickerHandler
         Mapper.AppendToMapping("FreakyPickerCustomization", MapPicker);
     }
 
+    // Todo: Remove try-catch added as a quickfix for https://github.com/FreakyAli/Maui.FreakyControls/issues/76
     private void MapPicker(IPickerHandler pickerHandler, IPicker picker)
     {
-        if (picker is FreakyPicker freakyTimePicker &&
-                           pickerHandler is FreakyPickerHandler freakyTimePickerHandler)
+        try
         {
-            if (PlatformView != null && VirtualView != null)
+            if (picker is FreakyPicker freakyTimePicker &&
+                          pickerHandler is FreakyPickerHandler freakyTimePickerHandler)
             {
-                if (freakyTimePicker.ImageSource != default(ImageSource))
+                if (PlatformView != null && VirtualView != null)
                 {
-                    freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
+                    if (freakyTimePicker.ImageSource != default(ImageSource))
+                    {
+                        freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            ex.TraceException();
         }
     }
 }

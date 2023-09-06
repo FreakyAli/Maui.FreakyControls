@@ -28,7 +28,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 namespace Maui.FreakyControls.Extensions;
 
 public static class Extensions
-{
+{ 
     public static void ExecuteCommandIfAvailable(this ICommand command, object parameter = null)
     {
         if (command?.CanExecute(parameter) == true)
