@@ -22,11 +22,12 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Stroke="Transparent" HeightRequest="50" StrokeThickness="0">
+                    <Border Stroke="White">
                         <Label
-                            FontAttributes="Bold"
-                            FontSize="Large"
-                            Text="{Binding ., Mode=OneTime}"/>
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        FontSize="Large"
+                        Text="{Binding ., Mode=OneTime}"/>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -40,7 +41,7 @@
             AlphabetProvider="{x:Static provider:JumpListView.AlphabetProvider}"
             SelectedCharacterChanged="SkiaJumpList_OnSelectedCharacterChanged"
             Touch="JumpList_OnTouch" />
-         <Border
+        <Border
             x:Name="jumplistIdentifier"
             AbsoluteLayout.LayoutBounds="0.7,0.1,0,0"
             AbsoluteLayout.LayoutFlags="PositionProportional"

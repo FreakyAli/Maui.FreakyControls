@@ -189,7 +189,6 @@ public class FreakyJumpList : SKCanvasView, IDisposable
                 Color = CharacterColor.ToSKColor(),
                 TextSize = this.CharacterSize,
                 TextAlign = SKTextAlign.Center,
-                FakeBoldText=true
             };
             if (currentAlphabet == this.SelectedCharacter)
             {
