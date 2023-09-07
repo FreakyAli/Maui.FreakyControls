@@ -25,7 +25,8 @@ namespace Samples
                 AppShell.signatureView,
                 AppShell.checkboxes,
                 AppShell.radioButtons,
-                AppShell.buttons
+                AppShell.buttons,
+                AppShell.jumpList
             };
 
             var strSuggestionArr = new string[] {
