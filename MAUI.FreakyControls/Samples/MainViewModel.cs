@@ -7,7 +7,6 @@ namespace Samples
 {
     public class MainViewModel : BaseViewModel
     {
-
         private ObservableCollection<string> items;
 
         public MainViewModel()
@@ -26,7 +25,6 @@ namespace Samples
                 AppShell.radioButtons,
                 AppShell.buttons,
                 AppShell.jumpList
-
             };
         }
 

@@ -26,6 +26,5 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(radioButtons, typeof(RadioButtons.RadioButtonsView));
         Routing.RegisterRoute(buttons, typeof(ButtonsView.ButtonsView));
         Routing.RegisterRoute(jumpList, typeof(JumpList.JumpListView));
-
     }
 }

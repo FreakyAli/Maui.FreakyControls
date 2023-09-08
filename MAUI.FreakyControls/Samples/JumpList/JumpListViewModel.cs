@@ -40,4 +40,3 @@ public class JumpListViewModel : BaseViewModel
         Names = names.OrderBy(x => x).ToList();
     }
 }
-

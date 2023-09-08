@@ -5,11 +5,9 @@ namespace Maui.FreakyControls.Extensions;
 
 public static class ExceptionExtensions
 {
-
     public static void TraceException(this Exception exception)
     {
         var stringBuilder = new StringBuilder();
-
         while (exception != null)
         {
             stringBuilder.AppendLine(exception.Message);
@@ -17,7 +15,6 @@ public static class ExceptionExtensions
 
             exception = exception.InnerException;
         }
-
         Trace.TraceError(stringBuilder.ToString());
     }
 }
