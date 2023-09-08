@@ -51,33 +51,10 @@ Run the following command to add our Nuget to your .Net MAUI app:
 
       Install-Package FreakyControls -Version xx.xx.xx
 
-**Adding FreakyControlsHandlers to your MAUI app**:
+Add the following using statement and Initialization in your MauiProgram: 
 
-Add the following using statement and then Init the handlers in your MauiProgram: 
-
-      using MAUI.FreakyControls.Extensions;
-      
-### For Version 4.3 and below:   
-      
-      namespace Something;
-      
-      public static class MauiProgram
-      {     
-      var builder = MauiApp.CreateBuilder();
-		  builder
-			.UseMauiApp<App>()
-      .ConfigureMauiHandlers(handlers =>
-      {
-          handlers.AddFreakyHandlers(); // To Init your freaky handlers for Entry and Editor
-      });
-                  // This line is needed for the following issue: https://github.com/mono/SkiaSharp/issues/1979
-		  builder.InitSkiaSharp(); // Use this if you want to use FreakySvgImageView 
-		  return builder.Build();
-      } 
-
-### Post version 4.3:
-
-   namespace Samples;
+    using MAUI.FreakyControls.Extensions;
+    namespace Samples;
 
      public static class MauiProgram
      {
@@ -91,8 +68,7 @@ Add the following using statement and then Init the handlers in your MauiProgram
                      fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                      fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                  });
-	    //Initialization is now a one-liner and the old methods have been deprecated and will be removed in future updates.
-        //Takes one argument if you would like to init Skiasharp through FreakyControls or not (Used for RadioButton, Checkbox & SVGImageView)
+            //Takes one argument if you would like to init Skiasharp through FreakyControls or not. (Used for RadioButton, Checkbox & SVGImageView)
              builder.InitializeFreakyControls();
              return builder.Build();
          }
