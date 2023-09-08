@@ -7,8 +7,6 @@ namespace Samples
 {
     public class MainViewModel : BaseViewModel
     {
-        private ObservableCollection<string> _suggestionItem;
-
         private ObservableCollection<string> items;
 
         public MainViewModel()
@@ -25,18 +23,9 @@ namespace Samples
                 AppShell.signatureView,
                 AppShell.checkboxes,
                 AppShell.radioButtons,
-                AppShell.buttons
+                AppShell.buttons,
+                AppShell.jumpList
             };
-
-            var strSuggestionArr = new string[] {
-                        "hello",
-                        "how are you",
-                        "some other question",
-                        "Yuhu",
-                        "Yello",
-                        "Majin buuuuuuuuuu"
-                        };
-            SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
         }
 
         public ICommand FreakyLongPressedCommand { get; set; }
@@ -52,16 +41,6 @@ namespace Samples
             set
             {
                 items = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<string> SuggestionItem
-        {
-            get => _suggestionItem;
-            set
-            {
-                _suggestionItem = value;
                 OnPropertyChanged();
             }
         }
