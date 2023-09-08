@@ -35,7 +35,6 @@ public sealed partial class FreakyEntryHandler : EntryHandler
         {
             ex.TraceException();
         }
-
     }
 }
 

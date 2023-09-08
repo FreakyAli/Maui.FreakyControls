@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Application = Microsoft.Maui.Controls.Application;
@@ -7,6 +7,7 @@ namespace Samples
 {
     public class MainViewModel : BaseViewModel
     {
+
         private ObservableCollection<string> items;
 
         public MainViewModel()
@@ -25,6 +26,7 @@ namespace Samples
                 AppShell.radioButtons,
                 AppShell.buttons,
                 AppShell.jumpList
+
             };
         }
 

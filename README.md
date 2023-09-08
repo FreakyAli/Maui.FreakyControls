@@ -68,11 +68,12 @@ Add the following using statement and Initialization in your MauiProgram:
                      fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                      fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                  });
-            //Takes one argument if you would like to init Skiasharp through FreakyControls or not. (Used for RadioButton, Checkbox & SVGImageView)
+             //Takes one argument if you would like to init Skiasharp through FreakyControls or not. (Used for RadioButton, Checkbox & SVGImageView)
              builder.InitializeFreakyControls();
              return builder.Build();
          }
       }
+      
 Now you can use the controls in your app.
 
 ## Activity 
