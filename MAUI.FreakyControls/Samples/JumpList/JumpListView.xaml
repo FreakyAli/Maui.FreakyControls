@@ -37,6 +37,7 @@
             AbsoluteLayout.LayoutBounds="1,0.5,0.1,0.7"
             CharacterColor="{StaticResource Primary}"
             SelectedCharacterColor="Black"
+            HasHapticFeedback="True"
             AbsoluteLayout.LayoutFlags="All"
             AlphabetProvider="{x:Static provider:JumpListView.AlphabetProvider}"
             SelectedCharacterChanged="SkiaJumpList_OnSelectedCharacterChanged"

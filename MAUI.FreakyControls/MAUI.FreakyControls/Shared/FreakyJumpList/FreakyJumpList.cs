@@ -38,8 +38,8 @@ public class FreakyJumpList : SKCanvasView, IDisposable
         40.0f
         );
 
-    public static readonly BindableProperty HasHaptikFeedbackProperty = BindableProperty.Create(
-        nameof(HasHaptikFeedback),
+    public static readonly BindableProperty HasHapticFeedbackProperty = BindableProperty.Create(
+        nameof(HasHapticFeedback),
         typeof(bool),
         typeof(FreakyJumpList),
         false
@@ -53,7 +53,7 @@ public class FreakyJumpList : SKCanvasView, IDisposable
        );
 
     // <summary>
-    // Gets or sets a AlphabetProvider instance
+    // Gets or sets an AlphabetProvider instance
     // </summary>
     public IAlphabetProvider AlphabetProvider
     {
@@ -62,12 +62,12 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     }
 
     // <summary>
-    // Gets or sets the height of the characters in pixels
+    // Gets or sets if there should be haptic feedback when user touches/swipes on the jumplist, default is false.
     // </summary>
-    public bool HasHaptikFeedback
+    public bool HasHapticFeedback
     {
-        get => (bool)GetValue(HasHaptikFeedbackProperty);
-        set => SetValue(HasHaptikFeedbackProperty, value);
+        get => (bool)GetValue(HasHapticFeedbackProperty);
+        set => SetValue(HasHapticFeedbackProperty, value);
     }
 
     // <summary>
@@ -80,7 +80,7 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     }
 
     // <summary>
-    // string formatted single character that you have touched/swiped to
+    // Gets or sets string formatted single character that you have touched/swiped to
     // </summary>
     public string SelectedCharacter
     {
@@ -89,7 +89,7 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     }
 
     // <summary>
-    // of type Color, defines the color of the jump list's selected character.
+    // Gets or sets the color of the jump list's selected character.
     // </summary>
     public Color SelectedCharacterColor
     {
@@ -98,7 +98,7 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     }
 
     // <summary>
-    // of type Color, defines the color of the jump list characters.
+    // Gets or sets defines the color of the jump list characters.
     // </summary>
     public Color CharacterColor
     {
@@ -134,22 +134,21 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     {
         base.OnTouch(e);
         var closestPoint = GetClosestPoint(e);
-        if (HasHaptikFeedback)
+        if (HasHapticFeedback)
         {
             if (SelectedCharacter != closestPoint.Key)
             {
                 try
                 {
-                    var duration = TimeSpan.MinValue;
-                    Vibration.Vibrate(duration);
+                    HapticFeedback.Perform(HapticFeedbackType.Click);
                 }
-                catch (FeatureNotSupportedException)
+                catch (FeatureNotSupportedException ex)
                 {
-                    // Feature not supported on device
+                    ex.TraceException();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Other error has occurred.
+                    ex.TraceException();
                 }
             }
         }
@@ -177,23 +176,20 @@ public class FreakyJumpList : SKCanvasView, IDisposable
 
         var info = e.Info;
         var canvas = e.Surface?.Canvas;
-        var  provider = this.AlphabetProvider;
+        var provider = this.AlphabetProvider;
         var maxCount = this.AlphabetProvider?.GetCount();
         charLocationDictionary = new Dictionary<string, SKPoint>();
-        foreach (var (item, index) in provider.GetAlphabet().WithIndex())
+        foreach (var (item, index) in provider?.GetAlphabet().WithIndex())
         {
             var currentAlphabet = item.ToString();
             var currentIndex = index + 1;
             using var textPaint = new SKPaint()
             {
-                Color = CharacterColor.ToSKColor(),
                 TextSize = this.CharacterSize,
                 TextAlign = SKTextAlign.Center,
             };
-            if (currentAlphabet == this.SelectedCharacter)
-            {
-                textPaint.Color = SelectedCharacterColor.ToSKColor();
-            }
+            textPaint.Color = currentAlphabet == this.SelectedCharacter ?
+                SelectedCharacterColor.ToSKColor() : CharacterColor.ToSKColor();
             var point = new SKPoint((float)(info.Width / 2.0), (float)(info.Height / maxCount * currentIndex));
             charLocationDictionary.Add(currentAlphabet, point);
             canvas?.DrawText(currentAlphabet, point, textPaint);
@@ -202,7 +198,7 @@ public class FreakyJumpList : SKCanvasView, IDisposable
 
     public void Dispose()
     {
-        Dispose(true);
+        this.Dispose(true);
         GC.SuppressFinalize(this);
     }
 
@@ -214,11 +210,4 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     protected virtual void Dispose(bool disposing)
     {
     }
-}
-
-public interface IAlphabetProvider
-{
-    IEnumerable<char> GetAlphabet();
-
-    int GetCount();
 }
