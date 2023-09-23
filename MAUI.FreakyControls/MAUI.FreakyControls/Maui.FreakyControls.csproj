@@ -14,7 +14,7 @@
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
 		<AssemblyVersion>0.4.5</AssemblyVersion>
 		<AssemblyFileVersion>0.4.5</AssemblyFileVersion>
-		<Version>0.4.5-pre</Version>
+		<Version>0.4.5</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
