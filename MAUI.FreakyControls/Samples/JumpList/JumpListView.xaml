@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.JumpList.JumpListView"
+             xmlns:vm="clr-namespace:Samples.JumpList"
+             x:DataType="vm:JumpListViewModel"
+             xmlns:provider="clr-namespace:Samples.JumpList"
+             xmlns:controls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             Title="JumpListView">
+    <AbsoluteLayout>
+        <CollectionView
+            x:Name="collectionView"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            ItemsSource="{Binding Names, Mode=OneTime}"
+            HorizontalScrollBarVisibility="Never"
+            ItemSizingStrategy="MeasureFirstItem"
+            ItemsUpdatingScrollMode="KeepLastItemInView"
+            VerticalScrollBarVisibility="Never">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="White">
+                        <Label
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        FontSize="Large"
+                        Text="{Binding ., Mode=OneTime}"/>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <controls:FreakyJumpList
+            x:Name="JumpList"
+            AbsoluteLayout.LayoutBounds="1,0.5,0.1,0.7"
+            CharacterColor="{StaticResource Primary}"
+            SelectedCharacterColor="Black"
+            HasHapticFeedback="True"
+            AbsoluteLayout.LayoutFlags="All"
+            AlphabetProvider="{x:Static provider:JumpListView.AlphabetProvider}"
+            SelectedCharacterChanged="SkiaJumpList_OnSelectedCharacterChanged"
+            Touch="JumpList_OnTouch" />
+        <Border
+            x:Name="jumplistIdentifier"
+            AbsoluteLayout.LayoutBounds="0.7,0.1,0,0"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Stroke="{StaticResource Primary}"
+            BackgroundColor="{StaticResource Primary}"
+            HeightRequest="60"
+            IsVisible="False"
+            Opacity="0.7"
+            Scale="0.9"
+            WidthRequest="60">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="30" />
+            </Border.StrokeShape>
+            <Label
+                HorizontalOptions="Center"
+                Text="{Binding SelectedCharacter, Source={x:Reference JumpList}}"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Border>
+    </AbsoluteLayout>
+</ContentPage>

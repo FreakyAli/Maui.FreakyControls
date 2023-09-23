@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using Maui.FreakyControls.Extensions;
+using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Diagnostics;
 using System.Reflection;
@@ -187,16 +188,12 @@ public partial class FreakySvgImageView : BaseSKCanvas
         }
         catch (KeyNotFoundException ex)
         {
-            Trace.TraceError(ex.Message);
             Trace.TraceError("KeyNotFoundException is usually thrown because one or more elements in your SVG file do not have the offset property set to a value i.e. not in the correct format");
-            Trace.TraceError(ex.StackTrace);
-            Trace.TraceError(ex.Source);
+            ex.TraceException();
         }
         catch (Exception ex)
         {
-            Trace.TraceError(ex.Message);
-            Trace.TraceError(ex.StackTrace);
-            Trace.TraceError(ex.Source);
+            ex.TraceException();
         }
     }
 

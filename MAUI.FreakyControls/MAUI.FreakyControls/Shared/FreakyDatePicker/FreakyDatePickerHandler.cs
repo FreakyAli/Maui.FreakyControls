@@ -12,18 +12,26 @@ public partial class FreakyDatePickerHandler : DatePickerHandler
         Mapper.AppendToMapping("FreakyDatePickerCustomization", MapDatePicker);
     }
 
+    // Todo: Remove try-catch added as a quickfix for https://github.com/FreakyAli/Maui.FreakyControls/issues/76
     private void MapDatePicker(IDatePickerHandler datePickerHandler, IDatePicker datePicker)
     {
-        if (datePicker is FreakyDatePicker freakyDatePicker &&
-            datePickerHandler is FreakyDatePickerHandler freakyDatePickerHandler)
+        try
         {
-            if (PlatformView != null && VirtualView != null)
+            if (datePicker is FreakyDatePicker freakyDatePicker &&
+                     datePickerHandler is FreakyDatePickerHandler freakyDatePickerHandler)
             {
-                if (freakyDatePicker.ImageSource != default(ImageSource))
+                if (PlatformView != null && VirtualView != null)
                 {
-                    freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently();
+                    if (freakyDatePicker.ImageSource != default(ImageSource))
+                    {
+                        freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently();
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            ex.TraceException();
         }
     }
 }

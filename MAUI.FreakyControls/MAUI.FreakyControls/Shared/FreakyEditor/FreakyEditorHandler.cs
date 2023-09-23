@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Handlers;
+﻿using Maui.FreakyControls.Extensions;
+using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
 
@@ -10,14 +11,22 @@ public sealed partial class FreakyEditorHandler : EditorHandler
         Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEditor);
     }
 
+    // Todo: Remove try-catch added as a quickfix for https://github.com/FreakyAli/Maui.FreakyControls/issues/76
     private void MapFreakyEditor(IEditorHandler editorHandler, IEditor editor)
     {
-        if (editor is FreakyEditor feditor && editorHandler is FreakyEditorHandler freakyEditorHandler)
+        try
         {
-            if (PlatformView != null && VirtualView != null)
+            if (editor is FreakyEditor feditor && editorHandler is FreakyEditorHandler freakyEditorHandler)
             {
-                HandleAllowCopyPaste(feditor);
+                if (PlatformView != null && VirtualView != null)
+                {
+                    HandleAllowCopyPaste(feditor);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            ex.TraceException();
         }
     }
 }

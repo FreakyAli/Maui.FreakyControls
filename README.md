@@ -35,9 +35,10 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 | <img src="https://user-images.githubusercontent.com/31090457/210124414-9db3bf89-2079-4e45-8fb5-2f9ae6438e44.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/210124403-a70fd95b-3668-4d5c-9973-e56aec4de514.gif" width="250" height="550"/> |
 | <img src="https://user-images.githubusercontent.com/31090457/221354808-a022a9ea-2692-4a3b-b8a6-a9a9040ca855.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/221354804-fdc55267-4e67-424c-a1ea-960517c8510c.gif" width="250" height="550"/>| 
 | <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/45c38fc3-3f0b-4a75-86ad-e9a52a64095c" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/0c5a1192-a3db-4f10-bb2c-0e29eeff73de" width="250" height="550"/>| 
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/3bd1f50e-a3c7-437b-994b-b8ec4689dd97" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/25565695-6d9e-451d-b737-0256c0cc1230" width="250" height="550"/>| 
 
 
-## License 
+## License
 
 The license for this project can be found [here](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
 
@@ -51,33 +52,10 @@ Run the following command to add our Nuget to your .Net MAUI app:
 
       Install-Package FreakyControls -Version xx.xx.xx
 
-**Adding FreakyControlsHandlers to your MAUI app**:
+Add the following using statement and Initialization in your MauiProgram: 
 
-Add the following using statement and then Init the handlers in your MauiProgram: 
-
-      using MAUI.FreakyControls.Extensions;
-      
-### For Version 4.3 and below:   
-      
-      namespace Something;
-      
-      public static class MauiProgram
-      {     
-      var builder = MauiApp.CreateBuilder();
-		  builder
-			.UseMauiApp<App>()
-      .ConfigureMauiHandlers(handlers =>
-      {
-          handlers.AddFreakyHandlers(); // To Init your freaky handlers for Entry and Editor
-      });
-                  // This line is needed for the following issue: https://github.com/mono/SkiaSharp/issues/1979
-		  builder.InitSkiaSharp(); // Use this if you want to use FreakySvgImageView 
-		  return builder.Build();
-      } 
-
-### Post version 4.3:
-
-   namespace Samples;
+    using MAUI.FreakyControls.Extensions;
+    namespace Samples;
 
      public static class MauiProgram
      {
@@ -91,12 +69,12 @@ Add the following using statement and then Init the handlers in your MauiProgram
                      fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                      fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                  });
-	    //Initialization is now a one-liner and the old methods have been deprecated and will be removed in future updates.
-        //Takes one argument if you would like to init Skiasharp through FreakyControls or not (Used for RadioButton, Checkbox & SVGImageView)
+             //Takes one argument if you would like to init Skiasharp through FreakyControls or not. (Used for RadioButton, Checkbox & SVGImageView)
              builder.InitializeFreakyControls();
              return builder.Build();
          }
       }
+      
 Now you can use the controls in your app.
 
 ## Activity 

@@ -14,18 +14,26 @@ public sealed partial class FreakyEntryHandler : EntryHandler
         Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEntry);
     }
 
+    // Todo: Remove try-catch added as a quickfix for https://github.com/FreakyAli/Maui.FreakyControls/issues/76
     private void MapFreakyEntry(IEntryHandler entryHandler, IEntry entry)
     {
-        if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
+        try
         {
-            if (PlatformView != null && VirtualView != null)
+            if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
             {
-                if (freakyEntry.ImageSource != default(ImageSource))
+                if (PlatformView != null && VirtualView != null)
                 {
-                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
+                    if (freakyEntry.ImageSource != default(ImageSource))
+                    {
+                        freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
+                    }
+                    HandleAllowCopyPaste(freakyEntry);
                 }
-                HandleAllowCopyPaste(freakyEntry);
             }
+        }
+        catch (Exception ex)
+        {
+            ex.TraceException();
         }
     }
 }
