@@ -10,6 +10,10 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
+            <freakyControls:AutoSuggestBox
+
+                />
+
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry

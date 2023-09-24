@@ -14,3 +14,16 @@ public partial class FreakySignatureCanvasViewHandler : ViewHandler<View, UIView
         return new UIView();
     }
 }
+
+
+public partial class AutoSuggestBoxHandler : ViewHandler<View, UIView>
+{
+    public AutoSuggestBoxHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper, commandMapper)
+    {
+    }
+
+    protected override UIView CreatePlatformView()
+    {
+        return new UIView();
+    }
+}

@@ -83,6 +83,7 @@
 		<None Remove="Shared\FreakyRadioButton\" />
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyJumpList\" />
+		<None Remove="Shared\FreakyAutoCompleteView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -114,9 +115,10 @@
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
+		<Folder Include="Shared\FreakyAutoCompleteView\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.5" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 	</ItemGroup>
 	<ItemGroup>
@@ -135,5 +137,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="clear_icon.svg" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Platforms\Android\AutoSuggestBox.android.cs" />
 	</ItemGroup>
 </Project>
