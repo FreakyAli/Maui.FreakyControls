@@ -4,6 +4,6 @@ public partial class FreakySignatureCanvasViewHandler
 {
 }
 
-public partial class AutoSuggestBoxHandler
+public partial class FreakyAutoCompleteViewHandler
 {
 }

@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using Microsoft.Maui.Handlers;
 using System.Drawing;
 using UIKit;
-using Maui.FreakyControls.Platforms.iOS.NativeControls;
 
 namespace Maui.FreakyControls;
 
-public partial class AutoSuggestBoxHandler : ViewHandler<IAutoSuggestBox, AutoSuggestBoxView>
+public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoCompleteView, FreakyAutoCompleteViewView>
 {
     /// <inheritdoc />
-    protected override AutoSuggestBoxView CreatePlatformView() => new AutoSuggestBoxView();
+    protected override FreakyAutoCompleteViewView CreatePlatformView() => new FreakyAutoCompleteViewView();
 
-    protected override void ConnectHandler(AutoSuggestBoxView platformView)
+    protected override void ConnectHandler(FreakyAutoCompleteViewView platformView)
     {
         base.ConnectHandler(platformView);
 
@@ -35,7 +34,7 @@ public partial class AutoSuggestBoxHandler : ViewHandler<IAutoSuggestBox, AutoSu
         PlatformView.EditingDidBegin += Control_EditingDidBegin;
         PlatformView.EditingDidEnd += Control_EditingDidEnd;
     }
-    protected override void DisconnectHandler(AutoSuggestBoxView platformView)
+    protected override void DisconnectHandler(FreakyAutoCompleteViewView platformView)
     {
         platformView.SuggestionChosen -= OnPlatformViewSuggestionChosen;
         platformView.TextChanged -= OnPlatformViewTextChanged;
@@ -47,15 +46,15 @@ public partial class AutoSuggestBoxHandler : ViewHandler<IAutoSuggestBox, AutoSu
         base.DisconnectHandler(platformView);
     }
 
-    private void OnPlatformViewSuggestionChosen(object? sender, AutoSuggestBoxSuggestionChosenEventArgs e)
+    private void OnPlatformViewSuggestionChosen(object? sender, FreakyAutoCompleteViewSuggestionChosenEventArgs e)
     {
         VirtualView?.RaiseSuggestionChosen(e);
     }
-    private void OnPlatformViewTextChanged(object? sender, AutoSuggestBoxTextChangedEventArgs e)
+    private void OnPlatformViewTextChanged(object? sender, FreakyAutoCompleteViewTextChangedEventArgs e)
     {
         VirtualView?.NativeControlTextChanged(e);
     }
-    private void OnPlatformViewQuerySubmitted(object? sender, AutoSuggestBoxQuerySubmittedEventArgs e)
+    private void OnPlatformViewQuerySubmitted(object? sender, FreakyAutoCompleteViewQuerySubmittedEventArgs e)
     {
         VirtualView?.RaiseQuerySubmitted(e);
     }
@@ -92,69 +91,69 @@ public partial class AutoSuggestBoxHandler : ViewHandler<IAutoSuggestBox, AutoSu
         VirtualView.IsFocused = false;
     }
 
-    public static void MapText(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapText(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         if (handler.PlatformView.Text != view.Text)
             handler.PlatformView.Text = view.Text;
     }
 
-    public static void MapTextColor(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapTextColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView?.SetTextColor(view.TextColor);
     }
-    public static void MapPlaceholderText(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapPlaceholderText(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.PlaceholderText = view.PlaceholderText;
     }
-    public static void MapPlaceholderTextColor(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapPlaceholderTextColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView?.SetPlaceholderTextColor(view.PlaceholderTextColor);
     }
-    public static void MapTextMemberPath(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapTextMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
-    public static void MapDisplayMemberPath(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapDisplayMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
-    public static void MapIsSuggestionListOpen(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapIsSuggestionListOpen(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.IsSuggestionListOpen = view.IsSuggestionListOpen;
     }
-    public static void MapUpdateTextOnSelect(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapUpdateTextOnSelect(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.UpdateTextOnSelect = view.UpdateTextOnSelect;
     }
-    public static void MapIsEnabled(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapIsEnabled(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.UserInteractionEnabled = view.IsEnabled;
     }
-    public static void MapItemsSource(AutoSuggestBoxHandler handler, IAutoSuggestBox view)
+    public static void MapItemsSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
     }
 
-    private void UpdateTextColor(AutoSuggestBoxView platformView)
+    private void UpdateTextColor(FreakyAutoCompleteViewView platformView)
     {
         platformView.SetTextColor(VirtualView?.TextColor);
     }
-    private void UpdateDisplayMemberPath(AutoSuggestBoxView platformView)
+    private void UpdateDisplayMemberPath(FreakyAutoCompleteViewView platformView)
     {
         platformView.SetItems(VirtualView.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView.DisplayMemberPath), (o) => FormatType(o, VirtualView.TextMemberPath));
     }
-    private void UpdatePlaceholderTextColor(AutoSuggestBoxView platformView)
+    private void UpdatePlaceholderTextColor(FreakyAutoCompleteViewView platformView)
     {
         platformView.SetPlaceholderTextColor(VirtualView?.PlaceholderTextColor);
     }
-    private void UpdatePlaceholderText(AutoSuggestBoxView platformView) => platformView.PlaceholderText = VirtualView?.PlaceholderText;
+    private void UpdatePlaceholderText(FreakyAutoCompleteViewView platformView) => platformView.PlaceholderText = VirtualView?.PlaceholderText;
 
-    private void UpdateIsEnabled(AutoSuggestBoxView platformView)
+    private void UpdateIsEnabled(FreakyAutoCompleteViewView platformView)
     {
         platformView.UserInteractionEnabled = (bool)(VirtualView.IsEnabled);
     }
 
-    private void UpdateItemsSource(AutoSuggestBoxView platformView)
+    private void UpdateItemsSource(FreakyAutoCompleteViewView platformView)
     {
         platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView?.DisplayMemberPath), (o) => FormatType(o, VirtualView?.TextMemberPath));
     }

@@ -1,11 +1,10 @@
-﻿using CoreGraphics;
-using Foundation;
+﻿using Foundation;
 using Microsoft.Maui.Platform;
 using UIKit;
 
 namespace Maui.FreakyControls.Platforms.iOS.NativeControls;
 
-public partial class AutoSuggestBoxView : UIKit.UIView
+public partial class FreakyAutoCompleteViewView : UIKit.UIView
 {
     private nfloat keyboardHeight;
     private NSLayoutConstraint bottomConstraint;
@@ -24,9 +23,9 @@ public partial class AutoSuggestBoxView : UIKit.UIView
     public UIKit.UITableView SelectionList { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AutoSuggestBoxView"/>.
+    /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewView"/>.
     /// </summary>
-    public AutoSuggestBoxView()
+    public FreakyAutoCompleteViewView()
     {
         InputTextField = new UIKit.UITextField
         {
@@ -148,7 +147,7 @@ public partial class AutoSuggestBoxView : UIKit.UIView
     private bool _isSuggestionListOpen;
 
     /// <summary>
-    /// Gets or sets a Boolean value indicating whether the drop-down portion of the AutoSuggestBoxView is open.
+    /// Gets or sets a Boolean value indicating whether the drop-down portion of the FreakyAutoCompleteViewView is open.
     /// </summary>
     public virtual bool IsSuggestionListOpen
     {
@@ -188,7 +187,7 @@ public partial class AutoSuggestBoxView : UIKit.UIView
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the AutoSuggestBoxView when clicked.
+    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the FreakyAutoCompleteViewView when clicked.
     /// </summary>
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
@@ -218,7 +217,7 @@ public partial class AutoSuggestBoxView : UIKit.UIView
     {
         if (string.IsNullOrWhiteSpace(field.Text)) { return false; }
         field.ResignFirstResponder();
-        QuerySubmitted?.Invoke(this, new AutoSuggestBoxQuerySubmittedEventArgs(InputTextField.Text, null));
+        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(InputTextField.Text, null));
         return true;
     }
 
@@ -244,16 +243,16 @@ public partial class AutoSuggestBoxView : UIKit.UIView
         if (UpdateTextOnSelect)
         {
             InputTextField.Text = textFunc(selection);
-            TextChanged?.Invoke(this, new AutoSuggestBoxTextChangedEventArgs(textFunc(selection), AutoSuggestBoxTextChangeReason.SuggestionChosen));
+            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(textFunc(selection), FreakyAutoCompleteViewTextChangeReason.SuggestionChosen));
         }
-        SuggestionChosen?.Invoke(this, new AutoSuggestBoxSuggestionChosenEventArgs(selection));
-        QuerySubmitted?.Invoke(this, new AutoSuggestBoxQuerySubmittedEventArgs(Text, selection));
+        SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(selection));
+        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, selection));
         IsSuggestionListOpen = false;
     }
 
     private void InputText_EditingChanged(object sender, EventArgs e)
     {
-        TextChanged?.Invoke(this, new AutoSuggestBoxTextChangedEventArgs(this.Text, AutoSuggestBoxTextChangeReason.UserInput));
+        TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(this.Text, FreakyAutoCompleteViewTextChangeReason.UserInput));
         IsSuggestionListOpen = true;
     }
 
@@ -266,7 +265,7 @@ public partial class AutoSuggestBoxView : UIKit.UIView
         set
         {
             InputTextField.Text = value;
-            this.TextChanged?.Invoke(this, new AutoSuggestBoxTextChangedEventArgs(value, AutoSuggestBoxTextChangeReason.ProgrammaticChange));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, FreakyAutoCompleteViewTextChangeReason.ProgrammaticChange));
         }
     }
 
@@ -283,17 +282,17 @@ public partial class AutoSuggestBoxView : UIKit.UIView
     /// <summary>
     /// Raised after the text config of the editable control component is updated.
     /// </summary>
-    public event EventHandler<AutoSuggestBoxTextChangedEventArgs> TextChanged;
+    public event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
 
     /// <summary>
     /// Occurs when the user submits a search query.
     /// </summary>
-    public event EventHandler<AutoSuggestBoxQuerySubmittedEventArgs> QuerySubmitted;
+    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
 
     /// <summary>
     /// Raised before the text config of the editable control component is updated.
     /// </summary>
-    public event EventHandler<AutoSuggestBoxSuggestionChosenEventArgs> SuggestionChosen;
+    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
 
     private class TableSource<T> : UITableViewSource
     {

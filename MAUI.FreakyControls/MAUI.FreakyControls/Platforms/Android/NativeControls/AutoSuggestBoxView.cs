@@ -8,16 +8,16 @@ using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
-public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
+public class FreakyAutoCompleteViewView : AppCompatAutoCompleteTextView
 {
     private bool suppressTextChangedEvent;
     private Func<object, string> textFunc;
     private SuggestCompleteAdapter adapter;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AutoSuggestBoxView"/>.
+    /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewView"/>.
     /// </summary>
-    public AutoSuggestBoxView(Context context) : base(context)
+    public FreakyAutoCompleteViewView(Context context) : base(context)
     {
         SetMaxLines(1);
         Threshold = 0;
@@ -63,7 +63,7 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
             suppressTextChangedEvent = true;
             base.Text = value;
             suppressTextChangedEvent = false;
-            this.TextChanged?.Invoke(this, new AutoSuggestBoxTextChangedEventArgs(value, AutoSuggestBoxTextChangeReason.ProgrammaticChange));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, FreakyAutoCompleteViewTextChangeReason.ProgrammaticChange));
         }
     }
 
@@ -94,7 +94,7 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
     }
 
     /// <summary>
-    /// Sets a Boolean value indicating whether the drop-down portion of the AutoSuggestBox is open.
+    /// Sets a Boolean value indicating whether the drop-down portion of the FreakyAutoCompleteView is open.
     /// </summary>
     public virtual bool IsSuggestionListOpen
     {
@@ -108,7 +108,7 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the AutoSuggestBoxView when clicked.
+    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the FreakyAutoCompleteViewView when clicked.
     /// </summary>
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
@@ -116,7 +116,7 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
     protected override void OnTextChanged(ICharSequence text, int start, int lengthBefore, int lengthAfter)
     {
         if (!suppressTextChangedEvent)
-            this.TextChanged?.Invoke(this, new AutoSuggestBoxTextChangedEventArgs(text.ToString(), AutoSuggestBoxTextChangeReason.UserInput));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text.ToString(), FreakyAutoCompleteViewTextChangeReason.UserInput));
         base.OnTextChanged(text, start, lengthBefore, lengthAfter);
     }
 
@@ -136,10 +136,10 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
             string text = textFunc(obj);
             base.Text = text;
             suppressTextChangedEvent = false;
-            TextChanged?.Invoke(this, new AutoSuggestBoxTextChangedEventArgs(text, AutoSuggestBoxTextChangeReason.SuggestionChosen));
+            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text, FreakyAutoCompleteViewTextChangeReason.SuggestionChosen));
         }
-        SuggestionChosen?.Invoke(this, new AutoSuggestBoxSuggestionChosenEventArgs(obj));
-        QuerySubmitted?.Invoke(this, new AutoSuggestBoxQuerySubmittedEventArgs(Text, obj));
+        SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(obj));
+        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, obj));
     }
 
     /// <inheritdoc />
@@ -149,7 +149,7 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
         {
             DismissDropDown();
             DismissKeyboard();
-            QuerySubmitted?.Invoke(this, new AutoSuggestBoxQuerySubmittedEventArgs(Text, null));
+            QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, null));
         }
         else
             base.OnEditorAction(actionCode);
@@ -164,17 +164,17 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
     /// <summary>
     /// Raised after the text content of the editable control component is updated.
     /// </summary>
-    public new event EventHandler<AutoSuggestBoxTextChangedEventArgs> TextChanged;
+    public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
 
     /// <summary>
     /// Occurs when the user submits a search query.
     /// </summary>
-    public event EventHandler<AutoSuggestBoxQuerySubmittedEventArgs> QuerySubmitted;
+    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
 
     /// <summary>
     /// Raised before the text content of the editable control component is updated.
     /// </summary>
-    public event EventHandler<AutoSuggestBoxSuggestionChosenEventArgs> SuggestionChosen;
+    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
 
     private class SuggestCompleteAdapter : ArrayAdapter, IFilterable
     {
@@ -228,10 +228,12 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
             public SuggestFilter()
             {
             }
+
             public void SetFilter(IEnumerable<string> list)
             {
                 resultList = list;
             }
+
             protected override FilterResults PerformFiltering(ICharSequence constraint)
             {
                 if (resultList == null)
@@ -239,6 +241,7 @@ public class AutoSuggestBoxView : AppCompatAutoCompleteTextView
                 var arr = resultList.ToArray();
                 return new FilterResults() { Count = arr.Length, Values = arr };
             }
+
             protected override void PublishResults(ICharSequence constraint, FilterResults results)
             {
             }

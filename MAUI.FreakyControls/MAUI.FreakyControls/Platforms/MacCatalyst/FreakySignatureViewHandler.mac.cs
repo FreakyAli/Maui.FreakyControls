@@ -15,10 +15,9 @@ public partial class FreakySignatureCanvasViewHandler : ViewHandler<View, UIView
     }
 }
 
-
-public partial class AutoSuggestBoxHandler : ViewHandler<View, UIView>
+public partial class FreakyAutoCompleteViewHandler : ViewHandler<View, UIView>
 {
-    public AutoSuggestBoxHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper, commandMapper)
+    public FreakyAutoCompleteViewHandler(IPropertyMapper mapper, CommandMapper commandMapper = null) : base(mapper, commandMapper)
     {
     }
 

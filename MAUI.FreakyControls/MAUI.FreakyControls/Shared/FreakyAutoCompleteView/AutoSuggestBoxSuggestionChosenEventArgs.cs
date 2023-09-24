@@ -1,12 +1,12 @@
 ﻿namespace Maui.FreakyControls;
 
-public sealed class AutoSuggestBoxSuggestionChosenEventArgs : EventArgs
+public sealed class FreakyAutoCompleteViewSuggestionChosenEventArgs : EventArgs
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AutoSuggestBoxSuggestionChosenEventArgs"/> class.
+    /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewSuggestionChosenEventArgs"/> class.
     /// </summary>
     /// <param name="selectedItem"></param>
-    internal AutoSuggestBoxSuggestionChosenEventArgs(object selectedItem)
+    internal FreakyAutoCompleteViewSuggestionChosenEventArgs(object selectedItem)
     {
         SelectedItem = selectedItem;
     }

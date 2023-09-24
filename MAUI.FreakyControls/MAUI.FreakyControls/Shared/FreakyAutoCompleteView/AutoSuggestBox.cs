@@ -3,20 +3,20 @@ using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
 
-public class AutoSuggestBox : View, IAutoSuggestBox
+public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
 {
     private bool suppressTextChangedEvent;
 
-    readonly WeakEventManager querySubmittedEventManager = new();
+    private readonly WeakEventManager querySubmittedEventManager = new();
     public readonly WeakEventManager textChangedEventManager = new();
-    readonly WeakEventManager suggestionChosenEventManager = new();
+    private readonly WeakEventManager suggestionChosenEventManager = new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AutoSuggestBox"/> class
+    /// Initializes a new instance of the <see cref="FreakyAutoCompleteView"/> class
     /// </summary>
-    public AutoSuggestBox()
+    public FreakyAutoCompleteView()
     {
-        //Unloaded += OnAutoSuggestBoxUnloaded;
+        //Unloaded += OnFreakyAutoCompleteViewUnloaded;
     }
 
     /// <summary>
@@ -33,10 +33,10 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="Text"/> bindable property.
     /// </summary>
     public static readonly BindableProperty TextProperty =
-        BindableProperty.Create(nameof(Text), typeof(string), typeof(AutoSuggestBox), "", BindingMode.OneWay, null, OnTextPropertyChanged);
+        BindableProperty.Create(nameof(Text), typeof(string), typeof(FreakyAutoCompleteView), "", BindingMode.OneWay, null, OnTextPropertyChanged);
 
     /// <summary>
-    /// This command is invoked whenever the text on <see cref="AutoSuggestBox"/> has changed.
+    /// This command is invoked whenever the text on <see cref="FreakyAutoCompleteView"/> has changed.
     /// Note that this is fired after the tap or click is lifted.
     /// This is a bindable property.
     /// </summary>
@@ -48,9 +48,9 @@ public class AutoSuggestBox : View, IAutoSuggestBox
 
     private static void OnTextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var box = (AutoSuggestBox)bindable;
+        var box = (FreakyAutoCompleteView)bindable;
         if (!box.suppressTextChangedEvent) //Ensure this property changed didn't get call because we were updating it from the native text property
-            box.textChangedEventManager.HandleEvent(box, new AutoSuggestBoxTextChangedEventArgs("", AutoSuggestBoxTextChangeReason.ProgrammaticChange), nameof(TextChanged));
+            box.textChangedEventManager.HandleEvent(box, new FreakyAutoCompleteViewTextChangedEventArgs("", FreakyAutoCompleteViewTextChangeReason.ProgrammaticChange), nameof(TextChanged));
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="TextColor"/> bindable property.
     /// </summary>
     public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(AutoSuggestBox), Colors.Gray, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the PlaceholderText
@@ -83,7 +83,7 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="PlaceholderText"/> bindable property.
     /// </summary>
     public static readonly BindableProperty PlaceholderTextProperty =
-        BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(AutoSuggestBox), string.Empty, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the foreground color of the control
@@ -99,15 +99,15 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="PlaceholderTextColor"/> bindable property.
     /// </summary>
     public static readonly BindableProperty PlaceholderTextColorProperty =
-        BindableProperty.Create(nameof(PlaceholderTextColor), typeof(Color), typeof(AutoSuggestBox), Colors.Gray, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(PlaceholderTextColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the property path that is used to get the value for display in the
-    /// text box portion of the AutoSuggestBox control, when an item is selected.
+    /// text box portion of the FreakyAutoCompleteView control, when an item is selected.
     /// </summary>
     /// <value>
     /// The property path that is used to get the value for display in the text box portion
-    /// of the AutoSuggestBox control, when an item is selected.
+    /// of the FreakyAutoCompleteView control, when an item is selected.
     /// </value>
     public string TextMemberPath
     {
@@ -119,7 +119,7 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="TextMemberPath"/> bindable property.
     /// </summary>
     public static readonly BindableProperty TextMemberPathProperty =
-        BindableProperty.Create(nameof(TextMemberPath), typeof(string), typeof(AutoSuggestBox), string.Empty, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(TextMemberPath), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the name or path of the property that is displayed for each data item.
@@ -138,12 +138,12 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="DisplayMemberPath"/> bindable property.
     /// </summary>
     public static readonly BindableProperty DisplayMemberPathProperty =
-        BindableProperty.Create(nameof(DisplayMemberPath), typeof(string), typeof(AutoSuggestBox), string.Empty, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(DisplayMemberPath), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
     /// <summary>
-    /// Gets or sets a Boolean value indicating whether the drop-down portion of the AutoSuggestBox is open.
+    /// Gets or sets a Boolean value indicating whether the drop-down portion of the FreakyAutoCompleteView is open.
     /// </summary>
-    /// <value>A Boolean value indicating whether the drop-down portion of the AutoSuggestBox is open.</value>
+    /// <value>A Boolean value indicating whether the drop-down portion of the FreakyAutoCompleteView is open.</value>
     public bool IsSuggestionListOpen
     {
         get { return (bool)GetValue(IsSuggestionListOpenProperty); }
@@ -154,14 +154,13 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="IsSuggestionListOpen"/> bindable property.
     /// </summary>
     public static readonly BindableProperty IsSuggestionListOpenProperty =
-        BindableProperty.Create(nameof(IsSuggestionListOpen), typeof(bool), typeof(AutoSuggestBox), false, BindingMode.OneWay, null, null);
-
+        BindableProperty.Create(nameof(IsSuggestionListOpen), typeof(bool), typeof(FreakyAutoCompleteView), false, BindingMode.OneWay, null, null);
 
     /// <summary>
-    /// Used in conjunction with <see cref="TextMemberPath"/>, gets or sets a value indicating whether items in the view will trigger an update 
-    /// of the editable text part of the <see cref="AutoSuggestBox"/> when clicked.
+    /// Used in conjunction with <see cref="TextMemberPath"/>, gets or sets a value indicating whether items in the view will trigger an update
+    /// of the editable text part of the <see cref="FreakyAutoCompleteView"/> when clicked.
     /// </summary>
-    /// <value>A value indicating whether items in the view will trigger an update of the editable text part of the <see cref="AutoSuggestBox"/> when clicked.</value>
+    /// <value>A value indicating whether items in the view will trigger an update of the editable text part of the <see cref="FreakyAutoCompleteView"/> when clicked.</value>
     public bool UpdateTextOnSelect
     {
         get { return (bool)GetValue(UpdateTextOnSelectProperty); }
@@ -172,7 +171,7 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="UpdateTextOnSelect"/> bindable property.
     /// </summary>
     public static readonly BindableProperty UpdateTextOnSelectProperty =
-        BindableProperty.Create(nameof(UpdateTextOnSelect), typeof(bool), typeof(AutoSuggestBox), true, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(UpdateTextOnSelect), typeof(bool), typeof(FreakyAutoCompleteView), true, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the header object for the text box portion of this control.
@@ -188,19 +187,20 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Identifies the <see cref="ItemsSource"/> bindable property.
     /// </summary>
     public static readonly BindableProperty ItemsSourceProperty =
-        BindableProperty.Create(nameof(ItemsSource), typeof(System.Collections.IList), typeof(AutoSuggestBox), null, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(ItemsSource), typeof(System.Collections.IList), typeof(FreakyAutoCompleteView), null, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Backing BindableProperty for the <see cref="TextChangedCommand"/> property.
     /// </summary>
-    public static readonly BindableProperty TextChangedCommandProperty = BindableProperty.Create(nameof(TextChangedCommand), typeof(ICommand), typeof(AutoSuggestBox));
+    public static readonly BindableProperty TextChangedCommandProperty = BindableProperty.Create(nameof(TextChangedCommand), typeof(ICommand), typeof(FreakyAutoCompleteView));
 
-    public event EventHandler<AutoSuggestBoxSuggestionChosenEventArgs> SuggestionChosen
+    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen
     {
         add => suggestionChosenEventManager.AddEventHandler(value);
         remove => suggestionChosenEventManager.RemoveEventHandler(value);
     }
-    public void RaiseSuggestionChosen(AutoSuggestBoxSuggestionChosenEventArgs args)
+
+    public void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs args)
     {
         suggestionChosenEventManager.HandleEvent(this, args, nameof(SuggestionChosen));
     }
@@ -208,14 +208,14 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// <summary>
     /// Raised before the text content of the editable control component is updated.
     /// </summary>
-    public event EventHandler<AutoSuggestBoxTextChangedEventArgs> TextChanged
+    public event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged
     {
         add => textChangedEventManager.AddEventHandler(value);
         remove => textChangedEventManager.RemoveEventHandler(value);
     }
 
     // Called by the native control when users enter text
-    public void NativeControlTextChanged(AutoSuggestBoxTextChangedEventArgs args)
+    public void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs args)
     {
         suppressTextChangedEvent = true; //prevent loop of events raising, as setting this property will make it back into the native control
         Text = args.Text;
@@ -231,7 +231,7 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// <summary>
     /// Raised after the text content of the editable control component is updated.
     /// </summary>
-    public void RaiseQuerySubmitted(AutoSuggestBoxQuerySubmittedEventArgs args)
+    public void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs args)
     {
         querySubmittedEventManager.HandleEvent(this, args, nameof(QuerySubmitted));
     }
@@ -240,15 +240,15 @@ public class AutoSuggestBox : View, IAutoSuggestBox
     /// Executes QuerySubmitted event
     /// Occurs when the user submits a search query.
     /// </summary>
-    public event EventHandler<AutoSuggestBoxQuerySubmittedEventArgs> QuerySubmitted
+    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted
     {
         add => querySubmittedEventManager.AddEventHandler(value);
         remove => querySubmittedEventManager.RemoveEventHandler(value);
     }
 
-    //void OnAutoSuggestBoxUnloaded(object? sender, EventArgs e)
+    //void OnFreakyAutoCompleteViewUnloaded(object? sender, EventArgs e)
     //{
-    //    Unloaded -= OnAutoSuggestBoxUnloaded;
+    //    Unloaded -= OnFreakyAutoCompleteViewUnloaded;
     //    Handler?.DisconnectHandler();
     //}
 }

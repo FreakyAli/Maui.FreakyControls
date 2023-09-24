@@ -2,7 +2,7 @@
 
 namespace Maui.FreakyControls;
 
-public interface IAutoSuggestBox : IView
+public interface IFreakyAutoCompleteView : IView
 {
     string Text { get; set; }
     Color TextColor { get; set; }
@@ -14,7 +14,9 @@ public interface IAutoSuggestBox : IView
     bool UpdateTextOnSelect { get; set; }
     System.Collections.IList ItemsSource { get; set; }
 
-    void RaiseSuggestionChosen(AutoSuggestBoxSuggestionChosenEventArgs e);
-    void NativeControlTextChanged(AutoSuggestBoxTextChangedEventArgs e);
-    void RaiseQuerySubmitted(AutoSuggestBoxQuerySubmittedEventArgs e);
+    void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
+
+    void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
+
+    void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);
 }

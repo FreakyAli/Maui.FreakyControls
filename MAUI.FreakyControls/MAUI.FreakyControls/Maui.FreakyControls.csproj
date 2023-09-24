@@ -139,6 +139,6 @@
 		<EmbeddedResource Include="clear_icon.svg" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Remove="Platforms\Android\AutoSuggestBox.android.cs" />
+	  <Compile Remove="Platforms\Android\FreakyAutoCompleteView.android.cs" />
 	</ItemGroup>
 </Project>

@@ -1,4 +1,1 @@
-﻿
-
-namespace Maui.FreakyControls;
-
+﻿namespace Maui.FreakyControls;
