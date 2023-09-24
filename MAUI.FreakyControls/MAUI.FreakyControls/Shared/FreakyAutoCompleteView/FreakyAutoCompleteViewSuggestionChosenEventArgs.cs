@@ -1,6 +1,6 @@
 ﻿namespace Maui.FreakyControls;
 
-public sealed class FreakyAutoCompleteViewSuggestionChosenEventArgs : EventArgs
+public sealed class FreakyAutoCompleteViewSuggestionChosenEventArgs : FreakyEventArgs
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewSuggestionChosenEventArgs"/> class.

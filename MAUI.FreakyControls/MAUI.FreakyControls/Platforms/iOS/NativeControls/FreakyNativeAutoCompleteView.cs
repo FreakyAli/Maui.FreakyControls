@@ -4,13 +4,11 @@ using UIKit;
 
 namespace Maui.FreakyControls.Platforms.iOS.NativeControls;
 
-public partial class FreakyAutoCompleteViewView : UIKit.UIView
+public partial class FreakyNativeAutoCompleteView : UIKit.UIView
 {
     private nfloat keyboardHeight;
     private NSLayoutConstraint bottomConstraint;
     private Func<object, string> textFunc;
-    private CoreAnimation.CALayer border;
-    private bool showBottomBorder = true;
 
     /// <summary>
     /// Gets a reference to the text field in the view
@@ -23,9 +21,9 @@ public partial class FreakyAutoCompleteViewView : UIKit.UIView
     public UIKit.UITableView SelectionList { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewView"/>.
+    /// Initializes a new instance of the <see cref="FreakyNativeAutoCompleteView"/>.
     /// </summary>
-    public FreakyAutoCompleteViewView()
+    public FreakyNativeAutoCompleteView()
     {
         InputTextField = new UIKit.UITextField
         {
@@ -72,25 +70,6 @@ public partial class FreakyAutoCompleteViewView : UIKit.UIView
     internal EventHandler EditingDidBegin;
 
     internal EventHandler EditingDidEnd;
-
-    /// <inheritdoc />
-    public override void LayoutSubviews()
-    {
-        base.LayoutSubviews();
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether to render a border line under the text field
-    /// </summary>
-    public bool ShowBottomBorder
-    {
-        get => showBottomBorder;
-        set
-        {
-            showBottomBorder = value;
-            if (border != null) border.Hidden = !value;
-        }
-    }
 
     /// <summary>
     /// Gets or sets the font of the <see cref="InputTextField"/>
@@ -147,7 +126,7 @@ public partial class FreakyAutoCompleteViewView : UIKit.UIView
     private bool _isSuggestionListOpen;
 
     /// <summary>
-    /// Gets or sets a Boolean value indicating whether the drop-down portion of the FreakyAutoCompleteViewView is open.
+    /// Gets or sets a Boolean value indicating whether the drop-down portion of the FreakyNativeAutoCompleteView is open.
     /// </summary>
     public virtual bool IsSuggestionListOpen
     {
@@ -187,7 +166,7 @@ public partial class FreakyAutoCompleteViewView : UIKit.UIView
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the FreakyAutoCompleteViewView when clicked.
+    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the FreakyNativeAutoCompleteView when clicked.
     /// </summary>
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
@@ -243,7 +222,7 @@ public partial class FreakyAutoCompleteViewView : UIKit.UIView
         if (UpdateTextOnSelect)
         {
             InputTextField.Text = textFunc(selection);
-            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(textFunc(selection), FreakyAutoCompleteViewTextChangeReason.SuggestionChosen));
+            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(textFunc(selection), TextChangeReason.SuggestionChosen));
         }
         SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(selection));
         QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, selection));
@@ -252,7 +231,7 @@ public partial class FreakyAutoCompleteViewView : UIKit.UIView
 
     private void InputText_EditingChanged(object sender, EventArgs e)
     {
-        TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(this.Text, FreakyAutoCompleteViewTextChangeReason.UserInput));
+        TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(this.Text, TextChangeReason.UserInput));
         IsSuggestionListOpen = true;
     }
 
@@ -265,7 +244,7 @@ public partial class FreakyAutoCompleteViewView : UIKit.UIView
         set
         {
             InputTextField.Text = value;
-            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, FreakyAutoCompleteViewTextChangeReason.ProgrammaticChange));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, TextChangeReason.ProgrammaticChange));
         }
     }
 

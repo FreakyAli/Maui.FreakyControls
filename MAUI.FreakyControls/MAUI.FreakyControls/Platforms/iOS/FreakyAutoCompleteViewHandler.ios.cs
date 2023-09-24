@@ -5,12 +5,12 @@ using UIKit;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoCompleteView, FreakyAutoCompleteViewView>
+public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoCompleteView, FreakyNativeAutoCompleteView>
 {
     /// <inheritdoc />
-    protected override FreakyAutoCompleteViewView CreatePlatformView() => new FreakyAutoCompleteViewView();
+    protected override FreakyNativeAutoCompleteView CreatePlatformView() => new FreakyNativeAutoCompleteView();
 
-    protected override void ConnectHandler(FreakyAutoCompleteViewView platformView)
+    protected override void ConnectHandler(FreakyNativeAutoCompleteView platformView)
     {
         base.ConnectHandler(platformView);
 
@@ -34,7 +34,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         PlatformView.EditingDidBegin += Control_EditingDidBegin;
         PlatformView.EditingDidEnd += Control_EditingDidEnd;
     }
-    protected override void DisconnectHandler(FreakyAutoCompleteViewView platformView)
+    protected override void DisconnectHandler(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SuggestionChosen -= OnPlatformViewSuggestionChosen;
         platformView.TextChanged -= OnPlatformViewTextChanged;
@@ -134,26 +134,26 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
     }
 
-    private void UpdateTextColor(FreakyAutoCompleteViewView platformView)
+    private void UpdateTextColor(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetTextColor(VirtualView?.TextColor);
     }
-    private void UpdateDisplayMemberPath(FreakyAutoCompleteViewView platformView)
+    private void UpdateDisplayMemberPath(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetItems(VirtualView.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView.DisplayMemberPath), (o) => FormatType(o, VirtualView.TextMemberPath));
     }
-    private void UpdatePlaceholderTextColor(FreakyAutoCompleteViewView platformView)
+    private void UpdatePlaceholderTextColor(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetPlaceholderTextColor(VirtualView?.PlaceholderTextColor);
     }
-    private void UpdatePlaceholderText(FreakyAutoCompleteViewView platformView) => platformView.PlaceholderText = VirtualView?.PlaceholderText;
+    private void UpdatePlaceholderText(FreakyNativeAutoCompleteView platformView) => platformView.PlaceholderText = VirtualView?.PlaceholderText;
 
-    private void UpdateIsEnabled(FreakyAutoCompleteViewView platformView)
+    private void UpdateIsEnabled(FreakyNativeAutoCompleteView platformView)
     {
         platformView.UserInteractionEnabled = (bool)(VirtualView.IsEnabled);
     }
 
-    private void UpdateItemsSource(FreakyAutoCompleteViewView platformView)
+    private void UpdateItemsSource(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView?.DisplayMemberPath), (o) => FormatType(o, VirtualView?.TextMemberPath));
     }

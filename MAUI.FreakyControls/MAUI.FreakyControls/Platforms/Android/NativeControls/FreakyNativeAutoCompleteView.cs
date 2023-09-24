@@ -8,16 +8,16 @@ using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
-public class FreakyAutoCompleteViewView : AppCompatAutoCompleteTextView
+public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 {
     private bool suppressTextChangedEvent;
     private Func<object, string> textFunc;
     private SuggestCompleteAdapter adapter;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewView"/>.
+    /// Initializes a new instance of the <see cref="FreakyNativeAutoCompleteView"/>.
     /// </summary>
-    public FreakyAutoCompleteViewView(Context context) : base(context)
+    public FreakyNativeAutoCompleteView(Context context) : base(context)
     {
         SetMaxLines(1);
         Threshold = 0;
@@ -63,7 +63,7 @@ public class FreakyAutoCompleteViewView : AppCompatAutoCompleteTextView
             suppressTextChangedEvent = true;
             base.Text = value;
             suppressTextChangedEvent = false;
-            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, FreakyAutoCompleteViewTextChangeReason.ProgrammaticChange));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, TextChangeReason.ProgrammaticChange));
         }
     }
 
@@ -108,7 +108,7 @@ public class FreakyAutoCompleteViewView : AppCompatAutoCompleteTextView
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the FreakyAutoCompleteViewView when clicked.
+    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the FreakyNativeAutoCompleteView when clicked.
     /// </summary>
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
@@ -116,7 +116,7 @@ public class FreakyAutoCompleteViewView : AppCompatAutoCompleteTextView
     protected override void OnTextChanged(ICharSequence text, int start, int lengthBefore, int lengthAfter)
     {
         if (!suppressTextChangedEvent)
-            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text.ToString(), FreakyAutoCompleteViewTextChangeReason.UserInput));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text.ToString(), TextChangeReason.UserInput));
         base.OnTextChanged(text, start, lengthBefore, lengthAfter);
     }
 
@@ -136,7 +136,7 @@ public class FreakyAutoCompleteViewView : AppCompatAutoCompleteTextView
             string text = textFunc(obj);
             base.Text = text;
             suppressTextChangedEvent = false;
-            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text, FreakyAutoCompleteViewTextChangeReason.SuggestionChosen));
+            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text, TextChangeReason.SuggestionChosen));
         }
         SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(obj));
         QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, obj));

@@ -1,6 +1,6 @@
 ﻿namespace Maui.FreakyControls;
 
-public enum FreakyAutoCompleteViewTextChangeReason
+public enum TextChangeReason
 {
     /// <summary>The user edited the text.</summary>
     UserInput = 0,

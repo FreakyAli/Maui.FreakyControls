@@ -1,12 +1,12 @@
 ﻿namespace Maui.FreakyControls;
 
-public sealed class FreakyAutoCompleteViewTextChangedEventArgs : EventArgs
+public sealed class FreakyAutoCompleteViewTextChangedEventArgs : FreakyEventArgs
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewTextChangedEventArgs"/> class.
     /// </summary>
     /// <param name="reason"></param>
-    internal FreakyAutoCompleteViewTextChangedEventArgs(string text, FreakyAutoCompleteViewTextChangeReason reason)
+    internal FreakyAutoCompleteViewTextChangedEventArgs(string text, TextChangeReason reason)
     {
         Text = text;
         Reason = reason;
@@ -24,5 +24,5 @@ public sealed class FreakyAutoCompleteViewTextChangedEventArgs : EventArgs
     /// Gets or sets a value that indicates the reason for the text changing in the FreakyAutoCompleteView.
     /// </summary>
     /// <value>The reason for the text changing in the FreakyAutoCompleteView.</value>
-    public FreakyAutoCompleteViewTextChangeReason Reason { get; }
+    public TextChangeReason Reason { get; }
 }

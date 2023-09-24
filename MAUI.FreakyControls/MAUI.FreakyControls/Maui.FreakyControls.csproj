@@ -86,19 +86,14 @@
 		<None Remove="Shared\FreakyAutoCompleteView\" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Platforms\iOS\" />
-		<Folder Include="Platforms\Android\" />
-		<Folder Include="Shared\" />
 		<Folder Include="Shared\FreakyEditor\" />
 		<Folder Include="Shared\FreakyEntry\" />
 		<Folder Include="Shared\Enums\" />
 		<Folder Include="Shared\Extensions\" />
-		<Folder Include="Platforms\Android\NativeControls\" />
 		<Folder Include="Shared\Converters\" />
 		<Folder Include="Shared\Controls\" />
 		<Folder Include="Shared\FreakySvgImageView\" />
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
-		<Folder Include="Platforms\iOS\NativeControls\" />
 		<Folder Include="Shared\FreakyTextInputLayout\" />
 		<Folder Include="Shared\FreakyButton\" />
 		<Folder Include="Shared\Helpers\" />
@@ -115,7 +110,6 @@
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
-		<Folder Include="Shared\FreakyAutoCompleteView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />

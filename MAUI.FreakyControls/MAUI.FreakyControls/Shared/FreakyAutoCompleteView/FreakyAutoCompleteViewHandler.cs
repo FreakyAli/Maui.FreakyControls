@@ -1,8 +1,8 @@
 ﻿using System;
 #if ANDROID
-using PlatformView = Maui.FreakyControls.Platforms.Android.NativeControls.FreakyAutoCompleteViewView;
+using PlatformView = Maui.FreakyControls.Platforms.Android.NativeControls.FreakyNativeAutoCompleteView;
 #elif IOS
-using PlatformView = Maui.FreakyControls.Platforms.iOS.NativeControls.FreakyAutoCompleteViewView;
+using PlatformView = Maui.FreakyControls.Platforms.iOS.NativeControls.FreakyNativeAutoCompleteView;
 #endif
 using Microsoft.Maui.Handlers;
 namespace Maui.FreakyControls;
