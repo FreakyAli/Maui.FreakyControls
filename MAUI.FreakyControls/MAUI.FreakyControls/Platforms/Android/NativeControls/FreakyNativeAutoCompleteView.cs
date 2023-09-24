@@ -4,6 +4,7 @@ using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using Java.Lang;
+using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls;

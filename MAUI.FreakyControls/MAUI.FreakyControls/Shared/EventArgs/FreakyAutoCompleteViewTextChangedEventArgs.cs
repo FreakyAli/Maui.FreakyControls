@@ -1,4 +1,6 @@
-﻿namespace Maui.FreakyControls;
+﻿using Maui.FreakyControls.Shared.Enums;
+
+namespace Maui.FreakyControls;
 
 public sealed class FreakyAutoCompleteViewTextChangedEventArgs : FreakyEventArgs
 {

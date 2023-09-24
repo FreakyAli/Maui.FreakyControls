@@ -1,4 +1,4 @@
-﻿namespace Maui.FreakyControls;
+﻿namespace Maui.FreakyControls.Shared.Enums;
 
 public enum TextChangeReason
 {

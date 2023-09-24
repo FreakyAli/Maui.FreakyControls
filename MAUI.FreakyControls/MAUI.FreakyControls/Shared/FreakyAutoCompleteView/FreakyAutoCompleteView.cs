@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using Maui.FreakyControls.Shared.Enums;
 using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
