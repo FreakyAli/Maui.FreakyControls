@@ -17,7 +17,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     /// </summary>
     public FreakyAutoCompleteView()
     {
-        //Unloaded += OnFreakyAutoCompleteViewUnloaded;
     }
 
     /// <summary>
@@ -246,10 +245,4 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         add => querySubmittedEventManager.AddEventHandler(value);
         remove => querySubmittedEventManager.RemoveEventHandler(value);
     }
-
-    //void OnFreakyAutoCompleteViewUnloaded(object? sender, EventArgs e)
-    //{
-    //    Unloaded -= OnFreakyAutoCompleteViewUnloaded;
-    //    Handler?.DisconnectHandler();
-    //}
 }

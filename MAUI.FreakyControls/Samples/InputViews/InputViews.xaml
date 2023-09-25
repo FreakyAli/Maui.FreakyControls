@@ -10,7 +10,13 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
-            <freakyControls:FreakyAutoCompleteView />
+            <Border>
+                <freakyControls:FreakyAutoCompleteView
+                    PlaceholderText="Hint"
+                    QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
+                    TextChanged="FreakyAutoCompleteView_TextChanged"
+                    ItemsSource="{Binding NamesCollection}" />
+            </Border>
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>

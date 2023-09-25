@@ -11,19 +11,19 @@ namespace Maui.FreakyControls;
 public partial class FreakyAutoCompleteViewHandler
 {
     public static IPropertyMapper<IFreakyAutoCompleteView, FreakyAutoCompleteViewHandler> PropertyMapper =
-                new PropertyMapper<IFreakyAutoCompleteView, FreakyAutoCompleteViewHandler>(ViewMapper)
-                {
-                    [nameof(IFreakyAutoCompleteView.Text)] = MapText,
-                    [nameof(IFreakyAutoCompleteView.TextColor)] = MapTextColor,
-                    [nameof(IFreakyAutoCompleteView.PlaceholderText)] = MapPlaceholderText,
-                    [nameof(IFreakyAutoCompleteView.PlaceholderTextColor)] = MapPlaceholderTextColor,
-                    [nameof(IFreakyAutoCompleteView.TextMemberPath)] = MapTextMemberPath,
-                    [nameof(IFreakyAutoCompleteView.DisplayMemberPath)] = MapDisplayMemberPath,
-                    [nameof(IFreakyAutoCompleteView.IsEnabled)] = MapIsEnabled,
-                    [nameof(IFreakyAutoCompleteView.ItemsSource)] = MapItemsSource,
-                    [nameof(IFreakyAutoCompleteView.UpdateTextOnSelect)] = MapUpdateTextOnSelect,
-                    [nameof(IFreakyAutoCompleteView.IsSuggestionListOpen)] = MapIsSuggestionListOpen,
-                };
+        new PropertyMapper<IFreakyAutoCompleteView, FreakyAutoCompleteViewHandler>(ViewMapper)
+        {
+            [nameof(IFreakyAutoCompleteView.Text)] = MapText,
+            [nameof(IFreakyAutoCompleteView.TextColor)] = MapTextColor,
+            [nameof(IFreakyAutoCompleteView.PlaceholderText)] = MapPlaceholderText,
+            [nameof(IFreakyAutoCompleteView.PlaceholderTextColor)] = MapPlaceholderTextColor,
+            [nameof(IFreakyAutoCompleteView.TextMemberPath)] = MapTextMemberPath,
+            [nameof(IFreakyAutoCompleteView.DisplayMemberPath)] = MapDisplayMemberPath,
+            [nameof(IFreakyAutoCompleteView.IsEnabled)] = MapIsEnabled,
+            [nameof(IFreakyAutoCompleteView.ItemsSource)] = MapItemsSource,
+            [nameof(IFreakyAutoCompleteView.UpdateTextOnSelect)] = MapUpdateTextOnSelect,
+            [nameof(IFreakyAutoCompleteView.IsSuggestionListOpen)] = MapIsSuggestionListOpen,
+        };
 
     /// <summary>
     /// <see cref ="CommandMapper"/> for FreakyAutoCompleteView Control.

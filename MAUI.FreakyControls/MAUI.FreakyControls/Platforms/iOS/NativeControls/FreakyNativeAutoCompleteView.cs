@@ -255,7 +255,6 @@ public partial class FreakyNativeAutoCompleteView : UIKit.UIView
     /// <param name="color">color</param>
     public virtual void SetTextColor(Color color)
     {
-        //InputTextField.TextColor = ColorExtensions.ToColor(color);
         InputTextField.TextColor = color.ToPlatform();
     }
 
