@@ -15,8 +15,8 @@ public partial class FreakyAutoCompleteViewHandler
         {
             [nameof(IFreakyAutoCompleteView.Text)] = MapText,
             [nameof(IFreakyAutoCompleteView.TextColor)] = MapTextColor,
-            [nameof(IFreakyAutoCompleteView.PlaceholderText)] = MapPlaceholderText,
-            [nameof(IFreakyAutoCompleteView.PlaceholderTextColor)] = MapPlaceholderTextColor,
+            [nameof(IFreakyAutoCompleteView.Placeholder)] = MapPlaceholder,
+            [nameof(IFreakyAutoCompleteView.PlaceholderColor)] = MapPlaceholderColor,
             [nameof(IFreakyAutoCompleteView.TextMemberPath)] = MapTextMemberPath,
             [nameof(IFreakyAutoCompleteView.DisplayMemberPath)] = MapDisplayMemberPath,
             [nameof(IFreakyAutoCompleteView.IsEnabled)] = MapIsEnabled,

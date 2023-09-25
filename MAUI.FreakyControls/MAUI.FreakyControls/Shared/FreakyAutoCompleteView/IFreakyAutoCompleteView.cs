@@ -6,8 +6,8 @@ public interface IFreakyAutoCompleteView : IView
 {
     string Text { get; set; }
     Color TextColor { get; set; }
-    string PlaceholderText { get; set; }
-    Color PlaceholderTextColor { get; set; }
+    string Placeholder { get; set; }
+    Color PlaceholderColor { get; set; }
     string TextMemberPath { get; set; }
     string DisplayMemberPath { get; set; }
     bool IsSuggestionListOpen { get; set; }

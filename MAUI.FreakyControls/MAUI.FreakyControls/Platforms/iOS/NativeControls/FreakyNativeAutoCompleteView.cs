@@ -108,17 +108,17 @@ public partial class FreakyNativeAutoCompleteView : UIKit.UIView
     /// <summary>
     /// Gets or sets the placeholder text to be displayed in the <see cref="InputTextField"/>.
     /// </summary>
-    public virtual string PlaceholderText
+    public virtual string Placeholder
     {
         get => InputTextField.Placeholder;
         set => InputTextField.Placeholder = value;
     }
 
     /// <summary>
-    /// Gets or sets the color of the <see cref="PlaceholderText"/> in the <see cref="InputTextField" />.
+    /// Gets or sets the color of the <see cref="Placeholder"/> in the <see cref="InputTextField" />.
     /// </summary>
     /// <param name="color">color</param>
-    public virtual void SetPlaceholderTextColor(Color color)
+    public virtual void SetPlaceholderColor(Color color)
     {
         // See https://github.com/xamarin/Xamarin.Forms/blob/4d9a5bf3706778770026a18ae81a7dd5c4c15db4/Xamarin.Forms.Platform.iOS/Renderers/EntryRenderer.cs#L260
         InputTextField.AttributedPlaceholder = new NSAttributedString(InputTextField.Placeholder ?? string.Empty, null, color.ToPlatform()); //ColorExtensions.ToColor(color));

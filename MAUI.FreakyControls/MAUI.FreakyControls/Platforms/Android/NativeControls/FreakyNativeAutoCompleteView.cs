@@ -80,16 +80,16 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     /// <summary>
     /// Gets or sets the placeholder text to be displayed in the <see cref="AutoCompleteTextView"/>
     /// </summary>
-    public virtual string PlaceholderText
+    public virtual string Placeholder
     {
         set => HintFormatted = new Java.Lang.String(value as string ?? "");
     }
 
     /// <summary>
-    /// Gets or sets the color of the <see cref="PlaceholderText"/>.
+    /// Gets or sets the color of the <see cref="Placeholder"/>.
     /// </summary>
     /// <param name="color">color</param>
-    public virtual void SetPlaceholderTextColor(Color color)
+    public virtual void SetPlaceholderColor(Color color)
     {
         this.SetHintTextColor(color.ToPlatform());
     }

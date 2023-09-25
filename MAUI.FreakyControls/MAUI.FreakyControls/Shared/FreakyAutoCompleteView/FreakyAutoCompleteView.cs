@@ -70,36 +70,36 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
 
     /// <summary>
-    /// Gets or sets the PlaceholderText
+    /// Gets or sets the Placeholder
     /// </summary>
-    /// <seealso cref="PlaceholderTextColor"/>
-    public string PlaceholderText
+    /// <seealso cref="PlaceholderColor"/>
+    public string Placeholder
     {
-        get { return (string)GetValue(PlaceholderTextProperty); }
-        set { SetValue(PlaceholderTextProperty, value); }
+        get { return (string)GetValue(PlaceholderProperty); }
+        set { SetValue(PlaceholderProperty, value); }
     }
 
     /// <summary>
-    /// Identifies the <see cref="PlaceholderText"/> bindable property.
+    /// Identifies the <see cref="Placeholder"/> bindable property.
     /// </summary>
-    public static readonly BindableProperty PlaceholderTextProperty =
-        BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
+    public static readonly BindableProperty PlaceholderProperty =
+        BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the foreground color of the control
     /// </summary>
-    /// <seealso cref="PlaceholderText"/>
-    public Color PlaceholderTextColor
+    /// <seealso cref="Placeholder"/>
+    public Color PlaceholderColor
     {
-        get { return (Color)GetValue(PlaceholderTextColorProperty); }
-        set { SetValue(PlaceholderTextColorProperty, value); }
+        get { return (Color)GetValue(PlaceholderColorProperty); }
+        set { SetValue(PlaceholderColorProperty, value); }
     }
 
     /// <summary>
-    /// Identifies the <see cref="PlaceholderTextColor"/> bindable property.
+    /// Identifies the <see cref="PlaceholderColor"/> bindable property.
     /// </summary>
-    public static readonly BindableProperty PlaceholderTextColorProperty =
-        BindableProperty.Create(nameof(PlaceholderTextColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
+    public static readonly BindableProperty PlaceholderColorProperty =
+        BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
 
     /// <summary>
     /// Gets or sets the property path that is used to get the value for display in the

@@ -18,8 +18,8 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         PlatformView.Frame = new RectangleF(0, 20, 320, 50);
 
         UpdateTextColor(platformView);
-        UpdatePlaceholderText(platformView);
-        UpdatePlaceholderTextColor(platformView);
+        UpdatePlaceholder(platformView);
+        UpdatePlaceholderColor(platformView);
         UpdateDisplayMemberPath(platformView);
         UpdateIsEnabled(platformView);
         platformView.UpdateTextOnSelect = VirtualView.UpdateTextOnSelect;
@@ -101,13 +101,13 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         handler.PlatformView?.SetTextColor(view.TextColor);
     }
-    public static void MapPlaceholderText(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    public static void MapPlaceholder(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView.PlaceholderText = view.PlaceholderText;
+        handler.PlatformView.Placeholder = view.Placeholder;
     }
-    public static void MapPlaceholderTextColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    public static void MapPlaceholderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView?.SetPlaceholderTextColor(view.PlaceholderTextColor);
+        handler.PlatformView?.SetPlaceholderColor(view.PlaceholderColor);
     }
     public static void MapTextMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
@@ -142,11 +142,11 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         platformView.SetItems(VirtualView.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView.DisplayMemberPath), (o) => FormatType(o, VirtualView.TextMemberPath));
     }
-    private void UpdatePlaceholderTextColor(FreakyNativeAutoCompleteView platformView)
+    private void UpdatePlaceholderColor(FreakyNativeAutoCompleteView platformView)
     {
-        platformView.SetPlaceholderTextColor(VirtualView?.PlaceholderTextColor);
+        platformView.SetPlaceholderColor(VirtualView?.PlaceholderColor);
     }
-    private void UpdatePlaceholderText(FreakyNativeAutoCompleteView platformView) => platformView.PlaceholderText = VirtualView?.PlaceholderText;
+    private void UpdatePlaceholder(FreakyNativeAutoCompleteView platformView) => platformView.Placeholder = VirtualView?.Placeholder;
 
     private void UpdateIsEnabled(FreakyNativeAutoCompleteView platformView)
     {

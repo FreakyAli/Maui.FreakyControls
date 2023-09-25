@@ -12,7 +12,7 @@
 
             <Border>
                 <freakyControls:FreakyAutoCompleteView
-                    PlaceholderText="Hint"
+                    Placeholder="Hint"
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
                     TextChanged="FreakyAutoCompleteView_TextChanged"
                     ItemsSource="{Binding NamesCollection}" />
