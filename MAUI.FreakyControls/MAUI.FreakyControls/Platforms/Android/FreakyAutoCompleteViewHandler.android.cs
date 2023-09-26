@@ -1,8 +1,13 @@
 ﻿using Android.Content.Res;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using AndroidX.Core.View;
+using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
+using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
+using static Microsoft.Maui.ApplicationModel.Platform;
 
 namespace Maui.FreakyControls;
 
@@ -66,6 +71,49 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     public static void MapPlaceholder(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.Placeholder = view.Placeholder;
+    }
+
+    public static void MapThreshold(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView.Threshold = view.Threshold;
+    }
+
+    public static void MapAllowCopyPaste(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        if (view.AllowCopyPaste)
+        {
+            handler.PlatformView.CustomInsertionActionModeCallback = null;
+            handler.PlatformView.CustomSelectionActionModeCallback = null;
+        }
+        else
+        {
+            handler.PlatformView.CustomInsertionActionModeCallback = new CustomInsertionActionModeCallback();
+            handler.PlatformView.CustomSelectionActionModeCallback = new CustomSelectionActionModeCallback();
+        }
+    }
+
+    public static async void MapImageSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        var entry = handler.VirtualView;
+        var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
+        if (imageBitmap != null)
+        {
+            var bitmapDrawable = new BitmapDrawable(CurrentActivity.Resources,
+                Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
+            var freakyEditText = (handler.PlatformView as FreakyNativeAutoCompleteView);
+            freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
+            switch (entry.ImageAlignment)
+            {
+                case ImageAlignment.Left:
+                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
+                    break;
+
+                case ImageAlignment.Right:
+                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
+                    break;
+            }
+        }
+        handler.PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
     public static void MapPlaceholderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)

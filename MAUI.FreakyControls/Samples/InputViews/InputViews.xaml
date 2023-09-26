@@ -10,9 +10,39 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
-            <Border>
+            <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
-                    Placeholder="Hint"
+                    Placeholder="Autocomplete Left"
+                    ImageAlignment="Right"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    Threshold="1"
+                    QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
+                    TextChanged="FreakyAutoCompleteView_TextChanged"
+                    ItemsSource="{Binding NamesCollection}" />
+            </Border>
+
+             <Border Padding="5,0">
+                <freakyControls:FreakyAutoCompleteView
+                    Placeholder="Autocomplete Right"
+                    ImageAlignment="Left"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    Threshold="1"
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
                     TextChanged="FreakyAutoCompleteView_TextChanged"
                     ItemsSource="{Binding NamesCollection}" />

@@ -1,4 +1,7 @@
-﻿using Maui.FreakyControls.Platforms.iOS.NativeControls;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Platforms.iOS;
+using Maui.FreakyControls.Platforms.iOS.NativeControls;
+using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
 using System.Drawing;
 using UIKit;
@@ -13,10 +16,8 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     protected override void ConnectHandler(FreakyNativeAutoCompleteView platformView)
     {
         base.ConnectHandler(platformView);
-
         PlatformView.Text = VirtualView.Text ?? string.Empty;
         PlatformView.Frame = new RectangleF(0, 20, 320, 50);
-
         UpdateTextColor(platformView);
         UpdatePlaceholder(platformView);
         UpdatePlaceholderColor(platformView);
@@ -24,16 +25,14 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         UpdateIsEnabled(platformView);
         platformView.UpdateTextOnSelect = VirtualView.UpdateTextOnSelect;
         platformView.IsSuggestionListOpen = VirtualView.IsSuggestionListOpen;
-
         UpdateItemsSource(platformView);
-
         platformView.SuggestionChosen += OnPlatformViewSuggestionChosen;
         platformView.TextChanged += OnPlatformViewTextChanged;
         platformView.QuerySubmitted += OnPlatformViewQuerySubmitted;
-
         PlatformView.EditingDidBegin += Control_EditingDidBegin;
         PlatformView.EditingDidEnd += Control_EditingDidEnd;
     }
+
     protected override void DisconnectHandler(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SuggestionChosen -= OnPlatformViewSuggestionChosen;
@@ -41,7 +40,6 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.QuerySubmitted -= OnPlatformViewQuerySubmitted;
         PlatformView.EditingDidBegin -= Control_EditingDidBegin;
         PlatformView.EditingDidEnd -= Control_EditingDidEnd;
-
         platformView.Dispose();
         base.DisconnectHandler(platformView);
     }
@@ -50,16 +48,19 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         VirtualView?.RaiseSuggestionChosen(e);
     }
+
     private void OnPlatformViewTextChanged(object? sender, FreakyAutoCompleteViewTextChangedEventArgs e)
     {
         VirtualView?.NativeControlTextChanged(e);
     }
+
     private void OnPlatformViewQuerySubmitted(object? sender, FreakyAutoCompleteViewQuerySubmittedEventArgs e)
     {
         VirtualView?.RaiseQuerySubmitted(e);
     }
 
     static readonly int baseHeight = 20;
+
     /// <inheritdoc />
     public override Microsoft.Maui.Graphics.Size GetDesiredSize(double widthConstraint, double heightConstraint)
     {
@@ -86,6 +87,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         VirtualView.IsFocused = true;
     }
+
     void Control_EditingDidEnd(object sender, EventArgs e)
     {
         VirtualView.IsFocused = false;
@@ -101,34 +103,81 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         handler.PlatformView?.SetTextColor(view.TextColor);
     }
+
     public static void MapPlaceholder(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.Placeholder = view.Placeholder;
     }
+
+    public static void MapThreshold(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView.Threshold = view.Threshold;
+    }
+
+    public static async void MapImageSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        var entry = handler.VirtualView;
+        var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
+        if (uiImage != null)
+        {
+            var uiView = uiImage.UiImageToUiView(entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);
+            uiView.UserInteractionEnabled = true;
+            var tapGesture = new UITapGestureRecognizer(() =>
+            {
+                entry?.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
+
+            });
+            uiView.AddGestureRecognizer(tapGesture);
+            switch (entry.ImageAlignment)
+            {
+                case ImageAlignment.Left:
+                   handler.PlatformView.InputTextField.LeftViewMode = UITextFieldViewMode.Always;
+                   handler.PlatformView.InputTextField.LeftView = uiView;
+                    break;
+
+                case ImageAlignment.Right:
+                    handler.PlatformView.InputTextField.RightViewMode = UITextFieldViewMode.Always;
+                    handler.PlatformView.InputTextField.RightView = uiView;
+                    break;
+            }
+        }
+    }
+
+    public static void MapAllowCopyPaste(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView.InputTextField.AllowCopyPaste = view.AllowCopyPaste;
+    }
+
     public static void MapPlaceholderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView?.SetPlaceholderColor(view.PlaceholderColor);
     }
+
     public static void MapTextMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
+
     public static void MapDisplayMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
+
     public static void MapIsSuggestionListOpen(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.IsSuggestionListOpen = view.IsSuggestionListOpen;
     }
+
     public static void MapUpdateTextOnSelect(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.UpdateTextOnSelect = view.UpdateTextOnSelect;
     }
+
     public static void MapIsEnabled(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.UserInteractionEnabled = view.IsEnabled;
     }
+
     public static void MapItemsSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
@@ -138,15 +187,21 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         platformView.SetTextColor(VirtualView?.TextColor);
     }
+
     private void UpdateDisplayMemberPath(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetItems(VirtualView.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView.DisplayMemberPath), (o) => FormatType(o, VirtualView.TextMemberPath));
     }
+
     private void UpdatePlaceholderColor(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetPlaceholderColor(VirtualView?.PlaceholderColor);
     }
-    private void UpdatePlaceholder(FreakyNativeAutoCompleteView platformView) => platformView.Placeholder = VirtualView?.Placeholder;
+
+    private void UpdatePlaceholder(FreakyNativeAutoCompleteView platformView)
+    {
+        platformView.Placeholder = VirtualView?.Placeholder;
+    }
 
     private void UpdateIsEnabled(FreakyNativeAutoCompleteView platformView)
     {
@@ -157,6 +212,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView?.DisplayMemberPath), (o) => FormatType(o, VirtualView?.TextMemberPath));
     }
+
     private static string FormatType(object instance, string memberPath)
     {
         if (!string.IsNullOrEmpty(memberPath))

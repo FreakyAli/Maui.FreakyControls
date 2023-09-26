@@ -5,7 +5,7 @@ using UIKit;
 
 namespace Maui.FreakyControls.Platforms.iOS.NativeControls;
 
-public partial class FreakyNativeAutoCompleteView : UIKit.UIView
+public partial class FreakyNativeAutoCompleteView : UIView
 {
     private nfloat keyboardHeight;
     private NSLayoutConstraint bottomConstraint;
@@ -14,26 +14,35 @@ public partial class FreakyNativeAutoCompleteView : UIKit.UIView
     /// <summary>
     /// Gets a reference to the text field in the view
     /// </summary>
-    public UIKit.UITextField InputTextField { get; }
+    public FreakyUITextfield InputTextField { get; }
 
     /// <summary>
     /// Gets a reference to the drop down selection list in the view
     /// </summary>
-    public UIKit.UITableView SelectionList { get; }
+    public UITableView SelectionList { get; }
+
+    /// <summary>
+    /// Gets a threshold value to show selecion list.
+    /// </summary>
+    public int Threshold { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FreakyNativeAutoCompleteView"/>.
     /// </summary>
     public FreakyNativeAutoCompleteView()
     {
-        InputTextField = new UIKit.UITextField
+        InputTextField = new FreakyUITextfield
         {
             TranslatesAutoresizingMaskIntoConstraints = false,
-            BorderStyle = UIKit.UITextBorderStyle.None,
-            ReturnKeyType = UIKit.UIReturnKeyType.Search,
+            BorderStyle = UITextBorderStyle.None,
+            ReturnKeyType = UIReturnKeyType.Search,
             AutocorrectionType = UITextAutocorrectionType.No,
-            ShouldReturn = InputText_OnShouldReturn
+            ShouldReturn = InputText_OnShouldReturn,
+            ClipsToBounds = true,
         };
+        Threshold = 1;
+        InputTextField.Layer.BorderWidth = 0;
+        InputTextField.Layer.BorderColor = UIColor.Clear.CGColor;
         InputTextField.EditingDidBegin += OnEditingDidBegin;
         InputTextField.EditingDidEnd += OnEditingDidEnd;
         InputTextField.EditingChanged += InputText_EditingChanged;
@@ -43,10 +52,10 @@ public partial class FreakyNativeAutoCompleteView : UIKit.UIView
         InputTextField.LeftAnchor.ConstraintEqualTo(LeftAnchor).Active = true;
         InputTextField.WidthAnchor.ConstraintEqualTo(WidthAnchor).Active = true;
         InputTextField.HeightAnchor.ConstraintEqualTo(HeightAnchor).Active = true;
-        SelectionList = new UIKit.UITableView() { TranslatesAutoresizingMaskIntoConstraints = false };
+        SelectionList = new UITableView() { TranslatesAutoresizingMaskIntoConstraints = false };
 
-        UIKit.UIKeyboard.Notifications.ObserveWillShow(OnKeyboardShow);
-        UIKit.UIKeyboard.Notifications.ObserveWillHide(OnKeyboardHide);
+        UIKeyboard.Notifications.ObserveWillShow(OnKeyboardShow);
+        UIKeyboard.Notifications.ObserveWillHide(OnKeyboardHide);
     }
 
     /// <inheritdoc />
@@ -58,7 +67,10 @@ public partial class FreakyNativeAutoCompleteView : UIKit.UIView
 
     private void OnEditingDidBegin(object sender, EventArgs e)
     {
-        IsSuggestionListOpen = true;
+        if(InputTextField.Text.Length > Threshold)
+        {
+            IsSuggestionListOpen = true;
+        }
         EditingDidBegin?.Invoke(this, e);
     }
 
@@ -97,7 +109,10 @@ public partial class FreakyNativeAutoCompleteView : UIKit.UIView
             suggestionTableSource.TableRowSelected += SuggestionTableSource_TableRowSelected;
             SelectionList.Source = suggestionTableSource;
             SelectionList.ReloadData();
-            IsSuggestionListOpen = true;
+            if (InputTextField.Text.Length > Threshold)
+            {
+                IsSuggestionListOpen = true;
+            }
         }
         else
         {
@@ -233,7 +248,10 @@ public partial class FreakyNativeAutoCompleteView : UIKit.UIView
     private void InputText_EditingChanged(object sender, EventArgs e)
     {
         TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(this.Text, TextChangeReason.UserInput));
-        IsSuggestionListOpen = true;
+        if (InputTextField.Text.Length > this.Threshold)
+        {
+            IsSuggestionListOpen = true;
+        }
     }
 
     /// <summary>

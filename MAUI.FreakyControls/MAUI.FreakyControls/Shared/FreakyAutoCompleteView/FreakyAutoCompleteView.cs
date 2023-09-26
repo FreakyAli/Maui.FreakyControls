@@ -13,13 +13,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     private readonly WeakEventManager suggestionChosenEventManager = new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FreakyAutoCompleteView"/> class
-    /// </summary>
-    public FreakyAutoCompleteView()
-    {
-    }
-
-    /// <summary>
     /// Gets or sets the Text property
     /// </summary>
     /// <seealso cref="TextColor"/>
@@ -29,22 +22,8 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(TextProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="Text"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(FreakyAutoCompleteView), "", BindingMode.OneWay, null, OnTextPropertyChanged);
-
-    /// <summary>
-    /// This command is invoked whenever the text on <see cref="FreakyAutoCompleteView"/> has changed.
-    /// Note that this is fired after the tap or click is lifted.
-    /// This is a bindable property.
-    /// </summary>
-    public ICommand? TextChangedCommand
-    {
-        get => (ICommand?)GetValue(TextChangedCommandProperty);
-        set => SetValue(TextChangedCommandProperty, value);
-    }
 
     private static void OnTextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -52,6 +31,19 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         if (!box.suppressTextChangedEvent) //Ensure this property changed didn't get call because we were updating it from the native text property
             box.textChangedEventManager.HandleEvent(box, new FreakyAutoCompleteViewTextChangedEventArgs("", TextChangeReason.ProgrammaticChange), nameof(TextChanged));
     }
+
+    /// <summary>
+    /// Gets or sets the Threshold for showing the list 
+    /// </summary>
+    public int Threshold
+    {
+        get { return (int)GetValue(ThresholdProperty); }
+        set { SetValue(ThresholdProperty, value); }
+    }
+
+    public static readonly BindableProperty ThresholdProperty =
+        BindableProperty.Create(nameof(Threshold), typeof(int), typeof(FreakyAutoCompleteView), 1, BindingMode.OneWay, null, OnTextPropertyChanged);
+
 
     /// <summary>
     /// Gets or sets the foreground color of the control
@@ -63,9 +55,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(TextColorProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="TextColor"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty TextColorProperty =
         BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
 
@@ -79,9 +68,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(PlaceholderProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="Placeholder"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty PlaceholderProperty =
         BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
@@ -95,9 +81,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(PlaceholderColorProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="PlaceholderColor"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty PlaceholderColorProperty =
         BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(FreakyAutoCompleteView), Colors.Gray, BindingMode.OneWay, null, null);
 
@@ -115,9 +98,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(TextMemberPathProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="TextMemberPath"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty TextMemberPathProperty =
         BindableProperty.Create(nameof(TextMemberPath), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
@@ -134,9 +114,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(DisplayMemberPathProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="DisplayMemberPath"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty DisplayMemberPathProperty =
         BindableProperty.Create(nameof(DisplayMemberPath), typeof(string), typeof(FreakyAutoCompleteView), string.Empty, BindingMode.OneWay, null, null);
 
@@ -150,9 +127,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(IsSuggestionListOpenProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="IsSuggestionListOpen"/> bindable property.
-    /// </summary>
+
     public static readonly BindableProperty IsSuggestionListOpenProperty =
         BindableProperty.Create(nameof(IsSuggestionListOpen), typeof(bool), typeof(FreakyAutoCompleteView), false, BindingMode.OneWay, null, null);
 
@@ -167,9 +142,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(UpdateTextOnSelectProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="UpdateTextOnSelect"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty UpdateTextOnSelectProperty =
         BindableProperty.Create(nameof(UpdateTextOnSelect), typeof(bool), typeof(FreakyAutoCompleteView), true, BindingMode.OneWay, null, null);
 
@@ -183,16 +155,125 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set { SetValue(ItemsSourceProperty, value); }
     }
 
-    /// <summary>
-    /// Identifies the <see cref="ItemsSource"/> bindable property.
-    /// </summary>
     public static readonly BindableProperty ItemsSourceProperty =
         BindableProperty.Create(nameof(ItemsSource), typeof(System.Collections.IList), typeof(FreakyAutoCompleteView), null, BindingMode.OneWay, null, null);
 
     /// <summary>
-    /// Backing BindableProperty for the <see cref="TextChangedCommand"/> property.
+    /// Gets or sets if copy pasting is allowed
     /// </summary>
-    public static readonly BindableProperty TextChangedCommandProperty = BindableProperty.Create(nameof(TextChangedCommand), typeof(ICommand), typeof(FreakyAutoCompleteView));
+    public bool AllowCopyPaste
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+
+    public static readonly BindableProperty AllowCopyPasteProperty =
+        BindableProperty.Create(nameof(AllowCopyPaste), typeof(bool), typeof(FreakyAutoCompleteView), false, BindingMode.OneWay, null, null);
+
+    public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
+              nameof(Image),
+              typeof(ImageSource),
+              typeof(FreakyEntry),
+              default(ImageSource));
+
+    public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
+           nameof(ImageHeight),
+           typeof(int),
+           typeof(FreakyEntry),
+           25);
+
+    public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
+           nameof(ImageWidth),
+           typeof(int),
+           typeof(FreakyEntry),
+           25);
+
+    public static readonly BindableProperty ImageAlignmentProperty = BindableProperty.Create(
+           nameof(ImageAlignment),
+           typeof(ImageAlignment),
+           typeof(FreakyEntry),
+           ImageAlignment.Right);
+
+    public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
+           nameof(ImagePadding),
+           typeof(int),
+           typeof(FreakyEntry),
+           5);
+
+    public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
+          nameof(ImagePadding),
+          typeof(ICommand),
+          typeof(FreakyEntry),
+          default(ICommand));
+
+    public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
+          nameof(ImageCommandParameter),
+          typeof(object),
+          typeof(FreakyEntry),
+          default(object));
+
+    /// <summary>
+    /// Command parameter for your Image tap command
+    /// </summary>
+    public object ImageCommandParameter
+    {
+        get => GetValue(ImageCommandParameterProperty);
+        set => SetValue(ImageCommandParameterProperty, value);
+    }
+
+    /// <summary>
+    /// A command that you can use to bind with your Image that you added to your Entry's ViewPort
+    /// </summary>
+    public ICommand ImageCommand
+    {
+        get => (ICommand)GetValue(ImageCommandProperty);
+        set => SetValue(ImageCommandProperty, value);
+    }
+
+    /// <summary>
+    /// Padding of the Image that you added to the ViewPort
+    /// </summary>
+    public int ImagePadding
+    {
+        get => (int)GetValue(ImagePaddingProperty);
+        set => SetValue(ImagePaddingProperty, value);
+    }
+
+    /// <summary>
+    /// Width of the Image in your ViewPort
+    /// </summary>
+    public int ImageWidth
+    {
+        get => (int)GetValue(ImageWidthProperty);
+        set => SetValue(ImageWidthProperty, value);
+    }
+
+    /// <summary>
+    /// Height of the Image in your ViewPort
+    /// </summary>
+    public int ImageHeight
+    {
+        get => (int)GetValue(ImageHeightProperty);
+        set => SetValue(ImageHeightProperty, value);
+    }
+
+    /// <summary>
+    /// An ImageSource that you want to add to your ViewPort
+    /// </summary>
+    public ImageSource ImageSource
+    {
+        get => (ImageSource)GetValue(ImageSourceProperty);
+        set => SetValue(ImageSourceProperty, value);
+    }
+
+    /// <summary>
+    /// Alignment for your Image's ViewPort, By default set to Right.
+    /// </summary>
+    public ImageAlignment ImageAlignment
+    {
+        get => (ImageAlignment)GetValue(ImageAlignmentProperty);
+        set => SetValue(ImageAlignmentProperty, value);
+    }
 
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen
     {
@@ -221,11 +302,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         Text = args.Text;
         suppressTextChangedEvent = false;
         textChangedEventManager.HandleEvent(this, args, nameof(TextChanged));
-
-        //if (TextChangedCommand?.CanExecute(args.Text) ?? false)
-        //{
-        //    TextChangedCommand.Execute(args.Text);
-        //}
     }
 
     /// <summary>

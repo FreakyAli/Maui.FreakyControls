@@ -23,6 +23,15 @@ public partial class FreakyAutoCompleteViewHandler
             [nameof(IFreakyAutoCompleteView.ItemsSource)] = MapItemsSource,
             [nameof(IFreakyAutoCompleteView.UpdateTextOnSelect)] = MapUpdateTextOnSelect,
             [nameof(IFreakyAutoCompleteView.IsSuggestionListOpen)] = MapIsSuggestionListOpen,
+            [nameof(IFreakyAutoCompleteView.Threshold)] = MapThreshold,
+            [nameof(IFreakyAutoCompleteView.ImageAlignment)] = MapImageSource,
+            [nameof(IFreakyAutoCompleteView.ImageCommand)] = MapImageSource,
+            [nameof(IFreakyAutoCompleteView.ImageCommandParameter)] = MapImageSource,
+            [nameof(IFreakyAutoCompleteView.ImageHeight)] = MapImageSource,
+            [nameof(IFreakyAutoCompleteView.ImagePadding)] = MapImageSource,
+            [nameof(IFreakyAutoCompleteView.ImageSource)] = MapImageSource,
+            [nameof(IFreakyAutoCompleteView.ImageWidth)] = MapImageSource,
+
         };
 
     /// <summary>

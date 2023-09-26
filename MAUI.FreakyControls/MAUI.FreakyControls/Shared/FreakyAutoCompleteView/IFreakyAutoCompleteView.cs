@@ -1,8 +1,10 @@
-﻿using Color = Microsoft.Maui.Graphics.Color;
+﻿using System.Windows.Input;
+using Maui.FreakyControls.Shared.Enums;
+using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
 
-public interface IFreakyAutoCompleteView : IView
+public interface IFreakyAutoCompleteView : IView, IDrawableImageView
 {
     string Text { get; set; }
     Color TextColor { get; set; }
@@ -13,10 +15,10 @@ public interface IFreakyAutoCompleteView : IView
     bool IsSuggestionListOpen { get; set; }
     bool UpdateTextOnSelect { get; set; }
     System.Collections.IList ItemsSource { get; set; }
+    int Threshold { get; set; }
+    bool AllowCopyPaste { get; set; }
 
     void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
-
     void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
-
     void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);
 }
