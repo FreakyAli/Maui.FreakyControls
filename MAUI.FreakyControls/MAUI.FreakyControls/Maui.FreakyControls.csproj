@@ -84,6 +84,7 @@
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyJumpList\" />
 		<None Remove="Shared\FreakyAutoCompleteView\" />
+		<None Remove="Shared\FreakyPinView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Shared\FreakyEditor\" />
@@ -108,6 +109,7 @@
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
+		<Folder Include="Shared\FreakyPinView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />

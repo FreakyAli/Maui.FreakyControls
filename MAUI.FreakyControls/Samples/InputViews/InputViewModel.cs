@@ -6,9 +6,15 @@ namespace Samples.InputViews;
 public class InputViewModel : MainViewModel
 {
     private ObservableCollection<string> namesCollection;
+    private string pin;
 
     public List<string> Names { get; }
 
+    public string Pin
+    {
+        get => pin;
+        set => SetProperty(ref pin , value); 
+    }
 
     public ObservableCollection<string> NamesCollection
     {

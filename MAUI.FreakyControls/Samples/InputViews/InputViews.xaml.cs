@@ -13,6 +13,12 @@ public partial class InputViews : ContentPage
         BindingContext = viewModel = new InputViewModel();
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        //XfPinView.FocusBox();
+    }
+
     void FreakyAutoCompleteView_QuerySubmitted(object sender, Maui.FreakyControls.FreakyAutoCompleteViewQuerySubmittedEventArgs e)
     {
        

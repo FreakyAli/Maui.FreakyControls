@@ -10,6 +10,16 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
 
+          <freakyControls:FreakyPinView
+            x:Name="XfPinView"
+            IsPassword="False"
+            BoxBackgroundColor="#FEDBD0"
+            BoxShape="Circle"
+            PINLength="5"
+            PINValue="{Binding Pin}"
+            Color="#442C2E" />
+
+            <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
                     Placeholder="Autocomplete Left"
@@ -29,7 +39,8 @@
                     ItemsSource="{Binding NamesCollection}" />
             </Border>
 
-             <Border Padding="5,0">
+            <Label Text="Freaky Autocomplete below: " TextColor="Black" />
+            <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
                     Placeholder="Autocomplete Right"
                     ImageAlignment="Left"
