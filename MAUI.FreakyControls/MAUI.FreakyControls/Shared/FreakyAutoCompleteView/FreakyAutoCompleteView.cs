@@ -275,6 +275,31 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set => SetValue(ImageAlignmentProperty, value);
     }
 
+    public bool IsPassword { get; set; }
+
+    public ReturnType ReturnType { get; set; }
+
+    public ClearButtonVisibility ClearButtonVisibility { get; set; }
+
+    public bool IsTextPredictionEnabled { get; set; }
+
+    public bool IsReadOnly { get; set; }
+
+    public Keyboard Keyboard { get; set; }
+
+    public int MaxLength { get; set; }
+
+    public int CursorPosition { get; set; }
+    public int SelectionLength { get; set; }
+
+    public Microsoft.Maui.Font Font { get; set; }
+
+    public double CharacterSpacing { get; set; }
+
+    public TextAlignment HorizontalTextAlignment { get; set; }
+
+    public TextAlignment VerticalTextAlignment { get; set; }
+
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen
     {
         add => suggestionChosenEventManager.AddEventHandler(value);
@@ -310,6 +335,11 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     public void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs args)
     {
         querySubmittedEventManager.HandleEvent(this, args, nameof(QuerySubmitted));
+    }
+
+    public void Completed()
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>

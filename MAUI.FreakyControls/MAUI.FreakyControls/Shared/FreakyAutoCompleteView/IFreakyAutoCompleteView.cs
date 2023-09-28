@@ -1,15 +1,11 @@
-﻿using System.Windows.Input;
-using Maui.FreakyControls.Shared.Enums;
-using Color = Microsoft.Maui.Graphics.Color;
+﻿namespace Maui.FreakyControls;
 
-namespace Maui.FreakyControls;
-
-public interface IFreakyAutoCompleteView : IView, IDrawableImageView
+public interface IFreakyAutoCompleteView : IEntry, IDrawableImageView
 {
-    string Text { get; set; }
-    Color TextColor { get; set; }
-    string Placeholder { get; set; }
-    Color PlaceholderColor { get; set; }
+    //string Text { get; set; }
+    //Color TextColor { get; set; }
+    //string Placeholder { get; set; }
+    //Color PlaceholderColor { get; set; }
     string TextMemberPath { get; set; }
     string DisplayMemberPath { get; set; }
     bool IsSuggestionListOpen { get; set; }

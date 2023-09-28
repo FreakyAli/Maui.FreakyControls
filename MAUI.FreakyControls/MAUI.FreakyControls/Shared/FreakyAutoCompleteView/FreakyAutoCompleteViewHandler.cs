@@ -31,7 +31,8 @@ public partial class FreakyAutoCompleteViewHandler
             [nameof(IFreakyAutoCompleteView.ImagePadding)] = MapImageSource,
             [nameof(IFreakyAutoCompleteView.ImageSource)] = MapImageSource,
             [nameof(IFreakyAutoCompleteView.ImageWidth)] = MapImageSource,
-
+            [nameof(IFreakyAutoCompleteView.CharacterSpacing)] = MapCharacterSpacing,
+            [nameof(IFreakyAutoCompleteView.Keyboard)] = MapKeyboard
         };
 
     /// <summary>

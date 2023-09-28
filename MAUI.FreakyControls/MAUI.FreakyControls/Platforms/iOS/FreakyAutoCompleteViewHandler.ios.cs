@@ -3,6 +3,7 @@ using Maui.FreakyControls.Platforms.iOS;
 using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
 using System.Drawing;
 using UIKit;
 
@@ -141,6 +142,16 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
                     break;
             }
         }
+    }
+
+    public static void MapKeyboard(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView?.InputTextField?.UpdateKeyboard(view);
+    }
+
+    public static void MapCharacterSpacing(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView.InputTextField.UpdateCharacterSpacing(view);
     }
 
     public static void MapAllowCopyPaste(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
