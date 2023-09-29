@@ -51,7 +51,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     private static readonly Shape shape =
         DeviceInfo.Platform == DevicePlatform.iOS ?
         Shared.Enums.Shape.Circle :
-        Shared.Enums.Shape.Rectangle;
+        Shared.Enums.Shape.Sqaure;
 
     private static readonly float outlineWidth = 6.0f;
 

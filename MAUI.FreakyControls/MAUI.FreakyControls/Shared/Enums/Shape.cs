@@ -2,13 +2,19 @@
 
 public enum Shape
 {
-    /// <summary>
-    /// Circular shape to your control
-    /// </summary>
+    // <summary>
+    // a Circular shape to your control
+    // </summary>
     Circle,
 
-    /// <summary>
-    /// Rectangular shape to your control
-    /// </summary>
-    Rectangle
+    [Obsolete("Please use Square instead")]
+    // <summary>
+    // a Rectangular shape to your control
+    // </summary>
+    Rectangle,
+
+    // <summary>
+    // a Square shape to your control
+    // </summary>
+    Sqaure = Rectangle,
 }
