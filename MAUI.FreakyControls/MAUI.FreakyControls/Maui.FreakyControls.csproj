@@ -84,6 +84,7 @@
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyJumpList\" />
 		<None Remove="Shared\FreakyCodeView\" />
+		<None Remove="Shared\Behaviors\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -116,6 +117,7 @@
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
 		<Folder Include="Shared\FreakyCodeView\" />
+		<Folder Include="Shared\Behaviors\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
