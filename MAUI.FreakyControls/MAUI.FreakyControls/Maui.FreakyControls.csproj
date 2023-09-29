@@ -47,6 +47,14 @@
 		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
+	  <AndroidResource Remove="Shared\FreakyPinView\**" />
+	  <Compile Remove="Shared\FreakyPinView\**" />
+	  <EmbeddedResource Remove="Shared\FreakyPinView\**" />
+	  <MauiCss Remove="Shared\FreakyPinView\**" />
+	  <MauiXaml Remove="Shared\FreakyPinView\**" />
+	  <None Remove="Shared\FreakyPinView\**" />
+	</ItemGroup>
+	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
 		<None Remove="Platforms\Android\" />
 		<None Remove="Shared\" />
@@ -109,7 +117,6 @@
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
-		<Folder Include="Shared\FreakyPinView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />

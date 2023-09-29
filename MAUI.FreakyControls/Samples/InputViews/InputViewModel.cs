@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using Maui.FreakyControls.Extensions;
+﻿using Maui.FreakyControls.Extensions;
+using System.Collections.ObjectModel;
 
 namespace Samples.InputViews;
 
@@ -13,13 +13,13 @@ public class InputViewModel : MainViewModel
     public string Pin
     {
         get => pin;
-        set => SetProperty(ref pin , value); 
+        set => SetProperty(ref pin, value);
     }
 
     public ObservableCollection<string> NamesCollection
     {
         get => namesCollection;
-        set =>SetProperty(ref namesCollection , value);
+        set => SetProperty(ref namesCollection, value);
     }
 
     public InputViewModel()

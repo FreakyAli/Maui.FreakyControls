@@ -170,7 +170,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     /// </summary>
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
 
-
     public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
          Drawable right, Drawable bottom)
     {

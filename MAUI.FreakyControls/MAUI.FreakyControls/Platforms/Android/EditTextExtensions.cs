@@ -1,13 +1,4 @@
-﻿using Android.Content.Res;
-using Android.Text;
-using Android.Views;
-using Android.Views.InputMethods;
-using Android.Widget;
-using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
-using static Android.Widget.TextView;
-
-namespace Maui.FreakyControls.Platforms.Android;
+﻿namespace Maui.FreakyControls.Platforms.Android;
 
 //public static class EditTextExtensions
 //{

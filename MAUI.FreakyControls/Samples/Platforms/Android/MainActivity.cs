@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Maui.FreakyControls.Platforms.Android;
+using System.Diagnostics;
 using Color = Android.Graphics.Color;
 
 namespace Samples;

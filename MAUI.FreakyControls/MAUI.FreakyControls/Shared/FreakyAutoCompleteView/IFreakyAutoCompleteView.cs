@@ -7,6 +7,7 @@ public interface IFreakyAutoCompleteView : IEntry, IDrawableImageView
     //string Placeholder { get; set; }
     //Color PlaceholderColor { get; set; }
     string TextMemberPath { get; set; }
+
     string DisplayMemberPath { get; set; }
     bool IsSuggestionListOpen { get; set; }
     bool UpdateTextOnSelect { get; set; }
@@ -15,6 +16,8 @@ public interface IFreakyAutoCompleteView : IEntry, IDrawableImageView
     bool AllowCopyPaste { get; set; }
 
     void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
+
     void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
+
     void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);
 }

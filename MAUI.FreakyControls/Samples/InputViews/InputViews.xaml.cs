@@ -19,12 +19,11 @@ public partial class InputViews : ContentPage
         //XfPinView.FocusBox();
     }
 
-    void FreakyAutoCompleteView_QuerySubmitted(object sender, Maui.FreakyControls.FreakyAutoCompleteViewQuerySubmittedEventArgs e)
+    private void FreakyAutoCompleteView_QuerySubmitted(object sender, Maui.FreakyControls.FreakyAutoCompleteViewQuerySubmittedEventArgs e)
     {
-       
     }
 
-    void FreakyAutoCompleteView_TextChanged(object sender, Maui.FreakyControls.FreakyAutoCompleteViewTextChangedEventArgs e)
+    private void FreakyAutoCompleteView_TextChanged(object sender, Maui.FreakyControls.FreakyAutoCompleteViewTextChangedEventArgs e)
     {
         var autoComplete = (FreakyAutoCompleteView)sender;
         viewModel.NamesCollection = viewModel.Names.

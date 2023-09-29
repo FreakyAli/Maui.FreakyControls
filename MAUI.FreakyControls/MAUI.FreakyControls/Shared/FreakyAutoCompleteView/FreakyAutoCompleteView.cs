@@ -1,5 +1,5 @@
-﻿using System.Windows.Input;
-using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Shared.Enums;
+using System.Windows.Input;
 using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
@@ -33,7 +33,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     }
 
     /// <summary>
-    /// Gets or sets the Threshold for showing the list 
+    /// Gets or sets the Threshold for showing the list
     /// </summary>
     public int Threshold
     {
@@ -43,7 +43,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
 
     public static readonly BindableProperty ThresholdProperty =
         BindableProperty.Create(nameof(Threshold), typeof(int), typeof(FreakyAutoCompleteView), 1, BindingMode.OneWay, null, OnTextPropertyChanged);
-
 
     /// <summary>
     /// Gets or sets the foreground color of the control
@@ -126,7 +125,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         get { return (bool)GetValue(IsSuggestionListOpenProperty); }
         set { SetValue(IsSuggestionListOpenProperty, value); }
     }
-
 
     public static readonly BindableProperty IsSuggestionListOpenProperty =
         BindableProperty.Create(nameof(IsSuggestionListOpen), typeof(bool), typeof(FreakyAutoCompleteView), false, BindingMode.OneWay, null, null);

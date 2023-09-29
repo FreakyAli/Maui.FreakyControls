@@ -126,14 +126,13 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
             var tapGesture = new UITapGestureRecognizer(() =>
             {
                 entry?.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
-
             });
             uiView.AddGestureRecognizer(tapGesture);
             switch (entry.ImageAlignment)
             {
                 case ImageAlignment.Left:
-                   handler.PlatformView.InputTextField.LeftViewMode = UITextFieldViewMode.Always;
-                   handler.PlatformView.InputTextField.LeftView = uiView;
+                    handler.PlatformView.InputTextField.LeftViewMode = UITextFieldViewMode.Always;
+                    handler.PlatformView.InputTextField.LeftView = uiView;
                     break;
 
                 case ImageAlignment.Right:

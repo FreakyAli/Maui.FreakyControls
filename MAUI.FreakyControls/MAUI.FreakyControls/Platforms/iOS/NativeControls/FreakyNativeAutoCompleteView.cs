@@ -67,7 +67,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     private void OnEditingDidBegin(object sender, EventArgs e)
     {
-        if(InputTextField.Text.Length > Threshold)
+        if (InputTextField.Text.Length > Threshold)
         {
             IsSuggestionListOpen = true;
         }
