@@ -57,7 +57,7 @@ internal class CodeView : Border
             FontAttributes = FontAttributes.Bold,
             VerticalTextAlignment = TextAlignment.Center,
             Scale = 0,
-            TextTransform= TextTransform.Uppercase
+            TextTransform = TextTransform.Uppercase
         };
 
         Content = Dot;
@@ -124,7 +124,6 @@ internal class CodeView : Border
         inputChar = null;
         Shrink();
     }
-
 
     public void SetValueWithAnimation(char inputChar)
     {

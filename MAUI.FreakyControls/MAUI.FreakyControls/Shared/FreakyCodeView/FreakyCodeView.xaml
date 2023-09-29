@@ -17,9 +17,8 @@
             x:Name="CodeItemContainer"
             HorizontalOptions="Center">
             <HorizontalStackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
             </HorizontalStackLayout.GestureRecognizers>
         </HorizontalStackLayout>
     </Grid>
 </ContentView>
-

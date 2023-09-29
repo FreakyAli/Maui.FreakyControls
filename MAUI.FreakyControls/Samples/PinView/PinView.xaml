@@ -4,9 +4,9 @@
              x:Class="Samples.PinView.PinView"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="PinView">
-   <Grid RowDefinitions="*,3*">
+    <Grid RowDefinitions="*,3*">
 
-        <Button Text="Some crap" Grid.Row="0"/>
+        <Button Text="Some crap" Grid.Row="0" />
         <freakyControls:FreakyPinCodeControl
             ItemBackgroundColor="White"
             CodeLength="6"
@@ -17,7 +17,6 @@
             ItemFocusAnimation="Scale"
             ItemShape="Squircle"
             BackspaceButtonSource="backspace.png"
-            Grid.Row="1"/>
-
+            Grid.Row="1" />
     </Grid>
 </ContentPage>

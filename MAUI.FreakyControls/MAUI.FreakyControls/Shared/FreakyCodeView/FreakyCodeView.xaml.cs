@@ -1,15 +1,17 @@
-﻿using System.ComponentModel;
+﻿using Maui.FreakyControls.Shared.Enums;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
-using Maui.FreakyControls.Shared.Enums;
 
 namespace Maui.FreakyControls;
 
 public partial class FreakyCodeView : ContentView
 {
     #region Events
+
     public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
-    #endregion
+
+    #endregion Events
 
     #region Constructor and Initializations
 
@@ -58,7 +60,7 @@ public partial class FreakyCodeView : ContentView
         }
     }
 
-    #endregion
+    #endregion Constructor and Initializations
 
     #region Methods
 
@@ -122,9 +124,10 @@ public partial class FreakyCodeView : ContentView
         return container;
     }
 
-    #endregion
+    #endregion Methods
 
     #region Events
+
     private void FreakyCodeView_TextChanged(object sender, TextChangedEventArgs e)
     {
         CodeValue = e.NewTextValue;
@@ -139,7 +142,8 @@ public partial class FreakyCodeView : ContentView
             CodeEntryCompletedCommand?.Execute(CodeValue);
         }
     }
-    #endregion
+
+    #endregion Events
 
     #region BindableProperties
 
@@ -547,7 +551,7 @@ public partial class FreakyCodeView : ContentView
           true,
           defaultBindingMode: BindingMode.OneWay);
 
-    void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         if (IsEnabled)
         {
@@ -623,5 +627,6 @@ public partial class FreakyCodeView : ContentView
             container.CharLabel.FontFamily = newValue?.ToString();
         }
     }
-    #endregion
+
+    #endregion BindableProperties
 }

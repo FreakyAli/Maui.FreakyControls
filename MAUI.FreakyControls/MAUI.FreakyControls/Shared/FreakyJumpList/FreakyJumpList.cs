@@ -1,13 +1,14 @@
-﻿using SkiaSharp;
+﻿using Maui.FreakyControls.Extensions;
+using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
-using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
 public class FreakyJumpList : SKCanvasView, IDisposable
 {
     private IDictionary<string, SKPoint> charLocationDictionary;
+
     public event EventHandler<FreakyCharacterChangedEventArgs> SelectedCharacterChanged;
 
     public static readonly BindableProperty CharacterColorProperty = BindableProperty.Create(
@@ -169,9 +170,9 @@ public class FreakyJumpList : SKCanvasView, IDisposable
             throw new ArgumentNullException(nameof(e) + typeof(SKPaintSurfaceEventArgs) + " cannot be null");
         }
 
-        if(this.AlphabetProvider== null || this.AlphabetProvider.GetCount() == 0)
+        if (this.AlphabetProvider == null || this.AlphabetProvider.GetCount() == 0)
         {
-            throw new InvalidDataException($"{nameof(AlphabetProvider)} cannot be null or empty, make sure you create an IAlphabetProvider instance" );
+            throw new InvalidDataException($"{nameof(AlphabetProvider)} cannot be null or empty, make sure you create an IAlphabetProvider instance");
         }
 
         var info = e.Info;

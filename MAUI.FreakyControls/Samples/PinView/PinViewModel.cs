@@ -1,8 +1,5 @@
-﻿using System;
-namespace Samples.PinView;
+﻿namespace Samples.PinView;
 
 public class PinViewModel : BaseViewModel
 {
-	
 }
-

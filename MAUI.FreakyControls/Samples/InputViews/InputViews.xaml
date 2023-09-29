@@ -19,8 +19,7 @@
                 ItemBorderColor="Gray"
                 ItemFocusColor="Black"
                 CodeInputType="AlphaNumeric"
-                IsPassword="False"
-                />
+                IsPassword="False" />
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>

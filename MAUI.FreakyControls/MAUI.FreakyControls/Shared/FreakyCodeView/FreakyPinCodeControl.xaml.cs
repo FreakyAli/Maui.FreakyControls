@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Maui.FreakyControls.Shared.Enums;
+using System.ComponentModel;
 using System.Windows.Input;
-using Maui.FreakyControls.Shared.Enums;
 
 namespace Maui.FreakyControls;
 
@@ -112,7 +112,6 @@ public partial class FreakyPinCodeControl : ContentView
           CodeView.DefaultItemSpacing,
           defaultBindingMode: BindingMode.OneWay);
 
-
     public double ItemSize
     {
         get => (double)GetValue(ItemSizeProperty);
@@ -197,7 +196,6 @@ public partial class FreakyPinCodeControl : ContentView
           default(Color),
           defaultBindingMode: BindingMode.OneWay);
 
-
     public bool ShouldAutoDismissKeyboard
     {
         get => (bool)GetValue(ShouldAutoDismissKeyboardProperty);
@@ -252,7 +250,7 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(string),
       typeof(FreakyCodeView));
 
-    void FreakyCodeView_CodeEntryCompleted(object sender, FreakyCodeCompletedEventArgs e)
+    private void FreakyCodeView_CodeEntryCompleted(object sender, FreakyCodeCompletedEventArgs e)
     {
         CodeEntryCompleted?.Invoke(this, e);
     }
@@ -329,20 +327,19 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(FreakyCodeView),
       100.0);
 
-    void Keyboard_Clicked(object sender, System.EventArgs e)
+    private void Keyboard_Clicked(object sender, System.EventArgs e)
     {
         var button = (Button)sender;
         var text = button.Text;
     }
 
-    void Cancel_Clicked(object sender, System.EventArgs e)
+    private void Cancel_Clicked(object sender, System.EventArgs e)
     {
-
     }
 
-    void Backspace_Clicked(object sender, System.EventArgs e)
+    private void Backspace_Clicked(object sender, System.EventArgs e)
     {
-
     }
-    #endregion
+
+    #endregion BindableProperties
 }

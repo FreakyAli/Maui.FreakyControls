@@ -2,8 +2,8 @@
 
 public partial class PinView : ContentPage
 {
-	public PinView()
-	{
-		InitializeComponent();
-	}
+    public PinView()
+    {
+        InitializeComponent();
+    }
 }

@@ -35,5 +35,3 @@ public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject
         BindingContext = AssociatedObject.BindingContext;
     }
 }
-
-

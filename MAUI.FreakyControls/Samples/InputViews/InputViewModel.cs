@@ -1,5 +1,4 @@
-﻿
-namespace Samples.InputViews;
+﻿namespace Samples.InputViews;
 
 public class InputViewModel : MainViewModel
 {

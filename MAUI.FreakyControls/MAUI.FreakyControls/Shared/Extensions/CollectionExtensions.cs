@@ -6,7 +6,6 @@ using Maui.FreakyControls.Platforms.Windows;
 #endif
 #if ANDROID
 
-
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;

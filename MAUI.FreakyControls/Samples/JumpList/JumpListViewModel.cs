@@ -1,5 +1,4 @@
-﻿using System;
-namespace Samples.JumpList;
+﻿namespace Samples.JumpList;
 
 public class JumpListViewModel : BaseViewModel
 {
