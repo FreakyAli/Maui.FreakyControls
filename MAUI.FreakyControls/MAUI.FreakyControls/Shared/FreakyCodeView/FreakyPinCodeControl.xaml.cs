@@ -8,17 +8,9 @@ public partial class FreakyPinCodeControl : ContentView
 {
     public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
 
-    public ICommand KeyboardTapCommand { get; }
-
     public FreakyPinCodeControl()
     {
         InitializeComponent();
-        KeyboardTapCommand = new Command<string>(ExecuteKeyboardTapped);
-    }
-
-    private void ExecuteKeyboardTapped(string str)
-    {
-
     }
 
     #region BindableProperties
@@ -337,6 +329,20 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(FreakyCodeView),
       100.0);
 
+    void Keyboard_Clicked(object sender, System.EventArgs e)
+    {
+        var button = (Button)sender;
+        var text = button.Text;
+    }
 
+    void Cancel_Clicked(object sender, System.EventArgs e)
+    {
+
+    }
+
+    void Backspace_Clicked(object sender, System.EventArgs e)
+    {
+
+    }
     #endregion
 }

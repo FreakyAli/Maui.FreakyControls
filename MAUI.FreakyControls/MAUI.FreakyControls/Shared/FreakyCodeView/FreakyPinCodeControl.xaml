@@ -30,6 +30,7 @@
         <Grid Grid.Row="1" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*">
             <Button
                 Text="1"
+                Clicked="Keyboard_Clicked"
                 FontSize="{Binding FontSize,Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily,Source={x:Reference this}}"                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -37,13 +38,11 @@
                 BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
                 Grid.Row="0"
                 Grid.Column="0">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
                 Text="2"
-                            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                                      Clicked="Keyboard_Clicked"
+      FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -51,25 +50,21 @@
                 BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
                 Grid.Row="0"
                 Grid.Column="1">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
                 BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
-                Text="3"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Text="3"                  Clicked="Keyboard_Clicked"
+          FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
                 HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
                 Grid.Row="0"
                 Grid.Column="2">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
-                Text="4"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Text="4"                   Clicked="Keyboard_Clicked"
+         FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -77,12 +72,10 @@
                 Grid.Row="1"
                 BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
                 Grid.Column="0">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
-                Text="5"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Text="5"                   Clicked="Keyboard_Clicked"
+         FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -90,12 +83,10 @@
                 Grid.Row="1"
                 BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
                 Grid.Column="1">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
-                Text="6"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Text="6"                     Clicked="Keyboard_Clicked"
+       FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -104,12 +95,10 @@
 
                 Grid.Row="1"
                 Grid.Column="2">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
-                Text="7"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Text="7"                    Clicked="Keyboard_Clicked"
+        FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -118,12 +107,10 @@
 
                 Grid.Row="2"
                 Grid.Column="0">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
-                Text="8"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Text="8"                     Clicked="Keyboard_Clicked"
+       FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -132,12 +119,10 @@
 
                 Grid.Row="2"
                 Grid.Column="1">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
-                Text="9"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Text="9"                       Clicked="Keyboard_Clicked"
+     FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
@@ -146,12 +131,10 @@
                                 BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
 
                 Grid.Column="2">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
-                                        FontSize="{Binding FontSize,Source={x:Reference this}}"
+                Clicked="Cancel_Clicked"
+          FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}"                    BackgroundColor="{Binding CancelBackgroundColor, Source={x:Reference this}}"
 
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
@@ -160,12 +143,11 @@
                 HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
                 Grid.Row="3"
                 Grid.Column="0">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <Button
                 Text="0"
+                                Clicked="Keyboard_Clicked"
+
                 TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
                 FontSize="{Binding FontSize,Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily,Source={x:Reference this}}"
@@ -174,11 +156,9 @@
                 BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
                 Grid.Row="3"
                 Grid.Column="1">
-                <Button.Behaviors>
-                    <behaviors:KeyboardButtonBehavior Command="{Binding KeyboardTapCommand, Source={x:Reference this}}" />
-                </Button.Behaviors>
             </Button>
             <ImageButton
+                Clicked="Backspace_Clicked"
                 BackgroundColor="{Binding BackspaceBackgroundColor, Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
                 HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
