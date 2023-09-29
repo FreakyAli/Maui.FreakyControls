@@ -13,7 +13,11 @@
             <freakyControls:FreakyCodeView
                 ShouldAutoDismissKeyboard="True"
                 ItemSpacing="10"
-                CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
+                CodeLength="5"
+                Color="Black"
+                ItemBackgroundColor="White"
+                ItemBorderColor="Gray"
+                ItemFocusColor="Black"
                 CodeInputType="AlphaNumeric"
                 IsPassword="False"
                 />

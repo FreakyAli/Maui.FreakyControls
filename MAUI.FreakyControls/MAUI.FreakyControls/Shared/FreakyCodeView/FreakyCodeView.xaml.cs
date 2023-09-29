@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using Maui.FreakyControls.Shared.Enums;
 
@@ -17,7 +18,7 @@ public partial class FreakyCodeView : ContentView
         hiddenTextEntry.TextChanged += FreakyCodeView_TextChanged;
         hiddenTextEntry.Focused += HiddenTextEntry_Focused;
         hiddenTextEntry.Unfocused += HiddenTextEntry_Unfocused;
-        CreateControl();
+        Initialize();
     }
 
     private void HiddenTextEntry_Unfocused(object sender, FocusEventArgs e)
@@ -60,7 +61,7 @@ public partial class FreakyCodeView : ContentView
 
     #region Methods
 
-    public void CreateControl()
+    public void Initialize()
     {
         hiddenTextEntry.MaxLength = CodeLength;
         SetInputType(CodeInputType);
@@ -105,7 +106,8 @@ public partial class FreakyCodeView : ContentView
             HeightRequest = ItemSize,
             WidthRequest = ItemSize,
             ItemFocusColor = ItemFocusColor,
-            FocusAnimationType = ItemFocusAnimation
+            FocusAnimationType = ItemFocusAnimation,
+            StrokeThickness = ItemBorderWidth
         };
         container.Item.BackgroundColor = ItemBackgroundColor;
         container.CharLabel.FontSize = ItemSize / 2;
@@ -245,8 +247,7 @@ public partial class FreakyCodeView : ContentView
         {
             return;
         }
-
-       ((FreakyCodeView)bindable).CreateControl();
+       ((FreakyCodeView)bindable).Initialize();
     }
 
     public KeyboardType CodeInputType
@@ -398,7 +399,6 @@ public partial class FreakyCodeView : ContentView
             var container = (Container)x;
             container.HeightRequest = (double)newValue;
             container.WidthRequest = (double)newValue;
-            container.CharLabel.FontSize = ((double)newValue / 2);
             container.SetRadius(control.ItemShape);
         }
     }
@@ -547,5 +547,74 @@ public partial class FreakyCodeView : ContentView
     void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         this.Focus();
+    }
+
+    public double ItemBorderWidth
+    {
+        get => (double)GetValue(ItemBorderWidthProperty);
+        set => SetValue(ItemBorderWidthProperty, value);
+    }
+
+    public static readonly BindableProperty ItemBorderWidthProperty =
+      BindableProperty.Create(
+          nameof(ItemBorderWidth),
+          typeof(double),
+          typeof(FreakyCodeView),
+          5.0,
+          defaultBindingMode: BindingMode.OneWay);
+
+    [TypeConverter(typeof(FontSizeConverter))]
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
+
+    public static readonly BindableProperty FontSizeProperty =
+      BindableProperty.Create(
+          nameof(FontSize),
+          typeof(double),
+          typeof(FreakyCodeView),
+          defaultValueCreator:FontSizeDefaultValueCreator,
+          defaultBindingMode: BindingMode.OneWay,
+          propertyChanged: OnFontSizeChanged);
+
+    private static object FontSizeDefaultValueCreator(BindableObject bindable)
+    {
+        var itemSize =(double)ItemSizeProperty.DefaultValue;
+        double fontSize = itemSize / 2.0;
+        return fontSize;
+    }
+
+    private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = ((FreakyCodeView)bindable);
+        foreach (var x in control.CodeItemContainer.Children)
+        {
+            var container = (Container)x;
+            container.CharLabel.FontSize = (double)newValue;
+        }
+    }
+
+    public string FontFamily
+    {
+        get => (string)GetValue(FontFamilyProperty);
+        set => SetValue(FontFamilyProperty, value);
+    }
+
+    public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(
+      nameof(FontFamily),
+      typeof(string),
+      typeof(FreakyCodeView),
+      propertyChanged:OnFontFamilyChanged);
+
+    private static void OnFontFamilyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = ((FreakyCodeView)bindable);
+        foreach (var x in control.CodeItemContainer.Children)
+        {
+            var container = (Container)x;
+            container.CharLabel.FontFamily = newValue?.ToString();
+        }
     }
 }

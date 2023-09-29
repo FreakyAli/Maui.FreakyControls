@@ -57,6 +57,7 @@ internal class Container : Border
             FontAttributes = FontAttributes.Bold,
             VerticalTextAlignment = TextAlignment.Center,
             Scale = 0,
+            TextTransform= TextTransform.Uppercase
         };
 
         Content = Dot;
