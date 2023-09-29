@@ -12,6 +12,7 @@ public partial class FreakyCodeView : ContentView
     #endregion
 
     #region Constructor and Initializations
+
     public FreakyCodeView()
     {
         InitializeComponent();
@@ -23,7 +24,7 @@ public partial class FreakyCodeView : ContentView
 
     private void HiddenTextEntry_Unfocused(object sender, FocusEventArgs e)
     {
-        var CodeItemArray = CodeItemContainer.Children.Select(x => x as Container).ToList();
+        var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToList();
         for (int i = 0; i < CodeLength; i++)
         {
             CodeItemArray[i].UnfocusAnimate();
@@ -35,7 +36,7 @@ public partial class FreakyCodeView : ContentView
         var length = CodeValue == null ? 0 : CodeValue.Length;
         hiddenTextEntry.CursorPosition = length;
 
-        var CodeItemArray = CodeItemContainer.Children.Select(x => x as Container).ToArray();
+        var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToArray();
 
         if (length == CodeLength)
         {
@@ -75,11 +76,11 @@ public partial class FreakyCodeView : ContentView
 
             for (int i = 1; i <= newItemesToAdd; i++)
             {
-                Container container = CreateItem();
+                CodeView container = CreateItem();
                 CodeItemContainer.Children.Add(container);
                 if (CodeValue.Length >= CodeLength)
                 {
-                    container.SetValueWithAnimation(CodeCharsArray[Container.DefaultCodeLength + i - 1]);
+                    container.SetValueWithAnimation(CodeCharsArray[CodeView.DefaultCodeLength + i - 1]);
                 }
             }
         }
@@ -99,9 +100,9 @@ public partial class FreakyCodeView : ContentView
         hiddenTextEntry.Focus();
     }
 
-    private Container CreateItem(char? charValue = null)
+    private CodeView CreateItem(char? charValue = null)
     {
-        Container container = new()
+        CodeView container = new()
         {
             HeightRequest = ItemSize,
             WidthRequest = ItemSize,
@@ -140,6 +141,8 @@ public partial class FreakyCodeView : ContentView
     }
     #endregion
 
+    #region BindableProperties
+
     public string CodeValue
     {
         get => (string)GetValue(CodeValueProperty);
@@ -175,7 +178,7 @@ public partial class FreakyCodeView : ContentView
             char[] newCodeChars = newCode.ToCharArray();
 
             control.hiddenTextEntry.Text = newCode;
-            var CodeItemArray = control.CodeItemContainer.Children.Select(x => x as Container).ToArray();
+            var CodeItemArray = control.CodeItemContainer.Children.Select(x => x as CodeView).ToArray();
 
             bool isCodeEnteredProgramatically = (oldCodeLength == 0 && newCodeLength == control.CodeLength) || newCodeLength == oldCodeLength;
 
@@ -237,7 +240,7 @@ public partial class FreakyCodeView : ContentView
           nameof(CodeLength),
           typeof(int),
           typeof(FreakyCodeView),
-          Container.DefaultCodeLength,
+          CodeView.DefaultCodeLength,
           defaultBindingMode: BindingMode.OneWay,
           propertyChanged: CodeLengthPropertyChanged);
 
@@ -316,7 +319,7 @@ public partial class FreakyCodeView : ContentView
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.SecureMode((bool)newValue);
         }
     }
@@ -341,7 +344,7 @@ public partial class FreakyCodeView : ContentView
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.SetColor(color: (Color)newValue, ItemBorderColor: control.ItemBorderColor);
         }
     }
@@ -357,7 +360,7 @@ public partial class FreakyCodeView : ContentView
           nameof(ItemSpacing),
           typeof(double),
           typeof(FreakyCodeView),
-          Container.DefaultItemSpacing,
+          CodeView.DefaultItemSpacing,
           defaultBindingMode: BindingMode.OneWay,
           propertyChanged: ItemSpacingPropertyChanged);
 
@@ -382,7 +385,7 @@ public partial class FreakyCodeView : ContentView
           nameof(ItemSize),
           typeof(double),
           typeof(FreakyCodeView),
-          Container.DefaultItemSize,
+          CodeView.DefaultItemSize,
           defaultBindingMode: BindingMode.OneWay,
           propertyChanged: ItemSizePropertyChanged);
 
@@ -396,7 +399,7 @@ public partial class FreakyCodeView : ContentView
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.HeightRequest = (double)newValue;
             container.WidthRequest = (double)newValue;
             container.SetRadius(control.ItemShape);
@@ -423,7 +426,7 @@ public partial class FreakyCodeView : ContentView
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.SetRadius((ItemShape)newValue);
         }
     }
@@ -448,7 +451,7 @@ public partial class FreakyCodeView : ContentView
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.ItemFocusColor = (Color)newValue;
         }
     }
@@ -473,7 +476,7 @@ public partial class FreakyCodeView : ContentView
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.FocusAnimationType = (FocusAnimation)newValue;
         }
     }
@@ -500,7 +503,7 @@ public partial class FreakyCodeView : ContentView
         {
             foreach (var x in ((FreakyCodeView)bindable).CodeItemContainer.Children)
             {
-                var container = (Container)x;
+                var container = (CodeView)x;
                 container.SetColor(color: control.Color, ItemBorderColor: (Color)newValue);
             }
         }
@@ -525,7 +528,7 @@ public partial class FreakyCodeView : ContentView
     {
         foreach (var x in ((FreakyCodeView)bindable).CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.Item.BackgroundColor = (Color)newValue;
         }
     }
@@ -575,13 +578,13 @@ public partial class FreakyCodeView : ContentView
           nameof(FontSize),
           typeof(double),
           typeof(FreakyCodeView),
-          defaultValueCreator:FontSizeDefaultValueCreator,
+          defaultValueCreator: FontSizeDefaultValueCreator,
           defaultBindingMode: BindingMode.OneWay,
           propertyChanged: OnFontSizeChanged);
 
     private static object FontSizeDefaultValueCreator(BindableObject bindable)
     {
-        var itemSize =(double)ItemSizeProperty.DefaultValue;
+        var itemSize = (double)ItemSizeProperty.DefaultValue;
         double fontSize = itemSize / 2.0;
         return fontSize;
     }
@@ -591,7 +594,7 @@ public partial class FreakyCodeView : ContentView
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.CharLabel.FontSize = (double)newValue;
         }
     }
@@ -606,15 +609,16 @@ public partial class FreakyCodeView : ContentView
       nameof(FontFamily),
       typeof(string),
       typeof(FreakyCodeView),
-      propertyChanged:OnFontFamilyChanged);
+      propertyChanged: OnFontFamilyChanged);
 
     private static void OnFontFamilyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = ((FreakyCodeView)bindable);
         foreach (var x in control.CodeItemContainer.Children)
         {
-            var container = (Container)x;
+            var container = (CodeView)x;
             container.CharLabel.FontFamily = newValue?.ToString();
         }
     }
+    #endregion
 }

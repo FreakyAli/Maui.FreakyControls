@@ -3,7 +3,7 @@ using Microsoft.Maui.Controls.Shapes;
 
 namespace Maui.FreakyControls;
 
-internal class Container : Border
+internal class CodeView : Border
 {
     public const double DefaultItemSize = 50.0;
     public const double DefaultDotSize = 20.0;
@@ -22,7 +22,7 @@ internal class Container : Border
     public Border Dot { get; }
     public Label CharLabel { get; }
 
-    public Container()
+    public CodeView()
     {
         Padding = 0;
         BackgroundColor = DefaultItemBackgroundColor;
@@ -77,9 +77,7 @@ internal class Container : Border
     {
         this.color = color;
         this.ItemBorderColor = ItemBorderColor;
-
         SetBorderColor();
-
         Dot.BackgroundColor = color;
         CharLabel.TextColor = color;
     }
@@ -131,7 +129,6 @@ internal class Container : Border
     public void SetValueWithAnimation(char inputChar)
     {
         UnfocusAnimate();
-
         CharLabel.Text = inputChar.ToString();
         this.inputChar = inputChar.ToString();
         Grow();
