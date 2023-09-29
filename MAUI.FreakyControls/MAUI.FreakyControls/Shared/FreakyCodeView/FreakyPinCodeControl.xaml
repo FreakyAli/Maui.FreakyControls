@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
+             x:Name="this"
+             x:Class="Maui.FreakyControls.FreakyPinCodeControl">
+    <Grid RowDefinitions="20*, 80*">
+        <freakyControls:FreakyCodeView
+            IsEnabled="False"
+            Grid.Row="0"
+            CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
+            CodeValue="{Binding CodeValue,Source={x:Reference this}}"
+            CodeLength="{Binding CodeLength,Source={x:Reference this}}"
+            CodeInputType="{Binding CodeInputType,Source={x:Reference this}}"
+            CodeEntryCompletedCommand="{Binding CodeEntryCompletedCommand,Source={x:Reference this}}"
+            IsPassword="{Binding IsPassword,Source={x:Reference this}}"
+            Color="{Binding Color,Source={x:Reference this}}"
+            ItemSpacing="{Binding ItemSpacing,Source={x:Reference this}}"
+            ItemSize="{Binding ItemSize,Source={x:Reference this}}"
+            ItemShape="{Binding ItemShape,Source={x:Reference this}}"
+            ItemFocusColor="{Binding ItemFocusColor,Source={x:Reference this}}"
+            ItemFocusAnimation="{Binding ItemFocusAnimation,Source={x:Reference this}}"
+            ItemBackgroundColor="{Binding ItemBackgroundColor,Source={x:Reference this}}"
+            ItemBorderColor="{Binding ItemBorderColor,Source={x:Reference this}}"
+            ShouldAutoDismissKeyboard="{Binding ShouldAutoDismissKeyboard,Source={x:Reference this}}"
+            ItemBorderWidth="{Binding ItemBorderWidth,Source={x:Reference this}}"
+            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}" />
+        <Grid Grid.Row="1" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*">
+            <Button
+                Text="1"
+                FontSize="{Binding FontSize,Source={x:Reference this}}"
+                FontFamily="{Binding FontFamily,Source={x:Reference this}}"                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+                Grid.Row="0"
+                Grid.Column="0"/>
+            <Button
+                Text="2"
+                            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+                Grid.Row="0"
+                Grid.Column="1"/>
+            <Button
+                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+                Text="3"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                Grid.Row="0"
+                Grid.Column="2"/>
+            <Button
+                Text="4"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                Grid.Row="1"
+                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+                Grid.Column="0"/>
+            <Button
+                Text="5"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                Grid.Row="1"
+                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+                Grid.Column="1"/>
+            <Button
+                Text="6"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+
+                Grid.Row="1"
+                Grid.Column="2"/>
+            <Button
+                Text="7"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+
+                Grid.Row="2"
+                Grid.Column="0"/>
+            <Button
+                Text="8"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+
+                Grid.Row="2"
+                Grid.Column="1"/>
+            <Button
+                Text="9"            FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                Grid.Row="2"
+                                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+
+                Grid.Column="2"/>
+            <Button
+                                        FontSize="{Binding FontSize,Source={x:Reference this}}"
+            FontFamily="{Binding FontFamily,Source={x:Reference this}}"                    BackgroundColor="{Binding CancelBackgroundColor, Source={x:Reference this}}"
+
+                TextColor="{Binding KeyboardTextColor,Source={x:Reference this}}"
+                Text="Cancel"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                Grid.Row="3"
+                Grid.Column="0"/>
+            <Button
+                Text="0"
+                FontSize="{Binding FontSize,Source={x:Reference this}}"
+                FontFamily="{Binding FontFamily,Source={x:Reference this}}"
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                BackgroundColor="{Binding KeyboardBackgroundColor, Source={x:Reference this}}"
+
+                Grid.Row="3"
+                Grid.Column="1"/>
+            <ImageButton
+                                                BackgroundColor="{Binding BackspaceBackgroundColor, Source={x:Reference this}}"
+
+                WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
+                Source="{Binding BackspaceButtonSource,Source={x:Reference this}}"
+                Grid.Row="3"
+                Padding="30"
+                Aspect="AspectFit"
+                Grid.Column="2" />
+        </Grid>
+    </Grid>
+</ContentView>
+

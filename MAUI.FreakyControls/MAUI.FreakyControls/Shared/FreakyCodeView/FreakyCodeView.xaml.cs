@@ -549,7 +549,10 @@ public partial class FreakyCodeView : ContentView
 
     void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        this.Focus();
+        if (IsEnabled)
+        {
+            this.Focus();
+        }
     }
 
     public double ItemBorderWidth
