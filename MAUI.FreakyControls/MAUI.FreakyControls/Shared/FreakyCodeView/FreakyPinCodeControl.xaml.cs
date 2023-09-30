@@ -337,11 +337,10 @@ public partial class FreakyPinCodeControl : ContentView
 
     }
 
-    private void Backspace_Clicked(object sender, System.EventArgs e)
+    void Backspace_Tapped(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
     {
-        if(CodeValue.Length!=0)
-          CodeValue = CodeValue[..^1];
+        if (CodeValue.Length != 0)
+            CodeValue = CodeValue[..^1];
     }
-
     #endregion BindableProperties
 }

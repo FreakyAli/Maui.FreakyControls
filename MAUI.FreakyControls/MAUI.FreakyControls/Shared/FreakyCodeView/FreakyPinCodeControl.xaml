@@ -4,7 +4,7 @@
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
              x:Name="this"
              x:Class="Maui.FreakyControls.FreakyPinCodeControl">
-    <Grid RowDefinitions="25*, 75*">
+    <Grid RowSpacing="5" RowDefinitions="25*, 75*">
         <freakyControls:FreakyCodeView
             IsEnabled="False"
             Grid.Row="0"
@@ -25,7 +25,7 @@
             ItemBorderWidth="{Binding ItemBorderWidth,Source={x:Reference this}}"
             FontSize="{Binding FontSize,Source={x:Reference this}}"
             FontFamily="{Binding FontFamily,Source={x:Reference this}}" />
-        <Grid Grid.Row="1" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*">
+        <Grid Grid.Row="1" RowSpacing="10" ColumnSpacing="10" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*">
             <Button
                 Text="1"
                 Padding="0"
@@ -165,16 +165,20 @@
                 Grid.Row="3"
                 Grid.Column="1">
             </Button>
-            <ImageButton
-                Clicked="Backspace_Clicked"
+            <Image
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
                 BackgroundColor="{Binding BackspaceBackgroundColor, Source={x:Reference this}}"
                 WidthRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
                 HeightRequest="{Binding KeyboardButtonSizeRequest,Source={x:Reference this}}"
                 Source="{Binding BackspaceButtonSource,Source={x:Reference this}}"
                 Grid.Row="3"
-                Padding="30"
                 Aspect="AspectFit"
-                Grid.Column="2" />
+                Grid.Column="2" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Backspace_Tapped"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </Grid>
 </ContentView>
