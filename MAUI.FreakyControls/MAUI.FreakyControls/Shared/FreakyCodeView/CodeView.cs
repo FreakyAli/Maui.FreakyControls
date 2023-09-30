@@ -26,25 +26,20 @@ internal class CodeView : Border
     {
         Padding = 0;
         BackgroundColor = DefaultItemBackgroundColor;
-        StrokeShape = new RoundRectangle()
-        {
-            CornerRadius = (float)DefaultItemSize / 2,
-        };
+        StrokeShape = new Ellipse();
         Stroke = DefaultColor;
         HeightRequest = WidthRequest = DefaultItemSize;
         VerticalOptions = LayoutOptions.Center;
 
         Dot = new Border()
         {
-            BackgroundColor = DefaultColor,
-            StrokeShape = new RoundRectangle()
-            {
-                CornerRadius = (float)DefaultItemSize / 2,
-            },
-            HeightRequest = DefaultDotSize,
-            WidthRequest = DefaultDotSize,
+            StrokeShape = new Ellipse() { Fill = DefaultColor },
+            Stroke = DefaultColor,
+            StrokeThickness = 1,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center,
+            HeightRequest = DefaultDotSize,
+            WidthRequest = DefaultDotSize,
             Scale = 0,
             Padding = 0
         };
