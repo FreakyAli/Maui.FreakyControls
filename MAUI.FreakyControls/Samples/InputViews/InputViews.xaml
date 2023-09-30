@@ -14,12 +14,12 @@
                 ShouldAutoDismissKeyboard="True"
                 ItemSpacing="10"
                 CodeLength="5"
+                IsPassword="True"
                 Color="Black"
                 ItemBackgroundColor="White"
                 ItemBorderColor="Gray"
                 ItemFocusColor="Black"
-                CodeInputType="AlphaNumeric"
-                IsPassword="False" />
+                CodeInputType="AlphaNumeric" />
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>

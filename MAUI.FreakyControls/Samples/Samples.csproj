@@ -67,6 +67,7 @@
 	  <None Remove="JumpList\" />
 	  <None Remove="PinView\" />
 	  <None Remove="Resources\Images\backspace.svg" />
+	  <None Remove="Resources\Images\vecteezy_cute-panda-sleeping-and-smiling_6879744.jpg" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />

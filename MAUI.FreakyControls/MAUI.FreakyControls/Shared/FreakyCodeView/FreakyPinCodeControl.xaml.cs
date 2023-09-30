@@ -196,20 +196,6 @@ public partial class FreakyPinCodeControl : ContentView
           default(Color),
           defaultBindingMode: BindingMode.OneWay);
 
-    public bool ShouldAutoDismissKeyboard
-    {
-        get => (bool)GetValue(ShouldAutoDismissKeyboardProperty);
-        set => SetValue(ShouldAutoDismissKeyboardProperty, value);
-    }
-
-    public static readonly BindableProperty ShouldAutoDismissKeyboardProperty =
-      BindableProperty.Create(
-          nameof(ShouldAutoDismissKeyboard),
-          typeof(bool),
-          typeof(FreakyCodeView),
-          true,
-          defaultBindingMode: BindingMode.OneWay);
-
     public double ItemBorderWidth
     {
         get => (double)GetValue(ItemBorderWidthProperty);
@@ -327,18 +313,34 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(FreakyCodeView),
       100.0);
 
+    public int KeyboardButtonCornerRadius
+    {
+        get => (int)GetValue(KeyboardButtonCornerRadiusProperty);
+        set => SetValue(KeyboardButtonCornerRadiusProperty, value);
+    }
+
+    public static readonly BindableProperty KeyboardButtonCornerRadiusProperty = BindableProperty.Create(
+      nameof(KeyboardButtonCornerRadius),
+      typeof(int),
+      typeof(FreakyCodeView),
+      10);
+
     private void Keyboard_Clicked(object sender, System.EventArgs e)
     {
         var button = (Button)sender;
         var text = button.Text;
+        this.CodeValue += text;
     }
 
     private void Cancel_Clicked(object sender, System.EventArgs e)
     {
+
     }
 
     private void Backspace_Clicked(object sender, System.EventArgs e)
     {
+        if(CodeValue.Length!=0)
+          CodeValue = CodeValue[..^1];
     }
 
     #endregion BindableProperties

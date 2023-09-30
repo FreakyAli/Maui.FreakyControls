@@ -4,19 +4,29 @@
              x:Class="Samples.PinView.PinView"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="PinView">
-    <Grid RowDefinitions="*,3*">
+    <Grid RowDefinitions="*,Auto,3*">
 
-        <Button Text="Some crap" Grid.Row="0" />
+        <Image
+            Aspect="AspectFit"
+            Source="panda.jpg"
+            Grid.Row="0" />
+
+        <Label Grid.Row="1" FontSize="Large" HorizontalTextAlignment="Center" Text="Enter your pin to continue!"/>
+
         <freakyControls:FreakyPinCodeControl
             ItemBackgroundColor="White"
+            KeyboardButtonCornerRadius="50"
+            FontSize="20"
             CodeLength="6"
             ItemSpacing="10"
+            ItemSize="50"
             ItemBorderColor="Black"
             KeyboardButtonSizeRequest="100"
+            KeyboardBackgroundColor="LightGray"
             ItemBorderWidth="5"
             ItemFocusAnimation="Scale"
-            ItemShape="Squircle"
+            ItemShape="Circle"
             BackspaceButtonSource="backspace.png"
-            Grid.Row="1" />
+            Grid.Row="2" />
     </Grid>
 </ContentPage>
