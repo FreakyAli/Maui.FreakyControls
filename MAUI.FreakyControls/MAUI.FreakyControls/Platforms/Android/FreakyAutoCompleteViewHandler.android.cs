@@ -116,16 +116,6 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         handler.PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
 
-    public static void MapKeyboard(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView?.UpdateKeyboard(view);
-    }
-
-    public static void MapCharacterSpacing(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView?.UpdateCharacterSpacing(view);
-    }
-
     public static void MapPlaceholderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView?.SetPlaceholderColor(view.PlaceholderColor);

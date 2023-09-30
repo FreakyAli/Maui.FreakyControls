@@ -143,16 +143,6 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         }
     }
 
-    public static void MapKeyboard(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView?.InputTextField?.UpdateKeyboard(view);
-    }
-
-    public static void MapCharacterSpacing(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView.InputTextField.UpdateCharacterSpacing(view);
-    }
-
     public static void MapAllowCopyPaste(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.InputTextField.AllowCopyPaste = view.AllowCopyPaste;
