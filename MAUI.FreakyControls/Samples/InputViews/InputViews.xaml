@@ -9,7 +9,6 @@
     x:DataType="inputViews:InputViewModel">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
-
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry
@@ -60,6 +59,51 @@
                     Keyboard="Chat"
                     Placeholder="This is a freaky editor"
                     TextColor="Purple" />
+            </Border>
+
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <Ellipse/>
+                </Border.StrokeShape>
+                <Border HeightRequest="50" WidthRequest="50">
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
+            </Border>
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <RoundRectangle/>
+                </Border.StrokeShape>
+                <Border>
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
+            </Border>
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="50"/>
+                </Border.StrokeShape>
+                <Border HeightRequest="50" WidthRequest="50">
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
+            </Border>
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <RoundRectangle/>
+                </Border.StrokeShape>
+                <Border>
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
             </Border>
         </VerticalStackLayout>
     </ScrollView>
