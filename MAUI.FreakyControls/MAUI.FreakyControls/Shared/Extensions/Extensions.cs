@@ -42,7 +42,7 @@ public static class Extensions
             builder.UseSkiaSharp();
         }
         builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
-        builder.ConfigureEffects(effects =>effects.AddEffects());
+        builder.ConfigureEffects(effects => effects.AddEffects());
     }
 
     private static void AddEffects(this IEffectsBuilder effects)
@@ -61,6 +61,8 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
         handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
+        handlers.AddHandler(typeof(FreakySwitch), typeof(FreakySwitchHandler));
+        handlers.AddHandler(typeof(FreakyAutoCompleteView), typeof(FreakyAutoCompleteViewHandler));
     }
 
     [Obsolete("Please use InitializeFreakyControls instead.", true)]

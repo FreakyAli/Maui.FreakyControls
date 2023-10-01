@@ -1,13 +1,14 @@
-﻿using SkiaSharp;
+﻿using Maui.FreakyControls.Extensions;
+using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
-using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
 public class FreakyJumpList : SKCanvasView, IDisposable
 {
     private IDictionary<string, SKPoint> charLocationDictionary;
+
     public event EventHandler<FreakyCharacterChangedEventArgs> SelectedCharacterChanged;
 
     public static readonly BindableProperty CharacterColorProperty = BindableProperty.Create(

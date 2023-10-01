@@ -4,7 +4,7 @@ namespace Samples.JumpList;
 
 public class EnglishAlphabetProvider : IAlphabetProvider
 {
-    private string alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
+    private readonly string alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
 
     public IEnumerable<char> GetAlphabet()
     {
@@ -16,6 +16,6 @@ public class EnglishAlphabetProvider : IAlphabetProvider
 
     public int GetCount()
     {
-       return alphabets.Length;
+        return alphabets.Length;
     }
 }
