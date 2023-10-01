@@ -1,4 +1,5 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Controls.Shapes;
 
 namespace Maui.FreakyControls;
@@ -58,14 +59,14 @@ internal class CodeView : Border
         Content = Dot;
     }
 
-    private void Grow()
+    private async Task GrowAsync()
     {
-        Content.ScaleTo(1.0, 100);
+        await Content.ScaleTo(1.0, 100);
     }
 
-    private void Shrink()
+    private async Task ShrinkAsync()
     {
-        Content.ScaleTo(0, 100);
+        await Content.ScaleTo(0, 100);
     }
 
     public void SetColor(Color color, Color ItemBorderColor)
@@ -106,18 +107,18 @@ internal class CodeView : Border
 
         if (!string.IsNullOrEmpty(inputChar))
         {
-            Grow();
+            GrowAsync().RunConcurrently();
         }
         else
         {
-            Shrink();
+            ShrinkAsync().RunConcurrently();
         }
     }
 
     public void ClearValueWithAnimation()
     {
         inputChar = null;
-        Shrink();
+        ShrinkAsync().RunConcurrently();
     }
 
     public void SetValueWithAnimation(char inputChar)
@@ -125,7 +126,7 @@ internal class CodeView : Border
         UnfocusAnimate();
         CharLabel.Text = inputChar.ToString();
         this.inputChar = inputChar.ToString();
-        Grow();
+        GrowAsync().RunConcurrently();
     }
 
     public async void FocusAnimate()
@@ -143,10 +144,10 @@ internal class CodeView : Border
         }
     }
 
-    public void UnfocusAnimate()
+    public async void UnfocusAnimate()
     {
         SetBorderColor();
-        this.ScaleTo(1, 100);
+        await this.ScaleTo(1, 100);
     }
 
     private void SetBorderColor()

@@ -25,7 +25,7 @@ public partial class FreakyPinCodeControl : ContentView
        BindableProperty.Create(
            nameof(CodeValue),
            typeof(string),
-           typeof(FreakyCodeView),
+           typeof(FreakyPinCodeControl),
            string.Empty,
            defaultBindingMode: BindingMode.TwoWay);
 
@@ -39,7 +39,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(CodeLength),
           typeof(int),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           CodeView.DefaultCodeLength,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -53,7 +53,7 @@ public partial class FreakyPinCodeControl : ContentView
        BindableProperty.Create(
            nameof(CodeInputType),
            typeof(KeyboardType),
-           typeof(FreakyCodeView),
+           typeof(FreakyPinCodeControl),
             KeyboardType.Numeric,
            defaultBindingMode: BindingMode.OneWay);
 
@@ -67,7 +67,7 @@ public partial class FreakyPinCodeControl : ContentView
        BindableProperty.Create(
           nameof(CodeEntryCompletedCommand),
           typeof(ICommand),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           null);
 
     public bool IsPassword
@@ -80,7 +80,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(IsPassword),
           typeof(bool),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           true,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -94,7 +94,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(Color),
           typeof(Color),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           Colors.Black,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -108,7 +108,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(ItemSpacing),
           typeof(double),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           CodeView.DefaultItemSpacing,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -122,7 +122,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(ItemSize),
           typeof(double),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           CodeView.DefaultItemSize,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -136,7 +136,7 @@ public partial class FreakyPinCodeControl : ContentView
        BindableProperty.Create(
            nameof(ItemShape),
            typeof(ItemShape),
-           typeof(FreakyCodeView),
+           typeof(FreakyPinCodeControl),
            ItemShape.Circle,
            defaultBindingMode: BindingMode.OneWay);
 
@@ -150,7 +150,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(ItemFocusColor),
           typeof(Color),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           Colors.Black,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -164,7 +164,7 @@ public partial class FreakyPinCodeControl : ContentView
        BindableProperty.Create(
            nameof(ItemFocusAnimation),
            typeof(FocusAnimation),
-           typeof(FreakyCodeView),
+           typeof(FreakyPinCodeControl),
            default(FocusAnimation),
            defaultBindingMode: BindingMode.OneWay);
 
@@ -178,7 +178,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(ItemBorderColor),
           typeof(Color),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           Colors.Black,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -192,7 +192,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(ItemBackgroundColor),
           typeof(Color),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           default(Color),
           defaultBindingMode: BindingMode.OneWay);
 
@@ -206,7 +206,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(ItemBorderWidth),
           typeof(double),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           5.0,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -221,7 +221,7 @@ public partial class FreakyPinCodeControl : ContentView
       BindableProperty.Create(
           nameof(FontSize),
           typeof(double),
-          typeof(FreakyCodeView),
+          typeof(FreakyPinCodeControl),
           FreakyCodeView.FontSizeProperty.DefaultValue,
           defaultBindingMode: BindingMode.OneWay);
 
@@ -234,7 +234,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(
       nameof(FontFamily),
       typeof(string),
-      typeof(FreakyCodeView));
+      typeof(FreakyPinCodeControl));
 
     private void FreakyCodeView_CodeEntryCompleted(object sender, FreakyCodeCompletedEventArgs e)
     {
@@ -250,8 +250,8 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty BackspaceButtonSourceProperty = BindableProperty.Create(
       nameof(BackspaceButtonSource),
       typeof(ImageSource),
-      typeof(FreakyCodeView),
-      null);
+      typeof(FreakyPinCodeControl),
+      default(ImageSource));
 
     public Color KeyboardBackgroundColor
     {
@@ -262,7 +262,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty KeyboardBackgroundColorProperty = BindableProperty.Create(
       nameof(KeyboardBackgroundColor),
       typeof(Color),
-      typeof(FreakyCodeView),
+      typeof(FreakyPinCodeControl),
       Colors.White);
 
     public Color CancelBackgroundColor
@@ -274,7 +274,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty CancelBackgroundColorProperty = BindableProperty.Create(
       nameof(CancelBackgroundColor),
       typeof(Color),
-      typeof(FreakyCodeView),
+      typeof(FreakyPinCodeControl),
       Colors.White);
 
     public Color BackspaceBackgroundColor
@@ -286,7 +286,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty BackspaceBackgroundColorProperty = BindableProperty.Create(
       nameof(BackspaceBackgroundColor),
       typeof(Color),
-      typeof(FreakyCodeView),
+      typeof(FreakyPinCodeControl),
       Colors.White);
 
     public Color KeyboardTextColor
@@ -298,7 +298,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty KeyboardTextColorProperty = BindableProperty.Create(
       nameof(KeyboardTextColor),
       typeof(Color),
-      typeof(FreakyCodeView),
+      typeof(FreakyPinCodeControl),
       Colors.Black);
 
     public double KeyboardButtonSizeRequest
@@ -310,7 +310,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty KeyboardButtonSizeRequestProperty = BindableProperty.Create(
       nameof(BackspaceBackgroundColor),
       typeof(double),
-      typeof(FreakyCodeView),
+      typeof(FreakyPinCodeControl),
       100.0);
 
     public int KeyboardButtonCornerRadius
@@ -322,7 +322,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty KeyboardButtonCornerRadiusProperty = BindableProperty.Create(
       nameof(KeyboardButtonCornerRadius),
       typeof(int),
-      typeof(FreakyCodeView),
+      typeof(FreakyPinCodeControl),
       10);
 
     public Thickness CancelButtonPadding
@@ -334,7 +334,7 @@ public partial class FreakyPinCodeControl : ContentView
     public static readonly BindableProperty CancelButtonPaddingProperty = BindableProperty.Create(
       nameof(CancelButtonPadding),
       typeof(Thickness),
-      typeof(FreakyCodeView),
+      typeof(FreakyPinCodeControl),
       new Thickness(20));
 
     private void Keyboard_Clicked(object sender, System.EventArgs e)
