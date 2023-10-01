@@ -47,6 +47,14 @@
 		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
+	  <AndroidResource Remove="Shared\FreakyPinView\**" />
+	  <Compile Remove="Shared\FreakyPinView\**" />
+	  <EmbeddedResource Remove="Shared\FreakyPinView\**" />
+	  <MauiCss Remove="Shared\FreakyPinView\**" />
+	  <MauiXaml Remove="Shared\FreakyPinView\**" />
+	  <None Remove="Shared\FreakyPinView\**" />
+	</ItemGroup>
+	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
 		<None Remove="Platforms\Android\" />
 		<None Remove="Shared\" />
@@ -83,21 +91,17 @@
 		<None Remove="Shared\FreakyRadioButton\" />
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyJumpList\" />
+		<None Remove="Shared\FreakyAutoCompleteView\" />
+		<None Remove="Shared\FreakyPinView\" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Platforms\iOS\" />
-		<Folder Include="Platforms\Android\" />
-		<Folder Include="Shared\" />
 		<Folder Include="Shared\FreakyEditor\" />
 		<Folder Include="Shared\FreakyEntry\" />
-		<Folder Include="Shared\Enums\" />
 		<Folder Include="Shared\Extensions\" />
-		<Folder Include="Platforms\Android\NativeControls\" />
 		<Folder Include="Shared\Converters\" />
 		<Folder Include="Shared\Controls\" />
 		<Folder Include="Shared\FreakySvgImageView\" />
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
-		<Folder Include="Platforms\iOS\NativeControls\" />
 		<Folder Include="Shared\FreakyTextInputLayout\" />
 		<Folder Include="Shared\FreakyButton\" />
 		<Folder Include="Shared\Helpers\" />
@@ -110,13 +114,12 @@
 		<Folder Include="Platforms\Windows\" />
 		<Folder Include="Platforms\Android\NativeControls\Signature\" />
 		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
-		<Folder Include="Shared\EventArgs\" />
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.5" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 	</ItemGroup>
 	<ItemGroup>
@@ -135,5 +138,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="clear_icon.svg" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Platforms\Android\FreakyAutoCompleteView.android.cs" />
 	</ItemGroup>
 </Project>

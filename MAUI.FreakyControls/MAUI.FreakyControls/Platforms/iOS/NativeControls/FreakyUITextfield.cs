@@ -1,7 +1,6 @@
 ﻿using Foundation;
 using Microsoft.Maui.Platform;
 using ObjCRuntime;
-using UIKit;
 
 namespace Maui.FreakyControls.Platforms.iOS.NativeControls
 {

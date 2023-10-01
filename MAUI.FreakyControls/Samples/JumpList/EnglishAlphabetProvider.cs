@@ -16,6 +16,6 @@ public class EnglishAlphabetProvider : IAlphabetProvider
 
     public int GetCount()
     {
-       return alphabets.Length;
+        return alphabets.Length;
     }
 }

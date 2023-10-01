@@ -23,10 +23,10 @@ public partial class MainPage : ContentPage
     private async void ListView_ItemTapped(System.Object sender, Microsoft.Maui.Controls.ItemTappedEventArgs e)
     {
         string route = e.Item.ToString();
-        if(route == AppShell.jumpList)
+        if (route == AppShell.jumpList)
         {
-           var permission = await Samples.PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
-            if(permission!=PermissionStatus.Granted)
+            var permission = await Samples.PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
+            if (permission != PermissionStatus.Granted)
             {
                 await DisplayAlert("Error", "Needs vibration permission for haptik feedback", "Ok");
                 return;
