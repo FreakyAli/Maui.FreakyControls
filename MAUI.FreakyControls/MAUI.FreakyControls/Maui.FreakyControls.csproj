@@ -83,6 +83,7 @@
 		<None Remove="Shared\FreakyRadioButton\" />
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyJumpList\" />
+		<None Remove="Shared\FreakySwitch\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\iOS\" />
@@ -114,6 +115,7 @@
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
+		<Folder Include="Shared\FreakySwitch\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.5" />
