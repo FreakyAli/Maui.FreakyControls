@@ -1,4 +1,5 @@
 ﻿using static Microsoft.Maui.ApplicationModel.Permissions;
+
 namespace Samples;
 
 public static class PermissionHelper

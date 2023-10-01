@@ -1,10 +1,9 @@
-﻿using Maui.FreakyControls.Extensions;
+﻿using System.Drawing;
+using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.iOS;
 using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
-using System.Drawing;
 using UIKit;
 
 namespace Maui.FreakyControls;
