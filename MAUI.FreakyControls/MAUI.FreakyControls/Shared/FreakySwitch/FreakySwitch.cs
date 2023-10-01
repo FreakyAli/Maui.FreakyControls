@@ -8,7 +8,7 @@ namespace Maui.FreakyControls;
 public class FreakySwitch : Switch
 {
 }
-#if IOS
+#if IOS || MACCATALYST 
 public partial class FreakySwitchHandler : SwitchHandler
 {
 }
