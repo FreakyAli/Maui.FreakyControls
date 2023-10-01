@@ -45,9 +45,11 @@
                                             iOS=25,
                                             Android=40}"
                     Threshold="1"
+                    DisplayMemberPath="Name"
+                    TextMemberPath="Name"
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
-                    TextChanged="FreakyAutoCompleteView_TextChanged"
-                    ItemsSource="{Binding NamesCollection}" />
+                    TextChanged="FreakyAutoCompleteView_Member_TextChanged"
+                    ItemsSource="{Binding NamesCollectionModel}" />
             </Border>
 
             <Label Text="Freaky Entry below: " TextColor="Black" />

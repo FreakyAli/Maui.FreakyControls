@@ -16,7 +16,6 @@ public partial class InputViews : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        //XfPinView.FocusBox();
     }
 
     private void FreakyAutoCompleteView_QuerySubmitted(object sender, Maui.FreakyControls.FreakyAutoCompleteViewQuerySubmittedEventArgs e)
@@ -28,6 +27,14 @@ public partial class InputViews : ContentPage
         var autoComplete = (FreakyAutoCompleteView)sender;
         viewModel.NamesCollection = viewModel.Names.
             Where(s => s.StartsWith(autoComplete.Text, StringComparison.InvariantCultureIgnoreCase)).
+            ToObservable();
+    }
+
+    private void FreakyAutoCompleteView_Member_TextChanged(object sender, Maui.FreakyControls.FreakyAutoCompleteViewTextChangedEventArgs e)
+    {
+        var autoComplete = (FreakyAutoCompleteView)sender;
+        viewModel.NamesCollectionModel = viewModel.NamesModel.
+            Where(s => s.Name.StartsWith(autoComplete.Text, StringComparison.InvariantCultureIgnoreCase)).
             ToObservable();
     }
 }
