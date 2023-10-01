@@ -12,9 +12,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.4.5</AssemblyVersion>
-		<AssemblyFileVersion>0.4.5</AssemblyFileVersion>
-		<Version>0.4.5</Version>
+		<AssemblyVersion>0.4.6</AssemblyVersion>
+		<AssemblyFileVersion>0.4.6</AssemblyFileVersion>
+		<Version>0.4.6-pre</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -25,8 +25,8 @@
 		<PackageIcon>maui_toolkit.png</PackageIcon>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
-		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls Button Checkbox uikit Signature Radiobutton SignatureView Svg SvgImageView CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>FreakyButton is here!</PackageReleaseNotes>
+		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
+		<PackageReleaseNotes>FreakySwitch is here!</PackageReleaseNotes>
 		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
@@ -91,6 +91,7 @@
 		<None Remove="Shared\FreakyRadioButton\" />
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyJumpList\" />
+		<None Remove="Shared\FreakySwitch\" />
 		<None Remove="Shared\FreakyAutoCompleteView\" />
 		<None Remove="Shared\FreakyPinView\" />
 	</ItemGroup>
@@ -117,6 +118,7 @@
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
+		<Folder Include="Shared\FreakySwitch\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
