@@ -159,34 +159,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
           typeof(FreakyAutoCompleteView),
           default(object));
 
-    public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(
-            nameof(CharacterSpacing),
-            typeof(double),
-            typeof(FreakyAutoCompleteView),
-            default(double)
-            );
-
-    public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
-        nameof(Keyboard),
-        typeof(Microsoft.Maui.Keyboard),
-        typeof(FreakyAutoCompleteView),
-        Keyboard.Default,
-        coerceValue: (o, v) => (Keyboard)v ?? Keyboard.Default
-        );
-
-    [System.ComponentModel.TypeConverter(typeof(Microsoft.Maui.Converters.KeyboardTypeConverter))]
-    public Keyboard Keyboard
-    {
-        get => (Keyboard)GetValue(KeyboardProperty);
-        set => SetValue(KeyboardProperty, value);
-    }
-
-    public double CharacterSpacing
-    {
-        get => (double)GetValue(CharacterSpacingProperty);
-        set => SetValue(CharacterSpacingProperty, value);
-    }
-
     public object ImageCommandParameter
     {
         get => GetValue(ImageCommandParameterProperty);

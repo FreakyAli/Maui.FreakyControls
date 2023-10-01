@@ -13,7 +13,6 @@
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
                     Placeholder="Autocomplete Left"
-                    CharacterSpacing="10"
                     ImageAlignment="Right"
                     ImageCommand="{Binding ImageWasTappedCommand}"
                     ImageHeight="{OnPlatform 25,
