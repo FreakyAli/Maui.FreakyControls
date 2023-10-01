@@ -27,7 +27,7 @@
                         FontAttributes="Bold"
                         TextColor="Black"
                         FontSize="Large"
-                        Text="{Binding ., Mode=OneTime}" />
+                        Text="{Binding ., Mode=OneTime}"/>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

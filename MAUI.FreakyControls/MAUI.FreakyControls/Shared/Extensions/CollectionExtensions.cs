@@ -1,21 +1,4 @@
-﻿#if MACCATALYST
-using Maui.FreakyControls.Platforms.MacCatalyst;
-#endif
-#if WINDOWS
-using Maui.FreakyControls.Platforms.Windows;
-#endif
-#if ANDROID
-
-#endif
-#if IOS
-using Maui.FreakyControls.Platforms.iOS;
-#endif
-#if IOS || MACCATALYST
-using NativeImage = UIKit.UIImage;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
-#endif
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace Maui.FreakyControls.Extensions;
 

@@ -170,9 +170,9 @@ public class FreakyJumpList : SKCanvasView, IDisposable
             throw new ArgumentNullException(nameof(e) + typeof(SKPaintSurfaceEventArgs) + " cannot be null");
         }
 
-        if (this.AlphabetProvider == null || this.AlphabetProvider.GetCount() == 0)
+        if(this.AlphabetProvider== null || this.AlphabetProvider.GetCount() == 0)
         {
-            throw new InvalidDataException($"{nameof(AlphabetProvider)} cannot be null or empty, make sure you create an IAlphabetProvider instance");
+            throw new InvalidDataException($"{nameof(AlphabetProvider)} cannot be null or empty, make sure you create an IAlphabetProvider instance" );
         }
 
         var info = e.Info;

@@ -11,7 +11,11 @@ public partial class AppShell : Shell
     internal const string signaturePreview = "ImageDisplay";
     internal const string signatureView = "SignatureView";
     internal const string textInputLayout = "TextInputLayouts";
+<<<<<<< HEAD
     internal const string jumpList = "JumpList";
+=======
+    internal const string jumpList = "JumpList"; 
+>>>>>>> master
 
     public AppShell()
     {

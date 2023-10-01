@@ -5,9 +5,8 @@ namespace Samples.JumpList;
 
 public partial class JumpListView : ContentPage
 {
-    public static readonly IAlphabetProvider AlphabetProvider
+    public readonly static IAlphabetProvider AlphabetProvider
         = new EnglishAlphabetProvider();
-
     private string CurrentAlphabet = string.Empty;
 
     public JumpListView()

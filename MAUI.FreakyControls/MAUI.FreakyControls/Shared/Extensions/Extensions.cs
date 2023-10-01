@@ -10,12 +10,10 @@ using Maui.FreakyControls.Platforms.MacCatalyst;
 using Maui.FreakyControls.Platforms.Windows;
 #endif
 #if ANDROID
-
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Maui.FreakyControls.Platforms.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
-
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;
@@ -28,7 +26,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 namespace Maui.FreakyControls.Extensions;
 
 public static class Extensions
-{
+{ 
     public static void ExecuteCommandIfAvailable(this ICommand command, object parameter = null)
     {
         if (command?.CanExecute(parameter) == true)
@@ -74,7 +72,6 @@ public static class Extensions
     public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder) => mauiAppBuilder.UseSkiaSharp();
 
 #if ANDROID || IOS || MACCATALYST
-
     /// <summary>
     /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
     /// </summary>
