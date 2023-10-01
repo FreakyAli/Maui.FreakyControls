@@ -55,7 +55,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         }
     }
 
-
     public virtual void SetTextColor(Color color)
     {
         this.SetTextColor(color.ToPlatform());
@@ -81,7 +80,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                 DismissDropDown();
         }
     }
-
 
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
@@ -130,7 +128,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     {
         //Override to avoid updating textbox on itemclick. We'll do this later using TextMemberPath and raise the proper TextChanged event then
     }
-
 
     public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
     public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;

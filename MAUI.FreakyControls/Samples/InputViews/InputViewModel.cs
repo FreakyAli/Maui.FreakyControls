@@ -12,7 +12,6 @@ public class InputViewModel : MainViewModel
     public List<string> Names { get; }
     public List<AutoCompleteModel> NamesModel { get; }
 
-
     public string Pin
     {
         get => pin;
