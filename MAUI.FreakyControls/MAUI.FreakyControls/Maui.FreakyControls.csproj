@@ -27,6 +27,7 @@
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
 		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
 		<PackageReleaseNotes>FreakySwitch is here!</PackageReleaseNotes>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
@@ -73,6 +74,7 @@
 		<None Remove="Platforms\iOS\NativeControls\" />
 		<None Remove="Shared\FreakyTextInputLayout\" />
 		<None Include="maui_toolkit.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="readme.md" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
 		<None Remove="Shared\FreakyButton\" />
 		<None Remove="Shared\Helpers\" />
