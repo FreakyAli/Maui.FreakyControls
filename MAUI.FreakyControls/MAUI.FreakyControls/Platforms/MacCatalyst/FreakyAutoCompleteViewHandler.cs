@@ -1,6 +1,5 @@
 ﻿using Microsoft.Maui.Handlers;
 using UIKit;
-
 namespace Maui.FreakyControls;
 
 public partial class FreakyAutoCompleteViewHandler : ViewHandler<View, UIView>

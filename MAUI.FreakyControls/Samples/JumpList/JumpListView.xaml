@@ -19,7 +19,7 @@
             ItemsUpdatingScrollMode="KeepLastItemInView"
             VerticalScrollBarVisibility="Never">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>

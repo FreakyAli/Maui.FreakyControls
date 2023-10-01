@@ -1,4 +1,4 @@
-﻿namespace Maui.FreakyControls;
+namespace Maui.FreakyControls;
 
 public partial class FreakyAutoCompleteViewHandler
 {

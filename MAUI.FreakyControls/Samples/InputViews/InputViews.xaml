@@ -32,7 +32,6 @@
             <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
-                    DisplayMemberPath="Name"
                     ImageAlignment="Left"
                     ImageCommand="{Binding ImageWasTappedCommand}"
                     ImageHeight="{OnPlatform 25,
@@ -43,12 +42,12 @@
                     ImageWidth="{OnPlatform 25,
                                             iOS=25,
                                             Android=40}"
-                    ItemsSource="{Binding NamesCollectionModel}"
-                    Placeholder="Autocomplete Right"
+                    Threshold="1"
+                    DisplayMemberPath="Name"
+                    TextMemberPath="Name"
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
                     TextChanged="FreakyAutoCompleteView_Member_TextChanged"
-                    TextMemberPath="Name"
-                    Threshold="1" />
+                    ItemsSource="{Binding NamesCollectionModel}" />
             </Border>
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
