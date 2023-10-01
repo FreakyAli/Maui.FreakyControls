@@ -5,15 +5,16 @@ namespace Samples.JumpList;
 
 public partial class JumpListView : ContentPage
 {
-    public readonly static IAlphabetProvider AlphabetProvider
+    public static readonly IAlphabetProvider AlphabetProvider
         = new EnglishAlphabetProvider();
+
     private string CurrentAlphabet = string.Empty;
 
     public JumpListView()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         BindingContext = new JumpListViewModel();
-	}
+    }
 
     private void SkiaJumpList_OnSelectedCharacterChanged(object sender, FreakyCharacterChangedEventArgs e)
     {
@@ -45,6 +46,7 @@ public partial class JumpListView : ContentPage
                      jumplistIdentifier.ScaleTo(1, length: 500, easing: Easing.BounceIn)
                 );
                 break;
+
             case SKTouchAction.Released:
             case SKTouchAction.Cancelled:
                 await Task.WhenAny<bool>

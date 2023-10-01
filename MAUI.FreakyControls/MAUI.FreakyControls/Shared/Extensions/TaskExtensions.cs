@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text;
-
-namespace Maui.FreakyControls.Extensions;
+﻿namespace Maui.FreakyControls.Extensions;
 
 public static class TaskExtensions
 {
