@@ -34,7 +34,7 @@ public class InputViewModel : MainViewModel
     {
         Names = names.OrderBy(x => x).ToList();
         NamesCollection = Names.ToObservable();
-        NamesModel = names.Select(x => new AutoCompleteModel { Name=x}).ToList();
-        NamesCollectionModel= NamesModel.ToObservable();
+        NamesModel = names.Select(x => new AutoCompleteModel { Name = x }).ToList();
+        NamesCollectionModel = NamesModel.ToObservable();
     }
 }

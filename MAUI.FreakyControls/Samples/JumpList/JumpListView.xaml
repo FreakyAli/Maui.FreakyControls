@@ -1,33 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Samples.JumpList.JumpListView"
-             xmlns:vm="clr-namespace:Samples.JumpList"
-             x:DataType="vm:JumpListViewModel"
-             xmlns:provider="clr-namespace:Samples.JumpList"
-             xmlns:controls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             Title="JumpListView">
+<ContentPage
+    x:Class="Samples.JumpList.JumpListView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    xmlns:provider="clr-namespace:Samples.JumpList"
+    xmlns:vm="clr-namespace:Samples.JumpList"
+    Title="JumpListView"
+    x:DataType="vm:JumpListViewModel">
     <AbsoluteLayout>
         <CollectionView
             x:Name="collectionView"
             AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="All"
-            ItemsSource="{Binding Names, Mode=OneTime}"
             HorizontalScrollBarVisibility="Never"
             ItemSizingStrategy="MeasureFirstItem"
+            ItemsSource="{Binding Names, Mode=OneTime}"
             ItemsUpdatingScrollMode="KeepLastItemInView"
             VerticalScrollBarVisibility="Never">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border Stroke="White">
                         <Label
-                        FontAttributes="Bold"
-                        TextColor="Black"
-                        FontSize="Large"
-                        Text="{Binding ., Mode=OneTime}"/>
+                            FontAttributes="Bold"
+                            FontSize="Large"
+                            Text="{Binding ., Mode=OneTime}"
+                            TextColor="Black" />
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -35,23 +36,23 @@
         <controls:FreakyJumpList
             x:Name="JumpList"
             AbsoluteLayout.LayoutBounds="1,0.5,0.1,0.7"
-            CharacterColor="{StaticResource Primary}"
-            SelectedCharacterColor="Black"
-            HasHapticFeedback="True"
             AbsoluteLayout.LayoutFlags="All"
             AlphabetProvider="{x:Static provider:JumpListView.AlphabetProvider}"
+            CharacterColor="{StaticResource Primary}"
+            HasHapticFeedback="True"
             SelectedCharacterChanged="SkiaJumpList_OnSelectedCharacterChanged"
+            SelectedCharacterColor="Black"
             Touch="JumpList_OnTouch" />
         <Border
             x:Name="jumplistIdentifier"
             AbsoluteLayout.LayoutBounds="0.7,0.1,0,0"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            Stroke="{StaticResource Primary}"
             BackgroundColor="{StaticResource Primary}"
             HeightRequest="60"
             IsVisible="False"
             Opacity="0.7"
             Scale="0.9"
+            Stroke="{StaticResource Primary}"
             WidthRequest="60">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="30" />

@@ -23,7 +23,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     private static void OnTextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var box = (FreakyAutoCompleteView)bindable;
-        if (!box.suppressTextChangedEvent) 
+        if (!box.suppressTextChangedEvent)
             box.textChangedEventManager.HandleEvent(box, new FreakyAutoCompleteViewTextChangedEventArgs("", TextChangeReason.ProgrammaticChange), nameof(TextChanged));
     }
 
@@ -220,7 +220,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
 
     public void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs args)
     {
-        suppressTextChangedEvent = true; 
+        suppressTextChangedEvent = true;
         Text = args.Text;
         suppressTextChangedEvent = false;
         textChangedEventManager.HandleEvent(this, args, nameof(TextChanged));

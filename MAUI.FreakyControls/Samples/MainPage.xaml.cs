@@ -24,10 +24,10 @@ public partial class MainPage : ContentPage
     {
         string route = e.Item.ToString();
 
-        if(route == AppShell.jumpList)
+        if (route == AppShell.jumpList)
         {
-           var permission = await Samples.PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
-            if(permission!=PermissionStatus.Granted)
+            var permission = await Samples.PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
+            if (permission != PermissionStatus.Granted)
             {
                 await DisplayAlert("Error", "Needs vibration permission for haptik feedback", "Ok");
                 return;
