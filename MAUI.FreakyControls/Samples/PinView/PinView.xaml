@@ -19,6 +19,7 @@
             KeyboardButtonCornerRadius="10"
             CodeLength="6"
             ItemSpacing="5"
+            CancelButtonPadding="25"
             ItemSize="50"
             ItemBorderColor="Black"
             KeyboardBackgroundColor="LightGray"

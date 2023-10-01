@@ -325,6 +325,18 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(FreakyCodeView),
       10);
 
+    public Thickness CancelButtonPadding
+    {
+        get => (Thickness)GetValue(CancelButtonPaddingProperty);
+        set => SetValue(CancelButtonPaddingProperty, value);
+    }
+
+    public static readonly BindableProperty CancelButtonPaddingProperty = BindableProperty.Create(
+      nameof(CancelButtonPadding),
+      typeof(Thickness),
+      typeof(FreakyCodeView),
+      new Thickness(20));
+
     private void Keyboard_Clicked(object sender, System.EventArgs e)
     {
         var button = (Button)sender;
@@ -337,7 +349,7 @@ public partial class FreakyPinCodeControl : ContentView
 
     }
 
-    void Backspace_Tapped(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
+    void ImageButton_Clicked(System.Object sender, System.EventArgs e)
     {
         if (CodeValue.Length != 0)
             CodeValue = CodeValue[..^1];

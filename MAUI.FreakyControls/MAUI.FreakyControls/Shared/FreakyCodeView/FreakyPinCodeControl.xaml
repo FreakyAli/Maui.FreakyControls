@@ -165,7 +165,9 @@
                 Grid.Row="3"
                 Grid.Column="1">
             </Button>
-            <Image
+            <ImageButton
+                Clicked="ImageButton_Clicked"
+                Padding="{Binding CancelButtonPadding, Source={x:Reference this}}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 BackgroundColor="{Binding BackspaceBackgroundColor, Source={x:Reference this}}"
@@ -174,11 +176,7 @@
                 Source="{Binding BackspaceButtonSource,Source={x:Reference this}}"
                 Grid.Row="3"
                 Aspect="AspectFit"
-                Grid.Column="2" >
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Backspace_Tapped"/>
-                </Image.GestureRecognizers>
-            </Image>
+                Grid.Column="2" />
         </Grid>
     </Grid>
 </ContentView>
