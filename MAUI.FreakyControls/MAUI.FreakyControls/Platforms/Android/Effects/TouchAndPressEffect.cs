@@ -62,17 +62,6 @@ internal class TouchAndPressEffect : PlatformEffect
                 break;
 
             default:
-            case MotionEventActions.Outside:
-            case MotionEventActions.HoverEnter:
-            case MotionEventActions.HoverExit:
-            case MotionEventActions.HoverMove:
-            case MotionEventActions.Mask:
-            case MotionEventActions.Pointer2Down:
-            case MotionEventActions.Pointer2Up:
-            case MotionEventActions.Pointer3Down:
-            case MotionEventActions.Pointer3Up:
-            case MotionEventActions.PointerIdMask:
-            case MotionEventActions.PointerIdShift:
                 break;
         }
 
