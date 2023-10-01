@@ -7,17 +7,19 @@ namespace Maui.FreakyControls;
 
 public class FreakySwitch : Switch
 {
+
 }
-#if IOS || MACCATALYST 
-public partial class FreakySwitchHandler : SwitchHandler
-{
-}
-#elif ANDROID
+
+#if ANDROID
 public partial class FreakySwitchHandler : SwitchHandler
 {
     protected override AndroidSwitch CreatePlatformView()
     {
         return new AndroidSwitch(Context);
     }
+}
+#else
+public partial class FreakySwitchHandler : SwitchHandler
+{
 }
 #endif
