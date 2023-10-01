@@ -69,6 +69,7 @@
 	  <None Remove="Resources\Images\backspace.svg" />
 	  <None Remove="Resources\Images\vecteezy_cute-panda-sleeping-and-smiling_6879744.jpg" />
 	  <None Remove="Resources\Images\panda.jpg" />
+	  <None Remove="Resources\.DS_Store" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
@@ -121,5 +122,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\panda.jpg" />
+	  <BundleResource Include="Resources\.DS_Store" />
 	</ItemGroup>
 </Project>
