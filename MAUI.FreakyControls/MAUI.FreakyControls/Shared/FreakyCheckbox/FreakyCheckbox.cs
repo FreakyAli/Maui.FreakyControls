@@ -301,10 +301,10 @@ public class FreakyCheckbox : ContentView, IDisposable
 
         using var checkStroke = new SKPaint
         {
-            Style = (Design == Design.Unified) &&
-            (CheckType == CheckType.Fill) ||
-            (CheckType == CheckType.Star) ||
-            (CheckType == CheckType.Box) ?
+            Style = ((Design == Design.Unified) &&
+            (CheckType == CheckType.Fill)) ||
+            ((CheckType == CheckType.Star) ||
+            (CheckType == CheckType.Box)) ?
             SKPaintStyle.Fill : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
             StrokeWidth = CheckWidth,

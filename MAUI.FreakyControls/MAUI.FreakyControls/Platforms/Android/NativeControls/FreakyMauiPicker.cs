@@ -64,14 +64,13 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                     return base.OnTouchEvent(e);
                 }
 
-                // this works for left since container shares 0,0 origin with bounds
                 if (drawableLeft != null)
                 {
                     bounds = null;
                     bounds = drawableLeft.Bounds;
 
                     int x, y;
-                    int extraTapArea = (int)(13 * Resources.DisplayMetrics.Density + 0.5);
+                    int extraTapArea = (int)(13 * (Resources.DisplayMetrics.Density + 0.5));
 
                     x = actionX;
                     y = actionY;

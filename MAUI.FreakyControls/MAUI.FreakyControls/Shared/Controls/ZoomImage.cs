@@ -59,8 +59,8 @@ public class ZoomImage : Image
                 break;
 
             case GestureStatus.Running:
-                AnchorX = Clamp((1 - (StartX + e.TotalX) / Width), 0, 1);
-                AnchorY = Clamp((1 - (StartY + e.TotalY) / Height), 0, 1);
+                AnchorX = Clamp((1 - (StartX + e.TotalX)) / Width, 0, 1);
+                AnchorY = Clamp((1 - (StartY + e.TotalY)) / Height, 0, 1);
                 break;
         }
     }

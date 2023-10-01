@@ -60,15 +60,13 @@ public static class SkPathCheckExtensions
         float mid = imageInfo.Width / 2;
         float min = Math.Min(imageInfo.Width, imageInfo.Height);
         float half = min / 2;
-        mid = mid - half;
-
-        checkPath.MoveTo(mid + half * 0.5f, half * 0.84f);
-        checkPath.LineTo(mid + half * 1.5f, half * 0.84f);
-        checkPath.LineTo(mid + half * 0.68f, half * 1.45f);
-        checkPath.LineTo(mid + half * 1.0f, half * 0.5f);
-        checkPath.LineTo(mid + half * 1.32f, half * 1.45f);
-        checkPath.LineTo(mid + half * 0.5f, half * 0.84f);
-
+        mid -= half;
+        checkPath.MoveTo(mid + (half * 0.5f), half * 0.84f);
+        checkPath.LineTo(mid + (half * 1.5f), half * 0.84f);
+        checkPath.LineTo(mid + (half * 0.68f), half * 1.45f);
+        checkPath.LineTo(mid + (half * 1.0f), half * 0.5f);
+        checkPath.LineTo(mid + (half * 1.32f), half * 1.45f);
+        checkPath.LineTo(mid + (half * 0.5f), half * 0.84f);
         checkPath.Close();
     }
 
