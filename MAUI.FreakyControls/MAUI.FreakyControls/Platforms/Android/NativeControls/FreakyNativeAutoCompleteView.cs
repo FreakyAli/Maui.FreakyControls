@@ -24,9 +24,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     private int actionX, actionY;
     private IDrawableClickListener clickListener;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="FreakyNativeAutoCompleteView"/>.
-    /// </summary>
     public FreakyNativeAutoCompleteView(Context context) : base(context)
     {
         SetMaxLines(1);
@@ -46,9 +43,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             adapter.UpdateList(items.OfType<object>(), labelFunc);
     }
 
-    /// <summary>
-    /// Gets or sets the text displayed in the entry field
-    /// </summary>
     public virtual new string Text
     {
         get => base.Text;
@@ -61,35 +55,22 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         }
     }
 
-    /// <summary>
-    /// Sets the text color on the entry field
-    /// </summary>
-    /// <param name="color"></param>
+
     public virtual void SetTextColor(Color color)
     {
         this.SetTextColor(color.ToPlatform());
     }
 
-    /// <summary>
-    /// Gets or sets the placeholder text to be displayed in the <see cref="AutoCompleteTextView"/>
-    /// </summary>
     public virtual string Placeholder
     {
         set => HintFormatted = new Java.Lang.String(value as string ?? "");
     }
 
-    /// <summary>
-    /// Gets or sets the color of the <see cref="Placeholder"/>.
-    /// </summary>
-    /// <param name="color">color</param>
     public virtual void SetPlaceholderColor(Color color)
     {
         this.SetHintTextColor(color.ToPlatform());
     }
 
-    /// <summary>
-    /// Sets a Boolean value indicating whether the drop-down portion of the FreakyAutoCompleteView is open.
-    /// </summary>
     public virtual bool IsSuggestionListOpen
     {
         set
@@ -101,12 +82,9 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         }
     }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether items in the view will trigger an update of the editable text part of the FreakyNativeAutoCompleteView when clicked.
-    /// </summary>
+
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
-    /// <inheritdoc />
     protected override void OnTextChanged(ICharSequence text, int start, int lengthBefore, int lengthAfter)
     {
         if (!suppressTextChangedEvent)
@@ -136,7 +114,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, obj));
     }
 
-    /// <inheritdoc />
     public override void OnEditorAction([GeneratedEnum] ImeAction actionCode)
     {
         if (actionCode == ImeAction.Done || actionCode == ImeAction.Next)
@@ -149,25 +126,14 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             base.OnEditorAction(actionCode);
     }
 
-    /// <inheritdoc />
     protected override void ReplaceText(ICharSequence text)
     {
         //Override to avoid updating textbox on itemclick. We'll do this later using TextMemberPath and raise the proper TextChanged event then
     }
 
-    /// <summary>
-    /// Raised after the text content of the editable control component is updated.
-    /// </summary>
+
     public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
-
-    /// <summary>
-    /// Occurs when the user submits a search query.
-    /// </summary>
     public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
-
-    /// <summary>
-    /// Raised before the text content of the editable control component is updated.
-    /// </summary>
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
 
     public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,

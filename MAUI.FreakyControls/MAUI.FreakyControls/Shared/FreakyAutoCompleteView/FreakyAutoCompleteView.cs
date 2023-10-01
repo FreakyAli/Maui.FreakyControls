@@ -108,7 +108,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     public static readonly BindableProperty ItemsSourceProperty =
         BindableProperty.Create(nameof(ItemsSource), typeof(System.Collections.IList), typeof(FreakyAutoCompleteView), null, BindingMode.OneWay, null, null);
 
-
     public bool AllowCopyPaste
     {
         get => (bool)GetValue(AllowCopyPasteProperty);
@@ -240,7 +239,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     {
         suggestionChosenEventManager.HandleEvent(this, args, nameof(SuggestionChosen));
     }
-
 
     public event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged
     {

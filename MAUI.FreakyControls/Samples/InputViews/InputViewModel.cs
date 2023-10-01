@@ -39,8 +39,3 @@ public class InputViewModel : MainViewModel
         NamesCollectionModel= NamesModel.ToObservable();
     }
 }
-
-public class AutoCompleteModel
-{
-    public string Name { get; set; }
-}
