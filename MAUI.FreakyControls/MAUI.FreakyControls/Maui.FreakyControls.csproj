@@ -131,10 +131,6 @@
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Shared\FreakySvgImageView\FreakySvgImageView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
 			<SubType>
 			</SubType>
