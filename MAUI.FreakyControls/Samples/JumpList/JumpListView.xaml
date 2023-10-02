@@ -25,17 +25,10 @@
                 <DataTemplate>
                     <Border Stroke="White">
                         <Label
-<<<<<<< HEAD
-                        FontAttributes="Bold"
-                        TextColor="Black"
-                        FontSize="Large"
-                        Text="{Binding ., Mode=OneTime}" />
-=======
                             FontAttributes="Bold"
                             FontSize="Large"
                             Text="{Binding ., Mode=OneTime}"
                             TextColor="Black" />
->>>>>>> develop
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -43,18 +36,12 @@
         <controls:FreakyJumpList
             x:Name="JumpList"
             AbsoluteLayout.LayoutBounds="1,0.5,0.1,0.7"
-<<<<<<< HEAD
             CharacterColor="Blue"
             SelectedCharacterColor="Black"
             HasHapticFeedback="True"
-=======
->>>>>>> develop
             AbsoluteLayout.LayoutFlags="All"
             AlphabetProvider="{x:Static provider:JumpListView.AlphabetProvider}"
-            CharacterColor="{StaticResource Primary}"
-            HasHapticFeedback="True"
             SelectedCharacterChanged="SkiaJumpList_OnSelectedCharacterChanged"
-            SelectedCharacterColor="Black"
             Touch="JumpList_OnTouch" />
         <Border
             x:Name="jumplistIdentifier"

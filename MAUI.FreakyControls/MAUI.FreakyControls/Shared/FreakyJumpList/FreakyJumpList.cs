@@ -7,11 +7,7 @@ namespace Maui.FreakyControls;
 
 public class FreakyJumpList : SKCanvasView, IDisposable
 {
-<<<<<<< HEAD
     private IDictionary<string, SKPoint> charLocationDictionary;
-=======
-    private IDictionary<string, SKPoint> charLocationDictionary;
->>>>>>> develop
 
     public event EventHandler<FreakyCharacterChangedEventArgs> SelectedCharacterChanged;
 
