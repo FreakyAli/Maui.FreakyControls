@@ -25,6 +25,12 @@
                 Base64String="{x:Static samples:Constants.SvgBase64}"
                 HeightRequest="300"
                 SvgMode="AspectFit" />
+
+            <freakyControls:FreakySvgImageView
+                Uri="{x:Static samples:Constants.SvgUrl}"
+                HeightRequest="300"
+                SvgMode="AspectFit" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

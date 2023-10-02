@@ -18,14 +18,9 @@ public abstract class BaseSKCanvas : SKCanvasView
         {
             return;
         }
-
         e.Surface.Canvas.Clear(SKColors.Transparent);
-
-        // make sure no previous transforms still apply
         e.Surface.Canvas.ResetMatrix();
-
         base.OnPaintSurface(e);
-
         DoPaintSurface(e);
     }
 
