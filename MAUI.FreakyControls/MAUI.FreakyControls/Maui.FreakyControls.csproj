@@ -81,6 +81,7 @@
 		<None Remove="Shared\FreakyDatePicker\" />
 		<None Remove="Shared\FreakyTimePicker\" />
 		<None Remove="Shared\FreakyPicker\" />
+		<None Remove="Shared\Wrappers\" />
 		<None Remove="Shared\FreakySignatureView\" />
 		<None Remove="Platforms\MacCatalyst\" />
 		<None Remove="Platforms\Windows\" />

@@ -7,6 +7,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SKPaintSurfaceEventArgs = SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs;
 using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
+using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
 
@@ -214,104 +215,116 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         InvalidateSurface();
     }
 
+    private void SetResourceId()
+    {
+        try
+        {
+            Stream svgStream;
+            svgStream = SvgAssembly?.GetManifestResourceStream(ResourceId);
+            if (svgStream == null)
+            {
+                Trace.TraceError($"{nameof(FreakySvgImageView)}: Embedded Resource not found for Svg: {ResourceId}");
+                return;
+            }
+            Svg?.Load(svgStream);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            Trace.TraceError("KeyNotFoundException is usually thrown because one or more elements in your SVG file do not have the offset property set to a value i.e. not in the correct format");
+            ex.TraceException();
+        }
+        catch (Exception ex)
+        {
+            ex.TraceException();
+        }
+    }
+
+    private void SetImageColor()
+    {
+        if (ImageColor != Colors.Transparent)
+        {
+            using var paint = new SKPaint
+            {
+                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
+                Style = SKPaintStyle.StrokeAndFill
+            };
+            Canvas.DrawPicture(Svg.Picture, paint);
+            return;
+        }
+        Canvas.DrawPicture(Svg.Picture);
+    }
+
+    private void SetBase64String()
+    {
+        try
+        {
+            string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
+            var byteArray = Convert.FromBase64String(base64);
+            using var stream = new MemoryStream(byteArray);
+            Svg.Load(stream);
+        }
+        catch (Exception ex)
+        {
+            ex.TraceException();
+        }
+    }
+
+    private void SetSvgMode()
+    {
+        Canvas.Translate(info.Width / 2f, info.Height / 2f);
+        var bounds = Svg.Picture.CullRect;
+        var xRatio = info.Width / bounds.Width;
+        var yRatio = info.Height / bounds.Height;
+        xRatio *= .95f;
+        yRatio *= .95f;
+        float ratio;
+        switch (SvgMode)
+        {
+            case Aspect.AspectFill:
+                ratio = Math.Max(xRatio, yRatio);
+                Canvas.Scale(ratio);
+                break;
+
+            case Aspect.Fill:
+                Canvas.Scale(xRatio, yRatio);
+                break;
+
+            case Aspect.Center:
+            case Aspect.AspectFit:
+            default:
+                ratio = Math.Min(xRatio, yRatio);
+                Canvas.Scale(ratio);
+                break;
+        }
+        Canvas.Translate(-bounds.MidX, -bounds.MidY);
+    }
+
     protected async override void OnPropertyChanged(string propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
         if (propertyName == nameof(ResourceId) || propertyName == nameof(SvgAssembly))
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly == null)
-                {
-                    return;
-                }
-                Stream svgStream;
-                svgStream = SvgAssembly?.GetManifestResourceStream(ResourceId);
-                if (svgStream == null)
-                {
-                    Trace.TraceError($"{nameof(FreakySvgImageView)}: Embedded Resource not found for Svg: {ResourceId}");
-                    return;
-                }
-                Svg?.Load(svgStream);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                Trace.TraceError("KeyNotFoundException is usually thrown because one or more elements in your SVG file do not have the offset property set to a value i.e. not in the correct format");
-                ex.TraceException();
-            }
-            catch (Exception ex)
-            {
-                ex.TraceException();
-            }
+            if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly == null)
+                return;
+            SetResourceId();
         }
         else if (propertyName == nameof(ImageColor))
         {
             if (Canvas == null || Svg == null || Svg.Picture == null)
                 return;
-
-            if (ImageColor != Colors.Transparent)
-            {
-                using var paint = new SKPaint
-                {
-                    ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
-                    Style = SKPaintStyle.StrokeAndFill
-                };
-                Canvas.DrawPicture(Svg.Picture, paint);
-                return;
-            }
-            Canvas.DrawPicture(Svg.Picture);
+            SetImageColor();
         }
         else if (propertyName == nameof(Base64String))
         {
             if (string.IsNullOrWhiteSpace(Base64String) && Svg != null)
-            {
                 return;
-            }
-            try
-            {
-                string base64 = Base64String.Substring(Base64String.IndexOf(',') + 1);
-                var byteArray = Convert.FromBase64String(base64);
-                using var stream = new MemoryStream(byteArray);
-                Svg.Load(stream);
-            }
-            catch (Exception ex)
-            {
-                ex.TraceException();
-            }
+            SetBase64String();
         }
         else if (propertyName == nameof(SvgMode))
         {
             if (Canvas == null || Svg == null || Svg.Picture == null)
-            {
                 return;
-            }
-
-            Canvas.Translate(info.Width / 2f, info.Height / 2f);
-            var bounds = Svg.Picture.CullRect;
-            var xRatio = info.Width / bounds.Width;
-            var yRatio = info.Height / bounds.Height;
-            xRatio *= .95f;
-            yRatio *= .95f;
-            float ratio;
-            switch (SvgMode)
-            {
-                case Aspect.AspectFill:
-                    ratio = Math.Max(xRatio, yRatio);
-                    Canvas.Scale(ratio);
-                    break;
-
-                case Aspect.Fill:
-                    Canvas.Scale(xRatio, yRatio);
-                    break;
-
-                case Aspect.Center:
-                case Aspect.AspectFit:
-                default:
-                    ratio = Math.Min(xRatio, yRatio);
-                    Canvas.Scale(ratio);
-                    break;
-            }
-            Canvas.Translate(-bounds.MidX, -bounds.MidY);
+            SetSvgMode();
         }
         else if (propertyName == nameof(Uri))
         {
@@ -331,6 +344,5 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
                 ex.TraceException();
             }
         }
-
     }
 }
