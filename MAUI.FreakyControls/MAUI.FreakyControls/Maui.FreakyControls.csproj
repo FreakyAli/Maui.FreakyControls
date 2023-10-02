@@ -81,7 +81,6 @@
 		<None Remove="Shared\FreakyDatePicker\" />
 		<None Remove="Shared\FreakyTimePicker\" />
 		<None Remove="Shared\FreakyPicker\" />
-		<None Remove="Shared\Wrappers\" />
 		<None Remove="Shared\FreakySignatureView\" />
 		<None Remove="Platforms\MacCatalyst\" />
 		<None Remove="Platforms\Windows\" />
@@ -127,10 +126,6 @@
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Shared\FreakySvgImageView\FreakySvgImageView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
 			<SubType>
 			</SubType>
