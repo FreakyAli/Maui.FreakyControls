@@ -1,4 +1,4 @@
-﻿namespace Samples.JumpList;
+namespace Samples.JumpList;
 
 public class JumpListViewModel : BaseViewModel
 {
@@ -35,7 +35,6 @@ public class JumpListViewModel : BaseViewModel
             "Yasmine", "Yael", "Yara", "Yaretzi", "Yvonne", "Yvette", "Yvaine", "Yelena", "Yara", "Yasmine",
             "Zachary", "Zoe", "Zachariah", "Zara", "Zayden", "Zuri", "Zane", "Zelda", "Zeke", "Zena"
         };
-
         Names = names.OrderBy(x => x).ToList();
     }
 }

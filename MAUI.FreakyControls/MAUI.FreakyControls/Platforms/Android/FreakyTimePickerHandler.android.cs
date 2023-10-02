@@ -2,7 +2,6 @@ using Android.App;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Text.Format;
 using AndroidX.Core.View;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
@@ -89,7 +88,4 @@ public partial class FreakyTimePickerHandler
 
         _dialog = null;
     }
-
-    private bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
-            && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 }

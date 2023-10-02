@@ -1,4 +1,5 @@
-﻿namespace Maui.FreakyControls.Platforms.Windows;
+using Microsoft.Maui.Controls.Platform;
+namespace Maui.FreakyControls.Platforms.Windows;
 
 internal class TouchAndPressEffect : PlatformEffect
 {
