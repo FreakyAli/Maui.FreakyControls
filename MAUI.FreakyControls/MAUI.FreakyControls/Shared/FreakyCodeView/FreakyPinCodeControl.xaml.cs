@@ -333,7 +333,6 @@ public partial class FreakyPinCodeControl : ContentView
 
     private void Cancel_Clicked(object sender, System.EventArgs e)
     {
-
     }
 
     void ImageButton_Clicked(System.Object sender, System.EventArgs e)
