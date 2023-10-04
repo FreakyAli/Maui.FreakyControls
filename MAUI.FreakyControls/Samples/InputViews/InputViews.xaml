@@ -53,6 +53,7 @@
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry
+                    x:Name="entry"
                     AllowCopyPaste="False"
                     FontSize="Large"
                     ImageAlignment="Left"

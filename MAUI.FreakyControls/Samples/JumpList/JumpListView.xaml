@@ -36,12 +36,12 @@
         <controls:FreakyJumpList
             x:Name="JumpList"
             AbsoluteLayout.LayoutBounds="1,0.5,0.1,0.7"
+            CharacterColor="Blue"
+            SelectedCharacterColor="Black"
+            HasHapticFeedback="True"
             AbsoluteLayout.LayoutFlags="All"
             AlphabetProvider="{x:Static provider:JumpListView.AlphabetProvider}"
-            CharacterColor="{StaticResource Primary}"
-            HasHapticFeedback="True"
             SelectedCharacterChanged="SkiaJumpList_OnSelectedCharacterChanged"
-            SelectedCharacterColor="Black"
             Touch="JumpList_OnTouch" />
         <Border
             x:Name="jumplistIdentifier"

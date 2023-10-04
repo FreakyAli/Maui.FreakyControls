@@ -23,7 +23,6 @@ public partial class MainPage : ContentPage
     private async void ListView_ItemTapped(System.Object sender, Microsoft.Maui.Controls.ItemTappedEventArgs e)
     {
         string route = e.Item.ToString();
-
         if (route == AppShell.jumpList)
         {
             var permission = await Samples.PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();

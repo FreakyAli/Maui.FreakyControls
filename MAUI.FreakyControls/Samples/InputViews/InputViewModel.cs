@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Extensions;
 using System.Collections.ObjectModel;
 
 namespace Samples.InputViews;

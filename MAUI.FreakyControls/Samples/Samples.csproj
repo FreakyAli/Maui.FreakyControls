@@ -65,6 +65,11 @@
 	  <None Remove="Checkboxes\" />
 	  <None Remove="RadioButtons\" />
 	  <None Remove="JumpList\" />
+	  <None Remove="PinView\" />
+	  <None Remove="Resources\Images\backspace.svg" />
+	  <None Remove="Resources\Images\vecteezy_cute-panda-sleeping-and-smiling_6879744.jpg" />
+	  <None Remove="Resources\Images\panda.jpg" />
+	  <None Remove="Resources\.DS_Store" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
@@ -80,9 +85,11 @@
 	  <Folder Include="Checkboxes\" />
 	  <Folder Include="RadioButtons\" />
 	  <Folder Include="JumpList\" />
+	  <Folder Include="PinView\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />
@@ -112,5 +119,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\panda.jpg" />
+	  <BundleResource Include="Resources\.DS_Store" />
 	</ItemGroup>
 </Project>
