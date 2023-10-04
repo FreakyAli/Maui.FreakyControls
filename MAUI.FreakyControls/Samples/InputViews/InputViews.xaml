@@ -9,6 +9,23 @@
     x:DataType="inputViews:InputViewModel">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
+
+            <freakyControls:FreakyCodeView
+                CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
+                CodeEntryCompletedCommand="{Binding EntryCompleteCommand}"
+                CodeInputType="AlphaNumeric"
+                IsPassword="False"
+                Color="OrangeRed"
+                ItemSpacing="10"
+                CodeLength="6"
+                ItemShape="Squircle"
+                ItemFocusColor="OrangeRed"
+                ItemFocusAnimation="Bounce"
+                ItemBorderColor="OrangeRed"
+                ItemBackgroundColor="White"
+                ShouldAutoDismissKeyboard="True"
+                ItemBorderWidth="1"/>
+
             <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView

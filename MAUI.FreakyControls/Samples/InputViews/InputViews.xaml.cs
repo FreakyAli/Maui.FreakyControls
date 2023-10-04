@@ -37,4 +37,9 @@ public partial class InputViews : ContentPage
             Where(s => s.Name.StartsWith(autoComplete.Text, StringComparison.InvariantCultureIgnoreCase)).
             ToObservable();
     }
+
+    void FreakyCodeView_CodeEntryCompleted(System.Object sender, Maui.FreakyControls.FreakyCodeCompletedEventArgs e)
+    {
+
+    }
 }
