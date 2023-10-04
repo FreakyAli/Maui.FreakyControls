@@ -12,9 +12,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.4.6</AssemblyVersion>
-		<AssemblyFileVersion>0.4.6</AssemblyFileVersion>
-		<Version>0.4.6-pre</Version>
+		<AssemblyVersion>0.4.7</AssemblyVersion>
+		<AssemblyFileVersion>0.4.7</AssemblyFileVersion>
+		<Version>0.4.7-pre</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -25,8 +25,9 @@
 		<PackageIcon>maui_toolkit.png</PackageIcon>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
-		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>FreakySwitch is here!</PackageReleaseNotes>
+		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP PinCodeView Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
+		<PackageReleaseNotes>FreakyCodeView and FreakyPinCodeView are here!</PackageReleaseNotes>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
@@ -73,6 +74,7 @@
 		<None Remove="Platforms\iOS\NativeControls\" />
 		<None Remove="Shared\FreakyTextInputLayout\" />
 		<None Include="maui_toolkit.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="readme.md" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
 		<None Remove="Shared\FreakyButton\" />
 		<None Remove="Shared\Helpers\" />
@@ -91,6 +93,8 @@
 		<None Remove="Shared\FreakyRadioButton\" />
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyJumpList\" />
+		<None Remove="Shared\FreakyCodeView\" />
+		<None Remove="Shared\Behaviors\" />
 		<None Remove="Shared\FreakySwitch\" />
 		<None Remove="Shared\FreakyAutoCompleteView\" />
 		<None Remove="Shared\FreakyPinView\" />
@@ -118,6 +122,8 @@
 		<Folder Include="Shared\FreakyCheckbox\" />
 		<Folder Include="Shared\FreakyRadioButton\" />
 		<Folder Include="Shared\FreakyJumpList\" />
+		<Folder Include="Shared\FreakyCodeView\" />
+		<Folder Include="Shared\Behaviors\" />
 		<Folder Include="Shared\FreakySwitch\" />
 	</ItemGroup>
 	<ItemGroup>
@@ -125,10 +131,6 @@
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Shared\FreakySvgImageView\FreakySvgImageView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
 			<SubType>
 			</SubType>
