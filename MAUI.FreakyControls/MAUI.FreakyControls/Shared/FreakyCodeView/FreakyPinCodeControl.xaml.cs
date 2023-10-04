@@ -43,19 +43,6 @@ public partial class FreakyPinCodeControl : ContentView
           CodeView.DefaultCodeLength,
           defaultBindingMode: BindingMode.OneWay);
 
-    public KeyboardType CodeInputType
-    {
-        get => (KeyboardType)GetValue(CodeInputTypeProperty);
-        set => SetValue(CodeInputTypeProperty, value);
-    }
-
-    public static readonly BindableProperty CodeInputTypeProperty =
-       BindableProperty.Create(
-           nameof(CodeInputType),
-           typeof(KeyboardType),
-           typeof(FreakyPinCodeControl),
-            KeyboardType.Numeric,
-           defaultBindingMode: BindingMode.OneWay);
 
     public ICommand CodeEntryCompletedCommand
     {

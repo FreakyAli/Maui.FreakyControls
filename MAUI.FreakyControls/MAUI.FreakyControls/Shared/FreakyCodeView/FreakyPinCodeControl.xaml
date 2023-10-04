@@ -11,7 +11,7 @@
             CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
             CodeValue="{Binding CodeValue,Source={x:Reference this}}"
             CodeLength="{Binding CodeLength,Source={x:Reference this}}"
-            CodeInputType="{Binding CodeInputType,Source={x:Reference this}}"
+            CodeInputType="Numeric"
             CodeEntryCompletedCommand="{Binding CodeEntryCompletedCommand,Source={x:Reference this}}"
             IsPassword="{Binding IsPassword,Source={x:Reference this}}"
             Color="{Binding Color,Source={x:Reference this}}"

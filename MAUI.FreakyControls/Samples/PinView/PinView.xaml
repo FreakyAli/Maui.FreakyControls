@@ -18,7 +18,6 @@
             FontSize="20"
             KeyboardButtonCornerRadius="10"
             CodeLength="6"
-            ItemSpacing="5"
             CancelButtonPadding="25"
             ItemSize="50"
             ItemBorderColor="Black"
@@ -27,6 +26,12 @@
             ItemShape="Squircle"
             BackspaceButtonSource="backspace.png"
             Grid.Row="2" >
+             <freakyControls:FreakyPinCodeControl.ItemSpacing>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android" Value="5"/>
+                    <On Platform="iOS" Value="10"/>
+                </OnPlatform>
+            </freakyControls:FreakyPinCodeControl.ItemSpacing>
              <freakyControls:FreakyPinCodeControl.ItemSize>
                 <OnPlatform x:TypeArguments="x:Double">
                     <On Platform="Android" Value="55"/>
