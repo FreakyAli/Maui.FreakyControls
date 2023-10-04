@@ -43,7 +43,6 @@ public partial class FreakyPinCodeControl : ContentView
           CodeView.DefaultCodeLength,
           defaultBindingMode: BindingMode.OneWay);
 
-
     public ICommand CodeEntryCompletedCommand
     {
         get { return (ICommand)GetValue(CodeEntryCompletedCommandProperty); }
