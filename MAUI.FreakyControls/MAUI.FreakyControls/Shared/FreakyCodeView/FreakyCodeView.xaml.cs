@@ -137,7 +137,7 @@ public partial class FreakyCodeView : ContentView
         {
             if (ShouldAutoDismissKeyboard)
             {
-                hiddenTextEntry.DismissKeyboard();
+                hiddenTextEntry.DismissSoftKeyboard();
             }
             CodeEntryCompleted?.Invoke(this, new FreakyCodeCompletedEventArgs(CodeValue));
             CodeEntryCompletedCommand.ExecuteCommandIfAvailable(CodeValue);
