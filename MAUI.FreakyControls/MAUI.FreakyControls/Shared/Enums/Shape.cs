@@ -7,15 +7,8 @@ public enum Shape
     // </summary>
     Circle,
 
-    [Obsolete("Please use Square instead, " +
-        "this option will be removed with the next stable release")]
-    // <summary>
-    // a Rectangular shape to your control
-    // </summary>
-    Rectangle,
-
     // <summary>
     // a Square shape to your control
     // </summary>
-    Sqaure = Rectangle,
+    Sqaure
 }

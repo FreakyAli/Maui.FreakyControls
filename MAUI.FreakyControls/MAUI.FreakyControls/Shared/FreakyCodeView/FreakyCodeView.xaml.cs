@@ -1,4 +1,5 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Enums;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -111,7 +112,7 @@ public partial class FreakyCodeView : ContentView
         };
         container.SetBinding(Border.HeightRequestProperty, new Binding("ItemSize", source: this));
         container.SetBinding(Border.WidthRequestProperty, new Binding("ItemSize", source: this));
-        container.SetBinding(Border.StrokeThicknessProperty, new Binding("ItemBorderWidth", source:this));
+        container.SetBinding(Border.StrokeThicknessProperty, new Binding("ItemBorderWidth", source: this));
         container.Item.SetBinding(Border.BackgroundColorProperty, new Binding("ItemBackgroundColor", source: this));
         container.CharLabel.FontSize = ItemSize / 2;
         container.SecureMode(IsPassword);
@@ -134,12 +135,12 @@ public partial class FreakyCodeView : ContentView
 
         if (e.NewTextValue.Length >= CodeLength)
         {
-            if (ShouldAutoDismissKeyboard == true)
+            if (ShouldAutoDismissKeyboard)
             {
-                (sender as Entry).Unfocus();
+                hiddenTextEntry.DismissKeyboard();
             }
             CodeEntryCompleted?.Invoke(this, new FreakyCodeCompletedEventArgs(CodeValue));
-            CodeEntryCompletedCommand?.Execute(CodeValue);
+            CodeEntryCompletedCommand.ExecuteCommandIfAvailable(CodeValue);
         }
     }
 
