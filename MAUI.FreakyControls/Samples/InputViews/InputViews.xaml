@@ -59,6 +59,7 @@
                     ImageWidth="{OnPlatform 25,
                                             iOS=25,
                                             Android=40}"
+                    Placeholder="Autocomplete Right"
                     Threshold="1"
                     DisplayMemberPath="Name"
                     TextMemberPath="Name"
