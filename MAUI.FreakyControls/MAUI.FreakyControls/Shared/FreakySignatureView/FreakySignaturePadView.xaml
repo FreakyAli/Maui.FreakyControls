@@ -29,7 +29,7 @@
             StrokeColor="{Binding StrokeColor, Source={x:Reference this}}"
             StrokeCompleted="OnSignatureStrokeCompleted"
             StrokeWidth="{Binding StrokeWidth, Source={x:Reference this}}" />
-            <freakyControls:FreakySvgImageView
+        <freakyControls:FreakySvgImageView
                 x:Name="ClearLabel"
                 AbsoluteLayout.LayoutBounds="0,0,40,40"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -44,10 +44,10 @@
                 VerticalOptions="Start"
                 HorizontalOptions="Start"
                 WidthRequest="35">
-                <freakyControls:FreakySvgImageView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnClearTapped" />
-                </freakyControls:FreakySvgImageView.GestureRecognizers>
-            </freakyControls:FreakySvgImageView>
+            <freakyControls:FreakySvgImageView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnClearTapped" />
+            </freakyControls:FreakySvgImageView.GestureRecognizers>
+        </freakyControls:FreakySvgImageView>
         <VerticalStackLayout
             Margin="0"
             Padding="0"

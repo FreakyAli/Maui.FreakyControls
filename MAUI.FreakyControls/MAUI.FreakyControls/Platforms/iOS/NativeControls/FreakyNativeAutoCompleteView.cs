@@ -103,7 +103,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
         SelectionList.Source = null;
 
         IEnumerable<object> suggestions = items?.OfType<object>();
-        if (suggestions != null && suggestions.Any())
+        if (suggestions is not null && suggestions.Any())
         {
             var suggestionTableSource = new TableSource<object>(suggestions, labelFunc);
             suggestionTableSource.TableRowSelected += SuggestionTableSource_TableRowSelected;
@@ -156,14 +156,14 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     private void UpdateSuggestionListOpenState()
     {
-        if (_isSuggestionListOpen && SelectionList.Source != null && SelectionList.Source.RowsInSection(SelectionList, 0) > 0)
+        if (_isSuggestionListOpen && SelectionList.Source is not null && SelectionList.Source.RowsInSection(SelectionList, 0) > 0)
         {
             var viewController = InputTextField.Window?.RootViewController;
-            if (viewController == null)
+            if (viewController is null)
                 return;
-            if (viewController.PresentedViewController != null)
+            if (viewController.PresentedViewController is not null)
                 viewController = viewController.PresentedViewController;
-            if (SelectionList.Superview == null)
+            if (SelectionList.Superview is null)
             {
                 viewController.Add(SelectionList);
             }
@@ -176,7 +176,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
         }
         else
         {
-            if (SelectionList.Superview != null)
+            if (SelectionList.Superview is not null)
                 SelectionList.RemoveFromSuperview();
         }
     }
@@ -189,7 +189,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
     private void OnKeyboardHide(object sender, UIKeyboardEventArgs e)
     {
         keyboardHeight = 0;
-        if (bottomConstraint != null)
+        if (bottomConstraint is not null)
         {
             bottomConstraint.Constant = keyboardHeight;
             SelectionList.UpdateConstraints();
@@ -201,7 +201,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
         NSValue nsKeyboardBounds = (NSValue)e.Notification.UserInfo.ObjectForKey(UIKeyboard.FrameBeginUserInfoKey);
         var keyboardBounds = nsKeyboardBounds.RectangleFValue;
         keyboardHeight = keyboardBounds.Height;
-        if (bottomConstraint != null)
+        if (bottomConstraint is not null)
         {
             bottomConstraint.Constant = -keyboardHeight;
             SelectionList.UpdateConstraints();
@@ -307,7 +307,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             var cell = tableView.DequeueReusableCell(_cellIdentifier);
-            if (cell == null)
+            if (cell is null)
                 cell = new UITableViewCell(UITableViewCellStyle.Default, _cellIdentifier);
 
             var item = _items.ElementAt(indexPath.Row);

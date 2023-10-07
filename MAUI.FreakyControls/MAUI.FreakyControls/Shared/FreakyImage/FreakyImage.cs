@@ -14,7 +14,7 @@ public class FreakyImage : Image
         base.OnPropertyChanged(propertyName);
         if (propertyName.Equals(IsLoadingProperty.PropertyName))
         {
-            if (IsLoading && Source != null)
+            if (IsLoading && Source is not null)
                 ImageLoaded?.Invoke(this, EventArgs.Empty);
         }
     }

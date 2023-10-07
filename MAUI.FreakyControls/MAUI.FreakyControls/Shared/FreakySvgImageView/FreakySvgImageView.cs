@@ -1,13 +1,13 @@
-using System.Diagnostics;
-using System.Reflection;
-using System.Windows.Input;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Helpers;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
+using System.Diagnostics;
+using System.Reflection;
+using System.Windows.Input;
+using Color = Microsoft.Maui.Graphics.Color;
 using SKPaintSurfaceEventArgs = SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs;
 using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
-using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
 
@@ -72,7 +72,7 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         surface = e.Surface;
         Canvas = surface.Canvas;
         Canvas.Clear();
-        if (Svg == null || Svg?.Picture == null)
+        if (Svg is null || Svg?.Picture is null)
         {
             return;
         }
@@ -91,7 +91,7 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         canvas.DrawPicture(Svg.Picture);
     }
 
-    #endregion
+    #endregion Constructor, Destructor, Disposal and Assignments
 
     public static readonly BindableProperty ImageColorProperty = BindableProperty.Create(
          nameof(ImageColor),
@@ -235,7 +235,7 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         {
             Stream svgStream;
             svgStream = SvgAssembly?.GetManifestResourceStream(ResourceId);
-            if (svgStream == null)
+            if (svgStream is null)
             {
                 Trace.TraceError($"{nameof(FreakySvgImageView)}: Embedded Resource not found for Svg: {ResourceId}");
                 return;
@@ -312,24 +312,24 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         }
     }
 
-    protected async override void OnPropertyChanged(string propertyName = null)
+    protected override async void OnPropertyChanged(string propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
         if (propertyName == nameof(ResourceId) || propertyName == nameof(SvgAssembly))
         {
-            if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly == null)
+            if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly is null)
                 return;
             SetResourceId();
         }
         else if (propertyName == nameof(Base64String))
         {
-            if (string.IsNullOrWhiteSpace(Base64String) && Svg != null)
+            if (string.IsNullOrWhiteSpace(Base64String) && Svg is not null)
                 return;
             SetBase64String();
         }
         else if (propertyName == nameof(Uri))
         {
-            if (Uri == default || Svg == null)
+            if (Uri == default || Svg is null)
             {
                 return;
             }
@@ -337,11 +337,11 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         }
         else if (propertyName == nameof(SvgMode))
         {
-            if (Canvas == null || Svg == null || Svg.Picture == null)
+            if (Canvas is null || Svg is null || Svg.Picture is null)
                 return;
             SetSvgMode();
         }
-        else if(propertyName ==nameof(ImageColor))
+        else if (propertyName == nameof(ImageColor))
         {
             InvalidateSurface();
         }

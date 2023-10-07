@@ -38,8 +38,7 @@ public partial class InputViews : ContentPage
             ToObservable();
     }
 
-    void FreakyCodeView_CodeEntryCompleted(System.Object sender, Maui.FreakyControls.FreakyCodeCompletedEventArgs e)
+    private void FreakyCodeView_CodeEntryCompleted(System.Object sender, Maui.FreakyControls.FreakyCodeCompletedEventArgs e)
     {
-
     }
 }

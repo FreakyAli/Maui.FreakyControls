@@ -20,7 +20,7 @@ public partial class FreakyTimePickerHandler
     internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
     {
         var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
-        if (uiImage != null)
+        if (uiImage is not null)
         {
             var uiView = uiImage.UiImageToUiView(entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);
             uiView.UserInteractionEnabled = true;

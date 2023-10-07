@@ -46,6 +46,5 @@ public class InputViewModel : MainViewModel
 
     private void ExecuteEntryCompleteCommand(object obj)
     {
-
     }
 }

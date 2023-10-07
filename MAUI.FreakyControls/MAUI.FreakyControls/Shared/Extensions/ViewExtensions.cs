@@ -1,5 +1,4 @@
-﻿using System;
-namespace Maui.FreakyControls.Extensions;
+﻿namespace Maui.FreakyControls.Extensions;
 
 public static class ViewExtensions
 {
@@ -9,4 +8,3 @@ public static class ViewExtensions
         entry.IsEnabled = true;
     }
 }
-

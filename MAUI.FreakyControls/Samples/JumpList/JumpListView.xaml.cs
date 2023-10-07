@@ -25,7 +25,7 @@ public partial class JumpListView : ContentPage
 
         var viewModel = BindingContext as JumpListViewModel;
         var firstItem = viewModel?.Names.FirstOrDefault(x => x.StartsWith(e.SelectedCharacter));
-        if (firstItem != null)
+        if (firstItem is not null)
         {
             var index = viewModel.Names.IndexOf(firstItem);
 

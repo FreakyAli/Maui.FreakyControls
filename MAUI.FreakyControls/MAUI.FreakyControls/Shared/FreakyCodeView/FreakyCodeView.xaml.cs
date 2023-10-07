@@ -36,7 +36,7 @@ public partial class FreakyCodeView : ContentView
 
     private void HiddenTextEntry_Focused(object sender, FocusEventArgs e)
     {
-        var length = CodeValue == null ? 0 : CodeValue.Length;
+        var length = CodeValue is null ? 0 : CodeValue.Length;
         hiddenTextEntry.CursorPosition = length;
 
         var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToArray();

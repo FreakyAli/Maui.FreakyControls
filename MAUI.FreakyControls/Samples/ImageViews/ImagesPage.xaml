@@ -35,7 +35,6 @@
                 Uri="{x:Static samples:Constants.SvgUrl}"
                 HeightRequest="300"
                 SvgMode="AspectFit" />
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
