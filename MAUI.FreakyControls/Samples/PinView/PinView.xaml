@@ -11,7 +11,7 @@
             Source="panda.jpg"
             Grid.Row="0" />
 
-        <Label Grid.Row="1" FontSize="Large" HorizontalTextAlignment="Center" Text="Enter your pin to continue!"/>
+        <Label Grid.Row="1" FontSize="Large" HorizontalTextAlignment="Center" Text="Enter your pin to continue!" />
 
         <freakyControls:FreakyPinCodeControl
             ItemBackgroundColor="White"
@@ -25,29 +25,29 @@
             ItemFocusAnimation="Scale"
             ItemShape="Squircle"
             BackspaceButtonSource="backspace.png"
-            Grid.Row="2" >
-             <freakyControls:FreakyPinCodeControl.ItemSpacing>
+            Grid.Row="2">
+            <freakyControls:FreakyPinCodeControl.ItemSpacing>
                 <OnPlatform x:TypeArguments="x:Double">
-                    <On Platform="Android" Value="5"/>
-                    <On Platform="iOS" Value="10"/>
+                    <On Platform="Android" Value="5" />
+                    <On Platform="iOS" Value="10" />
                 </OnPlatform>
             </freakyControls:FreakyPinCodeControl.ItemSpacing>
-             <freakyControls:FreakyPinCodeControl.ItemSize>
+            <freakyControls:FreakyPinCodeControl.ItemSize>
                 <OnPlatform x:TypeArguments="x:Double">
-                    <On Platform="Android" Value="55"/>
-                    <On Platform="iOS" Value="50"/>
+                    <On Platform="Android" Value="55" />
+                    <On Platform="iOS" Value="50" />
                 </OnPlatform>
             </freakyControls:FreakyPinCodeControl.ItemSize>
-             <freakyControls:FreakyPinCodeControl.ItemBorderWidth>
+            <freakyControls:FreakyPinCodeControl.ItemBorderWidth>
                 <OnPlatform x:TypeArguments="x:Double">
-                    <On Platform="Android" Value="3"/>
-                    <On Platform="iOS" Value="5"/>
+                    <On Platform="Android" Value="3" />
+                    <On Platform="iOS" Value="5" />
                 </OnPlatform>
             </freakyControls:FreakyPinCodeControl.ItemBorderWidth>
             <freakyControls:FreakyPinCodeControl.KeyboardButtonSizeRequest>
                 <OnPlatform x:TypeArguments="x:Double" Default="40">
-                    <On Platform="Android" Value="80"/>
-                    <On Platform="iOS" Value="100"/>
+                    <On Platform="Android" Value="80" />
+                    <On Platform="iOS" Value="100" />
                 </OnPlatform>
             </freakyControls:FreakyPinCodeControl.KeyboardButtonSizeRequest>
         </freakyControls:FreakyPinCodeControl>

@@ -20,7 +20,7 @@ public partial class FreakyDatePickerHandler : DatePickerHandler
             if (datePicker is FreakyDatePicker freakyDatePicker &&
                      datePickerHandler is FreakyDatePickerHandler freakyDatePickerHandler)
             {
-                if (PlatformView != null && VirtualView != null)
+                if (PlatformView is not null && VirtualView is not null)
                 {
                     if (freakyDatePicker.ImageSource != default(ImageSource))
                     {

@@ -1,12 +1,12 @@
-## Freaky Controls are your usual Maui Controls but with a freaky twist to it :D
+## An Introduction to Maui.FreakyControls
 
 <div>
    <a href="https://www.nuget.org/packages/FreakyControls"><img src="https://img.shields.io/nuget/v/FreakyControls?color=blue&logo=nuget"></a>
    <a href="https://www.nuget.org/packages/FreakyControls"><img src="https://img.shields.io/nuget/dt/FreakyControls.svg"></a>
    <a href="./LICENSE"><img src="https://img.shields.io/github/license/freakyali/maui.freakycontrols"></a>
    <a href="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols"><img src="https://www.codefactor.io/repository/github/freakyali/maui.freakycontrols/badge"></a>
-<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=shield"/></a>
-</div>
+   <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FFreakyAli%2FMaui.FreakyControls.svg?type=shield"/></a>
+   </div>
 
 
 ## Platforms
@@ -28,14 +28,14 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 
 | iOS | Android |
 | --- | --- |
-| <img src="https://user-images.githubusercontent.com/31090457/195906310-ce95f402-7bea-4de2-93dd-f76f48683acf.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/195906289-9a7dc44e-97ec-419c-807a-4aa63b739611.gif" width="250" height="550"/> |
-| <img src="https://user-images.githubusercontent.com/31090457/195860576-1d5566ac-c4dc-41d0-9c1f-38338d9192c7.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195860338-d7286795-2c4a-4e7f-be91-0ff7f01a7747.gif" /> |
-| <img src="https://user-images.githubusercontent.com/31090457/195864114-5a32df8c-32aa-4c42-850d-398a54babca3.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195864040-2f37c110-92b3-47af-af2a-b50d895a77b5.gif" /> |
-| <img src="https://user-images.githubusercontent.com/31090457/195867103-37d65de1-6e39-42d9-9c98-705e49f4bc88.gif" width="250" height="550"/>| <img width="250" height="550" src="https://user-images.githubusercontent.com/31090457/195866605-20bf6373-53a3-44d9-9fde-c442ee1aec70.gif" /> |
-| <img src="https://user-images.githubusercontent.com/31090457/210124414-9db3bf89-2079-4e45-8fb5-2f9ae6438e44.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/210124403-a70fd95b-3668-4d5c-9973-e56aec4de514.gif" width="250" height="550"/> |
-| <img src="https://user-images.githubusercontent.com/31090457/221354808-a022a9ea-2692-4a3b-b8a6-a9a9040ca855.gif" width="250" height="550"/>| <img src="https://user-images.githubusercontent.com/31090457/221354804-fdc55267-4e67-424c-a1ea-960517c8510c.gif" width="250" height="550"/>| 
-| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/45c38fc3-3f0b-4a75-86ad-e9a52a64095c" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/0c5a1192-a3db-4f10-bb2c-0e29eeff73de" width="250" height="550"/>| 
-| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/3bd1f50e-a3c7-437b-994b-b8ec4689dd97" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/25565695-6d9e-451d-b737-0256c0cc1230" width="250" height="550"/>| 
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/ad3e28df-6b94-4eb1-92c7-f4731c28a438" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/8e3513e8-d1d3-4c31-b81b-8585042f1605" width="250" height="550"/> |
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/45a38c0a-03d1-47f7-bd83-6dfda36abf33" width="250" height="550"/>| <img width="250" height="550" src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/825de592-e70c-48eb-a1d0-a18a00668fab" /> |
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/bce1ec58-090b-4528-b51d-45a59da5c518" width="250" height="550"/>| <img width="250" height="550" src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/3a16dec7-2569-4fe6-bd86-4b0dd7fdebb3" /> |
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/d6a2812f-9f55-41fa-9dad-b2be23924c6b" width="250" height="550"/>| <img width="250" height="550" src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/199bf72d-fc6b-46cf-8c1b-d1a87d0a9210" /> |
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/b16c3d8a-d0e2-4e1e-badd-429f523bc63e" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/30baab9e-cdb7-41b6-a33b-d9b324571db4" width="250" height="550"/> |
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/1868d7bf-8f94-47f8-9f15-22c821d41a2c" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/ea99a389-e302-4857-bdf2-cda52f4821b2" width="250" height="550"/>| 
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/2cfdbbdb-196c-4721-ba89-8446a8da66e3" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/48bc373e-ed13-4ba4-a6bf-f933af9ef150" width="250" height="550"/>| 
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/f1d1f4db-06fc-4732-a66c-bedf6b6a9393" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/319b0342-02c0-4a88-8ee0-fd2c74d519d6" width="250" height="550"/>| 
 
 
 ## License

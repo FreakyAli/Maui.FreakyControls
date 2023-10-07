@@ -9,7 +9,7 @@ public static class TaskExtensions
     /// <remarks>This is usually used to avoid warning messages about not waiting for the task to complete.</remarks>
     public static void RunConcurrently(this Task task)
     {
-        if (task == null)
+        if (task is null)
             throw new ArgumentNullException("task", "task is null.");
 
         if (task.Status == TaskStatus.Created)

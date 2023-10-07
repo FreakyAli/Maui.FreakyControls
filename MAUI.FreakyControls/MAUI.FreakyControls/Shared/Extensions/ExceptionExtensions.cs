@@ -8,7 +8,7 @@ public static class ExceptionExtensions
     public static void TraceException(this Exception exception)
     {
         var stringBuilder = new StringBuilder();
-        while (exception != null)
+        while (exception is not null)
         {
             stringBuilder.AppendLine(exception.Message);
             stringBuilder.AppendLine(exception.StackTrace);

@@ -14,7 +14,7 @@ public abstract class BaseSKCanvas : SKCanvasView
     protected override sealed void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         //TODO: Figure out why drawing on coachmark is leading to surface being null
-        if (e.Surface == null)
+        if (e.Surface is null)
         {
             return;
         }

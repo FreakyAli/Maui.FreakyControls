@@ -9,7 +9,7 @@ public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject
         base.OnAttachedTo(bindable);
         AssociatedObject = bindable;
 
-        if (bindable.BindingContext != null)
+        if (bindable.BindingContext is not null)
         {
             BindingContext = bindable.BindingContext;
         }

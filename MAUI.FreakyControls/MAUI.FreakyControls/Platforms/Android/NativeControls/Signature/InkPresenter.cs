@@ -47,14 +47,14 @@ internal partial class InkPresenter
         get
         {
             var sizeChanged = false;
-            if (bitmapBuffer != null)
+            if (bitmapBuffer is not null)
             {
                 var s = bitmapBuffer.GetSize();
                 sizeChanged = s.Width != Width || s.Height != Height;
             }
 
             return sizeChanged ||
-                (bitmapBuffer != null && paths.Count == 0) ||
+                (bitmapBuffer is not null && paths.Count == 0) ||
                 paths.Any(p => p.IsDirty);
         }
     }
@@ -121,7 +121,7 @@ internal partial class InkPresenter
     {
         var strokePoints = points?.ToList();
 
-        if (strokePoints == null || strokePoints.Count == 0)
+        if (strokePoints is null || strokePoints.Count == 0)
         {
             return false;
         }
@@ -204,7 +204,7 @@ internal partial class InkPresenter : View
     static InkPresenter()
     {
         // we may be in a designer
-        if (Application.Context == null)
+        if (Application.Context is null)
         {
             ScreenDensity = 1f;
             return;
@@ -267,7 +267,7 @@ internal partial class InkPresenter : View
     private void TouchesMoved(MotionEvent e, bool update = true)
     {
         // something may have happened (clear) so start the stroke again
-        if (currentPath == null)
+        if (currentPath is null)
         {
             TouchesBegan(e);
         }
@@ -314,7 +314,7 @@ internal partial class InkPresenter : View
     private void TouchesEnded(MotionEvent e)
     {
         // something may have happened (clear) during the stroke
-        if (currentPath != null)
+        if (currentPath is not null)
         {
             TouchesMoved(e, false);
 
@@ -357,7 +357,7 @@ internal partial class InkPresenter : View
         base.OnDraw(canvas);
 
         // destroy an old bitmap
-        if (bitmapBuffer != null && ShouldRedrawBufferImage)
+        if (bitmapBuffer is not null && ShouldRedrawBufferImage)
         {
             var temp = bitmapBuffer;
             bitmapBuffer = null;
@@ -368,19 +368,19 @@ internal partial class InkPresenter : View
         }
 
         // re-create
-        if (bitmapBuffer == null)
+        if (bitmapBuffer is null)
         {
             bitmapBuffer = CreateBufferImage();
         }
 
         // if there are no lines, the the bitmap will be null
-        if (bitmapBuffer != null)
+        if (bitmapBuffer is not null)
         {
             canvas.DrawBitmap(bitmapBuffer, 0, 0, null);
         }
 
         // draw the current path over the old paths
-        if (currentPath != null)
+        if (currentPath is not null)
         {
             using (var paint = new Paint())
             {
@@ -399,7 +399,7 @@ internal partial class InkPresenter : View
 
     private Bitmap CreateBufferImage()
     {
-        if (paths == null || paths.Count == 0)
+        if (paths is null || paths.Count == 0)
         {
             return null;
         }
