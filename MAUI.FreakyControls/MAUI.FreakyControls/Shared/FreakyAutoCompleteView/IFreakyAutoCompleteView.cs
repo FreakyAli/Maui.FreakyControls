@@ -2,7 +2,7 @@
 
 namespace Maui.FreakyControls;
 
-public interface IFreakyAutoCompleteView :IView, IDrawableImageView
+public interface IFreakyAutoCompleteView : IView, IDrawableImageView
 {
     string Text { get; set; }
     Color TextColor { get; set; }
@@ -17,6 +17,8 @@ public interface IFreakyAutoCompleteView :IView, IDrawableImageView
     bool AllowCopyPaste { get; set; }
 
     void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
+
     void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
+
     void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);
 }

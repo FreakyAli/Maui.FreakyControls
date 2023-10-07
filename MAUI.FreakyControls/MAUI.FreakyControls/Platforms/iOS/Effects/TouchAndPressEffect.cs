@@ -26,7 +26,7 @@ namespace Maui.FreakyControls.Platforms.iOS
 
         protected override void OnDetached()
         {
-            if (_view != null && _touchAndPressGestureRecognizer != null)
+            if (_view is not null && _touchAndPressGestureRecognizer is not null)
             {
                 _view.RemoveGestureRecognizer(_touchAndPressGestureRecognizer);
             }

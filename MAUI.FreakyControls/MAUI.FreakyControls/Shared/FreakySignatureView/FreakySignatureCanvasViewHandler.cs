@@ -102,7 +102,7 @@ namespace Maui.FreakyControls
         private void OnIsBlankRequested(object sender, IsBlankRequestedEventArgs e)
         {
             var ctrl = this.PlatformView;
-            if (ctrl != null)
+            if (ctrl is not null)
             {
                 e.IsBlank = ctrl.IsBlank;
             }
@@ -111,7 +111,7 @@ namespace Maui.FreakyControls
         private void OnPointsRequested(object sender, PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
-            if (ctrl != null)
+            if (ctrl is not null)
             {
                 e.Points = ctrl.Points.Select(p => new Point(p.X, p.Y));
             }
@@ -120,7 +120,7 @@ namespace Maui.FreakyControls
         private void OnPointsSpecified(object sender, PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
-            if (ctrl != null)
+            if (ctrl is not null)
             {
                 ctrl.LoadPoints(e.Points.Select(p => new NativePoint((float)p.X, (float)p.Y)).ToArray());
             }
@@ -129,7 +129,7 @@ namespace Maui.FreakyControls
         private void OnStrokesRequested(object sender, StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
-            if (ctrl != null)
+            if (ctrl is not null)
             {
                 e.Strokes = ctrl.Strokes.Select(s => s.Select(p => new Point(p.X, p.Y)));
             }
@@ -138,7 +138,7 @@ namespace Maui.FreakyControls
         private void OnStrokesSpecified(object sender, StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
-            if (ctrl != null)
+            if (ctrl is not null)
             {
                 ctrl.LoadStrokes(e.Strokes.Select(s => s.Select(p => new NativePoint((float)p.X, (float)p.Y)).ToArray()).ToArray());
             }
@@ -147,7 +147,7 @@ namespace Maui.FreakyControls
         private void OnClearRequested(object sender, EventArgs e)
         {
             var ctrl = this.PlatformView;
-            if (ctrl != null)
+            if (ctrl is not null)
             {
                 ctrl.Clear();
             }

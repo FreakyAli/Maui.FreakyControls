@@ -10,12 +10,12 @@ public partial class FreakySignatureCanvasViewHandler
     private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
     {
         var ctrl = this.PlatformView;
-        if (ctrl != null)
+        if (ctrl is not null)
         {
             var format = e.ImageFormat;
 
             var settings = new Platforms.iOS.ImageConstructionSettings();
-            if (e.Settings.BackgroundColor != null)
+            if (e.Settings.BackgroundColor is not null)
             {
                 settings.BackgroundColor = e.Settings.BackgroundColor.ToPlatform();
             }
@@ -26,7 +26,7 @@ public partial class FreakySignatureCanvasViewHandler
                     (SizeOrScaleType)(int)val.Type, val.KeepAspectRatio);
             }
             settings.ShouldCrop = e.Settings.ShouldCrop;
-            if (e.Settings.StrokeColor != null)
+            if (e.Settings.StrokeColor is not null)
             {
                 settings.StrokeColor = e.Settings.StrokeColor.ToPlatform();
             }

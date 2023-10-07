@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:samples="clr-namespace:Samples"
+    xmlns:vm="clr-namespace:Samples.ImageViews"
+    x:DataType="vm:ImagesViewModel"
     Title="ImageViews">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="10">
@@ -17,6 +19,9 @@
 
             <freakyControls:FreakySvgImageView
                 HeightRequest="300"
+                ImageColor="Transparent"
+                Command="{Binding ImageWasTappedCommand}"
+                CommandParameter="{Binding .}"
                 ResourceId="{x:Static samples:Constants.DotnetBot}"
                 SvgAssembly="{x:Static samples:Constants.SvgAssembly}"
                 SvgMode="AspectFit" />
@@ -30,7 +35,6 @@
                 Uri="{x:Static samples:Constants.SvgUrl}"
                 HeightRequest="300"
                 SvgMode="AspectFit" />
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -26,7 +26,7 @@ public class CircularImageView : AppCompatImageView
     {
         Drawable drawable = this.Drawable;
 
-        if (drawable == null)
+        if (drawable is null)
         {
             return;
         }

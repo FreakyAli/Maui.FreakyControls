@@ -9,6 +9,23 @@
     x:DataType="inputViews:InputViewModel">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
+
+            <freakyControls:FreakyCodeView
+                CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
+                CodeEntryCompletedCommand="{Binding EntryCompleteCommand}"
+                CodeInputType="AlphaNumeric"
+                IsPassword="False"
+                Color="Black"
+                ItemSpacing="10"
+                CodeLength="6"
+                ItemShape="Squircle"
+                ItemFocusColor="Black"
+                ItemFocusAnimation="Bounce"
+                ItemBorderColor="Gray"
+                ItemBackgroundColor="White"
+                ShouldAutoDismissKeyboard="True"
+                ItemBorderWidth="1" />
+
             <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
@@ -42,6 +59,7 @@
                     ImageWidth="{OnPlatform 25,
                                             iOS=25,
                                             Android=40}"
+                    Placeholder="Autocomplete Right"
                     Threshold="1"
                     DisplayMemberPath="Name"
                     TextMemberPath="Name"

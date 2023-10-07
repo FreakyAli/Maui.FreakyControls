@@ -126,7 +126,7 @@ public partial class SignaturePadCanvasView : UIView
     private Task<Stream> GetImageStreamInternal(SignatureImageFormat format, CGSize scale, CGRect signatureBounds, CGSize imageSize, float strokeWidth, UIColor strokeColor, UIColor backgroundColor)
     {
         var image = GetImageInternal(scale, signatureBounds, imageSize, strokeWidth, strokeColor, backgroundColor);
-        if (image != null)
+        if (image is not null)
         {
             if (format == SignatureImageFormat.Jpeg)
             {
@@ -147,7 +147,7 @@ partial class SignaturePadCanvasView
 
     public event EventHandler Cleared;
 
-    public bool IsBlank => inkPresenter == null ? true : inkPresenter.GetStrokes().Count == 0;
+    public bool IsBlank => inkPresenter is null ? true : inkPresenter.GetStrokes().Count == 0;
 
     public NativePoint[] Points
     {
@@ -545,7 +545,7 @@ partial class SignaturePadCanvasView
         Clear();
 
         // there is nothing
-        if (loadedStrokes == null || loadedStrokes.Length == 0)
+        if (loadedStrokes is null || loadedStrokes.Length == 0)
         {
             return;
         }
@@ -568,7 +568,7 @@ partial class SignaturePadCanvasView
         Clear();
 
         // there is nothing
-        if (loadedPoints == null || loadedPoints.Length == 0)
+        if (loadedPoints is null || loadedPoints.Length == 0)
         {
             return;
         }

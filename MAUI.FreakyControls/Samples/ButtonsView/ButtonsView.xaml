@@ -12,7 +12,7 @@
             VerticalOptions="Center">
             <freakyControls:FreakyButton
                 Animation="FadeAndScale"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
@@ -28,7 +28,7 @@
 
             <freakyControls:FreakyButton
                 Animation="Fade"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
@@ -44,7 +44,7 @@
             <freakyControls:FreakyButton
                 Animation="Scale"
                 AreIconsDistant="False"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
@@ -60,7 +60,7 @@
             <freakyControls:FreakyButton
                 Animation="None"
                 AreIconsDistant="False"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
@@ -76,7 +76,7 @@
 
             <freakyControls:FreakyButton
                 Animation="FadeAndScale"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
@@ -111,7 +111,7 @@
                         </VisualState>
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                <Setter Property="BackgroundColor" Value="Purple" />
                                 <Setter Property="TextColor" Value="White" />
                             </VisualState.Setters>
                         </VisualState>
@@ -145,7 +145,7 @@
                         </VisualState>
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                <Setter Property="BackgroundColor" Value="Purple" />
                                 <Setter Property="TextColor" Value="White" />
                             </VisualState.Setters>
                         </VisualState>
@@ -155,7 +155,7 @@
 
             <freakyControls:FreakyButton
                 Animation="FadeAndScale"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
@@ -167,7 +167,7 @@
 
             <freakyControls:FreakyButton
                 Animation="FadeAndScale"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
@@ -179,7 +179,7 @@
 
             <freakyControls:FreakyButton
                 Animation="FadeAndScale"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"

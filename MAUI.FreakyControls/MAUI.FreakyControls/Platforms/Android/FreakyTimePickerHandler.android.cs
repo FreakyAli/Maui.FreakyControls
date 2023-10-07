@@ -31,7 +31,7 @@ public partial class FreakyTimePickerHandler
 
     protected override void DisconnectHandler(MauiTimePicker platformView)
     {
-        if (_dialog != null)
+        if (_dialog is not null)
         {
             _dialog.Hide();
             _dialog = null;
@@ -41,7 +41,7 @@ public partial class FreakyTimePickerHandler
     internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
     {
         var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
-        if (imageBitmap != null)
+        if (imageBitmap is not null)
         {
             var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
                 Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
@@ -63,7 +63,7 @@ public partial class FreakyTimePickerHandler
 
     private void ShowPickerDialog()
     {
-        if (VirtualView == null)
+        if (VirtualView is null)
             return;
 
         var time = VirtualView.Time;
@@ -81,7 +81,7 @@ public partial class FreakyTimePickerHandler
 
     private void HidePickerDialog()
     {
-        if (_dialog != null)
+        if (_dialog is not null)
         {
             _dialog.Hide();
         }

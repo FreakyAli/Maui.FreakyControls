@@ -334,10 +334,11 @@ public partial class FreakyPinCodeControl : ContentView
     {
     }
 
-    void ImageButton_Clicked(System.Object sender, System.EventArgs e)
+    private void ImageButton_Clicked(System.Object sender, System.EventArgs e)
     {
         if (CodeValue.Length != 0)
             CodeValue = CodeValue[..^1];
     }
+
     #endregion BindableProperties
 }

@@ -8,6 +8,7 @@
         <freakyControls:FreakyCodeView
             IsEnabled="False"
             Grid.Row="0"
+            HorizontalOptions="Center"
             CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
             CodeValue="{Binding CodeValue,Source={x:Reference this}}"
             CodeLength="{Binding CodeLength,Source={x:Reference this}}"

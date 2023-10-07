@@ -57,7 +57,7 @@ internal partial class InkPresenter : UIView
     public override void TouchesMoved(NSSet touches, UIEvent evt)
     {
         // something may have happened (clear) so start the stroke again
-        if (currentPath == null)
+        if (currentPath is null)
         {
             TouchesBegan(touches, evt);
         }
@@ -90,7 +90,7 @@ internal partial class InkPresenter : UIView
         var touchLocation = touch.LocationInView(this);
 
         // something may have happened (clear) during the stroke
-        if (currentPath != null)
+        if (currentPath is not null)
         {
             if (HasMovedFarEnough(currentPath, touchLocation.X, touchLocation.Y))
             {
@@ -120,7 +120,7 @@ internal partial class InkPresenter : UIView
         base.Draw(rect);
 
         // destroy an old bitmap
-        if (bitmapBuffer != null && ShouldRedrawBufferImage)
+        if (bitmapBuffer is not null && ShouldRedrawBufferImage)
         {
             var temp = bitmapBuffer;
             bitmapBuffer = null;
@@ -130,19 +130,19 @@ internal partial class InkPresenter : UIView
         }
 
         // re-create
-        if (bitmapBuffer == null)
+        if (bitmapBuffer is null)
         {
             bitmapBuffer = CreateBufferImage();
         }
 
         // if there are no lines, the the bitmap will be null
-        if (bitmapBuffer != null)
+        if (bitmapBuffer is not null)
         {
             bitmapBuffer.Draw(CGPoint.Empty);
         }
 
         // draw the current path over the old paths
-        if (currentPath != null)
+        if (currentPath is not null)
         {
             var context = UIGraphics.GetCurrentContext();
             context.SetLineCap(CGLineCap.Round);
@@ -157,7 +157,7 @@ internal partial class InkPresenter : UIView
 
     private UIImage CreateBufferImage()
     {
-        if (paths == null || paths.Count == 0)
+        if (paths is null || paths.Count == 0)
         {
             return null;
         }
@@ -231,14 +231,14 @@ internal partial class InkPresenter
         get
         {
             var sizeChanged = false;
-            if (bitmapBuffer != null)
+            if (bitmapBuffer is not null)
             {
                 var s = bitmapBuffer.GetSize();
                 sizeChanged = s.Width != Width || s.Height != Height;
             }
 
             return sizeChanged ||
-                (bitmapBuffer != null && paths.Count == 0) ||
+                (bitmapBuffer is not null && paths.Count == 0) ||
                 paths.Any(p => p.IsDirty);
         }
     }
@@ -305,7 +305,7 @@ internal partial class InkPresenter
     {
         var strokePoints = points?.ToList();
 
-        if (strokePoints == null || strokePoints.Count == 0)
+        if (strokePoints is null || strokePoints.Count == 0)
         {
             return false;
         }

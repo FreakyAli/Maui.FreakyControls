@@ -325,7 +325,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     private static void OnLeadingIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var freakyButton = bindable as FreakyButton;
-        if (newValue != null)
+        if (newValue is not null)
         {
             freakyButton.leadingContentView.IsVisible = true;
             freakyButton.leadingContentView.Content = newValue as View;
@@ -339,7 +339,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
     private static void OnTrailingIconChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var freakyButton = bindable as FreakyButton;
-        if (newValue != null)
+        if (newValue is not null)
         {
             freakyButton.trailingContentView.IsVisible = true;
             freakyButton.trailingContentView.Content = newValue as View;
@@ -375,7 +375,7 @@ public partial class FreakyButton : ContentView, ITouchPressEffect
         if (IsEnabled)
             Command?.ExecuteCommandIfAvailable(CommandParameter);
 
-        if (IsEnabled && Clicked != null)
+        if (IsEnabled && Clicked is not null)
             Clicked.Invoke(this, EventArgs.Empty);
     }
 

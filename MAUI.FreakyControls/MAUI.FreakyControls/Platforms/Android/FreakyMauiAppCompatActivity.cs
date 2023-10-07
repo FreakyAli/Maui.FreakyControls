@@ -18,7 +18,7 @@ public abstract class FreakyMauiAppCompatActivity : MauiAppCompatActivity
         try
         {
             View view = CurrentFocus;
-            if (view != null && (ev.Action == MotionEventActions.Up || ev.Action == MotionEventActions.Move) &&
+            if (view is not null && (ev.Action == MotionEventActions.Up || ev.Action == MotionEventActions.Move) &&
                 view is EditText &&
                 !view.Class.Name.StartsWith("android.webkit."))
             {
