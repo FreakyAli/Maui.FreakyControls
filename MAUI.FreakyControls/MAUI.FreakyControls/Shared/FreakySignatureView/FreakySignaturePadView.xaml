@@ -9,12 +9,11 @@
     <ContentView.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
     </ContentView.Resources>
-    <Grid
-        Padding="10"
-        ColumnDefinitions="*,35"
-        ColumnSpacing="0"
-        RowSpacing="0">
+
+    <AbsoluteLayout>
         <Image
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
             x:Name="BackgroundImageView"
             Grid.ColumnSpan="2"
             Aspect="{Binding BackgroundImageAspect, Source={x:Reference this}}"
@@ -22,33 +21,38 @@
             Opacity="{Binding BackgroundImageOpacity, Source={x:Reference this}}"
             Source="{Binding BackgroundImage, Source={x:Reference this}}" />
         <freakyControls:FreakySignatureCanvasView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
             x:Name="SignaturePadCanvas"
             Grid.ColumnSpan="2"
             Cleared="OnSignatureCleared"
             StrokeColor="{Binding StrokeColor, Source={x:Reference this}}"
             StrokeCompleted="OnSignatureStrokeCompleted"
             StrokeWidth="{Binding StrokeWidth, Source={x:Reference this}}" />
-        <freakyControls:FreakySvgImageView
-            x:Name="ClearLabel"
-            Grid.Column="1"
-            Base64String="{Binding ClearImageBase64, Source={x:Reference this}}"
-            HeightRequest="35"
-            ImageColor="{Binding ClearImageColor, Source={x:Reference this}}"
-            IsVisible="{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
-            ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
-            SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
-            SvgMode="AspectFit"
-            VerticalOptions="Start"
-            WidthRequest="35">
-            <freakyControls:FreakySvgImageView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnClearTapped" />
-            </freakyControls:FreakySvgImageView.GestureRecognizers>
-        </freakyControls:FreakySvgImageView>
+            <freakyControls:FreakySvgImageView
+                x:Name="ClearLabel"
+                AbsoluteLayout.LayoutBounds="0,0,40,40"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Grid.Column="1"
+                Base64String="{Binding ClearImageBase64, Source={x:Reference this}}"
+                HeightRequest="35"
+                ImageColor="{Binding ClearImageColor, Source={x:Reference this}}"
+                IsVisible="{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
+                ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
+                SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
+                SvgMode="AspectFit"
+                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                WidthRequest="35">
+                <freakyControls:FreakySvgImageView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnClearTapped" />
+                </freakyControls:FreakySvgImageView.GestureRecognizers>
+            </freakyControls:FreakySvgImageView>
         <VerticalStackLayout
-            Grid.ColumnSpan="2"
             Margin="0"
             Padding="0"
-            HorizontalOptions="Fill"
+            AbsoluteLayout.LayoutBounds="0.5,1,1,0.9"
+            AbsoluteLayout.LayoutFlags="All"
             InputTransparent="True"
             Spacing="0"
             VerticalOptions="End">
@@ -70,5 +74,5 @@
                 TextColor="{Binding CaptionTextColor, Source={x:Reference this}}"
                 VerticalOptions="End" />
         </VerticalStackLayout>
-    </Grid>
+    </AbsoluteLayout>
 </ContentView>
