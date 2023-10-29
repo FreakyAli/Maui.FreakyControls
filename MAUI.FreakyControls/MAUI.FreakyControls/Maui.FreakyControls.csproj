@@ -146,4 +146,9 @@
 	<ItemGroup>
 	  <Compile Remove="Platforms\Android\FreakyAutoCompleteView.android.cs" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Platforms\Android\Resources\values\styles.xml">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </None>
+	</ItemGroup>
 </Project>
