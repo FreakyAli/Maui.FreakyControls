@@ -136,6 +136,36 @@ public partial class FreakySignaturePadView : ContentView
 
     public bool IsBlank => (bool)GetValue(IsBlankProperty);
 
+    public static readonly BindableProperty ClearHeightRequestProperty = BindableProperty.Create(
+            nameof(ClearHeightRequest),
+            typeof(double),
+            typeof(FreakySignaturePadView),
+            35.0);
+
+    public static readonly BindableProperty ClearWidthRequestProperty = BindableProperty.Create(
+            nameof(ClearWidthRequest),
+            typeof(double),
+            typeof(FreakySignaturePadView),
+            35.0);
+
+    /// <summary>
+    /// Gets or sets the width of the clear button
+    /// </summary>
+    public double ClearWidthRequest
+    {
+        get => (double)GetValue(ClearWidthRequestProperty);
+        set => SetValue(ClearWidthRequestProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the height of the clear button
+    /// </summary>
+    public double ClearHeightRequest
+    {
+        get => (double)GetValue(ClearHeightRequestProperty);
+        set => SetValue(ClearHeightRequestProperty, value);
+    }
+
     /// <summary>
     /// Gets or sets the color of the signature strokes.
     /// </summary>
