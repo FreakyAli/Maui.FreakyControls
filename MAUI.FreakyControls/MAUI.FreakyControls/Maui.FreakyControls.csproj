@@ -12,9 +12,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.4.7</AssemblyVersion>
-		<AssemblyFileVersion>0.4.7</AssemblyFileVersion>
-		<Version>0.4.7-pre</Version>
+		<AssemblyVersion>0.4.8</AssemblyVersion>
+		<AssemblyFileVersion>0.4.8</AssemblyFileVersion>
+		<Version>0.4.8</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
