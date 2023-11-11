@@ -11,6 +11,8 @@
         <freakyControls:FreakySignaturePadView
             x:Name="svgPad"
             Grid.Row="0"
+            ClearHeightRequest="50"
+            ClearWidthRequest="50"
             SignatureUnderlineWidth="1"
             StrokeColor="Black"
             StrokeCompleted="FreakySignaturePadView_StrokeCompleted"
