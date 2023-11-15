@@ -11,6 +11,7 @@
 		<ApplicationTitle>Samples</ApplicationTitle>
 		<!-- App Identifier -->
 		<ApplicationId>com.maui.freakycontrols.samples</ApplicationId>
+		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
 		<ApplicationIdGuid>1844AE31-3FC0-4074-8E59-6D9E6A5DF9BC</ApplicationIdGuid>
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -79,6 +80,8 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiImage Remove="Resources\Images\dotnet_bot.svg" />
