@@ -13,7 +13,7 @@
 
 | Support       | OS            |
 | ------------- |:-------------:|
-| iOS             | iOS 15.0 + |
+| iOS             | iOS 14.0 + |
 | Android    | API 23+ (Marshmallow) | 
 
 
