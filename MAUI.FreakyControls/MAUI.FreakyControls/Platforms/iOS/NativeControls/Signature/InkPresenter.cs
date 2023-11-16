@@ -165,7 +165,7 @@ internal partial class InkPresenter : UIView
         var size = Bounds.Size;
 
         var renderer = new UIGraphicsImageRenderer(size, new UIGraphicsImageRendererFormat { Opaque = false, Scale = ScreenDensity });
-        
+
         var image = renderer.CreateImage((context) =>
         {
             var cgcontext = context.CGContext;
