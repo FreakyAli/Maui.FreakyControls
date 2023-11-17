@@ -155,7 +155,7 @@ internal partial class InkPresenter : UIView
         }
     }
 
-    private UIImage CreateBufferImage()
+    private NativeImage CreateBufferImage()
     {
         if (paths is null || paths.Count == 0)
         {
@@ -163,26 +163,26 @@ internal partial class InkPresenter : UIView
         }
 
         var size = Bounds.Size;
-        UIGraphics.BeginImageContextWithOptions(size, false, ScreenDensity);
-        var context = UIGraphics.GetCurrentContext();
 
-        context.SetLineCap(CGLineCap.Round);
-        context.SetLineJoin(CGLineJoin.Round);
+        var renderer = new UIGraphicsImageRenderer(size, new UIGraphicsImageRendererFormat { Opaque = false, Scale = ScreenDensity });
 
-        foreach (var path in paths)
+        var image = renderer.CreateImage((context) =>
         {
-            context.SetStrokeColor(path.Color.CGColor);
-            context.SetLineWidth(path.Width);
+            var cgcontext = context.CGContext;
+            cgcontext.SetLineCap(CGLineCap.Round);
+            cgcontext.SetLineJoin(CGLineJoin.Round);
 
-            context.AddPath(path.Path.CGPath);
-            context.StrokePath();
+            foreach (var path in paths)
+            {
+                cgcontext.SetStrokeColor(path.Color.CGColor);
+                cgcontext.SetLineWidth(path.Width);
 
-            path.IsDirty = false;
-        }
+                cgcontext.AddPath(path.Path.CGPath);
+                cgcontext.StrokePath();
 
-        var image = UIGraphics.GetImageFromCurrentImageContext();
-
-        UIGraphics.EndImageContext();
+                path.IsDirty = false;
+            }
+        });
 
         return image;
     }
