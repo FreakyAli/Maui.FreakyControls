@@ -26,6 +26,8 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 
 ## Previews:
 
+### Note: GIFs here don't represent the actual performance of said controls please feel free to clone the repository and check the performance of our controls yourself!!
+
 | iOS | Android |
 | --- | --- |
 | <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/ad3e28df-6b94-4eb1-92c7-f4731c28a438" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/8e3513e8-d1d3-4c31-b81b-8585042f1605" width="250" height="550"/> |
@@ -36,6 +38,7 @@ For more details and API documentation check our [Wiki](https://github.com/Freak
 | <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/1868d7bf-8f94-47f8-9f15-22c821d41a2c" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/ea99a389-e302-4857-bdf2-cda52f4821b2" width="250" height="550"/>| 
 | <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/2cfdbbdb-196c-4721-ba89-8446a8da66e3" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/48bc373e-ed13-4ba4-a6bf-f933af9ef150" width="250" height="550"/>| 
 | <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/f1d1f4db-06fc-4732-a66c-bedf6b6a9393" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/319b0342-02c0-4a88-8ee0-fd2c74d519d6" width="250" height="550"/>| 
+| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/732eb058-7619-4288-a778-d3a670f64c2c" width="250" height="550"/>| <img src="https://github.com/FreakyAli/Maui.FreakyControls/assets/31090457/cf41f49b-30a0-4508-bffc-64ab35ebbc44" width="250" height="550"/>| 
 
 
 ## License
