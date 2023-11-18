@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Samples.InputViews.InputViews"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -120,6 +120,52 @@
                     Placeholder="This is a freaky editor"
                     TextColor="Purple" />
             </Border>
+
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <Ellipse/>
+                </Border.StrokeShape>
+                <Border HeightRequest="50" WidthRequest="50">
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
+            </Border>
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <RoundRectangle/>
+                </Border.StrokeShape>
+                <Border>
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
+            </Border>
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="50"/>
+                </Border.StrokeShape>
+                <Border HeightRequest="50" WidthRequest="50">
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
+            </Border>
+
+            <Border HeightRequest="100" WidthRequest="100">
+                <Border.StrokeShape>
+                    <RoundRectangle/>
+                </Border.StrokeShape>
+                <Border>
+                    <Border.StrokeShape>
+                        <Ellipse/>
+                    </Border.StrokeShape>
+                </Border>
+            </Border>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
