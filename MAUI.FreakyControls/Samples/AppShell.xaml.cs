@@ -1,4 +1,4 @@
-﻿namespace Samples;
+namespace Samples;
 
 public partial class AppShell : Shell
 {
@@ -11,6 +11,8 @@ public partial class AppShell : Shell
     internal const string signaturePreview = "ImageDisplay";
     internal const string signatureView = "SignatureView";
     internal const string textInputLayout = "TextInputLayouts";
+    internal const string jumpList = "JumpList";
+    internal const string pinView = "PinView";
 
     public AppShell()
     {
@@ -24,5 +26,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
         Routing.RegisterRoute(radioButtons, typeof(RadioButtons.RadioButtonsView));
         Routing.RegisterRoute(buttons, typeof(ButtonsView.ButtonsView));
+        Routing.RegisterRoute(jumpList, typeof(JumpList.JumpListView));
+        Routing.RegisterRoute(pinView, typeof(PinView.PinView));
     }
 }

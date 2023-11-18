@@ -91,42 +91,36 @@ public partial class SignaturePadCanvasView : UIView
 
     private UIImage GetImageInternal(CGSize scale, CGRect signatureBounds, CGSize imageSize, float strokeWidth, UIColor strokeColor, UIColor backgroundColor)
     {
-        UIGraphics.BeginImageContextWithOptions(imageSize, false, InkPresenter.ScreenDensity);
+        var renderer = new UIGraphicsImageRenderer(imageSize, new UIGraphicsImageRendererFormat { Opaque = false, Scale = InkPresenter.ScreenDensity });
 
-        // create context and set the desired options
-        var context = UIGraphics.GetCurrentContext();
-
-        // background
-        context.SetFillColor(backgroundColor.CGColor);
-        context.FillRect(new CGRect(CGPoint.Empty, imageSize));
-
-        // cropping / scaling
-        context.ScaleCTM(scale.Width, scale.Height);
-        context.TranslateCTM(-signatureBounds.Left, -signatureBounds.Top);
-
-        // strokes
-        context.SetStrokeColor(strokeColor.CGColor);
-        context.SetLineWidth(strokeWidth);
-        context.SetLineCap(CGLineCap.Round);
-        context.SetLineJoin(CGLineJoin.Round);
-        foreach (var path in inkPresenter.GetStrokes())
+        var image = renderer.CreateImage((context) =>
         {
-            context.AddPath(path.Path.CGPath);
-        }
-        context.StrokePath();
+            var cgContext = context.CGContext;
+            cgContext.SetFillColor(backgroundColor.CGColor);
+            cgContext.FillRect(new CGRect(CGPoint.Empty, imageSize));
 
-        // get the image
-        var image = UIGraphics.GetImageFromCurrentImageContext();
+            // cropping / scaling
+            cgContext.ScaleCTM(scale.Width, scale.Height);
+            cgContext.TranslateCTM(-signatureBounds.Left, -signatureBounds.Top);
 
-        UIGraphics.EndImageContext();
-
+            // strokes
+            cgContext.SetStrokeColor(strokeColor.CGColor);
+            cgContext.SetLineWidth(strokeWidth);
+            cgContext.SetLineCap(CGLineCap.Round);
+            cgContext.SetLineJoin(CGLineJoin.Round);
+            foreach (var path in inkPresenter.GetStrokes())
+            {
+                cgContext.AddPath(path.Path.CGPath);
+            }
+            cgContext.StrokePath();
+        });
         return image;
     }
 
     private Task<Stream> GetImageStreamInternal(SignatureImageFormat format, CGSize scale, CGRect signatureBounds, CGSize imageSize, float strokeWidth, UIColor strokeColor, UIColor backgroundColor)
     {
         var image = GetImageInternal(scale, signatureBounds, imageSize, strokeWidth, strokeColor, backgroundColor);
-        if (image != null)
+        if (image is not null)
         {
             if (format == SignatureImageFormat.Jpeg)
             {
@@ -147,7 +141,7 @@ partial class SignaturePadCanvasView
 
     public event EventHandler Cleared;
 
-    public bool IsBlank => inkPresenter == null ? true : inkPresenter.GetStrokes().Count == 0;
+    public bool IsBlank => inkPresenter is null ? true : inkPresenter.GetStrokes().Count == 0;
 
     public NativePoint[] Points
     {
@@ -545,7 +539,7 @@ partial class SignaturePadCanvasView
         Clear();
 
         // there is nothing
-        if (loadedStrokes == null || loadedStrokes.Length == 0)
+        if (loadedStrokes is null || loadedStrokes.Length == 0)
         {
             return;
         }
@@ -568,7 +562,7 @@ partial class SignaturePadCanvasView
         Clear();
 
         // there is nothing
-        if (loadedPoints == null || loadedPoints.Length == 0)
+        if (loadedPoints is null || loadedPoints.Length == 0)
         {
             return;
         }

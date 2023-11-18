@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Samples.PinView.PinView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    Title="PinView">
+    <Grid RowDefinitions="*,Auto,3*">
+
+        <Image
+            Grid.Row="0"
+            Aspect="AspectFit"
+            Source="panda.jpg" />
+
+        <Label
+            Grid.Row="1"
+            FontSize="Large"
+            HorizontalTextAlignment="Center"
+            Text="Enter your pin to continue!" />
+
+        <freakyControls:FreakyPinCodeControl
+            Grid.Row="2"
+            BackspaceButtonSource="backspace.png"
+            CancelButtonPadding="25"
+            CodeLength="6"
+            FontSize="20"
+            ItemBackgroundColor="White"
+            ItemBorderColor="Black"
+            ItemFocusAnimation="Scale"
+            ItemShape="Squircle"
+            ItemSize="50"
+            KeyboardBackgroundColor="LightGray"
+            KeyboardButtonCornerRadius="10">
+            <freakyControls:FreakyPinCodeControl.ItemSpacing>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android" Value="5" />
+                    <On Platform="iOS" Value="10" />
+                </OnPlatform>
+            </freakyControls:FreakyPinCodeControl.ItemSpacing>
+            <freakyControls:FreakyPinCodeControl.ItemSize>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android" Value="55" />
+                    <On Platform="iOS" Value="50" />
+                </OnPlatform>
+            </freakyControls:FreakyPinCodeControl.ItemSize>
+            <freakyControls:FreakyPinCodeControl.ItemBorderWidth>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android" Value="3" />
+                    <On Platform="iOS" Value="5" />
+                </OnPlatform>
+            </freakyControls:FreakyPinCodeControl.ItemBorderWidth>
+            <freakyControls:FreakyPinCodeControl.KeyboardButtonSizeRequest>
+                <OnPlatform x:TypeArguments="x:Double" Default="40">
+                    <On Platform="Android" Value="80" />
+                    <On Platform="iOS" Value="100" />
+                </OnPlatform>
+            </freakyControls:FreakyPinCodeControl.KeyboardButtonSizeRequest>
+        </freakyControls:FreakyPinCodeControl>
+    </Grid>
+</ContentPage>

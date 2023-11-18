@@ -23,7 +23,7 @@ public partial class FreakyPickerHandler
     internal async Task HandleAndAlignImageSourceAsync(FreakyPicker entry)
     {
         var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
-        if (imageBitmap != null)
+        if (imageBitmap is not null)
         {
             var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
                 Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));

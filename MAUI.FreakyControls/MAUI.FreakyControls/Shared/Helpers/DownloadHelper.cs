@@ -1,5 +1,5 @@
-﻿using Maui.FreakyControls.Shared.Wrappers;
-using System.Diagnostics;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Wrappers;
 
 namespace Maui.FreakyControls.Shared.Helpers;
 
@@ -24,10 +24,7 @@ public static class DownloadHelper
         }
         catch (Exception ex)
         {
-            Trace.TraceError(ex.Message);
-            Trace.TraceError(ex.StackTrace);
-            Trace.TraceError(ex.Source);
-            Trace.WriteLine(ex.InnerException);
+            ex.TraceException();
             return null;
         }
     }

@@ -1,6 +1,5 @@
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
-using Maui.FreakyControls.Shared.Extensions;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
@@ -51,7 +50,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     private static readonly Shape shape =
         DeviceInfo.Platform == DevicePlatform.iOS ?
         Shared.Enums.Shape.Circle :
-        Shared.Enums.Shape.Rectangle;
+        Shared.Enums.Shape.Sqaure;
 
     private static readonly float outlineWidth = 6.0f;
 
@@ -301,10 +300,10 @@ public class FreakyCheckbox : ContentView, IDisposable
 
         using var checkStroke = new SKPaint
         {
-            Style = (Design == Design.Unified) &&
-            (CheckType == CheckType.Fill) ||
-            (CheckType == CheckType.Star) ||
-            (CheckType == CheckType.Box) ?
+            Style = ((Design == Design.Unified) &&
+            (CheckType == CheckType.Fill)) ||
+            ((CheckType == CheckType.Star) ||
+            (CheckType == CheckType.Box)) ?
             SKPaintStyle.Fill : SKPaintStyle.Stroke,
             Color = CheckColor.ToSKColor(),
             StrokeWidth = CheckWidth,

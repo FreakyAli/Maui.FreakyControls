@@ -2,7 +2,6 @@ using Android.App;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Text.Format;
 using AndroidX.Core.View;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
@@ -32,7 +31,7 @@ public partial class FreakyTimePickerHandler
 
     protected override void DisconnectHandler(MauiTimePicker platformView)
     {
-        if (_dialog != null)
+        if (_dialog is not null)
         {
             _dialog.Hide();
             _dialog = null;
@@ -42,7 +41,7 @@ public partial class FreakyTimePickerHandler
     internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
     {
         var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
-        if (imageBitmap != null)
+        if (imageBitmap is not null)
         {
             var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
                 Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
@@ -64,7 +63,7 @@ public partial class FreakyTimePickerHandler
 
     private void ShowPickerDialog()
     {
-        if (VirtualView == null)
+        if (VirtualView is null)
             return;
 
         var time = VirtualView.Time;
@@ -82,14 +81,11 @@ public partial class FreakyTimePickerHandler
 
     private void HidePickerDialog()
     {
-        if (_dialog != null)
+        if (_dialog is not null)
         {
             _dialog.Hide();
         }
 
         _dialog = null;
     }
-
-    private bool Use24HourView => (VirtualView != null) && (DateFormat.Is24HourFormat(PlatformView?.Context)
-            && (VirtualView.Format == "t") || (VirtualView.Format == "HH:mm"));
 }

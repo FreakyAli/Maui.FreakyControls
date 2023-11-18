@@ -1,8 +1,8 @@
-﻿using Maui.FreakyControls.Extensions;
+﻿using CommunityToolkit.Maui;
+using Maui.FreakyControls.Extensions;
 
 // this is to avoid the following https://docs.microsoft.com/en-us/dotnet/maui/xaml/xamlc
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
 namespace Samples;
 
 public static class MauiProgram
@@ -17,6 +17,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+        builder.UseMauiCommunityToolkit();
         builder.InitializeFreakyControls();
         return builder.Build();
     }

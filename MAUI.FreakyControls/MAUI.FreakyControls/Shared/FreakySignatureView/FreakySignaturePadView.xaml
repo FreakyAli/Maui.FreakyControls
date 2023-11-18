@@ -1,20 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentView
     x:Class="Maui.FreakyControls.FreakySignaturePadView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:Maui.FreakyControls.Shared.Converters"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
+    xmlns:converters="clr-namespace:Maui.FreakyControls.Shared.Converters"
     x:Name="this">
     <ContentView.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
     </ContentView.Resources>
-    <Grid
-        Padding="10"
-        ColumnDefinitions="*,35"
-        ColumnSpacing="0"
-        RowSpacing="0">
-        <Image
+    <Grid>
+        <freakyControls:FreakyImage
             x:Name="BackgroundImageView"
             Grid.ColumnSpan="2"
             Aspect="{Binding BackgroundImageAspect, Source={x:Reference this}}"
@@ -32,23 +28,22 @@
             x:Name="ClearLabel"
             Grid.Column="1"
             Base64String="{Binding ClearImageBase64, Source={x:Reference this}}"
-            HeightRequest="35"
+            HeightRequest="{Binding ClearHeightRequest, Source={x:Reference this}}"
+            HorizontalOptions="Start"
             ImageColor="{Binding ClearImageColor, Source={x:Reference this}}"
             IsVisible="{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
             ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
             SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
             SvgMode="AspectFit"
             VerticalOptions="Start"
-            WidthRequest="35">
+            WidthRequest="{Binding ClearWidthRequest, Source={x:Reference this}}">
             <freakyControls:FreakySvgImageView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnClearTapped" />
             </freakyControls:FreakySvgImageView.GestureRecognizers>
         </freakyControls:FreakySvgImageView>
         <VerticalStackLayout
-            Grid.ColumnSpan="2"
             Margin="0"
             Padding="0"
-            HorizontalOptions="Fill"
             InputTransparent="True"
             Spacing="0"
             VerticalOptions="End">

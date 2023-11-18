@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Application = Microsoft.Maui.Controls.Application;
@@ -7,13 +7,41 @@ namespace Samples
 {
     public class MainViewModel : BaseViewModel
     {
-        private ObservableCollection<string> _suggestionItem;
-
         private ObservableCollection<string> items;
+
+        protected List<string> names = new List<string>
+        {
+            "Ava", "Amelia", "Adam", "Aaron", "Abigail", "Addison", "Alexandra", "Alice", "Ashley", "Aiden",
+            "Benjamin", "Bella", "Brandon", "Brooke", "Blake", "Brian", "Brooklyn", "Bailey", "Bradley", "Brianna",
+            "Charlotte", "Caleb", "Chloe", "Carter", "Christopher", "Claire", "Cameron", "Cassidy", "Cooper", "Caroline",
+            "Daniel", "David", "Dylan", "Destiny", "Delilah", "Dominic", "Dakota", "Daisy", "Devin", "Derek",
+            "Emma", "Ethan", "Elizabeth", "Elijah", "Emily", "Eric", "Evelyn", "Ellie", "Evan", "Elena",
+            "Finn", "Fiona", "Faith", "Francesca", "Felicity", "Felix", "Freya", "Ford", "Flora", "Franklin",
+            "Grace", "Gabriel", "Genesis", "Gemma", "George", "Giselle", "Gavin", "Giana", "Greyson", "Gwendolyn",
+            "Hannah", "Henry", "Hazel", "Harper", "Hayden", "Hope", "Harrison", "Hailey", "Hudson", "Holly",
+            "Isabella", "Isaac", "Ivy", "Ian", "Isla", "Irene", "Ingrid", "Ibrahim", "Indigo", "Iris",
+            "Jacob", "James", "Jasmine", "Julian", "Jocelyn", "Jackson", "Jessica", "Joanna", "Jude", "Jenna",
+            "Katherine", "Kylie", "Kevin", "Kennedy", "Kai", "Kara", "Kaden", "Kelsey", "Kyle", "Kaitlyn",
+            "Liam", "Lily", "Lucas", "Leah", "Logan", "Lillian", "Leo", "Lydia", "Luna", "Lincoln",
+            "Mia", "Mason", "Madison", "Mila", "Matthew", "Maya", "Michael", "Molly", "Mason", "Morgan",
+            "Nora", "Nathan", "Natalie", "Noah", "Naomi", "Nicholas", "Nina", "Nolan", "Nevaeh", "Nash",
+            "Olivia", "Owen", "Oliver", "Olga", "Oscar", "Opal", "Olive", "Onyx", "Octavia", "Omar",
+            "Piper", "Peyton", "Preston", "Paige", "Peter", "Phoebe", "Patrick", "Pearl", "Parker", "Penelope",
+            "Quinn", "Quincy", "Quintin", "Queenie", "Quincey", "Quiana", "Quinlan", "Quetzal", "Quillan", "Quest",
+            "Rachel", "Ryan", "Rebecca", "Robert", "Riley", "Reagan", "Richard", "Rose", "Remington", "Ryder",
+            "Sophia", "Samuel", "Samantha", "Sebastian", "Scarlett", "Stella", "Sarah", "Savannah", "Simon", "Sydney",
+            "Taylor", "Thomas", "Tessa", "Theodore", "Trinity", "Tyler", "Talia", "Trevor", "Tabitha", "Thaddeus",
+            "Ulysses", "Ursula", "Uriah", "Unity", "Umar", "Una", "Ulrich", "Ulla", "Urbain", "Ugo",
+            "Victoria", "William", "Violet", "Valentina", "Vincent", "Vanessa", "Vivian", "Vera", "Victor", "Veronica",
+            "Walter", "Willow", "Winston", "Whitney", "Wayne", "Winter", "Wendy", "Weston", "Willa", "Wren",
+            "Xander", "Ximena", "Xavier", "Xanthe", "Xena", "Xia", "Xylia", "Xyla", "Xerxes", "Xylona",
+            "Yasmine", "Yael", "Yara", "Yaretzi", "Yvonne", "Yvette", "Yvaine", "Yelena", "Yara", "Yasmine",
+            "Zachary", "Zoe", "Zachariah", "Zara", "Zayden", "Zuri", "Zane", "Zelda", "Zeke", "Zena"
+        };
 
         public MainViewModel()
         {
-            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync, new AsyncRelayCommandOptions());
+            ImageWasTappedCommand = new AsyncRelayCommand<object>(ImageTappedAsync, new AsyncRelayCommandOptions());
             FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
 
             Items = new ObservableCollection<string>
@@ -25,18 +53,10 @@ namespace Samples
                 AppShell.signatureView,
                 AppShell.checkboxes,
                 AppShell.radioButtons,
-                AppShell.buttons
+                AppShell.buttons,
+                AppShell.jumpList,
+                AppShell.pinView
             };
-
-            var strSuggestionArr = new string[] {
-                        "hello",
-                        "how are you",
-                        "some other question",
-                        "Yuhu",
-                        "Yello",
-                        "Majin buuuuuuuuuu"
-                        };
-            SuggestionItem = new ObservableCollection<string>(strSuggestionArr.ToList());
         }
 
         public ICommand FreakyLongPressedCommand { get; set; }
@@ -56,17 +76,7 @@ namespace Samples
             }
         }
 
-        public ObservableCollection<string> SuggestionItem
-        {
-            get => _suggestionItem;
-            set
-            {
-                _suggestionItem = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private async Task ImageTappedAsync()
+        private async Task ImageTappedAsync(object obj)
         {
             await MainThread.InvokeOnMainThreadAsync(() =>
             Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));

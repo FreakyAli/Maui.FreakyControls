@@ -14,18 +14,13 @@ public abstract class BaseSKCanvas : SKCanvasView
     protected override sealed void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         //TODO: Figure out why drawing on coachmark is leading to surface being null
-        if (e.Surface == null)
+        if (e.Surface is null)
         {
             return;
         }
-
         e.Surface.Canvas.Clear(SKColors.Transparent);
-
-        // make sure no previous transforms still apply
         e.Surface.Canvas.ResetMatrix();
-
         base.OnPaintSurface(e);
-
         DoPaintSurface(e);
     }
 

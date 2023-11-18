@@ -14,7 +14,7 @@ namespace Maui.FreakyControls.Shared.Wrappers
 
         public StreamWrapper(Stream wrapped, IDisposable additionalDisposable)
         {
-            if (wrapped == null)
+            if (wrapped is null)
                 throw new ArgumentNullException("wrapped");
 
             _wrapped = wrapped;

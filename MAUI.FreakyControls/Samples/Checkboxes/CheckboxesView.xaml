@@ -35,7 +35,7 @@
                 Shape="Circle" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle + Slam"
+                Text="Unified + Sqaure + Slam"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
@@ -48,10 +48,10 @@
                 Design="Unified"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
-                Shape="Rectangle" />
+                Shape="Sqaure" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle + Slam"
+                Text="Unified + Sqaure + Slam"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
@@ -64,7 +64,7 @@
                 Design="Unified"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
-                Shape="Rectangle" />
+                Shape="Sqaure" />
             <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Star"
@@ -80,10 +80,10 @@
                 Design="Unified"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
-                Shape="Rectangle" />
+                Shape="Sqaure" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle + Fill"
+                Text="Unified + Sqaure + Fill"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
@@ -99,7 +99,7 @@
                 Shape="Circle" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle + Fill"
+                Text="Unified + Sqaure + Fill"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
@@ -112,10 +112,10 @@
                 Design="Unified"
                 FillColor="Transparent"
                 OutlineColor="{StaticResource Primary}"
-                Shape="Rectangle" />
+                Shape="Sqaure" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle + Box"
+                Text="Unified + Sqaure + Box"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
@@ -128,10 +128,10 @@
                 Design="Unified"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
-                Shape="Rectangle" />
+                Shape="Sqaure" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle + Line"
+                Text="Unified + Sqaure + Line"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
@@ -144,10 +144,10 @@
                 Design="Unified"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
-                Shape="Rectangle" />
+                Shape="Sqaure" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle + Cross"
+                Text="Unified + Sqaure + Cross"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
@@ -157,10 +157,10 @@
                 Design="Unified"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
-                Shape="Rectangle" />
+                Shape="Sqaure" />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="Unified + Rectangle"
+                Text="Unified + Sqaure"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 

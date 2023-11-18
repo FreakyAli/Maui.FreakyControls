@@ -25,17 +25,6 @@
                                     Android=40}" />
 
         <freakyControls:FreakyTextInputLayout
-            Title="Outlined TextInputLayout"
-            BackgroundColor="White"
-            BorderCornerRadius="10"
-            BorderStroke="{StaticResource Primary}"
-            BorderStrokeThickness="2"
-            BorderType="Outlined"
-            FontSize="Large"
-            TextColor="{StaticResource Primary}"
-            TitleColor="{StaticResource Primary}" />
-
-        <freakyControls:FreakyTextInputLayout
             x:Name="yolo"
             Title="Underlined TextInputLayout"
             BorderType="Underline"

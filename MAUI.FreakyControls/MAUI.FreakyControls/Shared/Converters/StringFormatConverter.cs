@@ -20,7 +20,7 @@ public class StringFormatConverter : BaseOneWayValueConverter
             if (targetType != typeof(string))
                 throw new ArgumentException($"Converter can only convert to string, {targetType} is not a supported target type", nameof(targetType));
 
-            if (parameter == null)
+            if (parameter is null)
                 throw new ArgumentNullException(nameof(parameter), "Converter parameter must not be null");
 
             if (!(parameter is string format))

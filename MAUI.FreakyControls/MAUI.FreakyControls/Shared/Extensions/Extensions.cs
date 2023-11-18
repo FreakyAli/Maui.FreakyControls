@@ -44,7 +44,7 @@ public static class Extensions
             builder.UseSkiaSharp();
         }
         builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
-        builder.ConfigureEffects(effects =>effects.AddEffects());
+        builder.ConfigureEffects(effects => effects.AddEffects());
     }
 
     private static void AddEffects(this IEffectsBuilder effects)
@@ -63,15 +63,8 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
         handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
-    }
-
-    [Obsolete("Please use InitializeFreakyControls instead.")]
-    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers) => handlers.AddHandlers();
-
-    [Obsolete("Please use InitializeFreakyControls instead.")]
-    public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder)
-    {
-        mauiAppBuilder.UseSkiaSharp();
+        handlers.AddHandler(typeof(FreakySwitch), typeof(FreakySwitchHandler));
+        handlers.AddHandler(typeof(FreakyAutoCompleteView), typeof(FreakyAutoCompleteViewHandler));
     }
 
 #if ANDROID || IOS || MACCATALYST

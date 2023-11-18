@@ -20,7 +20,7 @@ internal static class PathSmoothing
         NativePath smoothedPath;
         List<NativePoint> smoothedPoints;
         SmoothedPathWithGranularity(currentPoints, granularity, out smoothedPath, out smoothedPoints);
-        if (smoothedPath == null)
+        if (smoothedPath is null)
         {
             return currentPath;
         }
