@@ -91,35 +91,29 @@ public partial class SignaturePadCanvasView : UIView
 
     private UIImage GetImageInternal(CGSize scale, CGRect signatureBounds, CGSize imageSize, float strokeWidth, UIColor strokeColor, UIColor backgroundColor)
     {
-        UIGraphics.BeginImageContextWithOptions(imageSize, false, InkPresenter.ScreenDensity);
+        var renderer = new UIGraphicsImageRenderer(imageSize, new UIGraphicsImageRendererFormat { Opaque = false, Scale = InkPresenter.ScreenDensity });
 
-        // create context and set the desired options
-        var context = UIGraphics.GetCurrentContext();
-
-        // background
-        context.SetFillColor(backgroundColor.CGColor);
-        context.FillRect(new CGRect(CGPoint.Empty, imageSize));
-
-        // cropping / scaling
-        context.ScaleCTM(scale.Width, scale.Height);
-        context.TranslateCTM(-signatureBounds.Left, -signatureBounds.Top);
-
-        // strokes
-        context.SetStrokeColor(strokeColor.CGColor);
-        context.SetLineWidth(strokeWidth);
-        context.SetLineCap(CGLineCap.Round);
-        context.SetLineJoin(CGLineJoin.Round);
-        foreach (var path in inkPresenter.GetStrokes())
+        var image = renderer.CreateImage((context) =>
         {
-            context.AddPath(path.Path.CGPath);
-        }
-        context.StrokePath();
+            var cgContext = context.CGContext;
+            cgContext.SetFillColor(backgroundColor.CGColor);
+            cgContext.FillRect(new CGRect(CGPoint.Empty, imageSize));
 
-        // get the image
-        var image = UIGraphics.GetImageFromCurrentImageContext();
+            // cropping / scaling
+            cgContext.ScaleCTM(scale.Width, scale.Height);
+            cgContext.TranslateCTM(-signatureBounds.Left, -signatureBounds.Top);
 
-        UIGraphics.EndImageContext();
-
+            // strokes
+            cgContext.SetStrokeColor(strokeColor.CGColor);
+            cgContext.SetLineWidth(strokeWidth);
+            cgContext.SetLineCap(CGLineCap.Round);
+            cgContext.SetLineJoin(CGLineJoin.Round);
+            foreach (var path in inkPresenter.GetStrokes())
+            {
+                cgContext.AddPath(path.Path.CGPath);
+            }
+            cgContext.StrokePath();
+        });
         return image;
     }
 

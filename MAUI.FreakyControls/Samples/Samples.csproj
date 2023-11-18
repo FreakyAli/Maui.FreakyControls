@@ -1,125 +1,124 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;net7.0-ios</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Samples</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
-
 		<!-- Display name -->
 		<ApplicationTitle>Samples</ApplicationTitle>
-
 		<!-- App Identifier -->
 		<ApplicationId>com.maui.freakycontrols.samples</ApplicationId>
+		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
 		<ApplicationIdGuid>1844AE31-3FC0-4074-8E59-6D9E6A5DF9BC</ApplicationIdGuid>
-
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
-
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
-	 </PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
-	  <EnableCodeSigning>false</EnableCodeSigning>
-	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+		<EnableCodeSigning>false</EnableCodeSigning>
+		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	  <WarningLevel>4</WarningLevel>
+		<WarningLevel>4</WarningLevel>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-	  <CreatePackage>false</CreatePackage>
-	  <CodesignKey>iPhone Developer</CodesignKey>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+		<CreatePackage>false</CreatePackage>
+		<CodesignKey>iPhone Developer</CodesignKey>
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#000000" />
-
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#000000" BaseSize="128,128" />
-
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiFont Include="Resources\Fonts\*" />
-	    <MauiImage Include="Resources\Images\maui_cloud.png" />
-
-		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-
 	<ItemGroup>
-	  <None Remove="calendar.png" />
-	  <None Remove="Platforms\Android\Resources\drawable\" />
-	  <None Remove="Platforms\iOS\Assets.xcassets\" />
-	  <None Remove="CommunityToolkit.Mvvm" />
-	  <None Remove="Resources\Images\maui_cloud.png" />
-	  <None Remove="ImageViews\" />
-	  <None Remove="InputViews\" />
-	  <None Remove="TextInputLayout\" />
-	  <None Remove="Pickers\" />
-	  <None Remove="SignatureView\" />
-	  <None Remove="Nager.Country" />
-	  <None Remove="Checkboxes\" />
-	  <None Remove="RadioButtons\" />
-	  <None Remove="JumpList\" />
-	  <None Remove="PinView\" />
-	  <None Remove="Resources\Images\backspace.svg" />
-	  <None Remove="Resources\Images\vecteezy_cute-panda-sleeping-and-smiling_6879744.jpg" />
-	  <None Remove="Resources\Images\panda.jpg" />
+		<None Remove="calendar.png" />
+		<None Remove="Platforms\Android\Resources\drawable\" />
+		<None Remove="Platforms\iOS\Assets.xcassets\" />
+		<None Remove="CommunityToolkit.Mvvm" />
+		<None Remove="ImageViews\" />
+		<None Remove="InputViews\" />
+		<None Remove="TextInputLayout\" />
+		<None Remove="Pickers\" />
+		<None Remove="SignatureView\" />
+		<None Remove="Nager.Country" />
+		<None Remove="Checkboxes\" />
+		<None Remove="RadioButtons\" />
+		<None Remove="JumpList\" />
+		<None Remove="PinView\" />
+		<None Remove="Resources\Images\backspace.svg" />
+		<None Remove="Resources\Images\panda.jpg" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
-	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Platforms\Android\Resources\drawable\" />
-	  <Folder Include="Platforms\iOS\Assets.xcassets\" />
-	  <Folder Include="ImageViews\" />
-	  <Folder Include="InputViews\" />
-	  <Folder Include="TextInputLayout\" />
-	  <Folder Include="Pickers\" />
-	  <Folder Include="SignatureView\" />
-	  <Folder Include="Checkboxes\" />
-	  <Folder Include="RadioButtons\" />
-	  <Folder Include="JumpList\" />
-	  <Folder Include="PinView\" />
+	<!--<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
+		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+	</PropertyGroup>-->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+		<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-	  <PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
+		<Folder Include="Platforms\Android\Resources\drawable\" />
+		<Folder Include="Platforms\iOS\Assets.xcassets\" />
+		<Folder Include="ImageViews\" />
+		<Folder Include="InputViews\" />
+		<Folder Include="TextInputLayout\" />
+		<Folder Include="Pickers\" />
+		<Folder Include="SignatureView\" />
+		<Folder Include="Checkboxes\" />
+		<Folder Include="RadioButtons\" />
+		<Folder Include="JumpList\" />
+		<Folder Include="PinView\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Images\dotnet_bot.svg" />
+		<MauiImage Remove="Resources\Images\dotnet_bot.svg" />
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiXaml Update="ImageViews\ImagesPage.xaml">
-	    <SubType></SubType>
-	  </MauiXaml>
-	  <MauiXaml Update="InputViews\InputViews.xaml">
-	    <SubType></SubType>
-	  </MauiXaml>
-	  <MauiXaml Update="Pickers\PickersView.xaml">
-	    <SubType></SubType>
-	  </MauiXaml>
-	  <MauiXaml Update="TextInputLayout\TextInputLayoutView.xaml">
-	    <SubType></SubType>
-	  </MauiXaml>
-	  <MauiXaml Update="SignatureView\SignatureView.xaml">
-	    <SubType></SubType>
-	  </MauiXaml>
-	  <MauiXaml Update="Checkboxes\CheckboxesView.xaml">
-	    <SubType></SubType>
-	  </MauiXaml>
+		<EmbeddedResource Include="Resources\Images\dotnet_bot.svg" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
+		<MauiXaml Update="ImageViews\ImagesPage.xaml">
+			<SubType>
+			</SubType>
+		</MauiXaml>
+		<MauiXaml Update="InputViews\InputViews.xaml">
+			<SubType>
+			</SubType>
+		</MauiXaml>
+		<MauiXaml Update="Pickers\PickersView.xaml">
+			<SubType>
+			</SubType>
+		</MauiXaml>
+		<MauiXaml Update="TextInputLayout\TextInputLayoutView.xaml">
+			<SubType>
+			</SubType>
+		</MauiXaml>
+		<MauiXaml Update="SignatureView\SignatureView.xaml">
+			<SubType>
+			</SubType>
+		</MauiXaml>
+		<MauiXaml Update="Checkboxes\CheckboxesView.xaml">
+			<SubType>
+			</SubType>
+		</MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
-	  <BundleResource Include="Resources\Images\panda.jpg" />
+		<ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<BundleResource Include="Resources\Images\panda.jpg" />
 	</ItemGroup>
 </Project>
