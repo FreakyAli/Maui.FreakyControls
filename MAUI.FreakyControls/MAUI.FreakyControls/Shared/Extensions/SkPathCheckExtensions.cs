@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace Maui.FreakyControls.Shared.Extensions;
+namespace Maui.FreakyControls.Extensions;
 
 public static class SkPathCheckExtensions
 {

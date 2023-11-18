@@ -35,14 +35,13 @@ internal class CodeView : Border
         Dot = new Border()
         {
             StrokeShape = new Ellipse() { Fill = DefaultColor },
-            Stroke = DefaultColor,
-            StrokeThickness = 1,
+            StrokeThickness = 0,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center,
             HeightRequest = DefaultDotSize,
             WidthRequest = DefaultDotSize,
             Scale = 0,
-            Padding = 0
+            Padding = 0,
         };
 
         CharLabel = new Label()
@@ -82,7 +81,11 @@ internal class CodeView : Border
     {
         if (shapeType == ItemShape.Circle)
         {
-            this.StrokeShape = new RoundRectangle() { CornerRadius = (float)HeightRequest / 2 };
+            this.StrokeShape = new Ellipse()
+            {
+                WidthRequest = (float)HeightRequest / 2,
+                HeightRequest = (float)HeightRequest / 2
+            };
         }
         else if (shapeType == ItemShape.Square)
         {

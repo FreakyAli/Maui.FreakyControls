@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Samples.JumpList.JumpListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -19,7 +19,7 @@
             ItemsUpdatingScrollMode="KeepLastItemInView"
             VerticalScrollBarVisibility="Never">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -36,12 +36,12 @@
         <controls:FreakyJumpList
             x:Name="JumpList"
             AbsoluteLayout.LayoutBounds="1,0.5,0.1,0.7"
-            CharacterColor="Blue"
-            SelectedCharacterColor="Black"
-            HasHapticFeedback="True"
             AbsoluteLayout.LayoutFlags="All"
             AlphabetProvider="{x:Static provider:JumpListView.AlphabetProvider}"
+            CharacterColor="{StaticResource Primary}"
+            HasHapticFeedback="True"
             SelectedCharacterChanged="SkiaJumpList_OnSelectedCharacterChanged"
+            SelectedCharacterColor="Black"
             Touch="JumpList_OnTouch" />
         <Border
             x:Name="jumplistIdentifier"

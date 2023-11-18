@@ -1,5 +1,6 @@
 using Maui.FreakyControls.Extensions;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Samples.InputViews;
 
@@ -11,6 +12,8 @@ public class InputViewModel : MainViewModel
 
     public List<string> Names { get; }
     public List<AutoCompleteModel> NamesModel { get; }
+
+    public ICommand EntryCompleteCommand { get; set; }
 
     public string Pin
     {
@@ -37,5 +40,11 @@ public class InputViewModel : MainViewModel
 
         NamesModel = names.Select(x => new AutoCompleteModel { Name = x }).ToList();
         NamesCollectionModel = NamesModel.ToObservable();
+
+        EntryCompleteCommand = new Command(ExecuteEntryCompleteCommand);
+    }
+
+    private void ExecuteEntryCompleteCommand(object obj)
+    {
     }
 }

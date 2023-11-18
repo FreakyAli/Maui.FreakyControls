@@ -43,7 +43,6 @@ public partial class FreakyPinCodeControl : ContentView
           CodeView.DefaultCodeLength,
           defaultBindingMode: BindingMode.OneWay);
 
-
     public ICommand CodeEntryCompletedCommand
     {
         get { return (ICommand)GetValue(CodeEntryCompletedCommandProperty); }
@@ -333,13 +332,13 @@ public partial class FreakyPinCodeControl : ContentView
 
     private void Cancel_Clicked(object sender, System.EventArgs e)
     {
-
     }
 
-    void ImageButton_Clicked(System.Object sender, System.EventArgs e)
+    private void ImageButton_Clicked(System.Object sender, System.EventArgs e)
     {
         if (CodeValue.Length != 0)
             CodeValue = CodeValue[..^1];
     }
+
     #endregion BindableProperties
 }

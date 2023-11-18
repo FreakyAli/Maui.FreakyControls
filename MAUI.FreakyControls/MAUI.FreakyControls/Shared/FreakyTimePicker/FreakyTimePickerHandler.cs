@@ -16,7 +16,7 @@ public partial class FreakyTimePickerHandler : TimePickerHandler
         if (timePicker is FreakyTimePicker freakyTimePicker &&
                     timePickerHandler is FreakyTimePickerHandler freakyTimePickerHandler)
         {
-            if (PlatformView != null && VirtualView != null)
+            if (PlatformView is not null && VirtualView is not null)
             {
                 if (freakyTimePicker.ImageSource != default(ImageSource))
                 {

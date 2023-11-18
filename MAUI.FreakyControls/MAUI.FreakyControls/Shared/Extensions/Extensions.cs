@@ -67,12 +67,6 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyAutoCompleteView), typeof(FreakyAutoCompleteViewHandler));
     }
 
-    [Obsolete("Please use InitializeFreakyControls instead.", true)]
-    public static void AddFreakyHandlers(this IMauiHandlersCollection handlers) => handlers.AddHandlers();
-
-    [Obsolete("Please use InitializeFreakyControls instead.", true)]
-    public static void InitSkiaSharp(this MauiAppBuilder mauiAppBuilder) => mauiAppBuilder.UseSkiaSharp();
-
 #if ANDROID || IOS || MACCATALYST
 
     /// <summary>

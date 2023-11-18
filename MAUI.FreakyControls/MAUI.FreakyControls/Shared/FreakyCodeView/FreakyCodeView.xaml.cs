@@ -1,4 +1,5 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Enums;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -35,7 +36,7 @@ public partial class FreakyCodeView : ContentView
 
     private void HiddenTextEntry_Focused(object sender, FocusEventArgs e)
     {
-        var length = CodeValue == null ? 0 : CodeValue.Length;
+        var length = CodeValue is null ? 0 : CodeValue.Length;
         hiddenTextEntry.CursorPosition = length;
 
         var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToArray();
@@ -106,13 +107,13 @@ public partial class FreakyCodeView : ContentView
     {
         CodeView container = new()
         {
-            HeightRequest = ItemSize,
-            WidthRequest = ItemSize,
             ItemFocusColor = ItemFocusColor,
             FocusAnimationType = ItemFocusAnimation,
-            StrokeThickness = ItemBorderWidth
         };
-        container.Item.BackgroundColor = ItemBackgroundColor;
+        container.SetBinding(Border.HeightRequestProperty, new Binding("ItemSize", source: this));
+        container.SetBinding(Border.WidthRequestProperty, new Binding("ItemSize", source: this));
+        container.SetBinding(Border.StrokeThicknessProperty, new Binding("ItemBorderWidth", source: this));
+        container.Item.SetBinding(Border.BackgroundColorProperty, new Binding("ItemBackgroundColor", source: this));
         container.CharLabel.FontSize = ItemSize / 2;
         container.SecureMode(IsPassword);
         container.SetColor(Color, ItemBorderColor);
@@ -134,12 +135,12 @@ public partial class FreakyCodeView : ContentView
 
         if (e.NewTextValue.Length >= CodeLength)
         {
-            if (ShouldAutoDismissKeyboard == true)
+            if (ShouldAutoDismissKeyboard)
             {
-                (sender as Entry).Unfocus();
+                hiddenTextEntry.DismissSoftKeyboard();
             }
             CodeEntryCompleted?.Invoke(this, new FreakyCodeCompletedEventArgs(CodeValue));
-            CodeEntryCompletedCommand?.Execute(CodeValue);
+            CodeEntryCompletedCommand.ExecuteCommandIfAvailable(CodeValue);
         }
     }
 
@@ -268,7 +269,7 @@ public partial class FreakyCodeView : ContentView
            nameof(CodeInputType),
            typeof(KeyboardType),
            typeof(FreakyCodeView),
-            KeyboardType.Numeric,
+           KeyboardType.Numeric,
            defaultBindingMode: BindingMode.OneWay,
            propertyChanged: CodeInputTypePropertyChanged);
 
@@ -364,19 +365,7 @@ public partial class FreakyCodeView : ContentView
           nameof(ItemSpacing),
           typeof(double),
           typeof(FreakyCodeView),
-          CodeView.DefaultItemSpacing,
-          defaultBindingMode: BindingMode.OneWay,
-          propertyChanged: ItemSpacingPropertyChanged);
-
-    private static void ItemSpacingPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if ((double)newValue < 0)
-        {
-            return;
-        }
-        var control = ((FreakyCodeView)bindable);
-        control.CodeItemContainer.Spacing = (double)newValue;
-    }
+          CodeView.DefaultItemSpacing);
 
     public double ItemSize
     {
@@ -389,26 +378,7 @@ public partial class FreakyCodeView : ContentView
           nameof(ItemSize),
           typeof(double),
           typeof(FreakyCodeView),
-          CodeView.DefaultItemSize,
-          defaultBindingMode: BindingMode.OneWay,
-          propertyChanged: ItemSizePropertyChanged);
-
-    private static void ItemSizePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if ((double)newValue < 0)
-        {
-            return;
-        }
-
-        var control = ((FreakyCodeView)bindable);
-        foreach (var x in control.CodeItemContainer.Children)
-        {
-            var container = (CodeView)x;
-            container.HeightRequest = (double)newValue;
-            container.WidthRequest = (double)newValue;
-            container.SetRadius(control.ItemShape);
-        }
-    }
+          CodeView.DefaultItemSize);
 
     public ItemShape ItemShape
     {
@@ -548,8 +518,7 @@ public partial class FreakyCodeView : ContentView
           nameof(ShouldAutoDismissKeyboard),
           typeof(bool),
           typeof(FreakyCodeView),
-          true,
-          defaultBindingMode: BindingMode.OneWay);
+          true);
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {

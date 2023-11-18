@@ -1,6 +1,5 @@
 ﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Wrappers;
-using System.Diagnostics;
 
 namespace Maui.FreakyControls.Shared.Helpers;
 

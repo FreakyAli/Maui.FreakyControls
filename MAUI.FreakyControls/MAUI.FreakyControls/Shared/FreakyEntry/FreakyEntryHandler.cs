@@ -21,7 +21,7 @@ public sealed partial class FreakyEntryHandler : EntryHandler
         {
             if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
             {
-                if (PlatformView != null && VirtualView != null)
+                if (PlatformView is not null && VirtualView is not null)
                 {
                     if (freakyEntry.ImageSource != default(ImageSource))
                     {

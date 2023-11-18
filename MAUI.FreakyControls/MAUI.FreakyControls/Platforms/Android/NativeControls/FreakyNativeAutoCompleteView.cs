@@ -37,7 +37,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     internal void SetItems(IEnumerable<object> items, Func<object, string> labelFunc, Func<object, string> textFunc)
     {
         this.textFunc = textFunc;
-        if (items == null)
+        if (items is null)
             adapter.UpdateList(Enumerable.Empty<string>(), labelFunc);
         else
             adapter.UpdateList(items.OfType<object>(), labelFunc);
@@ -130,25 +130,27 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     }
 
     public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
+
     public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
+
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
 
     public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
          Drawable right, Drawable bottom)
     {
-        if (left != null)
+        if (left is not null)
         {
             drawableLeft = left;
         }
-        if (right != null)
+        if (right is not null)
         {
             drawableRight = right;
         }
-        if (top != null)
+        if (top is not null)
         {
             drawableTop = top;
         }
-        if (bottom != null)
+        if (bottom is not null)
         {
             drawableBottom = bottom;
         }
@@ -162,14 +164,14 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         {
             actionX = (int)e.GetX();
             actionY = (int)e.GetY();
-            if (drawableBottom != null
+            if (drawableBottom is not null
                 && drawableBottom.Bounds.Contains(actionX, actionY))
             {
                 clickListener.OnClick(DrawablePosition.Bottom);
                 return base.OnTouchEvent(e);
             }
 
-            if (drawableTop != null
+            if (drawableTop is not null
                     && drawableTop.Bounds.Contains(actionX, actionY))
             {
                 clickListener.OnClick(DrawablePosition.Top);
@@ -177,7 +179,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             }
 
             // this works for left since container shares 0,0 origin with bounds
-            if (drawableLeft != null)
+            if (drawableLeft is not null)
             {
                 bounds = null;
                 bounds = drawableLeft.Bounds;
@@ -206,7 +208,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                     }
                 }
 
-                if (bounds.Contains(x, y) && clickListener != null)
+                if (bounds.Contains(x, y) && clickListener is not null)
                 {
                     clickListener.OnClick(DrawablePosition.Left);
                     e.Action = (MotionEventActions.Cancel);
@@ -214,7 +216,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                 }
             }
 
-            if (drawableRight != null)
+            if (drawableRight is not null)
             {
                 bounds = null;
                 bounds = drawableRight.Bounds;
@@ -257,7 +259,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                     y = actionY;
 
                 //If drawble bounds contains the x and y points then move ahead./
-                if (bounds.Contains(x, y) && clickListener != null)
+                if (bounds.Contains(x, y) && clickListener is not null)
                 {
                     clickListener
                             .OnClick(DrawablePosition.Right);
@@ -344,7 +346,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
             protected override FilterResults PerformFiltering(ICharSequence constraint)
             {
-                if (resultList == null)
+                if (resultList is null)
                     return new FilterResults() { Count = 0, Values = null };
                 var arr = resultList.ToArray();
                 return new FilterResults() { Count = arr.Length, Values = arr };

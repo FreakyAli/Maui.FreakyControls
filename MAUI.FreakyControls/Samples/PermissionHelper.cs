@@ -28,7 +28,7 @@ public static class PermissionHelper
         if (Permissions.ShouldShowRationale<T>())
         {
             // Prompt the user with additional information as to why the permission is needed
-            if (rationaleTask != null)
+            if (rationaleTask is not null)
             {
                 await rationaleTask.Invoke().ConfigureAwait(false);
             }

@@ -22,7 +22,7 @@ internal class TouchAndPressEffect : PlatformEffect
     {
         _view = Control ?? Container;
 
-        if (_view != null && Element is ITouchPressEffect touchAndPressEffectConsumer)
+        if (_view is not null && Element is ITouchPressEffect touchAndPressEffectConsumer)
         {
             _view.Touch += OnViewOnTouch;
             _touchAndPressEffectConsumer = touchAndPressEffectConsumer;
@@ -31,7 +31,7 @@ internal class TouchAndPressEffect : PlatformEffect
 
     protected override void OnDetached()
     {
-        if (_view != null)
+        if (_view is not null)
         {
             _view.Touch -= OnViewOnTouch;
         }
@@ -75,7 +75,7 @@ internal class TouchAndPressEffect : PlatformEffect
 
     private void OnPointerMoved(MotionEvent motionEvent)
     {
-        if (motionEvent != null)
+        if (motionEvent is not null)
         {
             var x = motionEvent.GetX();
             var y = motionEvent.GetY();

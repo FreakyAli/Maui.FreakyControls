@@ -2,7 +2,7 @@
 
 namespace Maui.FreakyControls;
 
-public interface IFreakyAutoCompleteView :IView, IDrawableImageView
+public interface IFreakyAutoCompleteView : IView, IDrawableImageView
 {
     string Text { get; set; }
     Color TextColor { get; set; }

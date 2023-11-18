@@ -1,13 +1,13 @@
-using System.Diagnostics;
-using System.Reflection;
-using System.Windows.Input;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Helpers;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
+using System.Diagnostics;
+using System.Reflection;
+using System.Windows.Input;
+using Color = Microsoft.Maui.Graphics.Color;
 using SKPaintSurfaceEventArgs = SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs;
 using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
-using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
 
@@ -27,7 +27,6 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         {
             canvas = value;
             OnPropertyChanged(nameof(this.SvgMode));
-            OnPropertyChanged(nameof(this.ImageColor));
         }
     }
 
@@ -41,8 +40,8 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
     public FreakySvgImageView()
     {
         tapGestureRecognizer = new TapGestureRecognizer();
-        tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandProperty, new Binding("BindingContext.Command", source: this));
-        tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandParameterProperty, new Binding("BindingContext.CommandParameter", source: this));
+        tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandProperty, new Binding(nameof(this.Command), source: this));
+        tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandParameterProperty, new Binding(nameof(this.CommandParameter), source: this));
         GestureRecognizers.Add(tapGestureRecognizer);
         tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
         SizeChanged += FreakySvgImageView_SizeChanged;
@@ -73,11 +72,26 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         surface = e.Surface;
         Canvas = surface.Canvas;
         Canvas.Clear();
-        if (Svg != null && Svg?.Picture != null)
-            Canvas.DrawPicture(Svg?.Picture);
+        if (Svg is null || Svg?.Picture is null)
+        {
+            return;
+        }
+        if (ImageColor != Colors.Transparent)
+        {
+            using (var paint = new SKPaint
+            {
+                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
+                Style = SKPaintStyle.StrokeAndFill
+            })
+            {
+                canvas.DrawPicture(Svg.Picture, paint);
+                return;
+            }
+        }
+        canvas.DrawPicture(Svg.Picture);
     }
 
-    #endregion
+    #endregion Constructor, Destructor, Disposal and Assignments
 
     public static readonly BindableProperty ImageColorProperty = BindableProperty.Create(
          nameof(ImageColor),
@@ -221,7 +235,7 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         {
             Stream svgStream;
             svgStream = SvgAssembly?.GetManifestResourceStream(ResourceId);
-            if (svgStream == null)
+            if (svgStream is null)
             {
                 Trace.TraceError($"{nameof(FreakySvgImageView)}: Embedded Resource not found for Svg: {ResourceId}");
                 return;
@@ -237,21 +251,6 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         {
             ex.TraceException();
         }
-    }
-
-    private void SetImageColor()
-    {
-        if (ImageColor != Colors.Transparent)
-        {
-            using var paint = new SKPaint
-            {
-                ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
-                Style = SKPaintStyle.StrokeAndFill
-            };
-            Canvas.DrawPicture(Svg.Picture, paint);
-            return;
-        }
-        Canvas.DrawPicture(Svg.Picture);
     }
 
     private void SetBase64String()
@@ -299,50 +298,52 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
         Canvas.Translate(-bounds.MidX, -bounds.MidY);
     }
 
-    protected async override void OnPropertyChanged(string propertyName = null)
+    private async Task SetUriAsync()
+    {
+        try
+        {
+            var stream = await DownloadHelper.GetStreamAsync(Uri);
+            Svg.Load(stream);
+            InvalidateSurface();
+        }
+        catch (Exception ex)
+        {
+            ex.TraceException();
+        }
+    }
+
+    protected override async void OnPropertyChanged(string propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
         if (propertyName == nameof(ResourceId) || propertyName == nameof(SvgAssembly))
         {
-            if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly == null)
+            if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly is null)
                 return;
             SetResourceId();
         }
-        else if (propertyName == nameof(ImageColor))
-        {
-            if (Canvas == null || Svg == null || Svg.Picture == null)
-                return;
-            SetImageColor();
-        }
         else if (propertyName == nameof(Base64String))
         {
-            if (string.IsNullOrWhiteSpace(Base64String) && Svg != null)
+            if (string.IsNullOrWhiteSpace(Base64String) && Svg is not null)
                 return;
             SetBase64String();
         }
+        else if (propertyName == nameof(Uri))
+        {
+            if (Uri == default || Svg is null)
+            {
+                return;
+            }
+            await SetUriAsync();
+        }
         else if (propertyName == nameof(SvgMode))
         {
-            if (Canvas == null || Svg == null || Svg.Picture == null)
+            if (Canvas is null || Svg is null || Svg.Picture is null)
                 return;
             SetSvgMode();
         }
-        else if (propertyName == nameof(Uri))
+        else if (propertyName == nameof(ImageColor))
         {
-            if (Uri == default)
-            {
-                return;
-            }
-
-            try
-            {
-                var stream = await DownloadHelper.GetStreamAsync(Uri);
-                Svg.Load(stream);
-                InvalidateSurface();
-            }
-            catch (Exception ex)
-            {
-                ex.TraceException();
-            }
+            InvalidateSurface();
         }
     }
 }

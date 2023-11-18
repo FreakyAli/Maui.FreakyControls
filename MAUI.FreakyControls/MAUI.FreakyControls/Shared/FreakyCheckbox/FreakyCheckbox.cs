@@ -1,6 +1,5 @@
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
-using Maui.FreakyControls.Shared.Extensions;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;

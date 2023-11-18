@@ -41,7 +41,7 @@ namespace Samples
 
         public MainViewModel()
         {
-            ImageWasTappedCommand = new AsyncRelayCommand(ImageTappedAsync, new AsyncRelayCommandOptions());
+            ImageWasTappedCommand = new AsyncRelayCommand<object>(ImageTappedAsync, new AsyncRelayCommandOptions());
             FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
 
             Items = new ObservableCollection<string>
@@ -76,7 +76,7 @@ namespace Samples
             }
         }
 
-        private async Task ImageTappedAsync()
+        private async Task ImageTappedAsync(object obj)
         {
             await MainThread.InvokeOnMainThreadAsync(() =>
             Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));

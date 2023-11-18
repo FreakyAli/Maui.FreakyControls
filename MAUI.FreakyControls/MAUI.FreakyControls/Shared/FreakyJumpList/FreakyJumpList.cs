@@ -165,12 +165,12 @@ public class FreakyJumpList : SKCanvasView, IDisposable
 
     private void DrawJumpList(SKPaintSurfaceEventArgs e)
     {
-        if (e == null)
+        if (e is null)
         {
             throw new ArgumentNullException(nameof(e) + typeof(SKPaintSurfaceEventArgs) + " cannot be null");
         }
 
-        if (this.AlphabetProvider == null || this.AlphabetProvider.GetCount() == 0)
+        if (this.AlphabetProvider is null || this.AlphabetProvider.GetCount() == 0)
         {
             throw new InvalidDataException($"{nameof(AlphabetProvider)} cannot be null or empty, make sure you create an IAlphabetProvider instance");
         }

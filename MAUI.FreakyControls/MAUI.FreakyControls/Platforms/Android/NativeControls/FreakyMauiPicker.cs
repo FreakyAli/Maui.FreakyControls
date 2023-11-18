@@ -24,19 +24,19 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
         public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
                Drawable right, Drawable bottom)
         {
-            if (left != null)
+            if (left is not null)
             {
                 drawableLeft = left;
             }
-            if (right != null)
+            if (right is not null)
             {
                 drawableRight = right;
             }
-            if (top != null)
+            if (top is not null)
             {
                 drawableTop = top;
             }
-            if (bottom != null)
+            if (bottom is not null)
             {
                 drawableBottom = bottom;
             }
@@ -50,21 +50,21 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
             {
                 actionX = (int)e.GetX();
                 actionY = (int)e.GetY();
-                if (drawableBottom != null
+                if (drawableBottom is not null
                     && drawableBottom.Bounds.Contains(actionX, actionY))
                 {
                     clickListener.OnClick(DrawablePosition.Bottom);
                     return base.OnTouchEvent(e);
                 }
 
-                if (drawableTop != null
+                if (drawableTop is not null
                         && drawableTop.Bounds.Contains(actionX, actionY))
                 {
                     clickListener.OnClick(DrawablePosition.Top);
                     return base.OnTouchEvent(e);
                 }
 
-                if (drawableLeft != null)
+                if (drawableLeft is not null)
                 {
                     bounds = null;
                     bounds = drawableLeft.Bounds;
@@ -93,7 +93,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                         }
                     }
 
-                    if (bounds.Contains(x, y) && clickListener != null)
+                    if (bounds.Contains(x, y) && clickListener is not null)
                     {
                         clickListener.OnClick(DrawablePosition.Left);
                         e.Action = (MotionEventActions.Cancel);
@@ -101,7 +101,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                     }
                 }
 
-                if (drawableRight != null)
+                if (drawableRight is not null)
                 {
                     bounds = null;
                     bounds = drawableRight.Bounds;
@@ -144,7 +144,7 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls
                         y = actionY;
 
                     //If drawble bounds contains the x and y points then move ahead./
-                    if (bounds.Contains(x, y) && clickListener != null)
+                    if (bounds.Contains(x, y) && clickListener is not null)
                     {
                         clickListener
                                 .OnClick(DrawablePosition.Right);

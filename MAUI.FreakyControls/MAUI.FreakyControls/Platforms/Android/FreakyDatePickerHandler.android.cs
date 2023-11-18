@@ -25,7 +25,7 @@ public partial class FreakyDatePickerHandler
 
         var date = VirtualView?.Date;
 
-        if (date != null)
+        if (date is not null)
             _dialog = CreateDatePickerDialog(date.Value.Year, date.Value.Month, date.Value.Day);
         var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
         ViewCompat.SetBackgroundTintList(mauiDatePicker, colorStateList);
@@ -35,7 +35,7 @@ public partial class FreakyDatePickerHandler
     protected override void DisconnectHandler(MauiDatePicker platformView)
     {
         base.DisconnectHandler(platformView);
-        if (_dialog != null)
+        if (_dialog is not null)
         {
             _dialog.Hide();
             _dialog.Dispose();
@@ -49,7 +49,7 @@ public partial class FreakyDatePickerHandler
     internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
     {
         var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
-        if (imageBitmap != null)
+        if (imageBitmap is not null)
         {
             var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
                 Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
@@ -71,10 +71,10 @@ public partial class FreakyDatePickerHandler
 
     private void ShowPickerDialog()
     {
-        if (VirtualView == null)
+        if (VirtualView is null)
             return;
 
-        if (_dialog != null && _dialog.IsShowing)
+        if (_dialog is not null && _dialog.IsShowing)
             return;
 
         var date = VirtualView.Date;
@@ -83,7 +83,7 @@ public partial class FreakyDatePickerHandler
 
     private void ShowPickerDialog(int year, int month, int day)
     {
-        if (_dialog == null)
+        if (_dialog is null)
             _dialog = CreateDatePickerDialog(year, month, day);
         else
         {

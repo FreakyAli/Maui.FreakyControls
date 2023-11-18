@@ -21,7 +21,7 @@ public partial class FreakyPickerHandler : PickerHandler
             if (picker is FreakyPicker freakyTimePicker &&
                           pickerHandler is FreakyPickerHandler freakyTimePickerHandler)
             {
-                if (PlatformView != null && VirtualView != null)
+                if (PlatformView is not null && VirtualView is not null)
                 {
                     if (freakyTimePicker.ImageSource != default(ImageSource))
                     {

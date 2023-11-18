@@ -1,9 +1,9 @@
-﻿using System.Drawing;
-using Maui.FreakyControls.Extensions;
+﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.iOS;
 using Maui.FreakyControls.Platforms.iOS.NativeControls;
 using Maui.FreakyControls.Shared.Enums;
 using Microsoft.Maui.Handlers;
+using System.Drawing;
 using UIKit;
 
 namespace Maui.FreakyControls;
@@ -118,7 +118,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         var entry = handler.VirtualView;
         var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
-        if (uiImage != null)
+        if (uiImage is not null)
         {
             var uiView = uiImage.UiImageToUiView(entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);
             uiView.UserInteractionEnabled = true;

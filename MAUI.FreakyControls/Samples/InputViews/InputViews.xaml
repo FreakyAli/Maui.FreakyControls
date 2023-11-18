@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Samples.InputViews.InputViews"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -9,6 +9,23 @@
     x:DataType="inputViews:InputViewModel">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
+
+            <freakyControls:FreakyCodeView
+                CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
+                CodeEntryCompletedCommand="{Binding EntryCompleteCommand}"
+                CodeInputType="AlphaNumeric"
+                CodeLength="6"
+                IsPassword="False"
+                ItemBackgroundColor="White"
+                ItemBorderColor="Gray"
+                ItemBorderWidth="1"
+                ItemFocusAnimation="Bounce"
+                ItemFocusColor="Black"
+                ItemShape="Squircle"
+                ItemSpacing="10"
+                ShouldAutoDismissKeyboard="True"
+                Color="Black" />
+
             <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
@@ -32,6 +49,7 @@
             <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
+                    DisplayMemberPath="Name"
                     ImageAlignment="Left"
                     ImageCommand="{Binding ImageWasTappedCommand}"
                     ImageHeight="{OnPlatform 25,
@@ -42,12 +60,12 @@
                     ImageWidth="{OnPlatform 25,
                                             iOS=25,
                                             Android=40}"
-                    Threshold="1"
-                    DisplayMemberPath="Name"
-                    TextMemberPath="Name"
+                    ItemsSource="{Binding NamesCollectionModel}"
+                    Placeholder="Autocomplete Right"
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
                     TextChanged="FreakyAutoCompleteView_Member_TextChanged"
-                    ItemsSource="{Binding NamesCollectionModel}" />
+                    TextMemberPath="Name"
+                    Threshold="1" />
             </Border>
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
