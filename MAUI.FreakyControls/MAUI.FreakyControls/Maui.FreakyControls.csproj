@@ -55,6 +55,8 @@
 		<MauiCss Remove="Shared\FreakyPinView\**" />
 		<MauiXaml Remove="Shared\FreakyPinView\**" />
 		<None Remove="Shared\FreakyPinView\**" />
+		<None Remove="Shared\FreakyZoomableImage\" />
+		<None Remove="Shared\FreakySwipeButton\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -126,6 +128,8 @@
 		<Folder Include="Shared\FreakyCodeView\" />
 		<Folder Include="Shared\Behaviors\" />
 		<Folder Include="Shared\FreakySwitch\" />
+		<Folder Include="Shared\FreakyZoomableImage\" />
+		<Folder Include="Shared\FreakySwipeButton\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />

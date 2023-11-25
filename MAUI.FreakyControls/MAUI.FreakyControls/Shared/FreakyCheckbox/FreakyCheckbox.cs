@@ -613,6 +613,17 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     public void Dispose()
     {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    ~FreakyCheckbox()
+    {
+        Dispose(false);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
         tapped.Tapped -= CheckBox_Tapped;
         GestureRecognizers.Clear();
         skiaView.PaintSurface -= Handle_PaintSurface;

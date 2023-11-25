@@ -6,4 +6,9 @@ public partial class ButtonsView : ContentPage
     {
         InitializeComponent();
     }
+
+    void Handle_SlideCompleted(object sender, System.EventArgs e)
+    {
+        MessageLbl.Text = "Success!!";
+    }
 }
