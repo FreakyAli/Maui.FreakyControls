@@ -16,6 +16,12 @@ public static class TaskExt
             task.Start();
     }
 
+    /// <summary>
+    /// A verison of WhenAll that throws all the exceptions encountered!
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="tasks"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<T>> WhenAll<T>(params Task<T>[] tasks)
     {
         var allTasks = Task.WhenAll(tasks);
@@ -28,7 +34,21 @@ public static class TaskExt
         {
             //purposely ignore since we will get the exceptions from allTasks;
         }
-            throw allTasks.Exception;
+        throw allTasks.Exception;
+    }
+
+    public static async Task WithAggregateException(this Task source)
+    {
+        try { await source.ConfigureAwait(false); }
+        catch when (source.IsCanceled) { throw; }
+        catch { source.Wait(); }
+    }
+
+    public static async Task<T> WithAggregateException<T>(this Task<T> source)
+    {
+        try { return await source.ConfigureAwait(false); }
+        catch when (source.IsCanceled) { throw; }
+        catch { return source.Result; }
     }
 
     public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout)

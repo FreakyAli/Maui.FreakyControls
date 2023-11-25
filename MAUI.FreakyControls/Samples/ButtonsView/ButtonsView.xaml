@@ -11,27 +11,6 @@
             Spacing="20"
             VerticalOptions="Center">
 
-            <StackLayout Margin="40">
-                <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
-                    <freakyControls:FreakySwipeButton.Thumb>
-                        <Frame CornerRadius="10" HasShadow="false" BackgroundColor="Silver" Padding="0">
-                            <Image Source="icon.png" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="40" WidthRequest="40" />
-                        </Frame>
-                    </freakyControls:FreakySwipeButton.Thumb>
-
-                    <freakyControls:FreakySwipeButton.TrackBar>
-                        <Frame CornerRadius="10" HasShadow="false" BackgroundColor="Gray" Padding="0">
-                            <Label Text="Slide 'x' to cancel" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-                        </Frame>
-                    </freakyControls:FreakySwipeButton.TrackBar>
-
-                    <freakyControls:FreakySwipeButton.FillBar>
-                        <Frame CornerRadius="10" HasShadow="false" BackgroundColor="Red" Padding="0" />
-                    </freakyControls:FreakySwipeButton.FillBar>
-                </freakyControls:FreakySwipeButton>
-                <Label x:Name="MessageLbl" FontAttributes="Bold" TextColor="Green" />
-            </StackLayout>
-
             <freakyControls:FreakyButton
                 Animation="FadeAndScale"
                 BackgroundColor="Purple"

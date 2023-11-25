@@ -6,13 +6,11 @@ public class ImageDisplay : ContentPage
 {
     public ImageDisplay(Stream stream)
     {
-        var imageView = new ZoomImage
+        var imageView = new Image
         {
-            Aspect = Aspect.AspectFit,
-            VerticalOptions = LayoutOptions.Fill,
-            HorizontalOptions = LayoutOptions.Fill
+            Aspect = Aspect.AspectFit
         };
-        Content = imageView;
+        Content = new FreakyZoomableImage() { Content = imageView };
         var imageSource = ImageSource.FromStream(() => stream);
         imageView.Source = imageSource;
     }
