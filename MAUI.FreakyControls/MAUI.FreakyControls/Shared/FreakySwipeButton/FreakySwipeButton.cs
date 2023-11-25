@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Layouts;
+﻿using Maui.FreakyControls.Extensions;
+using Microsoft.Maui.Layouts;
 
 namespace Maui.FreakyControls;
 
@@ -90,10 +91,10 @@ public class FreakySwipeButton : AbsoluteLayout
                 this.SetLayoutBounds(FillBar, new Rect(0, 0, 0, this.Height));
 
                 // Reset translation applied during the pan
-                await Task.WhenAll(new Task[]{
+                await TaskExt.WhenAll(
                     TrackBar.FadeTo(1, _animLength),
-                    Thumb.TranslateTo(0, 0, _animLength * 2, Easing.CubicIn),
-                });
+                    Thumb.TranslateTo(0, 0, _animLength * 2, Easing.CubicIn)
+                );
 
                 if (posX >= (Width - Thumb.Width - 10/* keep some margin for error*/))
                     SlideCompleted?.Invoke(this, EventArgs.Empty);

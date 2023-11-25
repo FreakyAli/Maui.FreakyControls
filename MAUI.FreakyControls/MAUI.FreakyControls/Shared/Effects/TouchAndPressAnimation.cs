@@ -1,4 +1,5 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Shared.Enums;
 
 namespace Maui.FreakyControls.Shared.TouchPress;
 
@@ -41,7 +42,7 @@ internal static class TouchAndPressAnimation
                     await view.ScaleTo(1, 100);
                 else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.FadeAndScale)
                 {
-                    await Task.WhenAll(view.ScaleTo(1, 100), view.FadeTo(1, 500));
+                    await TaskExt.WhenAll(view.ScaleTo(1, 100), view.FadeTo(1, 500));
                 }
             });
         }
@@ -59,7 +60,7 @@ internal static class TouchAndPressAnimation
                     await view.ScaleTo(0.95, 100);
                 else if (touchAndPressEffectConsumer.Animation == ButtonAnimations.FadeAndScale)
                 {
-                    await Task.WhenAll(view.ScaleTo(0.95, 100), view.FadeTo(0.7, 100));
+                    await TaskExt.WhenAll(view.ScaleTo(0.95, 100), view.FadeTo(0.7, 100));
                 }
             });
         }

@@ -123,19 +123,19 @@ public class FreakyCheckbox : ContentView, IDisposable
                     {
                         skiaView.InvalidateSurface();
                         skiaView.Opacity = 0;
-                        await Task.WhenAll(
+                        await TaskExt.WhenAll(
                             skiaView.ScaleTo(3.5, 100, Easing.Linear),
                             skiaView.FadeTo(0.5, 100, Easing.Linear)
                             );
-                        await Task.WhenAll(
+                        await TaskExt.WhenAll(
                             skiaView.ScaleTo(3, 100, Easing.Linear),
                             skiaView.FadeTo(0.6, 100, Easing.Linear)
                             );
-                        await Task.WhenAll(
+                        await TaskExt.WhenAll(
                             skiaView.ScaleTo(2.5, 100, Easing.Linear),
                             skiaView.FadeTo(0.7, 100, Easing.Linear)
                             );
-                        await Task.WhenAll(
+                        await TaskExt.WhenAll(
                             skiaView.ScaleTo(2, 100, Easing.Linear),
                             skiaView.FadeTo(0.8, 100, Easing.Linear)
                             );
