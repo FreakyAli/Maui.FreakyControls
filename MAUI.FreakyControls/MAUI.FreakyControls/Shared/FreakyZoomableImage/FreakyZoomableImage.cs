@@ -1,12 +1,15 @@
-﻿namespace Maui.FreakyControls;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Maui.FreakyControls;
+
+[Experimental("Risky")]
 public class FreakyZoomableImage : ContentView, IDisposable
 {
     private double currentScale = 1;
     private double startScale = 1;
     private double xOffset = 0;
     private double yOffset = 0;
-    private bool repeatedDoubleTap = false; //boolean checking if the user doubletapped for the first time or second time
+    private bool repeatedDoubleTap = false; 
 
     readonly PinchGestureRecognizer pinchGesture;
     readonly PanGestureRecognizer panGesture;
@@ -135,7 +138,6 @@ public class FreakyZoomableImage : ContentView, IDisposable
                 yOffset = Content.TranslationY;
                 break;
             case GestureStatus.Started:
-                break;
             case GestureStatus.Canceled:
                 break;
             default:
@@ -152,7 +154,7 @@ public class FreakyZoomableImage : ContentView, IDisposable
 
         for (var i = 0; i < 10; i++)
         {
-            if (!repeatedDoubleTap) //if it's not the second double tapp we enlarge the scale
+            if (!repeatedDoubleTap) //if it's not the second double tap we enlarge the scale
             {
                 currentScale *= multiplicator;
             }

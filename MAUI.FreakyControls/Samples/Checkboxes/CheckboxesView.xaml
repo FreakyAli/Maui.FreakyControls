@@ -5,11 +5,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     Title="CheckboxesView">
+    <ContentPage.Resources>
+        <Style TargetType="freakyControls:FreakyChip">
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="Stroke" Value="{StaticResource Black}"/>
+            <Setter Property="CornerRadius" Value="10"/>
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout
         Padding="30"
         HorizontalOptions="Center"
         Spacing="20"
         VerticalOptions="Start">
+
+        <freakyControls:FreakyChipGroup Spacing="10" Orientation="Horizontal">
+            <freakyControls:FreakyChip Text="Chip 1"/>
+            <freakyControls:FreakyChip Text="Chip 2"/>
+        </freakyControls:FreakyChipGroup>
 
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox

@@ -1,8 +1,10 @@
-﻿using Maui.FreakyControls.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Layouts;
 
 namespace Maui.FreakyControls;
 
+[Experimental("Risky")]
 public class FreakySwipeButton : AbsoluteLayout
 {
     private readonly PanGestureRecognizer panGesture;
