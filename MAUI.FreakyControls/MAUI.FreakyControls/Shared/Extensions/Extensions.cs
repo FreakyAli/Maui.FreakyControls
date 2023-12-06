@@ -37,7 +37,7 @@ public static class Extensions
         }
     }
 
-    public static void InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
+    public static MauiAppBuilder InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
     {
         if (useSkiaSharp)
         {
@@ -45,6 +45,8 @@ public static class Extensions
         }
         builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
         builder.ConfigureEffects(effects => effects.AddEffects());
+
+        return builder;
     }
 
     private static void AddEffects(this IEffectsBuilder effects)

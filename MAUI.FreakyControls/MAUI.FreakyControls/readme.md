@@ -20,6 +20,7 @@ public static class MauiProgram
         
         builder
         .UseMauiApp<App>()
+        .InitializeFreakyControls()
         .ConfigureFonts(fonts =>
                         {
                             fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -28,7 +29,7 @@ public static class MauiProgram
              
              // Takes one argument if you would like to init Skiasharp through FreakyControls
              // or not. (Used for RadioButton, Checkbox & SVGImageView)
-             builder.InitializeFreakyControls();
+             // .InitializeFreakyControls();
              
              return builder.Build();
          }
