@@ -22,6 +22,8 @@ public partial class FreakyChip : Border
         InitializeComponent();
         tapped.Tapped += CheckBox_Tapped;
         GestureRecognizers.Add(tapped);
+        trailingIcon.HeightRequest = trailingIcon.WidthRequest =
+        leadingIcon.HeightRequest = leadingIcon.WidthRequest = size;
     }
 
     private void CheckBox_Tapped(object sender, EventArgs e)
@@ -87,7 +89,16 @@ public partial class FreakyChip : Border
         BindableProperty.Create(nameof(Name), typeof(string), typeof(FreakyChip), defaultName);
 
     public static readonly BindableProperty SizeRequestProperty =
-        BindableProperty.Create(nameof(SizeRequest), typeof(double), typeof(FreakyChip), size);
+        BindableProperty.Create(nameof(SizeRequest), typeof(double), typeof(FreakyChip), propertyChanged: OnSizeRequestChanged);
+
+    private static void OnSizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is FreakyChip chip && newValue is double newV)
+        {
+            chip.trailingIcon.HeightRequest = chip.trailingIcon.WidthRequest =
+                chip.leadingIcon.HeightRequest = chip.leadingIcon.WidthRequest = newV;
+        }
+    }
 
     public static readonly BindableProperty SvgAssemblyProperty =
         BindableProperty.Create(nameof(SvgAssembly), typeof(Assembly), typeof(FreakyChip), default(Assembly));
@@ -105,7 +116,7 @@ public partial class FreakyChip : Border
         BindableProperty.Create(nameof(TrailingBase64String), typeof(string), typeof(FreakyChip), default(string));
 
     public static readonly BindableProperty ImageColorProperty =
-        BindableProperty.Create(nameof(ImageColor),typeof(Color),typeof(FreakyChip),Colors.Transparent);
+        BindableProperty.Create(nameof(ImageColor), typeof(Color), typeof(FreakyChip), Colors.Transparent);
 
     public Color ImageColor
     {

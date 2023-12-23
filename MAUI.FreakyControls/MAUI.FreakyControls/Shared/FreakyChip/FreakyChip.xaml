@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Maui.FreakyControls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Maui.FreakyControls"
              x:Name="this"
              x:Class="Maui.FreakyControls.FreakyChip">
     <Border.StrokeShape>
@@ -9,8 +10,8 @@
     <Grid ColumnDefinitions="Auto, *, Auto">
         <controls:FreakySvgImageView
             SvgMode="AspectFit"
-            HeightRequest="{Binding SizeRequestProperty, Source={x:Reference this}}"
-            WidthRequest="{Binding SizeRequestProperty, Source={x:Reference this}}"
+            x:Name="leadingIcon"
+            InputTransparent="True"
             ResourceId="{Binding LeadingResourceId, Source={x:Reference this}}"
             Base64String="{Binding LeadingBase64String, Source={x:Reference this}}"
             SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}}"
@@ -31,9 +32,9 @@
             TextTransform="{Binding TextTransform, Source={x:Reference this}}" />
         <controls:FreakySvgImageView
             SvgMode="AspectFit"
+            InputTransparent="True"
+            x:Name="trailingIcon"
             ImageColor="{Binding ImageColor, Source={x:Reference this}}"
-            HeightRequest="{Binding SizeRequestProperty, Source={x:Reference this}}"
-            WidthRequest="{Binding SizeRequestProperty, Source={x:Reference this}}"
             ResourceId="{Binding TrailingResourceId, Source={x:Reference this}}"
             Base64String="{Binding TrailingBase64String, Source={x:Reference this}}"
             SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}}"

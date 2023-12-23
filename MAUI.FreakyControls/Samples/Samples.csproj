@@ -57,6 +57,7 @@
 		<None Remove="PinView\" />
 		<None Remove="Resources\Images\backspace.svg" />
 		<None Remove="Resources\Images\panda.jpg" />
+		<None Remove="Resources\Images\tick.svg" />
 	</ItemGroup>
 	<!--<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
 		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
@@ -88,6 +89,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\Images\dotnet_bot.svg" />
+		<EmbeddedResource Include="Resources\Images\tick.svg" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="ImageViews\ImagesPage.xaml">
