@@ -110,7 +110,7 @@ public partial class FreakyChip : ContentView
         BindableProperty.Create(nameof(ImageColor), typeof(Color), typeof(FreakyChip), Colors.Transparent);
 
     public static readonly BindableProperty AnimationColorProperty =
-        BindableProperty.Create(nameof(AnimationColor), typeof(Color), typeof(FreakyChip), Colors.LightGray);
+        BindableProperty.Create(nameof(AnimationColor), typeof(Color), typeof(FreakyChip), ControlConstants.DefaultControlRipple);
 
     public new static readonly BindableProperty PaddingProperty =
         BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(FreakyChip), new Thickness(10));
@@ -119,7 +119,7 @@ public partial class FreakyChip : ContentView
         BindableProperty.Create(nameof(Stroke), typeof(Brush), typeof(FreakyChip), default(Brush));
 
     public static readonly BindableProperty StrokeThicknessProperty =
-        BindableProperty.Create(nameof(StrokeThickness), typeof(double), typeof(FreakyChip), default(double));
+        BindableProperty.Create(nameof(StrokeThickness), typeof(double), typeof(FreakyChip), 0.0);
 
     public double StrokeThickness
     {
@@ -303,7 +303,6 @@ public partial class FreakyChip : ContentView
         chip.SelectedChangedCommand?.ExecuteCommandIfAvailable(newValue);
     }
 
-
     private static void OnSizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is FreakyChip chip && newValue is double newV)
@@ -329,7 +328,7 @@ public partial class FreakyChip : ContentView
             propertyName == nameof(SelectedBackgroundColor) ||
             propertyName == nameof(SelectedBackgroundColor))
         {
-            BackgroundColor = IsSelected ? SelectedBackgroundColor : UnselectedBackgroundColor;
+            border.BackgroundColor = IsSelected ? SelectedBackgroundColor : UnselectedBackgroundColor;
         }
 
         if (propertyName == nameof(IsSelected) ||

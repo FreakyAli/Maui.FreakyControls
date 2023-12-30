@@ -14,37 +14,36 @@
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
     </ContentPage.Resources>
-    <ScrollView    
-        VerticalOptions="Start">
-        <VerticalStackLayout
+
+    <VerticalStackLayout
         Padding="30"
         HorizontalOptions="Center"
         Spacing="20">
 
-            <freakyControls:FreakyChipGroup Spacing="10" Orientation="Horizontal">
-                <freakyControls:FreakyChip
+        <freakyControls:FreakyChipGroup Spacing="10" Orientation="Horizontal">
+            <freakyControls:FreakyChip
                 LeadingResourceId="{x:Static constants:Constants.Tick}"
                 ImageColor="Green"
                 SvgAssembly="{x:Static constants:Constants.SvgAssembly}"
                 Text="Chip 1"/>
-                <freakyControls:FreakyChip
+            <freakyControls:FreakyChip
                 Text="Chip 2"/>
-            </freakyControls:FreakyChipGroup>
+        </freakyControls:FreakyChipGroup>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 CheckColor="White"
                 Design="Native"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Native design"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Slam"
                 CheckColor="White"
                 CheckType="Check"
@@ -53,14 +52,14 @@
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Circle" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure + Slam"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Slam"
                 CheckColor="White"
                 CheckType="Check"
@@ -69,14 +68,14 @@
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Sqaure" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure + Slam"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Rotate"
                 CheckColor="White"
                 CheckType="Star"
@@ -85,14 +84,14 @@
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Sqaure" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Star"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Rotate"
                 CheckColor="White"
                 CheckType="Fill"
@@ -101,14 +100,14 @@
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Sqaure" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure + Fill"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Bounce"
                 CheckColor="White"
                 CheckType="Box"
@@ -117,14 +116,14 @@
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Circle" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure + Fill"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Rotate"
                 CheckColor="{StaticResource Primary}"
                 CheckType="Box"
@@ -133,14 +132,14 @@
                 FillColor="Transparent"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Sqaure" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure + Box"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Flip"
                 CheckColor="White"
                 CheckType="Line"
@@ -149,14 +148,14 @@
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Sqaure" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure + Line"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 AnimationType="Bounce"
                 CheckColor="White"
                 CheckType="Cross"
@@ -165,63 +164,62 @@
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Sqaure" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure + Cross"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 CheckColor="White"
                 Design="Unified"
                 FillColor="{StaticResource Primary}"
                 OutlineColor="{StaticResource Primary}"
                 Shape="Sqaure" />
-                <Label
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Sqaure"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="10">
-                <freakyControls:FreakyCheckbox
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakyCheckbox
                 CheckedChanged="FreakyCheckbox_CheckedChanged"
                 Design="Unified"
                 IsChecked="True"
                 IsEnabled="False"
                 Shape="Circle">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Disabled">
-                                <VisualState.Setters>
-                                    <Setter Property="CheckColor" Value="White" />
-                                    <Setter Property="FillColor" Value="LightGray" />
-                                    <Setter Property="OutlineColor" Value="Gray" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="IsChecked">
-                                <VisualState.Setters>
-                                    <Setter Property="CheckColor" Value="White" />
-                                    <Setter Property="FillColor" Value="Blue" />
-                                    <Setter Property="OutlineColor" Value="Blue" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="CheckColor" Value="White" />
-                                    <Setter Property="FillColor" Value="{StaticResource Primary}" />
-                                    <Setter Property="OutlineColor" Value="{StaticResource Primary}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                </freakyControls:FreakyCheckbox>
-                <Label
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="CheckColor" Value="White" />
+                                <Setter Property="FillColor" Value="LightGray" />
+                                <Setter Property="OutlineColor" Value="Gray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="IsChecked">
+                            <VisualState.Setters>
+                                <Setter Property="CheckColor" Value="White" />
+                                <Setter Property="FillColor" Value="Blue" />
+                                <Setter Property="OutlineColor" Value="Blue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="CheckColor" Value="White" />
+                                <Setter Property="FillColor" Value="{StaticResource Primary}" />
+                                <Setter Property="OutlineColor" Value="{StaticResource Primary}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </freakyControls:FreakyCheckbox>
+            <Label
                 HorizontalTextAlignment="Start"
                 Text="Unified + Circle"
                 VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
 </ContentPage>

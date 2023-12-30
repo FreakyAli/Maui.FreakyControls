@@ -7,6 +7,7 @@
              xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
              x:Class="Maui.FreakyControls.FreakyChip">
     <Border
+        x:Name="border"
         Stroke="{Binding Stroke, Source={x:Reference this}}"
         StrokeThickness="{Binding StrokeThickness, Source={x:Reference this}}"
         Padding="{Binding Padding, Source={x:Reference this}}">

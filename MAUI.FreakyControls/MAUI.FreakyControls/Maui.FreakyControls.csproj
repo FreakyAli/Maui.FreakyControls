@@ -59,6 +59,7 @@
 		<None Remove="Shared\FreakySwipeButton\" />
 		<None Remove="Shared\FreakyCropView\" />
 		<None Remove="Shared\FreakyChip\" />
+		<None Remove="Shared\Constants\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -134,6 +135,7 @@
 		<Folder Include="Shared\FreakySwipeButton\" />
 		<Folder Include="Shared\FreakyCropView\" />
 		<Folder Include="Shared\FreakyChip\" />
+		<Folder Include="Shared\Constants\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
