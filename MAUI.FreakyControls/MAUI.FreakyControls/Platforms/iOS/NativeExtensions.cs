@@ -13,7 +13,7 @@ public static class NativeExtensions
         {
             Frame = new RectangleF(0, 0, height, width)
         };
-        UIView uiView = new UIView(new System.Drawing.Rectangle(0, 0, width + padding, height));
+        UIView uiView = new UIView(new Rectangle(0, 0, width + padding, height));
         uiView.AddSubview(uiImageView);
         return uiView;
     }

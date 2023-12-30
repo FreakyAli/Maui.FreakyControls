@@ -55,6 +55,11 @@
 		<MauiCss Remove="Shared\FreakyPinView\**" />
 		<MauiXaml Remove="Shared\FreakyPinView\**" />
 		<None Remove="Shared\FreakyPinView\**" />
+		<None Remove="Shared\FreakyZoomableImage\" />
+		<None Remove="Shared\FreakySwipeButton\" />
+		<None Remove="Shared\FreakyCropView\" />
+		<None Remove="Shared\FreakyChip\" />
+		<None Remove="Shared\Constants\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -126,12 +131,18 @@
 		<Folder Include="Shared\FreakyCodeView\" />
 		<Folder Include="Shared\Behaviors\" />
 		<Folder Include="Shared\FreakySwitch\" />
+		<Folder Include="Shared\FreakyZoomableImage\" />
+		<Folder Include="Shared\FreakySwipeButton\" />
+		<Folder Include="Shared\FreakyCropView\" />
+		<Folder Include="Shared\FreakyChip\" />
+		<Folder Include="Shared\Constants\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+		<PackageReference Include="FreakyEffects" Version="0.1.1-pre" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">

@@ -18,14 +18,14 @@ namespace Maui.FreakyControls
 
     public partial class FreakySignatureCanvasViewHandler : ViewHandler<FreakySignatureCanvasView, NativeView>
     {
-        public static PropertyMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> Mapper =
+        static PropertyMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> Mapper =
             new(ViewHandler.ViewMapper)
             {
                 [nameof(FreakySignatureCanvasView.StrokeColor)] = MapStrokeColor,
                 [nameof(FreakySignatureCanvasView.StrokeWidth)] = MapStrokeWidth
             };
 
-        public static CommandMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> CommandMapper =
+        static CommandMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> CommandMapper =
             new(ViewHandler.ViewCommandMapper)
             {
             };
@@ -153,7 +153,5 @@ namespace Maui.FreakyControls
             }
         }
     }
-
-#else
 #endif
 }

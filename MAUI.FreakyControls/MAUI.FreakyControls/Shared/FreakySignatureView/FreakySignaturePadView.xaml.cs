@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakySignaturePadView : ContentView
+public partial class FreakySignaturePadView : ContentView, IDisposable
 {
     private const string defaultCaptionText = "sign above this line";
     private const string defaultClearIcon = "Maui.FreakyControls.clear_icon.svg";
@@ -455,4 +455,26 @@ public partial class FreakySignaturePadView : ContentView
     {
         SetValue(IsBlankPropertyKey, SignaturePadCanvas.IsBlank);
     }
+
+    #region IDisposable
+
+    public void Dispose()
+    {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+        ClearLabel.Dispose();
+        SignaturePadCanvas.Handler?.DisconnectHandler();
+    }
+
+    ~FreakySignaturePadView()
+    {
+        Dispose(false);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+       
+    }
+
+    #endregion IDisposable
 }
