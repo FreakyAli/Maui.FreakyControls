@@ -33,6 +33,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#000000" />
@@ -62,9 +63,7 @@
 		<None Remove="Resources\Images\panda.jpg" />
 		<None Remove="Resources\Images\tick.svg" />
 	</ItemGroup>
-	<!--<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
-		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-	</PropertyGroup>-->
+  
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
 		<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.3" />
 	</ItemGroup>
