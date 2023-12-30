@@ -15,10 +15,10 @@
         </Style>
     </ContentPage.Resources>
     <ScrollView    
-        VerticalOptions="Start"
-        HorizontalOptions="Center">
+        VerticalOptions="Start">
         <VerticalStackLayout
         Padding="30"
+        HorizontalOptions="Center"
         Spacing="20">
 
             <freakyControls:FreakyChipGroup Spacing="10" Orientation="Horizontal">

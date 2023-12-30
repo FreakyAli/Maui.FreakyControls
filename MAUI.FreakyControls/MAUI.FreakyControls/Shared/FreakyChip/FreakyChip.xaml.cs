@@ -118,6 +118,15 @@ public partial class FreakyChip : Border
     public static readonly BindableProperty ImageColorProperty =
         BindableProperty.Create(nameof(ImageColor), typeof(Color), typeof(FreakyChip), Colors.Transparent);
 
+    public static readonly BindableProperty AnimationColorProperty =
+       BindableProperty.Create(nameof(AnimationColor), typeof(Color), typeof(FreakyChip), Colors.Black);
+
+    public Color AnimationColor
+    {
+        get => (Color)GetValue(AnimationColorProperty);
+        set => SetValue(AnimationColorProperty, value);
+    }
+
     public Color ImageColor
     {
         get => (Color)GetValue(ImageColorProperty);
