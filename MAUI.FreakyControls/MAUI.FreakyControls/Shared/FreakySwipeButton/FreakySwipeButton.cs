@@ -111,7 +111,6 @@ public class FreakySwipeButton : AbsoluteLayout
         if (Thumb == null || TrackBar == null || FillBar == null)
             return;
 
-
         Children.Clear();
 
         this.SetLayoutFlags(TrackBar, AbsoluteLayoutFlags.SizeProportional);
