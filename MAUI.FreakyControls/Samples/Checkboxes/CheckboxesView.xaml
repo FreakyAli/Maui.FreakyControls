@@ -3,15 +3,15 @@
     x:Class="Samples.Checkboxes.CheckboxesView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:constants="clr-namespace:Samples"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     Title="CheckboxesView">
     <ContentPage.Resources>
         <Style TargetType="freakyControls:FreakyChip">
             <Setter Property="Padding" Value="10" />
-            <Setter Property="StrokeThickness" Value="1"/>
-            <Setter Property="Stroke" Value="{StaticResource Black}"/>
-            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{StaticResource Black}" />
+            <Setter Property="CornerRadius" Value="10" />
         </Style>
     </ContentPage.Resources>
 
@@ -20,14 +20,13 @@
         HorizontalOptions="Center"
         Spacing="20">
 
-        <freakyControls:FreakyChipGroup Spacing="10" Orientation="Horizontal">
+        <freakyControls:FreakyChipGroup Orientation="Horizontal" Spacing="10">
             <freakyControls:FreakyChip
-                LeadingResourceId="{x:Static constants:Constants.Tick}"
                 ImageColor="Green"
+                LeadingResourceId="{x:Static constants:Constants.Tick}"
                 SvgAssembly="{x:Static constants:Constants.SvgAssembly}"
-                Text="Chip 1"/>
-            <freakyControls:FreakyChip
-                Text="Chip 2"/>
+                Text="Chip 1" />
+            <freakyControls:FreakyChip Text="Chip 2" />
         </freakyControls:FreakyChipGroup>
 
         <HorizontalStackLayout Spacing="10">

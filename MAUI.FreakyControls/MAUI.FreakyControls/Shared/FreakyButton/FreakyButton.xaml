@@ -12,7 +12,7 @@
         <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
     </ContentView.Resources>
     <ContentView.GestureRecognizers>
-        <TapGestureRecognizer Tapped="Button_Tapped"/>
+        <TapGestureRecognizer Tapped="Button_Tapped" />
     </ContentView.GestureRecognizers>
     <Border
         Padding="{Binding Padding, Source={x:Reference this}}"

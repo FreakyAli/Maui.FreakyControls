@@ -9,11 +9,11 @@ public class FreakyZoomableImage : ContentView, IDisposable
     private double startScale = 1;
     private double xOffset = 0;
     private double yOffset = 0;
-    private bool repeatedDoubleTap = false; 
+    private bool repeatedDoubleTap = false;
 
-    readonly PinchGestureRecognizer pinchGesture;
-    readonly PanGestureRecognizer panGesture;
-    readonly TapGestureRecognizer tapGesture;
+    private readonly PinchGestureRecognizer pinchGesture;
+    private readonly PanGestureRecognizer panGesture;
+    private readonly TapGestureRecognizer tapGesture;
 
     public FreakyZoomableImage()
     {
@@ -39,6 +39,7 @@ public class FreakyZoomableImage : ContentView, IDisposable
                 Content.AnchorX = 0;
                 Content.AnchorY = 0;
                 break;
+
             case GestureStatus.Running:
                 {
                     currentScale += (e.Scale - 1) * startScale;
@@ -133,13 +134,16 @@ public class FreakyZoomableImage : ContentView, IDisposable
                 Content.TranslationX = newX;
                 Content.TranslationY = newY;
                 break;
+
             case GestureStatus.Completed:
                 xOffset = Content.TranslationX;
                 yOffset = Content.TranslationY;
                 break;
+
             case GestureStatus.Started:
             case GestureStatus.Canceled:
                 break;
+
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -158,7 +162,7 @@ public class FreakyZoomableImage : ContentView, IDisposable
             {
                 currentScale *= multiplicator;
             }
-            else //if it's the second double tap we make the scale smaller again 
+            else //if it's the second double tap we make the scale smaller again
             {
                 currentScale /= multiplicator;
             }

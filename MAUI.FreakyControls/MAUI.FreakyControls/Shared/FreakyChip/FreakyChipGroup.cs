@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Maui.FreakyControls.Extensions;
 using System.Windows.Input;
-using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 

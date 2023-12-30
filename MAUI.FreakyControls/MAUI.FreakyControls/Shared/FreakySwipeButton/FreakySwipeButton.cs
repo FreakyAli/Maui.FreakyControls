@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Maui.FreakyControls.Extensions;
+﻿using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Layouts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Maui.FreakyControls;
 
@@ -64,7 +64,7 @@ public class FreakySwipeButton : AbsoluteLayout
         gestureListener.GestureRecognizers.Add(panGesture);
     }
 
-    async void OnPanGestureUpdated(object sender, PanUpdatedEventArgs e)
+    private async void OnPanGestureUpdated(object sender, PanUpdatedEventArgs e)
     {
         if (Thumb == null || TrackBar == null || FillBar == null)
             return;
@@ -104,7 +104,7 @@ public class FreakySwipeButton : AbsoluteLayout
         }
     }
 
-    void OnSizeChanged(object sender, EventArgs e)
+    private void OnSizeChanged(object sender, EventArgs e)
     {
         if (Width == 0 || Height == 0)
             return;

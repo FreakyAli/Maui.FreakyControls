@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Maui.FreakyControls;
 
 internal class ControlConstants
