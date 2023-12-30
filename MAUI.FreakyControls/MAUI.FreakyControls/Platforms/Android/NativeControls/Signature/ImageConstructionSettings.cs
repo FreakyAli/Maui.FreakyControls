@@ -31,11 +31,11 @@ public struct ImageConstructionSettings
 
     internal void ApplyDefaults(float strokeWidth, NativeColor strokeColor)
     {
-        ShouldCrop = ShouldCrop ?? DefaultShouldCrop;
-        DesiredSizeOrScale = DesiredSizeOrScale ?? DefaultSizeOrScale;
-        StrokeColor = StrokeColor ?? strokeColor;
-        BackgroundColor = BackgroundColor ?? DefaultBackgroundColor;
-        StrokeWidth = StrokeWidth ?? strokeWidth;
-        Padding = Padding ?? DefaultPadding;
+        ShouldCrop ??= DefaultShouldCrop;
+        DesiredSizeOrScale ??= DefaultSizeOrScale;
+        StrokeColor ??= strokeColor;
+        BackgroundColor ??= DefaultBackgroundColor;
+        StrokeWidth ??= strokeWidth;
+        Padding ??= DefaultPadding;
     }
 }

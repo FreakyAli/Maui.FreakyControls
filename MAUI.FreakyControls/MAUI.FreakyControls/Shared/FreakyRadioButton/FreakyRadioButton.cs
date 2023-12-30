@@ -345,6 +345,17 @@ namespace Maui.FreakyControls
 
         public void Dispose()
         {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~FreakyRadioButton()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
             tapped.Tapped -= Radiobutton_Tapped;
             GestureRecognizers.Clear();
             skiaView.PaintSurface -= Handle_PaintSurface;

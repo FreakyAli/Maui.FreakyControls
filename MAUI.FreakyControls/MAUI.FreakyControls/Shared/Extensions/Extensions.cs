@@ -1,8 +1,6 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
-using TouchAndPressRoutingEffect = Maui.FreakyControls.Shared.TouchPress.TouchAndPressRoutingEffect;
-using TouchReleaseRoutingEffect = Maui.FreakyControls.Shared.TouchPress.ToouchReleaseRoutingEffect;
-
+using Maui.FreakyEffects;
 #if MACCATALYST
 using Maui.FreakyControls.Platforms.MacCatalyst;
 #endif
@@ -12,7 +10,6 @@ using Maui.FreakyControls.Platforms.Windows;
 #if ANDROID
 
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-using Maui.FreakyControls.Platforms.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
 
@@ -37,7 +34,7 @@ public static class Extensions
         }
     }
 
-    public static void InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
+    public static MauiAppBuilder InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
     {
         if (useSkiaSharp)
         {
@@ -45,12 +42,12 @@ public static class Extensions
         }
         builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
         builder.ConfigureEffects(effects => effects.AddEffects());
+        return builder;
     }
 
     private static void AddEffects(this IEffectsBuilder effects)
     {
-        effects.Add<TouchAndPressRoutingEffect, TouchAndPressEffect>();
-        effects.Add<TouchReleaseRoutingEffect, TouchReleaseEffect>();
+        effects.InitFreakyEffects();
     }
 
     private static void AddHandlers(this IMauiHandlersCollection handlers)

@@ -7,10 +7,9 @@
     xmlns:inputViews="clr-namespace:Samples.InputViews"
     Title="InputViews"
     x:DataType="inputViews:InputViewModel">
-    <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="15">
+    <VerticalStackLayout Padding="30" Spacing="15">
 
-            <freakyControls:FreakyCodeView
+        <freakyControls:FreakyCodeView
                 CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
                 CodeEntryCompletedCommand="{Binding EntryCompleteCommand}"
                 CodeInputType="AlphaNumeric"
@@ -26,9 +25,9 @@
                 ShouldAutoDismissKeyboard="True"
                 Color="Black" />
 
-            <Label Text="Freaky Autocomplete below: " TextColor="Black" />
-            <Border Padding="5,0">
-                <freakyControls:FreakyAutoCompleteView
+        <Label Text="Freaky Autocomplete below: " TextColor="Black" />
+        <Border Padding="5,0">
+            <freakyControls:FreakyAutoCompleteView
                     ImageAlignment="Right"
                     ImageCommand="{Binding ImageWasTappedCommand}"
                     ImageHeight="{OnPlatform 25,
@@ -44,11 +43,11 @@
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
                     TextChanged="FreakyAutoCompleteView_TextChanged"
                     Threshold="1" />
-            </Border>
+        </Border>
 
-            <Label Text="Freaky Autocomplete below: " TextColor="Black" />
-            <Border Padding="5,0">
-                <freakyControls:FreakyAutoCompleteView
+        <Label Text="Freaky Autocomplete below: " TextColor="Black" />
+        <Border Padding="5,0">
+            <freakyControls:FreakyAutoCompleteView
                     DisplayMemberPath="Name"
                     ImageAlignment="Left"
                     ImageCommand="{Binding ImageWasTappedCommand}"
@@ -66,11 +65,23 @@
                     TextChanged="FreakyAutoCompleteView_Member_TextChanged"
                     TextMemberPath="Name"
                     Threshold="1" />
-            </Border>
+        </Border>
 
-            <Label Text="Freaky Entry below: " TextColor="Black" />
-            <Border>
-                <freakyControls:FreakyEntry
+        <Label Text="Freaky Editor below: " TextColor="Black" />
+        <Border>
+            <freakyControls:FreakyEditor
+                    AllowCopyPaste="False"
+                    BackgroundColor="White"
+                    FontSize="Large"
+                    HeightRequest="200"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky editor"
+                    TextColor="Purple" />
+        </Border>
+
+        <Label Text="Freaky Entry below: " TextColor="Black" />
+        <Border>
+            <freakyControls:FreakyEntry
                     x:Name="entry"
                     AllowCopyPaste="False"
                     FontSize="Large"
@@ -87,11 +98,11 @@
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"
                     TextColor="Purple" />
-            </Border>
+        </Border>
 
-            <Label Text="Freaky Entry below: " TextColor="Black" />
-            <Border>
-                <freakyControls:FreakyEntry
+        <Label Text="Freaky Entry below: " TextColor="Black" />
+        <Border>
+            <freakyControls:FreakyEntry
                     AllowCopyPaste="False"
                     FontSize="Large"
                     ImageAlignment="Right"
@@ -107,19 +118,7 @@
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"
                     TextColor="Purple" />
-            </Border>
+        </Border>
 
-            <Label Text="Freaky Editor below: " TextColor="Black" />
-            <Border>
-                <freakyControls:FreakyEditor
-                    AllowCopyPaste="False"
-                    BackgroundColor="White"
-                    FontSize="Large"
-                    HeightRequest="200"
-                    Keyboard="Chat"
-                    Placeholder="This is a freaky editor"
-                    TextColor="Purple" />
-            </Border>
-        </VerticalStackLayout>
-    </ScrollView>
+    </VerticalStackLayout>
 </ContentPage>

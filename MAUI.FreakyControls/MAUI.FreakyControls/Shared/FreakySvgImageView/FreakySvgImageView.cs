@@ -52,6 +52,9 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
     {
         Dispose(true);
         GC.SuppressFinalize(this);
+        SizeChanged -= FreakySvgImageView_SizeChanged;
+        tapGestureRecognizer.Tapped -= TapGestureRecognizer_Tapped;
+        GestureRecognizers.Clear();
     }
 
     ~FreakySvgImageView()
@@ -61,9 +64,6 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        SizeChanged -= FreakySvgImageView_SizeChanged;
-        tapGestureRecognizer.Tapped -= TapGestureRecognizer_Tapped;
-        GestureRecognizers.Clear();
     }
 
     protected override void DoPaintSurface(SKPaintSurfaceEventArgs e)

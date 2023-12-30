@@ -17,9 +17,7 @@ internal static class PathSmoothing
     {
         var currentPoints = currentPath.GetPoints().ToList();
 
-        NativePath smoothedPath;
-        List<NativePoint> smoothedPoints;
-        SmoothedPathWithGranularity(currentPoints, granularity, out smoothedPath, out smoothedPoints);
+        SmoothedPathWithGranularity(currentPoints, granularity, out NativePath smoothedPath, out List<NativePoint> smoothedPoints);
         if (smoothedPath is null)
         {
             return currentPath;
