@@ -396,8 +396,8 @@ public partial class FreakyButton : ContentView
                 break;
             case ButtonAnimations.FadeAndScale:
                 this.NativeAnimationColor = Colors.Transparent;
-                await Task.WhenAll(this.ScaleTo(0.95, 100), this.FadeTo(0.7, 100));
-                await Task.WhenAll(this.ScaleTo(1, 100), this.FadeTo(1, 500));
+                await TaskExt.WhenAll(this.ScaleTo(0.95, 100), this.FadeTo(0.7, 100));
+                await TaskExt.WhenAll(this.ScaleTo(1, 100), this.FadeTo(1, 500));
                 break;
         }
         Clicked?.Invoke(sender, e);
