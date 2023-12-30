@@ -5,7 +5,7 @@ using Maui.FreakyControls.Extensions;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyChip : Border
+public partial class FreakyChip : ContentView
 {
     private const string defaultName = "Chip";
     private const string IsSelectedVisualState = "Selected";
@@ -91,15 +91,6 @@ public partial class FreakyChip : Border
     public static readonly BindableProperty SizeRequestProperty =
         BindableProperty.Create(nameof(SizeRequest), typeof(double), typeof(FreakyChip), propertyChanged: OnSizeRequestChanged);
 
-    private static void OnSizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (bindable is FreakyChip chip && newValue is double newV)
-        {
-            chip.trailingIcon.HeightRequest = chip.trailingIcon.WidthRequest =
-                chip.leadingIcon.HeightRequest = chip.leadingIcon.WidthRequest = newV;
-        }
-    }
-
     public static readonly BindableProperty SvgAssemblyProperty =
         BindableProperty.Create(nameof(SvgAssembly), typeof(Assembly), typeof(FreakyChip), default(Assembly));
 
@@ -119,7 +110,34 @@ public partial class FreakyChip : Border
         BindableProperty.Create(nameof(ImageColor), typeof(Color), typeof(FreakyChip), Colors.Transparent);
 
     public static readonly BindableProperty AnimationColorProperty =
-       BindableProperty.Create(nameof(AnimationColor), typeof(Color), typeof(FreakyChip), Colors.Black);
+        BindableProperty.Create(nameof(AnimationColor), typeof(Color), typeof(FreakyChip), Colors.LightGray);
+
+    public new static readonly BindableProperty PaddingProperty =
+        BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(FreakyChip), new Thickness(10));
+
+    public static readonly BindableProperty StrokeProperty =
+        BindableProperty.Create(nameof(Stroke), typeof(Brush), typeof(FreakyChip), default(Brush));
+
+    public static readonly BindableProperty StrokeThicknessProperty =
+        BindableProperty.Create(nameof(StrokeThickness), typeof(double), typeof(FreakyChip), default(double));
+
+    public double StrokeThickness
+    {
+        get => (double)GetValue(StrokeThicknessProperty);
+        set => SetValue(StrokeThicknessProperty, value);
+    }
+
+    public Brush Stroke
+    {
+        get => (Brush)GetValue(StrokeProperty);
+        set => SetValue(StrokeProperty, value);
+    }
+
+    public new Thickness Padding
+    {
+        get => (Thickness)GetValue(PaddingProperty);
+        set => SetValue(PaddingProperty, value);
+    }
 
     public Color AnimationColor
     {
@@ -283,6 +301,16 @@ public partial class FreakyChip : Border
         chip.ChangeVisualState();
         chip.SelectedChanged?.Invoke(chip, new CheckedChangedEventArgs((bool)newValue));
         chip.SelectedChangedCommand?.ExecuteCommandIfAvailable(newValue);
+    }
+
+
+    private static void OnSizeRequestChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is FreakyChip chip && newValue is double newV)
+        {
+            chip.trailingIcon.HeightRequest = chip.trailingIcon.WidthRequest =
+                chip.leadingIcon.HeightRequest = chip.leadingIcon.WidthRequest = newV;
+        }
     }
 
     protected override void ChangeVisualState()

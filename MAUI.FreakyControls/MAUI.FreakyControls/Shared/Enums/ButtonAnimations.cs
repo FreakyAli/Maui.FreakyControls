@@ -2,8 +2,8 @@
 
 public enum ButtonAnimations
 {
-    None,
+    FadeAndScale,
     Fade,
     Scale,
-    FadeAndScale
+    Native
 }

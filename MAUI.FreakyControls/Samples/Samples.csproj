@@ -30,6 +30,9 @@
 		<CreatePackage>false</CreatePackage>
 		<CodesignKey>iPhone Developer</CodesignKey>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#000000" />
@@ -80,7 +83,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 	</ItemGroup>

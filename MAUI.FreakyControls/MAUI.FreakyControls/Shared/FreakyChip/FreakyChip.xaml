@@ -1,16 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Maui.FreakyControls"
              x:Name="this"
-             xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
              freakyEffects:TouchEffect.Color="{Binding AnimationColor, Source={x:Reference this}}"
+             xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
              x:Class="Maui.FreakyControls.FreakyChip">
-    <Border.StrokeShape>
-        <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"/>
-    </Border.StrokeShape>
-    <Grid ColumnDefinitions="Auto, *, Auto">
-        <controls:FreakySvgImageView
+    <Border
+        Stroke="{Binding Stroke, Source={x:Reference this}}"
+        StrokeThickness="{Binding StrokeThickness, Source={x:Reference this}}"
+        Padding="{Binding Padding, Source={x:Reference this}}">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"/>
+        </Border.StrokeShape>
+        <Grid
+        ColumnDefinitions="Auto, *, Auto">
+            <controls:FreakySvgImageView
             SvgMode="AspectFit"
             x:Name="leadingIcon"
             InputTransparent="True"
@@ -19,7 +24,7 @@
             SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}}"
             ImageColor="{Binding ImageColor, Source={x:Reference this}}"
             Grid.Column="0" />
-        <Label
+            <Label
             x:Name="chipLabel"
             Grid.Column="1"
             VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}"
@@ -32,7 +37,7 @@
             FontFamily="{Binding FontFamily, Source={x:Reference this}}"
             FontSize="{Binding FontSize, Source={x:Reference this}}"
             TextTransform="{Binding TextTransform, Source={x:Reference this}}" />
-        <controls:FreakySvgImageView
+            <controls:FreakySvgImageView
             SvgMode="AspectFit"
             InputTransparent="True"
             x:Name="trailingIcon"
@@ -41,6 +46,7 @@
             Base64String="{Binding TrailingBase64String, Source={x:Reference this}}"
             SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}}"
             Grid.Column="2"/>
-    </Grid>
-</Border>
+        </Grid>
+    </Border>
+</ContentView>
 

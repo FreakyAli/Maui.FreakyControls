@@ -12,7 +12,6 @@
             VerticalOptions="Center">
 
             <freakyControls:FreakyButton
-                Animation="FadeAndScale"
                 BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
@@ -59,7 +58,6 @@
             </freakyControls:FreakyButton>
 
             <freakyControls:FreakyButton
-                Animation="None"
                 AreIconsDistant="False"
                 BackgroundColor="Purple"
                 BorderColor="Black"
@@ -76,7 +74,8 @@
             </freakyControls:FreakyButton>
 
             <freakyControls:FreakyButton
-                Animation="FadeAndScale"
+                Animation="Native"
+                NativeAnimationColor="MediumPurple"
                 BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
