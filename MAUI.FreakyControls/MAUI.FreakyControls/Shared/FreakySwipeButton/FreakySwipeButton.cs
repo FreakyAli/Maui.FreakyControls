@@ -1,4 +1,3 @@
-﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Layouts;

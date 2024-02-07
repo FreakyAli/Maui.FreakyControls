@@ -75,12 +75,12 @@
 
             <freakyControls:FreakyButton
                 Animation="Native"
-                NativeAnimationColor="MediumPurple"
                 BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
                 IconSize="30"
+                NativeAnimationColor="MediumPurple"
                 Text="A normal button I suppose"
                 TextColor="White"
                 VerticalTextAlignment="Center" />

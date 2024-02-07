@@ -474,5 +474,6 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     protected virtual void Dispose(bool disposing)
     {
     }
+
     #endregion IDisposable
 }

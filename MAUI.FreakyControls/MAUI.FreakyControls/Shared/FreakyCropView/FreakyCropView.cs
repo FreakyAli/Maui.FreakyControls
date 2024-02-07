@@ -5,6 +5,4 @@ namespace Maui.FreakyControls;
 [Experimental("Risky")]
 public class FreakyCropView : ContentView
 {
-	
 }
-

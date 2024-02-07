@@ -1,4 +1,4 @@
-﻿namespace Maui.FreakyControls;
+namespace Maui.FreakyControls;
 
 internal class ControlConstants
 {

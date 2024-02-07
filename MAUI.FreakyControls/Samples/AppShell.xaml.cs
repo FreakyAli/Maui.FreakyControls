@@ -1,5 +1,3 @@
-using Maui.FreakyControls;
-
 namespace Samples;
 
 public partial class AppShell : Shell
