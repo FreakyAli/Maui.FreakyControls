@@ -56,7 +56,7 @@
                                         iOS=25,
                                         Android=40}"
                 ItemDisplayBinding="{Binding .}"
-                ItemsSource="{Binding SuggestionItem}"
+                ItemsSource="{Binding Names}"
                 TextColor="Black"
                 TitleColor="LightGray" />
         </Border>

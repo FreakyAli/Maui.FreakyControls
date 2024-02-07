@@ -2,6 +2,7 @@ using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Helpers;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
+using SkiaSharp.Views.Maui.Controls;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
 
 namespace Maui.FreakyControls;
 
-public class FreakySvgImageView : BaseSKCanvas, IDisposable
+public class FreakySvgImageView : SKCanvasView, IDisposable
 {
     private SKImageInfo info;
     private SKSurface surface;
@@ -66,7 +67,7 @@ public class FreakySvgImageView : BaseSKCanvas, IDisposable
     {
     }
 
-    protected override void DoPaintSurface(SKPaintSurfaceEventArgs e)
+    protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         info = e.Info;
         surface = e.Surface;

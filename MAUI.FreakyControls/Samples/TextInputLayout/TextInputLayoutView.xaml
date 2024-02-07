@@ -10,7 +10,7 @@
 
         <VerticalStackLayout Grid.Row="0" Padding="30" Spacing="25">
 
-        <freakyControls:FreakyTextInputLayout
+            <freakyControls:FreakyTextInputLayout
             Title="Outlined TextInputLayout"
             BorderCornerRadius="10"
             BorderStrokeThickness="2"
@@ -26,7 +26,7 @@
                                     iOS=25,
                                     Android=40}" />
 
-        <freakyControls:FreakyTextInputLayout
+            <freakyControls:FreakyTextInputLayout
             x:Name="yolo"
             Title="Underlined TextInputLayout"
             BorderType="Underline"
@@ -43,7 +43,7 @@
             UnderlineColor="Black"
             UnderlineThickness="1.5" />
 
-        <freakyControls:FreakyTextInputLayout
+            <freakyControls:FreakyTextInputLayout
             Title="Bordered TextInputLayout"
             BorderCornerRadius="10"
             BorderStroke="Black"
@@ -59,28 +59,27 @@
             ImageWidth="{OnPlatform 25,
                                     iOS=25,
                                     Android=40}" />
-    </VerticalStackLayout>
 
-        <StackLayout Margin="40" Grid.Row="1">
-                <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
-                    <freakyControls:FreakySwipeButton.Thumb>
-                        <Frame CornerRadius="10" HasShadow="false" BackgroundColor="Silver" Padding="0">
-                            <Image Source="icon.png" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="40" WidthRequest="40" />
-                        </Frame>
-                    </freakyControls:FreakySwipeButton.Thumb>
 
-                    <freakyControls:FreakySwipeButton.TrackBar>
-                        <Frame CornerRadius="10" HasShadow="false" BackgroundColor="Gray" Padding="0">
-                            <Label Text="Slide 'x' to cancel" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-                        </Frame>
-                    </freakyControls:FreakySwipeButton.TrackBar>
 
-                    <freakyControls:FreakySwipeButton.FillBar>
-                        <Frame CornerRadius="10" HasShadow="false" BackgroundColor="Red" Padding="0" />
-                    </freakyControls:FreakySwipeButton.FillBar>
-                </freakyControls:FreakySwipeButton>
-                <Label x:Name="MessageLbl" FontAttributes="Bold" TextColor="Green" />
-            </StackLayout>
+            <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
+                <freakyControls:FreakySwipeButton.Thumb>
+                    <Border  BackgroundColor="Silver" Padding="0">
+                        <Image HeightRequest="40" WidthRequest="40" />
+                    </Border>
+                </freakyControls:FreakySwipeButton.Thumb>
+
+                <freakyControls:FreakySwipeButton.TrackBar>
+                    <Border BackgroundColor="Gray" Padding="0">
+                        <Label Text="Slide 'x' to cancel" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    </Border>
+                </freakyControls:FreakySwipeButton.TrackBar>
+
+                <freakyControls:FreakySwipeButton.FillBar>
+                    <VerticalStackLayout Padding="0" />
+                </freakyControls:FreakySwipeButton.FillBar>
+            </freakyControls:FreakySwipeButton>
+
+        </VerticalStackLayout>
     </Grid>
-    
 </ContentPage>

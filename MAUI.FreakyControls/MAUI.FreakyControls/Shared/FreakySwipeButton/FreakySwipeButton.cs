@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows.Input;
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Layouts;
 
 namespace Maui.FreakyControls;
 
-[Experimental("Risky")]
 public class FreakySwipeButton : AbsoluteLayout
 {
     private readonly PanGestureRecognizer panGesture;
@@ -13,6 +13,18 @@ public class FreakySwipeButton : AbsoluteLayout
     private const uint _animLength = 50;
 
     public event EventHandler SlideCompleted;
+
+    public static readonly BindableProperty SlideCompleteCommandProperty = BindableProperty.Create(
+           nameof(SlideCompleteCommand),
+           typeof(ICommand),
+           typeof(FreakySwipeButton),
+           defaultValue: default(ICommand));
+
+    public ICommand SlideCompleteCommand
+    {
+        get => (ICommand)GetValue(SlideCompleteCommandProperty);
+        set => SetValue(SlideCompleteCommandProperty, value);
+    }
 
     public static readonly BindableProperty ThumbProperty = BindableProperty.Create(
             nameof(Thumb),
@@ -99,7 +111,10 @@ public class FreakySwipeButton : AbsoluteLayout
                 );
 
                 if (posX >= (Width - Thumb.Width - 10/* keep some margin for error*/))
+                {
+                    SlideCompleteCommand.ExecuteCommandIfAvailable();
                     SlideCompleted?.Invoke(this, EventArgs.Empty);
+                }
                 break;
         }
     }

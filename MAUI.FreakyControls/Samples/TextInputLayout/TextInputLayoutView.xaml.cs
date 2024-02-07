@@ -8,8 +8,8 @@ public partial class TextInputLayoutView : ContentPage
         BindingContext = new TextInputLayoutViewModel();
     }
 
-    void Handle_SlideCompleted(object sender, System.EventArgs e)
+    async void Handle_SlideCompleted(object sender, EventArgs e)
     {
-        MessageLbl.Text = "Success!!";
+        await this.DisplayAlert("Swiped", "Swipe button was slide successfully!", "Ok");
     }
 }
