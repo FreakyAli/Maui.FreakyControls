@@ -1,12 +1,13 @@
-﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
-
+using Maui.FreakyControls.Extensions;
 namespace Maui.FreakyControls;
 
 public partial class FreakyButton : ContentView
 {
     public static readonly string IsBusyVisualState = "Busy";
+    public event EventHandler Clicked;
 
     public event EventHandler Clicked;
 
@@ -386,19 +387,16 @@ public partial class FreakyButton : ContentView
         {
             default:
                 break;
-
             case ButtonAnimations.Fade:
                 this.NativeAnimationColor = Colors.Transparent;
                 await this.FadeTo(0.7, 100);
                 await this.FadeTo(1, 500);
                 break;
-
             case ButtonAnimations.Scale:
                 this.NativeAnimationColor = Colors.Transparent;
                 await this.ScaleTo(0.95, 100);
                 await this.ScaleTo(1, 100);
                 break;
-
             case ButtonAnimations.FadeAndScale:
                 this.NativeAnimationColor = Colors.Transparent;
                 await TaskExt.WhenAll(this.ScaleTo(0.95, 100), this.FadeTo(0.7, 100));

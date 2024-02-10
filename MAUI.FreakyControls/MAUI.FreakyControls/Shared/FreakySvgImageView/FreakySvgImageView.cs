@@ -1,9 +1,3 @@
-using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.Shared.Helpers;
-using SkiaSharp;
-using SkiaSharp.Views.Maui;
-using SkiaSharp.Views.Maui.Controls;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Input;
 using Color = Microsoft.Maui.Graphics.Color;

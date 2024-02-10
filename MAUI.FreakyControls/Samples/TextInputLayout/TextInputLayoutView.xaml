@@ -7,7 +7,6 @@
     Title="TextInputLayoutView"
     BackgroundColor="White">
     <Grid RowDefinitions="*, Auto">
-
         <VerticalStackLayout
             Grid.Row="0"
             Padding="30"
@@ -64,7 +63,6 @@
                                     Android=40}" />
 
 
-
             <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
                 <freakyControls:FreakySwipeButton.Thumb>
                     <Border  BackgroundColor="Silver" Padding="0">
@@ -86,4 +84,5 @@
         </VerticalStackLayout>
 
     </Grid>
+    </VerticalStackLayout>
 </ContentPage>

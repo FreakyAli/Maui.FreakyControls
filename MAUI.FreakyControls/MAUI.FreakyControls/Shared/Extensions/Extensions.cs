@@ -1,7 +1,6 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Windows.Input;
 using Maui.FreakyEffects;
-
 #if MACCATALYST
 using Maui.FreakyControls.Platforms.MacCatalyst;
 #endif

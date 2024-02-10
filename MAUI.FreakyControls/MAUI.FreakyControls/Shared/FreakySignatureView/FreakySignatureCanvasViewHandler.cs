@@ -153,6 +153,5 @@ namespace Maui.FreakyControls
             }
         }
     }
-
 #endif
 }
