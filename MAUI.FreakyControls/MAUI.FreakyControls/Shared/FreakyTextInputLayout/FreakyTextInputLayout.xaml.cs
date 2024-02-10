@@ -299,7 +299,6 @@ public partial class FreakyTextInputLayout : ContentView
         propertyChanged: OnOutlineTitleBackgroundColorProperty
         );
 
-
     public static readonly BindableProperty ControlBackgroundColorProperty = BindableProperty.Create(
         nameof(ControlBackgroundColor),
         typeof(Color),
@@ -315,7 +314,6 @@ public partial class FreakyTextInputLayout : ContentView
         get => (Color)GetValue(ControlBackgroundColorProperty);
         set => SetValue(ControlBackgroundColorProperty, value);
     }
-
 
     /// <summary>ß
     /// Color of your Title Label's background when border type is outlined

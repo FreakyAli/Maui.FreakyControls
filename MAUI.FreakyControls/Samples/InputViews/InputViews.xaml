@@ -11,114 +11,114 @@
         <VerticalStackLayout Padding="30" Spacing="15">
 
             <freakyControls:FreakyCodeView
-            CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
-            CodeEntryCompletedCommand="{Binding EntryCompleteCommand}"
-            CodeInputType="AlphaNumeric"
-            CodeLength="6"
-            IsPassword="False"
-            ItemBackgroundColor="White"
-            ItemBorderColor="Gray"
-            ItemBorderWidth="1"
-            ItemFocusAnimation="Bounce"
-            ItemFocusColor="Black"
-            ItemShape="Squircle"
-            ItemSpacing="10"
-            ShouldAutoDismissKeyboard="True"
-            Color="Black" />
+                CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
+                CodeEntryCompletedCommand="{Binding EntryCompleteCommand}"
+                CodeInputType="AlphaNumeric"
+                CodeLength="6"
+                IsPassword="False"
+                ItemBackgroundColor="White"
+                ItemBorderColor="Gray"
+                ItemBorderWidth="1"
+                ItemFocusAnimation="Bounce"
+                ItemFocusColor="Black"
+                ItemShape="Squircle"
+                ItemSpacing="10"
+                ShouldAutoDismissKeyboard="True"
+                Color="Black" />
 
             <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
-                ImageAlignment="Right"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=40}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=40}"
-                ItemsSource="{Binding NamesCollection}"
-                Placeholder="Autocomplete Left"
-                QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
-                TextChanged="FreakyAutoCompleteView_TextChanged"
-                Threshold="1" />
+                    ImageAlignment="Right"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    ItemsSource="{Binding NamesCollection}"
+                    Placeholder="Autocomplete Left"
+                    QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
+                    TextChanged="FreakyAutoCompleteView_TextChanged"
+                    Threshold="1" />
             </Border>
 
             <Label Text="Freaky Autocomplete below: " TextColor="Black" />
             <Border Padding="5,0">
                 <freakyControls:FreakyAutoCompleteView
-                DisplayMemberPath="Name"
-                ImageAlignment="Left"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=40}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=40}"
-                ItemsSource="{Binding NamesCollectionModel}"
-                Placeholder="Autocomplete Right"
-                QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
-                TextChanged="FreakyAutoCompleteView_Member_TextChanged"
-                TextMemberPath="Name"
-                Threshold="1" />
+                    DisplayMemberPath="Name"
+                    ImageAlignment="Left"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    ItemsSource="{Binding NamesCollectionModel}"
+                    Placeholder="Autocomplete Right"
+                    QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
+                    TextChanged="FreakyAutoCompleteView_Member_TextChanged"
+                    TextMemberPath="Name"
+                    Threshold="1" />
             </Border>
 
             <Label Text="Freaky Editor below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEditor
-                AllowCopyPaste="False"
-                BackgroundColor="White"
-                FontSize="Large"
-                HeightRequest="200"
-                Keyboard="Chat"
-                Placeholder="This is a freaky editor"
-                TextColor="Purple" />
+                    AllowCopyPaste="False"
+                    BackgroundColor="White"
+                    FontSize="Large"
+                    HeightRequest="200"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky editor"
+                    TextColor="Purple" />
             </Border>
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry
-                x:Name="entry"
-                AllowCopyPaste="False"
-                FontSize="Large"
-                ImageAlignment="Left"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=40}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=40}"
-                Keyboard="Chat"
-                Placeholder="This is a freaky entry with image"
-                TextColor="Purple" />
+                    x:Name="entry"
+                    AllowCopyPaste="False"
+                    FontSize="Large"
+                    ImageAlignment="Left"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky entry with image"
+                    TextColor="Purple" />
             </Border>
 
             <Label Text="Freaky Entry below: " TextColor="Black" />
             <Border>
                 <freakyControls:FreakyEntry
-                AllowCopyPaste="False"
-                FontSize="Large"
-                ImageAlignment="Right"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=40}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=40}"
-                Keyboard="Chat"
-                Placeholder="This is a freaky entry with image"
-                TextColor="Purple" />
+                    AllowCopyPaste="False"
+                    FontSize="Large"
+                    ImageAlignment="Right"
+                    ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
+                    ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky entry with image"
+                    TextColor="Purple" />
             </Border>
         </VerticalStackLayout>
     </ScrollView>
