@@ -1,14 +1,11 @@
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
-using Maui.FreakyControls.Extensions;
 namespace Maui.FreakyControls;
 
 public partial class FreakyButton : ContentView
 {
     public static readonly string IsBusyVisualState = "Busy";
-    public event EventHandler Clicked;
-
     public event EventHandler Clicked;
 
     #region Bindable properties
