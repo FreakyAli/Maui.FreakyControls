@@ -10,7 +10,6 @@ public class InputViewModel : MainViewModel
     private ObservableCollection<AutoCompleteModel> namesCollectionModel;
     private string pin;
 
-    public List<string> Names { get; }
     public List<AutoCompleteModel> NamesModel { get; }
 
     public ICommand EntryCompleteCommand { get; set; }
@@ -35,7 +34,6 @@ public class InputViewModel : MainViewModel
 
     public InputViewModel()
     {
-        Names = names.OrderBy(x => x).ToList();
         NamesCollection = Names.ToObservable();
 
         NamesModel = names.Select(x => new AutoCompleteModel { Name = x }).ToList();
