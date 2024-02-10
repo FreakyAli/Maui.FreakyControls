@@ -1,9 +1,11 @@
-﻿using SkiaSharp;
+﻿using System.Diagnostics.CodeAnalysis;
+using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 
 namespace Maui.FreakyControls
 {
+    [Experimental("Risky")]
     public class CustomSwitch : SKCanvasView
     {
         private bool isToggled = false;
