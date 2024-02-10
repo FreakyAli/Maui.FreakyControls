@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Samples.TextInputLayout.TextInputLayoutView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -14,98 +14,76 @@
             Spacing="25">
 
             <freakyControls:FreakyTextInputLayout
-                Title="Outlined TextInputLayout"
-                BorderCornerRadius="10"
-                BorderStrokeThickness="2"
-                BorderType="Outlined"
-                FontSize="Large"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=40}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=40}" />
+            Title="Outlined TextInputLayout"
+            BorderCornerRadius="10"
+            BorderStrokeThickness="2"
+            BorderType="Outlined"
+            FontSize="Large"
+            ImageCommand="{Binding ImageWasTappedCommand}"
+            ImageHeight="{OnPlatform 25,
+                                     iOS=25,
+                                     Android=40}"
+            ImagePadding="10"
+            ImageSource="calendar"
+            ImageWidth="{OnPlatform 25,
+                                    iOS=25,
+                                    Android=40}" />
 
             <freakyControls:FreakyTextInputLayout
-                x:Name="yolo"
-                Title="Underlined TextInputLayout"
-                BorderType="Underline"
-                FontSize="Large"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=40}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=40}"
-                UnderlineColor="Black"
-                UnderlineThickness="1.5" />
+            x:Name="yolo"
+            Title="Underlined TextInputLayout"
+            BorderType="Underline"
+            FontSize="Large"
+            ImageCommand="{Binding ImageWasTappedCommand}"
+            ImageHeight="{OnPlatform 25,
+                                     iOS=25,
+                                     Android=40}"
+            ImagePadding="10"
+            ImageSource="calendar"
+            ImageWidth="{OnPlatform 25,
+                                    iOS=25,
+                                    Android=40}"
+            UnderlineColor="Black"
+            UnderlineThickness="1.5" />
 
             <freakyControls:FreakyTextInputLayout
-                Title="Bordered TextInputLayout"
-                BorderCornerRadius="10"
-                BorderStroke="Black"
-                BorderStrokeThickness="2"
-                BorderType="Full"
-                FontSize="Large"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=40}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=40}" />
-        </VerticalStackLayout>
+            Title="Bordered TextInputLayout"
+            BorderCornerRadius="10"
+            BorderStroke="Black"
+            BorderStrokeThickness="2"
+            BorderType="Full"
+            FontSize="Large"
+            ImageCommand="{Binding ImageWasTappedCommand}"
+            ImageHeight="{OnPlatform 25,
+                                     iOS=25,
+                                     Android=40}"
+            ImagePadding="10"
+            ImageSource="calendar"
+            ImageWidth="{OnPlatform 25,
+                                    iOS=25,
+                                    Android=40}" />
 
-        <StackLayout Grid.Row="1" Margin="40">
+
+
             <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
                 <freakyControls:FreakySwipeButton.Thumb>
-                    <Frame
-                        Padding="0"
-                        BackgroundColor="Silver"
-                        CornerRadius="10"
-                        HasShadow="false">
-                        <Image
-                            HeightRequest="40"
-                            HorizontalOptions="Center"
-                            Source="icon.png"
-                            VerticalOptions="Center"
-                            WidthRequest="40" />
-                    </Frame>
+                    <Border  BackgroundColor="Silver" Padding="0">
+                        <Image HeightRequest="40" WidthRequest="40" />
+                    </Border>
                 </freakyControls:FreakySwipeButton.Thumb>
 
                 <freakyControls:FreakySwipeButton.TrackBar>
-                    <Frame
-                        Padding="0"
-                        BackgroundColor="Gray"
-                        CornerRadius="10"
-                        HasShadow="false">
-                        <Label
-                            HorizontalOptions="CenterAndExpand"
-                            Text="Slide 'x' to cancel"
-                            VerticalOptions="CenterAndExpand" />
-                    </Frame>
+                    <Border BackgroundColor="Gray" Padding="0">
+                        <Label Text="Slide 'x' to cancel" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    </Border>
                 </freakyControls:FreakySwipeButton.TrackBar>
 
                 <freakyControls:FreakySwipeButton.FillBar>
-                    <Frame
-                        Padding="0"
-                        BackgroundColor="Red"
-                        CornerRadius="10"
-                        HasShadow="false" />
+                    <VerticalStackLayout Padding="0" />
                 </freakyControls:FreakySwipeButton.FillBar>
             </freakyControls:FreakySwipeButton>
-            <Label
-                x:Name="MessageLbl"
-                FontAttributes="Bold"
-                TextColor="Green" />
-        </StackLayout>
+
+        </VerticalStackLayout>
+
     </Grid>
 </ContentPage>

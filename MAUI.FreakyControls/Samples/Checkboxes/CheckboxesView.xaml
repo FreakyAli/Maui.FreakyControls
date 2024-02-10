@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Samples.Checkboxes.CheckboxesView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -25,9 +25,22 @@
                 ImageColor="Green"
                 LeadingResourceId="{x:Static constants:Constants.Tick}"
                 SvgAssembly="{x:Static constants:Constants.SvgAssembly}"
-                Text="Chip 1" />
-            <freakyControls:FreakyChip Text="Chip 2" />
+                Text="Chip 1"/>
+            <freakyControls:FreakyChip
+                Text="Chip 2"
+                ImageColor="Green"
+                SvgAssembly="{x:Static constants:Constants.SvgAssembly}"
+                TrailingResourceId="{x:Static constants:Constants.Tick}"
+                />
         </freakyControls:FreakyChipGroup>
+
+          <HorizontalStackLayout Spacing="10">
+            <freakyControls:CustomSwitch HeightRequest="40" WidthRequest="100" />
+            <Label
+                HorizontalTextAlignment="Start"
+                Text="Native design"
+                VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
 
         <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox

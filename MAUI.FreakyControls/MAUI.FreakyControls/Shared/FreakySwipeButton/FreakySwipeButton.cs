@@ -1,10 +1,9 @@
-﻿using Maui.FreakyControls.Extensions;
+using System.Windows.Input;
+using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Layouts;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Maui.FreakyControls;
 
-[Experimental("Risky")]
 public class FreakySwipeButton : AbsoluteLayout
 {
     private readonly PanGestureRecognizer panGesture;
@@ -13,6 +12,18 @@ public class FreakySwipeButton : AbsoluteLayout
     private const uint _animLength = 50;
 
     public event EventHandler SlideCompleted;
+
+    public static readonly BindableProperty SlideCompleteCommandProperty = BindableProperty.Create(
+           nameof(SlideCompleteCommand),
+           typeof(ICommand),
+           typeof(FreakySwipeButton),
+           defaultValue: default(ICommand));
+
+    public ICommand SlideCompleteCommand
+    {
+        get => (ICommand)GetValue(SlideCompleteCommandProperty);
+        set => SetValue(SlideCompleteCommandProperty, value);
+    }
 
     public static readonly BindableProperty ThumbProperty = BindableProperty.Create(
             nameof(Thumb),
@@ -64,7 +75,7 @@ public class FreakySwipeButton : AbsoluteLayout
         gestureListener.GestureRecognizers.Add(panGesture);
     }
 
-    private async void OnPanGestureUpdated(object sender, PanUpdatedEventArgs e)
+    async void OnPanGestureUpdated(object sender, PanUpdatedEventArgs e)
     {
         if (Thumb == null || TrackBar == null || FillBar == null)
             return;
@@ -99,12 +110,15 @@ public class FreakySwipeButton : AbsoluteLayout
                 );
 
                 if (posX >= (Width - Thumb.Width - 10/* keep some margin for error*/))
+                {
+                    SlideCompleteCommand.ExecuteCommandIfAvailable();
                     SlideCompleted?.Invoke(this, EventArgs.Empty);
+                }
                 break;
         }
     }
 
-    private void OnSizeChanged(object sender, EventArgs e)
+    void OnSizeChanged(object sender, EventArgs e)
     {
         if (Width == 0 || Height == 0)
             return;
