@@ -291,6 +291,39 @@ public partial class FreakyTextInputLayout : ContentView
      Colors.Black
      );
 
+    public static readonly BindableProperty OutlineTitleBackgroundColorProperty = BindableProperty.Create(
+        nameof(OutlineTitleBackgroundColor),
+        typeof(Color),
+        typeof(FreakyTextInputLayout),
+        Colors.White,
+        propertyChanged: OnOutlineTitleBackgroundColorProperty
+        );
+
+    public static readonly BindableProperty ControlBackgroundColorProperty = BindableProperty.Create(
+        nameof(ControlBackgroundColor),
+        typeof(Color),
+        typeof(FreakyTextInputLayout),
+        Colors.Transparent
+        );
+
+    /// <summary>ß
+    /// Color of your Title Label's background when border type is outlined
+    /// </summary>
+    public Color ControlBackgroundColor
+    {
+        get => (Color)GetValue(ControlBackgroundColorProperty);
+        set => SetValue(ControlBackgroundColorProperty, value);
+    }
+
+    /// <summary>ß
+    /// Color of your Title Label's background when border type is outlined
+    /// </summary>
+    public Color OutlineTitleBackgroundColor
+    {
+        get => (Color)GetValue(OutlineTitleBackgroundColorProperty);
+        set => SetValue(OutlineTitleBackgroundColorProperty, value);
+    }
+
     /// <summary>
     /// Color of your Title Label
     /// </summary>
@@ -636,7 +669,7 @@ public partial class FreakyTextInputLayout : ContentView
         {
             case BorderType.Full:
 #if ANDROID
-                control._topMargin = -45;
+                control._topMargin = -35;
 #endif
 #if IOS
                 control._topMargin = -35;
@@ -646,12 +679,13 @@ public partial class FreakyTextInputLayout : ContentView
 
             case BorderType.Outlined:
 #if ANDROID
-                control._topMargin = -35;
+                control._topMargin = -28;
 #endif
 #if IOS
                 control._topMargin = -25;
 #endif
                 control._leftMargin = 20;
+                control.LabelTitle.BackgroundColor = control.BorderType == BorderType.Outlined ? control.OutlineTitleBackgroundColor : Colors.Transparent;
                 break;
 
             case BorderType.None:
@@ -659,6 +693,16 @@ public partial class FreakyTextInputLayout : ContentView
                 control._leftMargin = 0;
                 control._topMargin = -35;
                 break;
+        }
+    }
+
+    private static void OnOutlineTitleBackgroundColorProperty(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is FreakyTextInputLayout til &&
+            newValue is Color color)
+
+        {
+            til.LabelTitle.BackgroundColor = til.BorderType == BorderType.Outlined ? color : Colors.Transparent;
         }
     }
 

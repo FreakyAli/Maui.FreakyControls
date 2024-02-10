@@ -9,6 +9,8 @@ namespace Samples
     {
         private ObservableCollection<string> items;
 
+        public List<string> Names => names;
+
         protected List<string> names = new List<string>
         {
             "Ava", "Amelia", "Adam", "Aaron", "Abigail", "Addison", "Alexandra", "Alice", "Ashley", "Aiden",
