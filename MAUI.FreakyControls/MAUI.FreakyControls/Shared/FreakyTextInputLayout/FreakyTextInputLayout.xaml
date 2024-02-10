@@ -4,31 +4,25 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Maui.FreakyControls"
-    xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
     x:Name="this">
-    <ContentView.Resources>
-        <converter:StrokeThicknessConverter x:Key="StrokeThicknessConverter" />
-        <converter:TitleBackgroundColorConverter x:Key="TitleBackgroundColorConverter" />
-        <converter:TilPaddingConverter x:Key="TilPaddingConverter" />
-    </ContentView.Resources>
-    <VerticalStackLayout Spacing="0">
-        <Grid
-            BackgroundColor="Transparent"
-            ColumnSpacing="0"
-            RowSpacing="0">
+    <VerticalStackLayout>
+        <Grid>
             <Border
-                Padding="{Binding BorderType, Source={x:Reference this}, Converter={StaticResource TilPaddingConverter}}"
-                BackgroundColor="Transparent"
-                HorizontalOptions="Fill"
+                BackgroundColor="{Binding ControlBackgroundColor, Source={x:Reference this}}"
                 Stroke="{Binding BorderStroke, Source={x:Reference this}}"
                 StrokeThickness="{Binding BorderStrokeThickness, Source={x:Reference this}}">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="{Binding BorderCornerRadius, Source={x:Reference this}}" />
                 </Border.StrokeShape>
+                <Border.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="10"/>
+                        <On Platform="Android" Value="10,0,10,0"/>
+                    </OnPlatform>
+                </Border.Padding>
                 <controls:FreakyEntry
                     x:Name="EntryField"
                     AllowCopyPaste="{Binding AllowCopyPaste, Source={x:Reference this}}"
-                    BackgroundColor="Transparent"
                     CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference this}}"
                     ClearButtonVisibility="{Binding ClearButtonVisibility, Source={x:Reference this}}"
                     Completed="Handle_Completed"
@@ -63,7 +57,6 @@
             </Border>
             <Label
                 x:Name="LabelTitle"
-                BackgroundColor="{Binding BorderType, Source={x:Reference this}, Converter={StaticResource TitleBackgroundColorConverter}, ConverterParameter={x:Reference this}}"
                 HorizontalOptions="Start"
                 Text="{Binding Title, Source={x:Reference this}}"
                 TextColor="{Binding TitleColor, Source={x:Reference this}}"
@@ -73,6 +66,6 @@
                 </Label.GestureRecognizers>
             </Label>
         </Grid>
-        <BoxView HeightRequest="{Binding UnderlineThickness, Source={x:Reference this}}" Color="{Binding UnderlineColor, Source={x:Reference this}}" />
+        <BoxView Margin="0,-1,0,0" HeightRequest="{Binding UnderlineThickness, Source={x:Reference this}}" Color="{Binding UnderlineColor, Source={x:Reference this}}" />
     </VerticalStackLayout>
 </ContentView>
