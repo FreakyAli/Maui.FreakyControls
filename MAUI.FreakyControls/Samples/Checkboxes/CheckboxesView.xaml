@@ -38,7 +38,16 @@
             <freakyControls:CustomSwitch  />
             <Label
                 HorizontalTextAlignment="Start"
-                Text="switch basic"
+                Text="Skia switch"
+                VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <Switch OnColor="Orange" 
+                    ThumbColor="Green" />
+            <Label
+                HorizontalTextAlignment="Start"
+                Text="Maui switch"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
