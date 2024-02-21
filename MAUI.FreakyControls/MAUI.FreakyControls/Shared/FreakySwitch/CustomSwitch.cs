@@ -12,8 +12,8 @@ public class CustomSwitch : ContentView, IDisposable
     private readonly TapGestureRecognizer tapped = new();
 
     private static readonly float outlineWidth = 6.0f;
-    private static readonly double width = 50.0;
-    private static readonly double height = 30.0;
+    private static readonly double width = 54.0d;
+    private static readonly double height = 33.0d;
 
     public CustomSwitch()
     {
@@ -55,30 +55,68 @@ public class CustomSwitch : ContentView, IDisposable
         };
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
-        // Draw check mark
-        var checkPaint = new SKPaint
+        // Calculate thumb position with a percentage-based offset from the edge
+        var thumbRadius = (float)(bounds.Height / 2.5);
+        var spacingPercentage = 0.05; // 5% spacing
+        var spacing = (float)(bounds.Width * spacingPercentage);
+        var thumbLeft = bounds.Left + bounds.Width - thumbRadius * 2 - spacing;
+        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbRadius * 2, thumbRadius * 2);
+
+        // Draw outline
+        var outlinePaint = new SKPaint
+        {
+            Color = OutlineColor.ToSKColor(),
+            IsAntialias = true,
+            Style = SKPaintStyle.Stroke,
+            StrokeWidth = OutlineWidth
+        };
+        canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
+
+        // Draw the switch thumb
+        var thumbPaint = new SKPaint
         {
             Color = ThumbColor.ToSKColor(),
-            IsAntialias = true,
+            IsAntialias = true
         };
-
-        var checkPath = new SKPath();
-        checkPath.MoveTo(bounds.Left + bounds.Width * 0.25f, bounds.MidY);
-        checkPath.LineTo(bounds.Left + bounds.Width * 0.45f, bounds.MidY + bounds.Height * 0.2f);
-        checkPath.LineTo(bounds.Right - bounds.Width * 0.2f, bounds.Top + bounds.Height * 0.35f);
-        canvas.DrawPath(checkPath, checkPaint);
+        canvas.DrawRoundRect(thumbRect, thumbRadius, thumbRadius, thumbPaint);
     }
 
     private void DrawOffState(SKCanvas canvas, SKRect bounds)
     {
-        // Draw background
+        // Draw background with OffColor
         var backgroundPaint = new SKPaint
         {
-            Color = OutlineColor.ToSKColor(),
+            Color = OffColor.ToSKColor(),
             IsAntialias = true
         };
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
+
+        // Calculate thumb position with a percentage-based offset from the edge
+        var thumbRadius = (float)(bounds.Height / 2.5);
+        var spacingPercentage = 0.05; // 5% spacing
+        var spacing = (float)(bounds.Width * spacingPercentage);
+        var thumbLeft = bounds.Left + spacing;
+        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbRadius * 2, thumbRadius * 2);
+
+        // Draw outline
+        var outlinePaint = new SKPaint
+        {
+            Color = OutlineColor.ToSKColor(),
+            IsAntialias = true,
+            Style = SKPaintStyle.Stroke,
+            StrokeWidth = OutlineWidth
+        };
+        canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
+
+        // Draw the switch thumb
+        var thumbPaint = new SKPaint
+        {
+            Color = ThumbColor.ToSKColor(),
+            IsAntialias = true
+        };
+        canvas.DrawRoundRect(thumbRect, thumbRadius, thumbRadius, thumbPaint);
     }
+
 
     public Color OutlineColor
     {
@@ -96,6 +134,12 @@ public class CustomSwitch : ContentView, IDisposable
     {
         get => (Color)GetValue(OnColorProperty);
         set => SetValue(OnColorProperty, value);
+    }
+
+    public Color OffColor
+    {
+        get => (Color)GetValue(OffColorProperty);
+        set => SetValue(OffColorProperty, value);
     }
 
     public float OutlineWidth
@@ -118,10 +162,11 @@ public class CustomSwitch : ContentView, IDisposable
 
     private static void IsToggledChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (bindable is not CustomSwitch checkbox) return;
-        checkbox.Toggled?.Invoke(checkbox, new ToggledEventArgs((bool)newValue));
-        checkbox.ToggledCommand?.ExecuteCommandIfAvailable(newValue);
-        checkbox.ChangeVisualState();
+        if (bindable is not CustomSwitch freakySwitch) return;
+        freakySwitch.Toggled?.Invoke(freakySwitch, new ToggledEventArgs((bool)newValue));
+        freakySwitch.ToggledCommand?.ExecuteCommandIfAvailable(newValue);
+        freakySwitch.ChangeVisualState();
+        freakySwitch.skiaView.InvalidateSurface();
     }
 
     protected override void ChangeVisualState()
@@ -140,7 +185,7 @@ public class CustomSwitch : ContentView, IDisposable
             nameof(OutlineColor),
             typeof(Color),
             typeof(CustomSwitch),
-            Colors.Black);
+            Colors.White);
 
     public static readonly BindableProperty ThumbColorProperty =
         BindableProperty.Create(
@@ -154,7 +199,14 @@ public class CustomSwitch : ContentView, IDisposable
             nameof(OnColor),
             typeof(Color),
             typeof(CustomSwitch),
-            Colors.Green);
+            Colors.LightGreen);
+
+    public static readonly BindableProperty OffColorProperty =
+        BindableProperty.Create(
+            nameof(OffColor),
+            typeof(Color),
+            typeof(CustomSwitch),
+            Colors.LightGray);
 
     public static readonly BindableProperty OutlineWidthProperty =
         BindableProperty.Create(

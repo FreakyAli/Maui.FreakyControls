@@ -35,10 +35,18 @@
         </freakyControls:FreakyChipGroup>
 
         <HorizontalStackLayout Spacing="10">
-            <freakyControls:CustomSwitch  />
+            <freakyControls:CustomSwitch ThumbColor="Green" OnColor="Orange"/>
             <Label
                 HorizontalTextAlignment="Start"
                 Text="Skia switch"
+                VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakySwitch OnColor="Orange" ThumbColor="Green" />
+            <Label
+                HorizontalTextAlignment="Start"
+                Text="Maui switch"
                 VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
 
