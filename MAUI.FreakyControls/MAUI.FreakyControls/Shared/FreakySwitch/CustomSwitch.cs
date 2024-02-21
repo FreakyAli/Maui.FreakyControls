@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
+using SkiaSharp;
 
 namespace Maui.FreakyControls;
 
@@ -16,7 +17,6 @@ public class CustomSwitch : ContentView, IDisposable
 
     public CustomSwitch()
     {
-        this.BackgroundColor = Colors.Blue;
         skiaView = new SKCanvasView();
         WidthRequest = skiaView.WidthRequest = width;
         HeightRequest = skiaView.HeightRequest = height;
@@ -60,15 +60,49 @@ public class CustomSwitch : ContentView, IDisposable
 
     private void DrawOnState(SKPaintSurfaceEventArgs e)
     {
-        var imageInfo = e.Info;
-        var canvas = e?.Surface?.Canvas;
+        var canvas = e.Surface.Canvas;
+        canvas.Clear();
+
+        var bounds = e.Info.Rect;
+
+        // Draw background
+        var backgroundPaint = new SKPaint
+        {
+            Color = ThumbColor.ToSKColor(),
+            IsAntialias = true
+        };
+        canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
+
+        // Draw check mark
+        var checkPaint = new SKPaint
+        {
+            Color = OnColor.ToSKColor(),
+            IsAntialias = true,
+        };
+
+        var checkPath = new SKPath();
+        checkPath.MoveTo(bounds.Left + bounds.Width * 0.25f, bounds.MidY);
+        checkPath.LineTo(bounds.Left + bounds.Width * 0.45f, bounds.MidY + bounds.Height * 0.2f);
+        checkPath.LineTo(bounds.Right - bounds.Width * 0.2f, bounds.Top + bounds.Height * 0.35f);
+        canvas.DrawPath(checkPath, checkPaint);
     }
 
     private void DrawOffState(SKPaintSurfaceEventArgs e)
     {
-        var imageInfo = e.Info;
-        var canvas = e?.Surface?.Canvas;
+        var canvas = e.Surface.Canvas;
+        canvas.Clear();
+
+        var bounds = e.Info.Rect;
+
+        // Draw background
+        var backgroundPaint = new SKPaint
+        {
+            Color = OutlineColor.ToSKColor(),
+            IsAntialias = true
+        };
+        canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
     }
+
 
     #endregion Skia
 
@@ -77,7 +111,7 @@ public class CustomSwitch : ContentView, IDisposable
     /// <summary>
     /// Raised when <see cref="CustomSwitch.IsToggled"/> changes.
     /// </summary>
-    public event EventHandler<CheckedChangedEventArgs> Toggled;
+    public event EventHandler<ToggledEventArgs> Toggled;
 
     #endregion Events
 
@@ -100,9 +134,9 @@ public class CustomSwitch : ContentView, IDisposable
         set { SetValue(OutlineColorProperty, value); }
     }
 
-    public static readonly BindableProperty FillColorProperty =
+    public static readonly BindableProperty ThumbColorProperty =
     BindableProperty.Create(
-        nameof(FillColor),
+        nameof(ThumbColor),
         typeof(Color),
         typeof(CustomSwitch),
         Colors.White);
@@ -111,15 +145,15 @@ public class CustomSwitch : ContentView, IDisposable
     /// Gets or sets the color of the fill.
     /// </summary>
     /// <value>Color value of the fill.</value>
-    public Color FillColor
+    public Color ThumbColor
     {
-        get { return (Color)GetValue(FillColorProperty); }
-        set { SetValue(FillColorProperty, value); }
+        get { return (Color)GetValue(ThumbColorProperty); }
+        set { SetValue(ThumbColorProperty, value); }
     }
 
-    public static readonly BindableProperty CheckColorProperty =
+    public static readonly BindableProperty OnColorProperty =
     BindableProperty.Create(
-        nameof(CheckColor),
+        nameof(OnColor),
         typeof(Color),
         typeof(CustomSwitch),
         Colors.Black);
@@ -128,10 +162,10 @@ public class CustomSwitch : ContentView, IDisposable
     /// Gets or sets the color of the check.
     /// </summary>
     /// <value>Color of the check.</value>
-    public Color CheckColor
+    public Color OnColor
     {
-        get { return (Color)GetValue(CheckColorProperty); }
-        set { SetValue(CheckColorProperty, value); }
+        get { return (Color)GetValue(OnColorProperty); }
+        set { SetValue(OnColorProperty, value); }
     }
 
     public static readonly BindableProperty OutlineWidthProperty =
@@ -151,36 +185,19 @@ public class CustomSwitch : ContentView, IDisposable
         set { SetValue(OutlineWidthProperty, value); }
     }
 
-    public static readonly BindableProperty CheckWidthProperty =
+    public static readonly BindableProperty ToggledCommandProperty =
     BindableProperty.Create(
-      nameof(CheckWidth),
-      typeof(float),
-      typeof(CustomSwitch),
-      outlineWidth);
-
-    /// <summary>
-    /// Gets or sets the width of the check.
-    /// </summary>
-    /// <value>The width of the check.</value>
-    public float CheckWidth
-    {
-        get { return (float)GetValue(CheckWidthProperty); }
-        set { SetValue(CheckWidthProperty, value); }
-    }
-
-    public static readonly BindableProperty CheckedChangedCommandProperty =
-    BindableProperty.Create(
-        nameof(CheckedChangedCommand),
+        nameof(ToggledCommand),
         typeof(ICommand),
         typeof(CustomSwitch));
 
     /// <summary>
     /// Triggered when <see cref="CustomSwitch.IsToggled"/> changes.
     /// </summary>
-    public ICommand CheckedChangedCommand
+    public ICommand ToggledCommand
     {
-        get { return (ICommand)GetValue(CheckedChangedCommandProperty); }
-        set { SetValue(CheckedChangedCommandProperty, value); }
+        get { return (ICommand)GetValue(ToggledCommandProperty); }
+        set { SetValue(ToggledCommandProperty, value); }
     }
 
     public static readonly BindableProperty IsToggledProperty =
@@ -205,8 +222,8 @@ public class CustomSwitch : ContentView, IDisposable
     private static void IsToggledChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is not CustomSwitch checkbox) return;
-        checkbox.Toggled?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
-        checkbox.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
+        checkbox.Toggled?.Invoke(checkbox, new ToggledEventArgs((bool)newValue));
+        checkbox.ToggledCommand?.ExecuteCommandIfAvailable(newValue);
         checkbox.ChangeVisualState();
     }
 
