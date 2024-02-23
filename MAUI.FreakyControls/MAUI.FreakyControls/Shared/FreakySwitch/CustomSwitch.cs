@@ -3,7 +3,7 @@ using System.Windows.Input;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 using SkiaSharp;
-
+using static Maui.FreakyControls.Extensions.Extensions;
 namespace Maui.FreakyControls;
 
 public class CustomSwitch : ContentView, IDisposable
@@ -11,7 +11,7 @@ public class CustomSwitch : ContentView, IDisposable
     private readonly SKCanvasView skiaView;
     private readonly TapGestureRecognizer tapped = new();
 
-    private static readonly float outlineWidth = 3.0f;
+    private static readonly float outlineWidth = IsAndroid ? 6.0f : 3.0f;
     private static readonly double width = 54.0d;
     private static readonly double height = 32.0d;
 
