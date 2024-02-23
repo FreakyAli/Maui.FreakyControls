@@ -11,17 +11,15 @@ public class CustomSwitch : ContentView, IDisposable
     private readonly SKCanvasView skiaView;
     private readonly TapGestureRecognizer tapped = new();
 
-    private static readonly float outlineWidth = 2.0f;
-    private static readonly double switchWidth = 54.0d;
-    private static readonly double switchHeight = 32.0d;
-    private static readonly float thumbRadius = (float)(switchHeight / 2.5);
-    private static readonly float thumbWidth = thumbRadius * 2;
+    private static readonly float outlineWidth = 3.0f;
+    private static readonly double width = 54.0d;
+    private static readonly double height = 32.0d;
 
     public CustomSwitch()
     {
         skiaView = new SKCanvasView();
-        WidthRequest = skiaView.WidthRequest = switchWidth;
-        HeightRequest = skiaView.HeightRequest = switchHeight;
+        WidthRequest = skiaView.WidthRequest = width;
+        HeightRequest = skiaView.HeightRequest = height;
         HorizontalOptions = VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false);
         Content = skiaView;
 
@@ -56,24 +54,16 @@ public class CustomSwitch : ContentView, IDisposable
             Color = OnColor.ToSKColor(),
             IsAntialias = true
         };
+
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
         // Calculate thumb position with a percentage-based offset from the edge
+        var thumbWidth = bounds.Height * 0.8f; // Adjust thumb width
         var spacingPercentage = 0.05; // 5% spacing
         var spacing = (float)(bounds.Width * spacingPercentage);
-        var thumbLeft = bounds.Left + bounds.Width - thumbWidth - spacing - OutlineWidth;
-        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbWidth, thumbRadius * 2);
-
-        // Draw outline
-        var outlineBounds = SKRect.Create(bounds.Left + OutlineWidth / 2, bounds.Top + OutlineWidth / 2, bounds.Width - OutlineWidth, bounds.Height - OutlineWidth);
-        var outlinePaint = new SKPaint
-        {
-            Color = OutlineColor.ToSKColor(),
-            IsAntialias = true,
-            Style = SKPaintStyle.Stroke,
-            StrokeWidth = OutlineWidth
-        };
-        canvas.DrawRoundRect(outlineBounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
+        var thumbLeft = bounds.Left + bounds.Width - thumbWidth - spacing;
+        var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2; // Center the thumb vertically
+        var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth); // Make the thumb circular
 
         // Draw the switch thumb
         var thumbPaint = new SKPaint
@@ -81,7 +71,18 @@ public class CustomSwitch : ContentView, IDisposable
             Color = ThumbColor.ToSKColor(),
             IsAntialias = true
         };
-        canvas.DrawRoundRect(thumbRect, thumbRadius, thumbRadius, thumbPaint);
+        canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+
+        // Draw outline
+        var outlineBounds = SKRect.Create(bounds.Left + outlineWidth / 2, bounds.Top + outlineWidth / 2, bounds.Width - outlineWidth, bounds.Height - outlineWidth);
+        var outlinePaint = new SKPaint
+        {
+            Color = OutlineColor.ToSKColor(),
+            IsAntialias = true,
+            Style = SKPaintStyle.Stroke,
+            StrokeWidth = outlineWidth
+        };
+        canvas.DrawRoundRect(outlineBounds, outlineBounds.Height / 2, outlineBounds.Height / 2, outlinePaint);
     }
 
     private void DrawOffState(SKCanvas canvas, SKRect bounds)
@@ -95,21 +96,12 @@ public class CustomSwitch : ContentView, IDisposable
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
         // Calculate thumb position with a percentage-based offset from the edge
+        var thumbWidth = bounds.Height * 0.8f; // Adjust thumb width
         var spacingPercentage = 0.05; // 5% spacing
         var spacing = (float)(bounds.Width * spacingPercentage);
         var thumbLeft = bounds.Left + spacing;
-        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbWidth, thumbRadius * 2);
-
-        // Draw outline
-        var outlineBounds = SKRect.Create(bounds.Left + OutlineWidth / 2, bounds.Top + OutlineWidth / 2, bounds.Width - OutlineWidth, bounds.Height - OutlineWidth);
-        var outlinePaint = new SKPaint
-        {
-            Color = OutlineColor.ToSKColor(),
-            IsAntialias = true,
-            Style = SKPaintStyle.Stroke,
-            StrokeWidth = OutlineWidth
-        };
-        canvas.DrawRoundRect(outlineBounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
+        var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2; // Center the thumb vertically
+        var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth); // Make the thumb circular
 
         // Draw the switch thumb
         var thumbPaint = new SKPaint
@@ -117,7 +109,18 @@ public class CustomSwitch : ContentView, IDisposable
             Color = ThumbColor.ToSKColor(),
             IsAntialias = true
         };
-        canvas.DrawRoundRect(thumbRect, thumbRadius, thumbRadius, thumbPaint);
+        canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+
+        // Draw outline
+        var outlineBounds = SKRect.Create(bounds.Left + outlineWidth / 2, bounds.Top + outlineWidth / 2, bounds.Width - outlineWidth, bounds.Height - outlineWidth);
+        var outlinePaint = new SKPaint
+        {
+            Color = OutlineColor.ToSKColor(),
+            IsAntialias = true,
+            Style = SKPaintStyle.Stroke,
+            StrokeWidth = outlineWidth
+        };
+        canvas.DrawRoundRect(outlineBounds, outlineBounds.Height / 2, outlineBounds.Height / 2, outlinePaint);
     }
 
     public Color OutlineColor
@@ -142,12 +145,6 @@ public class CustomSwitch : ContentView, IDisposable
     {
         get => (Color)GetValue(OffColorProperty);
         set => SetValue(OffColorProperty, value);
-    }
-
-    public float OutlineWidth
-    {
-        get => (float)GetValue(OutlineWidthProperty);
-        set => SetValue(OutlineWidthProperty, value);
     }
 
     public ICommand ToggledCommand
@@ -209,13 +206,6 @@ public class CustomSwitch : ContentView, IDisposable
             typeof(Color),
             typeof(CustomSwitch),
             Colors.LightGray);
-
-    public static readonly BindableProperty OutlineWidthProperty =
-        BindableProperty.Create(
-            nameof(OutlineWidth),
-            typeof(float),
-            typeof(CustomSwitch),
-            outlineWidth);
 
     public static readonly BindableProperty ToggledCommandProperty =
         BindableProperty.Create(
