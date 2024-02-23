@@ -195,9 +195,10 @@ public class FreakyCheckbox : ContentView, IDisposable
     private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         e?.Surface?.Canvas?.Clear();
-        DrawOutline(e);
         if (IsChecked)
             DrawCheckFilled(e);
+        else
+            DrawOutline(e);
     }
 
     private void DrawCheckFilled(SKPaintSurfaceEventArgs e)

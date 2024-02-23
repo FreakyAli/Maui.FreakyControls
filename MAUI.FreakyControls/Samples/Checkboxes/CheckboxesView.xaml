@@ -35,7 +35,9 @@
         </freakyControls:FreakyChipGroup>
 
         <HorizontalStackLayout Spacing="10">
-            <freakyControls:CustomSwitch ThumbColor="Green" OnColor="Orange"/>
+            <freakyControls:CustomSwitch
+                ThumbColor="Green"
+                OnColor="Orange"/>
             <Label
                 HorizontalTextAlignment="Start"
                 Text="Skia switch"

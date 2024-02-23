@@ -11,15 +11,17 @@ public class CustomSwitch : ContentView, IDisposable
     private readonly SKCanvasView skiaView;
     private readonly TapGestureRecognizer tapped = new();
 
-    private static readonly float outlineWidth = 6.0f;
-    private static readonly double width = 54.0d;
-    private static readonly double height = 33.0d;
+    private static readonly float outlineWidth = 2.0f;
+    private static readonly double switchWidth = 54.0d;
+    private static readonly double switchHeight = 32.0d;
+    private static readonly float thumbRadius = (float)(switchHeight / 2.5);
+    private static readonly float thumbWidth = thumbRadius * 2;
 
     public CustomSwitch()
     {
         skiaView = new SKCanvasView();
-        WidthRequest = skiaView.WidthRequest = width;
-        HeightRequest = skiaView.HeightRequest = height;
+        WidthRequest = skiaView.WidthRequest = switchWidth;
+        HeightRequest = skiaView.HeightRequest = switchHeight;
         HorizontalOptions = VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false);
         Content = skiaView;
 
@@ -39,6 +41,7 @@ public class CustomSwitch : ContentView, IDisposable
     private void HandlePaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
+        canvas.Clear();
         if (IsToggled)
             DrawOnState(canvas, e.Info.Rect);
         else
@@ -56,13 +59,13 @@ public class CustomSwitch : ContentView, IDisposable
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
         // Calculate thumb position with a percentage-based offset from the edge
-        var thumbRadius = (float)(bounds.Height / 2.5);
         var spacingPercentage = 0.05; // 5% spacing
         var spacing = (float)(bounds.Width * spacingPercentage);
-        var thumbLeft = bounds.Left + bounds.Width - thumbRadius * 2 - spacing;
-        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbRadius * 2, thumbRadius * 2);
+        var thumbLeft = bounds.Left + bounds.Width - thumbWidth - spacing - OutlineWidth;
+        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbWidth, thumbRadius * 2);
 
         // Draw outline
+        var outlineBounds = SKRect.Create(bounds.Left + OutlineWidth / 2, bounds.Top + OutlineWidth / 2, bounds.Width - OutlineWidth, bounds.Height - OutlineWidth);
         var outlinePaint = new SKPaint
         {
             Color = OutlineColor.ToSKColor(),
@@ -70,7 +73,7 @@ public class CustomSwitch : ContentView, IDisposable
             Style = SKPaintStyle.Stroke,
             StrokeWidth = OutlineWidth
         };
-        canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
+        canvas.DrawRoundRect(outlineBounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
 
         // Draw the switch thumb
         var thumbPaint = new SKPaint
@@ -92,13 +95,13 @@ public class CustomSwitch : ContentView, IDisposable
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
         // Calculate thumb position with a percentage-based offset from the edge
-        var thumbRadius = (float)(bounds.Height / 2.5);
         var spacingPercentage = 0.05; // 5% spacing
         var spacing = (float)(bounds.Width * spacingPercentage);
         var thumbLeft = bounds.Left + spacing;
-        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbRadius * 2, thumbRadius * 2);
+        var thumbRect = SKRect.Create(thumbLeft, bounds.MidY - thumbRadius, thumbWidth, thumbRadius * 2);
 
         // Draw outline
+        var outlineBounds = SKRect.Create(bounds.Left + OutlineWidth / 2, bounds.Top + OutlineWidth / 2, bounds.Width - OutlineWidth, bounds.Height - OutlineWidth);
         var outlinePaint = new SKPaint
         {
             Color = OutlineColor.ToSKColor(),
@@ -106,7 +109,7 @@ public class CustomSwitch : ContentView, IDisposable
             Style = SKPaintStyle.Stroke,
             StrokeWidth = OutlineWidth
         };
-        canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
+        canvas.DrawRoundRect(outlineBounds, bounds.Height / 2, bounds.Height / 2, outlinePaint);
 
         // Draw the switch thumb
         var thumbPaint = new SKPaint
@@ -116,7 +119,6 @@ public class CustomSwitch : ContentView, IDisposable
         };
         canvas.DrawRoundRect(thumbRect, thumbRadius, thumbRadius, thumbPaint);
     }
-
 
     public Color OutlineColor
     {
@@ -185,7 +187,7 @@ public class CustomSwitch : ContentView, IDisposable
             nameof(OutlineColor),
             typeof(Color),
             typeof(CustomSwitch),
-            Colors.White);
+            Colors.Black);
 
     public static readonly BindableProperty ThumbColorProperty =
         BindableProperty.Create(

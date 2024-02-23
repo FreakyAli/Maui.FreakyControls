@@ -54,9 +54,10 @@ namespace Maui.FreakyControls
         private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
             e?.Surface?.Canvas?.Clear();
-            DrawOutline(e);
             if (IsChecked)
                 DrawCheckFilled(e);
+            else
+                DrawOutline(e);
         }
 
         /// <summary>
