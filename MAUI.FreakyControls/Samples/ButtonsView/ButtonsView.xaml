@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Samples.ButtonsView.ButtonsView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -80,6 +80,7 @@
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
                 IconSize="30"
+                Command="{Binding ButtonStateCommand}"
                 NativeAnimationColor="MediumPurple"
                 Text="A normal button I suppose"
                 TextColor="White"
@@ -91,7 +92,7 @@
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
                 IconSize="30"
-                IsEnabled="False"
+                IsEnabled="{Binding IsButtonEnabled}"
                 Text="A normal disabled button"
                 TextColor="White"
                 VerticalTextAlignment="Center">

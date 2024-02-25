@@ -1,5 +1,6 @@
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
@@ -407,6 +408,15 @@ public partial class FreakyButton : ContentView
         }
         Clicked?.Invoke(sender, e);
         Command?.ExecuteCommandIfAvailable(CommandParameter);
+    }
+
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName == nameof(IsEnabled))
+        {
+            ChangeVisualState();
+        }
     }
 
     #endregion Methods
