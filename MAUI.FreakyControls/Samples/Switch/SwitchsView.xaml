@@ -6,16 +6,28 @@
              Title="Switchs">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
         <HorizontalStackLayout Spacing="10">
-            <Label Text="Switch" VerticalTextAlignment="Center"/>
+            <Label Text="Funny Switch" VerticalTextAlignment="Center"/>
+            <freakyControls:FreakySwitch
+                OffColor="Blue"
+                ThumbOffColor="SkyBlue"
+                OnColor="Pink"
+                ThumbOnColor="Yellow" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="10">
+            <Label Text="Default Switch" VerticalTextAlignment="Center"/>
             <freakyControls:FreakySwitch />
         </HorizontalStackLayout>
-         <HorizontalStackLayout Spacing="10">
-            <Label Text="Switch" VerticalTextAlignment="Center"/>
-            <freakyControls:FreakySwitch />
+        <HorizontalStackLayout Spacing="10">
+            <Label Text="Disabled" VerticalTextAlignment="Center"/>
+            <freakyControls:FreakySwitch IsEnabled="False" IsToggled="False" />
         </HorizontalStackLayout>
-         <HorizontalStackLayout Spacing="10">
-            <Label Text="Switch" VerticalTextAlignment="Center"/>
-            <freakyControls:FreakySwitch />
+        <HorizontalStackLayout Spacing="10">
+            <freakyControls:FreakySwitch
+                OnColor="Orange"/>
+            <Label
+                HorizontalTextAlignment="Start"
+                Text="Skiasharp!"
+                VerticalTextAlignment="Center" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

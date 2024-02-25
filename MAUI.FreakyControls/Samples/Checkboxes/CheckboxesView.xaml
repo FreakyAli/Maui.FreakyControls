@@ -35,16 +35,6 @@
         </freakyControls:FreakyChipGroup>
 
         <HorizontalStackLayout Spacing="10">
-            <freakyControls:FreakySwitch
-                ThumbColor="Green"
-                OnColor="Orange"/>
-            <Label
-                HorizontalTextAlignment="Start"
-                Text="Skia switch"
-                VerticalTextAlignment="Center" />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout Spacing="10">
             <freakyControls:FreakyCheckbox
                 CheckColor="White"
                 Design="Native"

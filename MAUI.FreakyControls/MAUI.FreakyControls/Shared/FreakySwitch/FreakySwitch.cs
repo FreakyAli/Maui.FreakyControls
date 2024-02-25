@@ -80,7 +80,7 @@ public class FreakySwitch : ContentView, IDisposable
         // Draw the switch thumb
         var thumbPaint = new SKPaint
         {
-            Color = ThumbColor.ToSKColor(),
+            Color = ThumbOnColor.ToSKColor(),
             IsAntialias = true
         };
         canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
@@ -116,7 +116,7 @@ public class FreakySwitch : ContentView, IDisposable
         // Draw the switch thumb
         var thumbPaint = new SKPaint
         {
-            Color = ThumbColor.ToSKColor(),
+            Color = ThumbOffColor.ToSKColor(),
             IsAntialias = true
         };
         canvas.DrawRoundRect(thumbRect, thumbRect.Width / 2, thumbRect.Height / 2, thumbPaint); // Maintain circular shape
@@ -139,10 +139,16 @@ public class FreakySwitch : ContentView, IDisposable
         set => SetValue(OutlineColorProperty, value);
     }
 
-    public Color ThumbColor
+    public Color ThumbOnColor
     {
-        get => (Color)GetValue(ThumbColorProperty);
-        set => SetValue(ThumbColorProperty, value);
+        get => (Color)GetValue(ThumbOnColorProperty);
+        set => SetValue(ThumbOnColorProperty, value);
+    }
+
+    public Color ThumbOffColor
+    {
+        get => (Color)GetValue(ThumbOffColorProperty);
+        set => SetValue(ThumbOffColorProperty, value);
     }
 
     public Color OnColor
@@ -196,9 +202,16 @@ public class FreakySwitch : ContentView, IDisposable
             typeof(FreakySwitch),
             outlineColor);
 
-    public static readonly BindableProperty ThumbColorProperty =
+    public static readonly BindableProperty ThumbOnColorProperty =
         BindableProperty.Create(
-            nameof(ThumbColor),
+            nameof(ThumbOnColor),
+            typeof(Color),
+            typeof(FreakySwitch),
+            Colors.White);
+
+    public static readonly BindableProperty ThumbOffColorProperty =
+        BindableProperty.Create(
+            nameof(ThumbOffColor),
             typeof(Color),
             typeof(FreakySwitch),
             Colors.White);
