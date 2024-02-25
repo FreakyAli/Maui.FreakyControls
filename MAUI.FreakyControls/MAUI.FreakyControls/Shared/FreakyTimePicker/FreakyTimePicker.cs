@@ -8,43 +8,43 @@ public class FreakyTimePicker : TimePicker, IDrawableImageView
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
              nameof(Image),
              typeof(ImageSource),
-             typeof(FreakyDatePicker),
+             typeof(FreakyTimePicker),
              default(ImageSource));
 
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
            nameof(ImageHeight),
            typeof(int),
-           typeof(FreakyDatePicker),
+           typeof(FreakyTimePicker),
            25);
 
     public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
            nameof(ImageWidth),
            typeof(int),
-           typeof(FreakyDatePicker),
+           typeof(FreakyTimePicker),
            25);
 
     public static readonly BindableProperty ImageAlignmentProperty = BindableProperty.Create(
            nameof(ImageAlignment),
            typeof(ImageAlignment),
-           typeof(FreakyDatePicker),
+           typeof(FreakyTimePicker),
            ImageAlignment.Right);
 
     public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
            nameof(ImagePadding),
            typeof(int),
-           typeof(FreakyDatePicker),
+           typeof(FreakyTimePicker),
            5);
 
     public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
           nameof(ImagePadding),
           typeof(ICommand),
-          typeof(FreakyDatePicker),
+          typeof(FreakyTimePicker),
           default(ICommand));
 
     public static readonly BindableProperty ImageCommandParameterProperty = BindableProperty.Create(
           nameof(ImageCommandParameter),
           typeof(object),
-          typeof(FreakyDatePicker),
+          typeof(FreakyTimePicker),
           default(object));
 
     /// <summary>
