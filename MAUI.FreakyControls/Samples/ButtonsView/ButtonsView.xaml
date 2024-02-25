@@ -80,6 +80,7 @@
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
                 IconSize="30"
+                Command="{Binding ButtonStateCommand}"
                 NativeAnimationColor="MediumPurple"
                 Text="A normal button I suppose"
                 TextColor="White"
@@ -91,7 +92,7 @@
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
                 IconSize="30"
-                IsEnabled="False"
+                IsEnabled="{Binding IsButtonEnabled}"
                 Text="A normal disabled button"
                 TextColor="White"
                 VerticalTextAlignment="Center">

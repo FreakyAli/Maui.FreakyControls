@@ -57,7 +57,8 @@ namespace Samples
                 AppShell.radioButtons,
                 AppShell.buttons,
                 AppShell.jumpList,
-                AppShell.pinView
+                AppShell.pinView,
+                AppShell.switches
             };
         }
 

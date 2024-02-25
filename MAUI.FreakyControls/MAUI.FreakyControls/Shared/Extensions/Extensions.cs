@@ -27,6 +27,10 @@ namespace Maui.FreakyControls.Extensions;
 
 public static class Extensions
 {
+    public static bool IsAndroid => DeviceInfo.Current.Platform == DevicePlatform.Android;
+
+    public static bool IsiOS => DeviceInfo.Current.Platform == DevicePlatform.iOS;
+
     public static void ExecuteCommandIfAvailable(this ICommand command, object parameter = null)
     {
         if (command?.CanExecute(parameter) == true)
@@ -61,7 +65,6 @@ public static class Extensions
         handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
         handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
         handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
-        handlers.AddHandler(typeof(FreakySwitch), typeof(FreakySwitchHandler));
         handlers.AddHandler(typeof(FreakyAutoCompleteView), typeof(FreakyAutoCompleteViewHandler));
     }
 

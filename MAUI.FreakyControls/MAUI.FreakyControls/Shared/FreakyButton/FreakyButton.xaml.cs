@@ -409,5 +409,14 @@ public partial class FreakyButton : ContentView
         Command?.ExecuteCommandIfAvailable(CommandParameter);
     }
 
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName == nameof(IsEnabled))
+        {
+            ChangeVisualState();
+        }
+    }
+
     #endregion Methods
 }

@@ -14,7 +14,7 @@
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
 		<AssemblyVersion>0.4.10</AssemblyVersion>
 		<AssemblyFileVersion>0.4.10</AssemblyFileVersion>
-		<Version>0.4.10-pre</Version>
+		<Version>0.4.10</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -26,7 +26,7 @@
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
 		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP PinCodeView Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>.NET 8 Support for your favorite Freaky Controls!!!</PackageReleaseNotes>
+		<PackageReleaseNotes>FreakySwitch rewritten and changes and visual state changes</PackageReleaseNotes>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
@@ -140,8 +140,8 @@
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.7" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
 		<PackageReference Include="FreakyEffects" Version="0.1.1-pre" />
 	</ItemGroup>
 	<ItemGroup>
