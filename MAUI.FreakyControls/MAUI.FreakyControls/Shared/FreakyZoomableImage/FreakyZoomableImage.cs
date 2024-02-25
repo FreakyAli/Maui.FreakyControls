@@ -39,6 +39,7 @@ public class FreakyZoomableImage : ContentView, IDisposable
                 Content.AnchorX = 0;
                 Content.AnchorY = 0;
                 break;
+
             case GestureStatus.Running:
                 {
                     currentScale += (e.Scale - 1) * startScale;
@@ -133,6 +134,7 @@ public class FreakyZoomableImage : ContentView, IDisposable
                 Content.TranslationX = newX;
                 Content.TranslationY = newY;
                 break;
+
             case GestureStatus.Completed:
                 xOffset = Content.TranslationX;
                 yOffset = Content.TranslationY;

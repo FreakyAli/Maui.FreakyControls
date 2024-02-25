@@ -13,66 +13,68 @@
             Spacing="25">
 
             <freakyControls:FreakyTextInputLayout
-            Title="Outlined TextInputLayout"
-            BorderCornerRadius="10"
-            BorderStrokeThickness="2"
-            BorderType="Outlined"
-            FontSize="Large"
-            ImageCommand="{Binding ImageWasTappedCommand}"
-            ImageHeight="{OnPlatform 25,
-                                     iOS=25,
-                                     Android=40}"
-            ImagePadding="10"
-            ImageSource="calendar"
-            ImageWidth="{OnPlatform 25,
-                                    iOS=25,
-                                    Android=40}" />
+                Title="Outlined TextInputLayout"
+                BorderCornerRadius="10"
+                BorderStrokeThickness="2"
+                BorderType="Outlined"
+                FontSize="Large"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                ImageHeight="{OnPlatform 25,
+                                         iOS=25,
+                                         Android=40}"
+                ImagePadding="10"
+                ImageSource="calendar"
+                ImageWidth="{OnPlatform 25,
+                                        iOS=25,
+                                        Android=40}" />
 
             <freakyControls:FreakyTextInputLayout
-            x:Name="yolo"
-            Title="Underlined TextInputLayout"
-            BorderType="Underline"
-            FontSize="Large"
-            ImageCommand="{Binding ImageWasTappedCommand}"
-            ImageHeight="{OnPlatform 25,
-                                     iOS=25,
-                                     Android=40}"
-            ImagePadding="10"
-            ImageSource="calendar"
-            ImageWidth="{OnPlatform 25,
-                                    iOS=25,
-                                    Android=40}"
-            UnderlineColor="Black"
-            UnderlineThickness="1.5" />
+                x:Name="yolo"
+                Title="Underlined TextInputLayout"
+                BorderType="Underline"
+                FontSize="Large"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                ImageHeight="{OnPlatform 25,
+                                         iOS=25,
+                                         Android=40}"
+                ImagePadding="10"
+                ImageSource="calendar"
+                ImageWidth="{OnPlatform 25,
+                                        iOS=25,
+                                        Android=40}"
+                UnderlineColor="Black"
+                UnderlineThickness="1.5" />
 
             <freakyControls:FreakyTextInputLayout
-            Title="Bordered TextInputLayout"
-            BorderCornerRadius="10"
-            BorderStroke="Black"
-            BorderStrokeThickness="2"
-            BorderType="Full"
-            FontSize="Large"
-            ImageCommand="{Binding ImageWasTappedCommand}"
-            ImageHeight="{OnPlatform 25,
-                                     iOS=25,
-                                     Android=40}"
-            ImagePadding="10"
-            ImageSource="calendar"
-            ImageWidth="{OnPlatform 25,
-                                    iOS=25,
-                                    Android=40}" />
-
+                Title="Bordered TextInputLayout"
+                BorderCornerRadius="10"
+                BorderStroke="Black"
+                BorderStrokeThickness="2"
+                BorderType="Full"
+                FontSize="Large"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                ImageHeight="{OnPlatform 25,
+                                         iOS=25,
+                                         Android=40}"
+                ImagePadding="10"
+                ImageSource="calendar"
+                ImageWidth="{OnPlatform 25,
+                                        iOS=25,
+                                        Android=40}" />
 
             <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
                 <freakyControls:FreakySwipeButton.Thumb>
-                    <Border  BackgroundColor="Silver" Padding="0">
+                    <Border Padding="0" BackgroundColor="Silver">
                         <Image HeightRequest="40" WidthRequest="40" />
                     </Border>
                 </freakyControls:FreakySwipeButton.Thumb>
 
                 <freakyControls:FreakySwipeButton.TrackBar>
-                    <Border BackgroundColor="Gray" Padding="0">
-                        <Label Text="Slide 'x' to cancel" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    <Border Padding="0" BackgroundColor="Gray">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="Slide 'x' to cancel"
+                            VerticalTextAlignment="Center" />
                     </Border>
                 </freakyControls:FreakySwipeButton.TrackBar>
 
@@ -80,8 +82,6 @@
                     <VerticalStackLayout Padding="0" />
                 </freakyControls:FreakySwipeButton.FillBar>
             </freakyControls:FreakySwipeButton>
-
         </VerticalStackLayout>
-
     </Grid>
 </ContentPage>

@@ -16,8 +16,8 @@
                 </Border.StrokeShape>
                 <Border.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="iOS" Value="10"/>
-                        <On Platform="Android" Value="10,0,10,0"/>
+                        <On Platform="iOS" Value="10" />
+                        <On Platform="Android" Value="10,0,10,0" />
                     </OnPlatform>
                 </Border.Padding>
                 <controls:FreakyEntry
@@ -66,6 +66,9 @@
                 </Label.GestureRecognizers>
             </Label>
         </Grid>
-        <BoxView Margin="0,-1,0,0" HeightRequest="{Binding UnderlineThickness, Source={x:Reference this}}" Color="{Binding UnderlineColor, Source={x:Reference this}}" />
+        <BoxView
+            Margin="0,-1,0,0"
+            HeightRequest="{Binding UnderlineThickness, Source={x:Reference this}}"
+            Color="{Binding UnderlineColor, Source={x:Reference this}}" />
     </VerticalStackLayout>
 </ContentView>

@@ -25,13 +25,12 @@
                 ImageColor="Green"
                 LeadingResourceId="{x:Static constants:Constants.Tick}"
                 SvgAssembly="{x:Static constants:Constants.SvgAssembly}"
-                Text="Chip 1"/>
+                Text="Chip 1" />
             <freakyControls:FreakyChip
-                Text="Chip 2"
                 ImageColor="Green"
                 SvgAssembly="{x:Static constants:Constants.SvgAssembly}"
-                TrailingResourceId="{x:Static constants:Constants.Tick}"
-                />
+                Text="Chip 2"
+                TrailingResourceId="{x:Static constants:Constants.Tick}" />
         </freakyControls:FreakyChipGroup>
 
         <HorizontalStackLayout Spacing="10">
