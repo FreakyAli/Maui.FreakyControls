@@ -79,9 +79,9 @@ public static class MauiProgram
              builder.InitializeFreakyControls();
              
              return builder.Build();
-         }
-      }
+     }
  }
+ 
 ```      
       
 Now you can use the controls in your app.
