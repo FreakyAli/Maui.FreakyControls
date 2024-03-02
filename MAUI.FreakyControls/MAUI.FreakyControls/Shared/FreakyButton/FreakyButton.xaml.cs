@@ -1,5 +1,6 @@
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Shared.Enums;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
