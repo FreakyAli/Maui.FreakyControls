@@ -58,7 +58,7 @@ public static class Extensions
     private static void AddHandlers(this IMauiHandlersCollection handlers)
     {
         handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
-        handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
+        handlers.AddHandler(typeof(FreakyInternalEntry), typeof(FreakyInternalEntryHandler));
         handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
         handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
         handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
