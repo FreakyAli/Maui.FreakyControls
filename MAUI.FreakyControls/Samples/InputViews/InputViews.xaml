@@ -87,9 +87,11 @@
                     ImageCommand="{Binding ImageWasTappedCommand}"
                     ImageSource="calendar"
                     AllowCopyPaste="False"
+                    Text="this is some text baby"
                     FontSize="Large"
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"
+                    EntryFocused="entry_EntryFocused"
                     TextColor="Purple" />
             </Border>
 

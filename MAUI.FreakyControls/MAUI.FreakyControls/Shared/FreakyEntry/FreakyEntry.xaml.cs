@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Maui.FreakyControls.Shared.Enums;
 
@@ -606,6 +607,16 @@ public partial class FreakyEntry : ContentView
         }
     }
 
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+
+        if (propertyName == nameof(IsEnabled))
+        {
+            EntryField.IsEnabled = IsEnabled;
+        }
+    }
+
     /// <summary>
     /// raised when the user finalizes text in the <see cref="FreakyTextInputLayout"/> with the return key.
     /// </summary>
@@ -617,20 +628,26 @@ public partial class FreakyEntry : ContentView
     ///  which specify the new and old text, respectively.
     /// </summary>
     public event EventHandler<TextChangedEventArgs> TextChanged;
+    public event EventHandler<FocusEventArgs> EntryFocused;
+    public event EventHandler<FocusEventArgs> EntryUnfocused;
 
     void Handle_Completed(System.Object sender, System.EventArgs e)
     {
+        Completed?.Invoke(this, e);
     }
 
-    void Handle_Focused(System.Object sender, Microsoft.Maui.Controls.FocusEventArgs e)
+    void Handle_Focused(object sender, Microsoft.Maui.Controls.FocusEventArgs e)
     {
+        EntryFocused?.Invoke(this,e);
     }
 
-    void Handle_Unfocused(System.Object sender, Microsoft.Maui.Controls.FocusEventArgs e)
+    void Handle_Unfocused(object sender, Microsoft.Maui.Controls.FocusEventArgs e)
     {
+        EntryUnfocused?.Invoke(this, e);
     }
 
     void EntryField_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
     {
+        TextChanged?.Invoke(this, e);
     }
 }

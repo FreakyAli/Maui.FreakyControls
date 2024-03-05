@@ -50,7 +50,8 @@
             TextTransform="{Binding TextTransform, Source={x:Reference this}}"
             Unfocused="Handle_Unfocused"
             VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}" />
-        <ImageButton Grid.Column="2"
+        <ImageButton
+            Grid.Column="2"
             Command="{Binding ImageCommand,Source={x:Reference this}}"
             CommandParameter="{Binding ImageCommandParameter,Source={x:Reference this}}"
             IsVisible="{Binding ImageAlignment, Converter={StaticResource RightImageAlignmentToVisibilityConverter}, Source={x:Reference this}}"

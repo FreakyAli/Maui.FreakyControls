@@ -71,7 +71,7 @@ public partial class FreakyButton : ContentView
         BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(FreakyButton), defaultValue: true);
 
     public static readonly BindableProperty LeadingIconProperty =
-        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(FreakyButton), defaultValue: null, propertyChanged: OnLeadingIconChanged);
+        BindableProperty.Create(nameof(LeadingIcon), typeof(View), typeof(FreakyButton), defaultValue: null);
 
     public static readonly BindableProperty LineBreakModeProperty =
         BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(FreakyButton), defaultValue: LineBreakMode.NoWrap);
@@ -98,7 +98,7 @@ public partial class FreakyButton : ContentView
         BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(FreakyButton), defaultValue: TextType.Text);
 
     public static readonly BindableProperty TrailingIconProperty =
-        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(FreakyButton), defaultValue: null, propertyChanged: OnTrailingIconChanged);
+        BindableProperty.Create(nameof(TrailingIcon), typeof(View), typeof(FreakyButton), defaultValue: null);
 
     public static readonly BindableProperty VerticalTextAlignmentProperty =
         BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(FreakyButton), TextAlignment.Center);
@@ -316,34 +316,6 @@ public partial class FreakyButton : ContentView
             freakyButton.txtLabel.IsVisible = true;
             freakyButton.activityIndicator.TranslationY = 35;
             freakyButton.txtLabel.TranslationY = 0;
-        }
-    }
-
-    private static void OnLeadingIconChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var freakyButton = bindable as FreakyButton;
-        if (newValue is not null)
-        {
-            freakyButton.leadingContentView.IsVisible = true;
-            freakyButton.leadingContentView.Content = newValue as View;
-        }
-        else
-        {
-            freakyButton.leadingContentView.IsVisible = true;
-        }
-    }
-
-    private static void OnTrailingIconChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var freakyButton = bindable as FreakyButton;
-        if (newValue is not null)
-        {
-            freakyButton.trailingContentView.IsVisible = true;
-            freakyButton.trailingContentView.Content = newValue as View;
-        }
-        else
-        {
-            freakyButton.trailingContentView.IsVisible = true;
         }
     }
 
