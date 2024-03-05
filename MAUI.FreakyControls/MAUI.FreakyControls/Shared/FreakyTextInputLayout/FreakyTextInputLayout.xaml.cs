@@ -24,6 +24,8 @@ public partial class FreakyTextInputLayout : ContentView
     /// raised when the user finalizes text in the <see cref="FreakyTextInputLayout"/> with the return key.
     /// </summary>
     public event EventHandler Completed;
+    public event EventHandler<FocusEventArgs> EntryFocused;
+    public event EventHandler<FocusEventArgs> EntryUnfocused;
 
     /// <summary>
     ///  raised when the text in the <see cref="FreakyTextInputLayout"/> changes.
@@ -698,11 +700,10 @@ public partial class FreakyTextInputLayout : ContentView
 
     private static void OnOutlineTitleBackgroundColorProperty(BindableObject bindable, object oldValue, object newValue)
     {
-        if (bindable is FreakyTextInputLayout til &&
-            newValue is Color color)
-
+        if (bindable is FreakyTextInputLayout til && newValue is Color color)
         {
-            til.LabelTitle.BackgroundColor = til.BorderType == BorderType.Outlined ? color : Colors.Transparent;
+            til.LabelTitle.BackgroundColor = til.BorderType ==
+                BorderType.Outlined ? color : Colors.Transparent;
         }
     }
 
@@ -734,6 +735,7 @@ public partial class FreakyTextInputLayout : ContentView
 
     private async void Handle_Focused(object sender, FocusEventArgs e)
     {
+        EntryFocused?.Invoke(this,e);
         if (string.IsNullOrEmpty(Text))
         {
             await TransitionToTitle(true);
@@ -742,6 +744,7 @@ public partial class FreakyTextInputLayout : ContentView
 
     private async void Handle_Unfocused(object sender, FocusEventArgs e)
     {
+        EntryUnfocused?.Invoke(this, e);
         if (string.IsNullOrEmpty(Text))
         {
             await TransitionToPlaceholder(true);
