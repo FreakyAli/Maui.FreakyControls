@@ -91,7 +91,6 @@
                     FontSize="Large"
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"
-                    EntryFocused="entry_EntryFocused"
                     TextColor="Purple" />
             </Border>
 

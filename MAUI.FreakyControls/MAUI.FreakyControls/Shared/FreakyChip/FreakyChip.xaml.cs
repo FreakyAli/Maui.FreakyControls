@@ -77,7 +77,7 @@ public partial class FreakyChip : ContentView
        BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(FreakyChip), defaultValue: Colors.LightGray);
 
     public static readonly BindableProperty UnselectedBackgroundColorProperty =
-       BindableProperty.Create(nameof(UnselectedBackgroundColor), typeof(Color), typeof(FreakyChip), defaultValue: Colors.White);
+       BindableProperty.Create(nameof(UnselectedBackgroundColor), typeof(Color), typeof(FreakyChip), defaultValue: Colors.Transparent);
 
     public static readonly BindableProperty SelectedTextColorProperty =
        BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(FreakyChip), defaultValue: Colors.Black);

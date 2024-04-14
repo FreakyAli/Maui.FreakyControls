@@ -5,6 +5,21 @@
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="Switchs">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+
+        <Button Grid.Column="2"
+        HeightRequest="40"
+        CornerRadius="5"
+        HorizontalOptions="Fill"
+        Text="Hello"
+        IsEnabled="False"
+        TextTransform="Uppercase"
+        FontAttributes="Bold">
+            <Button.Triggers>
+                <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                    <Setter Property="TextColor" Value="Red" />
+                </Trigger>
+            </Button.Triggers>
+        </Button>
         <HorizontalStackLayout Spacing="10">
             <Label Text="Funny Switch" VerticalTextAlignment="Center"/>
             <freakyControls:FreakySwitch

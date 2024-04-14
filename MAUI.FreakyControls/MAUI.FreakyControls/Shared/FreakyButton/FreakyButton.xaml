@@ -5,11 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
     xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
-    x:Name="this"
     freakyEffects:TouchEffect.Color="{Binding NativeAnimationColor, Source={x:Reference this}}"
+    x:Name="this"
     HeightRequest="55">
     <ContentView.Resources>
         <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+        <converter:ContentToInvisibilityConverter x:Key="ContentToInvisibilityConverter"/>
     </ContentView.Resources>
     <ContentView.GestureRecognizers>
         <TapGestureRecognizer Tapped="Button_Tapped" />
@@ -36,6 +37,7 @@
                 Content="{Binding LeadingIcon,Source={x:Reference this}}"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"
                 VerticalOptions="Center"
+                IsVisible="{Binding LeadingIcon,Converter={StaticResource ContentToInvisibilityConverter},Source={x:Reference this}}"
                 WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
 
             <Label
@@ -68,6 +70,7 @@
             <ContentView
                 Grid.Column="2"
                 BackgroundColor="Transparent"
+                IsVisible="{Binding TrailingIcon,Converter={StaticResource ContentToInvisibilityConverter},Source={x:Reference this}}"
                 Content="{Binding TrailingIcon,Source={x:Reference this}}"
                 CascadeInputTransparent="True"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"

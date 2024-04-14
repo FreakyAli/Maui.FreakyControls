@@ -12,8 +12,6 @@
             Padding="30"
             Spacing="25">
 
-            <freakyControls:FreakyEntry  Text="Some long ass text"/>
-
             <freakyControls:FreakyTextInputLayout
                 Title="Outlined TextInputLayout"
                 BorderCornerRadius="10"
