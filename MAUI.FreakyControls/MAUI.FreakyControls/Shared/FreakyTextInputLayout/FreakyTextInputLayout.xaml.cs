@@ -1,5 +1,4 @@
-﻿using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.Shared.Enums;
+﻿using Maui.FreakyControls.Shared.Enums;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -24,8 +23,6 @@ public partial class FreakyTextInputLayout : ContentView
     /// raised when the user finalizes text in the <see cref="FreakyTextInputLayout"/> with the return key.
     /// </summary>
     public event EventHandler Completed;
-    public event EventHandler<FocusEventArgs> EntryFocused;
-    public event EventHandler<FocusEventArgs> EntryUnfocused;
 
     /// <summary>
     ///  raised when the text in the <see cref="FreakyTextInputLayout"/> changes.
@@ -735,7 +732,6 @@ public partial class FreakyTextInputLayout : ContentView
 
     private async void Handle_Focused(object sender, FocusEventArgs e)
     {
-        EntryFocused?.Invoke(this,e);
         if (string.IsNullOrEmpty(Text))
         {
             await TransitionToTitle(true);
@@ -744,7 +740,6 @@ public partial class FreakyTextInputLayout : ContentView
 
     private async void Handle_Unfocused(object sender, FocusEventArgs e)
     {
-        EntryUnfocused?.Invoke(this, e);
         if (string.IsNullOrEmpty(Text))
         {
             await TransitionToPlaceholder(true);

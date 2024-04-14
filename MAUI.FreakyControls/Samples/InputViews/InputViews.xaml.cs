@@ -41,13 +41,4 @@ public partial class InputViews : ContentPage
     private void FreakyCodeView_CodeEntryCompleted(System.Object sender, Maui.FreakyControls.FreakyCodeCompletedEventArgs e)
     {
     }
-
-    void entry_EntryFocused(System.Object sender, Microsoft.Maui.Controls.FocusEventArgs e)
-    {
-        Dispatcher.Dispatch(() =>
-        {
-            entry.CursorPosition = 0;
-            entry.SelectionLength = entry.Text.Length;
-        });
-    }
 }
