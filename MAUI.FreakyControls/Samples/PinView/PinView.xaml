@@ -21,7 +21,7 @@
         <freakyControls:FreakyPinCodeControl
             Grid.Row="2"
             BackspaceButtonSource="backspace.png"
-            CancelButtonPadding="25"
+            CancelButtonPadding="0"
             CodeLength="6"
             FontSize="20"
             ItemBackgroundColor="White"
