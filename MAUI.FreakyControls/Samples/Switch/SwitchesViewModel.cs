@@ -1,9 +1,6 @@
-﻿using System;
-namespace Samples.Switch
+﻿namespace Samples.Switch
 {
-	public class SwitchesViewModel: BaseViewModel
-	{
-		
-	}
+    public class SwitchesViewModel : BaseViewModel
+    {
+    }
 }
-

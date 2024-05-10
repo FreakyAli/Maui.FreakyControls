@@ -5,12 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:Maui.FreakyControls.Shared.Converters"
     xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
-    freakyEffects:TouchEffect.Color="{Binding NativeAnimationColor, Source={x:Reference this}}"
     x:Name="this"
+    freakyEffects:TouchEffect.Color="{Binding NativeAnimationColor, Source={x:Reference this}}"
     HeightRequest="55">
     <ContentView.Resources>
         <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
-        <converter:ContentToInvisibilityConverter x:Key="ContentToInvisibilityConverter"/>
+        <converter:ContentToInvisibilityConverter x:Key="ContentToInvisibilityConverter" />
     </ContentView.Resources>
     <ContentView.GestureRecognizers>
         <TapGestureRecognizer Tapped="Button_Tapped" />
@@ -26,18 +26,18 @@
         <Grid
             x:Name="mainGrid"
             Padding="5,0,5,0"
-            ColumnDefinitions="Auto, 3*, Auto"
             BackgroundColor="Transparent"
+            ColumnDefinitions="Auto, 3*, Auto"
             ColumnSpacing="{Binding Spacing, Source={x:Reference this}}"
             HorizontalOptions="Fill">
             <ContentView
                 Grid.Column="0"
                 BackgroundColor="Transparent"
                 CascadeInputTransparent="True"
-                Content="{Binding LeadingIcon,Source={x:Reference this}}"
+                Content="{Binding LeadingIcon, Source={x:Reference this}}"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"
+                IsVisible="{Binding LeadingIcon, Converter={StaticResource ContentToInvisibilityConverter}, Source={x:Reference this}}"
                 VerticalOptions="Center"
-                IsVisible="{Binding LeadingIcon,Converter={StaticResource ContentToInvisibilityConverter},Source={x:Reference this}}"
                 WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
 
             <Label
@@ -70,10 +70,10 @@
             <ContentView
                 Grid.Column="2"
                 BackgroundColor="Transparent"
-                IsVisible="{Binding TrailingIcon,Converter={StaticResource ContentToInvisibilityConverter},Source={x:Reference this}}"
-                Content="{Binding TrailingIcon,Source={x:Reference this}}"
                 CascadeInputTransparent="True"
+                Content="{Binding TrailingIcon, Source={x:Reference this}}"
                 HeightRequest="{Binding IconSize, Source={x:Reference this}}"
+                IsVisible="{Binding TrailingIcon, Converter={StaticResource ContentToInvisibilityConverter}, Source={x:Reference this}}"
                 VerticalOptions="Center"
                 WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
         </Grid>

@@ -2,10 +2,8 @@
 
 public partial class FreakySignatureCanvasViewHandler
 {
-
 }
 
 public partial class FreakyAutoCompleteViewHandler
 {
-
 }

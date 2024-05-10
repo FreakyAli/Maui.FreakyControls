@@ -20,19 +20,19 @@
 
         <freakyControls:FreakyPinCodeControl
             Grid.Row="2"
+            BackSpaceClicked="FreakyPinCodeControl_BackSpaceClicked"
             BackspaceButtonSource="backspace.png"
+            CancelClicked="FreakyPinCodeControl_CancelClicked"
             CodeLength="6"
             FontSize="20"
             ItemBackgroundColor="White"
             ItemBorderColor="Black"
             ItemFocusAnimation="Scale"
-            KeyboardClicked="FreakyPinCodeControl_KeyboardClicked"
-            CancelClicked="FreakyPinCodeControl_CancelClicked"
-            BackSpaceClicked="FreakyPinCodeControl_BackSpaceClicked"
             ItemShape="Squircle"
             ItemSize="50"
             KeyboardBackgroundColor="LightGray"
-            KeyboardButtonCornerRadius="10">
+            KeyboardButtonCornerRadius="10"
+            KeyboardClicked="FreakyPinCodeControl_KeyboardClicked">
             <freakyControls:FreakyPinCodeControl.ItemSpacing>
                 <OnPlatform x:TypeArguments="x:Double">
                     <On Platform="Android" Value="5" />

@@ -2,8 +2,8 @@
 
 public partial class SwitchsView : ContentPage
 {
-	public SwitchsView()
-	{
-		InitializeComponent();
-	}
+    public SwitchsView()
+    {
+        InitializeComponent();
+    }
 }

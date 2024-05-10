@@ -7,15 +7,15 @@ public partial class PinView : ContentPage
         InitializeComponent();
     }
 
-    void FreakyPinCodeControl_KeyboardClicked(System.Object sender, Maui.FreakyControls.FreakySelectedPinEventArgs e)
+    private void FreakyPinCodeControl_KeyboardClicked(System.Object sender, Maui.FreakyControls.FreakySelectedPinEventArgs e)
     {
     }
 
-    void FreakyPinCodeControl_CancelClicked(System.Object sender, System.EventArgs e)
+    private void FreakyPinCodeControl_CancelClicked(System.Object sender, System.EventArgs e)
     {
     }
 
-    void FreakyPinCodeControl_BackSpaceClicked(System.Object sender, System.EventArgs e)
+    private void FreakyPinCodeControl_BackSpaceClicked(System.Object sender, System.EventArgs e)
     {
     }
 }

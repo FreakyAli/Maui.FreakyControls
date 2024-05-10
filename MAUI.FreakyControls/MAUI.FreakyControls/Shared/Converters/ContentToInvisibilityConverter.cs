@@ -9,4 +9,3 @@ public class ContentToInvisibilityConverter : BaseOneWayValueConverter
         return value is not null;
     }
 }
-
