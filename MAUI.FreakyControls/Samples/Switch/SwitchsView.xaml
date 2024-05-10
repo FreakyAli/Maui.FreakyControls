@@ -20,6 +20,7 @@
                 </Trigger>
             </Button.Triggers>
         </Button>
+  
         <HorizontalStackLayout Spacing="10">
             <Label Text="Funny Switch" VerticalTextAlignment="Center"/>
             <freakyControls:FreakySwitch
