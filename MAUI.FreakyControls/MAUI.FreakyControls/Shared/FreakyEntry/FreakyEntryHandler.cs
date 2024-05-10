@@ -1,6 +1,4 @@
-using System;
-using Maui.FreakyControls.Extensions;
-using Microsoft.Maui;
+﻿using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
@@ -14,26 +12,18 @@ public sealed partial class FreakyEntryHandler : EntryHandler
         Mapper.AppendToMapping("FreakyEntryCustomization", MapFreakyEntry);
     }
 
-    // Todo: Remove try-catch added as a quickfix for https://github.com/FreakyAli/Maui.FreakyControls/issues/76
     private void MapFreakyEntry(IEntryHandler entryHandler, IEntry entry)
     {
-        try
+        if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
         {
-            if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
+            if (PlatformView is not null && VirtualView is not null)
             {
-                if (PlatformView is not null && VirtualView is not null)
+                if (freakyEntry.ImageSource != default(ImageSource))
                 {
-                    if (freakyEntry.ImageSource != default(ImageSource))
-                    {
-                        freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
-                    }
-                    HandleAllowCopyPaste(freakyEntry);
+                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
                 }
+                HandleAllowCopyPaste(freakyEntry);
             }
-        }
-        catch (Exception ex)
-        {
-            ex.TraceException();
         }
     }
 }

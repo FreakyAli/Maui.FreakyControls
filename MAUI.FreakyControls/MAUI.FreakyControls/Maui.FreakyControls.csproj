@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -60,6 +60,7 @@
 		<None Remove="Shared\FreakyCropView\" />
 		<None Remove="Shared\FreakyChip\" />
 		<None Remove="Shared\Constants\" />
+		<None Remove="Dotnet\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -136,13 +137,14 @@
 		<Folder Include="Shared\FreakyCropView\" />
 		<Folder Include="Shared\FreakyChip\" />
 		<Folder Include="Shared\Constants\" />
+		<Folder Include="Dotnet\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.7" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
-		<PackageReference Include="FreakyEffects" Version="0.1.1-pre" />
+		<PackageReference Include="FreakyEffects" Version="0.1.1" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
@@ -164,5 +166,10 @@
 		<None Update="Platforms\Android\Resources\values\styles.xml">
 			<ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs">
+	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+	  </Compile>
 	</ItemGroup>
 </Project>

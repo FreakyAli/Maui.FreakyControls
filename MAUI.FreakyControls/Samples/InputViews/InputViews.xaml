@@ -84,28 +84,6 @@
             <Border>
                 <freakyControls:FreakyEntry
                     x:Name="entry"
-                    AllowCopyPaste="False"
-                    FontSize="Large"
-                    ImageAlignment="Left"
-                    ImageCommand="{Binding ImageWasTappedCommand}"
-                    ImageHeight="{OnPlatform 25,
-                                             iOS=25,
-                                             Android=40}"
-                    ImagePadding="10"
-                    ImageSource="calendar"
-                    ImageWidth="{OnPlatform 25,
-                                            iOS=25,
-                                            Android=40}"
-                    Keyboard="Chat"
-                    Placeholder="This is a freaky entry with image"
-                    TextColor="Purple" />
-            </Border>
-
-            <Label Text="Freaky Entry below: " TextColor="Black" />
-            <Border>
-                <freakyControls:FreakyEntry
-                    AllowCopyPaste="False"
-                    FontSize="Large"
                     ImageAlignment="Right"
                     ImageCommand="{Binding ImageWasTappedCommand}"
                     ImageHeight="{OnPlatform 25,
@@ -116,6 +94,19 @@
                     ImageWidth="{OnPlatform 25,
                                             iOS=25,
                                             Android=40}"
+                    AllowCopyPaste="False"
+                    Text="this is some text baby"
+                    FontSize="Large"
+                    Keyboard="Chat"
+                    Placeholder="This is a freaky entry with image"
+                    TextColor="Purple" />
+            </Border>
+
+            <Label Text="Freaky Entry below: " TextColor="Black" />
+            <Border>
+                <freakyControls:FreakyEntry
+                    AllowCopyPaste="False"
+                    FontSize="Large"
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"
                     TextColor="Purple" />
