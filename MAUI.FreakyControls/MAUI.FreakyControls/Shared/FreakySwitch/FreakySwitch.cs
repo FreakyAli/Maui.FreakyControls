@@ -1,9 +1,10 @@
 ﻿using Maui.FreakyControls.Extensions;
-using System.Windows.Input;
+using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
-using SkiaSharp;
+using System.Windows.Input;
 using static Maui.FreakyControls.Extensions.Extensions;
+
 namespace Maui.FreakyControls;
 
 public class FreakySwitch : ContentView, IDisposable

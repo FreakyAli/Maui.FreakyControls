@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
@@ -6,10 +6,10 @@ namespace Maui.FreakyControls;
 public class FreakyPicker : Picker, IDrawableImageView
 {
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
-             nameof(Image),
-             typeof(ImageSource),
-             typeof(FreakyPicker),
-             default(ImageSource));
+            nameof(Image),
+            typeof(ImageSource),
+            typeof(FreakyPicker),
+            default(ImageSource));
 
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
            nameof(ImageHeight),
@@ -45,7 +45,7 @@ public class FreakyPicker : Picker, IDrawableImageView
           nameof(ImageCommandParameter),
           typeof(object),
           typeof(FreakyPicker),
-          default(object));
+          default);
 
     /// <summary>
     /// Command parameter for your Image tap command

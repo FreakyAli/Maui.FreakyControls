@@ -86,7 +86,7 @@
                     x:Name="entry"
                     AllowCopyPaste="False"
                     FontSize="Large"
-                    ImageAlignment="Left"
+                    ImageAlignment="Right"
                     ImageCommand="{Binding ImageWasTappedCommand}"
                     ImageHeight="{OnPlatform 25,
                                              iOS=25,
@@ -98,6 +98,7 @@
                                             Android=40}"
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"
+                    Text="this is some text baby"
                     TextColor="Purple" />
             </Border>
 
@@ -106,16 +107,6 @@
                 <freakyControls:FreakyEntry
                     AllowCopyPaste="False"
                     FontSize="Large"
-                    ImageAlignment="Right"
-                    ImageCommand="{Binding ImageWasTappedCommand}"
-                    ImageHeight="{OnPlatform 25,
-                                             iOS=25,
-                                             Android=40}"
-                    ImagePadding="10"
-                    ImageSource="calendar"
-                    ImageWidth="{OnPlatform 25,
-                                            iOS=25,
-                                            Android=40}"
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"
                     TextColor="Purple" />

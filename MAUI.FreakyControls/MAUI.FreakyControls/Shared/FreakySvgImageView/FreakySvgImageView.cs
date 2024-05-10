@@ -79,15 +79,13 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
         }
         if (ImageColor != Colors.Transparent)
         {
-            using (var paint = new SKPaint
+            using var paint = new SKPaint
             {
                 ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
                 Style = SKPaintStyle.StrokeAndFill
-            })
-            {
-                canvas.DrawPicture(Svg.Picture, paint);
-                return;
-            }
+            };
+            canvas.DrawPicture(Svg.Picture, paint);
+            return;
         }
         canvas.DrawPicture(Svg.Picture);
     }
@@ -242,6 +240,7 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
                 return;
             }
             Svg?.Load(svgStream);
+            InvalidateSurface();
         }
         catch (KeyNotFoundException ex)
         {
@@ -262,6 +261,7 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
             var byteArray = Convert.FromBase64String(base64);
             using var stream = new MemoryStream(byteArray);
             Svg.Load(stream);
+            InvalidateSurface();
         }
         catch (Exception ex)
         {

@@ -4,7 +4,7 @@ namespace Samples.ButtonsView;
 
 public class ButtonsViewModel : MainViewModel
 {
-    public bool isButtonEnabled= false;
+    public bool isButtonEnabled = false;
 
     public bool IsButtonEnabled
     {
