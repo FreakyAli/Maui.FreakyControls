@@ -84,8 +84,16 @@
             <Border>
                 <freakyControls:FreakyEntry
                     x:Name="entry"
+                    ImageAlignment="Right"
                     ImageCommand="{Binding ImageWasTappedCommand}"
+                    ImageHeight="{OnPlatform 25,
+                                             iOS=25,
+                                             Android=40}"
+                    ImagePadding="10"
                     ImageSource="calendar"
+                    ImageWidth="{OnPlatform 25,
+                                            iOS=25,
+                                            Android=40}"
                     AllowCopyPaste="False"
                     Text="this is some text baby"
                     FontSize="Large"

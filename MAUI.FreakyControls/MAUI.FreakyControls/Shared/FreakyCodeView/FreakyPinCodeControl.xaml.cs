@@ -7,6 +7,9 @@ namespace Maui.FreakyControls;
 public partial class FreakyPinCodeControl : ContentView
 {
     public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
+    public event EventHandler<FreakySelectedPinEventArgs> KeyboardClicked;
+    public event EventHandler<EventArgs> CancelClicked;
+    public event EventHandler<EventArgs> BackSpaceClicked;
 
     public FreakyPinCodeControl()
     {
@@ -323,19 +326,26 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(FreakyPinCodeControl),
       new Thickness(20));
 
-    private void Keyboard_Clicked(object sender, System.EventArgs e)
+    private void Keyboard_Clicked(object sender, EventArgs e)
     {
         var button = (Button)sender;
         var text = button.Text;
+        KeyboardClicked?.Invoke(this,
+            new FreakySelectedPinEventArgs
+            {
+                SelectedCharacter = text
+            });
         this.CodeValue += text;
     }
 
-    private void Cancel_Clicked(object sender, System.EventArgs e)
+    private void Cancel_Clicked(object sender, EventArgs e)
     {
+        CancelClicked?.Invoke(this, e);
     }
 
-    private void ImageButton_Clicked(System.Object sender, System.EventArgs e)
+    private void ImageButton_Clicked(object sender, EventArgs e)
     {
+        BackSpaceClicked?.Invoke(this, e);
         if (CodeValue.Length != 0)
             CodeValue = CodeValue[..^1];
     }
