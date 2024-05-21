@@ -79,7 +79,7 @@
                 </freakyControls:FreakySwipeButton.TrackBar>
 
                 <freakyControls:FreakySwipeButton.FillBar>
-                    <VerticalStackLayout Padding="0" />
+                    <VerticalStackLayout Padding="0" BackgroundColor="Red" />
                 </freakyControls:FreakySwipeButton.FillBar>
             </freakyControls:FreakySwipeButton>
         </VerticalStackLayout>

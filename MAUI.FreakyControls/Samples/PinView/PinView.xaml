@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     Title="PinView">
-    <Grid RowDefinitions="*,Auto,3*">
+    <Grid RowDefinitions="*,Auto,4*">
 
         <Image
             Grid.Row="0"
@@ -32,6 +32,8 @@
             ItemSize="50"
             KeyboardBackgroundColor="LightGray"
             KeyboardButtonCornerRadius="10"
+            KeyboardButtonWidthRequest="{Binding WidthRequest}"
+            KeyboardButtonHeightRequest="{Binding HeightRequest}"
             KeyboardClicked="FreakyPinCodeControl_KeyboardClicked">
             <freakyControls:FreakyPinCodeControl.ItemSpacing>
                 <OnPlatform x:TypeArguments="x:Double">
@@ -51,12 +53,6 @@
                     <On Platform="iOS" Value="5" />
                 </OnPlatform>
             </freakyControls:FreakyPinCodeControl.ItemBorderWidth>
-            <freakyControls:FreakyPinCodeControl.KeyboardButtonSizeRequest>
-                <OnPlatform x:TypeArguments="x:Double" Default="40">
-                    <On Platform="Android" Value="80" />
-                    <On Platform="iOS" Value="100" />
-                </OnPlatform>
-            </freakyControls:FreakyPinCodeControl.KeyboardButtonSizeRequest>
         </freakyControls:FreakyPinCodeControl>
     </Grid>
 </ContentPage>

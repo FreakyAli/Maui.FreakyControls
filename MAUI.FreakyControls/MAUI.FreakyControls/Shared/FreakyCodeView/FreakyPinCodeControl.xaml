@@ -29,10 +29,11 @@
             Color="{Binding Color, Source={x:Reference this}}" />
         <Grid
             Grid.Row="1"
-            ColumnDefinitions="*,*,*"
-            ColumnSpacing="10"
-            RowDefinitions="*,*,*,*"
-            RowSpacing="10">
+            HorizontalOptions="Center"
+            ColumnDefinitions="Auto,Auto,Auto"
+            ColumnSpacing="{Binding KeyboardSpacing,Source={x:Reference this}}"
+            RowDefinitions="Auto,Auto,Auto,Auto"
+            RowSpacing="{Binding KeyboardSpacing,Source={x:Reference this}}">
             <Button
                 Grid.Row="0"
                 Grid.Column="0"
@@ -42,10 +43,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="1"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="0"
                 Grid.Column="1"
@@ -54,10 +55,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="2"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="0"
                 Grid.Column="2"
@@ -66,10 +67,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="3"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="1"
                 Grid.Column="0"
@@ -78,10 +79,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="4"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="1"
                 Grid.Column="1"
@@ -90,10 +91,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="5"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="1"
                 Grid.Column="2"
@@ -102,10 +103,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="6"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="2"
                 Grid.Column="0"
@@ -114,10 +115,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="7"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="2"
                 Grid.Column="1"
@@ -126,10 +127,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="8"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="2"
                 Grid.Column="2"
@@ -138,10 +139,10 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="9"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="3"
                 Grid.Column="0"
@@ -149,10 +150,10 @@
                 Clicked="Cancel_Clicked"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
-                Text="Cancel"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
+                Text="{Binding CancelButtonText, Source={x:Reference this}}"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <Button
                 Grid.Row="3"
                 Grid.Column="1"
@@ -161,22 +162,23 @@
                 CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}}"
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 Text="0"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
             <ImageButton
                 Grid.Row="3"
                 Grid.Column="2"
+                CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}}"
                 Padding="{Binding CancelButtonPadding, Source={x:Reference this}}"
                 Aspect="AspectFit"
                 BackgroundColor="{Binding BackspaceBackgroundColor, Source={x:Reference this}}"
                 Clicked="ImageButton_Clicked"
-                HeightRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}"
+                HeightRequest="{Binding KeyboardButtonHeightRequest, Source={x:Reference this}}"
                 HorizontalOptions="Center"
                 Source="{Binding BackspaceButtonSource, Source={x:Reference this}}"
                 VerticalOptions="Center"
-                WidthRequest="{Binding KeyboardButtonSizeRequest, Source={x:Reference this}}" />
+                WidthRequest="{Binding KeyboardButtonWidthRequest, Source={x:Reference this}}" />
         </Grid>
     </Grid>
 </ContentView>

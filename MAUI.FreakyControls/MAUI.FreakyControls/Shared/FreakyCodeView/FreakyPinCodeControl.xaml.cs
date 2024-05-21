@@ -6,12 +6,11 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyPinCodeControl : ContentView
 {
+    private const string CancelText = "Cancel";
+
     public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
-
     public event EventHandler<FreakySelectedPinEventArgs> KeyboardClicked;
-
     public event EventHandler<EventArgs> CancelClicked;
-
     public event EventHandler<EventArgs> BackSpaceClicked;
 
     public FreakyPinCodeControl()
@@ -293,6 +292,7 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(FreakyPinCodeControl),
       Colors.Black);
 
+    [Obsolete("This property is deprecated, Use KeyboardButtonHeightRequest & KeyboardButtonWidthRequest instead.")]
     public double KeyboardButtonSizeRequest
     {
         get => (double)GetValue(KeyboardButtonSizeRequestProperty);
@@ -300,7 +300,31 @@ public partial class FreakyPinCodeControl : ContentView
     }
 
     public static readonly BindableProperty KeyboardButtonSizeRequestProperty = BindableProperty.Create(
-      nameof(BackspaceBackgroundColor),
+      nameof(KeyboardButtonSizeRequest),
+      typeof(double),
+      typeof(FreakyPinCodeControl),
+      100.0);
+
+    public double KeyboardButtonHeightRequest
+    {
+        get => (double)GetValue(KeyboardButtonHeightRequestProperty);
+        set => SetValue(KeyboardButtonHeightRequestProperty, value);
+    }
+
+    public static readonly BindableProperty KeyboardButtonHeightRequestProperty = BindableProperty.Create(
+      nameof(KeyboardButtonHeightRequest),
+      typeof(double),
+      typeof(FreakyPinCodeControl),
+      100.0);
+
+    public double KeyboardButtonWidthRequest
+    {
+        get => (double)GetValue(KeyboardButtonWidthRequestProperty);
+        set => SetValue(KeyboardButtonWidthRequestProperty, value);
+    }
+
+    public static readonly BindableProperty KeyboardButtonWidthRequestProperty = BindableProperty.Create(
+      nameof(KeyboardButtonWidthRequest),
       typeof(double),
       typeof(FreakyPinCodeControl),
       100.0);
@@ -328,6 +352,31 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(Thickness),
       typeof(FreakyPinCodeControl),
       new Thickness(20));
+
+    public string CancelButtonText
+    {
+        get => (string)GetValue(CancelButtonTextProperty);
+        set => SetValue(CancelButtonTextProperty, value);
+    }
+
+    public static readonly BindableProperty CancelButtonTextProperty =
+       BindableProperty.Create(
+           nameof(CancelButtonText),
+           typeof(string),
+           typeof(FreakyPinCodeControl),
+           CancelText);
+
+    public double KeyboardSpacing
+    {
+        get => (double)GetValue(KeyboardSpacingProperty);
+        set => SetValue(KeyboardSpacingProperty, value);
+    }
+
+    public static readonly BindableProperty KeyboardSpacingProperty = BindableProperty.Create(
+      nameof(KeyboardSpacing),
+      typeof(double),
+      typeof(FreakyPinCodeControl),
+      10.0);
 
     private void Keyboard_Clicked(object sender, EventArgs e)
     {

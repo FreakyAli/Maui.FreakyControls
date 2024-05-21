@@ -7,8 +7,4 @@ public partial class ImagesPage : ContentPage
         InitializeComponent();
         BindingContext = new ImagesViewModel();
     }
-
-    private void FreakySvgImageView_Tapped(System.Object sender, System.EventArgs e)
-    {
-    }
 }
