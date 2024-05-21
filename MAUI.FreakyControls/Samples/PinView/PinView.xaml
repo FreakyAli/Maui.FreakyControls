@@ -32,8 +32,6 @@
             ItemSize="50"
             KeyboardBackgroundColor="LightGray"
             KeyboardButtonCornerRadius="10"
-            KeyboardButtonWidthRequest="{Binding WidthRequest}"
-            KeyboardButtonHeightRequest="{Binding HeightRequest}"
             KeyboardClicked="FreakyPinCodeControl_KeyboardClicked">
             <freakyControls:FreakyPinCodeControl.ItemSpacing>
                 <OnPlatform x:TypeArguments="x:Double">

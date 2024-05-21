@@ -315,7 +315,8 @@ public partial class FreakyPinCodeControl : ContentView
       nameof(KeyboardButtonHeightRequest),
       typeof(double),
       typeof(FreakyPinCodeControl),
-      100.0);
+      default,
+      propertyChanged: OnKeyboardHeightRequestChanged);
 
     public double KeyboardButtonWidthRequest
     {
@@ -327,7 +328,8 @@ public partial class FreakyPinCodeControl : ContentView
       nameof(KeyboardButtonWidthRequest),
       typeof(double),
       typeof(FreakyPinCodeControl),
-      100.0);
+      default,
+      propertyChanged: OnKeyboardWidthRequestChanged);
 
     public int KeyboardButtonCornerRadius
     {
@@ -390,17 +392,40 @@ public partial class FreakyPinCodeControl : ContentView
         this.CodeValue += text;
     }
 
+    private static void OnKeyboardHeightRequestChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var pinCodeControl = bindable as FreakyPinCodeControl;
+        var height = (double)newValue;
+        var children = pinCodeControl.mainGrid.Children;
+        foreach (var child in children)
+        {
+            var button = child as View;
+            button.HeightRequest = height;
+        }
+    }
+
+    private static void OnKeyboardWidthRequestChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var pinCodeControl = bindable as FreakyPinCodeControl;
+        var width = (double)newValue;
+        var children = pinCodeControl.mainGrid.Children;
+        foreach (var child in children)
+        {
+            var button = child as View;
+            button.WidthRequest = width;
+        }
+    }
+
     private void Cancel_Clicked(object sender, EventArgs e)
     {
         CancelClicked?.Invoke(this, e);
     }
 
-    private void ImageButton_Clicked(object sender, EventArgs e)
+    private void ImageButton_Clicked(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
     {
         BackSpaceClicked?.Invoke(this, e);
         if (CodeValue.Length != 0)
             CodeValue = CodeValue[..^1];
     }
-
     #endregion BindableProperties
 }
