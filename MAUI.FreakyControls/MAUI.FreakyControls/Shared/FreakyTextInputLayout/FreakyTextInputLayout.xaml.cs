@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyTextInputLayout : ContentView, IDisposable
+public partial class FreakyTextInputLayout : ContentView
 {
     private int _topMargin;
     private int _leftMargin;
@@ -822,21 +822,5 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
     private void EntryField_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
     {
         TextChanged?.Invoke(this, e);
-    }
-
-    public void Dispose()
-    {
-        this.Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    ~FreakyTextInputLayout()
-    {
-        Dispose(false);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-
     }
 }
