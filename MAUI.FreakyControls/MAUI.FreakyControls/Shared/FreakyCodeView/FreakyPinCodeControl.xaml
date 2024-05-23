@@ -146,6 +146,9 @@
                 FontSize="{Binding FontSize, Source={x:Reference this}}"
                 Text="0"
                 TextColor="{Binding KeyboardTextColor, Source={x:Reference this}}"/>
+            <!-- ToDo: Change this to image button whenever these bugs are fixed -->
+            <!-- https://github.com/dotnet/maui/issues/22364
+            https://github.com/dotnet/maui/issues/18857-->
             <ContentView
                     freakyEffects:TouchEffect.Color="{x:Static freakyControls:ControlConstants.DefaultControlRipple}"
                     Grid.Column="2"
