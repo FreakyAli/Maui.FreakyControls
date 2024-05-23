@@ -1,5 +1,18 @@
-﻿namespace Samples.PinView;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class PinViewModel : BaseViewModel
+namespace Samples.PinView;
+
+public partial class PinViewModel : BaseViewModel
 {
+    [ObservableProperty]
+    private double heightRequest;
+
+    [ObservableProperty]
+    private double widthRequest;
+
+    public PinViewModel()
+    {
+        WidthRequest = 50;
+        HeightRequest = 100;
+    }
 }

@@ -40,20 +40,26 @@ public static class Extensions
         }
     }
 
-    public static MauiAppBuilder InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true)
+    public static MauiAppBuilder InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true, bool useFreakyEffects = true)
     {
         if (useSkiaSharp)
         {
             builder.UseSkiaSharp();
         }
         builder.ConfigureMauiHandlers(builders => builders.AddHandlers());
-        builder.ConfigureEffects(effects => effects.AddEffects());
+        builder.ConfigureEffects(effects =>
+        {
+            if (useFreakyEffects)
+            {
+                effects.InitFreakyEffects();
+            }
+            effects.AddEffects();
+        });
         return builder;
     }
 
     private static void AddEffects(this IEffectsBuilder effects)
     {
-        effects.InitFreakyEffects();
     }
 
     private static void AddHandlers(this IMauiHandlersCollection handlers)

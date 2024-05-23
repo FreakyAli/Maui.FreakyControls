@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.Enums;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -870,4 +870,4 @@ public partial class FreakyTextInputLayout : ContentView
             await TransitionToTitle(false);
         }
     }
-}
+ }
