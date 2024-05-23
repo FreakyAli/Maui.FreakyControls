@@ -6,11 +6,11 @@
     xmlns:controls="clr-namespace:Maui.FreakyControls"
     x:Name="this">
     <VerticalStackLayout>
-        <Grid>
-            <Border
-                BackgroundColor="{Binding ControlBackgroundColor, Source={x:Reference this}}"
-                Stroke="{Binding BorderStroke, Source={x:Reference this}}"
-                StrokeThickness="{Binding BorderStrokeThickness, Source={x:Reference this}}">
+        <Grid x:Name="ctrlGrid">
+            <Border x:Name="ctrlBorder"
+                    BackgroundColor="{Binding ControlBackgroundColor, Source={x:Reference this}}"
+                    Stroke="{Binding BorderStroke, Source={x:Reference this}}"
+                    StrokeThickness="{Binding BorderStrokeThickness, Source={x:Reference this}}">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="{Binding BorderCornerRadius, Source={x:Reference this}}" />
                 </Border.StrokeShape>
@@ -53,10 +53,12 @@
                     TextColor="{Binding TextColor, Source={x:Reference this}}"
                     TextTransform="{Binding TextTransform, Source={x:Reference this}}"
                     Unfocused="Handle_Unfocused"
+                    PropertyChanged="EntryField_OnPropertyChanged"
                     VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}" />
             </Border>
             <Label
                 x:Name="LabelTitle"
+                LineBreakMode="TailTruncation"
                 HorizontalOptions="Start"
                 Text="{Binding Title, Source={x:Reference this}}"
                 TextColor="{Binding TitleColor, Source={x:Reference this}}"
@@ -65,6 +67,17 @@
                     <TapGestureRecognizer Tapped="Handle_Tapped" />
                 </Label.GestureRecognizers>
             </Label>
+            <!-- 
+                Hidden label used to precalculate the height of the title when floating 
+                Then, the calculation can be done to know the correct end spot during the animation
+            -->
+            <Label
+                x:Name="hiddenTitle"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Text=" "     
+                PropertyChanged="HiddenTitle_OnPropertyChanged"
+                FontSize="{Binding TitleFontSize, Source={x:Reference this}}" />
         </Grid>
         <BoxView
             Margin="0,-1,0,0"
