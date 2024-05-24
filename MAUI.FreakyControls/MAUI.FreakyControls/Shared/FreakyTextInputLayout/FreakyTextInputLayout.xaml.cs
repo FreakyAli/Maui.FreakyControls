@@ -886,6 +886,5 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-
     }
 }

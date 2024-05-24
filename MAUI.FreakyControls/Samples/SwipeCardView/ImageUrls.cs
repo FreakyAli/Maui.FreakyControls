@@ -1,4 +1,4 @@
-﻿namespace Samples.SwipeCardView;
+namespace Samples.SwipeCardView;
 
 public static class ImageUrls
 {
@@ -18,5 +18,4 @@ public static class ImageUrls
     public const string male3 = "https://wallpapers.com/images/hd/white-hair-jujutsu-kaisen-gojo-0kxukr18bqmg50sk.jpg";
     public const string male4 = "https://w0.peakpx.com/wallpaper/871/38/HD-wallpaper-ban-seven-deadly-sins-anime-ban-seven-deadly-sins.jpg";
     public const string male5 = "https://i.pinimg.com/originals/3d/08/28/3d08280917ce517431135de1da94c54e.jpg";
-
 }

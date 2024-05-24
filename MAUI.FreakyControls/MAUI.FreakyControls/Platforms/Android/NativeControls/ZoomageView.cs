@@ -1,4 +1,4 @@
-﻿using Android.Animation;
+using Android.Animation;
 using Android.Content;
 using Android.Graphics;
 using RectF = Android.Graphics.RectF;
@@ -148,7 +148,6 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
         gestureDetector = new GestureDetector(context, gestureListener);
         ScaleGestureDetectorCompat.SetQuickScaleEnabled(scaleDetector, false);
         startScaleType = GetScaleType();
-
 
         zoomable = true;
         translatable = true;
@@ -326,8 +325,8 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
         {
             bounds.Set(values[Matrix.MtransX],
                     values[Matrix.MtransY],
-                    Drawable.IntrinsicWidth * values[Matrix.MscaleX] + values[Matrix.MtransX],
-                    Drawable.IntrinsicHeight * values[Matrix.MscaleY] + values[Matrix.MtransY]);
+                    (Drawable.IntrinsicWidth * values[Matrix.MscaleX]) + values[Matrix.MtransX],
+                    (Drawable.IntrinsicHeight * values[Matrix.MscaleY]) + values[Matrix.MtransY]);
         }
     }
 
@@ -418,7 +417,6 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
                 }
                 else if (e.ActionMasked == MotionEventActions.Move)
                 {
-
                     float focusx = scaleDetector.FocusX;
                     float focusy = scaleDetector.FocusY;
 
@@ -454,7 +452,6 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
             //this tracks whether they have changed the number of fingers down
             previousPointerCount = currentPointerCount;
 
-
             return true;
         }
         return base.OnTouchEvent(e);
@@ -486,7 +483,6 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
     {
         return resetAnimator != null && resetAnimator.IsRunning;
     }
-
 
     public bool OnScale(ScaleGestureDetector detector)
     {
@@ -575,7 +571,6 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
         }
         else
         {
-
             ImageMatrix = (startMatrix);
         }
     }
@@ -655,7 +650,6 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
 
     private void animateScaleAndTranslationToMatrix(Matrix targetMatrix, int duration)
     {
-
         float[] targetValues = new float[9];
         targetMatrix.GetValues(targetValues);
 
@@ -778,7 +772,6 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
 
         return restrictedYDistance;
     }
-
 }
 
 public class AnimationUpdateListener2 : Java.Lang.Object, IAnimatorUpdateListener
@@ -832,10 +825,10 @@ public class AnimationUpdateListener : Java.Lang.Object, IAnimatorUpdateListener
         float val = (float)animation.AnimatedValue;
         activeMatrix.Set(beginMatrix);
         activeMatrix.GetValues(values);
-        values[Matrix.MtransX] = values[Matrix.MtransX] + xtdiff * val;
-        values[Matrix.MtransY] = values[Matrix.MtransY] + ytdiff * val;
-        values[Matrix.MscaleX] = values[Matrix.MscaleX] + xsdiff * val;
-        values[Matrix.MscaleY] = values[Matrix.MscaleY] + ysdiff * val;
+        values[Matrix.MtransX] = values[Matrix.MtransX] + (xtdiff * val);
+        values[Matrix.MtransY] = values[Matrix.MtransY] + (ytdiff * val);
+        values[Matrix.MscaleX] = values[Matrix.MscaleX] + (xsdiff * val);
+        values[Matrix.MscaleY] = values[Matrix.MscaleY] + (ysdiff * val);
         activeMatrix.SetValues(values);
         imageMatrix = (activeMatrix);
     }
