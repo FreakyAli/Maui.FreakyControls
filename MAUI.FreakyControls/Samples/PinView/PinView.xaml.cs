@@ -19,4 +19,16 @@ public partial class PinView : ContentPage
     private void FreakyPinCodeControl_BackSpaceClicked(System.Object sender, System.EventArgs e)
     {
     }
+
+    private void FreakyPinCodeControl_KeyboardClicked(System.Object sender, Maui.FreakyControls.FreakySelectedPinEventArgs e)
+    {
+    }
+
+    private void FreakyPinCodeControl_CancelClicked(System.Object sender, System.EventArgs e)
+    {
+    }
+
+    private void FreakyPinCodeControl_BackSpaceClicked(System.Object sender, System.EventArgs e)
+    {
+    }
 }

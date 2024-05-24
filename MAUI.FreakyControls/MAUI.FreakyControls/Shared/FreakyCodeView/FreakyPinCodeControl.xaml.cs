@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.Enums;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -11,6 +11,12 @@ public partial class FreakyPinCodeControl : ContentView
     public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
     public event EventHandler<FreakySelectedPinEventArgs> KeyboardClicked;
     public event EventHandler<EventArgs> CancelClicked;
+    public event EventHandler<EventArgs> BackSpaceClicked;
+
+    public event EventHandler<FreakySelectedPinEventArgs> KeyboardClicked;
+
+    public event EventHandler<EventArgs> CancelClicked;
+
     public event EventHandler<EventArgs> BackSpaceClicked;
 
     public FreakyPinCodeControl()
