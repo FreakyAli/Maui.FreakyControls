@@ -6,7 +6,7 @@
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
     xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
     x:Name="this">
-    <Grid RowDefinitions="25*, 75*" Padding="10" RowSpacing="5">
+    <Grid RowDefinitions="25*, 75*" RowSpacing="5">
         <freakyControls:FreakyCodeView
             Grid.Row="0"
             CodeEntryCompleted="FreakyCodeView_CodeEntryCompleted"
