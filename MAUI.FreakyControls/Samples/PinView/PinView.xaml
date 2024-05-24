@@ -20,6 +20,7 @@
 
         <freakyControls:FreakyPinCodeControl
             Grid.Row="2"
+            Padding="10"
             BackSpaceClicked="FreakyPinCodeControl_BackSpaceClicked"
             BackspaceButtonSource="backspace.png"
             CancelClicked="FreakyPinCodeControl_CancelClicked"

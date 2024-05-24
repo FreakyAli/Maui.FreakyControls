@@ -13,12 +13,6 @@ public partial class FreakyPinCodeControl : ContentView
     public event EventHandler<EventArgs> CancelClicked;
     public event EventHandler<EventArgs> BackSpaceClicked;
 
-    public event EventHandler<FreakySelectedPinEventArgs> KeyboardClicked;
-
-    public event EventHandler<EventArgs> CancelClicked;
-
-    public event EventHandler<EventArgs> BackSpaceClicked;
-
     public FreakyPinCodeControl()
     {
         InitializeComponent();
@@ -427,7 +421,7 @@ public partial class FreakyPinCodeControl : ContentView
         CancelClicked?.Invoke(this, e);
     }
 
-    private void ImageButton_Clicked(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
+    private void ImageButton_Clicked(object sender, TappedEventArgs e)
     {
         BackSpaceClicked?.Invoke(this, e);
         if (CodeValue.Length != 0)
