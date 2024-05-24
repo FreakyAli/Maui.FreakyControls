@@ -12,9 +12,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.4.10</AssemblyVersion>
-		<AssemblyFileVersion>0.4.10</AssemblyFileVersion>
-		<Version>0.4.10</Version>
+		<AssemblyVersion>0.4.12</AssemblyVersion>
+		<AssemblyFileVersion>0.4.12</AssemblyFileVersion>
+		<Version>0.4.12-pre</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -25,8 +25,8 @@
 		<PackageIcon>maui_toolkit.png</PackageIcon>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
-		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP PinCodeView Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>FreakySwitch rewritten and changes and visual state changes</PackageReleaseNotes>
+		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP SwipeButton PinCodeView Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
+		<PackageReleaseNotes>Bug fixes for Pincode and TextInputLayout</PackageReleaseNotes>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
@@ -140,11 +140,11 @@
 		<Folder Include="Dotnet\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.0" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
-		<PackageReference Include="FreakyEffects" Version="0.1.1" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+		<PackageReference Include="FreakyEffects" Version="0.1.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
