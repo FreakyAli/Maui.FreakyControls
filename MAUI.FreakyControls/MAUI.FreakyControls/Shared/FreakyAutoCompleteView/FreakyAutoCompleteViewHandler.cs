@@ -54,5 +54,4 @@ public partial class FreakyAutoCompleteViewHandler
     {
     }
 }
-
 #endif
