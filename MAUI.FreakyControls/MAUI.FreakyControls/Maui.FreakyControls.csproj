@@ -144,6 +144,7 @@
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 		<PackageReference Include="FreakyEffects" Version="0.1.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Shared\FreakyTextInputLayout\FreakyTextInputLayout.xaml">
