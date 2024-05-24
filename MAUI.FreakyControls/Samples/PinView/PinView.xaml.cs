@@ -5,6 +5,7 @@ public partial class PinView : ContentPage
     public PinView()
     {
         InitializeComponent();
+        BindingContext = new PinViewModel();
     }
 
     private void FreakyPinCodeControl_KeyboardClicked(System.Object sender, Maui.FreakyControls.FreakySelectedPinEventArgs e)

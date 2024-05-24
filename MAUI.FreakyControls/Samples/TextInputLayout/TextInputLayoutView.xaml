@@ -17,31 +17,33 @@
                 BorderCornerRadius="10"
                 BorderStrokeThickness="2"
                 BorderType="Outlined"
-                FontSize="Large"
+                FontSize="20"
+                TitleFontSize="14"
                 ImageCommand="{Binding ImageWasTappedCommand}"
                 ImageHeight="{OnPlatform 25,
                                          iOS=25,
-                                         Android=40}"
+                                         Android=30}"
                 ImagePadding="10"
                 ImageSource="calendar"
                 ImageWidth="{OnPlatform 25,
                                         iOS=25,
-                                        Android=40}" />
+                                        Android=30}" />
 
             <freakyControls:FreakyTextInputLayout
                 x:Name="yolo"
                 Title="Underlined TextInputLayout"
                 BorderType="Underline"
-                FontSize="Large"
+                FontSize="20"
+                TitleFontSize="14"
                 ImageCommand="{Binding ImageWasTappedCommand}"
                 ImageHeight="{OnPlatform 25,
                                          iOS=25,
-                                         Android=40}"
+                                         Android=30}"
                 ImagePadding="10"
                 ImageSource="calendar"
                 ImageWidth="{OnPlatform 25,
                                         iOS=25,
-                                        Android=40}"
+                                        Android=30}"
                 UnderlineColor="Black"
                 UnderlineThickness="1.5" />
 
@@ -51,16 +53,17 @@
                 BorderStroke="Black"
                 BorderStrokeThickness="2"
                 BorderType="Full"
-                FontSize="Large"
+                FontSize="20"
+                TitleFontSize="14"
                 ImageCommand="{Binding ImageWasTappedCommand}"
                 ImageHeight="{OnPlatform 25,
                                          iOS=25,
-                                         Android=40}"
+                                         Android=30}"
                 ImagePadding="10"
                 ImageSource="calendar"
                 ImageWidth="{OnPlatform 25,
                                         iOS=25,
-                                        Android=40}" />
+                                        Android=30}" />
 
             <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
                 <freakyControls:FreakySwipeButton.Thumb>
@@ -79,7 +82,7 @@
                 </freakyControls:FreakySwipeButton.TrackBar>
 
                 <freakyControls:FreakySwipeButton.FillBar>
-                    <VerticalStackLayout Padding="0" />
+                    <VerticalStackLayout Padding="0" BackgroundColor="Red" />
                 </freakyControls:FreakySwipeButton.FillBar>
             </freakyControls:FreakySwipeButton>
         </VerticalStackLayout>

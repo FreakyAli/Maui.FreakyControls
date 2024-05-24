@@ -1,6 +1,5 @@
 ﻿using Maui.FreakyControls.Shared.Enums;
 using System.Windows.Input;
-using Color = Microsoft.Maui.Graphics.Color;
 
 namespace Maui.FreakyControls;
 
@@ -114,14 +113,20 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set => SetValue(AllowCopyPasteProperty, value);
     }
 
-    public static readonly BindableProperty AllowCopyPasteProperty =
-        BindableProperty.Create(nameof(AllowCopyPaste), typeof(bool), typeof(FreakyAutoCompleteView), false, BindingMode.OneWay, null, null);
+    public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
+        nameof(AllowCopyPaste),
+        typeof(bool),
+        typeof(FreakyAutoCompleteView),
+        false,
+        BindingMode.OneWay,
+        null,
+        null);
 
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
-              nameof(Image),
-              typeof(ImageSource),
-              typeof(FreakyAutoCompleteView),
-              default(ImageSource));
+            nameof(Image),
+            typeof(ImageSource),
+            typeof(FreakyAutoCompleteView),
+            default(ImageSource));
 
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
            nameof(ImageHeight),
@@ -157,7 +162,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
           nameof(ImageCommandParameter),
           typeof(object),
           typeof(FreakyAutoCompleteView),
-          default(object));
+          default);
 
     public object ImageCommandParameter
     {

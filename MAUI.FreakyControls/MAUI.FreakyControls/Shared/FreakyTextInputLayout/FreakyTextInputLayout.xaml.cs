@@ -1,16 +1,15 @@
-﻿using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Shared.Enums;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyTextInputLayout : ContentView
+public partial class FreakyTextInputLayout : ContentView, IDisposable
 {
-    private int _topMargin;
     private int _leftMargin;
-    private int _placeholderFontSize = 18;
-    private int _titleFontSize = 14;
+    private double _placeholderFontSize = 18;
+    private double _titleFontSize = 14;
 
     public FreakyTextInputLayout()
     {
@@ -38,9 +37,7 @@ public partial class FreakyTextInputLayout : ContentView
         typeof(string),
         typeof(FreakyTextInputLayout),
         string.Empty,
-        BindingMode.TwoWay,
-        null,
-        HandleBindingPropertyChangedDelegate
+        BindingMode.TwoWay
         );
 
     public static readonly BindableProperty TitleProperty = BindableProperty.Create(
@@ -68,7 +65,7 @@ public partial class FreakyTextInputLayout : ContentView
 
     public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
         nameof(Keyboard),
-        typeof(Microsoft.Maui.Keyboard),
+        typeof(Keyboard),
         typeof(FreakyTextInputLayout),
         Keyboard.Default,
         coerceValue: (o, v) => (Keyboard)v ?? Keyboard.Default
@@ -95,40 +92,45 @@ public partial class FreakyTextInputLayout : ContentView
        default(CornerRadius)
        );
 
+    public static readonly BindableProperty TitleFontSizeProperty = BindableProperty.Create(
+        nameof(TitleFontSize),
+        typeof(double),
+        typeof(FreakyTextInputLayout),
+        default(double),
+        propertyChanged: OnTitleFontSizeChanged);
+
     public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
-      nameof(FontSize),
-      typeof(double),
-      typeof(FreakyTextInputLayout),
-      default(double)
-       );
+          nameof(FontSize),
+          typeof(double),
+          typeof(FreakyTextInputLayout),
+          default(double),
+          propertyChanged: OnFontSizeChanged);
 
     public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
         nameof(ImageSource),
         typeof(ImageSource),
         typeof(FreakyTextInputLayout),
-        default(ImageSource)
-        );
+        default(ImageSource),
+        propertyChanged: OnImageSourceChanged);
 
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
            nameof(ImageHeight),
            typeof(int),
            typeof(FreakyTextInputLayout),
-           25)
-        ;
+           25);
 
     public static readonly BindableProperty ImageWidthProperty = BindableProperty.Create(
            nameof(ImageWidth),
            typeof(int),
            typeof(FreakyTextInputLayout),
-           25
-        );
+           25,
+           propertyChanged: OnImageWidthChanged);
 
     public static readonly BindableProperty ImagePaddingProperty = BindableProperty.Create(
            nameof(ImagePadding),
            typeof(int),
            typeof(FreakyTextInputLayout),
-           5
-        );
+           5);
 
     public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
           nameof(ImageCommand),
@@ -141,7 +143,7 @@ public partial class FreakyTextInputLayout : ContentView
           nameof(ImageCommandParameter),
           typeof(object),
           typeof(FreakyTextInputLayout),
-          default(object)
+          default
         );
 
     public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
@@ -183,14 +185,14 @@ public partial class FreakyTextInputLayout : ContentView
          nameof(ClearButtonVisibility),
          typeof(ClearButtonVisibility),
          typeof(FreakyTextInputLayout),
-         Microsoft.Maui.ClearButtonVisibility.Never
+         ClearButtonVisibility.Never
         );
 
     public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(
          nameof(FontAttributes),
          typeof(FontAttributes),
          typeof(FreakyTextInputLayout),
-         Microsoft.Maui.Controls.FontAttributes.None
+         FontAttributes.None
         );
 
     public static readonly BindableProperty CursorPositionProperty = BindableProperty.Create(
@@ -272,7 +274,7 @@ public partial class FreakyTextInputLayout : ContentView
      nameof(TextTransform),
      typeof(TextTransform),
      typeof(FreakyTextInputLayout),
-     Microsoft.Maui.TextTransform.Default
+     TextTransform.Default
      );
 
     public static readonly BindableProperty BorderTypeProperty = BindableProperty.Create(
@@ -589,6 +591,16 @@ public partial class FreakyTextInputLayout : ContentView
     }
 
     /// <summary>
+    /// of type double, defines the title font size.
+    /// </summary>
+    [TypeConverter(typeof(FontSizeConverter))]
+    public double TitleFontSize
+    {
+        get => (double)GetValue(TitleFontSizeProperty);
+        set => SetValue(TitleFontSizeProperty, value);
+    }
+
+    /// <summary>
     /// of type CornerRadius, and defines the Cornder Radius of your Border.
     /// </summary>
     public CornerRadius BorderCornerRadius
@@ -654,7 +666,7 @@ public partial class FreakyTextInputLayout : ContentView
     /// <summary>
     /// of type Keyboard, specifies the virtual keyboard that's displayed when entering text.
     /// </summary>
-    [System.ComponentModel.TypeConverter(typeof(Microsoft.Maui.Converters.KeyboardTypeConverter))]
+    [TypeConverter(typeof(Microsoft.Maui.Converters.KeyboardTypeConverter))]
     public Keyboard Keyboard
     {
         get => (Keyboard)GetValue(KeyboardProperty);
@@ -667,30 +679,17 @@ public partial class FreakyTextInputLayout : ContentView
         switch (control.BorderType)
         {
             case BorderType.Full:
-#if ANDROID
-                control._topMargin = -35;
-#endif
-#if IOS
-                control._topMargin = -35;
-#endif
                 control._leftMargin = 0;
+                control.LabelTitle.BackgroundColor = Colors.Transparent;
                 break;
-
             case BorderType.Outlined:
-#if ANDROID
-                control._topMargin = -28;
-#endif
-#if IOS
-                control._topMargin = -25;
-#endif
                 control._leftMargin = 20;
-                control.LabelTitle.BackgroundColor = control.BorderType == BorderType.Outlined ? control.OutlineTitleBackgroundColor : Colors.Transparent;
+                control.LabelTitle.BackgroundColor = control.OutlineTitleBackgroundColor;
                 break;
-
             case BorderType.None:
             case BorderType.Underline:
                 control._leftMargin = 0;
-                control._topMargin = -35;
+                control.LabelTitle.BackgroundColor = Colors.Transparent;
                 break;
         }
     }
@@ -704,19 +703,43 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    private static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
+    private static void OnTitleFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = bindable as FreakyTextInputLayout;
-        if (!control.EntryField.IsFocused)
+        control._titleFontSize = (double)newValue;
+    }
+
+    private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = bindable as FreakyTextInputLayout;
+        control._placeholderFontSize = (double)newValue;
+        control.LabelTitle.FontSize = control._placeholderFontSize;
+    }
+
+    private static void OnImageSourceChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        //fix placeholder width overlapping with the image if the image source changes
+        var control = bindable as FreakyTextInputLayout;
+        if (control.ImageWidth > 0)
         {
-            if (!string.IsNullOrEmpty((string)newValue))
-            {
-                await control.TransitionToTitle(false);
-            }
-            else
-            {
-                await control.TransitionToPlaceholder(false);
-            }
+            control.LabelTitle.Margin = new Thickness(control.LabelTitle.Margin.Left, control.LabelTitle.Margin.Top, control.ImageWidth + (control.ImagePadding * 2), control.LabelTitle.Margin.Bottom);
+        }
+        else
+        {
+            control.LabelTitle.Margin = new Thickness(control.LabelTitle.Margin.Left, control.LabelTitle.Margin.Top, 0, control.LabelTitle.Margin.Bottom);
+        }
+    }
+
+    private static void OnImageWidthChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = bindable as FreakyTextInputLayout;
+        if (control.ImageSource == null)
+        {
+            control.LabelTitle.Margin = new Thickness(control.LabelTitle.Margin.Left, control.LabelTitle.Margin.Top, 0, control.LabelTitle.Margin.Bottom);
+        }
+        else
+        {
+            control.LabelTitle.Margin = new Thickness(control.LabelTitle.Margin.Left, control.LabelTitle.Margin.Top, (int)newValue + (control.ImagePadding * 2), control.LabelTitle.Margin.Bottom);
         }
     }
 
@@ -748,17 +771,25 @@ public partial class FreakyTextInputLayout : ContentView
 
     private async Task TransitionToTitle(bool animated)
     {
+        double yoffset = 0;
+
+        //calculate the top margin based on the title font size
+        if (this.BorderType == BorderType.Outlined || this.BorderType == BorderType.Underline)
+            yoffset = -(ctrlBorder.Height / 2);
+        else if (this.BorderType == BorderType.Full)
+            yoffset = -((ctrlBorder.Height / 2) + (hiddenTitle.Height / 2));
+
         if (animated)
         {
-            var t1 = LabelTitle.TranslateTo(_leftMargin, _topMargin, 100);
+            var t1 = LabelTitle.TranslateTo(_leftMargin, yoffset, 100);
             var t2 = SizeTo(_titleFontSize);
             await Task.WhenAll(t1, t2);
         }
         else
         {
-            LabelTitle.TranslationX = 0;
-            LabelTitle.TranslationY = -30;
-            LabelTitle.FontSize = 14;
+            LabelTitle.TranslationX = _leftMargin;
+            LabelTitle.TranslationY = yoffset;
+            LabelTitle.FontSize = _titleFontSize;
         }
     }
 
@@ -786,7 +817,7 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    private Task SizeTo(int fontSize)
+    private Task<bool> SizeTo(double fontSize)
     {
         var taskCompletionSource = new TaskCompletionSource<bool>();
 
@@ -819,8 +850,41 @@ public partial class FreakyTextInputLayout : ContentView
         }
     }
 
-    private void EntryField_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    private void EntryField_TextChanged(object sender, TextChangedEventArgs e)
     {
         TextChanged?.Invoke(this, e);
+    }
+
+    private void HiddenTitle_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(Height) && BorderType == BorderType.Full)
+        {
+            //add margin so there is space to prevent overlap with surrounding controls
+            ctrlGrid.Margin = new Thickness(ctrlGrid.Margin.Left, hiddenTitle.Height, ctrlGrid.Margin.Right, ctrlGrid.Margin.Bottom);
+        }
+    }
+
+    private async void EntryField_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(Height) && !string.IsNullOrEmpty(EntryField?.Text))
+        {
+            //Make label floating if the entry field already has text it in when it is loaded
+            await TransitionToTitle(false);
+        }
+    }
+
+    public void Dispose()
+    {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    ~FreakyTextInputLayout()
+    {
+        Dispose(false);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
     }
 }

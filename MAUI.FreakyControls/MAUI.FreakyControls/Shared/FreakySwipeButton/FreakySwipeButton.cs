@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Maui.FreakyControls;
 
-public class FreakySwipeButton : AbsoluteLayout
+public class FreakySwipeButton : AbsoluteLayout, IDisposable
 {
     private readonly PanGestureRecognizer panGesture;
     private readonly View gestureListener;
@@ -143,4 +143,26 @@ public class FreakySwipeButton : AbsoluteLayout
         this.SetLayoutBounds(gestureListener, new Rect(0, 0, 1, 1));
         Children.Add(gestureListener);
     }
+
+    #region IDisposable
+
+    public void Dispose()
+    {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    ~FreakySwipeButton()
+    {
+        Dispose(false);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        panGesture.PanUpdated -= OnPanGestureUpdated;
+        SizeChanged -= OnSizeChanged;
+        gestureListener.GestureRecognizers.Clear();
+    }
+
+    #endregion IDisposable
 }

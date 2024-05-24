@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.SwipeCardView.SwipeCardView"
+             xmlns:samples="clr-namespace:Samples.SwipeCardView"
+             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             x:Name="this"
+             x:DataType="samples:SwipeCardViewModel"
+             Title="SwipeCardPage">
+    <Grid RowDefinitions="*">
+    </Grid>
+</ContentPage>
