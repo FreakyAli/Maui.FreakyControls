@@ -1,4 +1,4 @@
-namespace Samples.SwipeCardView;
+namespace Samples;
 
 public static class ImageUrls
 {

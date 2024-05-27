@@ -61,6 +61,7 @@
 		<None Remove="Shared\FreakyChip\" />
 		<None Remove="Shared\Constants\" />
 		<None Remove="Dotnet\" />
+		<None Remove="Platforms\Android\NativeControls\PhotoView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -138,6 +139,7 @@
 		<Folder Include="Shared\FreakyChip\" />
 		<Folder Include="Shared\Constants\" />
 		<Folder Include="Dotnet\" />
+		<Folder Include="Platforms\Android\NativeControls\PhotoView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.0" />

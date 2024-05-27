@@ -37,30 +37,28 @@ public class AutoResetMode
 
 public class GestureListener : SimpleOnGestureListener
 {
-    private bool singleTapDetected;
-    private bool doubleTapDetected;
+    private readonly ZoomageView imageView;
 
-    public GestureListener(bool doubleTapDetected, bool singleTapDetected)
+    public GestureListener(ZoomageView imageView)
     {
-        this.doubleTapDetected = doubleTapDetected;
-        this.singleTapDetected = singleTapDetected;
+        this.imageView = imageView;
     }
 
     public override bool OnDoubleTapEvent(MotionEvent e)
     {
         if (e.Action == MotionEventActions.Up)
         {
-            doubleTapDetected = true;
+            imageView.doubleTapDetected = true;
         }
 
-        singleTapDetected = false;
+        imageView.singleTapDetected = false;
 
         return false;
     }
 
     public override bool OnSingleTapUp(MotionEvent e)
     {
-        singleTapDetected = false;
+        imageView.singleTapDetected = false;
         return false;
     }
 
@@ -75,11 +73,16 @@ public class GestureListener : SimpleOnGestureListener
     }
 }
 
+public interface IOnZoomageViewDoubleClickListener
+{
+    public void OnDoubleClick(bool isDoubleTapToZoom);
+}
+
 public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
 {
-    private static float MIN_SCALE = 0.6f;
-    private static float MAX_SCALE = 8f;
-    private int RESET_DURATION = 200;
+    private static readonly float MIN_SCALE = 1f;
+    private static readonly float MAX_SCALE = 8f;
+    private readonly int RESET_DURATION = 200;
 
     private ScaleType startScaleType;
 
@@ -119,26 +122,33 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
     private ValueAnimator resetAnimator;
 
     private GestureDetector gestureDetector;
-    private bool doubleTapDetected = false;
-    private bool singleTapDetected = false;
+    internal bool doubleTapDetected = false;
+    internal bool singleTapDetected = false;
 
     private GestureListener gestureListener;
 
+    private IOnZoomageViewDoubleClickListener doubleClickListener;
+
+    public void SetOnDoubleClickListener(IOnZoomageViewDoubleClickListener doubleClickListener)
+    {
+        this.doubleClickListener = doubleClickListener;
+    }
+
     public ZoomageView(Context context) : base(context)
     {
-        gestureListener = new GestureListener(doubleTapDetected, singleTapDetected);
+        gestureListener = new GestureListener(this);
         Init(context, null);
     }
 
     public ZoomageView(Context context, IAttributeSet attrs) : base(context, attrs)
     {
-        gestureListener = new GestureListener(doubleTapDetected, singleTapDetected);
+        gestureListener = new GestureListener(this);
         Init(context, attrs);
     }
 
     public ZoomageView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
     {
-        gestureListener = new GestureListener(doubleTapDetected, singleTapDetected);
+        gestureListener = new GestureListener(this);
         Init(context, attrs);
     }
 
@@ -403,7 +413,18 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
                     zoomMatrix.PostScale(doubleTapToZoomScaleFactor, doubleTapToZoomScaleFactor, scaleDetector.FocusX, scaleDetector.FocusY);
                     animateScaleAndTranslationToMatrix(zoomMatrix, RESET_DURATION);
                 }
+                //notify onclick listeners
+                doubleClickListener?.OnDoubleClick(doubleTapToZoom);
+                //rest double Tap detected
+                doubleTapDetected = false;
                 return true;
+            }
+            else if (!doubleTapToZoom && doubleTapDetected)
+            {
+                //notify onclick listeners
+                doubleClickListener?.OnDoubleClick(doubleTapToZoom);
+                //rest double Tap detected
+                doubleTapDetected = false;
             }
             else if (!singleTapDetected)
             {
@@ -457,9 +478,16 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
         return base.OnTouchEvent(e);
     }
 
+    private bool IsScrollToEdge()
+    {
+        return bounds.Left == 0.0 || bounds.Right == Width
+                || bounds.Top == 0.0 || bounds.Bottom == Height;
+    }
+
     protected bool disallowParentTouch(MotionEvent e)
     {
-        if ((currentPointerCount > 1 || currentScaleFactor > 1.0f || isAnimating()))
+        bool isTranslatedToEdge = restrictBounds && IsScrollToEdge();
+        if (currentPointerCount > 1 || (currentScaleFactor > 1.0f && !isTranslatedToEdge) || isAnimating())
         {
             return true;
         }
@@ -642,8 +670,8 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
 
     private void animateMatrixIndex(int index, float to)
     {
-        ValueAnimator animator = ValueAnimator.OfFloat(matrixValues[index], to);
-        animator.AddUpdateListener(new AnimationUpdateListener2(ImageMatrix, index));
+        ValueAnimator animator = OfFloat(matrixValues[index], to);
+        animator.AddUpdateListener(new AnimationUpdateListener2(this, index));
         animator.SetDuration(RESET_DURATION);
         animator.Start();
     }
@@ -663,8 +691,8 @@ public class ZoomageView : AppCompatImageView, IOnScaleGestureListener
         float ytdiff = targetValues[Matrix.MtransY] - matrixValues[Matrix.MtransY];
 
         resetAnimator = ValueAnimator.OfFloat(0, 1f);
-        resetAnimator.AddUpdateListener(new AnimationUpdateListener(ImageMatrix, beginMatrix, xsdiff, ysdiff, xtdiff, ytdiff));
-        resetAnimator.AddListener(new SimpleAnimationListener(targetMatrix, this.ImageMatrix));
+        resetAnimator.AddUpdateListener(new AnimationUpdateListener(this, beginMatrix, xsdiff, ysdiff, xtdiff, ytdiff));
+        resetAnimator.AddListener(new SimpleAnimationListener(targetMatrix, this));
         resetAnimator.SetDuration(duration);
         resetAnimator.Start();
     }
@@ -778,46 +806,47 @@ public class AnimationUpdateListener2 : Java.Lang.Object, IAnimatorUpdateListene
 {
     readonly float[] values = new float[9];
     readonly Matrix current = new Matrix();
-    Matrix ImageMatrix;
+    ZoomageView imageView;
     readonly int index;
 
-    public AnimationUpdateListener2(Matrix matrix, int index)
+    public AnimationUpdateListener2(ZoomageView imageView, int index)
     {
-        ImageMatrix = matrix;
+        this.imageView = imageView;
         this.index = index;
     }
 
     public void OnAnimationUpdate(ValueAnimator animation)
     {
-        current.Set(ImageMatrix);
+        current.Set(imageView.ImageMatrix);
         current.GetValues(values);
         values[index] = (float)animation.AnimatedValue;
         current.SetValues(values);
-        ImageMatrix = (current);
+        imageView.ImageMatrix = current;
     }
 }
 
 public class AnimationUpdateListener : Java.Lang.Object, IAnimatorUpdateListener
 {
-    private Matrix imageMatrix;
+    private readonly ZoomageView imageview;
     private readonly Matrix beginMatrix;
-    private readonly float xsdiff;
-    private readonly float ysdiff;
-    private readonly float xtdiff;
-    private readonly float ytdiff;
     private readonly Matrix activeMatrix;
+    private readonly float xsdiff, ysdiff, xtdiff, ytdiff;
     readonly float[] values = new float[9];
 
-    public AnimationUpdateListener(Matrix imageMatrix, Matrix beginMatrix,
-        float xsdiff, float ysdiff, float xtdiff, float ytdiff)
+    public AnimationUpdateListener(ZoomageView imageview,
+        Matrix beginMatrix,
+        float xsdiff,
+        float ysdiff,
+        float xtdiff,
+        float ytdiff)
     {
-        this.imageMatrix = imageMatrix;
+        this.imageview = imageview;
         this.beginMatrix = beginMatrix;
         this.xsdiff = xsdiff;
         this.ysdiff = ysdiff;
         this.xtdiff = xtdiff;
         this.ytdiff = ytdiff;
-        activeMatrix = new Matrix(imageMatrix);
+        activeMatrix = new Matrix(imageview.ImageMatrix);
     }
 
     public void OnAnimationUpdate(ValueAnimator animation)
@@ -830,19 +859,19 @@ public class AnimationUpdateListener : Java.Lang.Object, IAnimatorUpdateListener
         values[Matrix.MscaleX] = values[Matrix.MscaleX] + (xsdiff * val);
         values[Matrix.MscaleY] = values[Matrix.MscaleY] + (ysdiff * val);
         activeMatrix.SetValues(values);
-        imageMatrix = (activeMatrix);
+        imageview.ImageMatrix = (activeMatrix);
     }
 }
 
 public class SimpleAnimationListener : Java.Lang.Object, IAnimatorListener
 {
     private readonly Matrix targetMatrix;
-    private Matrix ImageMatrix;
+    private readonly ZoomageView imageview;
 
-    public SimpleAnimationListener(Matrix targetMatrix, Matrix imageMatrix)
+    public SimpleAnimationListener(Matrix targetMatrix, ZoomageView imageview)
     {
         this.targetMatrix = targetMatrix;
-        ImageMatrix = imageMatrix;
+        this.imageview = imageview;
     }
 
     public void OnAnimationCancel(global::Android.Animation.Animator animation)
@@ -851,7 +880,7 @@ public class SimpleAnimationListener : Java.Lang.Object, IAnimatorListener
 
     public void OnAnimationEnd(global::Android.Animation.Animator animation)
     {
-        ImageMatrix = (targetMatrix);
+        imageview.ImageMatrix = (targetMatrix);
     }
 
     public void OnAnimationRepeat(global::Android.Animation.Animator animation)
