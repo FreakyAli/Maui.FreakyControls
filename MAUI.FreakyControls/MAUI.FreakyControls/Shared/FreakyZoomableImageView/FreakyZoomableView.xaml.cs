@@ -7,7 +7,7 @@ public partial class FreakyZoomableView : ContentView
     private double _startScale = 1;
     private double _xOffset = 0;
     private double _yOffset = 0;
-    private TouchTrackingPoint _point = new TouchTrackingPoint(0.5f, 0.5f); // default to center
+    private TouchTrackingPoint _point = new(0.5f, 0.5f); // default to center
     private bool _secondDoubleTap = false;
     private double _previousX, _previousY;
 
@@ -16,8 +16,66 @@ public partial class FreakyZoomableView : ContentView
         InitializeComponent();
     }
 
+    //Todo: Add Min/Max Scale and DoubleTapScaleFactor
+
+    // public static readonly BindableProperty MinScaleProperty =
+    //         BindableProperty.Create(nameof(MinScale), typeof(double), typeof(FreakyZoomableView), 1.0);
+
+    //public double MinScale
+    //{
+    //    get => (double)GetValue(MinScaleProperty);
+    //    set => SetValue(MinScaleProperty, value);
+    //}
+
+    //public static readonly BindableProperty MaxScaleProperty =
+    //    BindableProperty.Create(nameof(MaxScale), typeof(double), typeof(FreakyZoomableView), 4.0);
+
+    //public double MaxScale
+    //{
+    //    get => (double)GetValue(MaxScaleProperty);
+    //    set => SetValue(MaxScaleProperty, value);
+    //}
+
+    //public static readonly BindableProperty DoubleTapScaleFactorProperty =
+    //   BindableProperty.Create(nameof(DoubleTapScaleFactor), typeof(double), typeof(FreakyZoomableView), 4.0);
+
+    //public double DoubleTapScaleFactor
+    //{
+    //    get => (double)GetValue(DoubleTapScaleFactorProperty);
+    //    set => SetValue(DoubleTapScaleFactorProperty, value);
+    //}
+
+    public static readonly BindableProperty DoubleTapToZoomProperty =
+        BindableProperty.Create(nameof(DoubleTapToZoom), typeof(bool), typeof(FreakyZoomableView), true);
+
+    public bool DoubleTapToZoom
+    {
+        get => (bool)GetValue(DoubleTapToZoomProperty);
+        set => SetValue(DoubleTapToZoomProperty, value);
+    }
+
+    public static readonly BindableProperty ZoomableProperty =
+        BindableProperty.Create(nameof(Zoomable), typeof(bool), typeof(FreakyZoomableView), true);
+
+    public bool Zoomable
+    {
+        get => (bool)GetValue(ZoomableProperty);
+        set => SetValue(ZoomableProperty, value);
+    }
+
+    public static readonly BindableProperty TranslateableProperty =
+        BindableProperty.Create(nameof(Translateable), typeof(bool), typeof(FreakyZoomableView), true);
+
+    public bool Translateable
+    {
+        get => (bool)GetValue(TranslateableProperty);
+        set => SetValue(TranslateableProperty, value);
+    }
+
     private void PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
     {
+        if (!Zoomable) return;
+
         switch (e.Status)
         {
             case GestureStatus.Started:
@@ -71,6 +129,8 @@ public partial class FreakyZoomableView : ContentView
 
     public void OnPanUpdated(object sender, PanUpdatedEventArgs e)
     {
+        if (!Translateable) return;
+
         switch (e.StatusType)
         {
             case GestureStatus.Running:
@@ -126,6 +186,8 @@ public partial class FreakyZoomableView : ContentView
 
     public async void DoubleTapped(object sender, TappedEventArgs e)
     {
+        if (!Zoomable && !DoubleTapToZoom) return;
+
         var multiplicator = Math.Pow(2, 1.0 / 10.0);
         _startScale = Content.Scale;
         Content.AnchorX = 0;
