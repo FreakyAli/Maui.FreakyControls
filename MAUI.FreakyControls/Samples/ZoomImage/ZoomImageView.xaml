@@ -5,7 +5,7 @@
              xmlns:sample="clr-namespace:Samples"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="ZoomImageView">
-    <Grid>
+    <Grid BackgroundColor="#88000000">
         <freakyControls:FreakyZoomableView>
             <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.female1}"/>
         </freakyControls:FreakyZoomableView>
