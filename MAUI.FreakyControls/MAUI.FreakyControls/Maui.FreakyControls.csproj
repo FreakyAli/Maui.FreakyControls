@@ -55,13 +55,12 @@
 		<MauiCss Remove="Shared\FreakyPinView\**" />
 		<MauiXaml Remove="Shared\FreakyPinView\**" />
 		<None Remove="Shared\FreakyPinView\**" />
-		<None Remove="Shared\FreakyZoomableImage\" />
 		<None Remove="Shared\FreakySwipeButton\" />
 		<None Remove="Shared\FreakyCropView\" />
 		<None Remove="Shared\FreakyChip\" />
 		<None Remove="Shared\Constants\" />
 		<None Remove="Dotnet\" />
-		<None Remove="Platforms\Android\NativeControls\PhotoView\" />
+		<None Remove="Shared\FreakyZoomableImageView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -133,13 +132,12 @@
 		<Folder Include="Shared\FreakyCodeView\" />
 		<Folder Include="Shared\Behaviors\" />
 		<Folder Include="Shared\FreakySwitch\" />
-		<Folder Include="Shared\FreakyZoomableImage\" />
 		<Folder Include="Shared\FreakySwipeButton\" />
 		<Folder Include="Shared\FreakyCropView\" />
 		<Folder Include="Shared\FreakyChip\" />
 		<Folder Include="Shared\Constants\" />
 		<Folder Include="Dotnet\" />
-		<Folder Include="Platforms\Android\NativeControls\PhotoView\" />
+		<Folder Include="Shared\FreakyZoomableImageView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.0" />

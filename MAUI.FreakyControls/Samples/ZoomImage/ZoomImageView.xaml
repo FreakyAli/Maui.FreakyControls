@@ -6,6 +6,8 @@
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
              Title="ZoomImageView">
     <Grid>
-       <freakyControls:ZoomImage Aspect="AspectFit" Source="{x:Static sample:ImageUrls.female1}"/>
+        <freakyControls:FreakyZoomableView>
+            <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.female1}"/>
+        </freakyControls:FreakyZoomableView>
     </Grid>
 </ContentPage>

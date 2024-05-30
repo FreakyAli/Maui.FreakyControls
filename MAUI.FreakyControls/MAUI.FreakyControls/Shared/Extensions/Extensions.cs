@@ -64,7 +64,6 @@ public static class Extensions
 
     private static void AddHandlers(this IMauiHandlersCollection handlers)
     {
-        handlers.AddHandler(typeof(ZoomImage), typeof(ZoomImageHandler));
         handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
         handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
         handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
