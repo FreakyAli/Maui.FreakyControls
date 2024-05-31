@@ -16,4 +16,7 @@
     <attr name="clearLabelTextSize" format="dimension" />
     <attr name="clearLabelTextColor" format="color" />
   </declare-styleable>
+  <declare-styleable name='SKCanvasView'>
+    <attr name='ignorePixelScaling' format='boolean'/>
+  </declare-styleable>
 </resources>
