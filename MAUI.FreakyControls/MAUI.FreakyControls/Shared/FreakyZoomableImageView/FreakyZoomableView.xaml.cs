@@ -106,7 +106,8 @@ public partial class FreakyZoomableView : ContentView
     private void OnPinchRunning(PinchGestureUpdatedEventArgs e)
     {
         _currentScale += (e.Scale - 1) * _startScale;
-        _currentScale = Math.Max(MinScale, Math.Min(_currentScale, MaxScale));
+        _currentScale = Math.Max(MinScale, _currentScale);
+        _currentScale = Math.Min(MaxScale, _currentScale);
 
         var renderedX = Content.X + _xOffset;
         var deltaX = renderedX / Width;
@@ -121,11 +122,24 @@ public partial class FreakyZoomableView : ContentView
         var targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
         var targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
 
-        Content.TranslationX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
-        Content.TranslationY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
+        // Center the content when scale is less than 1
+        if (_currentScale < 1)
+        {
+            targetX = (Width - Content.Width * _currentScale) / 2;
+            targetY = (Height - Content.Height * _currentScale) / 2;
+        }
+        else
+        {
+            targetX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
+            targetY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
+        }
+
+        Content.TranslationX = targetX;
+        Content.TranslationY = targetY;
 
         Content.Scale = _currentScale;
     }
+
 
     private void OnPinchCompleted()
     {
