@@ -16,34 +16,32 @@ public partial class FreakyZoomableView : ContentView
         InitializeComponent();
     }
 
-    //Todo: Add Min/Max Scale and DoubleTapScaleFactor
+    public static readonly BindableProperty MinScaleProperty =
+            BindableProperty.Create(nameof(MinScale), typeof(double), typeof(FreakyZoomableView), 1.0);
 
-    // public static readonly BindableProperty MinScaleProperty =
-    //         BindableProperty.Create(nameof(MinScale), typeof(double), typeof(FreakyZoomableView), 1.0);
+    public double MinScale
+    {
+        get => (double)GetValue(MinScaleProperty);
+        set => SetValue(MinScaleProperty, value);
+    }
 
-    //public double MinScale
-    //{
-    //    get => (double)GetValue(MinScaleProperty);
-    //    set => SetValue(MinScaleProperty, value);
-    //}
+    public static readonly BindableProperty MaxScaleProperty =
+        BindableProperty.Create(nameof(MaxScale), typeof(double), typeof(FreakyZoomableView), 4.0);
 
-    //public static readonly BindableProperty MaxScaleProperty =
-    //    BindableProperty.Create(nameof(MaxScale), typeof(double), typeof(FreakyZoomableView), 4.0);
+    public double MaxScale
+    {
+        get => (double)GetValue(MaxScaleProperty);
+        set => SetValue(MaxScaleProperty, value);
+    }
 
-    //public double MaxScale
-    //{
-    //    get => (double)GetValue(MaxScaleProperty);
-    //    set => SetValue(MaxScaleProperty, value);
-    //}
+    public static readonly BindableProperty DoubleTapScaleFactorProperty =
+       BindableProperty.Create(nameof(DoubleTapScaleFactor), typeof(double), typeof(FreakyZoomableView), 4.0);
 
-    //public static readonly BindableProperty DoubleTapScaleFactorProperty =
-    //   BindableProperty.Create(nameof(DoubleTapScaleFactor), typeof(double), typeof(FreakyZoomableView), 4.0);
-
-    //public double DoubleTapScaleFactor
-    //{
-    //    get => (double)GetValue(DoubleTapScaleFactorProperty);
-    //    set => SetValue(DoubleTapScaleFactorProperty, value);
-    //}
+    public double DoubleTapScaleFactor
+    {
+        get => (double)GetValue(DoubleTapScaleFactorProperty);
+        set => SetValue(DoubleTapScaleFactorProperty, value);
+    }
 
     public static readonly BindableProperty DoubleTapToZoomProperty =
         BindableProperty.Create(nameof(DoubleTapToZoom), typeof(bool), typeof(FreakyZoomableView), true);
@@ -100,7 +98,7 @@ public partial class FreakyZoomableView : ContentView
     private void OnPinchRunning(PinchGestureUpdatedEventArgs e)
     {
         _currentScale += (e.Scale - 1) * _startScale;
-        _currentScale = Math.Max(1, _currentScale);
+        _currentScale = Math.Max(MinScale, Math.Min(_currentScale, MaxScale));
 
         var renderedX = Content.X + _xOffset;
         var deltaX = renderedX / Width;
@@ -184,38 +182,32 @@ public partial class FreakyZoomableView : ContentView
         _yOffset = Content.TranslationY;
     }
 
-    public async void DoubleTapped(object sender, TappedEventArgs e)
+    public void DoubleTapped(object sender, TappedEventArgs e)
     {
-        if (!Zoomable && !DoubleTapToZoom) return;
+        if (!Zoomable || !DoubleTapToZoom) return;
 
-        var multiplicator = Math.Pow(2, 1.0 / 10.0);
         _startScale = Content.Scale;
+        _currentScale = _secondDoubleTap ? _startScale / DoubleTapScaleFactor : _startScale * DoubleTapScaleFactor;
+
+        _currentScale = Math.Max(MinScale, Math.Min(_currentScale, MaxScale));
+
         Content.AnchorX = 0;
         Content.AnchorY = 0;
 
-        for (var i = 0; i < 10; i++)
-        {
-            if (!_secondDoubleTap)
-                _currentScale *= multiplicator;
-            else
-                _currentScale /= multiplicator;
+        var renderedX = Content.X + _xOffset;
+        var renderedY = Content.Y + _yOffset;
 
-            var renderedX = Content.X + _xOffset;
-            var renderedY = Content.Y + _yOffset;
+        // Calculate origin based on double tap point
+        var originX = (_point.X - renderedX) / (Content.Width * _startScale);
+        var originY = (_point.Y - renderedY) / (Content.Height * _startScale);
 
-            // Calculate origin based on double tap point
-            var originX = (_point.X - renderedX) / (Content.Width * _startScale);
-            var originY = (_point.Y - renderedY) / (Content.Height * _startScale);
+        var targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
+        var targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
 
-            var targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
-            var targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
+        Content.TranslationX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
+        Content.TranslationY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
 
-            Content.TranslationX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
-            Content.TranslationY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
-
-            Content.Scale = _currentScale;
-            await Task.Delay(10);
-        }
+        Content.Scale = _currentScale;
 
         _secondDoubleTap = !_secondDoubleTap;
         _xOffset = Content.TranslationX;
