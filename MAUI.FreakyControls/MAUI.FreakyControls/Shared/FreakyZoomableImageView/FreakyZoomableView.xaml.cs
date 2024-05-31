@@ -54,6 +54,15 @@ public partial class FreakyZoomableView : ContentView
     public static readonly BindableProperty ZoomableProperty =
         BindableProperty.Create(nameof(Zoomable), typeof(bool), typeof(FreakyZoomableView), true);
 
+    public static readonly BindableProperty IsDoubleTapZoomAnimationEnabledProperty =
+      BindableProperty.Create(nameof(IsDoubleTapZoomAnimationEnabled), typeof(bool), typeof(FreakyZoomableView), true);
+
+    public bool IsDoubleTapZoomAnimationEnabled
+    {
+        get => (bool)GetValue(IsDoubleTapZoomAnimationEnabledProperty);
+        set => SetValue(IsDoubleTapZoomAnimationEnabledProperty, value);
+    }
+
     public bool Zoomable
     {
         get => (bool)GetValue(ZoomableProperty);
@@ -207,17 +216,28 @@ public partial class FreakyZoomableView : ContentView
         targetX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
         targetY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
 
-        // Animate the scaling and translation
-        var animationDuration = 250u; // duration in milliseconds
+        if (IsDoubleTapZoomAnimationEnabled)
+        {
+            // Animate the scaling and translation
+            var animationDuration = 250u; // duration in milliseconds
 
-        await Task.WhenAll(
-            Content.ScaleTo(_currentScale, animationDuration, Easing.CubicInOut),
-            Content.TranslateTo(targetX, targetY, animationDuration, Easing.CubicInOut)
-        );
+            await Task.WhenAll(
+                Content.ScaleTo(_currentScale, animationDuration, Easing.CubicInOut),
+                Content.TranslateTo(targetX, targetY, animationDuration, Easing.CubicInOut)
+            );
+        }
+        else
+        {
+            // Set scale and translation directly without animation
+            Content.Scale = _currentScale;
+            Content.TranslationX = targetX;
+            Content.TranslationY = targetY;
+        }
 
         _xOffset = Content.TranslationX;
         _yOffset = Content.TranslationY;
     }
+
 
     void OnTouch(object sender, TouchActionEventArgs e)
     {
