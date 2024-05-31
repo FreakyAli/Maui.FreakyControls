@@ -8,7 +8,6 @@ public partial class FreakyZoomableView : ContentView
     private double _xOffset = 0;
     private double _yOffset = 0;
     private TouchTrackingPoint _point = new(0.5f, 0.5f); // default to center
-    private bool _secondDoubleTap = false;
     private double _previousX, _previousY;
 
     public FreakyZoomableView()
@@ -187,7 +186,7 @@ public partial class FreakyZoomableView : ContentView
         if (!Zoomable || !DoubleTapToZoom) return;
 
         _startScale = Content.Scale;
-        _currentScale = _secondDoubleTap ? _startScale / DoubleTapScaleFactor : _startScale * DoubleTapScaleFactor;
+        _currentScale = _startScale > MinScale ? MinScale : DoubleTapScaleFactor;
 
         _currentScale = Math.Max(MinScale, Math.Min(_currentScale, MaxScale));
 
@@ -209,7 +208,6 @@ public partial class FreakyZoomableView : ContentView
 
         Content.Scale = _currentScale;
 
-        _secondDoubleTap = !_secondDoubleTap;
         _xOffset = Content.TranslationX;
         _yOffset = Content.TranslationY;
     }
