@@ -1,4 +1,4 @@
-﻿using Maui.FreakyEffects.TouchTracking;
+using Maui.FreakyEffects.TouchTracking;
 namespace Maui.FreakyControls;
 
 public partial class FreakyZoomableView : ContentView
@@ -119,14 +119,14 @@ public partial class FreakyZoomableView : ContentView
         var deltaHeight = Height / (Content.Height * _startScale);
         var originY = (e.ScaleOrigin.Y - deltaY) * deltaHeight;
 
-        var targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
-        var targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
+        var targetX = _xOffset - ((originX * Content.Width) * (_currentScale - _startScale));
+        var targetY = _yOffset - ((originY * Content.Height) * (_currentScale - _startScale));
 
         // Center the content when scale is less than 1
         if (_currentScale < 1)
         {
-            targetX = (Width - Content.Width * _currentScale) / 2;
-            targetY = (Height - Content.Height * _currentScale) / 2;
+            targetX = (Width - (Content.Width * _currentScale)) / 2;
+            targetY = (Height - (Content.Height * _currentScale)) / 2;
         }
         else
         {
@@ -139,7 +139,6 @@ public partial class FreakyZoomableView : ContentView
 
         Content.Scale = _currentScale;
     }
-
 
     private void OnPinchCompleted()
     {
@@ -187,8 +186,8 @@ public partial class FreakyZoomableView : ContentView
         Content.TranslationY += deltaY;
 
         // Calculate the maximum translation values
-        double maxX = Math.Max(0, Content.Width * Content.Scale - Width);
-        double maxY = Math.Max(0, Content.Height * Content.Scale - Height);
+        double maxX = Math.Max(0, (Content.Width * Content.Scale) - Width);
+        double maxY = Math.Max(0, (Content.Height * Content.Scale) - Height);
 
         // Ensure the translation stays within bounds
         Content.TranslationX = Math.Clamp(Content.TranslationX, -maxX, 0);
@@ -223,8 +222,8 @@ public partial class FreakyZoomableView : ContentView
         var originX = (_point.X - renderedX) / (Content.Width * _startScale);
         var originY = (_point.Y - renderedY) / (Content.Height * _startScale);
 
-        var targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
-        var targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
+        var targetX = _xOffset - ((originX * Content.Width) * (_currentScale - _startScale));
+        var targetY = _yOffset - ((originY * Content.Height) * (_currentScale - _startScale));
 
         // Clamp the translation values to ensure they are within bounds
         targetX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
@@ -251,7 +250,6 @@ public partial class FreakyZoomableView : ContentView
         _xOffset = Content.TranslationX;
         _yOffset = Content.TranslationY;
     }
-
 
     void OnTouch(object sender, TouchActionEventArgs e)
     {
