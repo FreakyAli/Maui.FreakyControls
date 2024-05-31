@@ -14,7 +14,7 @@
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
 		<AssemblyVersion>0.4.12</AssemblyVersion>
 		<AssemblyFileVersion>0.4.12</AssemblyFileVersion>
-		<Version>0.4.12-pre</Version>
+		<Version>0.4.12</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -25,9 +25,9 @@
 		<PackageIcon>maui_toolkit.png</PackageIcon>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
-		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP SwipeButton PinCodeView Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>Bug fixes for Pincode and TextInputLayout</PackageReleaseNotes>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP SwipeButton PinCodeView Zoom ZoomableImage Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
+		<PackageReleaseNotes>FreakyZoomableImageView is here!</PackageReleaseNotes>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<Copyright>Copyright 2023</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
@@ -55,12 +55,12 @@
 		<MauiCss Remove="Shared\FreakyPinView\**" />
 		<MauiXaml Remove="Shared\FreakyPinView\**" />
 		<None Remove="Shared\FreakyPinView\**" />
-		<None Remove="Shared\FreakyZoomableImage\" />
 		<None Remove="Shared\FreakySwipeButton\" />
 		<None Remove="Shared\FreakyCropView\" />
 		<None Remove="Shared\FreakyChip\" />
 		<None Remove="Shared\Constants\" />
 		<None Remove="Dotnet\" />
+		<None Remove="Shared\FreakyZoomableImageView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
@@ -81,7 +81,7 @@
 		<None Remove="Platforms\iOS\NativeControls\" />
 		<None Remove="Shared\FreakyTextInputLayout\" />
 		<None Include="maui_toolkit.png" Pack="true" Visible="false" PackagePath="" />
-		<None Include="readme.md" Pack="true" Visible="false" PackagePath="" />
+		<None Include="Readme.md" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
 		<None Remove="Shared\FreakyButton\" />
 		<None Remove="Shared\Helpers\" />
@@ -132,12 +132,12 @@
 		<Folder Include="Shared\FreakyCodeView\" />
 		<Folder Include="Shared\Behaviors\" />
 		<Folder Include="Shared\FreakySwitch\" />
-		<Folder Include="Shared\FreakyZoomableImage\" />
 		<Folder Include="Shared\FreakySwipeButton\" />
 		<Folder Include="Shared\FreakyCropView\" />
 		<Folder Include="Shared\FreakyChip\" />
 		<Folder Include="Shared\Constants\" />
 		<Folder Include="Dotnet\" />
+		<Folder Include="Shared\FreakyZoomableImageView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.0" />
