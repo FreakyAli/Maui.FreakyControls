@@ -181,7 +181,7 @@ public partial class FreakyZoomableView : ContentView
         _yOffset = Content.TranslationY;
     }
 
-    public void DoubleTapped(object sender, TappedEventArgs e)
+    public async void DoubleTapped(object sender, TappedEventArgs e)
     {
         if (!Zoomable || !DoubleTapToZoom) return;
 
@@ -203,10 +203,17 @@ public partial class FreakyZoomableView : ContentView
         var targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
         var targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
 
-        Content.TranslationX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
-        Content.TranslationY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
+        // Clamp the translation values to ensure they are within bounds
+        targetX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
+        targetY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
 
-        Content.Scale = _currentScale;
+        // Animate the scaling and translation
+        var animationDuration = 250u; // duration in milliseconds
+
+        await Task.WhenAll(
+            Content.ScaleTo(_currentScale, animationDuration, Easing.CubicInOut),
+            Content.TranslateTo(targetX, targetY, animationDuration, Easing.CubicInOut)
+        );
 
         _xOffset = Content.TranslationX;
         _yOffset = Content.TranslationY;
