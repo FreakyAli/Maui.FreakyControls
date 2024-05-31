@@ -58,7 +58,8 @@ namespace Samples
                 AppShell.buttons,
                 AppShell.jumpList,
                 AppShell.pinView,
-                AppShell.switches
+                AppShell.switches,
+                AppShell.zoomImage
             };
         }
 
