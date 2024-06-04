@@ -2,6 +2,7 @@
 using Android.Graphics;
 using Android.Util;
 using Android.Views;
+using Maui.FreakyControls.Enums;
 using FrameLayout = Android.Widget.FrameLayout;
 using NativeColor = Android.Graphics.Color;
 using NativeImage = Android.Graphics.Bitmap;

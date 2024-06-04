@@ -1,4 +1,5 @@
-﻿using NativeSize = System.Drawing.SizeF;
+﻿using Maui.FreakyControls.Enums;
+using NativeSize = System.Drawing.SizeF;
 
 namespace Maui.FreakyControls.Platforms.Android;
 
