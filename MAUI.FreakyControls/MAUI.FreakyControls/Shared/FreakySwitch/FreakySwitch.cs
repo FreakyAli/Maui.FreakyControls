@@ -18,12 +18,12 @@ public class FreakySwitch : ContentView, IDisposable
     private static readonly double height = 32.0d;
 
     // Animation related fields
-    private float animationProcess;
+    private float animationProgress;
     private bool isAnimating;
-    private SKColor currentBackgroundColor;
-    private SKColor currentThumbColor;
-    private float currentThumbLeft;
-    private const int AnimationDuration = 250;
+    private TaskCompletionSource<bool> animatonTaskCompletionSource;
+   // private const int AnimationDuration = 250;
+    
+
 
     public FreakySwitch()
     {
@@ -41,29 +41,41 @@ public class FreakySwitch : ContentView, IDisposable
         isAnimating = false;
     }
 
-    private void SwitchTapped(object sender, EventArgs e)
+    private async Task AnimateThumbAsync()
+    {
+        if (isAnimating)
+            return;
+
+        isAnimating = true;
+        animationProgress = 0.0f;
+
+        const int frameRate = 60;
+        const double totalDuration = 0.25; // 250 ms
+        double frameDuration = 1.0 / frameRate;
+
+        while (animationProgress < 1.0f)
+        {
+            animationProgress += (float)(frameDuration / totalDuration);
+            skiaView.InvalidateSurface();
+            await Task.Delay(TimeSpan.FromSeconds(frameDuration));
+        }
+
+        animationProgress = 1.0f;
+        skiaView.InvalidateSurface();
+        isAnimating = false;
+    }
+
+    private async void SwitchTapped(object sender, EventArgs e)
     {
         if (IsEnabled)
         {
+            await AnimateThumbAsync();
             IsToggled = !IsToggled;
         }
     }
 
-    private void HandlePaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    private void DrawAnimatingState(SKCanvas canvas, SKRect bounds)
     {
-        var canvas = e.Surface.Canvas;
-        canvas.Clear();
-        if (IsToggled)
-            DrawOnState(canvas, e.Info.Rect);
-        else
-            DrawOffState(canvas, e.Info.Rect);
-    }
-
-
-    private void DrawIntermediateStates(SKCanvas canvas, SKRect bounds, float progress){
-
-        var backgroundColor = ColorGradient (OffColor, OnColor, progress);
-        
         // Draw background with OnColor
         var backgroundPaint = new SKPaint
         {
@@ -73,36 +85,41 @@ public class FreakySwitch : ContentView, IDisposable
 
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
-         // Interpolated thumb position
+        // Calculate thumb position based on animation progress
         var thumbWidth = bounds.Height * 0.8f;
-        var spacingPercentage = 0.05;
-        var spacing = (float)(bounds.Width * spacingPercentage);
-        var thumbLeftOff = bounds.Left + spacing;
-        var thumbLeftOn = bounds.Left + bounds.Width - thumbWidth - spacing;
-        var thumbLeft = thumbLeftOff + (thumbLeftOn - thumbLeftOff) * progress;
+        var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
+        var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
+        var thumbLeft = thumbLeftOff + (thumbLeftOn - thumbLeftOff) * animationProgress;
         var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
         var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
 
-        var thumbColor = ColorGradient(ThumbOffColor, ThumbOnColor, progress);
+          // Draw the switch thumb
         var thumbPaint = new SKPaint
         {
-            Color = thumbColor,
+            Color = ThumbOnColor.ToSKColor(),
             IsAntialias = true
         };
-        canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint);
+        canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+    }
 
-        // Draw outline
-        var outlineBounds = SKRect.Create(bounds.Left + outlineWidth / 2, bounds.Top + outlineWidth / 2, bounds.Width - outlineWidth, bounds.Height - outlineWidth);
-        var outlineColor = ColorGradient(OutlineColor, OnColor, progress);
-        var outlinePaint = new SKPaint
+
+    private void HandlePaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    {
+        var canvas = e.Surface.Canvas;
+        canvas.Clear(); 
+        
+        if (isAnimating)
         {
-            Color = outlineColor,
-            IsAntialias = true,
-            Style = SKPaintStyle.Stroke,
-            StrokeWidth = outlineWidth
-        };
-        canvas.DrawRoundRect(outlineBounds, outlineBounds.Height / 2, outlineBounds.Height / 2, outlinePaint);
-    }    
+            DrawAnimatingState(canvas, e.Info.Rect);
+        }
+        else{
+            
+            if (IsToggled)
+                DrawOnState(canvas, e.Info.Rect);
+            else
+                DrawOffState(canvas, e.Info.Rect);
+        }
+    }
 
 
     private void DrawOnState(SKCanvas canvas, SKRect bounds)
@@ -191,17 +208,6 @@ public class FreakySwitch : ContentView, IDisposable
         canvas.DrawRoundRect(outlineBounds, outlineBounds.Height / 2, outlineBounds.Height / 2, outlinePaint);
     }
 
-
-    private SKColor ColorGradient(Color from, Color to, float progress)
-    {
-
-        byte r = (byte)(from.Red * (1 - progress) + to.Red * progress);
-        byte g = (byte)(from.Green * (1 - progress) + to.Green * progress);
-        byte b = (byte)(from.Blue * (1 - progress) + to.Blue * progress);
-        byte a = (byte)(from.Alpha * (1 - progress) + to.Alpha * progress);
-
-        return new SKColor(r,g,b,a);
-    }
 
     public Color OutlineColor
     {
