@@ -33,7 +33,7 @@
 		<SynchReleaseVersion>false</SynchReleaseVersion>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
 		<NoWarn>1701;1702;IL2121;CS1573;CS1591;CS1570;CS8632</NoWarn>
-		<JavaSdkDirectory>C:\Program Files\Java\jdk-22</JavaSdkDirectory>
+		<JavaSdkDirectory>C:\Program Files\Java\jdk-17</JavaSdkDirectory>
 		<AndroidSdkDirectory>C:\Users\cgar0\AppData\Local\Android\Sdk</AndroidSdkDirectory>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
