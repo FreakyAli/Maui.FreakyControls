@@ -43,18 +43,23 @@ public class FreakySwitch : ContentView, IDisposable
 
     private async Task AnimateThumbAsync()
     {
+        //if isAnimating == true. It does not execute animation.
         if (isAnimating)
             return;
 
         isAnimating = true;
         animationProgress = 0.0f;
 
+        //60 frames per sec... 60frames/sec
         const int frameRate = 60;
         const double totalDuration = 0.25; // 250 ms
+
+        // get the inverse of the framerate... (1/60) seconds/frame i.e. frame duration
         double frameDuration = 1.0 / frameRate;
 
         while (animationProgress < 1.0f)
         {
+            //update the percentage of the animation process
             animationProgress += (float)(frameDuration / totalDuration);
             skiaView.InvalidateSurface();
             await Task.Delay(TimeSpan.FromSeconds(frameDuration));
@@ -85,21 +90,45 @@ public class FreakySwitch : ContentView, IDisposable
 
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
-        // Calculate thumb position based on animation progress
-        var thumbWidth = bounds.Height * 0.8f;
-        var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
-        var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
-        var thumbLeft = thumbLeftOff + (thumbLeftOn - thumbLeftOff) * animationProgress;
-        var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
-        var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
+        if (IsToggled == true){
 
-          // Draw the switch thumb
-        var thumbPaint = new SKPaint
+            var thumbWidth = bounds.Height * 0.8f;
+            var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
+            var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
+            var thumbLeft = thumbLeftOn - (thumbLeftOn - thumbLeftOff) * animationProgress;
+            var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
+            var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
+
+             // Draw the switch thumb
+            var thumbPaint = new SKPaint
+            {
+                Color = ThumbOnColor.ToSKColor(),
+                IsAntialias = true
+            };
+            canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+
+        }
+        else
         {
-            Color = ThumbOnColor.ToSKColor(),
-            IsAntialias = true
-        };
-        canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+
+            // Calculate thumb position based on animation progress
+            var thumbWidth = bounds.Height * 0.8f;
+            var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
+            var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
+            var thumbLeft = thumbLeftOff + (thumbLeftOn - thumbLeftOff) * animationProgress;
+            var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
+            var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
+
+            // Draw the switch thumb
+            var thumbPaint = new SKPaint
+            {
+                Color = ThumbOnColor.ToSKColor(),
+                IsAntialias = true
+            };
+            canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+
+        }
+
     }
 
 
