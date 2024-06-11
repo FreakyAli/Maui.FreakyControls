@@ -63,6 +63,7 @@
 		<None Remove="Resources\Images\panda.jpg" />
 		<None Remove="Resources\Images\tick.svg" />
 		<None Remove="Switch\" />
+		<None Remove="ZoomImage\" />
 	</ItemGroup>
   
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
@@ -81,6 +82,7 @@
 		<Folder Include="JumpList\" />
 		<Folder Include="PinView\" />
 		<Folder Include="Switch\" />
+		<Folder Include="ZoomImage\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />

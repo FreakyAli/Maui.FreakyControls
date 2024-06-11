@@ -8,7 +8,7 @@ Install-Package FreakyControls -Version xx.xx.xx
 
 Add the following using statement and Initialization in your MauiProgram:
 
-```c#
+```C#
 using MAUI.FreakyControls.Extensions;
 namespace Samples;
 
@@ -25,11 +25,8 @@ public static class MauiProgram
                             fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                             fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                         });
-             
-             // Takes one argument if you would like to init Skiasharp through FreakyControls
-             // or not. (Used for RadioButton, Checkbox & SVGImageView)
-             builder.InitializeFreakyControls();
-             
+             // Some of our controls use SkiaSharp and FreakyEffects!
+             builder.InitializeFreakyControls(useSkiaSharp: true, useFreakyEffects: true);
              return builder.Build();
          }
       }
