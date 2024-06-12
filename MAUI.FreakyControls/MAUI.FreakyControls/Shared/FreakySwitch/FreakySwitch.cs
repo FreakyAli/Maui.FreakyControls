@@ -17,6 +17,14 @@ public class FreakySwitch : ContentView, IDisposable
     private static readonly double width = 54.0d;
     private static readonly double height = 32.0d;
 
+    // Animation related fields
+    private float animationProgress;
+    private bool isAnimating;
+    private TaskCompletionSource<bool> animatonTaskCompletionSource;
+   // private const int AnimationDuration = 250;
+    
+
+
     public FreakySwitch()
     {
         skiaView = new SKCanvasView();
@@ -28,25 +36,120 @@ public class FreakySwitch : ContentView, IDisposable
         skiaView.PaintSurface += HandlePaintSurface;
         tapped.Tapped += SwitchTapped;
         GestureRecognizers.Add(tapped);
+
+        // Initalize animation field
+        isAnimating = false;
     }
 
-    private void SwitchTapped(object sender, EventArgs e)
+    private async Task AnimateThumbAsync()
+    {
+        //if isAnimating == true. It does not execute animation.
+        if (isAnimating)
+            return;
+
+        isAnimating = true;
+        animationProgress = 0.0f;
+
+        //60 frames per sec... 60frames/sec
+        const int frameRate = 60;
+        const double totalDuration = 0.25; // 250 ms
+
+        // get the inverse of the framerate... (1/60) seconds/frame i.e. frame duration
+        double frameDuration = 1.0 / frameRate;
+
+        while (animationProgress < 1.0f)
+        {
+            //update the percentage of the animation process
+            animationProgress += (float)(frameDuration / totalDuration);
+            skiaView.InvalidateSurface();
+            await Task.Delay(TimeSpan.FromSeconds(frameDuration));
+        }
+
+        animationProgress = 1.0f;
+        skiaView.InvalidateSurface();
+        isAnimating = false;
+    }
+
+    private async void SwitchTapped(object sender, EventArgs e)
     {
         if (IsEnabled)
         {
+            await AnimateThumbAsync();
             IsToggled = !IsToggled;
         }
     }
 
+    private void DrawAnimatingState(SKCanvas canvas, SKRect bounds)
+    {
+        // Draw background with OnColor
+        var backgroundPaint = new SKPaint
+        {
+            Color = OnColor.ToSKColor(),
+            IsAntialias = true
+        };
+
+        canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
+
+        if (IsToggled == true){
+
+            var thumbWidth = bounds.Height * 0.8f;
+            var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
+            var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
+            var thumbLeft = thumbLeftOn - (thumbLeftOn - thumbLeftOff) * animationProgress;
+            var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
+            var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
+
+             // Draw the switch thumb
+            var thumbPaint = new SKPaint
+            {
+                Color = ThumbOnColor.ToSKColor(),
+                IsAntialias = true
+            };
+            canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+
+        }
+        else
+        {
+
+            // Calculate thumb position based on animation progress
+            var thumbWidth = bounds.Height * 0.8f;
+            var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
+            var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
+            var thumbLeft = thumbLeftOff + (thumbLeftOn - thumbLeftOff) * animationProgress;
+            var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
+            var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
+
+            // Draw the switch thumb
+            var thumbPaint = new SKPaint
+            {
+                Color = ThumbOnColor.ToSKColor(),
+                IsAntialias = true
+            };
+            canvas.DrawRoundRect(thumbRect, thumbWidth / 2, thumbWidth / 2, thumbPaint); // Maintain circular shape
+
+        }
+
+    }
+
+
     private void HandlePaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
-        canvas.Clear();
-        if (IsToggled)
-            DrawOnState(canvas, e.Info.Rect);
-        else
-            DrawOffState(canvas, e.Info.Rect);
+        canvas.Clear(); 
+        
+        if (isAnimating)
+        {
+            DrawAnimatingState(canvas, e.Info.Rect);
+        }
+        else{
+            
+            if (IsToggled)
+                DrawOnState(canvas, e.Info.Rect);
+            else
+                DrawOffState(canvas, e.Info.Rect);
+        }
     }
+
 
     private void DrawOnState(SKCanvas canvas, SKRect bounds)
     {
@@ -133,6 +236,7 @@ public class FreakySwitch : ContentView, IDisposable
         };
         canvas.DrawRoundRect(outlineBounds, outlineBounds.Height / 2, outlineBounds.Height / 2, outlinePaint);
     }
+
 
     public Color OutlineColor
     {
