@@ -96,7 +96,7 @@ public class FreakySwipeButton : AbsoluteLayout, IDisposable
                 //if (e.TotalX < Thumb.TranslationX)
                 //    return;
                 Thumb.TranslationX = x;
-                this.SetLayoutBounds(FillBar, new Rect(0, 0, x + Thumb.Width / 2, this.Height));
+                this.SetLayoutBounds(FillBar, new Rect(0, 0, x + (Thumb.Width / 2), this.Height));
                 break;
 
             case GestureStatus.Completed:

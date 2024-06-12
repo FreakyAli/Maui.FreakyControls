@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
 namespace Maui.FreakyControls.Wrappers
 {
@@ -14,8 +14,7 @@ namespace Maui.FreakyControls.Wrappers
 
         public StreamWrapper(Stream wrapped, IDisposable additionalDisposable)
         {
-            if (wrapped is null)
-                throw new ArgumentNullException("wrapped");
+            ArgumentNullException.ThrowIfNull(wrapped);
 
             _wrapped = wrapped;
             _additionalDisposable = additionalDisposable;

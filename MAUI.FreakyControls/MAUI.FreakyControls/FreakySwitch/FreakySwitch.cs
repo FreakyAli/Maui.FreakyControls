@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Extensions;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
@@ -88,10 +88,10 @@ public class FreakySwitch : ContentView, IDisposable
         if (IsToggled)
         {
             var thumbWidth = bounds.Height * 0.8f;
-            var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
-            var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
-            var thumbLeft = thumbLeftOn - (thumbLeftOn - thumbLeftOff) * animationProgress;
-            var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
+            var thumbLeftOff = bounds.Left + (bounds.Height * 0.1f); // 10% padding
+            var thumbLeftOn = bounds.Right - thumbWidth - (bounds.Height * 0.1f);
+            var thumbLeft = thumbLeftOn - ((thumbLeftOn - thumbLeftOff) * animationProgress);
+            var thumbTop = bounds.Top + ((bounds.Height - thumbWidth) / 2);
             var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
 
             // Draw the switch thumb
@@ -106,10 +106,10 @@ public class FreakySwitch : ContentView, IDisposable
         {
             // Calculate thumb position based on animation progress
             var thumbWidth = bounds.Height * 0.8f;
-            var thumbLeftOff = bounds.Left + bounds.Height * 0.1f; // 10% padding
-            var thumbLeftOn = bounds.Right - thumbWidth - bounds.Height * 0.1f;
-            var thumbLeft = thumbLeftOff + (thumbLeftOn - thumbLeftOff) * animationProgress;
-            var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2;
+            var thumbLeftOff = bounds.Left + (bounds.Height * 0.1f); // 10% padding
+            var thumbLeftOn = bounds.Right - thumbWidth - (bounds.Height * 0.1f);
+            var thumbLeft = thumbLeftOff + ((thumbLeftOn - thumbLeftOff) * animationProgress);
+            var thumbTop = bounds.Top + ((bounds.Height - thumbWidth) / 2);
             var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth);
 
             // Draw the switch thumb
@@ -152,7 +152,7 @@ public class FreakySwitch : ContentView, IDisposable
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
         // Draw outline
-        var outlineBounds = SKRect.Create(bounds.Left + outlineWidth / 2, bounds.Top + outlineWidth / 2, bounds.Width - outlineWidth, bounds.Height - outlineWidth);
+        var outlineBounds = SKRect.Create(bounds.Left + (outlineWidth / 2), bounds.Top + (outlineWidth / 2), bounds.Width - outlineWidth, bounds.Height - outlineWidth);
         var outlinePaint = new SKPaint
         {
             Color = OnColor.ToSKColor(), // Use OnColor for outline in On state
@@ -167,7 +167,7 @@ public class FreakySwitch : ContentView, IDisposable
         var spacingPercentage = 0.05; // 5% spacing
         var spacing = (float)(bounds.Width * spacingPercentage);
         var thumbLeft = bounds.Left + bounds.Width - thumbWidth - spacing;
-        var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2; // Center the thumb vertically
+        var thumbTop = bounds.Top + ((bounds.Height - thumbWidth) / 2); // Center the thumb vertically
         var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth); // Make the thumb circular
 
         // Draw the switch thumb
@@ -194,7 +194,7 @@ public class FreakySwitch : ContentView, IDisposable
         var spacingPercentage = 0.05; // 5% spacing
         var spacing = (float)(bounds.Width * spacingPercentage);
         var thumbLeft = bounds.Left + spacing;
-        var thumbTop = bounds.Top + (bounds.Height - thumbWidth) / 2; // Center the thumb vertically
+        var thumbTop = bounds.Top + ((bounds.Height - thumbWidth) / 2); // Center the thumb vertically
         var thumbRect = SKRect.Create(thumbLeft, thumbTop, thumbWidth, thumbWidth); // Make the thumb circular
 
         if (IsAndroid)
@@ -215,7 +215,7 @@ public class FreakySwitch : ContentView, IDisposable
         canvas.DrawRoundRect(thumbRect, thumbRect.Width / 2, thumbRect.Height / 2, thumbPaint); // Maintain circular shape
 
         // Draw outline
-        var outlineBounds = SKRect.Create(bounds.Left + outlineWidth / 2, bounds.Top + outlineWidth / 2, bounds.Width - outlineWidth, bounds.Height - outlineWidth);
+        var outlineBounds = SKRect.Create(bounds.Left + (outlineWidth / 2), bounds.Top + (outlineWidth / 2), bounds.Width - outlineWidth, bounds.Height - outlineWidth);
         var outlinePaint = new SKPaint
         {
             Color = OutlineColor.ToSKColor(),
