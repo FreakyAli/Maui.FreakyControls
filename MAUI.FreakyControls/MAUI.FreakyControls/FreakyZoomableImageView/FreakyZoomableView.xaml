@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tm="clr-namespace:Maui.FreakyEffects.TouchTracking;assembly=Maui.FreakyEffects"
+             x:Class="Maui.FreakyControls.FreakyZoomableView">
+    <ContentView.Effects>
+        <tm:TouchEffect Capture="True" TouchAction="OnTouch"/>
+    </ContentView.Effects>
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Tapped="DoubleTapped" NumberOfTapsRequired="2"/>
+        <PanGestureRecognizer PanUpdated="OnPanUpdated"/>
+        <PinchGestureRecognizer PinchUpdated="PinchUpdated"/>
+    </ContentView.GestureRecognizers>
+</ContentView>

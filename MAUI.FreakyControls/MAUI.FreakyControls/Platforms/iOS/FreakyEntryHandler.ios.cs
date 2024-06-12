@@ -1,7 +1,7 @@
 ﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.iOS;
 using Maui.FreakyControls.Platforms.iOS.NativeControls;
-using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 using UIKit;
 

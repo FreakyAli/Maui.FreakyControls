@@ -1,5 +1,6 @@
 ﻿using CoreGraphics;
 using Foundation;
+using Maui.FreakyControls.Enums;
 using System.ComponentModel;
 using UIKit;
 using NativeColor = UIKit.UIColor;

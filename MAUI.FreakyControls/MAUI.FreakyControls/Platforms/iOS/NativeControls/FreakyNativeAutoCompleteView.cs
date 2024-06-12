@@ -1,5 +1,5 @@
 ﻿using Foundation;
-using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 using UIKit;
 

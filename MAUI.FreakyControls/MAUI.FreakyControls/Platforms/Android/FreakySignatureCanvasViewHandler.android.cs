@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Platform;
+﻿using Maui.FreakyControls.Enums;
+using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls
 {
