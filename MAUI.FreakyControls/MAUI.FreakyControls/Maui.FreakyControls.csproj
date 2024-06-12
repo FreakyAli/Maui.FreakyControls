@@ -49,12 +49,6 @@
 		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
-		<AndroidResource Remove="Shared\FreakyPinView\**" />
-		<Compile Remove="Shared\FreakyPinView\**" />
-		<EmbeddedResource Remove="Shared\FreakyPinView\**" />
-		<MauiCss Remove="Shared\FreakyPinView\**" />
-		<MauiXaml Remove="Shared\FreakyPinView\**" />
-		<None Remove="Shared\FreakyPinView\**" />
 		<None Remove="Dotnet\" />
 		<None Remove="Behaviors\" />
 		<None Remove="Constants\" />
@@ -90,7 +84,6 @@
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
 		<None Remove="Platforms\Android\" />
-		<None Remove="Shared\Enums\" />
 		<None Remove="Platforms\Android\NativeControls\" />
 		<None Remove="SkiaSharp.Views.Maui.Core" />
 		<None Remove="SkiaSharp.Views.Maui.Controls" />
@@ -105,10 +98,7 @@
 		<None Remove="Platforms\Android\NativeControls\Signature\" />
 		<None Remove="Platforms\iOS\NativeControls\Signature\" />
 		<None Remove="clear_icon.svg" />
-		<None Remove="Shared\EventArgs\" />
 		<None Remove="CommunityToolkit.Mvvm" />
-		<None Remove="Shared\FreakyAutoCompleteView\" />
-		<None Remove="Shared\FreakyPinView\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
@@ -156,10 +146,6 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiXaml Update="Shared\FreakySignatureView\SignaturePadView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
 		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="FreakyTextInputLayout\FreakyTextInputLayout.xaml">
 		  <SubType></SubType>
 		</MauiXaml>
