@@ -4,7 +4,7 @@ using Android.Graphics.Drawables;
 using AndroidX.Core.View;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
-using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using static Microsoft.Maui.ApplicationModel.Platform;

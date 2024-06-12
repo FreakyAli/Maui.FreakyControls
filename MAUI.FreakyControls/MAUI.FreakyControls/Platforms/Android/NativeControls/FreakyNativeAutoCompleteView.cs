@@ -6,7 +6,7 @@ using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using Java.Lang;
-using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 using Rect = Android.Graphics.Rect;
 

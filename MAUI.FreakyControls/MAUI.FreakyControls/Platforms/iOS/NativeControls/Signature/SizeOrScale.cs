@@ -1,4 +1,5 @@
-﻿using NativeSize = CoreGraphics.CGSize;
+﻿using Maui.FreakyControls.Enums;
+using NativeSize = CoreGraphics.CGSize;
 
 namespace Maui.FreakyControls.Platforms.iOS;
 

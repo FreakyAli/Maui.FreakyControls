@@ -5,7 +5,7 @@ using AndroidX.AppCompat.Widget;
 using AndroidX.Core.View;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
-using Maui.FreakyControls.Shared.Enums;
+using Maui.FreakyControls.Enums;
 using static Microsoft.Maui.ApplicationModel.Platform;
 
 namespace Maui.FreakyControls;
