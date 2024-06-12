@@ -33,3 +33,20 @@ public static class MauiProgram
 ```
 
 Now you can use the controls in your app.
+
+## Breaking Changes in this version!!
+
+Post v0.5.0-pre there will be some breaking changes made to the namespace structure of our controls,
+anywhere the namespace had the Shared folder mentioned in it, shall be removed, together with the folder itself
+So the new namespace would be as shown below:
+
+```C#
+
+using Maui.FreakyControls.Shared.Enums; //old namespace
+using Maui.FreakyControls.Enums; // new namespace
+
+```
+
+The above applies to all the other sub-folders as well.
+
+Deprecated API's from the previous version have also been removed!
