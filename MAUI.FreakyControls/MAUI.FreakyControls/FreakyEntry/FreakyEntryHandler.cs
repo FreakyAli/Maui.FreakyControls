@@ -14,17 +14,21 @@ public sealed partial class FreakyEntryHandler : EntryHandler
 
     private void MapFreakyEntry(IEntryHandler entryHandler, IEntry entry)
     {
-        if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
+        try
         {
-            if (PlatformView is not null && VirtualView is not null)
+            if (entry is FreakyEntry freakyEntry && entryHandler is FreakyEntryHandler freakyEntryHandler)
             {
-                if (freakyEntry.ImageSource != default(ImageSource))
+                if (PlatformView is not null && VirtualView is not null)
                 {
-                    freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
+                    if (freakyEntry.ImageSource != default(ImageSource))
+                    {
+                        freakyEntryHandler.HandleAndAlignImageSourceAsync(freakyEntry).RunConcurrently();
+                    }
+                    HandleAllowCopyPaste(freakyEntry);
                 }
-                HandleAllowCopyPaste(freakyEntry);
             }
         }
+        catch (InvalidOperationException ex) { }
     }
 }
 

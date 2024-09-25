@@ -696,7 +696,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     private static void OnOutlineTitleBackgroundColorProperty(BindableObject bindable, object oldValue, object newValue)
     {
-        if (bindable is FreakyTextInputLayout til && newValue is Color color)
+        if (bindable is FreakyTextInputLayout til && newValue is Color color && til.LabelTitle is not null)
         {
             til.LabelTitle.BackgroundColor = til.BorderType ==
                 BorderType.Outlined ? color : Colors.Transparent;
