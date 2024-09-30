@@ -13,17 +13,21 @@ public partial class FreakyDatePickerHandler : DatePickerHandler
 
     private void MapDatePicker(IDatePickerHandler datePickerHandler, IDatePicker datePicker)
     {
-        if (datePicker is FreakyDatePicker freakyDatePicker &&
-                 datePickerHandler is FreakyDatePickerHandler freakyDatePickerHandler)
+        try
         {
-            if (PlatformView is not null && VirtualView is not null)
+            if (datePicker is FreakyDatePicker freakyDatePicker &&
+                     datePickerHandler is FreakyDatePickerHandler freakyDatePickerHandler)
             {
-                if (freakyDatePicker.ImageSource != default(ImageSource))
+                if (PlatformView is not null && VirtualView is not null)
                 {
-                    freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently();
+                    if (freakyDatePicker.ImageSource != default(ImageSource))
+                    {
+                        freakyDatePickerHandler.HandleAndAlignImageSourceAsync(freakyDatePicker).RunConcurrently();
+                    }
                 }
             }
         }
+        catch (InvalidOperationException ex) { }
     }
 }
 
