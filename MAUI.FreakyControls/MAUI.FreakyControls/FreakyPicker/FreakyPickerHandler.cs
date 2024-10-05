@@ -13,17 +13,21 @@ public partial class FreakyPickerHandler : PickerHandler
 
     private void MapPicker(IPickerHandler pickerHandler, IPicker picker)
     {
-        if (picker is FreakyPicker freakyTimePicker &&
-                      pickerHandler is FreakyPickerHandler freakyTimePickerHandler)
+        try
         {
-            if (PlatformView is not null && VirtualView is not null)
+            if (picker is FreakyPicker freakyTimePicker &&
+                          pickerHandler is FreakyPickerHandler freakyTimePickerHandler)
             {
-                if (freakyTimePicker.ImageSource != default(ImageSource))
+                if (PlatformView is not null && VirtualView is not null)
                 {
-                    freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
+                    if (freakyTimePicker.ImageSource != default(ImageSource))
+                    {
+                        freakyTimePickerHandler.HandleAndAlignImageSourceAsync(freakyTimePicker).RunConcurrently();
+                    }
                 }
             }
         }
+        catch (InvalidOperationException ex) { }
     }
 }
 #else
