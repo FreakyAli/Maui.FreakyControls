@@ -1,0 +1,29 @@
+name: Create a release on NuGet
+
+on:
+  push:
+    tags:
+    - "v[0-9]+.[0-9]+.[0-9]+"
+    - "v[0-9]+.[0-9]+.[0-9]+-preview[0-9]+"
+jobs:
+  release-nuget:
+  
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify commit exists in origin/main
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+          git branch --remote --contains | grep origin/master
+      - name: Get version information from tag
+        id: get_version
+        run: |
+          $version="${{github.ref_name}}".TrimStart("v")
+          "version-without-v=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+      - name: Pack
+        run: dotnet pack Maui.FreakyControls\Maui.FreakyControls.sln -c Release -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }}
+      - name: Push
+        run: dotnet nuget push Maui.FreakyControls\Maui.FreakyControls\bin\Release\Maui.FreakyControls.${{ steps.get_version.outputs.version-without-v }}.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
