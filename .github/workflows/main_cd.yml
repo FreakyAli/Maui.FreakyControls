@@ -22,7 +22,7 @@ jobs:
           $version="${{github.ref_name}}".TrimStart("v")
           "version-without-v=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
       - name: Pack
-        run: dotnet pack Maui.FreakyControls\Maui.FreakyControls.sln -c Release -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }}
+        run: dotnet pack MAUI.FreakyControls/MAUI.FreakyControls/Maui.FreakyControls.csproj -c Release -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }}
       - name: Push
         run: dotnet nuget push Maui.FreakyControls\Maui.FreakyControls\bin\Release\Maui.FreakyControls.${{ steps.get_version.outputs.version-without-v }}.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
         env:
