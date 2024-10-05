@@ -1,0 +1,19 @@
+name: Build for CI
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-plugin-ci:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: dotnet build Maui.FreakyControls\Maui.FreakyControls.sln -c Release
