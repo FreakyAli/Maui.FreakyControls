@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Windows.Input;
 using Color = Microsoft.Maui.Graphics.Color;
 using SKPaintSurfaceEventArgs = SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs;
-using SKSvg = SkiaSharp.Extended.Svg.SKSvg;
+using SKSvg = Svg.Skia.SKSvg;
 
 namespace Maui.FreakyControls;
 
