@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
@@ -28,7 +28,7 @@ public sealed partial class FreakyEntryHandler : EntryHandler
                 }
             }
         }
-        catch (InvalidOperationException ex) { }
+        catch (Exception ex) { }
     }
 }
 

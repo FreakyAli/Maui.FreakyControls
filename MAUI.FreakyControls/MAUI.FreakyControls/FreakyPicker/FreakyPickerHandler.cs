@@ -27,7 +27,7 @@ public partial class FreakyPickerHandler : PickerHandler
                 }
             }
         }
-        catch (InvalidOperationException ex) { }
+        catch (Exception ex) { }
     }
 }
 #else

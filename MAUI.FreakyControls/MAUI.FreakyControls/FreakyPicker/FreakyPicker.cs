@@ -36,7 +36,7 @@ public class FreakyPicker : Picker, IDrawableImageView
            5);
 
     public static readonly BindableProperty ImageCommandProperty = BindableProperty.Create(
-          nameof(ImagePadding),
+          nameof(ImageCommand),
           typeof(ICommand),
           typeof(FreakyPicker),
           default(ICommand));
