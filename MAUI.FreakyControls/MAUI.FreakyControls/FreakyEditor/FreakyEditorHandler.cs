@@ -22,7 +22,7 @@ public sealed partial class FreakyEditorHandler : EditorHandler
                 }
             }
         }
-        catch Exception ex) { }
+        catch(Exception) { }
     }
 }
 #else

@@ -27,7 +27,7 @@ public partial class FreakyDatePickerHandler : DatePickerHandler
                 }
             }
         }
-        catch (Exception ex) { }
+        catch (Exception) { }
     }
 }
 
