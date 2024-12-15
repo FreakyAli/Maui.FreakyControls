@@ -28,7 +28,7 @@ public sealed partial class FreakyEntryHandler : EntryHandler
                 }
             }
         }
-        catch (Exception ex) { }
+        catch (Exception) { }
     }
 }
 
