@@ -48,12 +48,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
-	<!--<AndroidResource Remove="Shared\FreakyPinView\**" />
-		<Compile Remove="Shared\FreakyPinView\**" />
-		<EmbeddedResource Remove="Shared\FreakyPinView\**" />
-		<MauiCss Remove="Shared\FreakyPinView\**" />
-		<MauiXaml Remove="Shared\FreakyPinView\**" />
-		<None Remove="Shared\FreakyPinView\**" />-->
 	<ItemGroup>
 		<None Remove="Dotnet\" />
 		<None Remove="Behaviors\" />
@@ -105,14 +99,6 @@
 		<None Remove="Platforms\Android\NativeControls\Signature\" />
 		<None Remove="Platforms\iOS\NativeControls\Signature\" />
 		<None Remove="clear_icon.svg" />
-		<!--<<<<<<< HEAD
-		<None Remove="Shared\EventArgs\" />
-		<None Remove="CommunityToolkit.Mvvm" />
-		<None Remove="Shared\FreakyAutoCompleteView\" />
-		<None Remove="Shared\FreakyPinView\" />
-=======
-		<None Remove="CommunityToolkit.Mvvm" />
->>>>>>> master-->
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
@@ -154,7 +140,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.9" />
-		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+		<PackageReference Include="Svg.Skia" Version="1.0.0.19" />
 		<PackageReference Include="FreakyEffects" Version="0.1.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.82" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.82" />
