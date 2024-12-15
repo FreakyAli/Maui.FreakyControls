@@ -48,13 +48,13 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
 		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
-	<ItemGroup>
-		<AndroidResource Remove="Shared\FreakyPinView\**" />
+	<!--<AndroidResource Remove="Shared\FreakyPinView\**" />
 		<Compile Remove="Shared\FreakyPinView\**" />
 		<EmbeddedResource Remove="Shared\FreakyPinView\**" />
 		<MauiCss Remove="Shared\FreakyPinView\**" />
 		<MauiXaml Remove="Shared\FreakyPinView\**" />
-		<None Remove="Shared\FreakyPinView\**" />
+		<None Remove="Shared\FreakyPinView\**" />-->
+	<ItemGroup>
 		<None Remove="Dotnet\" />
 		<None Remove="Behaviors\" />
 		<None Remove="Constants\" />
@@ -105,10 +105,14 @@
 		<None Remove="Platforms\Android\NativeControls\Signature\" />
 		<None Remove="Platforms\iOS\NativeControls\Signature\" />
 		<None Remove="clear_icon.svg" />
+		<!--<<<<<<< HEAD
 		<None Remove="Shared\EventArgs\" />
 		<None Remove="CommunityToolkit.Mvvm" />
 		<None Remove="Shared\FreakyAutoCompleteView\" />
 		<None Remove="Shared\FreakyPinView\" />
+=======
+		<None Remove="CommunityToolkit.Mvvm" />
+>>>>>>> master-->
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
@@ -161,7 +165,8 @@
 			</SubType>
 		</MauiXaml>
 		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="FreakyTextInputLayout\FreakyTextInputLayout.xaml">
-		  <SubType></SubType>
+			<SubType>
+			</SubType>
 		</MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
@@ -179,8 +184,8 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-	  </Compile>
+		<Compile Update="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
 	</ItemGroup>
 </Project>
