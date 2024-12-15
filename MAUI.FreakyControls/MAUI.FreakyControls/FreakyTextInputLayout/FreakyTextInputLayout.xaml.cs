@@ -10,7 +10,8 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
     private int _leftMargin;
     private double _placeholderFontSize = 18;
     private double _titleFontSize = 14;
-
+    private bool _isLoading;
+    
     public FreakyTextInputLayout()
     {
         InitializeComponent();
@@ -696,7 +697,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     private static void OnOutlineTitleBackgroundColorProperty(BindableObject bindable, object oldValue, object newValue)
     {
-        if (bindable is FreakyTextInputLayout til && newValue is Color color)
+        if (bindable is FreakyTextInputLayout til && newValue is Color color && til.LabelTitle is not null)
         {
             til.LabelTitle.BackgroundColor = til.BorderType ==
                 BorderType.Outlined ? color : Colors.Transparent;
@@ -755,8 +756,9 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     private async void Handle_Focused(object sender, FocusEventArgs e)
     {
-        if (string.IsNullOrEmpty(Text))
+        if (string.IsNullOrEmpty(Text) && LabelTitle.Height > 0)
         {
+            //don't transition if labeltitle height is 0 (not initialized fully)
             await TransitionToTitle(true);
         }
     }
@@ -791,6 +793,8 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
             LabelTitle.TranslationY = yoffset;
             LabelTitle.FontSize = _titleFontSize;
         }
+        
+        _isLoading = false;
     }
 
     private async Task TransitionToPlaceholder(bool animated)
@@ -866,9 +870,15 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     private async void EntryField_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(Height) && !string.IsNullOrEmpty(EntryField?.Text))
+        if (e.PropertyName == nameof(IsFocused) && LabelTitle.Height <= 0)
         {
-            //Make label floating if the entry field already has text it in when it is loaded
+            //entry receives focus before it is fully initialized (0 height)
+            _isLoading = true;
+        }
+        else if (e.PropertyName == nameof(Height) && (!string.IsNullOrEmpty(EntryField?.Text) || _isLoading))
+        {
+            //Make label floating if the entry field already has text in it when it is loaded or
+            // has focus when the app starts (if focus is applied on app load) 
             await TransitionToTitle(false);
         }
     }

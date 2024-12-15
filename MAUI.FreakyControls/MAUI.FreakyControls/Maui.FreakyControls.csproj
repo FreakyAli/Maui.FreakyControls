@@ -84,6 +84,7 @@
 	<ItemGroup>
 		<None Remove="Platforms\iOS\" />
 		<None Remove="Platforms\Android\" />
+		<None Remove="Shared\Enums\" />
 		<None Remove="Platforms\Android\NativeControls\" />
 		<None Remove="SkiaSharp.Views.Maui.Core" />
 		<None Remove="SkiaSharp.Views.Maui.Controls" />
@@ -98,7 +99,6 @@
 		<None Remove="Platforms\Android\NativeControls\Signature\" />
 		<None Remove="Platforms\iOS\NativeControls\Signature\" />
 		<None Remove="clear_icon.svg" />
-		<None Remove="CommunityToolkit.Mvvm" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
@@ -139,15 +139,20 @@
 		<Folder Include="Wrappers\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.9" />
 		<PackageReference Include="Svg.Skia" Version="1.0.0.19" />
 		<PackageReference Include="FreakyEffects" Version="0.1.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.82" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.82" />
 	</ItemGroup>
 	<ItemGroup>
+		<MauiXaml Update="Shared\FreakySignatureView\SignaturePadView.xaml">
+			<SubType>
+			</SubType>
+		</MauiXaml>
 		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="FreakyTextInputLayout\FreakyTextInputLayout.xaml">
-		  <SubType></SubType>
+			<SubType>
+			</SubType>
 		</MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
@@ -165,8 +170,8 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-	  </Compile>
+		<Compile Update="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
 	</ItemGroup>
 </Project>
