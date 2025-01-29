@@ -36,9 +36,9 @@ public partial class SwipeCardViewModel : BaseViewModel
         Profiles.Add(new Profile { ProfileId = 10, Name = "Sasha", Age = 23, Gender = Gender.Female, Photo = ImageUrls.Female10});
 
         Profiles.Add(new Profile { ProfileId = 11, Name = "Austin", Age = 28, Gender = Gender.Male, Photo = ImageUrls.Male1 });
-        Profiles.Add(new Profile { ProfileId = 11, Name = "James", Age = 32, Gender = Gender.Male, Photo = ImageUrls.Male2 });
-        Profiles.Add(new Profile { ProfileId = 11, Name = "Chris", Age = 27, Gender = Gender.Male, Photo = ImageUrls.Male3 });
-        Profiles.Add(new Profile { ProfileId = 11, Name = "Alexander", Age = 30, Gender = Gender.Male, Photo = ImageUrls.Male4 });
-        Profiles.Add(new Profile { ProfileId = 11, Name = "Steve", Age = 31, Gender = Gender.Male, Photo = ImageUrls.Male5 });
+        Profiles.Add(new Profile { ProfileId = 12, Name = "James", Age = 32, Gender = Gender.Male, Photo = ImageUrls.Male2 });
+        Profiles.Add(new Profile { ProfileId = 13, Name = "Chris", Age = 27, Gender = Gender.Male, Photo = ImageUrls.Male3 });
+        Profiles.Add(new Profile { ProfileId = 14, Name = "Alexander", Age = 30, Gender = Gender.Male, Photo = ImageUrls.Male4 });
+        Profiles.Add(new Profile { ProfileId = 15, Name = "Steve", Age = 31, Gender = Gender.Male, Photo = ImageUrls.Male5 });
     }
 }
