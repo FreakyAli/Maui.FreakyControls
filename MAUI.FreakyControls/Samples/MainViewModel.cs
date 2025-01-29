@@ -11,8 +11,8 @@ namespace Samples
 
         public List<string> Names => names;
 
-        protected List<string> names = new List<string>
-        {
+        protected List<string> names =
+        [
             "Ava", "Amelia", "Adam", "Aaron", "Abigail", "Addison", "Alexandra", "Alice", "Ashley", "Aiden",
             "Benjamin", "Bella", "Brandon", "Brooke", "Blake", "Brian", "Brooklyn", "Bailey", "Bradley", "Brianna",
             "Charlotte", "Caleb", "Chloe", "Carter", "Christopher", "Claire", "Cameron", "Cassidy", "Cooper", "Caroline",
@@ -39,28 +39,28 @@ namespace Samples
             "Xander", "Ximena", "Xavier", "Xanthe", "Xena", "Xia", "Xylia", "Xyla", "Xerxes", "Xylona",
             "Yasmine", "Yael", "Yara", "Yaretzi", "Yvonne", "Yvette", "Yvaine", "Yelena", "Yara", "Yasmine",
             "Zachary", "Zoe", "Zachariah", "Zara", "Zayden", "Zuri", "Zane", "Zelda", "Zeke", "Zena"
-        };
+        ];
 
         public MainViewModel()
         {
             ImageWasTappedCommand = new AsyncRelayCommand<object>(ImageTappedAsync, new AsyncRelayCommandOptions());
             FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
 
-            Items = new ObservableCollection<string>
-            {
-                AppShell.pickers,
-                AppShell.textInputLayout,
-                AppShell.inputViews,
-                AppShell.imageViews,
-                AppShell.signatureView,
-                AppShell.checkboxes,
-                AppShell.radioButtons,
-                AppShell.buttons,
-                AppShell.jumpList,
-                AppShell.pinView,
-                AppShell.switches,
-                AppShell.zoomImage
-            };
+            Items =
+            [
+                AppShell.Pickers,
+                AppShell.TextInputLayout,
+                AppShell.InputViews,
+                AppShell.ImageViews,
+                AppShell.SignatureView,
+                AppShell.Checkboxes,
+                AppShell.RadioButtons,
+                AppShell.Buttons,
+                AppShell.JumpList,
+                AppShell.PinView,
+                AppShell.Switches,
+                AppShell.ZoomImage
+            ];
         }
 
         public ICommand FreakyLongPressedCommand { get; set; }
