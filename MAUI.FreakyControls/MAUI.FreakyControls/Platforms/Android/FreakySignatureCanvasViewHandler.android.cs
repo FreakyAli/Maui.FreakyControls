@@ -10,7 +10,7 @@ namespace Maui.FreakyControls
 
         private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
         {
-            var ctrl = this.PlatformView;
+            var ctrl = PlatformView;
             if (ctrl is not null)
             {
                 var format = e.ImageFormat;

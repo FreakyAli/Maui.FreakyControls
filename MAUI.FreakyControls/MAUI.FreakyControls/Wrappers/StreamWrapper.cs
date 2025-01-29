@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Threading;
 
 namespace Maui.FreakyControls.Wrappers
 {
@@ -83,7 +84,7 @@ namespace Maui.FreakyControls.Wrappers
             base.Dispose(disposing);
         }
 
-        public static async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken, HttpClient client)
+        public static async Task<Stream> GetStreamAsync(Uri uri, HttpClient client, CancellationToken cancellationToken)
         {
             var response = await client.GetAsync(uri, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
@@ -96,7 +97,7 @@ namespace Maui.FreakyControls.Wrappers
 
             // the HttpResponseMessage needs to be disposed of after the calling code is done with the stream
             // otherwise the stream may get disposed before the caller can use it
-            return new StreamWrapper(await response.Content.ReadAsStreamAsync().ConfigureAwait(false), response);
+            return new StreamWrapper(await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false), response);
         }
     }
 }
