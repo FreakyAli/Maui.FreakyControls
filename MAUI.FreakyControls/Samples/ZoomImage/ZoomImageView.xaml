@@ -7,7 +7,7 @@
              Title="ZoomImageView">
     <Grid BackgroundColor="#88000000">
         <freakyControls:FreakyZoomableView>
-            <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.female1}"/>
+            <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.Female1}"/>
         </freakyControls:FreakyZoomableView>
     </Grid>
 </ContentPage>
