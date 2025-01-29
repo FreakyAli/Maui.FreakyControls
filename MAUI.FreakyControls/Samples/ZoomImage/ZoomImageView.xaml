@@ -4,7 +4,10 @@
              x:Class="Samples.ZoomImage.ZoomImageView"
              xmlns:sample="clr-namespace:Samples"
              xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+             xmlns:vm="clr-namespace:Samples.ZoomImage"
+             x:DataType="vm:ZoomImageViewModel"              
              Title="ZoomImageView">
+    
     <Grid BackgroundColor="#88000000">
         <freakyControls:FreakyZoomableView>
             <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.Female1}"/>
