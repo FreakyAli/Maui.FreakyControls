@@ -36,7 +36,7 @@ public class InputViewModel : MainViewModel
     {
         NamesCollection = Names.ToObservable();
 
-        NamesModel = names.Select(x => new AutoCompleteModel { Name = x }).ToList();
+        NamesModel = [.. names.Select(x => new AutoCompleteModel { Name = x })];
         NamesCollectionModel = NamesModel.ToObservable();
 
         EntryCompleteCommand = new Command(ExecuteEntryCompleteCommand);

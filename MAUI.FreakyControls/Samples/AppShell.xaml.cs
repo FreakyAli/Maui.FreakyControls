@@ -2,35 +2,35 @@ namespace Samples;
 
 public partial class AppShell : Shell
 {
-    internal const string buttons = "Buttons";
-    internal const string checkboxes = "Checkboxes";
-    internal const string imageViews = "ImageViews";
-    internal const string inputViews = "InputViews";
-    internal const string pickers = "Pickers";
-    internal const string radioButtons = "RadioButtons";
-    internal const string signaturePreview = "ImageDisplay";
-    internal const string signatureView = "SignatureView";
-    internal const string textInputLayout = "TextInputLayouts";
-    internal const string jumpList = "JumpList";
-    internal const string pinView = "PinView";
-    internal const string switches = "Switch";
-    internal const string zoomImage = "ZoomImage";
+    internal const string Buttons = "Buttons";
+    internal const string Checkboxes = "Checkboxes";
+    internal const string ImageViews = "ImageViews";
+    internal const string InputViews = "InputViews";
+    internal const string Pickers = "Pickers";
+    internal const string RadioButtons = "RadioButtons";
+    internal const string SignaturePreview = "ImageDisplay";
+    internal const string SignatureView = "SignatureView";
+    internal const string TextInputLayout = "TextInputLayouts";
+    internal const string JumpList = "JumpList";
+    internal const string PinView = "PinView";
+    internal const string Switches = "Switch";
+    internal const string ZoomImage = "ZoomImage";
 
     public AppShell()
     {
         InitializeComponent();
-        Routing.RegisterRoute(inputViews, typeof(InputViews.InputViews));
-        Routing.RegisterRoute(pickers, typeof(Pickers.PickersView));
-        Routing.RegisterRoute(textInputLayout, typeof(TextInputLayout.TextInputLayoutView));
-        Routing.RegisterRoute(imageViews, typeof(ImageViews.ImagesPage));
-        Routing.RegisterRoute(signatureView, typeof(SignatureView.SignatureView));
-        Routing.RegisterRoute(signaturePreview, typeof(SignatureView.ImageDisplay));
-        Routing.RegisterRoute(checkboxes, typeof(Checkboxes.CheckboxesView));
-        Routing.RegisterRoute(radioButtons, typeof(RadioButtons.RadioButtonsView));
-        Routing.RegisterRoute(buttons, typeof(ButtonsView.ButtonsView));
-        Routing.RegisterRoute(jumpList, typeof(JumpList.JumpListView));
-        Routing.RegisterRoute(pinView, typeof(PinView.PinView));
-        Routing.RegisterRoute(switches, typeof(Switch.SwitchsView));
-        Routing.RegisterRoute(zoomImage, typeof(ZoomImage.ZoomImageView));
+        Routing.RegisterRoute(InputViews, typeof(InputViews.InputViews));
+        Routing.RegisterRoute(Pickers, typeof(Pickers.PickersView));
+        Routing.RegisterRoute(TextInputLayout, typeof(TextInputLayout.TextInputLayoutView));
+        Routing.RegisterRoute(ImageViews, typeof(ImageViews.ImagesPage));
+        Routing.RegisterRoute(SignatureView, typeof(SignatureView.SignatureView));
+        Routing.RegisterRoute(SignaturePreview, typeof(SignatureView.ImageDisplay));
+        Routing.RegisterRoute(Checkboxes, typeof(Checkboxes.CheckboxesView));
+        Routing.RegisterRoute(RadioButtons, typeof(RadioButtons.RadioButtonsView));
+        Routing.RegisterRoute(Buttons, typeof(ButtonsView.ButtonsView));
+        Routing.RegisterRoute(JumpList, typeof(JumpList.JumpListView));
+        Routing.RegisterRoute(PinView, typeof(PinView.PinView));
+        Routing.RegisterRoute(Switches, typeof(Switch.SwitchsView));
+        Routing.RegisterRoute(ZoomImage, typeof(ZoomImage.ZoomImageView));
     }
 }

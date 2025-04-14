@@ -2,7 +2,7 @@
 
 public partial class MainPage : ContentPage
 {
-    private MainViewModel vm;
+    private readonly MainViewModel vm;
 
     public MainPage()
     {
@@ -10,22 +10,22 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    private async void FreakySvgImageView_Tapped(object sender, System.EventArgs e)
+    private async void FreakySvgImageView_Tapped(object sender, EventArgs e)
     {
-        await this.DisplayAlert("Yo", "Hi from the dotnet bot", "Ok");
+        await DisplayAlert("Yo", "Hi from the dotnet bot", "Ok");
     }
 
-    private async void OnButtonClicked(System.Object sender, System.EventArgs e)
+    private async void OnButtonClicked(object sender, EventArgs e)
     {
-        await this.DisplayAlert("Yo", "I am a freaky button", "Ok");
+        await DisplayAlert("Yo", "I am a freaky button", "Ok");
     }
 
-    private async void ListView_ItemTapped(System.Object sender, Microsoft.Maui.Controls.ItemTappedEventArgs e)
+    private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
     {
         string route = e.Item.ToString();
-        if (route == AppShell.jumpList)
+        if (route == AppShell.JumpList)
         {
-            var permission = await Samples.PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
+            var permission = await PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
             if (permission != PermissionStatus.Granted)
             {
                 await DisplayAlert("Error", "Needs vibration permission for haptik feedback", "Ok");

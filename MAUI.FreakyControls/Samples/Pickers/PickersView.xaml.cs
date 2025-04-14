@@ -5,6 +5,6 @@ public partial class PickersView : ContentPage
     public PickersView()
     {
         InitializeComponent();
-        this.BindingContext = new PickersViewModel();
+        BindingContext = new PickersViewModel();
     }
 }

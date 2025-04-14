@@ -4,7 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-    Title="Switchs">
+    xmlns:vm="clr-namespace:Samples.Switch"
+    x:DataType="vm:SwitchesViewModel"     
+    Title="Switches">
+    
     <VerticalStackLayout
         HorizontalOptions="Center"
         Spacing="10"
