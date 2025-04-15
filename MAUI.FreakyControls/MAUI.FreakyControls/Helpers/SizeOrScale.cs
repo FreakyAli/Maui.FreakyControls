@@ -60,9 +60,9 @@ public struct SizeOrScale
 
     public bool KeepAspectRatio { get; set; }
 
-    public bool IsValid => X > 0 && Y > 0;
+    public readonly bool IsValid => X > 0 && Y > 0;
 
-    public Size GetScale(float width, float height)
+    public readonly Size GetScale(float width, float height)
     {
         if (Type == SizeOrScaleType.Scale)
         {
@@ -74,7 +74,7 @@ public struct SizeOrScale
         }
     }
 
-    public Size GetSize(float width, float height)
+    public readonly Size GetSize(float width, float height)
     {
         if (Type == SizeOrScaleType.Scale)
         {

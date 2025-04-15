@@ -5,7 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:samples="clr-namespace:Samples"
-    Title="RadioButtonsView">
+    xmlns:vm="clr-namespace:Samples.RadioButtons"
+    Title="RadioButtonsView"
+    x:DataType="vm:RadioButtonsViewModel">
+
     <VerticalStackLayout
         Padding="30"
         HorizontalOptions="Center"

@@ -1,4 +1,5 @@
-﻿namespace Samples;
+﻿
+namespace Samples;
 
 public partial class App : Application
 {
@@ -6,6 +7,10 @@ public partial class App : Application
     {
         InitializeComponent();
         Current.UserAppTheme = AppTheme.Light;
-        MainPage = new AppShell();
+    }
+
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        return new Window(new AppShell());
     }
 }

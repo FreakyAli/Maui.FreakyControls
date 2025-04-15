@@ -15,7 +15,7 @@
             AbsoluteLayout.LayoutFlags="All"
             HorizontalScrollBarVisibility="Never"
             ItemSizingStrategy="MeasureFirstItem"
-            ItemsSource="{Binding Names, Mode=OneTime}"
+            ItemsSource="{Binding Names}"
             ItemsUpdatingScrollMode="KeepLastItemInView"
             VerticalScrollBarVisibility="Never">
             <CollectionView.ItemsLayout>
@@ -27,7 +27,7 @@
                         <Label
                             FontAttributes="Bold"
                             FontSize="Large"
-                            Text="{Binding ., Mode=OneTime}"
+                            Text="{Binding .}"
                             TextColor="Black" />
                     </Border>
                 </DataTemplate>

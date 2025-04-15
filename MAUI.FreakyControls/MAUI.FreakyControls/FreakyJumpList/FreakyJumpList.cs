@@ -186,14 +186,17 @@ public class FreakyJumpList : SKCanvasView, IDisposable
             var currentIndex = index + 1;
             using var textPaint = new SKPaint()
             {
-                TextSize = this.CharacterSize,
-                TextAlign = SKTextAlign.Center,
+                Color = currentAlphabet == this.SelectedCharacter ?
+                SelectedCharacterColor.ToSKColor() : CharacterColor.ToSKColor()
             };
-            textPaint.Color = currentAlphabet == this.SelectedCharacter ?
-                SelectedCharacterColor.ToSKColor() : CharacterColor.ToSKColor();
+            var skFont = new SKFont()
+            {
+                Size = this.CharacterSize,
+            };
+            SKTextAlign textAlign = SKTextAlign.Center;
             var point = new SKPoint((float)(info.Width / 2.0), (float)(info.Height / maxCount * currentIndex));
             charLocationDictionary.Add(currentAlphabet, point);
-            canvas?.DrawText(currentAlphabet, point, textPaint);
+            canvas?.DrawText(currentAlphabet, point, textAlign, skFont, textPaint);
         }
     }
 

@@ -35,13 +35,13 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     protected override void DisconnectHandler(FreakyNativeAutoCompleteView platformView)
     {
+        base.DisconnectHandler(platformView);
         platformView.SuggestionChosen -= OnPlatformViewSuggestionChosen;
         platformView.TextChanged -= OnPlatformViewTextChanged;
         platformView.QuerySubmitted -= OnPlatformViewQuerySubmitted;
-        PlatformView.EditingDidBegin -= Control_EditingDidBegin;
-        PlatformView.EditingDidEnd -= Control_EditingDidEnd;
+        platformView.EditingDidBegin -= Control_EditingDidBegin;
+        platformView.EditingDidEnd -= Control_EditingDidEnd;
         platformView.Dispose();
-        base.DisconnectHandler(platformView);
     }
 
     private void OnPlatformViewSuggestionChosen(object? sender, FreakyAutoCompleteViewSuggestionChosenEventArgs e)

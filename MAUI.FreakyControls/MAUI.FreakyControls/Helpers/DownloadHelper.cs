@@ -20,7 +20,7 @@ public static class DownloadHelper
 
             // Do not remove this await otherwise the client will dispose before
             // the stream even starts
-            return await StreamWrapper.GetStreamAsync(uri, cancellationToken, client).ConfigureAwait(false);
+            return await StreamWrapper.GetStreamAsync(uri, client, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {

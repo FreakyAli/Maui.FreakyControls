@@ -1,6 +1,4 @@
-﻿using Maui.FreakyControls;
-
-namespace Samples.SignatureView;
+﻿namespace Samples.SignatureView;
 
 public class ImageDisplay : ContentPage
 {
