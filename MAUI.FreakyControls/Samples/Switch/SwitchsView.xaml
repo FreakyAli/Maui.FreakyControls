@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:vm="clr-namespace:Samples.Switch"
-    x:DataType="vm:SwitchesViewModel"     
-    Title="Switches">
-    
+    Title="Switches"
+    x:DataType="vm:SwitchesViewModel">
+
     <VerticalStackLayout
         HorizontalOptions="Center"
         Spacing="10"
@@ -39,7 +39,12 @@
         </HorizontalStackLayout>
         <HorizontalStackLayout Spacing="10">
             <Label Text="Default Switch" VerticalTextAlignment="Center" />
-            <freakyControls:FreakySwitch />
+            <freakyControls:FreakySwitch
+                CheckMarkColor="Green"
+                AnimationDuration="200"
+                CheckMarkWidth="5"
+                ThumbOffSizeFactor="1"
+                ShowCheckMark="True" />
         </HorizontalStackLayout>
         <HorizontalStackLayout Spacing="10">
             <Label Text="Disabled" VerticalTextAlignment="Center" />
