@@ -82,13 +82,15 @@ namespace Samples
 
         private async Task ImageTappedAsync(object obj)
         {
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            Application.Current.MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
+            var MainPage = Application.Current.Windows.FirstOrDefault()?.Page;
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            await MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
         }
 
         private async Task LongPressedAsync(object commandParam)
         {
-            await Application.Current.MainPage.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
+            var MainPage = Application.Current.Windows.FirstOrDefault()?.Page;
+            await MainPage.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
         }
     }
 }

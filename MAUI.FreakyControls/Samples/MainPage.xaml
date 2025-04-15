@@ -17,7 +17,7 @@
         SeparatorVisibility="None">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding .}" TextColor="Black" />
+                <Label Text="{Binding .}" TextColor="Black" />
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
