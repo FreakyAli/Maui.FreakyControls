@@ -190,9 +190,9 @@ public class FreakySwitch : ContentView, IDisposable
         {
             // Draw the checkmark
             var checkmarkPath = new SKPath();
-            checkmarkPath.MoveTo(thumbLeft + thumbWidth * 0.25f, thumbTop + thumbWidth * 0.5f);
-            checkmarkPath.LineTo(thumbLeft + thumbWidth * 0.45f, thumbTop + thumbWidth * 0.7f);
-            checkmarkPath.LineTo(thumbLeft + thumbWidth * 0.75f, thumbTop + thumbWidth * 0.3f);
+            checkmarkPath.MoveTo(thumbLeft + (thumbWidth * 0.25f), thumbTop + (thumbWidth * 0.5f));
+            checkmarkPath.LineTo(thumbLeft + (thumbWidth * 0.45f), thumbTop + (thumbWidth * 0.7f));
+            checkmarkPath.LineTo(thumbLeft + (thumbWidth * 0.75f), thumbTop + (thumbWidth * 0.3f));
 
             var checkmarkPaint = new SKPaint
             {
