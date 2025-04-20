@@ -3,6 +3,7 @@
     x:Class="Maui.FreakyControls.FreakyCodeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fc="clr-namespace:Maui.FreakyControls"
     x:Name="this">
     <Grid>
         <Entry x:Name="hiddenTextEntry" Opacity="0">
@@ -13,7 +14,7 @@
                 </OnPlatform>
             </Entry.FontSize>
         </Entry>
-        <HorizontalStackLayout x:Name="CodeItemContainer" Spacing="{Binding ItemSpacing, Source={x:Reference this}}">
+        <HorizontalStackLayout x:Name="CodeItemContainer" Spacing="{Binding ItemSpacing, Source={x:Reference this}, x:DataType=fc:FreakyCodeView}">
             <HorizontalStackLayout.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
             </HorizontalStackLayout.GestureRecognizers>

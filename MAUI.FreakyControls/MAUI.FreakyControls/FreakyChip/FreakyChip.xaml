@@ -6,46 +6,47 @@
     xmlns:controls="clr-namespace:Maui.FreakyControls"
     xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
     x:Name="this"
-    freakyEffects:TouchEffect.Color="{Binding AnimationColor, Source={x:Reference this}}">
+    xmlns:fc="clr-namespace:Maui.FreakyControls"
+    freakyEffects:TouchEffect.Color="{Binding AnimationColor, Source={x:Reference this}, x:DataType=fc:FreakyChip}">
     <Border
         x:Name="border"
-        Padding="{Binding Padding, Source={x:Reference this}}"
-        Stroke="{Binding Stroke, Source={x:Reference this}}"
-        StrokeThickness="{Binding StrokeThickness, Source={x:Reference this}}">
+        Padding="{Binding Padding, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+        Stroke="{Binding Stroke, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+        StrokeThickness="{Binding StrokeThickness, Source={x:Reference this}, x:DataType=fc:FreakyChip}">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" />
+            <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}, x:DataType=fc:FreakyChip}" />
         </Border.StrokeShape>
         <Grid ColumnDefinitions="Auto, *, Auto">
             <controls:FreakySvgImageView
                 x:Name="leadingIcon"
                 Grid.Column="0"
-                Base64String="{Binding LeadingBase64String, Source={x:Reference this}}"
-                ImageColor="{Binding ImageColor, Source={x:Reference this}}"
+                Base64String="{Binding LeadingBase64String, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                ImageColor="{Binding ImageColor, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
                 InputTransparent="True"
-                ResourceId="{Binding LeadingResourceId, Source={x:Reference this}}"
-                SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}}"
+                ResourceId="{Binding LeadingResourceId, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
                 SvgMode="AspectFit" />
             <Label
                 x:Name="chipLabel"
                 Grid.Column="1"
-                FontAttributes="{Binding FontAttributes, Source={x:Reference this}}"
-                FontAutoScalingEnabled="{Binding FontAutoScalingEnabled, Source={x:Reference this}}"
-                FontFamily="{Binding FontFamily, Source={x:Reference this}}"
-                FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference this}}"
-                Text="{Binding Text, Source={x:Reference this}}"
-                TextDecorations="{Binding TextDecorations, Source={x:Reference this}}"
-                TextTransform="{Binding TextTransform, Source={x:Reference this}}"
-                TextType="{Binding TextType, Source={x:Reference this}}"
-                VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}" />
+                FontAttributes="{Binding FontAttributes, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                FontAutoScalingEnabled="{Binding FontAutoScalingEnabled, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                Text="{Binding Text, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                TextDecorations="{Binding TextDecorations, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                TextTransform="{Binding TextTransform, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                TextType="{Binding TextType, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}, x:DataType=fc:FreakyChip}" />
             <controls:FreakySvgImageView
                 x:Name="trailingIcon"
                 Grid.Column="2"
-                Base64String="{Binding TrailingBase64String, Source={x:Reference this}}"
-                ImageColor="{Binding ImageColor, Source={x:Reference this}}"
+                Base64String="{Binding TrailingBase64String, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                ImageColor="{Binding ImageColor, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
                 InputTransparent="True"
-                ResourceId="{Binding TrailingResourceId, Source={x:Reference this}}"
-                SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}}"
+                ResourceId="{Binding TrailingResourceId, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
+                SvgAssembly="{Binding SvgAssembly, Source={x:Reference this}, x:DataType=fc:FreakyChip}"
                 SvgMode="AspectFit" />
         </Grid>
     </Border>

@@ -16,7 +16,7 @@
         SelectionMode="None"
         SeparatorVisibility="None">
         <ListView.ItemTemplate>
-            <DataTemplate>
+           <DataTemplate x:DataType="x:String">
                 <Label Text="{Binding .}" TextColor="Black" />
             </DataTemplate>
         </ListView.ItemTemplate>

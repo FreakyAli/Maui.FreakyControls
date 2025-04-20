@@ -4,43 +4,43 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:Maui.FreakyControls.Converters"
-    xmlns:freakyControls="clr-namespace:Maui.FreakyControls"
+    xmlns:fc="clr-namespace:Maui.FreakyControls"
     x:Name="this">
     <ContentView.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
     </ContentView.Resources>
     <Grid>
-        <freakyControls:FreakyImage
+        <fc:FreakyImage
             x:Name="BackgroundImageView"
             Grid.ColumnSpan="2"
-            Aspect="{Binding BackgroundImageAspect, Source={x:Reference this}}"
+            Aspect="{Binding BackgroundImageAspect, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
             InputTransparent="True"
-            Opacity="{Binding BackgroundImageOpacity, Source={x:Reference this}}"
-            Source="{Binding BackgroundImage, Source={x:Reference this}}" />
-        <freakyControls:FreakySignatureCanvasView
+            Opacity="{Binding BackgroundImageOpacity, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
+            Source="{Binding BackgroundImage, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}" />
+        <fc:FreakySignatureCanvasView
             x:Name="SignaturePadCanvas"
             Grid.ColumnSpan="2"
             Cleared="OnSignatureCleared"
-            StrokeColor="{Binding StrokeColor, Source={x:Reference this}}"
+            StrokeColor="{Binding StrokeColor, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
             StrokeCompleted="OnSignatureStrokeCompleted"
-            StrokeWidth="{Binding StrokeWidth, Source={x:Reference this}}" />
-        <freakyControls:FreakySvgImageView
+            StrokeWidth="{Binding StrokeWidth, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}" />
+        <fc:FreakySvgImageView
             x:Name="ClearLabel"
             Grid.Column="1"
-            Base64String="{Binding ClearImageBase64, Source={x:Reference this}}"
-            HeightRequest="{Binding ClearHeightRequest, Source={x:Reference this}}"
+            Base64String="{Binding ClearImageBase64, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
+            HeightRequest="{Binding ClearHeightRequest, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
             HorizontalOptions="Start"
-            ImageColor="{Binding ClearImageColor, Source={x:Reference this}}"
-            IsVisible="{Binding IsBlank, Source={x:Reference this}, Converter={StaticResource InverseBoolConverter}}"
-            ResourceId="{Binding ClearResourceId, Source={x:Reference this}}"
-            SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}}"
+            ImageColor="{Binding ClearImageColor, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
+            IsVisible="{Binding IsBlank, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView, Converter={StaticResource InverseBoolConverter}}"
+            ResourceId="{Binding ClearResourceId, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
+            SvgAssembly="{Binding ClearImageAssembly, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
             SvgMode="AspectFit"
             VerticalOptions="Start"
-            WidthRequest="{Binding ClearWidthRequest, Source={x:Reference this}}">
-            <freakyControls:FreakySvgImageView.GestureRecognizers>
+            WidthRequest="{Binding ClearWidthRequest, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}">
+            <fc:FreakySvgImageView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnClearTapped" />
-            </freakyControls:FreakySvgImageView.GestureRecognizers>
-        </freakyControls:FreakySvgImageView>
+            </fc:FreakySvgImageView.GestureRecognizers>
+        </fc:FreakySvgImageView>
         <VerticalStackLayout
             Margin="0"
             Padding="0"
@@ -49,20 +49,20 @@
             VerticalOptions="End">
             <BoxView
                 x:Name="SignatureLine"
-                HeightRequest="{Binding SignatureUnderlineWidth, Source={x:Reference this}}"
+                HeightRequest="{Binding SignatureUnderlineWidth, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
                 HorizontalOptions="Fill"
                 InputTransparent="True"
                 VerticalOptions="End"
-                Color="{Binding SignatureUnderlineColor, Source={x:Reference this}}" />
+                Color="{Binding SignatureUnderlineColor, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}" />
             <Label
                 x:Name="CaptionLabel"
-                FontFamily="{Binding CaptionFontFamily, Source={x:Reference this}}"
-                FontSize="{Binding CaptionFontSize, Source={x:Reference this}}"
+                FontFamily="{Binding CaptionFontFamily, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
+                FontSize="{Binding CaptionFontSize, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
                 HorizontalOptions="Fill"
                 HorizontalTextAlignment="Center"
                 InputTransparent="True"
-                Text="{Binding CaptionText, Source={x:Reference this}}"
-                TextColor="{Binding CaptionTextColor, Source={x:Reference this}}"
+                Text="{Binding CaptionText, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
+                TextColor="{Binding CaptionTextColor, Source={x:Reference this}, x:DataType=fc:FreakySignaturePadView}"
                 VerticalOptions="End" />
         </VerticalStackLayout>
     </Grid>

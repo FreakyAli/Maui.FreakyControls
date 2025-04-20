@@ -4,9 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:Maui.FreakyControls.Converters"
+    xmlns:fc="clr-namespace:Maui.FreakyControls"
     xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
     x:Name="this"
-    freakyEffects:TouchEffect.Color="{Binding NativeAnimationColor, Source={x:Reference this}}"
+    freakyEffects:TouchEffect.Color="{Binding NativeAnimationColor, Source={x:Reference this}, x:DataType=fc:FreakyButton, x:DataType=fc:FreakyButton}"
     HeightRequest="55">
     <ContentView.Resources>
         <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
@@ -16,66 +17,66 @@
         <TapGestureRecognizer Tapped="Button_Tapped" />
     </ContentView.GestureRecognizers>
     <Border
-        Padding="{Binding Padding, Source={x:Reference this}}"
-        BackgroundColor="{Binding BackgroundColor, Source={x:Reference this}}"
-        Stroke="{Binding BorderColor, Source={x:Reference this}}"
-        StrokeThickness="{Binding BorderWidth, Source={x:Reference this}}">
+        Padding="{Binding Padding, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+        BackgroundColor="{Binding BackgroundColor, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+        Stroke="{Binding BorderColor, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+        StrokeThickness="{Binding BorderWidth, Source={x:Reference this}, x:DataType=fc:FreakyButton}">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" />
+            <RoundRectangle CornerRadius="{Binding CornerRadius, Source={x:Reference this}, x:DataType=fc:FreakyButton}" />
         </Border.StrokeShape>
         <Grid
             x:Name="mainGrid"
             Padding="5,0,5,0"
             BackgroundColor="Transparent"
             ColumnDefinitions="Auto, 3*, Auto"
-            ColumnSpacing="{Binding Spacing, Source={x:Reference this}}"
+            ColumnSpacing="{Binding Spacing, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
             HorizontalOptions="Fill">
             <ContentView
                 Grid.Column="0"
                 BackgroundColor="Transparent"
                 CascadeInputTransparent="True"
-                Content="{Binding LeadingIcon, Source={x:Reference this}}"
-                HeightRequest="{Binding IconSize, Source={x:Reference this}}"
-                IsVisible="{Binding LeadingIcon, Converter={StaticResource ContentToInvisibilityConverter}, Source={x:Reference this}}"
+                Content="{Binding LeadingIcon, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                HeightRequest="{Binding IconSize, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                IsVisible="{Binding LeadingIcon, Converter={StaticResource ContentToInvisibilityConverter}, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
                 VerticalOptions="Center"
-                WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
+                WidthRequest="{Binding IconSize, Source={x:Reference this}, x:DataType=fc:FreakyButton}" />
 
             <Label
                 x:Name="txtLabel"
                 Grid.Column="1"
-                CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference this}}"
-                FontAttributes="{Binding FontAttributes, Source={x:Reference this}}"
-                FontAutoScalingEnabled="{Binding FontAutoScalingEnabled, Source={x:Reference this}}"
-                FontFamily="{Binding FontFamily, Source={x:Reference this}}"
-                FontSize="{Binding FontSize, Source={x:Reference this}}"
-                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference this}}"
-                LineBreakMode="{Binding LineBreakMode, Source={x:Reference this}}"
-                Text="{Binding Text, Source={x:Reference this}}"
-                TextColor="{Binding TextColor, Source={x:Reference this}}"
-                TextTransform="{Binding TextTransform, Source={x:Reference this}}"
-                TextType="{Binding TextType, Source={x:Reference this}}"
-                VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}}" />
+                CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                FontAttributes="{Binding FontAttributes, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                FontAutoScalingEnabled="{Binding FontAutoScalingEnabled, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                LineBreakMode="{Binding LineBreakMode, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                Text="{Binding Text, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                TextColor="{Binding TextColor, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                TextTransform="{Binding TextTransform, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                TextType="{Binding TextType, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference this}, x:DataType=fc:FreakyButton}" />
 
             <ActivityIndicator
                 x:Name="activityIndicator"
                 Grid.Column="1"
-                HeightRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
+                HeightRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
                 HorizontalOptions="Center"
-                IsRunning="{Binding IsBusy, Source={x:Reference this}}"
+                IsRunning="{Binding IsBusy, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
                 TranslationY="35"
                 VerticalOptions="Center"
-                WidthRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}}"
-                Color="{Binding BusyColor, Source={x:Reference this}}" />
+                WidthRequest="{Binding ActivityIndicatorSize, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                Color="{Binding BusyColor, Source={x:Reference this}, x:DataType=fc:FreakyButton}" />
 
             <ContentView
                 Grid.Column="2"
                 BackgroundColor="Transparent"
                 CascadeInputTransparent="True"
-                Content="{Binding TrailingIcon, Source={x:Reference this}}"
-                HeightRequest="{Binding IconSize, Source={x:Reference this}}"
-                IsVisible="{Binding TrailingIcon, Converter={StaticResource ContentToInvisibilityConverter}, Source={x:Reference this}}"
+                Content="{Binding TrailingIcon, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                HeightRequest="{Binding IconSize, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
+                IsVisible="{Binding TrailingIcon, Converter={StaticResource ContentToInvisibilityConverter}, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
                 VerticalOptions="Center"
-                WidthRequest="{Binding IconSize, Source={x:Reference this}}" />
+                WidthRequest="{Binding IconSize, Source={x:Reference this}, x:DataType=fc:FreakyButton}" />
         </Grid>
     </Border>
 </ContentView>
