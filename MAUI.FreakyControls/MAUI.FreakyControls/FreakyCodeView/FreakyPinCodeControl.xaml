@@ -32,9 +32,9 @@
             x:Name="mainGrid"
             Grid.Row="1"
             ColumnDefinitions="*,*,*"
-            ColumnSpacing="{Binding KeyboardSpacing,Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
+            ColumnSpacing="{Binding KeyboardSpacing, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
             RowDefinitions="*,*,*,*"
-            RowSpacing="{Binding KeyboardSpacing,Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}">
+            RowSpacing="{Binding KeyboardSpacing, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}">
             <Button
                 Grid.Row="0"
                 Grid.Column="0"
@@ -45,7 +45,7 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="1"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="0"
                 Grid.Column="1"
@@ -65,7 +65,7 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="3"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="1"
                 Grid.Column="0"
@@ -75,8 +75,7 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="4"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
-                 />
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="1"
                 Grid.Column="1"
@@ -86,7 +85,7 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="5"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="1"
                 Grid.Column="2"
@@ -96,7 +95,7 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="6"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="2"
                 Grid.Column="0"
@@ -106,7 +105,7 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="7"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="2"
                 Grid.Column="1"
@@ -116,7 +115,7 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="8"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="2"
                 Grid.Column="2"
@@ -126,16 +125,20 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="9"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="3"
                 Grid.Column="0"
+                Padding="{Binding CancelButtonPadding, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 BackgroundColor="{Binding CancelBackgroundColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Clicked="Cancel_Clicked"
+                CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
-                FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
+                FontSize="{Binding CancelFontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
+                ImageSource="{Binding CancelButtonImageSource, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
+                IsVisible="{Binding ShouldShowCancelButton, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="{Binding CancelButtonText, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
             <Button
                 Grid.Row="3"
                 Grid.Column="1"
@@ -145,32 +148,16 @@
                 FontFamily="{Binding FontFamily, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 FontSize="{Binding FontSize, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
                 Text="0"
-                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
-            <!-- ToDo: Change this to image button whenever these bugs are fixed -->
-            <!-- https://github.com/dotnet/maui/issues/22364
-            https://github.com/dotnet/maui/issues/18857-->
-            <ContentView
-                    freakyEffects:TouchEffect.Color="{x:Static fc:ControlConstants.DefaultControlRipple}"
-                    Grid.Column="2"
-                    Grid.Row="3">
-                    <ContentView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ImageButton_Clicked"/>
-                    </ContentView.GestureRecognizers>
-                <Border
-                    InputTransparent="True"
-                    BackgroundColor="{Binding BackspaceBackgroundColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
-                    Padding="{Binding CancelButtonPadding, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
-                    Stroke="Transparent"
-                    StrokeThickness="0">
-                    <Border.StrokeShape>
-                        <RoundRectangle
-                        CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
-                    </Border.StrokeShape>
-                    <Image
-                    Aspect="AspectFit"
-                    Source="{Binding BackspaceButtonSource, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"/>
-                </Border>
-            </ContentView>
+                TextColor="{Binding KeyboardTextColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
+            <ImageButton
+                Grid.Row="3"
+                Grid.Column="2"
+                Padding="{Binding CancelButtonPadding, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
+                Aspect="AspectFit"
+                BackgroundColor="{Binding BackspaceBackgroundColor, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
+                Clicked="ImageButton_Clicked"
+                CornerRadius="{Binding KeyboardButtonCornerRadius, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}"
+                Source="{Binding BackspaceButtonSource, Source={x:Reference this}, x:DataType=fc:FreakyPinCodeControl}" />
         </Grid>
     </Grid>
 </ContentView>
