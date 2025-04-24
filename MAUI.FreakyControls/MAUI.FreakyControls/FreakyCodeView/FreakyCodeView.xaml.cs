@@ -9,9 +9,7 @@ namespace Maui.FreakyControls;
 public partial class FreakyCodeView : ContentView
 {
     #region Events
-
     public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
-
     #endregion Events
 
     #region Constructor and Initializations

@@ -6,8 +6,8 @@ public partial class MainPage : ContentPage
 
     public MainPage()
     {
-        BindingContext = vm = new MainViewModel();
         InitializeComponent();
+        BindingContext = vm = new MainViewModel();
     }
 
     private async void FreakySvgImageView_Tapped(object sender, EventArgs e)

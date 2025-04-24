@@ -61,6 +61,20 @@ public partial class FreakyPinCodeControl : ContentView
           typeof(FreakyPinCodeControl),
           null);
 
+    public bool ShouldShowCancelButton
+    {
+        get => (bool)GetValue(ShouldShowCancelButtonProperty);
+        set => SetValue(ShouldShowCancelButtonProperty, value);
+    }
+
+    public static readonly BindableProperty ShouldShowCancelButtonProperty =
+      BindableProperty.Create(
+          nameof(ShouldShowCancelButton),
+          typeof(bool),
+          typeof(FreakyPinCodeControl),
+          true,
+          defaultBindingMode: BindingMode.OneWay);
+
     public bool IsPassword
     {
         get => (bool)GetValue(IsPasswordProperty);
@@ -202,6 +216,21 @@ public partial class FreakyPinCodeControl : ContentView
           defaultBindingMode: BindingMode.OneWay);
 
     [TypeConverter(typeof(FontSizeConverter))]
+    public double CancelFontSize
+    {
+        get => (double)GetValue(CancelFontSizeProperty);
+        set => SetValue(CancelFontSizeProperty, value);
+    }
+
+    public static readonly BindableProperty CancelFontSizeProperty =
+      BindableProperty.Create(
+          nameof(CancelFontSize),
+          typeof(double),
+          typeof(FreakyPinCodeControl),
+          FreakyCodeView.FontSizeProperty.DefaultValue,
+          defaultBindingMode: BindingMode.OneWay);
+
+    [TypeConverter(typeof(FontSizeConverter))]
     public double FontSize
     {
         get => (double)GetValue(FontSizeProperty);
@@ -231,6 +260,18 @@ public partial class FreakyPinCodeControl : ContentView
     {
         CodeEntryCompleted?.Invoke(this, e);
     }
+
+    public ImageSource CancelButtonImageSource
+    {
+        get => (ImageSource)GetValue(CancelButtonImageSourceProperty);
+        set => SetValue(CancelButtonImageSourceProperty, value);
+    }
+
+    public static readonly BindableProperty CancelButtonImageSourceProperty = BindableProperty.Create(
+      nameof(CancelButtonImageSource),
+      typeof(ImageSource),
+      typeof(FreakyPinCodeControl),
+      default(ImageSource));
 
     public ImageSource BackspaceButtonSource
     {
@@ -408,7 +449,7 @@ public partial class FreakyPinCodeControl : ContentView
         CancelClicked?.Invoke(this, e);
     }
 
-    private void ImageButton_Clicked(object sender, TappedEventArgs e)
+    private void ImageButton_Clicked(object sender, EventArgs e)
     {
         BackSpaceClicked?.Invoke(this, e);
         if (CodeValue.Length != 0)

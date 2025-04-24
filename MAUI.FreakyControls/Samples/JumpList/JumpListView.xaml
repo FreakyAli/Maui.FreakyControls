@@ -22,7 +22,7 @@
                 <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="x:String">
                     <Border Stroke="White">
                         <Label
                             FontAttributes="Bold"
@@ -59,7 +59,7 @@
             </Border.StrokeShape>
             <Label
                 HorizontalOptions="Center"
-                Text="{Binding SelectedCharacter, Source={x:Reference JumpList}}"
+                Text="{Binding SelectedCharacter, Source={x:Reference JumpList}, x:DataType=controls:FreakyJumpList}"
                 TextColor="White"
                 VerticalOptions="Center" />
         </Border>

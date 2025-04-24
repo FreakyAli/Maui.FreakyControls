@@ -8,6 +8,7 @@ namespace Samples
     public class MainViewModel : BaseViewModel
     {
         private ObservableCollection<string> items;
+        readonly Page MainPage = Application.Current.Windows.FirstOrDefault()?.Page;
 
         public List<string> Names => names;
 
@@ -45,7 +46,7 @@ namespace Samples
         {
             ImageWasTappedCommand = new AsyncRelayCommand<object>(ImageTappedAsync, new AsyncRelayCommandOptions());
             FreakyLongPressedCommand = new AsyncRelayCommand<object>(LongPressedAsync);
-
+            ItemTappedCommand = new AsyncRelayCommand<string>(ItemTappedAsync);
             Items =
             [
                 AppShell.Pickers,
@@ -62,6 +63,8 @@ namespace Samples
                 AppShell.ZoomImage
             ];
         }
+
+        public ICommand ItemTappedCommand { get; set; }
 
         public ICommand FreakyLongPressedCommand { get; set; }
 
@@ -80,17 +83,29 @@ namespace Samples
             }
         }
 
+        private async Task ItemTappedAsync(string route)
+        {
+            if (route == AppShell.JumpList)
+            {
+                var permission = await PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
+                if (permission != PermissionStatus.Granted)
+                {
+                    await MainPage?.DisplayAlert("Error", "Needs vibration permission for haptik feedback", "Ok");
+                    return;
+                }
+            }
+            await Shell.Current.GoToAsync(route);
+        }
+
         private async Task ImageTappedAsync(object obj)
         {
-            var MainPage = Application.Current.Windows.FirstOrDefault()?.Page;
             await MainThread.InvokeOnMainThreadAsync(async () =>
-            await MainPage.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
+            await MainPage?.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
         }
 
         private async Task LongPressedAsync(object commandParam)
         {
-            var MainPage = Application.Current.Windows.FirstOrDefault()?.Page;
-            await MainPage.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
+            await MainPage?.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
         }
     }
 }
