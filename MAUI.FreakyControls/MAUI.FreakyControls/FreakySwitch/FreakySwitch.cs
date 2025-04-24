@@ -160,7 +160,12 @@ public class FreakySwitch : ContentView, IDisposable
         canvas.DrawRoundRect(bounds, bounds.Height / 2, bounds.Height / 2, backgroundPaint);
 
         // Draw outline
-        var outlineBounds = SKRect.Create(bounds.Left + (outlineWidth / 2), bounds.Top + (outlineWidth / 2), bounds.Width - outlineWidth, bounds.Height - outlineWidth);
+        var outlineLeft = (float)Math.Floor(bounds.Left + (outlineWidth / 2));
+        var outlineTop = (float)Math.Floor(bounds.Top + (outlineWidth / 2));
+        var outlineWidthAdjusted = (float)Math.Floor(bounds.Width - outlineWidth);
+        var outlineHeightAdjusted = (float)Math.Floor(bounds.Height - outlineWidth);
+
+        var outlineBounds = SKRect.Create(outlineLeft, outlineTop, outlineWidthAdjusted, outlineHeightAdjusted);
         var outlinePaint = new SKPaint
         {
             Color = OnColor.ToSKColor(), // Use OnColor for outline in On state
@@ -241,7 +246,12 @@ public class FreakySwitch : ContentView, IDisposable
         canvas.DrawRoundRect(thumbRect, thumbRect.Width / 2, thumbRect.Height / 2, thumbPaint); // Maintain circular shape
 
         // Draw outline
-        var outlineBounds = SKRect.Create(bounds.Left + (outlineWidth / 2), bounds.Top + (outlineWidth / 2), bounds.Width - outlineWidth, bounds.Height - outlineWidth);
+        var outlineLeft = (float)Math.Floor(bounds.Left + (outlineWidth / 2));
+        var outlineTop = (float)Math.Floor(bounds.Top + (outlineWidth / 2));
+        var outlineWidthAdjusted = (float)Math.Floor(bounds.Width - outlineWidth);
+        var outlineHeightAdjusted = (float)Math.Floor(bounds.Height - outlineWidth);
+
+        var outlineBounds = SKRect.Create(outlineLeft, outlineTop, outlineWidthAdjusted, outlineHeightAdjusted);
         var outlinePaint = new SKPaint
         {
             Color = OutlineColor.ToSKColor(),

@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:vm="clr-namespace:Samples.Pickers"
-    x:DataType="vm:PickersViewModel"    
-    Title="PickersView">
-    
+    Title="PickersView"
+    x:DataType="vm:PickersViewModel">
+
     <VerticalStackLayout Padding="30" Spacing="10">
         <Label Text="Freaky DatePicker below: " TextColor="Black" />
         <Border>
@@ -29,6 +29,7 @@
         <Label Text="Freaky TimePicker below: " TextColor="Black" />
         <Border>
             <freakyControls:FreakyTimePicker
+                BackgroundColor="green"
                 FontSize="Large"
                 ImageAlignment="Left"
                 ImageCommand="{Binding ImageWasTappedCommand}"
@@ -47,6 +48,7 @@
         <Border>
             <freakyControls:FreakyPicker
                 Title="Select something :D"
+                BackgroundColor="green"
                 FontSize="Large"
                 ImageAlignment="Right"
                 ImageCommand="{Binding ImageWasTappedCommand}"
@@ -58,7 +60,6 @@
                 ImageWidth="{OnPlatform 25,
                                         iOS=25,
                                         Android=40}"
-                ItemDisplayBinding="{Binding .}"
                 ItemsSource="{Binding Names}"
                 TextColor="Black"
                 TitleColor="LightGray" />
