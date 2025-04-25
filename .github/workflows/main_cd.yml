@@ -31,6 +31,9 @@ jobs:
           $version = "${{ github.ref_name }}".TrimStart("v")
           echo "version_without_v=$version" >> $env:GITHUB_OUTPUT
 
+      - name: Build
+        run: dotnet build MAUI.FreakyControls\MAUI.FreakyControls\Maui.FreakyControls.csproj -c Release
+
       - name: Pack NuGet package
         run: |
           dotnet pack MAUI.FreakyControls\MAUI.FreakyControls\Maui.FreakyControls.csproj -c Release -p:PackageVersion=${{ steps.get_version.outputs.version_without_v }}
@@ -39,7 +42,9 @@ jobs:
         shell: pwsh
         run: |
           $version = "${{ steps.get_version.outputs.version_without_v }}"
-          $nupkgs = Get-ChildItem -Recurse -Filter *.nupkg | Where-Object { $_.FullName -like "*$version*" -and $_.FullName -notlike "*.symbols.nupkg" }
+          $nupkgs = Get-ChildItem -Recurse -Filter *.nupkg | Where-Object {
+            $_.FullName -like "*$version*" -and $_.FullName -notlike "*.symbols.nupkg"
+          }
 
           if ($nupkgs.Count -ne 1) {
             throw "Expected exactly one matching .nupkg, found $($nupkgs.Count)"
