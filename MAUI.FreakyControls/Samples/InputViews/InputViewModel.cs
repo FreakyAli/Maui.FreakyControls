@@ -1,10 +1,11 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using Maui.FreakyControls.Extensions;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Samples.InputViews;
 
-public class InputViewModel : MainViewModel
+public partial class InputViewModel : MainViewModel
 {
     private ObservableCollection<string> namesCollection;
     private ObservableCollection<AutoCompleteModel> namesCollectionModel;
@@ -13,6 +14,11 @@ public class InputViewModel : MainViewModel
     public List<AutoCompleteModel> NamesModel { get; }
 
     public ICommand EntryCompleteCommand { get; set; }
+    public ICommand SwitchImageCommand { get; set; }
+
+    [ObservableProperty]
+    private string imageSource;
+
 
     public string Pin
     {
@@ -35,11 +41,17 @@ public class InputViewModel : MainViewModel
     public InputViewModel()
     {
         NamesCollection = Names.ToObservable();
-
+        ImageSource = "calendar";
         NamesModel = [.. names.Select(x => new AutoCompleteModel { Name = x })];
         NamesCollectionModel = NamesModel.ToObservable();
 
         EntryCompleteCommand = new Command(ExecuteEntryCompleteCommand);
+        SwitchImageCommand = new Command(ExecuteSwitchImageCommand);
+    }
+
+    private void ExecuteSwitchImageCommand()
+    {
+        this.ImageSource = this.ImageSource == "backspace" ?  "calendar" : "backspace";
     }
 
     private void ExecuteEntryCompleteCommand(object obj)

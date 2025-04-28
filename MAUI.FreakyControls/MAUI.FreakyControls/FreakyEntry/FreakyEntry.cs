@@ -9,8 +9,9 @@ public class FreakyEntry : Entry, IDrawableImageView
            nameof(Image),
            typeof(ImageSource),
            typeof(FreakyEntry),
-           default(ImageSource));
-
+           default(ImageSource),
+           propertyChanged: OnImageSourcePropertyChanged);
+    
     public static readonly BindableProperty ImageHeightProperty = BindableProperty.Create(
            nameof(ImageHeight),
            typeof(int),
@@ -123,5 +124,13 @@ public class FreakyEntry : Entry, IDrawableImageView
     {
         get => (ImageAlignment)GetValue(ImageAlignmentProperty);
         set => SetValue(ImageAlignmentProperty, value);
+    }
+
+    private static void OnImageSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is FreakyEntry freakyEntry)
+        {
+            freakyEntry.Handler?.UpdateValue("FreakyEntryCustomization");
+        }
     }
 }
