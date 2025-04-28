@@ -18,6 +18,32 @@ public static class NativeExtensions
         return uiView;
     }
 
+    public static UIKit.UITextAlignment ToPlatform(this Microsoft.Maui.TextAlignment alignment)
+    {
+        return alignment switch
+        {
+            Microsoft.Maui.TextAlignment.Start => UIKit.UITextAlignment.Left,
+            Microsoft.Maui.TextAlignment.Center => UIKit.UITextAlignment.Center,
+            Microsoft.Maui.TextAlignment.End => UIKit.UITextAlignment.Right,
+            _ => UIKit.UITextAlignment.Left,
+        };
+    }
+
+    public static UIControlContentVerticalAlignment ToVPlatform(this Microsoft.Maui.TextAlignment alignment)
+    {
+        switch (alignment)
+        {
+            case Microsoft.Maui.TextAlignment.Start:
+                return UIControlContentVerticalAlignment.Top;
+            case Microsoft.Maui.TextAlignment.Center:
+                return UIControlContentVerticalAlignment.Center;
+            case Microsoft.Maui.TextAlignment.End:
+                return UIControlContentVerticalAlignment.Bottom;
+            default:
+                return UIControlContentVerticalAlignment.Center; // Default to center
+        }
+    }
+
     public static void MakeCircular(this UIView uIView)
     {
         uIView.ClipsToBounds = true;
