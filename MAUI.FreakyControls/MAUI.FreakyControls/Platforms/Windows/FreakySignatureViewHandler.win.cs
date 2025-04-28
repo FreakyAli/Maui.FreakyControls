@@ -6,7 +6,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
 using Windows.UI;
 using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
-using Colors = Microsoft.UI.Colors
+using Colors = Microsoft.UI.Colors;
 #endif
 
 namespace Maui.FreakyControls
