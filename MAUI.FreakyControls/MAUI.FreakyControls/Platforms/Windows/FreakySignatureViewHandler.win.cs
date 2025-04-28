@@ -1,81 +1,89 @@
 using Microsoft.Maui.Handlers;
 #if WINDOWS
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Input;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
-using Windows.UI; 
+using Windows.UI;
+using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
 #endif
 
-namespace Maui.FreakyControls;
-
-public partial class FreakySignatureCanvasViewHandler : ViewHandler<FreakySignatureCanvasView, Canvas>
+namespace Maui.FreakyControls
 {
+    public partial class FreakySignatureCanvasViewHandler : ViewHandler<FreakySignatureCanvasView, Canvas>
+    {
+        public static IPropertyMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler> Mapper =
+            new PropertyMapper<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler>(ViewHandler.ViewMapper);
+
+        public FreakySignatureCanvasViewHandler() : base(Mapper)
+        {
+        }
+
 #if WINDOWS
-    protected override Canvas CreatePlatformView()
-    {
-        var canvas = new Canvas
+        protected override Canvas CreatePlatformView()
         {
-            Background = new SolidColorBrush(Colors.White)
-        };
+            var canvas = new Canvas
+            {
+                Background = new SolidColorBrush(Colors.White)
+            };
 
-        canvas.PointerPressed += OnPointerPressed;
-        canvas.PointerMoved += OnPointerMoved;
-        canvas.PointerReleased += OnPointerReleased;
-        return canvas;
-    }
+            canvas.PointerPressed += OnPointerPressed;
+            canvas.PointerMoved += OnPointerMoved;
+            canvas.PointerReleased += OnPointerReleased;
 
-    protected override void ConnectHandler(Canvas platformView)
-    {
-        base.ConnectHandler(platformView);
-        // Additional setup if needed
-    }
+            return canvas;
+        }
 
-    protected override void DisconnectHandler(Canvas platformView)
-    {
-        base.DisconnectHandler(platformView);
-        platformView.PointerPressed -= OnPointerPressed;
-        platformView.PointerMoved -= OnPointerMoved;
-        platformView.PointerReleased -= OnPointerReleased;
-    }
-
-    private bool _isDrawing;
-    private Windows.Foundation.Point _previousPoint;
-
-    private void OnPointerPressed(object sender, PointerRoutedEventArgs e)
-    {
-        if (sender is not Canvas canvas)
-            return;
-
-        _isDrawing = true;
-        _previousPoint = e.GetCurrentPoint(canvas).Position;
-    }
-
-    private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
-    {
-        if (!_isDrawing || sender is not Canvas canvas)
-            return;
-
-        var currentPoint = e.GetCurrentPoint(canvas).Position;
-
-        var line = new Line
+        protected override void ConnectHandler(Canvas platformView)
         {
-            X1 = _previousPoint.X,
-            Y1 = _previousPoint.Y,
-            X2 = currentPoint.X,
-            Y2 = currentPoint.Y,
-            Stroke = new SolidColorBrush(Colors.Black),
-            StrokeThickness = 2
-        };
+            base.ConnectHandler(platformView);
+        }
 
-        canvas.Children.Add(line);
-        _previousPoint = currentPoint;
-    }
+        protected override void DisconnectHandler(Canvas platformView)
+        {
+            base.DisconnectHandler(platformView);
+            platformView.PointerPressed -= OnPointerPressed;
+            platformView.PointerMoved -= OnPointerMoved;
+            platformView.PointerReleased -= OnPointerReleased;
+        }
 
-    private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
-    {
-        _isDrawing = false;
-    }
+        private bool _isDrawing;
+        private Windows.Foundation.Point _previousPoint;
+
+        private void OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is not Canvas canvas)
+                return;
+
+            _isDrawing = true;
+            _previousPoint = e.GetCurrentPoint(canvas).Position;
+        }
+
+        private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (!_isDrawing || sender is not Canvas canvas)
+                return;
+
+            var currentPoint = e.GetCurrentPoint(canvas).Position;
+
+            var line = new Line
+            {
+                X1 = _previousPoint.X,
+                Y1 = _previousPoint.Y,
+                X2 = currentPoint.X,
+                Y2 = currentPoint.Y,
+                Stroke = new SolidColorBrush(Colors.Black),
+                StrokeThickness = 2
+            };
+
+            canvas.Children.Add(line);
+            _previousPoint = currentPoint;
+        }
+
+        private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            _isDrawing = false;
+        }
 #endif
+    }
 }

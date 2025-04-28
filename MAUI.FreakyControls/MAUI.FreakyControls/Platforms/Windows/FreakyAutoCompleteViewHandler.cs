@@ -1,55 +1,61 @@
 using Microsoft.Maui.Handlers;
 #if WINDOWS
-using Microsoft.UI.Xaml.Controls; 
+using Microsoft.UI.Xaml.Controls;
 #endif
 
-namespace Maui.FreakyControls;
-
-public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompleteView, AutoSuggestBox>
+namespace Maui.FreakyControls
 {
-#if WINDOWS
-    protected override AutoSuggestBox CreatePlatformView()
+    public partial class FreakyAutoCompleteViewHandler : ViewHandler<FreakyAutoCompleteView, AutoSuggestBox>
     {
-        return new AutoSuggestBox
+        public static IPropertyMapper<FreakyAutoCompleteView, FreakyAutoCompleteViewHandler> Mapper =
+            new PropertyMapper<FreakyAutoCompleteView, FreakyAutoCompleteViewHandler>(ViewHandler.ViewMapper);
+
+        public FreakyAutoCompleteViewHandler() : base(Mapper)
         {
-            IsSuggestionListOpen = false
-            // You can configure it further if needed
-        };
-    }
+        }
 
-    protected override void ConnectHandler(AutoSuggestBox platformView)
-    {
-        base.ConnectHandler(platformView);
+#if WINDOWS
+        protected override AutoSuggestBox CreatePlatformView()
+        {
+            return new AutoSuggestBox
+            {
+                PlaceholderText = "Type here...",
+                IsSuggestionListOpen = false
+            };
+        }
 
-        // Hook up events if needed
-        platformView.TextChanged += OnTextChanged;
-        platformView.SuggestionChosen += OnSuggestionChosen;
-        platformView.QuerySubmitted += OnQuerySubmitted;
-    }
+        protected override void ConnectHandler(AutoSuggestBox platformView)
+        {
+            base.ConnectHandler(platformView);
 
-    protected override void DisconnectHandler(AutoSuggestBox platformView)
-    {
-        base.DisconnectHandler(platformView);
+            platformView.TextChanged += OnTextChanged;
+            platformView.SuggestionChosen += OnSuggestionChosen;
+            platformView.QuerySubmitted += OnQuerySubmitted;
+        }
 
-        // Unhook events to avoid memory leaks
-        platformView.TextChanged -= OnTextChanged;
-        platformView.SuggestionChosen -= OnSuggestionChosen;
-        platformView.QuerySubmitted -= OnQuerySubmitted;
-    }
+        protected override void DisconnectHandler(AutoSuggestBox platformView)
+        {
+            base.DisconnectHandler(platformView);
 
-    private void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        // Handle text changed
-    }
+            platformView.TextChanged -= OnTextChanged;
+            platformView.SuggestionChosen -= OnSuggestionChosen;
+            platformView.QuerySubmitted -= OnQuerySubmitted;
+        }
 
-    private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-    {
-        // Handle suggestion chosen
-    }
+        private void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            // TODO: Handle text change
+        }
 
-    private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        // Handle query submitted
-    }
+        private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            // TODO: Handle suggestion chosen
+        }
+
+        private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            // TODO: Handle query submitted
+        }
 #endif
+    }
 }
