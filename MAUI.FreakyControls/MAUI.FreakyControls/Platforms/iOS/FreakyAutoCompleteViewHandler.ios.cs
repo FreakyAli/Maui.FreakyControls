@@ -254,7 +254,6 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private void UpdateFont(FreakyNativeAutoCompleteView platformView)
     {
-        //platformView.font(VirtualView?.TextColor);
     }
 
     private void UpdateTextAlignment(FreakyNativeAutoCompleteView platformView)
@@ -263,7 +262,6 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private void UpdateTextTransform(FreakyNativeAutoCompleteView platformView)
     {
-        
     }
 
     private void UpdateDisplayMemberPath(FreakyNativeAutoCompleteView platformView)
