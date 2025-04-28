@@ -23,6 +23,9 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         UpdatePlaceholderColor(platformView);
         UpdateDisplayMemberPath(platformView);
         UpdateIsEnabled(platformView);
+        UpdateFont(platformView);
+        UpdateTextAlignment(platformView);
+        UpdateTextTransform(platformView);
         platformView.UpdateTextOnSelect = VirtualView.UpdateTextOnSelect;
         platformView.IsSuggestionListOpen = VirtualView.IsSuggestionListOpen;
         UpdateItemsSource(platformView);
@@ -182,9 +185,83 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
     }
 
+    public static void MapHorizontalTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView.InputTextField.TextAlignment = view.HorizontalTextAlignment.ToPlatform();
+    }
+
+    public static void MapVerticalTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView.InputTextField.VerticalAlignment = view.VerticalTextAlignment.ToVPlatform();
+    }
+
+   public static void MapFontAttributes(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+   {
+        // If the FontAttributes is Bold
+        if (view.FontAttributes == FontAttributes.Bold)
+        {
+            handler.PlatformView.Font = UIFont.BoldSystemFontOfSize((nfloat)view.FontSize);
+        }
+        // If the FontAttributes is Italic
+        else if (view.FontAttributes == FontAttributes.Italic)
+        {
+            handler.PlatformView.Font = UIFont.ItalicSystemFontOfSize((nfloat)view.FontSize);
+        }
+        // If it's neither Bold nor Italic, set to normal font
+        else
+        {
+            handler.PlatformView.Font = UIFont.SystemFontOfSize((nfloat)view.FontSize);
+        }
+    }
+
+    public static void MapFontFamily(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        var font = UIFont.FromName(view.FontFamily, (float)view.FontSize);
+        handler.PlatformView.Font = font;
+    }
+
+    public static void MapFontSize(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView.Font = UIFont.SystemFontOfSize((float)view.FontSize);
+    }
+
+    public static void MapTextTransform(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        if (view.TextTransform == TextTransform.Uppercase)
+            handler.PlatformView.Text = handler.PlatformView.Text.ToUpper();
+        else if (view.TextTransform == TextTransform.Lowercase)
+            handler.PlatformView.Text = handler.PlatformView.Text.ToLower();
+    }
+
+    // Helper to convert FontAttributes to iOS font traits
+    private static UIFontDescriptorSymbolicTraits UIFontDescriptorFromAttributes(FontAttributes fontAttributes)
+    {
+        UIFontDescriptorSymbolicTraits traits = 0;
+
+        if (fontAttributes.HasFlag(FontAttributes.Bold))
+            traits |= UIFontDescriptorSymbolicTraits.Bold;
+
+        if (fontAttributes.HasFlag(FontAttributes.Italic))
+            traits |= UIFontDescriptorSymbolicTraits.Italic;
+
+        return traits;
+    }
+
     private void UpdateTextColor(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetTextColor(VirtualView?.TextColor);
+    }
+
+    private void UpdateFont(FreakyNativeAutoCompleteView platformView)
+    {
+    }
+
+    private void UpdateTextAlignment(FreakyNativeAutoCompleteView platformView)
+    {
+    }
+
+    private void UpdateTextTransform(FreakyNativeAutoCompleteView platformView)
+    {
     }
 
     private void UpdateDisplayMemberPath(FreakyNativeAutoCompleteView platformView)

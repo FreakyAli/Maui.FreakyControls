@@ -10,6 +10,13 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     public readonly WeakEventManager textChangedEventManager = new();
     private readonly WeakEventManager suggestionChosenEventManager = new();
 
+    public TextAlignment HorizontalTextAlignment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public TextAlignment VerticalTextAlignment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public string FontFamily { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public double FontSize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public FontAttributes FontAttributes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public TextTransform TextTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     public string Text
     {
         get { return (string)GetValue(TextProperty); }
@@ -205,7 +212,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         get => (ImageAlignment)GetValue(ImageAlignmentProperty);
         set => SetValue(ImageAlignmentProperty, value);
     }
-
+   
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen
     {
         add => suggestionChosenEventManager.AddEventHandler(value);

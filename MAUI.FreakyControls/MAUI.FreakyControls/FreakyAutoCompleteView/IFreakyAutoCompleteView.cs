@@ -15,10 +15,13 @@ public interface IFreakyAutoCompleteView : IView, IDrawableImageView
     IList ItemsSource { get; set; }
     int Threshold { get; set; }
     bool AllowCopyPaste { get; set; }
-
+    TextAlignment HorizontalTextAlignment { get; set; }
+    TextAlignment VerticalTextAlignment { get; set; }
+    string FontFamily { get; set; } 
+    double FontSize { get; set; }
+    FontAttributes FontAttributes { get; set; }
+    TextTransform TextTransform { get; set; }
     void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
-
     void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
-
     void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);
 }
