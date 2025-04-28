@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
 using Windows.UI;
 using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
+using Colors = Microsoft.UI.Colors
 #endif
 
 namespace Maui.FreakyControls
@@ -24,7 +25,7 @@ namespace Maui.FreakyControls
         {
             var canvas = new Canvas
             {
-                Background = new SolidColorBrush(Windows.UI.Colors.White)
+                Background = new SolidColorBrush(Colors.White)
             };
 
             canvas.PointerPressed += OnPointerPressed;
@@ -72,7 +73,7 @@ namespace Maui.FreakyControls
                 Y1 = _previousPoint.Y,
                 X2 = currentPoint.X,
                 Y2 = currentPoint.Y,
-                Stroke = new SolidColorBrush(Windows.UI.Colors.Black),
+                Stroke = new SolidColorBrush(Colors.Black),
                 StrokeThickness = 2
             };
 
