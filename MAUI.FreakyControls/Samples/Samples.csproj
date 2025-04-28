@@ -86,6 +86,7 @@
 		<Folder Include="ZoomImage\" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="AdamE.MemoryToolkit.Maui" Version="1.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />

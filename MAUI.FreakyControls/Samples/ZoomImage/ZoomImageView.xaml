@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Samples.ZoomImage.ZoomImageView"
-             xmlns:sample="clr-namespace:Samples"
-             xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-             xmlns:vm="clr-namespace:Samples.ZoomImage"
-             x:DataType="vm:ZoomImageViewModel"              
-             Title="ZoomImageView">
-    
+<ContentPage
+    x:Class="Samples.ZoomImage.ZoomImageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+    xmlns:mtk="clr-namespace:MemoryToolkit.Maui;assembly=MemoryToolkit.Maui"
+    xmlns:sample="clr-namespace:Samples"
+    xmlns:vm="clr-namespace:Samples.ZoomImage"
+    Title="ZoomImageView"
+    mtk:LeakMonitorBehavior.Cascade="True"
+    x:DataType="vm:ZoomImageViewModel">
     <Grid BackgroundColor="#88000000">
         <freakyControls:FreakyZoomableView>
-            <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.Female1}"/>
+            <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.Female1}" />
         </freakyControls:FreakyZoomableView>
     </Grid>
 </ContentPage>

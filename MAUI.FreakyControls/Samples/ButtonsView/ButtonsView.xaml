@@ -3,11 +3,13 @@
     x:Class="Samples.ButtonsView.ButtonsView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:constants="clr-namespace:Samples"
     xmlns:buttons="clr-namespace:Samples.ButtonsView"
-    x:DataType="buttons:ButtonsViewModel"
+    xmlns:constants="clr-namespace:Samples"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-    Title="ButtonsView">
+    xmlns:mtk="clr-namespace:MemoryToolkit.Maui;assembly=MemoryToolkit.Maui"
+    Title="ButtonsView"
+    mtk:LeakMonitorBehavior.Cascade="True"
+    x:DataType="buttons:ButtonsViewModel">
     <ScrollView>
         <VerticalStackLayout
             Padding="10"
@@ -25,9 +27,7 @@
                 TextColor="White"
                 VerticalTextAlignment="Center">
                 <freakyControls:FreakyButton.LeadingIcon>
-                    <freakyControls:FreakySvgImageView
-                        SvgAssembly="{x:Static constants:Constants.SvgAssembly}"
-                        ResourceId="{x:Static constants:Constants.Tick}" />
+                    <freakyControls:FreakySvgImageView ResourceId="{x:Static constants:Constants.Tick}" SvgAssembly="{x:Static constants:Constants.SvgAssembly}" />
                 </freakyControls:FreakyButton.LeadingIcon>
             </freakyControls:FreakyButton>
 
@@ -83,19 +83,19 @@
                 BackgroundColor="Purple"
                 BorderColor="Black"
                 BusyColor="White"
+                Command="{Binding ButtonStateCommand}"
                 HorizontalTextAlignment="Center"
                 IconSize="30"
-                Command="{Binding ButtonStateCommand}"
                 NativeAnimationColor="MediumPurple"
                 Text="A normal button I suppose"
                 TextColor="White"
                 VerticalTextAlignment="Center" />
 
             <freakyControls:FreakyButton
+                Animation="FadeAndScale"
                 BorderColor="Black"
                 BusyColor="White"
                 HorizontalTextAlignment="Center"
-                Animation="FadeAndScale"
                 IconSize="30"
                 IsEnabled="{Binding IsButtonEnabled}"
                 Text="A normal busy button with a very long text"
@@ -129,11 +129,11 @@
                 Animation="FadeAndScale"
                 BorderColor="Black"
                 BusyColor="White"
-                Text="Conditionally busy button"
                 HorizontalTextAlignment="Center"
                 IconSize="30"
                 IsBusy="{Binding IsButtonEnabled}"
                 LineBreakMode="TailTruncation"
+                Text="Conditionally busy button"
                 TextColor="White"
                 VerticalTextAlignment="Center">
                 <VisualStateManager.VisualStateGroups>
