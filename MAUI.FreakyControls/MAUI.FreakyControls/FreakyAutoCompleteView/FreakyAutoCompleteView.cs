@@ -285,6 +285,27 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         get => (ImageAlignment)GetValue(ImageAlignmentProperty);
         set => SetValue(ImageAlignmentProperty, value);
     }
+
+    public static readonly BindableProperty SuggestionListWidthProperty =
+    BindableProperty.Create(nameof(SuggestionListWidth), typeof(double), typeof(FreakyAutoCompleteView), -1.0);
+
+    public double SuggestionListWidth
+    {
+        get => (double)GetValue(SuggestionListWidthProperty);
+        set => SetValue(SuggestionListWidthProperty, value);
+    }
+
+    public static readonly BindableProperty SuggestionListHeightProperty =
+    BindableProperty.Create(
+        nameof(SuggestionListHeight),
+        typeof(double),
+        typeof(FreakyAutoCompleteView),
+        defaultValue: 150.0);
+    public double SuggestionListHeight
+    {
+        get => (double)GetValue(SuggestionListHeightProperty);
+        set => SetValue(SuggestionListHeightProperty, value);
+    }
    
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen
     {

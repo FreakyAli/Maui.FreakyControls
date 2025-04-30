@@ -49,6 +49,8 @@
                     TextColor="Pink"
                     FontSize="20"
                     HorizontalTextAlignment="Center"
+                    SuggestionListWidth="100"
+                    SuggestionListHeight="100"
                     VerticalTextAlignment="Center"
                     TextTransform="Uppercase"
                     Threshold="1" />

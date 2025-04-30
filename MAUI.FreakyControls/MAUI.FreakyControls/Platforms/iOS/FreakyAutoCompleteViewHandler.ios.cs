@@ -28,6 +28,8 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.UpdateTextOnSelect = VirtualView.UpdateTextOnSelect;
         platformView.IsSuggestionListOpen = VirtualView.IsSuggestionListOpen;
         UpdateItemsSource(platformView);
+        UpdateSuggestionListWidth(platformView);
+        UpdateSuggestionListHeight(platformView);
         platformView.SuggestionChosen += OnPlatformViewSuggestionChosen;
         platformView.TextChanged += OnPlatformViewTextChanged;
         platformView.QuerySubmitted += OnPlatformViewQuerySubmitted;
@@ -141,6 +143,26 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         }
     }
 
+    public static void MapTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateTextAlignment(handler?.PlatformView);
+    }
+
+    public static void MapFont(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateFont(handler?.PlatformView);
+    }
+
+    public static void MapSuggestionListWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateSuggestionListWidth(handler.PlatformView);
+    }
+
+    public static void MapSuggestionListHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateSuggestionListHeight(handler.PlatformView);
+    }
+
     public static void MapAllowCopyPaste(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.InputTextField.AllowCopyPaste = view.AllowCopyPaste;
@@ -211,6 +233,20 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView?.DisplayMemberPath), (o) => FormatType(o, VirtualView?.TextMemberPath));
     }
 
+    public void UpdateSuggestionListWidth(FreakyNativeAutoCompleteView platformView)
+    {
+        if(platformView == null || VirtualView == null)
+        return;
+        platformView.SuggestionListWidth =(float)VirtualView.SuggestionListWidth;
+    }
+
+    public void UpdateSuggestionListHeight(FreakyNativeAutoCompleteView platformView)
+    {
+        if(platformView == null || VirtualView == null)
+        return;
+        platformView.SuggestionListHeight =(float)VirtualView.SuggestionListHeight;
+    }
+
     private static string FormatType(object instance, string memberPath)
     {
         if (!string.IsNullOrEmpty(memberPath))
@@ -221,6 +257,9 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private void UpdateFont(FreakyNativeAutoCompleteView platformView)
     {
+        if(platformView == null)
+            return;
+            
         var fontSize = (nfloat)(VirtualView?.FontSize ?? 14);
         if (!string.IsNullOrEmpty(VirtualView?.FontFamily))
         {

@@ -30,7 +30,15 @@ public partial class FreakyAutoCompleteViewHandler
             [nameof(IFreakyAutoCompleteView.ImageHeight)] = MapImageSource,
             [nameof(IFreakyAutoCompleteView.ImagePadding)] = MapImageSource,
             [nameof(IFreakyAutoCompleteView.ImageSource)] = MapImageSource,
-            [nameof(IFreakyAutoCompleteView.ImageWidth)] = MapImageSource
+            [nameof(IFreakyAutoCompleteView.ImageWidth)] = MapImageSource,
+            [nameof(IFreakyAutoCompleteView.AllowCopyPaste)] = MapAllowCopyPaste,
+            [nameof(IFreakyAutoCompleteView.HorizontalTextAlignment)] = MapTextAlignment,
+            [nameof(IFreakyAutoCompleteView.VerticalTextAlignment)] = MapTextAlignment,
+            [nameof(IFreakyAutoCompleteView.FontFamily)] = MapFont,
+            [nameof(IFreakyAutoCompleteView.FontSize)] = MapFont,
+            [nameof(IFreakyAutoCompleteView.FontAttributes)] = MapFont,
+            [nameof(IFreakyAutoCompleteView.SuggestionListWidth)] = MapSuggestionListWidth,
+            [nameof(IFreakyAutoCompleteView.SuggestionListHeight)] = MapSuggestionListHeight,
         };
 
     /// <summary>

@@ -69,6 +69,26 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         VirtualView?.RaiseQuerySubmitted(e);
     }
 
+    public static void MapTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateTextAlignment(handler?.PlatformView);
+    }
+
+    public static void MapFont(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateFont(handler?.PlatformView);
+    }
+
+    public static void MapSuggestionListWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateSuggestionListWidth(handler.PlatformView);
+    }
+
+    public static void MapSuggestionListHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateSuggestionListHeight(handler.PlatformView);
+    }
+
     public static void MapText(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         if (handler.PlatformView?.Text != view.Text)
@@ -174,6 +194,20 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), o => FormatType(o, view.DisplayMemberPath), o => FormatType(o, view.TextMemberPath));
     }
 
+    private void UpdateSuggestionListWidth(FreakyNativeAutoCompleteView platformView)
+    {
+        if (VirtualView == null || platformView == null)
+            return;
+        platformView.DropDownWidth =(int)VirtualView.SuggestionListWidth;
+    }
+
+    private void UpdateSuggestionListHeight(FreakyNativeAutoCompleteView platformView)
+    {
+        if (VirtualView == null || platformView == null)
+            return;
+        platformView.DropDownHeight =(int)VirtualView.SuggestionListHeight;
+    }
+
     private void UpdateText(FreakyNativeAutoCompleteView platformView)
     {
         platformView.Text = VirtualView?.Text ?? string.Empty;
@@ -247,7 +281,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         }
     }
 
-        private void UpdateTextAlignment(FreakyNativeAutoCompleteView platformView)
+    private void UpdateTextAlignment(FreakyNativeAutoCompleteView platformView)
     {
         if (VirtualView == null)
             return;
