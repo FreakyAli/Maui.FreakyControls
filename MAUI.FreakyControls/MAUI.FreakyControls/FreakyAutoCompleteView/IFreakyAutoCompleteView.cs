@@ -20,7 +20,6 @@ public interface IFreakyAutoCompleteView : IView, IDrawableImageView
     string FontFamily { get; set; } 
     double FontSize { get; set; }
     FontAttributes FontAttributes { get; set; }
-    TextTransform TextTransform { get; set; }
     void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
     void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
     void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);

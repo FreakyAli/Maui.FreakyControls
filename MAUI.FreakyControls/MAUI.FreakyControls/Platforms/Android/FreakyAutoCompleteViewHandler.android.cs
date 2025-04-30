@@ -8,6 +8,8 @@ using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using static Microsoft.Maui.ApplicationModel.Platform;
+using Android.Views;
+using Android.Util;
 
 namespace Maui.FreakyControls;
 
@@ -24,6 +26,15 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     protected override void ConnectHandler(FreakyNativeAutoCompleteView platformView)
     {
         base.ConnectHandler(platformView);
+        UpdateText(platformView);
+        UpdateTextColor(platformView);
+        UpdatePlaceholder(platformView);
+        UpdatePlaceholderColor(platformView);
+        UpdateDisplayMemberPath(platformView);
+        UpdateIsEnabled(platformView);
+        UpdateFont(platformView);
+        UpdateTextAlignment(platformView);
+        UpdateItemsSource(platformView);
         platformView.SuggestionChosen += OnPlatformViewSuggestionChosen;
         platformView.TextChanged += OnPlatformViewTextChanged;
         platformView.QuerySubmitted += OnPlatformViewQuerySubmitted;
@@ -35,9 +46,11 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     protected override void DisconnectHandler(FreakyNativeAutoCompleteView platformView)
     {
         base.DisconnectHandler(platformView);
+
         platformView.SuggestionChosen -= OnPlatformViewSuggestionChosen;
         platformView.TextChanged -= OnPlatformViewTextChanged;
         platformView.QuerySubmitted -= OnPlatformViewQuerySubmitted;
+
         platformView.Dispose();
     }
 
@@ -58,18 +71,24 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapText(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        if (handler.PlatformView.Text != view.Text)
+        if (handler.PlatformView?.Text != view.Text)
             handler.PlatformView.Text = view.Text;
     }
 
     public static void MapTextColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView?.SetTextColor(view.TextColor.ToPlatform());
+        if (handler.PlatformView is null)
+            return;
+
+        handler.PlatformView.SetTextColor(view.TextColor.ToPlatform());
     }
 
     public static void MapPlaceholder(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView.Placeholder = view.Placeholder;
+        if (handler.PlatformView is null)
+            return;
+
+        handler.PlatformView.Hint = view.Placeholder;
     }
 
     public static void MapThreshold(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -114,17 +133,6 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         }
         handler.PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
-
-    public static void MapPlaceholderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView?.SetPlaceholderColor(view.PlaceholderColor);
-    }
-
-    public static void MapTextMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
-    }
-
     public static void MapDisplayMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
@@ -135,6 +143,19 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         handler.PlatformView.IsSuggestionListOpen = view.IsSuggestionListOpen;
     }
 
+    public static void MapTextMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
+    }
+    
+    public static void MapPlaceholderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        if (handler.PlatformView == null || view.PlaceholderColor == null)
+            return;
+
+        handler.PlatformView.SetHintTextColor(view.PlaceholderColor.ToPlatform());
+    }
+
     public static void MapUpdateTextOnSelect(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         handler.PlatformView.UpdateTextOnSelect = view.UpdateTextOnSelect;
@@ -142,41 +163,111 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapIsEnabled(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
+        if (handler.PlatformView == null)
+            return;
+
         handler.PlatformView.Enabled = view.IsEnabled;
     }
 
     public static void MapItemsSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
+        handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), o => FormatType(o, view.DisplayMemberPath), o => FormatType(o, view.TextMemberPath));
+    }
+
+    private void UpdateText(FreakyNativeAutoCompleteView platformView)
+    {
+        platformView.Text = VirtualView?.Text ?? string.Empty;
     }
 
     private void UpdateTextColor(FreakyNativeAutoCompleteView platformView)
     {
-        var color = VirtualView?.TextColor;
-        platformView.SetTextColor(color.ToPlatform());
+        if (VirtualView?.TextColor != null)
+            platformView.SetTextColor(VirtualView.TextColor.ToPlatform());
     }
 
-    private void UpdateDisplayMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    private void UpdatePlaceholder(FreakyNativeAutoCompleteView platformView)
     {
-        handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
+        platformView.Hint = VirtualView?.Placeholder;
     }
 
     private void UpdatePlaceholderColor(FreakyNativeAutoCompleteView platformView)
     {
-        var placeholderColor = VirtualView?.PlaceholderColor;
-        platformView.SetPlaceholderColor(placeholderColor);
+        if (VirtualView?.PlaceholderColor != null)
+            platformView.SetHintTextColor(VirtualView.PlaceholderColor.ToPlatform());
     }
 
-    private void UpdatePlaceholder(FreakyNativeAutoCompleteView platformView) => platformView.Placeholder = VirtualView?.Placeholder;
+    private void UpdateDisplayMemberPath(FreakyNativeAutoCompleteView platformView)
+    {
+        platformView.SetItems(VirtualView.ItemsSource?.OfType<object>(), o => FormatType(o, VirtualView.DisplayMemberPath), o => FormatType(o, VirtualView.TextMemberPath));
+    }
 
     private void UpdateIsEnabled(FreakyNativeAutoCompleteView platformView)
     {
-        platformView.Enabled = (bool)(VirtualView?.IsEnabled);
+        platformView.Enabled = VirtualView?.IsEnabled ?? true;
     }
 
     private void UpdateItemsSource(FreakyNativeAutoCompleteView platformView)
     {
-        platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView?.DisplayMemberPath), (o) => FormatType(o, VirtualView?.TextMemberPath));
+        platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), o => FormatType(o, VirtualView.DisplayMemberPath), o => FormatType(o, VirtualView.TextMemberPath));
+    }
+
+    private void UpdateFont(FreakyNativeAutoCompleteView platformView)
+    {
+        if (VirtualView == null)
+            return;
+
+        Typeface? typeface = null;
+
+        if (!string.IsNullOrEmpty(VirtualView.FontFamily))
+        {
+            try
+            {
+                typeface = Typeface.Create(VirtualView.FontFamily, TypefaceStyle.Normal);
+            }
+            catch
+            {
+                // Fallback in case font family not found
+                typeface = Typeface.Default;
+            }
+        }
+        else
+        {
+            typeface = VirtualView.FontAttributes switch
+            {
+                FontAttributes.Bold => Typeface.DefaultBold,
+                _ => Typeface.Default,
+            };
+        }
+
+        platformView.Typeface = typeface;
+
+        if (VirtualView.FontSize > 0)
+        {
+            platformView.SetTextSize(ComplexUnitType.Sp, (float)VirtualView.FontSize);
+        }
+    }
+
+        private void UpdateTextAlignment(FreakyNativeAutoCompleteView platformView)
+    {
+        if (VirtualView == null)
+            return;
+
+        platformView.Gravity = (VirtualView.VerticalTextAlignment, VirtualView.HorizontalTextAlignment) switch
+        {
+            (Microsoft.Maui.TextAlignment.Start, Microsoft.Maui.TextAlignment.Start) => GravityFlags.Top | GravityFlags.Left,
+            (Microsoft.Maui.TextAlignment.Start, Microsoft.Maui.TextAlignment.Center) => GravityFlags.Top | GravityFlags.CenterHorizontal,
+            (Microsoft.Maui.TextAlignment.Start, Microsoft.Maui.TextAlignment.End) => GravityFlags.Top | GravityFlags.Right,
+            
+            (Microsoft.Maui.TextAlignment.Center, Microsoft.Maui.TextAlignment.Start) => GravityFlags.CenterVertical | GravityFlags.Left,
+            (Microsoft.Maui.TextAlignment.Center, Microsoft.Maui.TextAlignment.Center) => GravityFlags.Center,
+            (Microsoft.Maui.TextAlignment.Center, Microsoft.Maui.TextAlignment.End) => GravityFlags.CenterVertical | GravityFlags.Right,
+            
+            (Microsoft.Maui.TextAlignment.End, Microsoft.Maui.TextAlignment.Start) => GravityFlags.Bottom | GravityFlags.Left,
+            (Microsoft.Maui.TextAlignment.End, Microsoft.Maui.TextAlignment.Center) => GravityFlags.Bottom | GravityFlags.CenterHorizontal,
+            (Microsoft.Maui.TextAlignment.End, Microsoft.Maui.TextAlignment.End) => GravityFlags.Bottom | GravityFlags.Right,
+            
+            _ => GravityFlags.Center,
+        };
     }
 
     private static string FormatType(object instance, string memberPath)

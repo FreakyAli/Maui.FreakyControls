@@ -1,4 +1,5 @@
 ﻿using Maui.FreakyControls.Enums;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Maui.FreakyControls;
@@ -9,13 +10,6 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     private readonly WeakEventManager querySubmittedEventManager = new();
     public readonly WeakEventManager textChangedEventManager = new();
     private readonly WeakEventManager suggestionChosenEventManager = new();
-
-    public TextAlignment HorizontalTextAlignment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public TextAlignment VerticalTextAlignment { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public string FontFamily { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double FontSize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public FontAttributes FontAttributes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public TextTransform TextTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public string Text
     {
@@ -118,6 +112,85 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     {
         get => (bool)GetValue(AllowCopyPasteProperty);
         set => SetValue(AllowCopyPasteProperty, value);
+    }
+
+    public static readonly BindableProperty HorizontalTextAlignmentProperty =
+    BindableProperty.Create(
+        nameof(HorizontalTextAlignment),
+        typeof(TextAlignment),
+        typeof(FreakyAutoCompleteView),
+        TextAlignment.Start);
+
+    public TextAlignment HorizontalTextAlignment
+    {
+        get => (TextAlignment)GetValue(HorizontalTextAlignmentProperty);
+        set => SetValue(HorizontalTextAlignmentProperty, value);
+    }
+
+    public static readonly BindableProperty VerticalTextAlignmentProperty =
+        BindableProperty.Create(
+            nameof(VerticalTextAlignment),
+            typeof(TextAlignment),
+            typeof(FreakyAutoCompleteView),
+            TextAlignment.Center);
+
+    public TextAlignment VerticalTextAlignment
+    {
+        get => (TextAlignment)GetValue(VerticalTextAlignmentProperty);
+        set => SetValue(VerticalTextAlignmentProperty, value);
+    }
+
+    public static readonly BindableProperty FontFamilyProperty =
+        BindableProperty.Create(
+            nameof(FontFamily),
+            typeof(string),
+            typeof(FreakyAutoCompleteView),
+            default(string));
+
+    public string FontFamily
+    {
+        get => (string)GetValue(FontFamilyProperty);
+        set => SetValue(FontFamilyProperty, value);
+    }
+
+    public static readonly BindableProperty FontSizeProperty =
+    BindableProperty.Create(
+        nameof(FontSize),
+        typeof(double),
+        typeof(FreakyAutoCompleteView),
+        14.0); 
+
+    [TypeConverter(typeof(FontSizeConverter))]
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
+
+    public static readonly BindableProperty FontAttributesProperty =
+        BindableProperty.Create(
+            nameof(FontAttributes),
+            typeof(FontAttributes),
+            typeof(FreakyAutoCompleteView),
+            FontAttributes.None);
+
+    public FontAttributes FontAttributes
+    {
+        get => (FontAttributes)GetValue(FontAttributesProperty);
+        set => SetValue(FontAttributesProperty, value);
+    }
+
+    public static readonly BindableProperty TextTransformProperty =
+        BindableProperty.Create(
+            nameof(TextTransform),
+            typeof(TextTransform),
+            typeof(FreakyAutoCompleteView),
+            TextTransform.None);
+
+    public TextTransform TextTransform
+    {
+        get => (TextTransform)GetValue(TextTransformProperty);
+        set => SetValue(TextTransformProperty, value);
     }
 
     public static readonly BindableProperty AllowCopyPasteProperty = BindableProperty.Create(
