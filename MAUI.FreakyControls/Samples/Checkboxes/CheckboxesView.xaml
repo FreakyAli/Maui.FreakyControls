@@ -5,10 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:constants="clr-namespace:Samples"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-    xmlns:mtk="clr-namespace:MemoryToolkit.Maui;assembly=MemoryToolkit.Maui"
     xmlns:vm="clr-namespace:Samples.Checkboxes"
     Title="CheckboxesView"
-    mtk:LeakMonitorBehavior.Cascade="True"
     x:DataType="vm:CheckboxesViewModel">
 
     <ContentPage.Resources>

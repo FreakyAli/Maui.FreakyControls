@@ -6,9 +6,7 @@
     xmlns:buttons="clr-namespace:Samples.ButtonsView"
     xmlns:constants="clr-namespace:Samples"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
-    xmlns:mtk="clr-namespace:MemoryToolkit.Maui;assembly=MemoryToolkit.Maui"
     Title="ButtonsView"
-    mtk:LeakMonitorBehavior.Cascade="True"
     x:DataType="buttons:ButtonsViewModel">
     <ScrollView>
         <VerticalStackLayout

@@ -5,9 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:inputViews="clr-namespace:Samples.InputViews"
-    xmlns:mtk="clr-namespace:MemoryToolkit.Maui;assembly=MemoryToolkit.Maui"
     Title="InputViews"
-    mtk:LeakMonitorBehavior.Cascade="True"
     x:DataType="inputViews:InputViewModel">
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15">
