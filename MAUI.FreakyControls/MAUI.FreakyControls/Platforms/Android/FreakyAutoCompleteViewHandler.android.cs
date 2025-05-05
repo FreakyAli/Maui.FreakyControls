@@ -198,14 +198,30 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     {
         if (VirtualView == null || platformView == null)
             return;
-        platformView.DropDownWidth =(int)VirtualView.SuggestionListWidth;
+        if (VirtualView.SuggestionListWidth <= 0)
+        {
+            platformView.DropDownWidth = ViewGroup.LayoutParams.WrapContent;
+        }
+        else
+        {
+            platformView.DropDownWidth = (int)VirtualView.SuggestionListWidth;
+        }
     }
 
     private void UpdateSuggestionListHeight(FreakyNativeAutoCompleteView platformView)
     {
         if (VirtualView == null || platformView == null)
             return;
-        platformView.DropDownHeight =(int)VirtualView.SuggestionListHeight;
+        // Only override if the user provided a specific height
+        if (VirtualView.SuggestionListHeight > 0)
+        {
+            platformView.DropDownHeight = (int)VirtualView.SuggestionListHeight;
+        }
+        else
+        {
+            // Use WRAP_CONTENT equivalent to let it size dynamically
+            platformView.DropDownHeight = ViewGroup.LayoutParams.WrapContent;
+        }
     }
 
     private void UpdateText(FreakyNativeAutoCompleteView platformView)

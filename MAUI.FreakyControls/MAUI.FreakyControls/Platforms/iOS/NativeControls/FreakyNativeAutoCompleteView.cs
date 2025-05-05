@@ -2,6 +2,7 @@
 using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 using UIKit;
+using CoreFoundation;
 
 namespace Maui.FreakyControls.Platforms.iOS.NativeControls;
 
@@ -11,32 +12,28 @@ public partial class FreakyNativeAutoCompleteView : UIView
     private NSLayoutConstraint bottomConstraint;
     private Func<object, string> textFunc;
 
-    private nfloat? _suggestionListHeight;
-    private nfloat? _suggestionListWidth;
+    private nfloat _suggestionListHeight = -1;
+    private nfloat _suggestionListWidth = -1;
 
-    public nfloat? SuggestionListHeight
+    public nfloat SuggestionListHeight
     {
         get => _suggestionListHeight;
         set
         {
             _suggestionListHeight = value;
             if (_isSuggestionListOpen)
-            {
                 UpdateSuggestionListOpenState();
-            }
         }
     }
 
-    public nfloat? SuggestionListWidth
+    public nfloat SuggestionListWidth
     {
         get => _suggestionListWidth;
         set
         {
             _suggestionListWidth = value;
             if (_isSuggestionListOpen)
-            {
                 UpdateSuggestionListOpenState();
-            }
         }
     }
 
@@ -57,7 +54,9 @@ public partial class FreakyNativeAutoCompleteView : UIView
             ShouldReturn = InputText_OnShouldReturn,
             ClipsToBounds = true,
         };
+
         Threshold = 1;
+
         InputTextField.Layer.BorderWidth = 0;
         InputTextField.Layer.BorderColor = UIColor.Clear.CGColor;
         InputTextField.EditingDidBegin += OnEditingDidBegin;
@@ -65,10 +64,12 @@ public partial class FreakyNativeAutoCompleteView : UIView
         InputTextField.EditingChanged += InputText_EditingChanged;
 
         AddSubview(InputTextField);
+
         InputTextField.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;
         InputTextField.LeftAnchor.ConstraintEqualTo(LeftAnchor).Active = true;
         InputTextField.WidthAnchor.ConstraintEqualTo(WidthAnchor).Active = true;
         InputTextField.HeightAnchor.ConstraintEqualTo(HeightAnchor).Active = true;
+
         SelectionList = new UITableView { TranslatesAutoresizingMaskIntoConstraints = false };
 
         UIKeyboard.Notifications.ObserveWillShow(OnKeyboardShow);
@@ -84,9 +85,8 @@ public partial class FreakyNativeAutoCompleteView : UIView
     private void OnEditingDidBegin(object sender, EventArgs e)
     {
         if (InputTextField.Text.Length > Threshold)
-        {
             IsSuggestionListOpen = true;
-        }
+
         EditingDidBegin?.Invoke(this, e);
     }
 
@@ -108,12 +108,12 @@ public partial class FreakyNativeAutoCompleteView : UIView
     internal void SetItems(IEnumerable<object> items, Func<object, string> labelFunc, Func<object, string> textFunc)
     {
         this.textFunc = textFunc;
+
         if (SelectionList.Source is TableSource<object> oldSource)
-        {
             oldSource.TableRowSelected -= SuggestionTableSource_TableRowSelected;
-        }
 
         SelectionList.Source = null;
+
         var suggestions = items?.OfType<object>();
         if (suggestions is not null && suggestions.Any())
         {
@@ -121,10 +121,9 @@ public partial class FreakyNativeAutoCompleteView : UIView
             suggestionTableSource.TableRowSelected += SuggestionTableSource_TableRowSelected;
             SelectionList.Source = suggestionTableSource;
             SelectionList.ReloadData();
+
             if (InputTextField.Text.Length > Threshold)
-            {
                 IsSuggestionListOpen = true;
-            }
         }
         else
         {
@@ -140,7 +139,10 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     public virtual void SetPlaceholderColor(Color color)
     {
-        InputTextField.AttributedPlaceholder = new NSAttributedString(InputTextField.Placeholder ?? string.Empty, null, color.ToPlatform());
+        InputTextField.AttributedPlaceholder = new NSAttributedString(
+            InputTextField.Placeholder ?? string.Empty,
+            null,
+            color.ToPlatform());
     }
 
     private bool _isSuggestionListOpen;
@@ -160,7 +162,8 @@ public partial class FreakyNativeAutoCompleteView : UIView
         if (_isSuggestionListOpen && SelectionList.Source is not null && SelectionList.Source.RowsInSection(SelectionList, 0) > 0)
         {
             var viewController = InputTextField.Window?.RootViewController;
-            if (viewController is null) return;
+            if (viewController is null)
+                return;
             if (viewController.PresentedViewController is not null)
                 viewController = viewController.PresentedViewController;
 
@@ -170,45 +173,46 @@ public partial class FreakyNativeAutoCompleteView : UIView
             }
 
             SelectionList.RemoveConstraints(SelectionList.Constraints);
-            SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
+            if (bottomConstraint != null)
+            {
+                bottomConstraint.Active = false;
+            }
 
+            SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
             SelectionList.TopAnchor.ConstraintEqualTo(InputTextField.BottomAnchor).Active = true;
             SelectionList.LeftAnchor.ConstraintEqualTo(InputTextField.LeftAnchor).Active = true;
+            SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor).Active = true;
 
-            if (SuggestionListWidth.HasValue)
-            {
-                SelectionList.WidthAnchor.ConstraintEqualTo(SuggestionListWidth.Value).Active = true;
-            }
-            else
-            {
-                SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor).Active = true;
-            }
+            bottomConstraint = SelectionList.BottomAnchor.ConstraintLessThanOrEqualTo(SelectionList.Superview.BottomAnchor, -keyboardHeight);
+            bottomConstraint.Priority = 999;
+            bottomConstraint.Active = true;
 
-            if (SuggestionListHeight.HasValue)
+            // Optional: Apply SuggestionHeight limit
+            if (SuggestionListHeight > 0)
             {
-                SelectionList.HeightAnchor.ConstraintEqualTo(SuggestionListHeight.Value).Active = true;
-            }
-            else
-            {
-                bottomConstraint = SelectionList.BottomAnchor.ConstraintGreaterThanOrEqualTo(SelectionList.Superview.BottomAnchor, -keyboardHeight);
-                bottomConstraint.Active = true;
+                var heightConstraint = SelectionList.HeightAnchor.ConstraintLessThanOrEqualTo(SuggestionListHeight);
+                heightConstraint.Priority = 1000;
+                heightConstraint.Active = true;
             }
 
             SelectionList.UpdateConstraints();
+            SelectionList.LayoutIfNeeded();
         }
         else
         {
             if (SelectionList.Superview is not null)
+            {
                 SelectionList.RemoveFromSuperview();
+            }
         }
     }
-
+    
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
     private void OnKeyboardHide(object sender, UIKeyboardEventArgs e)
     {
         keyboardHeight = 0;
-        if (bottomConstraint is not null)
+        if (bottomConstraint != null)
         {
             bottomConstraint.Constant = keyboardHeight;
             SelectionList.UpdateConstraints();
@@ -217,10 +221,11 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     private void OnKeyboardShow(object sender, UIKeyboardEventArgs e)
     {
-        NSValue nsKeyboardBounds = (NSValue)e.Notification.UserInfo.ObjectForKey(UIKeyboard.FrameBeginUserInfoKey);
+        var nsKeyboardBounds = (NSValue)e.Notification.UserInfo.ObjectForKey(UIKeyboard.FrameBeginUserInfoKey);
         var keyboardBounds = nsKeyboardBounds.RectangleFValue;
         keyboardHeight = keyboardBounds.Height;
-        if (bottomConstraint is not null)
+
+        if (bottomConstraint != null)
         {
             bottomConstraint.Constant = -keyboardHeight;
             SelectionList.UpdateConstraints();
@@ -255,6 +260,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
         SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(selection));
         QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, selection));
+
         IsSuggestionListOpen = false;
     }
 
@@ -262,9 +268,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
     {
         TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(Text, TextChangeReason.UserInput));
         if (InputTextField.Text.Length > Threshold)
-        {
             IsSuggestionListOpen = true;
-        }
     }
 
     public virtual string Text
@@ -310,17 +314,12 @@ public partial class FreakyNativeAutoCompleteView : UIView
             return cell;
         }
 
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath) => OnTableRowSelected(indexPath);
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath) =>
+            TableRowSelected?.Invoke(this, new TableRowSelectedEventArgs<T>(_items.ElementAt(indexPath.Row), _labelFunc(_items.ElementAt(indexPath.Row)), indexPath));
 
         public override nint RowsInSection(UITableView tableview, nint section) => _items.Count();
 
         public event EventHandler<TableRowSelectedEventArgs<T>> TableRowSelected;
-
-        private void OnTableRowSelected(NSIndexPath itemIndexPath)
-        {
-            var item = _items.ElementAt(itemIndexPath.Row);
-            TableRowSelected?.Invoke(this, new TableRowSelectedEventArgs<T>(item, _labelFunc(item), itemIndexPath));
-        }
     }
 
     private class TableRowSelectedEventArgs<T> : EventArgs

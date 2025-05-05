@@ -287,7 +287,11 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     }
 
     public static readonly BindableProperty SuggestionListWidthProperty =
-    BindableProperty.Create(nameof(SuggestionListWidth), typeof(double), typeof(FreakyAutoCompleteView), -1.0);
+    BindableProperty.Create(
+        nameof(SuggestionListWidth), 
+        typeof(double), 
+        typeof(FreakyAutoCompleteView), 
+        0.0);
 
     public double SuggestionListWidth
     {
@@ -300,7 +304,8 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         nameof(SuggestionListHeight),
         typeof(double),
         typeof(FreakyAutoCompleteView),
-        defaultValue: 150.0);
+        0.0);
+        
     public double SuggestionListHeight
     {
         get => (double)GetValue(SuggestionListHeightProperty);

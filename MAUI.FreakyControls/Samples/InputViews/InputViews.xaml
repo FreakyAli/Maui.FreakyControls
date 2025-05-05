@@ -46,11 +46,11 @@
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
                     TextChanged="FreakyAutoCompleteView_TextChanged"
                     FontAttributes="Bold"
+                    SuggestionListHeight="100"
+                    SuggestionListWidth="50"
                     TextColor="Pink"
                     FontSize="20"
                     HorizontalTextAlignment="Center"
-                    SuggestionListWidth="100"
-                    SuggestionListHeight="100"
                     VerticalTextAlignment="Center"
                     TextTransform="Uppercase"
                     Threshold="1" />
