@@ -204,7 +204,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         }
         else
         {
-            platformView.DropDownWidth = (int)VirtualView.SuggestionListWidth;
+            platformView.DropDownWidth = (int)VirtualView.SuggestionListWidth.DipsToPixels();
         }
     }
 
@@ -215,7 +215,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         // Only override if the user provided a specific height
         if (VirtualView.SuggestionListHeight > 0)
         {
-            platformView.DropDownHeight = (int)VirtualView.SuggestionListHeight;
+            platformView.DropDownHeight = (int)VirtualView.SuggestionListHeight.DipsToPixels();
         }
         else
         {

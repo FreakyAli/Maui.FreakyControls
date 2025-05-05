@@ -40,6 +40,11 @@ public static class Extensions
         }
     }
 
+    public static double DipsToPixels(this double dip)
+    {
+        return dip * DeviceDisplay.MainDisplayInfo.Density;
+    }
+
     public static MauiAppBuilder InitializeFreakyControls(this MauiAppBuilder builder, bool useSkiaSharp = true, bool useFreakyEffects = true)
     {
         if (useSkiaSharp)

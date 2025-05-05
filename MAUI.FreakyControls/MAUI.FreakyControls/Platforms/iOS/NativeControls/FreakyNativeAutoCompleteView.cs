@@ -169,34 +169,35 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
             if (SelectionList.Superview is null)
             {
-                viewController.Add(SelectionList);
-            }
+                viewController.View.AddSubview(SelectionList);
 
-            SelectionList.RemoveConstraints(SelectionList.Constraints);
-            if (bottomConstraint != null)
-            {
-                bottomConstraint.Active = false;
-            }
+                SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
-            SelectionList.TopAnchor.ConstraintEqualTo(InputTextField.BottomAnchor).Active = true;
-            SelectionList.LeftAnchor.ConstraintEqualTo(InputTextField.LeftAnchor).Active = true;
-            SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor).Active = true;
+                // Set constraints for position and width
+                SelectionList.TopAnchor.ConstraintEqualTo(InputTextField.BottomAnchor).Active = true;
+                SelectionList.LeftAnchor.ConstraintEqualTo(InputTextField.LeftAnchor).Active = true;
 
-            bottomConstraint = SelectionList.BottomAnchor.ConstraintLessThanOrEqualTo(SelectionList.Superview.BottomAnchor, -keyboardHeight);
-            bottomConstraint.Priority = 999;
-            bottomConstraint.Active = true;
+                // Set the width constraint
+                if (SuggestionListWidth > 0)
+                {
+                    SelectionList.WidthAnchor.ConstraintEqualTo(SuggestionListWidth).Active = true;
+                }
+                else
+                {
+                    SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor).Active = true;
+                }
 
-            // Optional: Apply SuggestionHeight limit
-            if (SuggestionListHeight > 0)
-            {
-                var heightConstraint = SelectionList.HeightAnchor.ConstraintLessThanOrEqualTo(SuggestionListHeight);
-                heightConstraint.Priority = 1000;
+                // Set the height constraint based on the number of rows
+                var rowCount = SelectionList.Source.RowsInSection(SelectionList, 0);
+                var rowHeight = 44f; // Default row height, adjust if needed
+                var heightConstraint = SelectionList.HeightAnchor.ConstraintEqualTo(Math.Min(rowCount * rowHeight, 200f)); // 200 is max height limit
                 heightConstraint.Active = true;
+
+                bottomConstraint = SelectionList.BottomAnchor.ConstraintLessThanOrEqualTo(viewController.View.BottomAnchor, -keyboardHeight);
+                bottomConstraint.Active = true;
             }
 
             SelectionList.UpdateConstraints();
-            SelectionList.LayoutIfNeeded();
         }
         else
         {
