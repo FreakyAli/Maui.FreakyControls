@@ -6,9 +6,9 @@
     xmlns:constants="clr-namespace:Samples"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:vm="clr-namespace:Samples.Checkboxes"
-    x:DataType="vm:CheckboxesViewModel"
-    Title="CheckboxesView">
-    
+    Title="CheckboxesView"
+    x:DataType="vm:CheckboxesViewModel">
+
     <ContentPage.Resources>
         <Style TargetType="freakyControls:FreakyChip">
             <Setter Property="Padding" Value="10" />

@@ -43,6 +43,12 @@
                     Placeholder="Autocomplete Left"
                     QuerySubmitted="FreakyAutoCompleteView_QuerySubmitted"
                     TextChanged="FreakyAutoCompleteView_TextChanged"
+                    FontAttributes="Bold"
+                    TextColor="Pink"
+                    FontSize="20"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    TextTransform="Uppercase"
                     Threshold="1" />
             </Border>
 
@@ -106,6 +112,7 @@
             <Border>
                 <freakyControls:FreakyEntry
                     AllowCopyPaste="False"
+                    TextTransform="Uppercase"
                     FontSize="Large"
                     Keyboard="Chat"
                     Placeholder="This is a freaky entry with image"

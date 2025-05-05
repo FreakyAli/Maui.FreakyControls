@@ -2,6 +2,7 @@ using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Enums;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace Maui.FreakyControls;
 
@@ -196,6 +197,7 @@ public partial class FreakyButton : ContentView
         set { SetValue(FontFamilyProperty, value); }
     }
 
+    [TypeConverter(typeof(FontSizeConverter))]
     public double FontSize
     {
         get => (double)GetValue(FontSizeProperty);

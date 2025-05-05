@@ -24,7 +24,7 @@
             <DataTemplate x:DataType="x:String">
                 <Border Stroke="White">
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer  Command="{Binding Path=BindingContext.ItemTappedCommand, Source={x:Reference mainPage}, x:DataType=samples:MainPage}" CommandParameter="{Binding .}" />
+                        <TapGestureRecognizer Command="{Binding Path=BindingContext.ItemTappedCommand, Source={x:Reference mainPage}, x:DataType=samples:MainPage}" CommandParameter="{Binding .}" />
                     </Border.GestureRecognizers>
                     <Label
                         FontAttributes="Bold"

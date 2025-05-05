@@ -7,7 +7,7 @@
     xmlns:samples="clr-namespace:Samples.SignatureView"
     Title="SignatureView"
     x:DataType="samples:SignatureViewModel">
-    
+
     <Grid Padding="5" RowDefinitions="*, Auto">
         <freakyControls:FreakySignaturePadView
             x:Name="svgPad"

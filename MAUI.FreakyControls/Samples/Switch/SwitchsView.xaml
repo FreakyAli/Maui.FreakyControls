@@ -40,11 +40,11 @@
         <HorizontalStackLayout Spacing="10">
             <Label Text="Default Switch" VerticalTextAlignment="Center" />
             <freakyControls:FreakySwitch
-                CheckMarkColor="Green"
                 AnimationDuration="200"
+                CheckMarkColor="Green"
                 CheckMarkWidth="5"
-                ThumbOffSizeFactor="1"
-                ShowCheckMark="True" />
+                ShowCheckMark="True"
+                ThumbOffSizeFactor="1" />
         </HorizontalStackLayout>
         <HorizontalStackLayout Spacing="10">
             <Label Text="Disabled" VerticalTextAlignment="Center" />

@@ -6,9 +6,9 @@
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:samples="clr-namespace:Samples"
     xmlns:vm="clr-namespace:Samples.ImageViews"
-    x:DataType="vm:ImagesViewModel"    
-    Title="ImageViews">
-    
+    Title="ImageViews"
+    x:DataType="vm:ImagesViewModel">
+
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="10">
 

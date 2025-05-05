@@ -5,12 +5,12 @@ using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Handlers;
 using System.Drawing;
 using UIKit;
+using Foundation;
 
 namespace Maui.FreakyControls;
 
 public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoCompleteView, FreakyNativeAutoCompleteView>
 {
-    /// <inheritdoc />
     protected override FreakyNativeAutoCompleteView CreatePlatformView() => new FreakyNativeAutoCompleteView();
 
     protected override void ConnectHandler(FreakyNativeAutoCompleteView platformView)
@@ -25,10 +25,11 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         UpdateIsEnabled(platformView);
         UpdateFont(platformView);
         UpdateTextAlignment(platformView);
-        UpdateTextTransform(platformView);
         platformView.UpdateTextOnSelect = VirtualView.UpdateTextOnSelect;
         platformView.IsSuggestionListOpen = VirtualView.IsSuggestionListOpen;
         UpdateItemsSource(platformView);
+        UpdateSuggestionListWidth(platformView);
+        UpdateSuggestionListHeight(platformView);
         platformView.SuggestionChosen += OnPlatformViewSuggestionChosen;
         platformView.TextChanged += OnPlatformViewTextChanged;
         platformView.QuerySubmitted += OnPlatformViewQuerySubmitted;
@@ -39,12 +40,43 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     protected override void DisconnectHandler(FreakyNativeAutoCompleteView platformView)
     {
         base.DisconnectHandler(platformView);
+
         platformView.SuggestionChosen -= OnPlatformViewSuggestionChosen;
         platformView.TextChanged -= OnPlatformViewTextChanged;
         platformView.QuerySubmitted -= OnPlatformViewQuerySubmitted;
         platformView.EditingDidBegin -= Control_EditingDidBegin;
         platformView.EditingDidEnd -= Control_EditingDidEnd;
+
         platformView.Dispose();
+    }
+
+    static readonly int baseHeight = 20;
+
+    public override Microsoft.Maui.Graphics.Size GetDesiredSize(double widthConstraint, double heightConstraint)
+    {
+        var baseResult = base.GetDesiredSize(widthConstraint, heightConstraint);
+        var testString = new NSString("Tj");
+        var testSize = testString.GetSizeUsingAttributes(new UIStringAttributes { Font = PlatformView.Font });
+        double height = baseHeight + testSize.Height;
+        height = Math.Round(height);
+
+        if (double.IsInfinity(widthConstraint) || double.IsInfinity(heightConstraint))
+        {
+            PlatformView.SizeToFit();
+            return new Microsoft.Maui.Graphics.Size(PlatformView.Frame.Width, PlatformView.Frame.Height);
+        }
+
+        return base.GetDesiredSize(baseResult.Width, height);
+    }
+
+    void Control_EditingDidBegin(object sender, EventArgs e)
+    {
+        VirtualView.IsFocused = true;
+    }
+
+    void Control_EditingDidEnd(object sender, EventArgs e)
+    {
+        VirtualView.IsFocused = false;
     }
 
     private void OnPlatformViewSuggestionChosen(object? sender, FreakyAutoCompleteViewSuggestionChosenEventArgs e)
@@ -60,40 +92,6 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     private void OnPlatformViewQuerySubmitted(object? sender, FreakyAutoCompleteViewQuerySubmittedEventArgs e)
     {
         VirtualView?.RaiseQuerySubmitted(e);
-    }
-
-    static readonly int baseHeight = 20;
-
-    /// <inheritdoc />
-    public override Microsoft.Maui.Graphics.Size GetDesiredSize(double widthConstraint, double heightConstraint)
-    {
-        var baseResult = base.GetDesiredSize(widthConstraint, heightConstraint);
-        var testString = new Foundation.NSString("Tj");
-        var testSize = testString.GetSizeUsingAttributes(new UIStringAttributes { Font = PlatformView.Font });
-        double height = baseHeight + testSize.Height;
-        height = Math.Round(height);
-        if (double.IsInfinity(widthConstraint) || double.IsInfinity(heightConstraint))
-        {
-            // If we drop an infinite value into base.GetDesiredSize for the Editor, we'll
-            // get an exception; it doesn't know what do to with it. So instead we'll size
-            // it to fit its current contents and use those values to replace infinite constraints
-
-            PlatformView.SizeToFit();
-            var sz = new Microsoft.Maui.Graphics.Size(PlatformView.Frame.Width, PlatformView.Frame.Height);
-            return sz;
-        }
-
-        return base.GetDesiredSize(baseResult.Width, height);
-    }
-
-    void Control_EditingDidBegin(object sender, EventArgs e)
-    {
-        VirtualView.IsFocused = true;
-    }
-
-    void Control_EditingDidEnd(object sender, EventArgs e)
-    {
-        VirtualView.IsFocused = false;
     }
 
     public static void MapText(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -130,19 +128,39 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
                 entry?.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
             });
             uiView.AddGestureRecognizer(tapGesture);
+
             switch (entry.ImageAlignment)
             {
                 case ImageAlignment.Left:
                     handler.PlatformView.InputTextField.LeftViewMode = UITextFieldViewMode.Always;
                     handler.PlatformView.InputTextField.LeftView = uiView;
                     break;
-
                 case ImageAlignment.Right:
                     handler.PlatformView.InputTextField.RightViewMode = UITextFieldViewMode.Always;
                     handler.PlatformView.InputTextField.RightView = uiView;
                     break;
             }
         }
+    }
+
+    public static void MapTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateTextAlignment(handler?.PlatformView);
+    }
+
+    public static void MapFont(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateFont(handler?.PlatformView);
+    }
+
+    public static void MapSuggestionListWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateSuggestionListWidth(handler.PlatformView);
+    }
+
+    public static void MapSuggestionListHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateSuggestionListHeight(handler.PlatformView);
     }
 
     public static void MapAllowCopyPaste(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -162,7 +180,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapDisplayMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
+        handler.PlatformView?.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
 
     public static void MapIsSuggestionListOpen(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -185,83 +203,9 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
     }
 
-    public static void MapHorizontalTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView.InputTextField.TextAlignment = view.HorizontalTextAlignment.ToPlatform();
-    }
-
-    public static void MapVerticalTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView.InputTextField.VerticalAlignment = view.VerticalTextAlignment.ToVPlatform();
-    }
-
-   public static void MapFontAttributes(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-   {
-        // If the FontAttributes is Bold
-        if (view.FontAttributes == FontAttributes.Bold)
-        {
-            handler.PlatformView.Font = UIFont.BoldSystemFontOfSize((nfloat)view.FontSize);
-        }
-        // If the FontAttributes is Italic
-        else if (view.FontAttributes == FontAttributes.Italic)
-        {
-            handler.PlatformView.Font = UIFont.ItalicSystemFontOfSize((nfloat)view.FontSize);
-        }
-        // If it's neither Bold nor Italic, set to normal font
-        else
-        {
-            handler.PlatformView.Font = UIFont.SystemFontOfSize((nfloat)view.FontSize);
-        }
-    }
-
-    public static void MapFontFamily(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        var font = UIFont.FromName(view.FontFamily, (float)view.FontSize);
-        handler.PlatformView.Font = font;
-    }
-
-    public static void MapFontSize(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        handler.PlatformView.Font = UIFont.SystemFontOfSize((float)view.FontSize);
-    }
-
-    public static void MapTextTransform(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
-    {
-        if (view.TextTransform == TextTransform.Uppercase)
-            handler.PlatformView.Text = handler.PlatformView.Text.ToUpper();
-        else if (view.TextTransform == TextTransform.Lowercase)
-            handler.PlatformView.Text = handler.PlatformView.Text.ToLower();
-    }
-
-    // Helper to convert FontAttributes to iOS font traits
-    private static UIFontDescriptorSymbolicTraits UIFontDescriptorFromAttributes(FontAttributes fontAttributes)
-    {
-        UIFontDescriptorSymbolicTraits traits = 0;
-
-        if (fontAttributes.HasFlag(FontAttributes.Bold))
-            traits |= UIFontDescriptorSymbolicTraits.Bold;
-
-        if (fontAttributes.HasFlag(FontAttributes.Italic))
-            traits |= UIFontDescriptorSymbolicTraits.Italic;
-
-        return traits;
-    }
-
     private void UpdateTextColor(FreakyNativeAutoCompleteView platformView)
     {
         platformView.SetTextColor(VirtualView?.TextColor);
-    }
-
-    private void UpdateFont(FreakyNativeAutoCompleteView platformView)
-    {
-    }
-
-    private void UpdateTextAlignment(FreakyNativeAutoCompleteView platformView)
-    {
-    }
-
-    private void UpdateTextTransform(FreakyNativeAutoCompleteView platformView)
-    {
     }
 
     private void UpdateDisplayMemberPath(FreakyNativeAutoCompleteView platformView)
@@ -289,11 +233,79 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView?.DisplayMemberPath), (o) => FormatType(o, VirtualView?.TextMemberPath));
     }
 
+    public void UpdateSuggestionListWidth(FreakyNativeAutoCompleteView platformView)
+    {
+        if(platformView == null || VirtualView == null)
+        return;
+        platformView.SuggestionListWidth =(float)VirtualView.SuggestionListWidth;
+    }
+
+    public void UpdateSuggestionListHeight(FreakyNativeAutoCompleteView platformView)
+    {
+        if(platformView == null || VirtualView == null)
+        return;
+        platformView.SuggestionListHeight =(float)VirtualView.SuggestionListHeight;
+    }
+
     private static string FormatType(object instance, string memberPath)
     {
         if (!string.IsNullOrEmpty(memberPath))
             return instance?.GetType().GetProperty(memberPath)?.GetValue(instance)?.ToString() ?? "";
         else
             return instance?.ToString() ?? "";
+    }
+
+    private void UpdateFont(FreakyNativeAutoCompleteView platformView)
+    {
+        if(platformView == null)
+            return;
+            
+        var fontSize = (nfloat)(VirtualView?.FontSize ?? 14);
+        if (!string.IsNullOrEmpty(VirtualView?.FontFamily))
+        {
+            platformView.Font = UIFont.FromName(VirtualView.FontFamily, fontSize);
+        }
+        else
+        {
+            platformView.Font = VirtualView.FontAttributes switch
+            {
+                FontAttributes.Bold => UIFont.BoldSystemFontOfSize(fontSize),
+                FontAttributes.Italic => UIFont.ItalicSystemFontOfSize(fontSize),
+                _ => UIFont.SystemFontOfSize(fontSize),
+            };
+        }
+    }
+
+    private void UpdateTextAlignment(FreakyNativeAutoCompleteView platformView)
+    {
+        if (VirtualView == null)
+            return;
+
+        switch (VirtualView.HorizontalTextAlignment)
+        {
+            case TextAlignment.Center:
+                platformView.InputTextField.TextAlignment = UITextAlignment.Center;
+                break;
+            case TextAlignment.End:
+                platformView.InputTextField.TextAlignment = UITextAlignment.Right;
+                break;
+            case TextAlignment.Start:
+            default:
+                platformView.InputTextField.TextAlignment = UITextAlignment.Left;
+                break;
+        }
+
+        switch (VirtualView.VerticalTextAlignment)
+        {
+            case Microsoft.Maui.TextAlignment.Start:
+                platformView.InputTextField.VerticalAlignment = UIControlContentVerticalAlignment.Top;
+                break;
+            case Microsoft.Maui.TextAlignment.Center:
+                platformView.InputTextField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
+                break;
+            case Microsoft.Maui.TextAlignment.End:
+                platformView.InputTextField.VerticalAlignment    = UIControlContentVerticalAlignment.Bottom;
+                break;
+        }
     }
 }

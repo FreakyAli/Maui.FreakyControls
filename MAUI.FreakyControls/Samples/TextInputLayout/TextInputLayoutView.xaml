@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:textinputlayout="clr-namespace:Samples.TextInputLayout"
-    x:DataType="textinputlayout:TextInputLayoutViewModel"
     Title="TextInputLayoutView"
+    x:DataType="textinputlayout:TextInputLayoutViewModel"
     BackgroundColor="White">
     <Grid RowDefinitions="*, Auto">
         <VerticalStackLayout
@@ -20,23 +20,6 @@
                 BorderStrokeThickness="2"
                 BorderType="Outlined"
                 FontSize="20"
-                TitleFontSize="14"
-                ImageCommand="{Binding ImageWasTappedCommand}"
-                ImageHeight="{OnPlatform 25,
-                                         iOS=25,
-                                         Android=30}"
-                ImagePadding="10"
-                ImageSource="calendar"
-                ImageWidth="{OnPlatform 25,
-                                        iOS=25,
-                                        Android=30}" />
-
-            <freakyControls:FreakyTextInputLayout
-                x:Name="yolo"
-                Title="Underlined TextInputLayout"
-                BorderType="Underline"
-                FontSize="20"
-                TitleFontSize="14"
                 ImageCommand="{Binding ImageWasTappedCommand}"
                 ImageHeight="{OnPlatform 25,
                                          iOS=25,
@@ -46,6 +29,23 @@
                 ImageWidth="{OnPlatform 25,
                                         iOS=25,
                                         Android=30}"
+                TitleFontSize="14" />
+
+            <freakyControls:FreakyTextInputLayout
+                x:Name="yolo"
+                Title="Underlined TextInputLayout"
+                BorderType="Underline"
+                FontSize="20"
+                ImageCommand="{Binding ImageWasTappedCommand}"
+                ImageHeight="{OnPlatform 25,
+                                         iOS=25,
+                                         Android=30}"
+                ImagePadding="10"
+                ImageSource="calendar"
+                ImageWidth="{OnPlatform 25,
+                                        iOS=25,
+                                        Android=30}"
+                TitleFontSize="14"
                 UnderlineColor="Black"
                 UnderlineThickness="1.5" />
 
@@ -56,7 +56,6 @@
                 BorderStrokeThickness="2"
                 BorderType="Full"
                 FontSize="20"
-                TitleFontSize="14"
                 ImageCommand="{Binding ImageWasTappedCommand}"
                 ImageHeight="{OnPlatform 25,
                                          iOS=25,
@@ -65,7 +64,8 @@
                 ImageSource="calendar"
                 ImageWidth="{OnPlatform 25,
                                         iOS=25,
-                                        Android=30}" />
+                                        Android=30}"
+                TitleFontSize="14" />
 
             <freakyControls:FreakySwipeButton HeightRequest="50" SlideCompleted="Handle_SlideCompleted">
                 <freakyControls:FreakySwipeButton.Thumb>

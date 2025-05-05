@@ -5,32 +5,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:freakyControls="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
     xmlns:vm="clr-namespace:Samples.PinView"
-    x:DataType="vm:PinViewModel"     
-    Title="PinView">
-    
-    
+    Title="PinView"
+    x:DataType="vm:PinViewModel">
     <Grid RowDefinitions="*,Auto,4*">
-
         <Image
             Grid.Row="0"
             Aspect="AspectFit"
             Source="panda.jpg" />
-
         <Label
             Grid.Row="1"
             FontSize="Large"
             HorizontalTextAlignment="Center"
             Text="Enter your pin to continue!" />
-
         <freakyControls:FreakyPinCodeControl
             Grid.Row="2"
             Padding="10"
             BackSpaceClicked="FreakyPinCodeControl_BackSpaceClicked"
-            BackspaceButtonSource="backspace.png" 
+            BackspaceButtonSource="backspace.png"
             CancelClicked="FreakyPinCodeControl_CancelClicked"
+            CancelFontSize="20"
             CodeLength="6"
             FontSize="20"
-            CancelFontSize="20"
             ItemBackgroundColor="White"
             ItemBorderColor="Black"
             ItemFocusAnimation="Scale"
