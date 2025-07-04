@@ -1,4 +1,4 @@
-﻿using Android.Content;
+using Android.Content;
 using Android.Graphics;
 using Android.Util;
 using Android.Views;
@@ -186,7 +186,7 @@ public partial class SignaturePadCanvasView
         {
             if (IsBlank)
             {
-                return new NativePoint[0];
+                return Array.Empty<NativePoint>();
             }
 
             // make a deep copy, with { 0, 0 } line starter
@@ -203,7 +203,7 @@ public partial class SignaturePadCanvasView
         {
             if (IsBlank)
             {
-                return new NativePoint[0][];
+                return Array.Empty<NativePoint[]>();
             }
 
             // make a deep copy

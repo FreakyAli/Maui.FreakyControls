@@ -1,4 +1,4 @@
-﻿using NativePath = Android.Graphics.Path;
+using NativePath = Android.Graphics.Path;
 using NativePoint = System.Drawing.PointF;
 
 namespace Maui.FreakyControls.Platforms.Android;
@@ -66,13 +66,13 @@ internal static class PathSmoothing
                 // intermediate point
                 var mid = new NativePoint
                 {
-                    X = (0.5f * (2f * p1.X + (p2.X - p0.X) * t) +
-                        ((2f * p0.X - 5f * p1.X + 4f * p2.X - p3.X) * tt) +
-                        ((3f * p1.X - p0.X - 3f * p2.X + p3.X) * ttt)),
+                    X = ((0.5f * ((2f * p1.X) + ((p2.X - p0.X) * t))) +
+                        (((2f * p0.X) - (5f * p1.X) + (4f * p2.X) - p3.X) * tt) +
+                        (((3f * p1.X) - p0.X - (3f * p2.X) + p3.X) * ttt)),
 
-                    Y = (0.5f * (2 * p1.Y + (p2.Y - p0.Y) * t) +
-                        ((2 * p0.Y - 5 * p1.Y + 4 * p2.Y - p3.Y) * tt) +
-                        ((3 * p1.Y - p0.Y - 3 * p2.Y + p3.Y) * ttt))
+                    Y = ((0.5f * ((2 * p1.Y) + ((p2.Y - p0.Y) * t))) +
+                        (((2 * p0.Y) - (5 * p1.Y) + (4 * p2.Y) - p3.Y) * tt) +
+                        (((3 * p1.Y) - p0.Y - (3 * p2.Y) + p3.Y) * ttt))
                 };
                 smoothedPath.LineTo(mid.X, mid.Y);
                 smoothedPoints.Add(mid);

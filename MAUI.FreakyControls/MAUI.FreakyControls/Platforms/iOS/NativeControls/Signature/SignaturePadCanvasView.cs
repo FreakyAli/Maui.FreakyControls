@@ -1,4 +1,4 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using Foundation;
 using Maui.FreakyControls.Enums;
 using System.ComponentModel;
@@ -150,7 +150,7 @@ partial class SignaturePadCanvasView
         {
             if (IsBlank)
             {
-                return new NativePoint[0];
+                return Array.Empty<CoreGraphics.CGPoint>();
             }
 
             // make a deep copy, with { 0, 0 } line starter
@@ -167,7 +167,7 @@ partial class SignaturePadCanvasView
         {
             if (IsBlank)
             {
-                return new NativePoint[0][];
+                return Array.Empty<CoreGraphics.CGPoint[]>();
             }
 
             // make a deep copy

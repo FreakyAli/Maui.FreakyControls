@@ -1,4 +1,4 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using UIKit;
@@ -54,7 +54,7 @@ public static class NativeExtensions
     {
         int r = 0, g = 0, b = 0, a = 0;
 
-        if (hex.Contains("#"))
+        if (hex.Contains('#'))
             hex = hex.Replace("#", "");
 
         switch (hex.Length)
