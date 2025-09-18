@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Samples.ScratchView.ScratchView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=MAUI.FreakyControls"
+    Title="ScratchView">
+    <Grid Padding="20" RowSpacing="40" RowDefinitions="Auto,*,Auto">
+
+        <Label
+            FontSize="24"
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            Text="Scratch to Reveal!" />
+
+        <freaky:FreakyScratchView
+            x:Name="scratchView"
+            AutoRevealEnabled="True"
+            Grid.Row="1"
+            IsDebugModeEnabled="True"
+            IsTapToRevealEnabled="True"
+            RevealAnimationType="FadeOut"
+            RevealThreshold="0.6"
+            BrushSize="100"
+            ScratchCompleted="ScratchView_ScratchCompleted">
+
+            <freaky:FreakyScratchView.BackContent>
+                <Grid Padding="10" BackgroundColor="Purple">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="28"
+                            Text="🎉 You Won!"
+                            TextColor="DarkGreen" />
+                        <Label
+                            FontSize="18"
+                            Text="Coupon Code: FREAKY50"
+                            TextColor="DarkGray" />
+                    </VerticalStackLayout>
+                </Grid>
+            </freaky:FreakyScratchView.BackContent>
+
+            <freaky:FreakyScratchView.FrontContent>
+                <Grid
+                    Padding="10"
+                    BackgroundColor="Gray"
+                    Opacity="0.9">
+                    <Label
+                        Grid.Row="0"
+                        FontSize="30"
+                        BackgroundColor="Green"
+                        HorizontalOptions="Center"
+                        Text="Scratch Me"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </Grid>
+            </freaky:FreakyScratchView.FrontContent>
+        </freaky:FreakyScratchView>
+
+        <Button Grid.Row="2" Clicked="OnResetClicked" Text="Reset" />
+
+    </Grid>
+</ContentPage>

@@ -60,7 +60,8 @@ namespace Samples
                 AppShell.JumpList,
                 AppShell.PinView,
                 AppShell.Switches,
-                AppShell.ZoomImage
+                AppShell.ZoomImage,
+                AppShell.ScratchView
             ];
         }
 
