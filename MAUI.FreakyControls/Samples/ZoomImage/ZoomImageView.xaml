@@ -10,7 +10,7 @@
     x:DataType="vm:ZoomImageViewModel">
     <Grid BackgroundColor="#88000000">
         <freakyControls:FreakyZoomableView>
-            <Image Aspect="AspectFit" Source="{x:Static sample:ImageUrls.Female1}" />
+            <Image Aspect="AspectFill" Source="{x:Static sample:ImageUrls.Female10}" />
         </freakyControls:FreakyZoomableView>
     </Grid>
 </ContentPage>
