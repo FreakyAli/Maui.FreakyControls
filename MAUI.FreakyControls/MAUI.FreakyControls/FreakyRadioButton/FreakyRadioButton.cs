@@ -276,7 +276,7 @@ namespace Maui.FreakyControls
         {
             if (!(bindable is FreakyRadioButton radioButton)) return;
             radioButton.CheckedChanged?.Invoke(radioButton, new CheckedChangedEventArgs((bool)newValue));
-            radioButton.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
+            radioButton.CheckedChangedCommand?.ExecuteWhenAvailable(newValue);
             radioButton.ChangeVisualState();
             await radioButton.ToggleAnimationAsync();
         }

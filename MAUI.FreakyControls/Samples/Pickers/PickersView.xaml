@@ -29,7 +29,6 @@
         <Label Text="Freaky TimePicker below: " TextColor="Black" />
         <Border>
             <freakyControls:FreakyTimePicker
-                BackgroundColor="green"
                 FontSize="Large"
                 ImageAlignment="Left"
                 ImageCommand="{Binding ImageWasTappedCommand}"
@@ -48,7 +47,6 @@
         <Border>
             <freakyControls:FreakyPicker
                 Title="Select something :D"
-                BackgroundColor="green"
                 FontSize="Large"
                 ImageAlignment="Right"
                 ImageCommand="{Binding ImageWasTappedCommand}"

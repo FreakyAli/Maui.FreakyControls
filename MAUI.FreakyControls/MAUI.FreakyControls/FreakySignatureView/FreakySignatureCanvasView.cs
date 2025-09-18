@@ -285,7 +285,7 @@ public class FreakySignatureCanvasView : View
         UpdateBindableProperties();
 
         StrokeCompleted?.Invoke(this, EventArgs.Empty);
-        StrokeCompletedCommand.ExecuteCommandIfAvailable();
+        StrokeCompletedCommand.ExecuteWhenAvailable();
     }
 
     internal void OnCleared()
@@ -293,7 +293,7 @@ public class FreakySignatureCanvasView : View
         UpdateBindableProperties();
 
         Cleared?.Invoke(this, EventArgs.Empty);
-        ClearedCommand.ExecuteCommandIfAvailable();
+        ClearedCommand.ExecuteWhenAvailable();
     }
 
     private void UpdateBindableProperties()

@@ -570,7 +570,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     {
         if (!(bindable is FreakyCheckbox checkbox)) return;
         checkbox.CheckedChanged?.Invoke(checkbox, new CheckedChangedEventArgs((bool)newValue));
-        checkbox.CheckedChangedCommand?.ExecuteCommandIfAvailable(newValue);
+        checkbox.CheckedChangedCommand?.ExecuteWhenAvailable(newValue);
         checkbox.ChangeVisualState();
         await checkbox.ToggleAnimationAsync();
     }

@@ -338,7 +338,7 @@ public class FreakySwitch : ContentView, IDisposable
     {
         if (bindable is not FreakySwitch freakySwitch) return;
         freakySwitch.Toggled?.Invoke(freakySwitch, new ToggledEventArgs((bool)newValue));
-        freakySwitch.ToggledCommand?.ExecuteCommandIfAvailable(newValue);
+        freakySwitch.ToggledCommand?.ExecuteWhenAvailable(newValue);
         freakySwitch.ChangeVisualState();
         freakySwitch.skiaView.InvalidateSurface();
     }

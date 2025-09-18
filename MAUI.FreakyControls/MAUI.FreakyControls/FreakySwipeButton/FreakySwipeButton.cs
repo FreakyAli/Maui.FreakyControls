@@ -111,7 +111,7 @@ public class FreakySwipeButton : AbsoluteLayout, IDisposable
 
                 if (posX >= (Width - Thumb.Width - 10/* keep some margin for error*/))
                 {
-                    SlideCompleteCommand.ExecuteCommandIfAvailable();
+                    SlideCompleteCommand.ExecuteWhenAvailable();
                     SlideCompleted?.Invoke(this, EventArgs.Empty);
                 }
                 break;

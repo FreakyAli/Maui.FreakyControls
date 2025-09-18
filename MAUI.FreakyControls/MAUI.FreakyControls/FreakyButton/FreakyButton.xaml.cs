@@ -381,7 +381,7 @@ public partial class FreakyButton : ContentView
                 break;
         }
         Clicked?.Invoke(sender, e);
-        Command?.ExecuteCommandIfAvailable(CommandParameter);
+        Command?.ExecuteWhenAvailable(CommandParameter);
     }
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

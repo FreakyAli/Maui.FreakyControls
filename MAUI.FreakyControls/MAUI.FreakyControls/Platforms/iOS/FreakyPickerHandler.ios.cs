@@ -45,7 +45,7 @@ public partial class FreakyPickerHandler
     {
         if (VirtualView is FreakyPicker entry)
         {
-            entry.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
+            entry.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter);
         }
     }
 }

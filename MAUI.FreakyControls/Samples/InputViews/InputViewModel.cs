@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Maui.FreakyControls.Extensions;
+using FreakyKit.Utils;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

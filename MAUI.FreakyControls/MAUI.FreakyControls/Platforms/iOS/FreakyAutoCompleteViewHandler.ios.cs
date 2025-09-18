@@ -125,7 +125,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
             uiView.UserInteractionEnabled = true;
             var tapGesture = new UITapGestureRecognizer(() =>
             {
-                entry?.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
+                entry?.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter);
             });
             uiView.AddGestureRecognizer(tapGesture);
 

@@ -1,5 +1,4 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using System.Windows.Input;
 using Maui.FreakyEffects;
 using Maui.FreakyControls.Dotnet;
 
@@ -31,14 +30,6 @@ public static class Extensions
     public static bool IsAndroid => DeviceInfo.Current.Platform == DevicePlatform.Android;
 
     public static bool IsiOS => DeviceInfo.Current.Platform == DevicePlatform.iOS;
-
-    public static void ExecuteCommandIfAvailable(this ICommand command, object parameter = null)
-    {
-        if (command?.CanExecute(parameter) == true)
-        {
-            command?.Execute(parameter);
-        }
-    }
 
     public static double DipsToPixels(this double dip)
     {
