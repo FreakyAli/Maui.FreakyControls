@@ -1,5 +1,6 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Maui.FreakyEffects;
+using Maui.FreakyControls.Dotnet;
 
 #if MACCATALYST
 using Maui.FreakyControls.Platforms.MacCatalyst;

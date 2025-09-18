@@ -1,4 +1,5 @@
-﻿using Maui.FreakyControls;
+﻿using FreakyKit.Utils;
+using Maui.FreakyControls;
 using Maui.FreakyControls.Extensions;
 
 namespace Samples.InputViews;
