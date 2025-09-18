@@ -106,7 +106,7 @@ public class FreakyRadioGroup : StackLayout
         int index = FindIndex(selectedRadioButton);
         string name = selectedRadioButton.Name;
         var eventArgs = new FreakyRadioButtonEventArgs(name, index);
-        this.SelectedRadioButtonChangedCommand?.ExecuteCommandIfAvailable(eventArgs);
+        this.SelectedRadioButtonChangedCommand?.ExecuteWhenAvailable(eventArgs);
         SelectedRadioButtonChanged?.Invoke(this, eventArgs);
     }
 

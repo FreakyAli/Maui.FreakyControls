@@ -13,9 +13,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Maui.FreakyControls</RootNamespace>
-		<AssemblyVersion>0.5.2</AssemblyVersion>
-		<AssemblyFileVersion>0.5.2</AssemblyFileVersion>
-		<Version>0.5.2-pre</Version>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<AssemblyFileVersion>1.0.0</AssemblyFileVersion>
+		<Version>1.0.0</Version>
 		<NeutralLanguage>en</NeutralLanguage>
 		<!--Version of C# to use -->
 		<PackageId>FreakyControls</PackageId>
@@ -27,9 +27,9 @@
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
 		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP SwipeButton PinCodeView Zoom ZoomableImage Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
-		<PackageReleaseNotes>FreakyZoomableImageView is here!</PackageReleaseNotes>
+		<PackageReleaseNotes>Android 16k Pages are now supported</PackageReleaseNotes>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
-		<Copyright>Copyright 2023</Copyright>
+		<Copyright>Copyright 2025</Copyright>
 		<PackOnBuild>true</PackOnBuild>
 		<SynchReleaseVersion>false</SynchReleaseVersion>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
@@ -139,10 +139,11 @@
 		<Folder Include="Wrappers\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
-		<PackageReference Include="Svg.Skia" Version="2.0.0.8" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
+		<PackageReference Include="Svg.Skia" Version="3.0.6" />
 		<PackageReference Include="FreakyEffects" Version="0.1.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.0" />
+		<PackageReference Include="FreakyKit.Utils" Version="1.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="Shared\FreakySignatureView\SignaturePadView.xaml">

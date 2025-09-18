@@ -61,7 +61,7 @@ namespace Samples
                 AppShell.PinView,
                 AppShell.Switches,
                 AppShell.ZoomImage,
-                AppShell.ScratchView
+                //AppShell.ScratchView
             ];
         }
 

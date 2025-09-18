@@ -45,7 +45,7 @@ public partial class FreakyTimePickerHandler
     {
         if (VirtualView is FreakyTimePicker entry)
         {
-            entry.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
+            entry.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter);
         }
     }
 }

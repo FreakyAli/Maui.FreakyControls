@@ -106,7 +106,7 @@ public class FreakyChipGroup : StackLayout
         int index = FindIndex(selectedFreakyChip);
         string name = selectedFreakyChip.Name;
         var eventArgs = new FreakyRadioButtonEventArgs(name, index);
-        this.SelectedFreakyChipChangedCommand?.ExecuteCommandIfAvailable(eventArgs);
+        this.SelectedFreakyChipChangedCommand?.ExecuteWhenAvailable(eventArgs);
         SelectedFreakyChipChanged?.Invoke(this, eventArgs);
     }
 

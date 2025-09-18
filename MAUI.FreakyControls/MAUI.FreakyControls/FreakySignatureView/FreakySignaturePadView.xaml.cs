@@ -441,14 +441,14 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     {
         UpdateBindableProperties();
         Cleared?.Invoke(this, EventArgs.Empty);
-        ClearedCommand.ExecuteCommandIfAvailable();
+        ClearedCommand.ExecuteWhenAvailable();
     }
 
     private void OnSignatureStrokeCompleted(object sender, EventArgs e)
     {
         UpdateBindableProperties();
         StrokeCompleted?.Invoke(this, EventArgs.Empty);
-        StrokeCompletedCommand.ExecuteCommandIfAvailable();
+        StrokeCompletedCommand.ExecuteWhenAvailable();
     }
 
     private void UpdateBindableProperties()

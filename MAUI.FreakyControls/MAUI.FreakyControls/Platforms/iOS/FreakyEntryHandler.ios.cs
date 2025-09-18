@@ -54,7 +54,7 @@ public partial class FreakyEntryHandler
     {
         if (VirtualView is FreakyEntry entry)
         {
-            entry.ImageCommand?.ExecuteCommandIfAvailable(entry.ImageCommandParameter);
+            entry.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter);
         }
     }
 }

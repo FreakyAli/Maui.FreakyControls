@@ -15,7 +15,7 @@ public partial class AppShell : Shell
     internal const string PinView = "PinView";
     internal const string Switches = "Switch";
     internal const string ZoomImage = "ZoomImage";
-    internal const string ScratchView = "ScratchView";
+    //internal const string ScratchView = "ScratchView";
 
     public AppShell()
     {
@@ -33,6 +33,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(PinView, typeof(PinView.PinView));
         Routing.RegisterRoute(Switches, typeof(Switch.SwitchsView));
         Routing.RegisterRoute(ZoomImage, typeof(ZoomImage.ZoomImageView));
-        Routing.RegisterRoute(ScratchView, typeof(ScratchView.ScratchView));
+        //Routing.RegisterRoute(ScratchView, typeof(ScratchView.ScratchView));
     }
 }

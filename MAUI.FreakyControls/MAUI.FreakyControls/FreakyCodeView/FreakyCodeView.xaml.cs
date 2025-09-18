@@ -138,7 +138,7 @@ public partial class FreakyCodeView : ContentView
                 hiddenTextEntry.DismissSoftKeyboard();
             }
             CodeEntryCompleted?.Invoke(this, new FreakyCodeCompletedEventArgs(CodeValue));
-            CodeEntryCompletedCommand.ExecuteCommandIfAvailable(CodeValue);
+            CodeEntryCompletedCommand.ExecuteWhenAvailable(CodeValue);
         }
     }
 

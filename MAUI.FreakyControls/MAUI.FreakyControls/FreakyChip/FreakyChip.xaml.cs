@@ -300,7 +300,7 @@ public partial class FreakyChip : ContentView
         if (bindable is not FreakyChip chip) return;
         chip.ChangeVisualState();
         chip.SelectedChanged?.Invoke(chip, new CheckedChangedEventArgs((bool)newValue));
-        chip.SelectedChangedCommand?.ExecuteCommandIfAvailable(newValue);
+        chip.SelectedChangedCommand?.ExecuteWhenAvailable(newValue);
     }
 
     private static void OnSizeRequestChanged(BindableObject bindable, object oldValue, object newValue)

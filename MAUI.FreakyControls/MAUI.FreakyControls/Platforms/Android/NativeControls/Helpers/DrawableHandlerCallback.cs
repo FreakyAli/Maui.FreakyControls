@@ -18,7 +18,7 @@ public class DrawableHandlerCallback : IDrawableClickListener
         {
             case DrawablePosition.Left:
             case DrawablePosition.Right:
-                frentry.ImageCommand?.ExecuteCommandIfAvailable(frentry.ImageCommandParameter);
+                frentry.ImageCommand?.ExecuteWhenAvailable(frentry.ImageCommandParameter);
                 break;
         }
     }
