@@ -23,7 +23,7 @@
 		<Authors>FreakyAli</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>Maui.FreakyControls is a free OSS UI Kit for .NET MAUI which provides a set of controls and utilities to build modern mobile apps.</Description>
-		<PackageIcon>maui_toolkit.png</PackageIcon>
+		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/FreakyAli/MAUI.FreakyControls</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/FreakyAli/MAUI.FreakyControls</PackageProjectUrl>
 		<PackageTags>Maui dotnet.Maui .net-Maui FreakyControls CodeView OTP SwipeButton PinCodeView Zoom ZoomableImage Switch AutoComplete JumpList Button Checkbox uikit Signature Radiobutton SignatureView Svg CircularImage TextInputLayout</PackageTags>
@@ -91,7 +91,7 @@
 		<None Remove="SkiaSharp.Svg" />
 		<None Remove="Platforms\Android\NativeControls\Helpers\" />
 		<None Remove="Platforms\iOS\NativeControls\" />
-		<None Include="maui_toolkit.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
 		<None Include="Readme.md" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
 		<None Remove="Platforms\MacCatalyst\" />
