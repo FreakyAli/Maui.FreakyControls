@@ -1,7 +1,7 @@
 ﻿using Android.Content.Res;
 using Android.Views;
 using Android.Views.InputMethods;
-using AndroidX.AppCompat.Widget;
+using Microsoft.Maui.Platform;
 using AndroidX.Core.View;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
 
@@ -9,9 +9,9 @@ namespace Maui.FreakyControls
 {
     public partial class FreakyEditorHandler
     {
-        protected override AppCompatEditText CreatePlatformView()
+        protected override MauiAppCompatEditText CreatePlatformView()
         {
-            var _nativeView = new AppCompatEditText(Context)
+            var _nativeView = new MauiAppCompatEditText(Context)
             {
                 ImeOptions = ImeAction.Done,
                 Gravity = GravityFlags.Top,

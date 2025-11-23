@@ -6,13 +6,14 @@ using AndroidX.Core.View;
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
 using Maui.FreakyControls.Enums;
+using Microsoft.Maui.Platform;
 using static Microsoft.Maui.ApplicationModel.Platform;
 
 namespace Maui.FreakyControls;
 
 public partial class FreakyEntryHandler
 {
-    protected override AppCompatEditText CreatePlatformView()
+    protected override MauiAppCompatEditText CreatePlatformView()
     {
         var _nativeView = new FreakyEditText(Context);
         var colorStateList = ColorStateList.ValueOf(Android.Graphics.Color.Transparent);

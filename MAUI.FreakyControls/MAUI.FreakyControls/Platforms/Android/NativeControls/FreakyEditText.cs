@@ -5,10 +5,11 @@ using Android.Util;
 using Android.Views;
 using AndroidX.AppCompat.Widget;
 using Rect = Android.Graphics.Rect;
+using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
-public class FreakyEditText : AppCompatEditText
+public class FreakyEditText : MauiAppCompatEditText
 {
     private Drawable drawableRight;
     private Drawable drawableLeft;
@@ -20,14 +21,6 @@ public class FreakyEditText : AppCompatEditText
     private IDrawableClickListener clickListener;
 
     public FreakyEditText(Context context) : base(context)
-    {
-    }
-
-    public FreakyEditText(Context context, IAttributeSet attrs) : base(context, attrs)
-    {
-    }
-
-    public FreakyEditText(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
     {
     }
 

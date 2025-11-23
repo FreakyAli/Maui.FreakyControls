@@ -66,8 +66,8 @@ public partial class FreakyTimePickerHandler
         if (VirtualView is null)
             return;
 
-        var time = VirtualView.Time;
-        ShowPickerDialog(time.Hours, time.Minutes);
+        if(VirtualView.Time is TimeSpan time)
+            ShowPickerDialog(time.Hours, time.Minutes);
     }
 
     // This overload is here so we can pass in the current values from the dialog
