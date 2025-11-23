@@ -10,6 +10,6 @@ public partial class TextInputLayoutView : ContentPage
 
     private async void Handle_SlideCompleted(object sender, EventArgs e)
     {
-        await this.DisplayAlert("Swiped", "Swipe button was slide successfully!", "Ok");
+        await this.DisplayAlertAsync("Swiped", "Swipe button was slide successfully!", "Ok");
     }
 }

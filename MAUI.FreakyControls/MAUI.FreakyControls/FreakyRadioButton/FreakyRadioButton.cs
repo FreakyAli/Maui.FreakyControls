@@ -34,9 +34,9 @@ namespace Maui.FreakyControls
         private async Task ToggleAnimationAsync()
         {
             isAnimating = true;
-            await skiaView.ScaleTo(0.80, 100);
+            await skiaView.ScaleToAsync(0.80, 100);
             skiaView.InvalidateSurface();
-            await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+            await skiaView.ScaleToAsync(1, 100, Easing.BounceOut);
             isAnimating = false;
         }
 

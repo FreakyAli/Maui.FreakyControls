@@ -75,14 +75,14 @@ public class FreakyCheckbox : ContentView, IDisposable
         {
             if (Design == Design.Native)
             {
-                await skiaView.ScaleTo(0.80, 100);
+                await skiaView.ScaleToAsync(0.80, 100);
                 return;
             }
 
             switch (AnimationType)
             {
                 case AnimationType.Default:
-                    await skiaView.ScaleTo(0.80, 100);
+                    await skiaView.ScaleToAsync(0.80, 100);
                     break;
 
                 case AnimationType.Bounce:
@@ -94,12 +94,12 @@ public class FreakyCheckbox : ContentView, IDisposable
                         // into a circular motion instead of rotating on the provided anchor
                         if (DevicePlatform.Android == DeviceInfo.Platform)
                             skiaView.AnchorY = skiaView.AnchorX = 0.501;
-                        await skiaView.ScaleYTo(0.60, 500, Easing.Linear);
+                        await skiaView.ScaleYToAsync(0.60, 500, Easing.Linear);
                     }
                     break;
 
                 case AnimationType.Flip:
-                    await skiaView.RotateYTo(90, 200);
+                    await skiaView.RotateYToAsync(90, 200);
                     break;
 
                 case AnimationType.Rotate:
@@ -109,7 +109,7 @@ public class FreakyCheckbox : ContentView, IDisposable
                     // into a circular motion instead of rotating on the provided anchor
                     if (DevicePlatform.Android == DeviceInfo.Platform)
                         skiaView.AnchorY = skiaView.AnchorX = 0.501;
-                    await skiaView.RotateTo(IsChecked ? 90 : -90, 200);
+                    await skiaView.RotateToAsync(IsChecked ? 90 : -90, 200);
                     break;
 
                 case AnimationType.Slam:
@@ -124,20 +124,20 @@ public class FreakyCheckbox : ContentView, IDisposable
                         skiaView.InvalidateSurface();
                         skiaView.Opacity = 0;
                         await TaskExt.WhenAll(
-                            skiaView.ScaleTo(3.5, 100, Easing.Linear),
-                            skiaView.FadeTo(0.5, 100, Easing.Linear)
+                            skiaView.ScaleToAsync(3.5, 100, Easing.Linear),
+                            skiaView.FadeToAsync(0.5, 100, Easing.Linear)
                             );
                         await TaskExt.WhenAll(
-                            skiaView.ScaleTo(3, 100, Easing.Linear),
-                            skiaView.FadeTo(0.6, 100, Easing.Linear)
+                            skiaView.ScaleToAsync(3, 100, Easing.Linear),
+                            skiaView.FadeToAsync(0.6, 100, Easing.Linear)
                             );
                         await TaskExt.WhenAll(
-                            skiaView.ScaleTo(2.5, 100, Easing.Linear),
-                            skiaView.FadeTo(0.7, 100, Easing.Linear)
+                            skiaView.ScaleToAsync(2.5, 100, Easing.Linear),
+                            skiaView.FadeToAsync(0.7, 100, Easing.Linear)
                             );
                         await TaskExt.WhenAll(
-                            skiaView.ScaleTo(2, 100, Easing.Linear),
-                            skiaView.FadeTo(0.8, 100, Easing.Linear)
+                            skiaView.ScaleToAsync(2, 100, Easing.Linear),
+                            skiaView.FadeToAsync(0.8, 100, Easing.Linear)
                             );
                     }
                     break;
@@ -151,21 +151,21 @@ public class FreakyCheckbox : ContentView, IDisposable
         {
             if (Design == Design.Native)
             {
-                await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+                await skiaView.ScaleToAsync(1, 100, Easing.BounceOut);
                 return;
             }
 
             switch (AnimationType)
             {
                 case AnimationType.Default:
-                    await skiaView.ScaleTo(1, 100, Easing.BounceOut);
+                    await skiaView.ScaleToAsync(1, 100, Easing.BounceOut);
                     break;
 
                 case AnimationType.Bounce:
                     if (IsChecked)
                     {
-                        await skiaView.ScaleYTo(1, 100, Easing.BounceOut);
-                        await skiaView.ScaleTo(1.2, 400, Easing.BounceOut);
+                        await skiaView.ScaleYToAsync(1, 100, Easing.BounceOut);
+                        await skiaView.ScaleToAsync(1.2, 400, Easing.BounceOut);
                         skiaView.Scale = 1;
                     }
                     break;
@@ -180,7 +180,7 @@ public class FreakyCheckbox : ContentView, IDisposable
 
                 case AnimationType.Slam:
                     skiaView.Scale = 1;
-                    await skiaView.ScaleTo(0.8, 200, Easing.Linear);
+                    await skiaView.ScaleToAsync(0.8, 200, Easing.Linear);
                     skiaView.Scale = 1;
                     skiaView.Opacity = 1;
                     break;

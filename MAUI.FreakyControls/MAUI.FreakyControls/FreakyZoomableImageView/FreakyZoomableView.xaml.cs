@@ -235,8 +235,8 @@ public partial class FreakyZoomableView : ContentView
             var animationDuration = 250u; // duration in milliseconds
 
             await Task.WhenAll(
-                Content.ScaleTo(_currentScale, animationDuration, Easing.CubicInOut),
-                Content.TranslateTo(targetX, targetY, animationDuration, Easing.CubicInOut)
+                Content.ScaleToAsync(_currentScale, animationDuration, Easing.CubicInOut),
+                Content.TranslateToAsync(targetX, targetY, animationDuration, Easing.CubicInOut)
             );
         }
         else

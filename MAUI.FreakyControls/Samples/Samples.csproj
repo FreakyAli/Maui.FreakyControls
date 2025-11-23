@@ -30,44 +30,8 @@
 		<MauiFont Include="Resources\Fonts\*" />
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-	<ItemGroup>
-		<None Remove="calendar.png" />
-		<None Remove="Platforms\Android\Resources\drawable\" />
-		<None Remove="Platforms\iOS\Assets.xcassets\" />
-		<None Remove="CommunityToolkit.Mvvm" />
-		<None Remove="ImageViews\" />
-		<None Remove="InputViews\" />
-		<None Remove="TextInputLayout\" />
-		<None Remove="Pickers\" />
-		<None Remove="SignatureView\" />
-		<None Remove="Nager.Country" />
-		<None Remove="Checkboxes\" />
-		<None Remove="RadioButtons\" />
-		<None Remove="JumpList\" />
-		<None Remove="PinView\" />
-		<None Remove="Resources\Images\backspace.svg" />
-		<None Remove="Resources\Images\panda.jpg" />
-		<None Remove="Resources\Images\tick.svg" />
-		<None Remove="Switch\" />
-		<None Remove="ZoomImage\" />
-	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
 		<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.1.1" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Platforms\Android\Resources\drawable\" />
-		<Folder Include="Platforms\iOS\Assets.xcassets\" />
-		<Folder Include="ImageViews\" />
-		<Folder Include="InputViews\" />
-		<Folder Include="TextInputLayout\" />
-		<Folder Include="Pickers\" />
-		<Folder Include="SignatureView\" />
-		<Folder Include="Checkboxes\" />
-		<Folder Include="RadioButtons\" />
-		<Folder Include="JumpList\" />
-		<Folder Include="PinView\" />
-		<Folder Include="Switch\" />
-		<Folder Include="ZoomImage\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
@@ -82,35 +46,6 @@
 		<EmbeddedResource Include="Resources\Images\tick.svg" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiXaml Update="ImageViews\ImagesPage.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="InputViews\InputViews.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="Pickers\PickersView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="TextInputLayout\TextInputLayoutView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="SignatureView\SignatureView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="Checkboxes\CheckboxesView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\Images\panda.jpg" />
 	</ItemGroup>
 </Project>

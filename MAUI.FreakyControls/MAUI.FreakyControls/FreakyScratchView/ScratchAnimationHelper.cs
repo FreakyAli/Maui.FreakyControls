@@ -54,9 +54,9 @@ public static class ScratchAnimationHelper
             grid.Children.Add(shimmerBox);
 
             // Fade in shimmer
-            await shimmerBox.FadeTo(0.5, 100);
-            await shimmerBox.TranslateTo(view.Width + 150, 0, 600, Easing.SinInOut);
-            await shimmerBox.FadeTo(0, 200);
+            await shimmerBox.FadeToAsync(0.5, 100);
+            await shimmerBox.TranslateToAsync(view.Width + 150, 0, 600, Easing.SinInOut);
+            await shimmerBox.FadeToAsync(0, 200);
 
             grid.Children.Remove(shimmerBox);
         }
@@ -72,7 +72,7 @@ public static class ScratchAnimationHelper
 
         try
         {
-            await view.FrontContent.FadeTo(0, 500, Easing.CubicOut);
+            await view.FrontContent.FadeToAsync(0, 500, Easing.CubicOut);
             view.FrontContent.IsVisible = false;
         }
         catch
