@@ -15,7 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          dotnet-version: '10.0.x'
+          
       - name: Verify commit exists in origin/master
         shell: pwsh
         run: |
