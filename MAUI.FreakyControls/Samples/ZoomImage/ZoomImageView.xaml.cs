@@ -1,6 +1,6 @@
 ﻿namespace Samples.ZoomImage;
 
-public partial class ZoomImageView : ContentPage
+public partial class ZoomImageView
 {
 	public ZoomImageView()
 	{

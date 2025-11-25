@@ -1,6 +1,6 @@
 namespace Samples.TextInputLayout;
 
-public partial class TextInputLayoutView : ContentPage
+public partial class TextInputLayoutView
 {
     public TextInputLayoutView()
     {
