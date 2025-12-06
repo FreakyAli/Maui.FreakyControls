@@ -783,7 +783,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
         if (animated)
         {
-            var t1 = LabelTitle.TranslateTo(_leftMargin, yoffset, 100);
+            var t1 = LabelTitle.TranslateToAsync(_leftMargin, yoffset, 100);
             var t2 = SizeTo(_titleFontSize);
             await Task.WhenAll(t1, t2);
         }
@@ -801,7 +801,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
     {
         if (animated)
         {
-            var t1 = LabelTitle.TranslateTo(10, 0, 250, Easing.Linear);
+            var t1 = LabelTitle.TranslateToAsync(10, 0, 250, Easing.Linear);
             var t2 = SizeTo(_placeholderFontSize);
             await Task.WhenAll(t1, t2);
         }

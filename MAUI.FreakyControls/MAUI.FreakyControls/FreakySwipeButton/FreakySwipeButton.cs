@@ -83,7 +83,7 @@ public class FreakySwipeButton : AbsoluteLayout, IDisposable
         switch (e.StatusType)
         {
             case GestureStatus.Started:
-                await TrackBar.FadeTo(_fadeEffect, _animLength);
+                await TrackBar.FadeToAsync(_fadeEffect, _animLength);
                 break;
 
             case GestureStatus.Running:
@@ -105,8 +105,8 @@ public class FreakySwipeButton : AbsoluteLayout, IDisposable
 
                 // Reset translation applied during the pan
                 await TaskExt.WhenAll(
-                    TrackBar.FadeTo(1, _animLength),
-                    Thumb.TranslateTo(0, 0, _animLength * 2, Easing.CubicIn)
+                    TrackBar.FadeToAsync(1, _animLength),
+                    Thumb.TranslateToAsync(0, 0, _animLength * 2, Easing.CubicIn)
                 );
 
                 if (posX >= (Width - Thumb.Width - 10/* keep some margin for error*/))

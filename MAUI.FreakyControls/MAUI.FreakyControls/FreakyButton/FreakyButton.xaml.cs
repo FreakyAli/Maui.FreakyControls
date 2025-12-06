@@ -307,10 +307,10 @@ public partial class FreakyButton : ContentView
         var isBusy = (bool)newValue;
         if (isBusy)
         {
-            await freakyButton.txtLabel.TranslateTo(0, -35, 300, Easing.Linear);
+            await freakyButton.txtLabel.TranslateToAsync(0, -35, 300, Easing.Linear);
             freakyButton.txtLabel.IsVisible = false;
             freakyButton.activityIndicator.IsVisible = true;
-            await freakyButton.activityIndicator.TranslateTo(0, 0, 200, Easing.Linear);
+            await freakyButton.activityIndicator.TranslateToAsync(0, 0, 200, Easing.Linear);
         }
         else
         {
@@ -364,20 +364,20 @@ public partial class FreakyButton : ContentView
 
             case ButtonAnimations.Fade:
                 this.NativeAnimationColor = Colors.Transparent;
-                await this.FadeTo(0.7, 100);
-                await this.FadeTo(1, 500);
+                await this.FadeToAsync(0.7, 100);
+                await this.FadeToAsync(1, 500);
                 break;
 
             case ButtonAnimations.Scale:
                 this.NativeAnimationColor = Colors.Transparent;
-                await this.ScaleTo(0.95, 100);
-                await this.ScaleTo(1, 100);
+                await this.ScaleToAsync(0.95, 100);
+                await this.ScaleToAsync(1, 100);
                 break;
 
             case ButtonAnimations.FadeAndScale:
                 this.NativeAnimationColor = Colors.Transparent;
-                await TaskExt.WhenAll(this.ScaleTo(0.95, 100), this.FadeTo(0.7, 100));
-                await TaskExt.WhenAll(this.ScaleTo(1, 100), this.FadeTo(1, 500));
+                await TaskExt.WhenAll(this.ScaleToAsync(0.95, 100), this.FadeToAsync(0.7, 100));
+                await TaskExt.WhenAll(this.ScaleToAsync(1, 100), this.FadeToAsync(1, 500));
                 break;
         }
         Clicked?.Invoke(sender, e);

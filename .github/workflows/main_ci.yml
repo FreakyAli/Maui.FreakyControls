@@ -15,5 +15,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+          dotnet-version: '10.0.x'
+          
+    - name: Restore
+      run: dotnet workload restore MAUI.FreakyControls/MAUI.FreakyControls.sln
+      
     - name: Build
       run: dotnet build Maui.FreakyControls\Maui.FreakyControls.sln -c Release

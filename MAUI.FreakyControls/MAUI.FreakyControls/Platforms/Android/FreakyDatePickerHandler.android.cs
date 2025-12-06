@@ -77,8 +77,8 @@ public partial class FreakyDatePickerHandler
         if (_dialog is not null && _dialog.IsShowing)
             return;
 
-        var date = VirtualView.Date;
-        ShowPickerDialog(date.Year, date.Month - 1, date.Day);
+        if(VirtualView.Date is DateTime date)
+            ShowPickerDialog(date.Year, date.Month - 1, date.Day);
     }
 
     private void ShowPickerDialog(int year, int month, int day)

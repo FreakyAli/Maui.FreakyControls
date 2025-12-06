@@ -91,7 +91,7 @@ namespace Samples
                 var permission = await PermissionHelper.CheckAndRequestPermissionAsync<Permissions.Vibrate>();
                 if (permission != PermissionStatus.Granted)
                 {
-                    await MainPage?.DisplayAlert("Error", "Needs vibration permission for haptik feedback", "Ok");
+                    await MainPage?.DisplayAlertAsync("Error", "Needs vibration permission for haptik feedback", "Ok");
                     return;
                 }
             }
@@ -101,12 +101,12 @@ namespace Samples
         private async Task ImageTappedAsync(object obj)
         {
             await MainThread.InvokeOnMainThreadAsync(async () =>
-            await MainPage?.DisplayAlert("Title", "The image was clicked on that FreakyEntry", "Ok"));
+            await MainPage?.DisplayAlertAsync("Title", "The image was clicked on that FreakyEntry", "Ok"));
         }
 
         private async Task LongPressedAsync(object commandParam)
         {
-            await MainPage?.DisplayAlert(commandParam?.ToString(), "Long pressed yo :D", "Ok");
+            await MainPage?.DisplayAlertAsync(commandParam?.ToString(), "Long pressed yo :D", "Ok");
         }
     }
 }

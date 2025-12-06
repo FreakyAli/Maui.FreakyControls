@@ -42,8 +42,8 @@ public partial class JumpListView : ContentPage
                 jumplistIdentifier.IsVisible = true;
                 await Task.WhenAny<bool>
                 (
-                     jumplistIdentifier.FadeTo(1, length: 500, easing: Easing.BounceIn),
-                     jumplistIdentifier.ScaleTo(1, length: 500, easing: Easing.BounceIn)
+                     jumplistIdentifier.FadeToAsync(1, length: 500, easing: Easing.BounceIn),
+                     jumplistIdentifier.ScaleToAsync(1, length: 500, easing: Easing.BounceIn)
                 );
                 break;
 
@@ -51,8 +51,8 @@ public partial class JumpListView : ContentPage
             case SKTouchAction.Cancelled:
                 await Task.WhenAny<bool>
                 (
-                    jumplistIdentifier.FadeTo(0.7, length: 500, easing: Easing.Linear),
-                    jumplistIdentifier.ScaleTo(0.9, length: 500, easing: Easing.Linear)
+                    jumplistIdentifier.FadeToAsync(0.7, length: 500, easing: Easing.Linear),
+                    jumplistIdentifier.ScaleToAsync(0.9, length: 500, easing: Easing.Linear)
                 );
                 jumplistIdentifier.IsVisible = false;
                 break;

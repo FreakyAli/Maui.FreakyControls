@@ -60,12 +60,12 @@ internal class CodeView : Border
 
     private async Task GrowAsync()
     {
-        await Content.ScaleTo(1.0, 100);
+        await Content.ScaleToAsync(1.0, 100);
     }
 
     private async Task ShrinkAsync()
     {
-        await Content.ScaleTo(0, 100);
+        await Content.ScaleToAsync(0, 100);
     }
 
     public void SetColor(Color color, Color ItemBorderColor)
@@ -138,19 +138,19 @@ internal class CodeView : Border
 
         if (FocusAnimationType == FocusAnimation.Bounce)
         {
-            await this.ScaleTo(1.2, 100);
-            await this.ScaleTo(1, 100);
+            await this.ScaleToAsync(1.2, 100);
+            await this.ScaleToAsync(1, 100);
         }
         else if (FocusAnimationType == FocusAnimation.Scale)
         {
-            await this.ScaleTo(1.2, 100);
+            await this.ScaleToAsync(1.2, 100);
         }
     }
 
     public async void UnfocusAnimate()
     {
         SetBorderColor();
-        await this.ScaleTo(1, 100);
+        await this.ScaleToAsync(1, 100);
     }
 
     private void SetBorderColor()

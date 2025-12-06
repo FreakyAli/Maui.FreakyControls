@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+		<TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Samples</RootNamespace>
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
@@ -20,21 +20,6 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-		<EnableCodeSigning>false</EnableCodeSigning>
-		<CreatePackage>false</CreatePackage>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-		<CreatePackage>false</CreatePackage>
-		<CodesignKey>iPhone Developer</CodesignKey>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <CreatePackage>false</CreatePackage>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#000000" />
@@ -45,50 +30,13 @@
 		<MauiFont Include="Resources\Fonts\*" />
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-	<ItemGroup>
-		<None Remove="calendar.png" />
-		<None Remove="Platforms\Android\Resources\drawable\" />
-		<None Remove="Platforms\iOS\Assets.xcassets\" />
-		<None Remove="CommunityToolkit.Mvvm" />
-		<None Remove="ImageViews\" />
-		<None Remove="InputViews\" />
-		<None Remove="TextInputLayout\" />
-		<None Remove="Pickers\" />
-		<None Remove="SignatureView\" />
-		<None Remove="Nager.Country" />
-		<None Remove="Checkboxes\" />
-		<None Remove="RadioButtons\" />
-		<None Remove="JumpList\" />
-		<None Remove="PinView\" />
-		<None Remove="Resources\Images\backspace.svg" />
-		<None Remove="Resources\Images\panda.jpg" />
-		<None Remove="Resources\Images\tick.svg" />
-		<None Remove="Switch\" />
-		<None Remove="ZoomImage\" />
-	</ItemGroup>
-  
-	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
-		<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.5" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Platforms\Android\Resources\drawable\" />
-		<Folder Include="Platforms\iOS\Assets.xcassets\" />
-		<Folder Include="ImageViews\" />
-		<Folder Include="InputViews\" />
-		<Folder Include="TextInputLayout\" />
-		<Folder Include="Pickers\" />
-		<Folder Include="SignatureView\" />
-		<Folder Include="Checkboxes\" />
-		<Folder Include="RadioButtons\" />
-		<Folder Include="JumpList\" />
-		<Folder Include="PinView\" />
-		<Folder Include="Switch\" />
-		<Folder Include="ZoomImage\" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
+		<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.1.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiImage Remove="Resources\Images\dotnet_bot.svg" />
@@ -98,35 +46,6 @@
 		<EmbeddedResource Include="Resources\Images\tick.svg" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiXaml Update="ImageViews\ImagesPage.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="InputViews\InputViews.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="Pickers\PickersView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="TextInputLayout\TextInputLayoutView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="SignatureView\SignatureView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-		<MauiXaml Update="Checkboxes\CheckboxesView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\MAUI.FreakyControls\Maui.FreakyControls.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\Images\panda.jpg" />
 	</ItemGroup>
 </Project>
