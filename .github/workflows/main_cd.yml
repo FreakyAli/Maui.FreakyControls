@@ -6,17 +6,19 @@ on:
       - "v[0-9]+\\.[0-9]+\\.[0-9]+"
       - "v[0-9]+\\.[0-9]+\\.[0-9]+-pre"
 
-env:
-  DOTNET_VERSION: '10.0.x' # The .NET SDK version to use
-
 jobs:
   release-nuget:
     runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+          
+      - name: Restore
+        run: dotnet workload restore MAUI.FreakyControls/MAUI.FreakyControls.sln
           
       - name: Verify commit exists in origin/master
         shell: pwsh
