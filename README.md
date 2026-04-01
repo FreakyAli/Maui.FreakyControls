@@ -102,19 +102,6 @@ Full API docs for every control live in the [`docs/`](./docs/) folder.
 
 ---
 
-## Breaking Changes in v0.5.0+
-
-The `Shared` folder was removed from all namespaces:
-
-```csharp
-using Maui.FreakyControls.Shared.Enums; // old
-using Maui.FreakyControls.Enums;        // new
-```
-
-Deprecated APIs from previous versions have also been removed.
-
----
-
 ## License
 
 [MIT](https://github.com/FreakyAli/Maui.FreakyControls/blob/master/LICENSE)
