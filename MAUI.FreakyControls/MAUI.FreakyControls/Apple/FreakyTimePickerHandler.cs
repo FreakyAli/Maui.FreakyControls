@@ -8,6 +8,7 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyTimePickerHandler
 {
+#if IOS
     protected override void ConnectHandler(MauiTimePicker platformView)
     {
         base.ConnectHandler(platformView);
@@ -16,6 +17,7 @@ public partial class FreakyTimePickerHandler
         platformView.Layer.BorderWidth = 0;
         platformView.Layer.BorderColor = UIColor.Clear.CGColor;
     }
+#endif
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
     {

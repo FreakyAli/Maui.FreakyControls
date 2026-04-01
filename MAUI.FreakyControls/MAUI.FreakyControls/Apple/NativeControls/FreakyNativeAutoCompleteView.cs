@@ -200,7 +200,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
         widthConstraint.Active = true;
 
         const float rowHeight = 44f;
-        const float maxHeight = 200f;
+        var maxHeight = SuggestionListHeight > 0 ? (float)SuggestionListHeight : 200f;
         var rowCount = SelectionList.Source.RowsInSection(SelectionList, 0);
         SelectionList.HeightAnchor.ConstraintEqualTo(Math.Min(rowCount * rowHeight, maxHeight)).Active = true;
 
