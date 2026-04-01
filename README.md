@@ -25,30 +25,7 @@ A free, open-source UI kit for .NET MAUI providing a set of controls and utiliti
 
 ## Documentation
 
-Full API documentation for each control lives in the [`docs/`](./docs/) folder:
-
-| Control | Docs |
-| --- | --- |
-| FreakyAutoCompleteView | [docs/FreakyAutoCompleteView.md](./docs/FreakyAutoCompleteView.md) |
-| FreakyButton | [docs/FreakyButton.md](./docs/FreakyButton.md) |
-| FreakyCheckbox | [docs/FreakyCheckbox.md](./docs/FreakyCheckbox.md) |
-| FreakyChip / FreakyChipGroup | [docs/FreakyChip.md](./docs/FreakyChip.md) |
-| FreakyCircularImage | [docs/FreakyCircularImage.md](./docs/FreakyCircularImage.md) |
-| FreakyCodeView / FreakyPinCodeControl | [docs/FreakyCodeView.md](./docs/FreakyCodeView.md) |
-| FreakyDatePicker | [docs/FreakyDatePicker.md](./docs/FreakyDatePicker.md) |
-| FreakyEditor | [docs/FreakyEditor.md](./docs/FreakyEditor.md) |
-| FreakyEntry | [docs/FreakyEntry.md](./docs/FreakyEntry.md) |
-| FreakyImage | [docs/FreakyImage.md](./docs/FreakyImage.md) |
-| FreakyJumpList | [docs/FreakyJumpList.md](./docs/FreakyJumpList.md) |
-| FreakyPicker | [docs/FreakyPicker.md](./docs/FreakyPicker.md) |
-| FreakyRadioButton / FreakyRadioGroup | [docs/FreakyRadioButton.md](./docs/FreakyRadioButton.md) |
-| FreakySignatureCanvasView | [docs/FreakySignatureCanvasView.md](./docs/FreakySignatureCanvasView.md) |
-| FreakySvgImageView | [docs/FreakySvgImageView.md](./docs/FreakySvgImageView.md) |
-| FreakySwipeButton | [docs/FreakySwipeButton.md](./docs/FreakySwipeButton.md) |
-| FreakySwitch | [docs/FreakySwitch.md](./docs/FreakySwitch.md) |
-| FreakyTextInputLayout | [docs/FreakyTextInputLayout.md](./docs/FreakyTextInputLayout.md) |
-| FreakyTimePicker | [docs/FreakyTimePicker.md](./docs/FreakyTimePicker.md) |
-| FreakyZoomableView | [docs/FreakyZoomableView.md](./docs/FreakyZoomableView.md) |
+For full API documentation, see the [`docs/`](./docs/) folder.
 
 ---
 
