@@ -1,6 +1,6 @@
-﻿using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui.Controls.Platform;
 
-namespace Maui.FreakyControls.Platforms.MacCatalyst;
+namespace Maui.FreakyControls.Platforms.Apple;
 
 internal class TouchReleaseEffect : PlatformEffect
 {

@@ -2,9 +2,6 @@ using SkiaSharp.Views.Maui.Controls.Hosting;
 using Maui.FreakyEffects;
 using Maui.FreakyControls.Dotnet;
 
-#if MACCATALYST
-using Maui.FreakyControls.Platforms.MacCatalyst;
-#endif
 #if WINDOWS
 using Maui.FreakyControls.Platforms.Windows;
 #endif
@@ -15,10 +12,8 @@ using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
 
 #endif
-#if IOS
-using Maui.FreakyControls.Platforms.iOS;
-#endif
 #if IOS || MACCATALYST
+using Maui.FreakyControls.Platforms.Apple;
 using NativeImage = UIKit.UIImage;
 using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 #endif

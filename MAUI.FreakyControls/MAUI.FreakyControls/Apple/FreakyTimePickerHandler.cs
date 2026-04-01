@@ -1,32 +1,23 @@
-﻿using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.Platforms.iOS;
-using Maui.FreakyControls.Platforms.iOS.NativeControls;
+using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Platforms.Apple;
 using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 using UIKit;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyEntryHandler
+public partial class FreakyTimePickerHandler
 {
-    protected override MauiTextField CreatePlatformView()
+    protected override void ConnectHandler(MauiTimePicker platformView)
     {
-        var mauiTextField = new FreakyUITextfield
-        {
-            BorderStyle = UITextBorderStyle.None,
-            ClipsToBounds = true,
-        };
-        mauiTextField.Layer.BorderWidth = 0;
-        mauiTextField.Layer.BorderColor = UIColor.Clear.CGColor;
-        return mauiTextField;
+        base.ConnectHandler(platformView);
+        platformView.BorderStyle = UITextBorderStyle.None;
+        platformView.ClipsToBounds = true;
+        platformView.Layer.BorderWidth = 0;
+        platformView.Layer.BorderColor = UIColor.Clear.CGColor;
     }
 
-    internal void HandleAllowCopyPaste(FreakyEntry entry)
-    {
-        (PlatformView as FreakyUITextfield).AllowCopyPaste = entry.AllowCopyPaste;
-    }
-
-    internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
+    internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
     {
         var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
         if (uiImage is not null)
@@ -52,7 +43,7 @@ public partial class FreakyEntryHandler
 
     private void OnViewTouchBegan()
     {
-        if (VirtualView is FreakyEntry entry)
+        if (VirtualView is FreakyTimePicker entry)
         {
             entry.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter);
         }

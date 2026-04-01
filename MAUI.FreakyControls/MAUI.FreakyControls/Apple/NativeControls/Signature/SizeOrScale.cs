@@ -1,7 +1,7 @@
-﻿using Maui.FreakyControls.Enums;
+using Maui.FreakyControls.Enums;
 using NativeSize = CoreGraphics.CGSize;
 
-namespace Maui.FreakyControls.Platforms.iOS;
+namespace Maui.FreakyControls.Platforms.Apple;
 
 public struct SizeOrScale
 {

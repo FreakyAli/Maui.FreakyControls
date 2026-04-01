@@ -1,4 +1,4 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using NativeColor = UIKit.UIColor;
@@ -7,7 +7,7 @@ using NativePath = UIKit.UIBezierPath;
 using NativePoint = CoreGraphics.CGPoint;
 using NativeRect = CoreGraphics.CGRect;
 
-namespace Maui.FreakyControls.Platforms.iOS;
+namespace Maui.FreakyControls.Platforms.Apple;
 
 internal partial class InkPresenter : UIView
 {
@@ -33,46 +33,36 @@ internal partial class InkPresenter : UIView
         Opaque = false;
     }
 
-    // If you put SignaturePad inside a ScrollView, this line of code prevent that the gesture inside
-    // an InkPresenter are dispatched to the ScrollView below
     public override bool GestureRecognizerShouldBegin(UIGestureRecognizer gestureRecognizer) => false;
 
     public override void TouchesBegan(NSSet touches, UIEvent evt)
     {
-        // create a new path and set the options
         currentPath = new InkStroke(UIBezierPath.Create(), new List<CGPoint>(), StrokeColor, StrokeWidth);
 
-        // obtain the location of the touch
         var touch = touches.AnyObject as UITouch;
         var touchLocation = touch.LocationInView(this);
 
-        // move the path to that position
         currentPath.Path.MoveTo(touchLocation);
         currentPath.GetPoints().Add(touchLocation);
 
-        // update the dirty rectangle
         ResetBounds(touchLocation);
     }
 
     public override void TouchesMoved(NSSet touches, UIEvent evt)
     {
-        // something may have happened (clear) so start the stroke again
         if (currentPath is null)
         {
             TouchesBegan(touches, evt);
         }
 
-        // obtain the location of the touch
         var touch = touches.AnyObject as UITouch;
         var touchLocation = touch.LocationInView(this);
 
         if (HasMovedFarEnough(currentPath, touchLocation.X, touchLocation.Y))
         {
-            // add it to the current path
             currentPath.Path.AddLineTo(touchLocation);
             currentPath.GetPoints().Add(touchLocation);
 
-            // update the dirty rectangle
             UpdateBounds(touchLocation);
             SetNeedsDisplayInRect(DirtyRect);
         }
@@ -85,33 +75,26 @@ internal partial class InkPresenter : UIView
 
     public override void TouchesEnded(NSSet touches, UIEvent evt)
     {
-        // obtain the location of the touch
         var touch = touches.AnyObject as UITouch;
         var touchLocation = touch.LocationInView(this);
 
-        // something may have happened (clear) during the stroke
         if (currentPath is not null)
         {
             if (HasMovedFarEnough(currentPath, touchLocation.X, touchLocation.Y))
             {
-                // add it to the current path
                 currentPath.Path.AddLineTo(touchLocation);
                 currentPath.GetPoints().Add(touchLocation);
             }
 
-            // obtain the smoothed path, and add it to the old paths
             var smoothed = PathSmoothing.SmoothedPathWithGranularity(currentPath, 4);
             paths.Add(smoothed);
         }
 
-        // clear the current path
         currentPath = null;
 
-        // update the dirty rectangle
         UpdateBounds(touchLocation);
         SetNeedsDisplay();
 
-        // we are done with drawing
         OnStrokeCompleted();
     }
 
@@ -119,7 +102,6 @@ internal partial class InkPresenter : UIView
     {
         base.Draw(rect);
 
-        // destroy an old bitmap
         if (bitmapBuffer is not null && ShouldRedrawBufferImage)
         {
             var temp = bitmapBuffer;
@@ -129,19 +111,16 @@ internal partial class InkPresenter : UIView
             temp = null;
         }
 
-        // re-create
         if (bitmapBuffer is null)
         {
             bitmapBuffer = CreateBufferImage();
         }
 
-        // if there are no lines, the the bitmap will be null
         if (bitmapBuffer is not null)
         {
             bitmapBuffer.Draw(CGPoint.Empty);
         }
 
-        // draw the current path over the old paths
         if (currentPath is not null)
         {
             var context = UIGraphics.GetCurrentContext();
@@ -204,7 +183,6 @@ internal partial class InkPresenter
     private readonly List<InkStroke> paths = new List<InkStroke>();
     private InkStroke currentPath;
 
-    // used to determine rectangle that needs to be redrawn
     private float dirtyRectLeft;
     private float dirtyRectTop;
     private float dirtyRectRight;
@@ -212,13 +190,9 @@ internal partial class InkPresenter
 
     private NativeImage bitmapBuffer;
 
-    // public properties
-
     public NativeColor StrokeColor { get; set; } = NativeColor.Black;
 
     public float StrokeWidth { get; set; } = 1f;
-
-    // private properties
 
 #if __IOS__
     private float Width => (float)Bounds.Width;
@@ -256,11 +230,7 @@ internal partial class InkPresenter
         }
     }
 
-    // public events
-
     public event EventHandler StrokeCompleted;
-
-    // public methods
 
     public IReadOnlyList<InkStroke> GetStrokes()
     {
@@ -322,8 +292,6 @@ internal partial class InkPresenter
         return true;
     }
 
-    // private methods
-
     private bool HasMovedFarEnough(InkStroke stroke, double touchX, double touchY)
     {
         var lastPoint = stroke.GetPoints().LastOrDefault();
@@ -334,17 +302,11 @@ internal partial class InkPresenter
         return distance >= MinimumPointDistance;
     }
 
-    /// <summary>
-    /// Update the bounds for the rectangle to be redrawn if necessary for the given point.
-    /// </summary>
     private void UpdateBounds(NativePoint touch)
     {
         UpdateBounds((float)touch.X, (float)touch.Y);
     }
 
-    /// <summary>
-    /// Update the bounds for the rectangle to be redrawn if necessary for the given point.
-    /// </summary>
     private void UpdateBounds(float touchX, float touchY)
     {
         if (touchX < dirtyRectLeft)
@@ -358,17 +320,11 @@ internal partial class InkPresenter
             dirtyRectBottom = touchY;
     }
 
-    /// <summary>
-    /// Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
-    /// </summary>
     private void ResetBounds(NativePoint touch)
     {
         ResetBounds((float)touch.X, (float)touch.Y);
     }
 
-    /// <summary>
-    /// Set the bounds for the rectangle that will need to be redrawn to show the drawn path.
-    /// </summary>
     private void ResetBounds(float touchX, float touchY)
     {
         dirtyRectLeft = touchX;

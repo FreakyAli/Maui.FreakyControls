@@ -1,7 +1,7 @@
 using NativePath = UIKit.UIBezierPath;
 using NativePoint = CoreGraphics.CGPoint;
 
-namespace Maui.FreakyControls.Platforms.iOS;
+namespace Maui.FreakyControls.Platforms.Apple;
 
 internal static class PathSmoothing
 {
@@ -9,10 +9,6 @@ internal static class PathSmoothing
     /// Obtain a smoothed path with the specified granularity from the current path using Catmull-Rom spline.
     /// Also outputs a List of the points corresponding to the smoothed path.
     /// </summary>
-    /// <remarks>
-    /// Implemented using a modified version of the code in the solution at
-    /// http://stackoverflow.com/questions/8702696/drawing-smooth-curves-methods-needed
-    /// </remarks>
     public static InkStroke SmoothedPathWithGranularity(InkStroke currentPath, int granularity)
     {
         var currentPoints = currentPath.GetPoints().ToList();
@@ -27,7 +23,6 @@ internal static class PathSmoothing
 
     public static void SmoothedPathWithGranularity(List<NativePoint> currentPoints, int granularity, out NativePath smoothedPath, out List<NativePoint> smoothedPoints)
     {
-        // not enough points to smooth effectively, so return the original path and points.
         if (currentPoints.Count < 4)
         {
             smoothedPath = null;
@@ -35,15 +30,12 @@ internal static class PathSmoothing
             return;
         }
 
-        // create a new bezier path to hold the smoothed path.
         smoothedPath = new NativePath();
         smoothedPoints = new List<NativePoint>();
 
-        // duplicate the first and last points as control points.
         currentPoints.Insert(0, currentPoints[0]);
         currentPoints.Add(currentPoints[currentPoints.Count - 1]);
 
-        // add the first point
         smoothedPath.MoveTo(currentPoints[0].X, currentPoints[0].Y);
         smoothedPoints.Add(currentPoints[0]);
 
@@ -54,14 +46,12 @@ internal static class PathSmoothing
             var p2 = currentPoints[index + 1];
             var p3 = currentPoints[index + 2];
 
-            // add n points starting at p1 + dx/dy up until p2 using Catmull-Rom splines
             for (var i = 1; i < granularity; i++)
             {
                 var t = (float)i * (1f / (float)granularity);
                 var tt = t * t;
                 var ttt = tt * t;
 
-                // intermediate point
                 var mid = new NativePoint
                 {
                     X = 0.5f * ((2f * p1.X) + ((p2.X - p0.X) * t) +
@@ -76,12 +66,10 @@ internal static class PathSmoothing
                 smoothedPoints.Add(mid);
             }
 
-            // add p2
             smoothedPath.LineTo(p2.X, p2.Y);
             smoothedPoints.Add(p2);
         }
 
-        // add the last point
         var last = currentPoints[currentPoints.Count - 1];
         smoothedPath.LineTo(last.X, last.Y);
         smoothedPoints.Add(last);

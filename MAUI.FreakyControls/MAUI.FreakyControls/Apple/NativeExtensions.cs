@@ -1,9 +1,8 @@
 using CoreGraphics;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using UIKit;
 
-namespace Maui.FreakyControls.Platforms.iOS;
+namespace Maui.FreakyControls.Platforms.Apple;
 
 public static class NativeExtensions
 {
@@ -40,7 +39,7 @@ public static class NativeExtensions
             case Microsoft.Maui.TextAlignment.End:
                 return UIControlContentVerticalAlignment.Bottom;
             default:
-                return UIControlContentVerticalAlignment.Center; // Default to center
+                return UIControlContentVerticalAlignment.Center;
         }
     }
 

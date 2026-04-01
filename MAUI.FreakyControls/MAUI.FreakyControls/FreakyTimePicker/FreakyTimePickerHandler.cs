@@ -3,7 +3,7 @@ using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
 
-#if ANDROID || IOS
+#if ANDROID || IOS || MACCATALYST || WINDOWS
 public partial class FreakyTimePickerHandler : TimePickerHandler
 {
     public FreakyTimePickerHandler()

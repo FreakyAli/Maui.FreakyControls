@@ -1,7 +1,7 @@
-﻿using NativeColor = UIKit.UIColor;
+using NativeColor = UIKit.UIColor;
 using NativeNullableColor = UIKit.UIColor;
 
-namespace Maui.FreakyControls.Platforms.iOS;
+namespace Maui.FreakyControls.Platforms.Apple;
 
 public struct ImageConstructionSettings
 {

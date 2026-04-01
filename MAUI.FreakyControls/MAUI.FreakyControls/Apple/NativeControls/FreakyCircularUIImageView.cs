@@ -1,8 +1,8 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 
-namespace Maui.FreakyControls.Platforms.iOS.NativeControls;
+namespace Maui.FreakyControls.Platforms.Apple.NativeControls;
 
 public class FreakyCircularUIImageView : MauiImageView
 {

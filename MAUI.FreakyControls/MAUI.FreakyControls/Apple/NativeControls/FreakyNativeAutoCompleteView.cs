@@ -1,10 +1,10 @@
-﻿using Foundation;
+using Foundation;
 using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 using UIKit;
 using CoreFoundation;
 
-namespace Maui.FreakyControls.Platforms.iOS.NativeControls;
+namespace Maui.FreakyControls.Platforms.Apple.NativeControls;
 
 public partial class FreakyNativeAutoCompleteView : UIView
 {
@@ -173,11 +173,9 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
                 SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
 
-                // Set constraints for position and width
                 SelectionList.TopAnchor.ConstraintEqualTo(InputTextField.BottomAnchor).Active = true;
                 SelectionList.LeftAnchor.ConstraintEqualTo(InputTextField.LeftAnchor).Active = true;
 
-                // Set the width constraint
                 if (SuggestionListWidth > 0)
                 {
                     SelectionList.WidthAnchor.ConstraintEqualTo(SuggestionListWidth).Active = true;
@@ -187,10 +185,9 @@ public partial class FreakyNativeAutoCompleteView : UIView
                     SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor).Active = true;
                 }
 
-                // Set the height constraint based on the number of rows
                 var rowCount = SelectionList.Source.RowsInSection(SelectionList, 0);
-                var rowHeight = 44f; // Default row height, adjust if needed
-                var heightConstraint = SelectionList.HeightAnchor.ConstraintEqualTo(Math.Min(rowCount * rowHeight, 200f)); // 200 is max height limit
+                var rowHeight = 44f;
+                var heightConstraint = SelectionList.HeightAnchor.ConstraintEqualTo(Math.Min(rowCount * rowHeight, 200f));
                 heightConstraint.Active = true;
 
                 bottomConstraint = SelectionList.BottomAnchor.ConstraintLessThanOrEqualTo(viewController.View.BottomAnchor, -keyboardHeight);
@@ -207,7 +204,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
             }
         }
     }
-    
+
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
     private void OnKeyboardHide(object sender, UIKeyboardEventArgs e)

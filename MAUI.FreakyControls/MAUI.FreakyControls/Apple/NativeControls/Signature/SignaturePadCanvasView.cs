@@ -9,7 +9,7 @@ using NativePoint = CoreGraphics.CGPoint;
 using NativeRect = CoreGraphics.CGRect;
 using NativeSize = CoreGraphics.CGSize;
 
-namespace Maui.FreakyControls.Platforms.iOS;
+namespace Maui.FreakyControls.Platforms.Apple;
 
 [Register("SignaturePadCanvasView")]
 [DesignTimeVisible(true)]
@@ -25,7 +25,7 @@ public partial class SignaturePadCanvasView : UIView
     public SignaturePadCanvasView(NSCoder coder)
         : base(coder)
     {
-        Initialize(/* ? baseProperties: false ? */);
+        Initialize();
     }
 
     protected SignaturePadCanvasView(IntPtr ptr)
@@ -100,11 +100,9 @@ public partial class SignaturePadCanvasView : UIView
             cgContext.SetFillColor(backgroundColor.CGColor);
             cgContext.FillRect(new CGRect(CGPoint.Empty, imageSize));
 
-            // cropping / scaling
             cgContext.ScaleCTM(scale.Width, scale.Height);
             cgContext.TranslateCTM(-signatureBounds.Left, -signatureBounds.Top);
 
-            // strokes
             cgContext.SetStrokeColor(strokeColor.CGColor);
             cgContext.SetLineWidth(strokeWidth);
             cgContext.SetLineCap(CGLineCap.Round);
@@ -153,10 +151,9 @@ partial class SignaturePadCanvasView
                 return Array.Empty<CoreGraphics.CGPoint>();
             }
 
-            // make a deep copy, with { 0, 0 } line starter
             return inkPresenter.GetStrokes()
                 .SelectMany(s => new[] { new NativePoint(0, 0) }.Concat(s.GetPoints()))
-                .Skip(1) // skip the first empty
+                .Skip(1)
                 .ToArray();
         }
     }
@@ -170,7 +167,6 @@ partial class SignaturePadCanvasView
                 return Array.Empty<CoreGraphics.CGPoint[]>();
             }
 
-            // make a deep copy
             return inkPresenter.GetStrokes().Select(s => s.GetPoints().ToArray()).ToArray();
         }
     }
@@ -205,9 +201,6 @@ partial class SignaturePadCanvasView
             (float)yMax - (float)yMin);
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature.
-    /// </summary>
     public NativeImage GetImage(bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -217,9 +210,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature at the specified size.
-    /// </summary>
     public NativeImage GetImage(NativeSize size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -229,9 +219,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature at the specified scale.
-    /// </summary>
     public NativeImage GetImage(float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -241,9 +228,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature with the specified stroke color.
-    /// </summary>
     public NativeImage GetImage(NativeColor strokeColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -254,9 +238,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature at the specified size with the specified stroke color.
-    /// </summary>
     public NativeImage GetImage(NativeColor strokeColor, NativeSize size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -267,9 +248,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature at the specified scale with the specified stroke color.
-    /// </summary>
     public NativeImage GetImage(NativeColor strokeColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -280,9 +258,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature with the specified stroke and background colors.
-    /// </summary>
     public NativeImage GetImage(NativeColor strokeColor, NativeColor fillColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -294,9 +269,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature at the specified size with the specified stroke and background colors.
-    /// </summary>
     public NativeImage GetImage(NativeColor strokeColor, NativeColor fillColor, NativeSize size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -308,9 +280,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature at the specified scale with the specified stroke and background colors.
-    /// </summary>
     public NativeImage GetImage(NativeColor strokeColor, NativeColor fillColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImage(new ImageConstructionSettings
@@ -322,9 +291,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an image of the currently drawn signature using the specified settings.
-    /// </summary>
     public NativeImage GetImage(ImageConstructionSettings settings)
     {
         NativeSize scale;
@@ -342,9 +308,6 @@ partial class SignaturePadCanvasView
         return null;
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -354,9 +317,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature at the specified size.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, NativeSize size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -366,9 +326,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature at the specified scale.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -378,9 +335,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature with the specified stroke color.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, NativeColor strokeColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -391,9 +345,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature at the specified size with the specified stroke color.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, NativeColor strokeColor, NativeSize size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -404,9 +355,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature at the specified scale with the specified stroke color.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, NativeColor strokeColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -417,9 +365,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature with the specified stroke and background colors.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, NativeColor strokeColor, NativeColor fillColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -431,9 +376,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature at the specified size with the specified stroke and background colors.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, NativeColor strokeColor, NativeColor fillColor, NativeSize size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -445,9 +387,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature at the specified scale with the specified stroke and background colors.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, NativeColor strokeColor, NativeColor fillColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
@@ -459,9 +398,6 @@ partial class SignaturePadCanvasView
         });
     }
 
-    /// <summary>
-    /// Create an encoded image stream of the currently drawn signature using the specified settings.
-    /// </summary>
     public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
     {
         NativeSize scale;
@@ -507,7 +443,6 @@ partial class SignaturePadCanvasView
 
             if (sizeOrScale.Type == SizeOrScaleType.Size)
             {
-                // if a specific size was set, scale to that
                 var scaleX = imageSize.Width / (float)signatureBounds.Width;
                 var scaleY = imageSize.Height / (float)signatureBounds.Height;
                 if (sizeOrScale.KeepAspectRatio)
@@ -536,10 +471,8 @@ partial class SignaturePadCanvasView
 
     public void LoadStrokes(NativePoint[][] loadedStrokes)
     {
-        // clear any existing paths or points.
         Clear();
 
-        // there is nothing
         if (loadedStrokes is null || loadedStrokes.Length == 0)
         {
             return;
@@ -553,16 +486,10 @@ partial class SignaturePadCanvasView
         }
     }
 
-    /// <summary>
-    /// Allow the user to import an array of points to be used to draw a signature in the view, with new
-    /// lines indicated by a { 0, 0 } point in the array.
-    /// <param name="loadedPoints"></param>
     public void LoadPoints(NativePoint[] loadedPoints)
     {
-        // clear any existing paths or points.
         Clear();
 
-        // there is nothing
         if (loadedPoints is null || loadedPoints.Length == 0)
         {
             return;
@@ -580,12 +507,10 @@ partial class SignaturePadCanvasView
 
         do
         {
-            // add a stroke to the ink presenter
             var currentStroke = new NativePoint[emptyIndex - startIndex];
             strokes.Add(currentStroke);
             Array.Copy(loadedPoints, startIndex, currentStroke, 0, currentStroke.Length);
 
-            // obtain the indices for the next line to be drawn.
             startIndex = emptyIndex + 1;
             if (startIndex < loadedPoints.Length - 1)
             {

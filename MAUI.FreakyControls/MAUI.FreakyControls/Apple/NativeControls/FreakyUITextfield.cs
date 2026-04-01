@@ -1,8 +1,8 @@
-﻿using Foundation;
+using Foundation;
 using Microsoft.Maui.Platform;
 using ObjCRuntime;
 
-namespace Maui.FreakyControls.Platforms.iOS.NativeControls
+namespace Maui.FreakyControls.Platforms.Apple.NativeControls
 {
     public class FreakyUITextfield : MauiTextField
     {

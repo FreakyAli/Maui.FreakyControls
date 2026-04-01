@@ -69,7 +69,7 @@
 		<None Remove="Wrappers\" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Remove="Platforms\iOS\" />
+		<None Remove="Apple\" />
 		<None Remove="Platforms\Android\" />
 		<None Remove="Shared\Enums\" />
 		<None Remove="Platforms\Android\NativeControls\" />
@@ -77,22 +77,20 @@
 		<None Remove="SkiaSharp.Views.Maui.Controls" />
 		<None Remove="SkiaSharp.Svg" />
 		<None Remove="Platforms\Android\NativeControls\Helpers\" />
-		<None Remove="Platforms\iOS\NativeControls\" />
+		<None Remove="Apple\NativeControls\" />
 		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
 		<None Include="Readme.md" Pack="true" Visible="false" PackagePath="" />
-		<None Remove="Platforms\iOS\FreakyCircularImageHandler.ios" />
-		<None Remove="Platforms\MacCatalyst\" />
 		<None Remove="Platforms\Windows\" />
 		<None Remove="Platforms\Android\NativeControls\Signature\" />
-		<None Remove="Platforms\iOS\NativeControls\Signature\" />
+		<None Remove="Apple\NativeControls\Signature\" />
 		<None Remove="clear_icon.svg" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
-		<Folder Include="Platforms\MacCatalyst\" />
+		<Folder Include="Apple\" />
 		<Folder Include="Platforms\Windows\" />
 		<Folder Include="Platforms\Android\NativeControls\Signature\" />
-		<Folder Include="Platforms\iOS\NativeControls\Signature\" />
+		<Folder Include="Apple\NativeControls\Signature\" />
 		<Folder Include="Dotnet\" />
 		<Folder Include="Behaviors\" />
 		<Folder Include="Constants\" />
@@ -170,20 +168,10 @@
 	<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />  
 	</ItemGroup>
 
-	<!-- iOS -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-ios')) != true">
-	<Compile Remove="**\*.iOS.cs" />
-	<None Include="**\*.iOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-	<Compile Remove="**\iOS\**\*.cs" />
-	<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />  
-	</ItemGroup>
-
-	<!-- Mac Catalyst -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-maccatalyst')) != true">
-	<Compile Remove="**\*.MacCatalyst.cs" />
-	<None Include="**\*.MacCatalyst.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-	<Compile Remove="**\MacCatalyst\**\*.cs" />
-	<None Include="**\MacCatalyst\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	<!-- Apple (iOS + macOS) -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-ios')) != true AND $(TargetFramework.StartsWith('net10.0-maccatalyst')) != true">
+	<Compile Remove="**\Apple\**\*.cs" />
+	<None Include="**\Apple\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
 	<!-- Windows -->

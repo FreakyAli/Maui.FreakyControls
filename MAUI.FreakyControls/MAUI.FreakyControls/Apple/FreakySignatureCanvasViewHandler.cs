@@ -1,11 +1,11 @@
-﻿using Maui.FreakyControls.Enums;
+using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls;
 
 public partial class FreakySignatureCanvasViewHandler
 {
-    protected override Platforms.iOS.SignaturePadCanvasView
+    protected override Platforms.Apple.SignaturePadCanvasView
         CreatePlatformView() => new();
 
     private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
@@ -15,7 +15,7 @@ public partial class FreakySignatureCanvasViewHandler
         {
             var format = e.ImageFormat;
 
-            var settings = new Platforms.iOS.ImageConstructionSettings();
+            var settings = new Platforms.Apple.ImageConstructionSettings();
             if (e.Settings.BackgroundColor is not null)
             {
                 settings.BackgroundColor = e.Settings.BackgroundColor.ToPlatform();
@@ -23,7 +23,7 @@ public partial class FreakySignatureCanvasViewHandler
             if (e.Settings.DesiredSizeOrScale.HasValue)
             {
                 var val = e.Settings.DesiredSizeOrScale.Value;
-                settings.DesiredSizeOrScale = new Platforms.iOS.SizeOrScale(val.X, val.Y,
+                settings.DesiredSizeOrScale = new Platforms.Apple.SizeOrScale(val.X, val.Y,
                     (SizeOrScaleType)(int)val.Type, val.KeepAspectRatio);
             }
             settings.ShouldCrop = e.Settings.ShouldCrop;

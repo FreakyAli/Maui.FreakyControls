@@ -1,14 +1,14 @@
-﻿using Maui.FreakyControls.Extensions;
-using Maui.FreakyControls.Platforms.iOS;
+using Maui.FreakyControls.Extensions;
+using Maui.FreakyControls.Platforms.Apple;
 using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 using UIKit;
 
 namespace Maui.FreakyControls;
 
-public partial class FreakyTimePickerHandler
+public partial class FreakyPickerHandler
 {
-    protected override void ConnectHandler(MauiTimePicker platformView)
+    protected override void ConnectHandler(MauiPicker platformView)
     {
         base.ConnectHandler(platformView);
         platformView.BorderStyle = UITextBorderStyle.None;
@@ -17,7 +17,7 @@ public partial class FreakyTimePickerHandler
         platformView.Layer.BorderColor = UIColor.Clear.CGColor;
     }
 
-    internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
+    internal async Task HandleAndAlignImageSourceAsync(FreakyPicker entry)
     {
         var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
         if (uiImage is not null)
@@ -43,7 +43,7 @@ public partial class FreakyTimePickerHandler
 
     private void OnViewTouchBegan()
     {
-        if (VirtualView is FreakyTimePicker entry)
+        if (VirtualView is FreakyPicker entry)
         {
             entry.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter);
         }

@@ -1,4 +1,4 @@
-﻿using Maui.FreakyControls.Platforms.iOS.NativeControls;
+using Maui.FreakyControls.Platforms.Apple.NativeControls;
 using Microsoft.Maui.Platform;
 
 namespace Maui.FreakyControls
