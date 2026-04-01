@@ -127,7 +127,7 @@ Deprecated APIs from previous versions have also been removed.
 
 <div align="center">
 
-[![Sparkline](https://stars.medv.io/FreakyAli/Maui.FreakyControls.svg)](https://stars.medv.io/FreakyAli/Maui.FreakyControls)
+[![Star History Chart](https://api.star-history.com/svg?repos=FreakyAli/Maui.FreakyControls&type=Date)](https://star-history.com/#FreakyAli/Maui.FreakyControls&type=Date)
 
 ![RepoBeats](https://repobeats.axiom.co/api/embed/37b730ec7020123a37b048636c0babfac3b4a014.svg "Repobeats analytics image")
 
