@@ -92,6 +92,16 @@ Full API docs for every control live in the [`docs/`](./docs/) folder.
 
 ---
 
+### Like what you saw? Want to keep this repo alive?
+
+<div align="center">
+
+[![Buy Me A Coffee](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
+
+</div>
+
+---
+
 ## Breaking Changes in v0.5.0+
 
 The `Shared` folder was removed from all namespaces:
@@ -102,16 +112,6 @@ using Maui.FreakyControls.Enums;        // new
 ```
 
 Deprecated APIs from previous versions have also been removed.
-
----
-
-## Support the Project
-
-<div align="center">
-
-[![Buy Me A Coffee](https://miro.medium.com/max/600/0*wrBJU05A3BULKcWA.gif)](https://www.buymeacoffee.com/FreakyAli)
-
-</div>
 
 ---
 
