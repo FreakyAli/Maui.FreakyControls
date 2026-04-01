@@ -8,6 +8,7 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyDatePickerHandler
 {
+#if IOS
     protected override void ConnectHandler(MauiDatePicker platformView)
     {
         base.ConnectHandler(platformView);
@@ -16,6 +17,7 @@ public partial class FreakyDatePickerHandler
         platformView.Layer.BorderWidth = 0;
         platformView.Layer.BorderColor = UIColor.Clear.CGColor;
     }
+#endif
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
     {

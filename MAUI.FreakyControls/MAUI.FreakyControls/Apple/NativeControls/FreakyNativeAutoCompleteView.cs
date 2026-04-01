@@ -159,50 +159,53 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     private void UpdateSuggestionListOpenState()
     {
-        if (_isSuggestionListOpen && SelectionList.Source is not null && SelectionList.Source.RowsInSection(SelectionList, 0) > 0)
+        var hasSuggestions = SelectionList.Source is not null && SelectionList.Source.RowsInSection(SelectionList, 0) > 0;
+
+        if (_isSuggestionListOpen && hasSuggestions)
         {
-            var viewController = InputTextField.Window?.RootViewController;
+            var viewController = GetActiveViewController();
             if (viewController is null)
                 return;
-            if (viewController.PresentedViewController is not null)
-                viewController = viewController.PresentedViewController;
 
             if (SelectionList.Superview is null)
-            {
-                viewController.View.AddSubview(SelectionList);
-
-                SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
-
-                SelectionList.TopAnchor.ConstraintEqualTo(InputTextField.BottomAnchor).Active = true;
-                SelectionList.LeftAnchor.ConstraintEqualTo(InputTextField.LeftAnchor).Active = true;
-
-                if (SuggestionListWidth > 0)
-                {
-                    SelectionList.WidthAnchor.ConstraintEqualTo(SuggestionListWidth).Active = true;
-                }
-                else
-                {
-                    SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor).Active = true;
-                }
-
-                var rowCount = SelectionList.Source.RowsInSection(SelectionList, 0);
-                var rowHeight = 44f;
-                var heightConstraint = SelectionList.HeightAnchor.ConstraintEqualTo(Math.Min(rowCount * rowHeight, 200f));
-                heightConstraint.Active = true;
-
-                bottomConstraint = SelectionList.BottomAnchor.ConstraintLessThanOrEqualTo(viewController.View.BottomAnchor, -keyboardHeight);
-                bottomConstraint.Active = true;
-            }
+                AttachSuggestionList(viewController);
 
             SelectionList.UpdateConstraints();
         }
-        else
+        else if (SelectionList.Superview is not null)
         {
-            if (SelectionList.Superview is not null)
-            {
-                SelectionList.RemoveFromSuperview();
-            }
+            SelectionList.RemoveFromSuperview();
         }
+    }
+
+    private UIViewController GetActiveViewController()
+    {
+        var viewController = InputTextField.Window?.RootViewController;
+        if (viewController?.PresentedViewController is not null)
+            viewController = viewController.PresentedViewController;
+        return viewController;
+    }
+
+    private void AttachSuggestionList(UIViewController viewController)
+    {
+        viewController.View.AddSubview(SelectionList);
+        SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
+
+        SelectionList.TopAnchor.ConstraintEqualTo(InputTextField.BottomAnchor).Active = true;
+        SelectionList.LeftAnchor.ConstraintEqualTo(InputTextField.LeftAnchor).Active = true;
+
+        var widthConstraint = SuggestionListWidth > 0
+            ? SelectionList.WidthAnchor.ConstraintEqualTo(SuggestionListWidth)
+            : SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor);
+        widthConstraint.Active = true;
+
+        const float rowHeight = 44f;
+        const float maxHeight = 200f;
+        var rowCount = SelectionList.Source.RowsInSection(SelectionList, 0);
+        SelectionList.HeightAnchor.ConstraintEqualTo(Math.Min(rowCount * rowHeight, maxHeight)).Active = true;
+
+        bottomConstraint = SelectionList.BottomAnchor.ConstraintLessThanOrEqualTo(viewController.View.BottomAnchor, -keyboardHeight);
+        bottomConstraint.Active = true;
     }
 
     public virtual bool UpdateTextOnSelect { get; set; } = true;

@@ -106,12 +106,12 @@ public static class NativeExtensions
         view.SetNeedsDisplay();
     }
 
-    public static void MoveTo(this UIBezierPath path, NFloat x, NFloat y)
+    public static void MoveTo(this UIBezierPath path, nfloat x, nfloat y)
     {
         path.MoveTo(new CGPoint(x, y));
     }
 
-    public static void LineTo(this UIBezierPath path, NFloat x, NFloat y)
+    public static void LineTo(this UIBezierPath path, nfloat x, nfloat y)
     {
         path.AddLineTo(new CGPoint(x, y));
     }
