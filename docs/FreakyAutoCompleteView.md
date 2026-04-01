@@ -1,0 +1,66 @@
+# FreakyAutoCompleteView
+
+A text field with a live suggestion dropdown. Supports custom item display/text member paths, a configurable activation threshold, and an optional side image with a tap command.
+
+**Platforms:** iOS, macOS, Android
+
+---
+
+## XAML Usage
+
+```xml
+xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
+
+<freaky:FreakyAutoCompleteView
+    Text="{Binding SearchText}"
+    Placeholder="Search..."
+    ItemsSource="{Binding Suggestions}"
+    DisplayMemberPath="Name"
+    TextMemberPath="Name"
+    Threshold="1"
+    TextChanged="OnTextChanged"
+    QuerySubmitted="OnQuerySubmitted"
+    SuggestionChosen="OnSuggestionChosen" />
+```
+
+---
+
+## Properties
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| `Text` | `string` | `""` | Current input text |
+| `Placeholder` | `string` | `""` | Placeholder text |
+| `PlaceholderColor` | `Color` | `Colors.Gray` | Placeholder text colour |
+| `TextColor` | `Color` | `Colors.Gray` | Input text colour |
+| `TextMemberPath` | `string` | `""` | Property path used to populate the field when a suggestion is chosen |
+| `DisplayMemberPath` | `string` | `""` | Property path used to display items in the suggestion list |
+| `ItemsSource` | `IList` | `null` | Collection of suggestion items |
+| `Threshold` | `int` | `1` | Minimum characters typed before suggestions appear |
+| `IsSuggestionListOpen` | `bool` | `false` | Programmatically show or hide the suggestion list |
+| `UpdateTextOnSelect` | `bool` | `true` | Whether selecting a suggestion updates the text field |
+| `AllowCopyPaste` | `bool` | `false` | Enable or disable copy/paste context menu |
+| `HorizontalTextAlignment` | `TextAlignment` | `Start` | |
+| `VerticalTextAlignment` | `TextAlignment` | `Center` | |
+| `FontFamily` | `string` | `null` | |
+| `FontSize` | `double` | `14` | |
+| `FontAttributes` | `FontAttributes` | `None` | |
+| `ImageSource` | `ImageSource` | `null` | Optional side icon |
+| `ImageHeight` | `int` | `25` | |
+| `ImageWidth` | `int` | `25` | |
+| `ImageAlignment` | `ImageAlignment` | `Right` | `Left` or `Right` |
+| `ImagePadding` | `int` | `5` | |
+| `ImageCommand` | `ICommand` | `null` | Command fired when the icon is tapped |
+| `ImageCommandParameter` | `object` | `null` | |
+| `SuggestionListWidth` | `double` | `0` | Override dropdown width (`0` = match input width) |
+| `SuggestionListHeight` | `double` | `0` | Override dropdown max height (`0` = 200pt) |
+
+---
+
+## Events
+
+| Event | Args | Description |
+| --- | --- | --- |
+| `TextChanged` | `FreakyAutoCompleteViewTextChangedEventArgs` | Fires on user input or programmatic text change. `Reason` indicates `UserInput`, `ProgrammaticChange`, or `SuggestionChosen` |
+| `QuerySubmitted` | `FreakyAutoCompleteViewQuerySubmittedEventArgs` | Fires when the user presses return or selects a suggestion |
+| `SuggestionChosen` | `FreakyAutoCompleteViewSuggestionChosenEventArgs` | Fires when a suggestion row is tapped |
