@@ -45,6 +45,7 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `FontFamily` | `string` | `null` | |
 | `FontSize` | `double` | `14` | |
 | `FontAttributes` | `FontAttributes` | `None` | |
+| `TextTransform` | `TextTransform` | `None` | Apply uppercase, lowercase, or default transform to input text |
 | `ImageSource` | `ImageSource` | `null` | Optional side icon |
 | `ImageHeight` | `int` | `25` | |
 | `ImageWidth` | `int` | `25` | |

@@ -75,7 +75,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        // useSkiaSharp  → FreakyCheckbox, FreakyRadioButton, FreakySvgImageView
+        // useSkiaSharp  → FreakyCheckbox, FreakyRadioButton, FreakySvgImageView, FreakySwitch, FreakyScratchView
         // useFreakyEffects → touch/ripple effects
         builder.InitializeFreakyControls(useSkiaSharp: true, useFreakyEffects: true);
 

@@ -53,6 +53,8 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `FontFamily` | `string` | `null` | |
 | `FontSize` | `double` | default | |
 | `FontAttributes` | `FontAttributes` | `None` | |
+| `FontAutoScalingEnabled` | `bool` | `true` | Scale font with system accessibility settings |
+| `SizeRequest` | `double` | — | Uniform size applied to both leading and trailing icons |
 | `TextDecorations` | `TextDecorations` | `None` | |
 | `TextTransform` | `TextTransform` | `None` | |
 | `TextType` | `TextType` | `Text` | |
