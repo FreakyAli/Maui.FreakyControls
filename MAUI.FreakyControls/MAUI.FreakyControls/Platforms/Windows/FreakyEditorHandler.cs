@@ -8,7 +8,7 @@ namespace Maui.FreakyControls
     public partial class FreakyEditorHandler
     {
 #if WINDOWS
-        private FlyoutBase _originalContextFlyout;
+        private Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase _originalContextFlyout;
 
         internal void HandleAllowCopyPaste(FreakyEditor entry)
         {

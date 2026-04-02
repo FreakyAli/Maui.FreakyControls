@@ -6,16 +6,16 @@ using Windows.Foundation;
 
 namespace Maui.FreakyControls
 {
-    public sealed partial class FreakyCircularImageHandler
+    public sealed partial class FreakyCircularMicrosoft.UI.Xaml.Controls.ImageHandler
     {
 #if WINDOWS
-        protected override void ConnectHandler(Image platformView)
+        protected override void ConnectHandler(Microsoft.UI.Xaml.Controls.Image platformView)
         {
             base.ConnectHandler(platformView);
             platformView.SizeChanged += OnSizeChanged;
         }
 
-        protected override void DisconnectHandler(Image platformView)
+        protected override void DisconnectHandler(Microsoft.UI.Xaml.Controls.Image platformView)
         {
             platformView.SizeChanged -= OnSizeChanged;
             base.DisconnectHandler(platformView);
@@ -23,7 +23,7 @@ namespace Maui.FreakyControls
 
         private void OnSizeChanged(object sender, Microsoft.UI.Xaml.SizeChangedEventArgs e)
         {
-            if (sender is Image image)
+            if (sender is Microsoft.UI.Xaml.Controls.Image image)
             {
                 var radius = Math.Min(e.NewSize.Width, e.NewSize.Height) / 2;
                 image.Clip = new EllipseGeometry
