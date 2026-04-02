@@ -37,7 +37,7 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `CheckMarkColor` | `Color` | `Colors.White` | Check mark colour |
 | `CheckMarkWidth` | `float` | `3` | Check mark stroke width |
 | `AnimationDuration` | `int` | `250` | Toggle animation duration in milliseconds |
-| `ToggledCommand` | `ICommand` | `null` | |
+| `ToggledCommand` | `ICommand` | `null` | Executes when the toggle state changes |
 
 ---
 

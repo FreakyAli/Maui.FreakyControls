@@ -39,8 +39,8 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `SvgAssembly` | `Assembly` | `null` | Assembly that contains the embedded resource |
 | `ImageColor` | `Color` | `Transparent` | Tint colour; `Transparent` = no tint |
 | `SvgMode` | `Aspect` | `AspectFit` | Scale/fit mode |
-| `Command` | `ICommand` | `null` | |
-| `CommandParameter` | `object` | `null` | |
+| `Command` | `ICommand` | `null` | Executes when the image is tapped |
+| `CommandParameter` | `object` | `null` | Parameter passed to `Command` |
 
 ---
 

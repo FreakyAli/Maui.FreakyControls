@@ -40,7 +40,7 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `Design` | `Design` | `Unified` | Visual design variant |
 | `AnimationType` | `AnimationType` | `Default` | Animation style on toggle |
 | `SizeRequest` | `double` | `24` | Width and height of the control |
-| `CheckedChangedCommand` | `ICommand` | `null` | |
+| `CheckedChangedCommand` | `ICommand` | `null` | Executes when `IsChecked` changes |
 
 ---
 

@@ -2,7 +2,7 @@
 
 A text field with a live suggestion dropdown. Supports custom item display/text member paths, a configurable activation threshold, and an optional side image with a tap command.
 
-**Platforms:** iOS, macOS, Android
+**Platforms:** iOS, macOS, Android, Windows
 
 ---
 

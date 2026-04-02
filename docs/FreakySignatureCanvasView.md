@@ -25,8 +25,8 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| `StrokeColor` | `Color` | default | Ink colour |
-| `StrokeWidth` | `float` | default | Stroke thickness in points |
+| `StrokeColor` | `Color` | `Colors.Black` | Ink colour |
+| `StrokeWidth` | `float` | `2` | Stroke thickness in points |
 | `IsBlank` | `bool` | `true` | Read-only — `true` when the canvas has no strokes |
 | `Points` | `IEnumerable<Point>` | — | Get or set all strokes as a flat point sequence |
 | `Strokes` | `IEnumerable<IEnumerable<Point>>` | — | Get or set strokes as grouped sequences |
@@ -51,4 +51,10 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 
 ## Getting the Signature Image
 
-Raise `ImageStreamRequested` with an `ImageStreamRequestedEventArgs` and read `Stream` from the args after the event fires.
+Call `GetImageStreamAsync` on the control to retrieve the signature as an encoded image stream:
+
+```csharp
+Stream stream = await SignaturePad.GetImageStreamAsync(SignatureImageFormat.Png);
+```
+
+Overloads accept an optional `size`, `scale`, `strokeColor`, and `fillColor`. `ImageStreamRequested` is internal handler plumbing and is not part of the consumer API.
