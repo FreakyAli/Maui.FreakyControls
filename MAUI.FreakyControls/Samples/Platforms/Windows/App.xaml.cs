@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml;
 
-namespace Samples;
+namespace Samples.WinUI;
 
 public partial class App : MauiWinUIApplication
 {
