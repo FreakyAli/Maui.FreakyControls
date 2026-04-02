@@ -177,6 +177,8 @@ public class FreakyScratchViewDrawable
     private bool _isAutoRevealed = false;
     private bool _hasMoved = false;
 
+    private static readonly HttpClient _httpClient = new();
+
     private readonly FreakyScratchView _parent;
 
     public FreakyScratchViewDrawable(FreakyScratchView parent)
@@ -270,7 +272,7 @@ public class FreakyScratchViewDrawable
             {
                 StreamImageSource s => await s.Stream(CancellationToken.None),
                 FileImageSource f => await FileSystem.OpenAppPackageFileAsync(f.File),
-                UriImageSource u => await new HttpClient().GetStreamAsync(u.Uri),
+                UriImageSource u => await _httpClient.GetStreamAsync(u.Uri),
                 _ => null
             };
 
@@ -378,18 +380,28 @@ public class FreakyScratchViewDrawable
 
     public void ResetMask()
     {
+        _maskCanvas?.Dispose();
+        _maskCanvas = null;
+        _maskBitmap?.Dispose();
         _maskBitmap = null;
     }
 
     public void ResetFrontBitmap()
     {
+        _maskCanvas?.Dispose();
+        _maskCanvas = null;
+        _maskBitmap?.Dispose();
+        _maskBitmap = null;
+        _frontBitmap?.Dispose();
         _frontBitmap = null;
         _isLoadingFrontImage = false;
-        _maskBitmap = null;
     }
 
     public void Reset()
     {
+        _maskCanvas?.Dispose();
+        _maskCanvas = null;
+        _maskBitmap?.Dispose();
         _maskBitmap = null;
         _scratchCompleted = false;
         _isAutoRevealed = false;

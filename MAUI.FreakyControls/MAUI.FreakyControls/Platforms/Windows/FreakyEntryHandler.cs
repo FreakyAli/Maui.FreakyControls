@@ -7,11 +7,19 @@ namespace Maui.FreakyControls
     public sealed partial class FreakyEntryHandler
     {
 #if WINDOWS
+        private Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase _originalContextFlyout;
+
         internal void HandleAllowCopyPaste(FreakyEntry entry)
         {
             if (!entry.AllowCopyPaste)
             {
+                _originalContextFlyout ??= PlatformView.ContextFlyout;
                 PlatformView.ContextFlyout = null;
+            }
+            else if (_originalContextFlyout is not null)
+            {
+                PlatformView.ContextFlyout = _originalContextFlyout;
+                _originalContextFlyout = null;
             }
         }
 

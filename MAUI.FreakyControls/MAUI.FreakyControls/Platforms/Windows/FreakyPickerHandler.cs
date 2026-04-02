@@ -4,7 +4,7 @@ namespace Maui.FreakyControls
     {
         internal Task HandleAndAlignImageSourceAsync(FreakyPicker entry)
         {
-            // TODO: Image alignment is not yet implemented for Windows Picker.
+            // Image alignment inside ComboBox is not natively supported on Windows.
             return Task.CompletedTask;
         }
     }

@@ -1,6 +1,5 @@
 #if WINDOWS
 using Microsoft.UI.Xaml.Media;
-using Windows.Foundation;
 #endif
 
 namespace Maui.FreakyControls
@@ -27,7 +26,7 @@ namespace Maui.FreakyControls
                 var radius = Math.Min(e.NewSize.Width, e.NewSize.Height) / 2;
                 image.Clip = new EllipseGeometry
                 {
-                    Center = new Point(e.NewSize.Width / 2, e.NewSize.Height / 2),
+                    Center = new Windows.Foundation.Point(e.NewSize.Width / 2, e.NewSize.Height / 2),
                     RadiusX = radius,
                     RadiusY = radius
                 };

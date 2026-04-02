@@ -118,7 +118,9 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     public static async void MapImageSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         var entry = handler.VirtualView;
-        var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
+        if (entry.ImageSource is null)
+            return;
+        var uiImage = await entry.ImageSource.ToNativeImageSourceAsync();
         if (uiImage is not null)
         {
             var uiView = uiImage.UiImageToUiView(entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);

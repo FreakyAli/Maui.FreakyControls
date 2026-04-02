@@ -22,7 +22,9 @@ public partial class FreakyDatePickerHandler
     internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
     {
 #if IOS
-        var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
+        if (entry.ImageSource is null)
+            return;
+        var uiImage = await entry.ImageSource.ToNativeImageSourceAsync();
         if (uiImage is not null)
         {
             var uiView = uiImage.UiImageToUiView(entry.ImageHeight, entry.ImageWidth, entry.ImagePadding);

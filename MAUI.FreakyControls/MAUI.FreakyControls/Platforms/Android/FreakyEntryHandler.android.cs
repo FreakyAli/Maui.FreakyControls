@@ -37,7 +37,9 @@ public partial class FreakyEntryHandler
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
     {
-        var imageBitmap = await entry.ImageSource?.ToNativeImageSourceAsync();
+        if (entry.ImageSource is null)
+            return;
+        var imageBitmap = await entry.ImageSource.ToNativeImageSourceAsync();
         if (imageBitmap is not null)
         {
             var bitmapDrawable = new BitmapDrawable(CurrentActivity.Resources,
