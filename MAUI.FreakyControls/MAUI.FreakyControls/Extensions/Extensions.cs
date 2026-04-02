@@ -6,16 +6,12 @@ using Maui.FreakyControls.Dotnet;
 using Maui.FreakyControls.Platforms.Windows;
 #endif
 #if ANDROID
-
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
-
 #endif
 #if IOS || MACCATALYST
 using Maui.FreakyControls.Platforms.Apple;
 using NativeImage = UIKit.UIImage;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 #endif
 
 namespace Maui.FreakyControls.Extensions;
@@ -71,45 +67,32 @@ public static class Extensions
     /// <summary>
     /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
     /// </summary>
-    /// <param name="source"></param>
-    /// <returns></returns>
     public static async Task<NativeImage> ToNativeImageSourceAsync(this ImageSource source)
     {
-        var handler = GetHandler(source);
-        var returnValue = (NativeImage)null;
+        var services = IPlatformApplication.Current!.Services;
+        var provider = services.GetRequiredService<IImageSourceServiceProvider>();
+        var service = provider.GetImageSourceService(source);
+
 #if IOS || MACCATALYST
-        returnValue = await handler.LoadImageAsync(source);
+        var result = await service.GetImageAsync(source);
+        return result?.Value;
 #endif
 #if ANDROID
-        returnValue = await handler.LoadImageAsync(source, CurrentActivity);
+        var result = await service.GetDrawableAsync(source, CurrentActivity ?? Android.App.Application.Context);
+        if (result?.Value is Android.Graphics.Drawables.BitmapDrawable bitmapDrawable)
+            return bitmapDrawable.Bitmap;
+        var drawable = result?.Value;
+        if (drawable == null)
+            return null;
+        var bitmap = NativeImage.CreateBitmap(
+            Math.Max(drawable.IntrinsicWidth, 1),
+            Math.Max(drawable.IntrinsicHeight, 1),
+            NativeImage.Config.Argb8888);
+        var canvas = new Android.Graphics.Canvas(bitmap);
+        drawable.SetBounds(0, 0, canvas.Width, canvas.Height);
+        drawable.Draw(canvas);
+        return bitmap;
 #endif
-        return returnValue;
-    }
-
-    private static IImageSourceHandler GetHandler(this ImageSource source)
-    {
-        //ImageSource handler to return
-        IImageSourceHandler returnValue = null;
-        //check the specific source type and return the correct ImageSource handler
-        switch (source)
-        {
-            case UriImageSource:
-                returnValue = new ImageLoaderSourceHandler();
-                break;
-
-            case FileImageSource:
-                returnValue = new FileImageSourceHandler();
-                break;
-
-            case StreamImageSource:
-                returnValue = new StreamImagesourceHandler();
-                break;
-
-            case FontImageSource:
-                returnValue = new FontImageSourceHandler();
-                break;
-        }
-        return returnValue;
     }
 
 #endif
