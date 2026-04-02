@@ -1,7 +1,3 @@
-#if WINDOWS
-using Microsoft.UI.Xaml.Media;
-#endif
-
 namespace Maui.FreakyControls
 {
     public sealed partial class FreakyCircularImageHandler
@@ -23,13 +19,13 @@ namespace Maui.FreakyControls
         {
             if (sender is Microsoft.UI.Xaml.Controls.Image image)
             {
-                var radius = Math.Min(e.NewSize.Width, e.NewSize.Height) / 2;
-                image.Clip = new EllipseGeometry
-                {
-                    Center = new Windows.Foundation.Point(e.NewSize.Width / 2, e.NewSize.Height / 2),
-                    RadiusX = radius,
-                    RadiusY = radius
-                };
+                var visual = Microsoft.UI.Xaml.Hosting.ElementCompositionPreview.GetElementVisual(image);
+                var compositor = visual.Compositor;
+                var ellipse = compositor.CreateEllipseGeometry();
+                var radius = (float)Math.Min(e.NewSize.Width, e.NewSize.Height) / 2f;
+                ellipse.Center = new System.Numerics.Vector2((float)(e.NewSize.Width / 2), (float)(e.NewSize.Height / 2));
+                ellipse.Radius = new System.Numerics.Vector2(radius, radius);
+                visual.Clip = compositor.CreateGeometricClip(ellipse);
             }
         }
 #endif
