@@ -50,7 +50,6 @@
 		<None Remove="FreakyChip\" />
 		<None Remove="FreakyCircularImage\" />
 		<None Remove="FreakyCodeView\" />
-		<None Remove="FreakyCropView\" />
 		<None Remove="FreakyDatePicker\" />
 		<None Remove="FreakyEditor\" />
 		<None Remove="FreakyEntry\" />
@@ -105,7 +104,6 @@
 		<Folder Include="FreakyChip\" />
 		<Folder Include="FreakyCircularImage\" />
 		<Folder Include="FreakyCodeView\" />
-		<Folder Include="FreakyCropView\" />
 		<Folder Include="FreakyDatePicker\" />
 		<Folder Include="FreakyEditor\" />
 		<Folder Include="FreakyEntry\" />

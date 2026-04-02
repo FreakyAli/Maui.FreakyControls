@@ -31,6 +31,6 @@ public static class ScratchUtils
             IsAntialias = true
         };
 
-        canvas.DrawText($"{percent:P0}", position.X, position.Y, SKTextAlign.Left, font, paint);
+        canvas.DrawText($"{percent:P0}", position.X, position.Y, font, paint);
     }
 }

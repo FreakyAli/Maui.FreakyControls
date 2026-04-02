@@ -43,9 +43,6 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiImage Remove="Resources\Images\dotnet_bot.svg" />
-	</ItemGroup>
-	<ItemGroup>
 		<EmbeddedResource Include="Resources\Images\dotnet_bot.svg" />
 		<EmbeddedResource Include="Resources\Images\tick.svg" />
 	</ItemGroup>

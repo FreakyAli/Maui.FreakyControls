@@ -15,46 +15,31 @@
 
         <freaky:FreakyScratchView
             x:Name="scratchView"
-            AutoRevealEnabled="True"
             Grid.Row="1"
-            IsDebugModeEnabled="True"
-            IsTapToRevealEnabled="True"
-            RevealAnimationType="FadeOut"
-            RevealThreshold="0.6"
-            BrushSize="100"
+            HeightRequest="300"
+            WidthRequest="300"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            FrontImageSource="scratch_card.jpg"
             ScratchCompleted="ScratchView_ScratchCompleted">
 
             <freaky:FreakyScratchView.BackContent>
-                <Grid Padding="10" BackgroundColor="Purple">
+                <Grid BackgroundColor="Purple">
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                         <Label
                             FontAttributes="Bold"
                             FontSize="28"
                             Text="🎉 You Won!"
-                            TextColor="DarkGreen" />
+                            TextColor="White" />
                         <Label
                             FontSize="18"
+                            HorizontalOptions="Center"
                             Text="Coupon Code: FREAKY50"
-                            TextColor="DarkGray" />
+                            TextColor="White" />
                     </VerticalStackLayout>
                 </Grid>
             </freaky:FreakyScratchView.BackContent>
 
-            <freaky:FreakyScratchView.FrontContent>
-                <Grid
-                    Padding="10"
-                    BackgroundColor="Gray"
-                    Opacity="0.9">
-                    <Label
-                        Grid.Row="0"
-                        FontSize="30"
-                        BackgroundColor="Green"
-                        HorizontalOptions="Center"
-                        Text="Scratch Me"
-                        TextColor="White"
-                        VerticalOptions="Center" />
-                </Grid>
-            </freaky:FreakyScratchView.FrontContent>
         </freaky:FreakyScratchView>
 
         <Button Grid.Row="2" Clicked="OnResetClicked" Text="Reset" />

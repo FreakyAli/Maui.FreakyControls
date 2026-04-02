@@ -166,10 +166,12 @@ namespace Maui.FreakyControls;
 //     }
 // }
 
-public class FreakyScratchViewDrawable 
+public class FreakyScratchViewDrawable
 {
     private SKBitmap _maskBitmap;
     private SKCanvas _maskCanvas;
+    private SKBitmap _frontBitmap;
+    private bool _isLoadingFrontImage;
     private SKPoint? _lastTouchPoint = null;
     private bool _scratchCompleted = false;
     private bool _isAutoRevealed = false;
@@ -189,8 +191,7 @@ public class FreakyScratchViewDrawable
 
     public void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
-        var surface = e.Surface;
-        var canvas = surface.Canvas;
+        var canvas = e.Surface.Canvas;
         var info = e.Info;
 
         canvas.Clear(SKColors.Transparent);
@@ -199,23 +200,95 @@ public class FreakyScratchViewDrawable
         {
             _maskBitmap = new SKBitmap(info.Width, info.Height);
             _maskCanvas = new SKCanvas(_maskBitmap);
-            _maskCanvas.Clear(SKColors.Gray); // Full opaque mask at start
-
             _scratchCompleted = false;
             _isAutoRevealed = false;
+
+            FillMask(info.Width, info.Height, sender as SkiaSharp.Views.Maui.Controls.SKCanvasView);
         }
 
-        canvas.DrawBitmap(_maskBitmap, info.Rect);
+        canvas.DrawBitmap(_maskBitmap, SKPoint.Empty);
+    }
 
-        if (_parent.IsDebugModeEnabled)
+    private void FillMask(int width, int height, SkiaSharp.Views.Maui.Controls.SKCanvasView canvasView)
+    {
+        if (_parent.FrontImageSource != null)
         {
-            var percent = ScratchUtils.CalculateClearedPercent(_maskBitmap);
-            ScratchUtils.DrawDebugPercentage(canvas, percent, new SKPoint(20, 60));
+            if (_frontBitmap != null)
+            {
+                // Image already loaded — draw it scaled to fill the mask
+                using var image = SKImage.FromBitmap(_frontBitmap);
+                _maskCanvas.DrawImage(image, new SKRect(0, 0, width, height),
+                    new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear));
+            }
+            else if (!_isLoadingFrontImage)
+            {
+                // Fill with FrontColor as placeholder while image loads
+                FillMaskWithColor();
+                _ = LoadFrontImageAsync(width, height, canvasView);
+            }
+        }
+        else
+        {
+            FillMaskWithColor();
+        }
+    }
+
+    private void FillMaskWithColor()
+    {
+        var c = _parent.FrontColor;
+        _maskCanvas.Clear(new SKColor(
+            (byte)(c.Red * 255), (byte)(c.Green * 255), (byte)(c.Blue * 255), (byte)(c.Alpha * 255)));
+    }
+
+    private async Task LoadFrontImageAsync(int width, int height, SkiaSharp.Views.Maui.Controls.SKCanvasView canvasView)
+    {
+        _isLoadingFrontImage = true;
+        try
+        {
+            var bitmap = await ImageSourceToSKBitmapAsync(_parent.FrontImageSource);
+            if (bitmap != null && _maskBitmap != null)
+            {
+                _frontBitmap = bitmap;
+                _maskCanvas.Clear(SKColors.Transparent);
+                using var image = SKImage.FromBitmap(_frontBitmap);
+                _maskCanvas.DrawImage(image, new SKRect(0, 0, width, height),
+                    new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear));
+                MainThread.BeginInvokeOnMainThread(() => canvasView?.InvalidateSurface());
+            }
+        }
+        finally
+        {
+            _isLoadingFrontImage = false;
+        }
+    }
+
+    private static async Task<SKBitmap> ImageSourceToSKBitmapAsync(ImageSource imageSource)
+    {
+        try
+        {
+            Stream stream = imageSource switch
+            {
+                StreamImageSource s => await s.Stream(CancellationToken.None),
+                FileImageSource f => await FileSystem.OpenAppPackageFileAsync(f.File),
+                UriImageSource u => await new HttpClient().GetStreamAsync(u.Uri),
+                _ => null
+            };
+
+            if (stream is null) return null;
+            using (stream)
+                return SKBitmap.Decode(stream);
+        }
+        catch
+        {
+            return null;
         }
     }
 
     public void OnTouch(object sender, SKTouchEventArgs e)
     {
+        if (_maskCanvas == null)
+            return;
+
         if (_scratchCompleted && !_parent.IsTapToRevealEnabled)
             return;
 
@@ -301,6 +374,18 @@ public class FreakyScratchViewDrawable
 
         _parent.OnScratchCompleted();
         AnimateReveal();
+    }
+
+    public void ResetMask()
+    {
+        _maskBitmap = null;
+    }
+
+    public void ResetFrontBitmap()
+    {
+        _frontBitmap = null;
+        _isLoadingFrontImage = false;
+        _maskBitmap = null;
     }
 
     public void Reset()

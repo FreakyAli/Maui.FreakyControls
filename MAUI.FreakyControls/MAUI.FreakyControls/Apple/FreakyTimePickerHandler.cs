@@ -21,6 +21,7 @@ public partial class FreakyTimePickerHandler
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
     {
+#if IOS
         var uiImage = await entry.ImageSource?.ToNativeImageSourceAsync();
         if (uiImage is not null)
         {
@@ -41,6 +42,9 @@ public partial class FreakyTimePickerHandler
                     break;
             }
         }
+#else
+        await Task.CompletedTask;
+#endif
     }
 
     private void OnViewTouchBegan()
