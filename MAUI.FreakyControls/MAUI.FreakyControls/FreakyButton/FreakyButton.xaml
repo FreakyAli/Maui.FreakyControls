@@ -7,7 +7,7 @@
     xmlns:fc="clr-namespace:Maui.FreakyControls"
     xmlns:freakyEffects="clr-namespace:Maui.FreakyEffects.TouchEffects;assembly=Maui.FreakyEffects"
     x:Name="this"
-    freakyEffects:TouchEffect.Color="{Binding NativeAnimationColor, Source={x:Reference this}, x:DataType=fc:FreakyButton, x:DataType=fc:FreakyButton}"
+    freakyEffects:TouchEffect.Color="{Binding NativeAnimationColor, Source={x:Reference this}, x:DataType=fc:FreakyButton}"
     HeightRequest="55">
     <ContentView.Resources>
         <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
