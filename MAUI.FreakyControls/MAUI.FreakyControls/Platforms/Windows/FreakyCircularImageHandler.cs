@@ -1,12 +1,11 @@
 #if WINDOWS
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Windows.Foundation;
 #endif
 
 namespace Maui.FreakyControls
 {
-    public sealed partial class FreakyCircularMicrosoft.UI.Xaml.Controls.ImageHandler
+    public sealed partial class FreakyCircularImageHandler
     {
 #if WINDOWS
         protected override void ConnectHandler(Microsoft.UI.Xaml.Controls.Image platformView)
