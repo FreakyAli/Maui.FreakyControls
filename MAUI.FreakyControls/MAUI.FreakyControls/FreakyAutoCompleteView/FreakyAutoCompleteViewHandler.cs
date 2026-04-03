@@ -1,13 +1,13 @@
 ﻿using System;
 #if ANDROID
 using PlatformView = Maui.FreakyControls.Platforms.Android.NativeControls.FreakyNativeAutoCompleteView;
-#elif IOS
-using PlatformView = Maui.FreakyControls.Platforms.iOS.NativeControls.FreakyNativeAutoCompleteView;
+#elif IOS || MACCATALYST
+using PlatformView = Maui.FreakyControls.Platforms.Apple.NativeControls.FreakyNativeAutoCompleteView;
 #endif
 using Microsoft.Maui.Handlers;
 namespace Maui.FreakyControls;
 
-#if ANDROID|| IOS
+#if ANDROID || IOS || MACCATALYST
 public partial class FreakyAutoCompleteViewHandler
 {
     public static IPropertyMapper<IFreakyAutoCompleteView, FreakyAutoCompleteViewHandler> PropertyMapper =

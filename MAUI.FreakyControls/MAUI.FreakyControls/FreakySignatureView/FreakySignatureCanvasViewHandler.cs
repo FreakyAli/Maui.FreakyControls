@@ -6,15 +6,15 @@ using Microsoft.Maui.Platform;
 using NativeView = Maui.FreakyControls.Platforms.Android.SignaturePadCanvasView;
 using NativePoint = System.Drawing.PointF;
 
-#elif IOS
-using NativeView = Maui.FreakyControls.Platforms.iOS.SignaturePadCanvasView;
+#elif IOS || MACCATALYST
+using NativeView = Maui.FreakyControls.Platforms.Apple.SignaturePadCanvasView;
 using NativePoint = CoreGraphics.CGPoint;
 #else
 #endif
 
 namespace Maui.FreakyControls
 {
-#if IOS || ANDROID
+#if IOS || ANDROID || MACCATALYST
 
     public partial class FreakySignatureCanvasViewHandler : ViewHandler<FreakySignatureCanvasView, NativeView>
     {

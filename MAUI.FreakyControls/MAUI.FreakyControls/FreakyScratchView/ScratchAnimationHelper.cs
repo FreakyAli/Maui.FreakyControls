@@ -1,10 +1,16 @@
+using SkiaSharp.Views.Maui.Controls;
+
 namespace Maui.FreakyControls;
 
 public static class ScratchAnimationHelper
 {
     public static async void PlayRevealAnimation(FreakyScratchView view, ScratchRevealAnimationType animationType)
     {
-        if (view?.FrontContent == null)
+        if (view?.Content is not Grid grid)
+            return;
+
+        var canvas = grid.Children.OfType<SKCanvasView>().FirstOrDefault();
+        if (canvas is null)
             return;
 
         try
@@ -12,74 +18,49 @@ public static class ScratchAnimationHelper
             switch (animationType)
             {
                 case ScratchRevealAnimationType.FadeOut:
-                    await PlayFadeOutAnimation(view);
+                    await canvas.FadeToAsync(0, 500, Easing.CubicOut);
+                    canvas.IsVisible = false;
                     break;
 
                 case ScratchRevealAnimationType.Shimmer:
-                    await PlayShimmerAnimation(view);
+                    await PlayShimmerAnimation(view, grid, canvas);
                     break;
 
                 case ScratchRevealAnimationType.None:
                 default:
-                    view.FrontContent.Opacity = 0;
-                    view.FrontContent.IsVisible = false;
+                    canvas.Opacity = 0;
+                    canvas.IsVisible = false;
                     break;
             }
-
         }
         catch
         {
-            view.FrontContent.Opacity = 0;
-            view.FrontContent.IsVisible = false;
+            canvas.Opacity = 0;
+            canvas.IsVisible = false;
         }
     }
 
-    private static async Task PlayShimmerAnimation(FreakyScratchView view)
+    private static async Task PlayShimmerAnimation(FreakyScratchView view, Grid grid, SKCanvasView canvas)
     {
-        if (view?.FrontContent == null)
-            return;
-
         var shimmerBox = new BoxView
         {
             BackgroundColor = new Color(1, 1, 1, 0.4f),
             WidthRequest = 150,
-            HeightRequest = view.Width,
+            HeightRequest = view.Height,
             InputTransparent = true,
-            Opacity = 0
+            Opacity = 0,
+            TranslationX = -300
         };
 
-        if (view.Content is Grid grid)
-        {
-            shimmerBox.TranslationX = -300;
-            grid.Children.Add(shimmerBox);
+        grid.Children.Add(shimmerBox);
 
-            // Fade in shimmer
-            await shimmerBox.FadeToAsync(0.5, 100);
-            await shimmerBox.TranslateToAsync(view.Width + 150, 0, 600, Easing.SinInOut);
-            await shimmerBox.FadeToAsync(0, 200);
+        await shimmerBox.FadeToAsync(0.5, 100);
+        await shimmerBox.TranslateToAsync(view.Width + 150, 0, 600, Easing.SinInOut);
+        await shimmerBox.FadeToAsync(0, 200);
 
-            grid.Children.Remove(shimmerBox);
-        }
+        grid.Children.Remove(shimmerBox);
 
-        view.FrontContent.Opacity = 0;
-        view.FrontContent.IsVisible = false;
-    }
-
-    private static async Task PlayFadeOutAnimation(FreakyScratchView view)
-    {
-        if (view?.FrontContent == null)
-            return;
-
-        try
-        {
-            await view.FrontContent.FadeToAsync(0, 500, Easing.CubicOut);
-            view.FrontContent.IsVisible = false;
-        }
-        catch
-        {
-            // In case animation fails due to disposal/timing
-            view.FrontContent.Opacity = 0;
-            view.FrontContent.IsVisible = false;
-        }
+        canvas.Opacity = 0;
+        canvas.IsVisible = false;
     }
 }
