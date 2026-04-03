@@ -2,7 +2,7 @@
 
 An `Entry` extended with an optional side image, tap command, and copy/paste control.
 
-**Platforms:** iOS, macOS, Android
+**Platforms:** iOS, macOS, Android, Windows
 > Image alignment is not yet implemented on Windows.
 
 ---

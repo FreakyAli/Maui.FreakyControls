@@ -11,6 +11,8 @@ Renders inline SVG assets from embedded resources, Base64 strings, or URIs. Supp
 ## XAML Usage
 
 ```xml
+xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+xmlns:local="clr-namespace:MyApp"
 xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 
 <!-- From an embedded resource -->

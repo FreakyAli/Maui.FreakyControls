@@ -67,7 +67,7 @@ public static class Extensions
     /// <summary>
     /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
     /// </summary>
-    public static async Task<NativeImage> ToNativeImageSourceAsync(this ImageSource source)
+    public static async Task<NativeImage?> ToNativeImageSourceAsync(this ImageSource source)
     {
         var services = IPlatformApplication.Current!.Services;
         var provider = services.GetRequiredService<IImageSourceServiceProvider>();

@@ -172,6 +172,7 @@ public class FreakyScratchViewDrawable
     private SKCanvas _maskCanvas;
     private SKBitmap _frontBitmap;
     private bool _isLoadingFrontImage;
+    private CancellationTokenSource _loadFrontCts;
     private SKPoint? _lastTouchPoint = null;
     private bool _scratchCompleted = false;
     private bool _isAutoRevealed = false;
@@ -244,10 +245,17 @@ public class FreakyScratchViewDrawable
 
     private async Task LoadFrontImageAsync(int width, int height, SkiaSharp.Views.Maui.Controls.SKCanvasView canvasView)
     {
+        _loadFrontCts?.Cancel();
+        _loadFrontCts?.Dispose();
+        _loadFrontCts = new CancellationTokenSource();
+        var cts = _loadFrontCts;
+
         _isLoadingFrontImage = true;
         try
         {
             var bitmap = await ImageSourceToSKBitmapAsync(_parent.FrontImageSource);
+            if (cts.IsCancellationRequested)
+                return;
             if (bitmap != null && _maskBitmap != null)
             {
                 _frontBitmap = bitmap;
@@ -260,7 +268,8 @@ public class FreakyScratchViewDrawable
         }
         finally
         {
-            _isLoadingFrontImage = false;
+            if (!cts.IsCancellationRequested)
+                _isLoadingFrontImage = false;
         }
     }
 
@@ -388,6 +397,9 @@ public class FreakyScratchViewDrawable
 
     public void ResetFrontBitmap()
     {
+        _loadFrontCts?.Cancel();
+        _loadFrontCts?.Dispose();
+        _loadFrontCts = null;
         _maskCanvas?.Dispose();
         _maskCanvas = null;
         _maskBitmap?.Dispose();

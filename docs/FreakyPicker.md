@@ -2,7 +2,7 @@
 
 A `Picker` extended with an optional side image and tap command.
 
-**Platforms:** iOS, macOS, Android
+**Platforms:** iOS, macOS, Android, Windows
 > Image alignment is not yet implemented on Windows.
 
 ---

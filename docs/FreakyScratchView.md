@@ -59,3 +59,10 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | Method | Description |
 | --- | --- |
 | `Reset()` | Restores the scratch surface to its original state and resets all scratch progress. The cached front image is preserved so it does not reload |
+
+---
+
+## Notes
+
+### FrontImageSource loading
+The front image is loaded asynchronously. If `FrontImageSource` changes while a previous load is still in progress the earlier load is cancelled automatically — the control will never paint a stale image from an old source over a freshly set one. `FrontColor` is used as a placeholder until the image finishes loading.
