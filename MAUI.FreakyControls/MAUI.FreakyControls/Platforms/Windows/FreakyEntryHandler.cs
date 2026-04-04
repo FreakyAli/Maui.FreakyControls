@@ -1,5 +1,5 @@
 #if WINDOWS
-using Microsoft.UI.Xaml.Controls;
+using Maui.FreakyControls.Platforms.Windows.NativeControls;
 #endif
 
 namespace Maui.FreakyControls
@@ -7,7 +7,7 @@ namespace Maui.FreakyControls
     public sealed partial class FreakyEntryHandler
     {
 #if WINDOWS
-        private Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase _originalContextFlyout;
+        private Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase? _originalContextFlyout;
 
         internal void HandleAllowCopyPaste(FreakyEntry entry)
         {
@@ -23,11 +23,19 @@ namespace Maui.FreakyControls
             }
         }
 
-        internal Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
+        internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
         {
-            // TODO: Image alignment inside TextBox is not natively supported on Windows.
-            // Implement by wrapping in a custom control when needed.
-            return Task.CompletedTask;
+            if (entry.ImageSource is null)
+                return;
+
+            await WindowsIconInjector.InjectAsync(
+                PlatformView,
+                entry.ImageSource,
+                entry.ImageAlignment,
+                entry.ImageWidth,
+                entry.ImageHeight,
+                entry.ImagePadding,
+                () => entry.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter));
         }
 #endif
     }

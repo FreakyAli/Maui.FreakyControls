@@ -54,7 +54,7 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `ImageCommand` | `ICommand` | `null` | Command fired when the icon is tapped |
 | `ImageCommandParameter` | `object` | `null` | |
 | `SuggestionListWidth` | `double` | `0` | Override dropdown width (`0` = match input width) |
-| `SuggestionListHeight` | `double` | `0` | Override dropdown max height (`0` = 200pt) |
+| `SuggestionListHeight` | `double` | `0` | Override dropdown max height (`0` = dynamic/wrap content) |
 
 ---
 
