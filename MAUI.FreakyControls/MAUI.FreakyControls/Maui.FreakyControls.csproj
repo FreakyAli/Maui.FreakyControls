@@ -126,10 +126,10 @@
 		<Folder Include="Wrappers\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
-		<PackageReference Include="Svg.Skia" Version="3.0.6" />
-		<PackageReference Include="FreakyEffects" Version="0.1.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.2" />
+		<PackageReference Include="Svg.Skia" Version="3.7.0" />
+		<PackageReference Include="FreakyEffects" Version="0.2.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.51" />
 		<PackageReference Include="FreakyKit.Utils" Version="1.0.1" />
 	</ItemGroup>
 	<ItemGroup>

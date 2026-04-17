@@ -9,18 +9,14 @@ using Maui.FreakyControls.Platforms.MacCatalyst;
 using Maui.FreakyControls.Platforms.Windows;
 #endif
 #if ANDROID
-
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
-
 #endif
 #if IOS
 using Maui.FreakyControls.Platforms.iOS;
 #endif
 #if IOS || MACCATALYST
 using NativeImage = UIKit.UIImage;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 #endif
 
 namespace Maui.FreakyControls.Extensions;
@@ -76,45 +72,27 @@ public static class Extensions
     /// <summary>
     /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
     /// </summary>
-    /// <param name="source"></param>
-    /// <returns></returns>
     public static async Task<NativeImage> ToNativeImageSourceAsync(this ImageSource source)
     {
-        var handler = GetHandler(source);
-        var returnValue = (NativeImage)null;
+        var provider = IPlatformApplication.Current.Services.GetRequiredService<IImageSourceServiceProvider>();
+        var service = provider.GetImageSourceService(source);
 #if IOS || MACCATALYST
-        returnValue = await handler.LoadImageAsync(source);
+        var result = await service.GetImageAsync(source);
+        return result?.Value;
+#elif ANDROID
+        var result = await service.GetImageAsync(source, CurrentActivity);
+        var drawable = result?.Value;
+        if (drawable is null) return null;
+        if (drawable is Android.Graphics.Drawables.BitmapDrawable bd && bd.Bitmap != null)
+            return bd.Bitmap;
+        var w = drawable.IntrinsicWidth > 0 ? drawable.IntrinsicWidth : 1;
+        var h = drawable.IntrinsicHeight > 0 ? drawable.IntrinsicHeight : 1;
+        var bitmap = Android.Graphics.Bitmap.CreateBitmap(w, h, Android.Graphics.Bitmap.Config.Argb8888);
+        using var canvas = new Android.Graphics.Canvas(bitmap);
+        drawable.SetBounds(0, 0, canvas.Width, canvas.Height);
+        drawable.Draw(canvas);
+        return bitmap;
 #endif
-#if ANDROID
-        returnValue = await handler.LoadImageAsync(source, CurrentActivity);
-#endif
-        return returnValue;
-    }
-
-    private static IImageSourceHandler GetHandler(this ImageSource source)
-    {
-        //ImageSource handler to return
-        IImageSourceHandler returnValue = null;
-        //check the specific source type and return the correct ImageSource handler
-        switch (source)
-        {
-            case UriImageSource:
-                returnValue = new ImageLoaderSourceHandler();
-                break;
-
-            case FileImageSource:
-                returnValue = new FileImageSourceHandler();
-                break;
-
-            case StreamImageSource:
-                returnValue = new StreamImagesourceHandler();
-                break;
-
-            case FontImageSource:
-                returnValue = new FontImageSourceHandler();
-                break;
-        }
-        return returnValue;
     }
 
 #endif
