@@ -65,7 +65,7 @@ public static class Extensions
     /// <summary>
     /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
     /// </summary>
-    public static async Task<NativeImage> ToNativeImageSourceAsync(this ImageSource source)
+    public static async Task<NativeImage?> ToNativeImageSourceAsync(this ImageSource source)
     {
         var provider = IPlatformApplication.Current.Services.GetRequiredService<IImageSourceServiceProvider>();
         var service = provider.GetImageSourceService(source);
@@ -76,8 +76,6 @@ public static class Extensions
         var result = await service.GetDrawableAsync(source, Android.App.Application.Context);
         var drawable = result?.Value;
         if (drawable is null) return null;
-        if (drawable is Android.Graphics.Drawables.BitmapDrawable bd && bd.Bitmap != null)
-            return bd.Bitmap;
         var w = drawable.IntrinsicWidth > 0 ? drawable.IntrinsicWidth : 1;
         var h = drawable.IntrinsicHeight > 0 ? drawable.IntrinsicHeight : 1;
         var bitmap = Android.Graphics.Bitmap.CreateBitmap(w, h, Android.Graphics.Bitmap.Config.Argb8888);
