@@ -69,28 +69,22 @@
 		<None Remove="Wrappers\" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Remove="Apple\" />
 		<None Remove="Platforms\Android\" />
-		<None Remove="Shared\Enums\" />
 		<None Remove="Platforms\Android\NativeControls\" />
-		<None Remove="SkiaSharp.Views.Maui.Core" />
-		<None Remove="SkiaSharp.Views.Maui.Controls" />
-		<None Remove="SkiaSharp.Svg" />
 		<None Remove="Platforms\Android\NativeControls\Helpers\" />
-		<None Remove="Apple\NativeControls\" />
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+		<None Remove="Platforms\Android\NativeControls\Signature\" />
+		<None Remove="Platforms\Apple\" />
+		<None Remove="Platforms\Apple\NativeControls\" />
+		<None Remove="Platforms\Apple\NativeControls\Signature" />
+<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
 		<None Include="Readme.md" Pack="true" Visible="false" PackagePath="" />
 		<None Remove="Platforms\Windows\" />
-		<None Remove="Platforms\Android\NativeControls\Signature\" />
-		<None Remove="Apple\NativeControls\Signature\" />
 		<None Remove="clear_icon.svg" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Platforms\Android\NativeControls\Helpers\" />
-		<Folder Include="Apple\" />
 		<Folder Include="Platforms\Windows\" />
 		<Folder Include="Platforms\Android\NativeControls\Signature\" />
-		<Folder Include="Apple\NativeControls\Signature\" />
 		<Folder Include="Dotnet\" />
 		<Folder Include="Behaviors\" />
 		<Folder Include="Constants\" />
@@ -124,16 +118,12 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.2" />
-		<PackageReference Include="Svg.Skia" Version="3.7.0" />
-		<PackageReference Include="FreakyEffects" Version="0.1.6" />
+		<PackageReference Include="Svg.Skia" Version="4.3.0" />
+		<PackageReference Include="FreakyEffects" Version="0.2.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.51" />
 		<PackageReference Include="FreakyKit.Utils" Version="1.0.1" />
 	</ItemGroup>
 	<ItemGroup>
-		<MauiXaml Update="Shared\FreakySignatureView\SignaturePadView.xaml">
-			<SubType>
-			</SubType>
-		</MauiXaml>
 		<MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="FreakyTextInputLayout\FreakyTextInputLayout.xaml">
 			<SubType>
 			</SubType>
@@ -142,10 +132,7 @@
 	<ItemGroup>
 		<EmbeddedResource Include="clear_icon.svg" />
 	</ItemGroup>
-	<ItemGroup>
-		<Compile Remove="Platforms\Android\FreakyAutoCompleteView.android.cs" />
-	</ItemGroup>
-	<ItemGroup>
+<ItemGroup>
 		<AndroidResource Include="Platforms/Android/Resources/values/attrs.xml" />
 	</ItemGroup>
 	<ItemGroup>
@@ -153,10 +140,9 @@
 			<ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 		</None>
 	</ItemGroup>
-	<ItemGroup>
-		<Compile Update="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs">
-			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-		</Compile>
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-')) == true">
+		<Compile Remove="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs" />
+		<None Include="Dotnet\FreakySignatureCanvasViewHandler.dotnet.cs" />
 	</ItemGroup>
 
 	<!-- Android -->
@@ -168,10 +154,17 @@
 	</ItemGroup>
 
 	<!-- Apple (iOS + macOS) -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-ios')) != true AND $(TargetFramework.StartsWith('net10.0-maccatalyst')) != true">
-	<Compile Remove="**\Apple\**\*.cs" />
-	<None Include="**\Apple\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-	</ItemGroup>
+	<!-- The MAUI SDK excludes all Platforms/** files via ExcludeFromCurrentConfiguration, then only
+	     re-includes the standard platform folders (Platforms/iOS/, Platforms/MacCatalyst/).
+	     Since this project uses Platforms/Apple/ (shared iOS+macCatalyst), we re-add those files
+	     after _MauiRemovePlatformCompileItems runs. -->
+	<Target Name="_FreakyReAddApplePlatformFiles"
+	        AfterTargets="_MauiRemovePlatformCompileItems"
+	        Condition="'$(TargetPlatformIdentifier)' == 'ios' OR '$(TargetPlatformIdentifier)' == 'maccatalyst'">
+		<ItemGroup>
+			<Compile Include="Platforms/Apple/**/*.cs" />
+		</ItemGroup>
+	</Target>
 
 	<!-- Windows -->
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows')) != true">

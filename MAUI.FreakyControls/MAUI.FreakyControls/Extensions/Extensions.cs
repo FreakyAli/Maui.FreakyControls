@@ -1,16 +1,12 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Maui.FreakyEffects;
-using Maui.FreakyControls.Dotnet;
-
 #if WINDOWS
 using Maui.FreakyControls.Platforms.Windows;
 #endif
 #if ANDROID
-using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
 #endif
 #if IOS || MACCATALYST
-using Maui.FreakyControls.Platforms.Apple;
 using NativeImage = UIKit.UIImage;
 #endif
 
@@ -51,15 +47,17 @@ public static class Extensions
 
     private static void AddHandlers(this IMauiHandlersCollection handlers)
     {
-        handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
-        handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
-        handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
-        handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
-        handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
-        handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
-        handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
-        handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
-        handlers.AddHandler(typeof(FreakyAutoCompleteView), typeof(FreakyAutoCompleteViewHandler));
+        handlers.AddHandler<FreakyEditor, FreakyEditorHandler>();
+        handlers.AddHandler<FreakyEntry, FreakyEntryHandler>();
+        handlers.AddHandler<FreakyCircularImage, FreakyCircularImageHandler>();
+        handlers.AddHandler<FreakyDatePicker, FreakyDatePickerHandler>();
+        handlers.AddHandler<FreakyTimePicker, FreakyTimePickerHandler>();
+        handlers.AddHandler<FreakyPicker, FreakyPickerHandler>();
+        handlers.AddHandler<FreakyImage, FreakyImageHandler>();
+#if ANDROID || IOS || MACCATALYST || WINDOWS
+        handlers.AddHandler<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler>();
+        handlers.AddHandler<FreakyAutoCompleteView, FreakyAutoCompleteViewHandler>();
+#endif
     }
 
 #if ANDROID || IOS || MACCATALYST
@@ -69,26 +67,19 @@ public static class Extensions
     /// </summary>
     public static async Task<NativeImage?> ToNativeImageSourceAsync(this ImageSource source)
     {
-        var services = IPlatformApplication.Current!.Services;
-        var provider = services.GetRequiredService<IImageSourceServiceProvider>();
+        var provider = IPlatformApplication.Current.Services.GetRequiredService<IImageSourceServiceProvider>();
         var service = provider.GetImageSourceService(source);
-
 #if IOS || MACCATALYST
         var result = await service.GetImageAsync(source);
         return result?.Value;
-#endif
-#if ANDROID
-        var result = await service.GetDrawableAsync(source, CurrentActivity ?? Android.App.Application.Context);
-        if (result?.Value is Android.Graphics.Drawables.BitmapDrawable bitmapDrawable)
-            return bitmapDrawable.Bitmap;
+#elif ANDROID
+        var result = await service.GetDrawableAsync(source, Android.App.Application.Context);
         var drawable = result?.Value;
-        if (drawable == null)
-            return null;
-        var bitmap = NativeImage.CreateBitmap(
-            Math.Max(drawable.IntrinsicWidth, 1),
-            Math.Max(drawable.IntrinsicHeight, 1),
-            NativeImage.Config.Argb8888);
-        var canvas = new Android.Graphics.Canvas(bitmap);
+        if (drawable is null) return null;
+        var w = drawable.IntrinsicWidth > 0 ? drawable.IntrinsicWidth : 1;
+        var h = drawable.IntrinsicHeight > 0 ? drawable.IntrinsicHeight : 1;
+        var bitmap = Android.Graphics.Bitmap.CreateBitmap(w, h, Android.Graphics.Bitmap.Config.Argb8888);
+        using var canvas = new Android.Graphics.Canvas(bitmap);
         drawable.SetBounds(0, 0, canvas.Width, canvas.Height);
         drawable.Draw(canvas);
         return bitmap;
