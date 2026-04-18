@@ -3,6 +3,9 @@ using Maui.FreakyControls.Enums;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using MauiImageSource = Microsoft.Maui.Controls.ImageSource;
+using WinButton = Microsoft.UI.Xaml.Controls.Button;
+using WinGrid = Microsoft.UI.Xaml.Controls.Grid;
 
 namespace Maui.FreakyControls.Platforms.Windows.NativeControls;
 
@@ -20,7 +23,7 @@ internal static class WindowsIconInjector
     /// </summary>
     internal static async Task InjectAsync(
         FrameworkElement platformView,
-        ImageSource mauiImageSource,
+        MauiImageSource mauiImageSource,
         ImageAlignment alignment,
         int width,
         int height,
@@ -36,7 +39,7 @@ internal static class WindowsIconInjector
         if (winImageSource is null)
             return;
 
-        var button = new Button
+        var button = new WinButton
         {
             Tag = IconTag,
             Width = width,
@@ -62,7 +65,7 @@ internal static class WindowsIconInjector
     private static void Inject(
         FrameworkElement platformView,
         ImageAlignment alignment,
-        Button iconButton,
+        WinButton iconButton,
         int width,
         int height,
         int padding)
@@ -70,13 +73,13 @@ internal static class WindowsIconInjector
         if (VisualTreeHelper.GetChildrenCount(platformView) == 0)
             return;
 
-        var rootGrid = VisualTreeHelper.GetChild(platformView, 0) as Grid;
+        var rootGrid = VisualTreeHelper.GetChild(platformView, 0) as WinGrid;
         if (rootGrid is null)
             return;
 
         // Remove any previously injected button so re-mapping is idempotent.
         var existing = rootGrid.Children
-            .OfType<Button>()
+            .OfType<WinButton>()
             .FirstOrDefault(b => b.Tag is string t && t == IconTag);
         if (existing is not null)
             rootGrid.Children.Remove(existing);

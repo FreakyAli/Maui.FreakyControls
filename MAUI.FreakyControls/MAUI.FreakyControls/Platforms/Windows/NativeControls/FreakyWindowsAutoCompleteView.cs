@@ -2,13 +2,15 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using WinButton = Microsoft.UI.Xaml.Controls.Button;
+using WinGrid = Microsoft.UI.Xaml.Controls.Grid;
 
 namespace Maui.FreakyControls.Platforms.Windows.NativeControls;
 
-internal class FreakyWindowsAutoCompleteView : Grid
+public class FreakyWindowsAutoCompleteView : WinGrid
 {
     internal readonly AutoSuggestBox AutoSuggestBox;
-    private Button? _iconButton;
+    private WinButton? _iconButton;
 
     internal FreakyWindowsAutoCompleteView()
     {
@@ -17,7 +19,7 @@ internal class FreakyWindowsAutoCompleteView : Grid
         ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });                        // col 2: right icon
 
         AutoSuggestBox = new AutoSuggestBox { PlaceholderText = string.Empty };
-        Grid.SetColumn(AutoSuggestBox, 1);
+        WinGrid.SetColumn(AutoSuggestBox, 1);
         Children.Add(AutoSuggestBox);
     }
 
@@ -42,7 +44,7 @@ internal class FreakyWindowsAutoCompleteView : Grid
         if (imageSource is null)
             return;
 
-        _iconButton = new Button
+        _iconButton = new WinButton
         {
             Width = width,
             Height = height,
@@ -58,7 +60,7 @@ internal class FreakyWindowsAutoCompleteView : Grid
         };
 
         _iconButton.Click += (_, _) => onTap?.Invoke();
-        Grid.SetColumn(_iconButton, column);
+        WinGrid.SetColumn(_iconButton, column);
         Children.Add(_iconButton);
     }
 }
