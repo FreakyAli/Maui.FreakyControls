@@ -6,6 +6,12 @@ using Microsoft.UI.Xaml.Media;
 using MauiImageSource = Microsoft.Maui.Controls.ImageSource;
 using WinButton = Microsoft.UI.Xaml.Controls.Button;
 using WinGrid = Microsoft.UI.Xaml.Controls.Grid;
+using WinHorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment;
+using WinImage = Microsoft.UI.Xaml.Controls.Image;
+using WinSolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
+using WinStretch = Microsoft.UI.Xaml.Media.Stretch;
+using WinThickness = Microsoft.UI.Xaml.Thickness;
+using WinVerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment;
 
 namespace Maui.FreakyControls.Platforms.Windows.NativeControls;
 
@@ -33,8 +39,7 @@ internal static class WindowsIconInjector
         var services = IPlatformApplication.Current!.Services;
         var provider = services.GetRequiredService<IImageSourceServiceProvider>();
         var service = provider.GetImageSourceService(mauiImageSource);
-        var result = await service.GetImageAsync(mauiImageSource);
-        var winImageSource = result?.Value;
+        var winImageSource = await service.GetPlatformImageAsync(mauiImageSource);
 
         if (winImageSource is null)
             return;
@@ -44,14 +49,14 @@ internal static class WindowsIconInjector
             Tag = IconTag,
             Width = width,
             Height = height,
-            Padding = new Thickness(padding),
-            Background = new SolidColorBrush(Microsoft.UI.Colors.Transparent),
-            BorderThickness = new Thickness(0),
-            VerticalAlignment = VerticalAlignment.Center,
-            Content = new Image
+            Padding = new WinThickness(padding),
+            Background = new WinSolidColorBrush(Microsoft.UI.Colors.Transparent),
+            BorderThickness = new WinThickness(0),
+            VerticalAlignment = WinVerticalAlignment.Center,
+            Content = new WinImage
             {
                 Source = winImageSource,
-                Stretch = Stretch.Uniform
+                Stretch = WinStretch.Uniform
             }
         };
         button.Click += (_, _) => onTap?.Invoke();
@@ -86,17 +91,21 @@ internal static class WindowsIconInjector
 
         var totalPad = Math.Max(width, height) + padding * 2;
 
-        switch (alignment)
+        // FrameworkElement doesn't expose Padding; only Control does.
+        if (platformView is Control control)
         {
-            case ImageAlignment.Left:
-                platformView.Padding = new Thickness(totalPad, 0, 0, 0);
-                iconButton.HorizontalAlignment = HorizontalAlignment.Left;
-                break;
+            switch (alignment)
+            {
+                case ImageAlignment.Left:
+                    control.Padding = new WinThickness(totalPad, 0, 0, 0);
+                    iconButton.HorizontalAlignment = WinHorizontalAlignment.Left;
+                    break;
 
-            default: // Right
-                platformView.Padding = new Thickness(0, 0, totalPad, 0);
-                iconButton.HorizontalAlignment = HorizontalAlignment.Right;
-                break;
+                default: // Right
+                    control.Padding = new WinThickness(0, 0, totalPad, 0);
+                    iconButton.HorizontalAlignment = WinHorizontalAlignment.Right;
+                    break;
+            }
         }
 
         rootGrid.Children.Add(iconButton);

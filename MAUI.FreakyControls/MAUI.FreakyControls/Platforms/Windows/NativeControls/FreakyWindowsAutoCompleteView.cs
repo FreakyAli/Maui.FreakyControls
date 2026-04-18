@@ -3,7 +3,14 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using WinButton = Microsoft.UI.Xaml.Controls.Button;
+using WinColumnDefinition = Microsoft.UI.Xaml.Controls.ColumnDefinition;
 using WinGrid = Microsoft.UI.Xaml.Controls.Grid;
+using WinGridLength = Microsoft.UI.Xaml.GridLength;
+using WinGridUnitType = Microsoft.UI.Xaml.GridUnitType;
+using WinImage = Microsoft.UI.Xaml.Controls.Image;
+using WinSolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
+using WinStretch = Microsoft.UI.Xaml.Media.Stretch;
+using WinVerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment;
 
 namespace Maui.FreakyControls.Platforms.Windows.NativeControls;
 
@@ -14,9 +21,9 @@ public class FreakyWindowsAutoCompleteView : WinGrid
 
     internal FreakyWindowsAutoCompleteView()
     {
-        ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });                        // col 0: left icon
-        ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });  // col 1: input
-        ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });                        // col 2: right icon
+        ColumnDefinitions.Add(new WinColumnDefinition { Width = WinGridLength.Auto });
+        ColumnDefinitions.Add(new WinColumnDefinition { Width = new WinGridLength(1, WinGridUnitType.Star) });
+        ColumnDefinitions.Add(new WinColumnDefinition { Width = WinGridLength.Auto });
 
         AutoSuggestBox = new AutoSuggestBox { PlaceholderText = string.Empty };
         WinGrid.SetColumn(AutoSuggestBox, 1);
@@ -49,13 +56,13 @@ public class FreakyWindowsAutoCompleteView : WinGrid
             Width = width,
             Height = height,
             Padding = new Microsoft.UI.Xaml.Thickness(padding),
-            Background = new SolidColorBrush(Microsoft.UI.Colors.Transparent),
+            Background = new WinSolidColorBrush(Microsoft.UI.Colors.Transparent),
             BorderThickness = new Microsoft.UI.Xaml.Thickness(0),
-            VerticalAlignment = VerticalAlignment.Center,
-            Content = new Image
+            VerticalAlignment = WinVerticalAlignment.Center,
+            Content = new WinImage
             {
                 Source = imageSource,
-                Stretch = Stretch.Uniform
+                Stretch = WinStretch.Uniform
             }
         };
 

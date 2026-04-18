@@ -1,5 +1,6 @@
 using Microsoft.Maui.Handlers;
 #if WINDOWS
+using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -8,6 +9,7 @@ using Microsoft.UI.Xaml.Shapes;
 using Windows.Storage.Streams;
 using WinColor = Windows.UI.Color;
 using WinPoint = Windows.Foundation.Point;
+using WinSolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
 #endif
 
 namespace Maui.FreakyControls
@@ -38,7 +40,7 @@ namespace Maui.FreakyControls
         {
             return new Canvas
             {
-                Background = new SolidColorBrush(Microsoft.UI.Colors.White)
+                Background = new WinSolidColorBrush(Microsoft.UI.Colors.White)
             };
         }
 
@@ -104,7 +106,7 @@ namespace Maui.FreakyControls
 
             _currentStroke = new Polyline
             {
-                Stroke = new SolidColorBrush(_strokeColor),
+                Stroke = new WinSolidColorBrush(_strokeColor),
                 StrokeThickness = _strokeThickness,
                 StrokeLineJoin = PenLineJoin.Round,
                 StrokeStartLineCap = PenLineCap.Round,
@@ -224,7 +226,7 @@ namespace Maui.FreakyControls
 
         private Polyline CreatePolyline() => new()
         {
-            Stroke = new SolidColorBrush(_strokeColor),
+            Stroke = new WinSolidColorBrush(_strokeColor),
             StrokeThickness = _strokeThickness,
             StrokeLineJoin = PenLineJoin.Round,
             StrokeStartLineCap = PenLineCap.Round,

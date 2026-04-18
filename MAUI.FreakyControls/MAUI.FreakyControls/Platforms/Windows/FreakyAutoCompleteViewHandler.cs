@@ -6,6 +6,9 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI.Text;
+using MauiTextAlignment = Microsoft.Maui.TextAlignment;
+using WinHorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment;
+using WinVerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment;
 #endif
 
 namespace Maui.FreakyControls;
@@ -173,15 +176,15 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         var asb = handler.PlatformView.AutoSuggestBox;
         asb.HorizontalContentAlignment = view.HorizontalTextAlignment switch
         {
-            TextAlignment.Center => HorizontalAlignment.Center,
-            TextAlignment.End    => HorizontalAlignment.Right,
-            _                    => HorizontalAlignment.Left,
+            MauiTextAlignment.Center => WinHorizontalAlignment.Center,
+            MauiTextAlignment.End    => WinHorizontalAlignment.Right,
+            _                        => WinHorizontalAlignment.Left,
         };
         asb.VerticalContentAlignment = view.VerticalTextAlignment switch
         {
-            TextAlignment.Start => VerticalAlignment.Top,
-            TextAlignment.End   => VerticalAlignment.Bottom,
-            _                   => VerticalAlignment.Center,
+            MauiTextAlignment.Start => WinVerticalAlignment.Top,
+            MauiTextAlignment.End   => WinVerticalAlignment.Bottom,
+            _                       => WinVerticalAlignment.Center,
         };
     }
 
@@ -215,8 +218,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         var services = IPlatformApplication.Current!.Services;
         var provider = services.GetRequiredService<IImageSourceServiceProvider>();
         var service = provider.GetImageSourceService(view.ImageSource);
-        var result = await service.GetImageAsync(view.ImageSource);
-        var imageSource = result?.Value;
+        var imageSource = await service.GetPlatformImageAsync(view.ImageSource);
 
         if (imageSource is null) return;
 
@@ -237,8 +239,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapSuggestionListHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        if (view.SuggestionListHeight > 0)
-            handler.PlatformView.AutoSuggestBox.MaxDropDownHeight = view.SuggestionListHeight;
+        // WinUI 3 AutoSuggestBox does not expose MaxDropDownHeight; no-op.
     }
 
     // ── Helpers ────────────────────────────────────────────────────────────
