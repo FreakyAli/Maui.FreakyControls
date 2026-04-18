@@ -1,19 +1,10 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Maui.FreakyEffects;
-using Maui.FreakyControls.Dotnet;
-
-#if MACCATALYST
-using Maui.FreakyControls.Platforms.MacCatalyst;
-#endif
 #if WINDOWS
 using Maui.FreakyControls.Platforms.Windows;
 #endif
 #if ANDROID
-using static Microsoft.Maui.ApplicationModel.Platform;
 using NativeImage = Android.Graphics.Bitmap;
-#endif
-#if IOS
-using Maui.FreakyControls.Platforms.iOS;
 #endif
 #if IOS || MACCATALYST
 using NativeImage = UIKit.UIImage;
@@ -56,15 +47,17 @@ public static class Extensions
 
     private static void AddHandlers(this IMauiHandlersCollection handlers)
     {
-        handlers.AddHandler(typeof(FreakyEditor), typeof(FreakyEditorHandler));
-        handlers.AddHandler(typeof(FreakyEntry), typeof(FreakyEntryHandler));
-        handlers.AddHandler(typeof(FreakyCircularImage), typeof(FreakyCircularImageHandler));
-        handlers.AddHandler(typeof(FreakyDatePicker), typeof(FreakyDatePickerHandler));
-        handlers.AddHandler(typeof(FreakyTimePicker), typeof(FreakyTimePickerHandler));
-        handlers.AddHandler(typeof(FreakyPicker), typeof(FreakyPickerHandler));
-        handlers.AddHandler(typeof(FreakyImage), typeof(FreakyImageHandler));
-        handlers.AddHandler(typeof(FreakySignatureCanvasView), typeof(FreakySignatureCanvasViewHandler));
-        handlers.AddHandler(typeof(FreakyAutoCompleteView), typeof(FreakyAutoCompleteViewHandler));
+        handlers.AddHandler<FreakyEditor, FreakyEditorHandler>();
+        handlers.AddHandler<FreakyEntry, FreakyEntryHandler>();
+        handlers.AddHandler<FreakyCircularImage, FreakyCircularImageHandler>();
+        handlers.AddHandler<FreakyDatePicker, FreakyDatePickerHandler>();
+        handlers.AddHandler<FreakyTimePicker, FreakyTimePickerHandler>();
+        handlers.AddHandler<FreakyPicker, FreakyPickerHandler>();
+        handlers.AddHandler<FreakyImage, FreakyImageHandler>();
+#if ANDROID || IOS || MACCATALYST || WINDOWS
+        handlers.AddHandler<FreakySignatureCanvasView, FreakySignatureCanvasViewHandler>();
+        handlers.AddHandler<FreakyAutoCompleteView, FreakyAutoCompleteViewHandler>();
+#endif
     }
 
 #if ANDROID || IOS || MACCATALYST
@@ -80,7 +73,7 @@ public static class Extensions
         var result = await service.GetImageAsync(source);
         return result?.Value;
 #elif ANDROID
-        var result = await service.GetImageAsync(source, CurrentActivity);
+        var result = await service.GetDrawableAsync(source, Android.App.Application.Context);
         var drawable = result?.Value;
         if (drawable is null) return null;
         if (drawable is Android.Graphics.Drawables.BitmapDrawable bd && bd.Bitmap != null)
