@@ -9,9 +9,6 @@ namespace Maui.FreakyControls
         internal async Task HandleAndAlignImageSourceAsync(FreakyDatePicker entry)
         {
 #if WINDOWS
-            if (entry.ImageSource is null)
-                return;
-
             await WindowsIconInjector.InjectAsync(
                 PlatformView,
                 entry.ImageSource,

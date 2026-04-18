@@ -54,10 +54,15 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     public FreakyAutoCompleteViewHandler(IPropertyMapper mapper, CommandMapper commandMapper)
         : base(mapper ?? PropertyMapper, commandMapper ?? CommandMapper) { }
 
+    private CancellationTokenSource _cts = new();
+
     protected override FreakyWindowsAutoCompleteView CreatePlatformView() => new();
 
     protected override void ConnectHandler(FreakyWindowsAutoCompleteView platformView)
     {
+        _cts.Cancel();
+        _cts.Dispose();
+        _cts = new CancellationTokenSource();
         base.ConnectHandler(platformView);
         var asb = platformView.AutoSuggestBox;
 
@@ -76,6 +81,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     protected override void DisconnectHandler(FreakyWindowsAutoCompleteView platformView)
     {
+        _cts.Cancel();
         var asb = platformView.AutoSuggestBox;
         asb.TextChanged -= OnTextChanged;
         asb.SuggestionChosen -= OnSuggestionChosen;
@@ -94,7 +100,11 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
     {
         if (VirtualView?.UpdateTextOnSelect == true)
-            sender.Text = FormatType(args.SelectedItem, VirtualView.TextMemberPath);
+        {
+            var text = FormatType(args.SelectedItem, VirtualView.TextMemberPath);
+            sender.Text = text;
+            VirtualView.Text = text;
+        }
         VirtualView?.RaiseSuggestionChosen(new FreakyAutoCompleteViewSuggestionChosenEventArgs(args.SelectedItem));
     }
 
@@ -207,20 +217,28 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
             : Microsoft.UI.Text.FontWeights.Normal;
     }
 
-    public static async void MapImageSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    public static void MapImageSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler._cts.Cancel();
+        handler._cts.Dispose();
+        handler._cts = new CancellationTokenSource();
+        _ = handler.MapImageSourceAsync(view, handler._cts.Token);
+    }
+
+    private async Task MapImageSourceAsync(IFreakyAutoCompleteView view, CancellationToken token)
     {
         if (view.ImageSource is null)
         {
-            handler.PlatformView.SetIcon(null, 0, 0, 0, 0, null);
+            PlatformView.SetIcon(null, 0, 0, 0, 0, null);
             return;
         }
 
-        var imageSource = (await view.ImageSource.GetPlatformImageAsync(handler.MauiContext!))?.Value;
+        var imageSource = (await view.ImageSource.GetPlatformImageAsync(MauiContext!))?.Value;
 
-        if (imageSource is null) return;
+        if (token.IsCancellationRequested || imageSource is null) return;
 
         var column = view.ImageAlignment == ImageAlignment.Left ? 0 : 2;
-        handler.PlatformView.SetIcon(
+        PlatformView.SetIcon(
             imageSource,
             view.ImageWidth,
             view.ImageHeight,

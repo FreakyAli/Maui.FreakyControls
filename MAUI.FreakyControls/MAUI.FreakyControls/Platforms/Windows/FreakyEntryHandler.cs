@@ -25,9 +25,6 @@ namespace Maui.FreakyControls
 
         internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)
         {
-            if (entry.ImageSource is null)
-                return;
-
             await WindowsIconInjector.InjectAsync(
                 PlatformView,
                 entry.ImageSource,

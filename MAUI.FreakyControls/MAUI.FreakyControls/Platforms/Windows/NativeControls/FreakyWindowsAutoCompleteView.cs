@@ -66,7 +66,13 @@ public class FreakyWindowsAutoCompleteView : WinGrid
             }
         };
 
-        _iconButton.Click += (_, _) => onTap?.Invoke();
+        if (onTap is not null)
+            _iconButton.Click += (_, _) => onTap.Invoke();
+        else
+        {
+            _iconButton.IsTabStop = false;
+            _iconButton.IsHitTestVisible = false;
+        }
         WinGrid.SetColumn(_iconButton, column);
         Children.Add(_iconButton);
     }

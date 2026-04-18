@@ -51,6 +51,8 @@ namespace Maui.FreakyControls
             platformView.PointerPressed += OnPointerPressed;
             platformView.PointerMoved += OnPointerMoved;
             platformView.PointerReleased += OnPointerReleased;
+            platformView.PointerCanceled += OnPointerCanceled;
+            platformView.PointerCaptureLost += OnPointerCaptureLost;
 
             VirtualView.ImageStreamRequested += OnImageStreamRequested;
             VirtualView.IsBlankRequested += OnIsBlankRequested;
@@ -66,6 +68,8 @@ namespace Maui.FreakyControls
             platformView.PointerPressed -= OnPointerPressed;
             platformView.PointerMoved -= OnPointerMoved;
             platformView.PointerReleased -= OnPointerReleased;
+            platformView.PointerCanceled -= OnPointerCanceled;
+            platformView.PointerCaptureLost -= OnPointerCaptureLost;
 
             VirtualView.ImageStreamRequested -= OnImageStreamRequested;
             VirtualView.IsBlankRequested -= OnIsBlankRequested;
@@ -127,23 +131,37 @@ namespace Maui.FreakyControls
 
         private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
         {
+            if (_isDrawing && sender is Canvas canvas)
+                canvas.ReleasePointerCapture(e.Pointer);
+            EndCurrentStroke();
+        }
+
+        private void OnPointerCanceled(object sender, PointerRoutedEventArgs e)
+            => EndCurrentStroke();
+
+        private void OnPointerCaptureLost(object sender, PointerRoutedEventArgs e)
+            => EndCurrentStroke();
+
+        private void EndCurrentStroke()
+        {
             if (!_isDrawing) return;
             _isDrawing = false;
             _currentStroke = null;
-            if (sender is Canvas canvas)
-                canvas.ReleasePointerCapture(e.Pointer);
             VirtualView?.OnStrokeCompleted();
         }
 
         // ── VirtualView events ─────────────────────────────────────────────
 
-        private void OnClearRequested(object? sender, EventArgs e)
+        private void OnClearRequested(object? sender, EventArgs e) => ClearCanvas(raiseEvent: true);
+
+        private void ClearCanvas(bool raiseEvent)
         {
             PlatformView.Children.Clear();
             _strokes.Clear();
             _currentStroke = null;
             _isDrawing = false;
-            VirtualView?.OnCleared();
+            if (raiseEvent)
+                VirtualView?.OnCleared();
         }
 
         private void OnIsBlankRequested(object? sender, IsBlankRequestedEventArgs e)
@@ -158,7 +176,7 @@ namespace Maui.FreakyControls
 
         private void OnPointsSpecified(object? sender, PointsEventArgs e)
         {
-            OnClearRequested(this, EventArgs.Empty);
+            ClearCanvas(raiseEvent: false);
             if (e.Points?.Any() != true) return;
 
             var polyline = CreatePolyline();
@@ -175,7 +193,7 @@ namespace Maui.FreakyControls
 
         private void OnStrokesSpecified(object? sender, StrokesEventArgs e)
         {
-            OnClearRequested(this, EventArgs.Empty);
+            ClearCanvas(raiseEvent: false);
             if (e.Strokes is null) return;
 
             foreach (var stroke in e.Strokes)
@@ -190,36 +208,62 @@ namespace Maui.FreakyControls
 
         private void OnImageStreamRequested(object? sender, ImageStreamRequestedEventArgs e)
         {
-            e.ImageStreamTask = RenderToStreamAsync(e.ImageFormat);
+            e.ImageStreamTask = RenderToStreamAsync(e.ImageFormat, e.Settings);
         }
 
         // ── Image export ───────────────────────────────────────────────────
 
-        private async Task<Stream> RenderToStreamAsync(SignatureImageFormat format)
+        private async Task<Stream> RenderToStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
         {
-            var rtb = new RenderTargetBitmap();
-            await rtb.RenderAsync(PlatformView);
+            var originalBackground = PlatformView.Background;
+            if (settings.BackgroundColor is Color bgColor)
+            {
+                PlatformView.Background = new WinSolidColorBrush(WinColor.FromArgb(
+                    (byte)(bgColor.Alpha * 255),
+                    (byte)(bgColor.Red * 255),
+                    (byte)(bgColor.Green * 255),
+                    (byte)(bgColor.Blue * 255)));
+            }
 
-            var pixelBuffer = await rtb.GetPixelsAsync();
-            var pixels = pixelBuffer.ToArray();
+            try
+            {
+                var rtb = new RenderTargetBitmap();
 
-            var memStream = new InMemoryRandomAccessStream();
-            var encoderId = format == SignatureImageFormat.Jpeg
-                ? Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId
-                : Windows.Graphics.Imaging.BitmapEncoder.PngEncoderId;
+                if (settings.DesiredSizeOrScale is SizeOrScale sos && sos.IsValid)
+                {
+                    var sz = sos.GetSize((float)PlatformView.ActualWidth, (float)PlatformView.ActualHeight);
+                    await rtb.RenderAsync(PlatformView, (int)sz.Width, (int)sz.Height);
+                }
+                else
+                {
+                    await rtb.RenderAsync(PlatformView);
+                }
 
-            var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(encoderId, memStream);
-            encoder.SetPixelData(
-                Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
-                Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
-                (uint)rtb.PixelWidth,
-                (uint)rtb.PixelHeight,
-                96, 96,
-                pixels);
+                var pixelBuffer = await rtb.GetPixelsAsync();
+                var pixels = pixelBuffer.ToArray();
 
-            await encoder.FlushAsync();
-            memStream.Seek(0);
-            return memStream.AsStream();
+                var memStream = new InMemoryRandomAccessStream();
+                var encoderId = format == SignatureImageFormat.Jpeg
+                    ? Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId
+                    : Windows.Graphics.Imaging.BitmapEncoder.PngEncoderId;
+
+                var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(encoderId, memStream);
+                encoder.SetPixelData(
+                    Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
+                    Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
+                    (uint)rtb.PixelWidth,
+                    (uint)rtb.PixelHeight,
+                    96, 96,
+                    pixels);
+
+                await encoder.FlushAsync();
+                memStream.Seek(0);
+                return memStream.AsStream();
+            }
+            finally
+            {
+                PlatformView.Background = originalBackground;
+            }
         }
 
         // ── Helpers ────────────────────────────────────────────────────────

@@ -23,19 +23,50 @@ internal static class WindowsIconInjector
 {
     private const string IconTag = "FreakyIconOverlay";
 
+    // Tracks a single pending Loaded handler per platform view so that rapid
+    // re-injection (e.g. ImageSource property changes before the view loads)
+    // cancels the previous subscription instead of accumulating handlers.
+    private static readonly ConditionalWeakTable<FrameworkElement, PendingLoad> _pending = new();
+
+    private sealed class PendingLoad { public RoutedEventHandler? Handler; }
+
+    /// <summary>
+    /// Removes any previously injected icon button from the platform view.
+    /// Also cancels any pending Loaded subscription for that view.
+    /// </summary>
+    internal static void Remove(FrameworkElement platformView)
+    {
+        if (_pending.TryGetValue(platformView, out var cancelState) && cancelState.Handler is not null)
+        {
+            platformView.Loaded -= cancelState.Handler;
+            _pending.Remove(platformView);
+        }
+
+        if (platformView.IsLoaded)
+            RemoveFromGrid(platformView);
+    }
+
     /// <summary>
     /// Loads the image source, creates the icon button and schedules injection
     /// once the platform view is loaded.
+    /// When <paramref name="mauiImageSource"/> is <c>null</c> any previously
+    /// injected icon is removed instead.
     /// </summary>
     internal static async Task InjectAsync(
         FrameworkElement platformView,
-        MauiImageSource mauiImageSource,
+        MauiImageSource? mauiImageSource,
         ImageAlignment alignment,
         int width,
         int height,
         int padding,
-        Action onTap)
+        Action? onTap)
     {
+        if (mauiImageSource is null)
+        {
+            Remove(platformView);
+            return;
+        }
+
         var mauiContext = Microsoft.Maui.Controls.Application.Current?.Handler?.MauiContext
             ?? throw new InvalidOperationException("MauiContext is unavailable; ensure the application is fully initialized.");
         var winImageSource = (await mauiImageSource.GetPlatformImageAsync(mauiContext))?.Value;
@@ -61,9 +92,29 @@ internal static class WindowsIconInjector
         button.Click += (_, _) => onTap?.Invoke();
 
         if (platformView.IsLoaded)
+        {
             Inject(platformView, alignment, button, width, height, padding);
+        }
         else
-            platformView.Loaded += (_, _) => Inject(platformView, alignment, button, width, height, padding);
+        {
+            // Cancel any previously queued Loaded handler for this view.
+            if (_pending.TryGetValue(platformView, out var existing) && existing.Handler is not null)
+                platformView.Loaded -= existing.Handler;
+
+            var pending = new PendingLoad();
+            _pending.Remove(platformView);
+            _pending.Add(platformView, pending);
+
+            RoutedEventHandler? loadedHandler = null;
+            loadedHandler = (_, _) =>
+            {
+                platformView.Loaded -= loadedHandler;
+                _pending.Remove(platformView);
+                Inject(platformView, alignment, button, width, height, padding);
+            };
+            pending.Handler = loadedHandler;
+            platformView.Loaded += loadedHandler;
+        }
     }
 
     private static void Inject(
@@ -82,13 +133,9 @@ internal static class WindowsIconInjector
             return;
 
         // Remove any previously injected button so re-mapping is idempotent.
-        var existing = rootGrid.Children
-            .OfType<WinButton>()
-            .FirstOrDefault(b => b.Tag is string t && t == IconTag);
-        if (existing is not null)
-            rootGrid.Children.Remove(existing);
+        RemoveFromGrid(rootGrid);
 
-        var totalPad = Math.Max(width, height) + padding * 2;
+        var totalPad = width + padding * 2;
 
         // FrameworkElement doesn't expose Padding; only Control does.
         if (platformView is Control control)
@@ -108,6 +155,23 @@ internal static class WindowsIconInjector
         }
 
         rootGrid.Children.Add(iconButton);
+    }
+
+    private static void RemoveFromGrid(FrameworkElement platformView)
+    {
+        if (VisualTreeHelper.GetChildrenCount(platformView) == 0)
+            return;
+        if (VisualTreeHelper.GetChild(platformView, 0) is WinGrid grid)
+            RemoveFromGrid(grid);
+    }
+
+    private static void RemoveFromGrid(WinGrid grid)
+    {
+        var existing = grid.Children
+            .OfType<WinButton>()
+            .FirstOrDefault(b => b.Tag is string t && t == IconTag);
+        if (existing is not null)
+            grid.Children.Remove(existing);
     }
 }
 #endif
