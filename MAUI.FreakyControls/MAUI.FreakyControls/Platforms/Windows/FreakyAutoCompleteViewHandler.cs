@@ -215,10 +215,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
             return;
         }
 
-        var services = IPlatformApplication.Current!.Services;
-        var provider = services.GetRequiredService<IImageSourceServiceProvider>();
-        var service = provider.GetImageSourceService(view.ImageSource);
-        var imageSource = await service.GetPlatformImageAsync(view.ImageSource);
+        var imageSource = await view.ImageSource.GetPlatformImageAsync(handler.MauiContext!);
 
         if (imageSource is null) return;
 

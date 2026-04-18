@@ -53,54 +53,54 @@ public class FreakyJumpList : SKCanvasView, IDisposable
        null
        );
 
-    // <summary>
-    // Gets or sets an AlphabetProvider instance
-    // </summary>
+    /// <summary>
+    /// Gets or sets an AlphabetProvider instance
+    /// </summary>
     public IAlphabetProvider AlphabetProvider
     {
         get => (IAlphabetProvider)GetValue(AlphabetProviderProperty);
         set => SetValue(AlphabetProviderProperty, value);
     }
 
-    // <summary>
-    // Gets or sets if there should be haptic feedback when user touches/swipes on the jumplist, default is false.
-    // </summary>
+    /// <summary>
+    /// Gets or sets a value indicating whether the jump list provides haptic feedback when the user touches or swipes; default is false.
+    /// </summary>
     public bool HasHapticFeedback
     {
         get => (bool)GetValue(HasHapticFeedbackProperty);
         set => SetValue(HasHapticFeedbackProperty, value);
     }
 
-    // <summary>
-    // Gets or sets the height of the characters in pixels
-    // </summary>
+    /// <summary>
+    /// Gets or sets the height of the characters in pixels.
+    /// </summary>
     public float CharacterSize
     {
         get => (float)GetValue(CharacterSizeProperty);
         set => SetValue(CharacterSizeProperty, value);
     }
 
-    // <summary>
-    // Gets or sets string formatted single character that you have touched/swiped to
-    // </summary>
+    /// <summary>
+    /// Gets or sets the single character (as a string) that the user has touched or swiped to.
+    /// </summary>
     public string SelectedCharacter
     {
         get => (string)GetValue(SelectedCharacterProperty);
         set => SetValue(SelectedCharacterProperty, value);
     }
 
-    // <summary>
-    // Gets or sets the color of the jump list's selected character.
-    // </summary>
+    /// <summary>
+    /// Gets or sets the color of the jump list's selected character.
+    /// </summary>
     public Color SelectedCharacterColor
     {
         get => (Color)GetValue(SelectedCharacterColorProperty);
         set => SetValue(SelectedCharacterColorProperty, value);
     }
 
-    // <summary>
-    // Gets or sets defines the color of the jump list characters.
-    // </summary>
+    /// <summary>
+    /// Gets or sets the color of the jump list characters.
+    /// </summary>
     public Color CharacterColor
     {
         get => (Color)GetValue(CharacterColorProperty);

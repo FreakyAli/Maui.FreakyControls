@@ -374,9 +374,9 @@ public class FreakyCheckbox : ContentView, IDisposable
         true);
 
     /// <summary>
-    /// Gets or sets the color of the outline.
+    /// Gets or sets a value indicating whether the checkbox plays an animation when checked or unchecked.
     /// </summary>
-    /// <value>Color value of the outline</value>
+    /// <value><c>true</c> if the check animation is enabled; otherwise <c>false</c>.</value>
     public bool HasCheckAnimation
     {
         get => (bool)GetValue(HasCheckAnimationProperty);
