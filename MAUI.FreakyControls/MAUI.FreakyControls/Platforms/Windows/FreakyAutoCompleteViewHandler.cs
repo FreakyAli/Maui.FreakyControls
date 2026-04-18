@@ -215,7 +215,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
             return;
         }
 
-        var imageSource = await view.ImageSource.GetPlatformImageAsync(handler.MauiContext!);
+        var imageSource = (await view.ImageSource.GetPlatformImageAsync(handler.MauiContext!))?.Value;
 
         if (imageSource is null) return;
 

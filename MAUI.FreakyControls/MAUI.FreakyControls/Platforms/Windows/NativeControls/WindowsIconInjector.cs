@@ -36,9 +36,9 @@ internal static class WindowsIconInjector
         int padding,
         Action onTap)
     {
-        var mauiContext = Application.Current?.Handler?.MauiContext
+        var mauiContext = Microsoft.Maui.Controls.Application.Current?.Handler?.MauiContext
             ?? throw new InvalidOperationException("MauiContext is unavailable; ensure the application is fully initialized.");
-        var winImageSource = await mauiImageSource.GetPlatformImageAsync(mauiContext);
+        var winImageSource = (await mauiImageSource.GetPlatformImageAsync(mauiContext))?.Value;
 
         if (winImageSource is null)
             return;
