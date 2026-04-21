@@ -223,6 +223,10 @@ internal static class WindowsIconInjector
             }
         }
 
+        WinGrid.SetRow(iconButton, 0);
+        WinGrid.SetColumn(iconButton, 0);
+        WinGrid.SetRowSpan(iconButton, Math.Max(1, rootGrid.RowDefinitions.Count));
+        WinGrid.SetColumnSpan(iconButton, Math.Max(1, rootGrid.ColumnDefinitions.Count));
         rootGrid.Children.Add(iconButton);
     }
 

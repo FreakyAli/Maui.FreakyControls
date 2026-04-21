@@ -172,6 +172,7 @@ namespace Maui.FreakyControls
             _strokes.Clear();
             _currentStroke = null;
             _isDrawing = false;
+            _activePointerId = null;
             if (raiseEvent)
                 VirtualView?.OnCleared();
         }
@@ -229,6 +230,37 @@ namespace Maui.FreakyControls
         {
             int canvasW = Math.Max(1, (int)PlatformView.ActualWidth);
             int canvasH = Math.Max(1, (int)PlatformView.ActualHeight);
+
+            // Guard: PlatformView has not completed layout yet (ActualWidth/Height == 0).
+            // Stroke coordinates cannot be meaningfully mapped against a near-zero canvas
+            // reference — applying settings.DesiredSizeOrScale would produce enormous
+            // scale factors and silently render a broken image. Return a 1×1
+            // background-only stream so callers receive a valid image instead.
+            if ((canvasW <= 1 || canvasH <= 1) && _strokes.Count > 0)
+            {
+                var bgEarly = settings.BackgroundColor ?? ImageConstructionSettings.DefaultBackgroundColor;
+                var bgPixel = new byte[]
+                {
+                    (byte)(bgEarly.Blue  * 255),
+                    (byte)(bgEarly.Green * 255),
+                    (byte)(bgEarly.Red   * 255),
+                    (byte)(bgEarly.Alpha * 255)
+                };
+                var fallbackStream = new InMemoryRandomAccessStream();
+                var fallbackEncoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(
+                    format == SignatureImageFormat.Jpeg
+                        ? Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId
+                        : Windows.Graphics.Imaging.BitmapEncoder.PngEncoderId,
+                    fallbackStream);
+                fallbackEncoder.SetPixelData(
+                    Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
+                    Windows.Graphics.Imaging.BitmapAlphaMode.Straight,
+                    1, 1, 96, 96, bgPixel);
+                await fallbackEncoder.FlushAsync();
+                fallbackStream.Seek(0);
+                return fallbackStream.AsStream();
+            }
+
             int outW = canvasW, outH = canvasH;
 
             if (settings.DesiredSizeOrScale is SizeOrScale sos && sos.IsValid)
@@ -240,7 +272,8 @@ namespace Maui.FreakyControls
 
             float scaleX = (float)outW / canvasW;
             float scaleY = (float)outH / canvasH;
-            float scaleAvg = (scaleX + scaleY) / 2f;
+            // scaleAvg removed: PaintSegment receives per-axis scales and computes
+            // distances in canvas space so strokes scale correctly under non-uniform output.
 
             var bg = settings.BackgroundColor ?? ImageConstructionSettings.DefaultBackgroundColor;
             byte bgB = (byte)(bg.Blue  * 255);
@@ -286,19 +319,20 @@ namespace Maui.FreakyControls
                     sA = 255; sR = 0; sG = 0; sB = 0;
                 }
 
-                float radius = (settings.StrokeWidth ?? (float)polyline.StrokeThickness) * scaleAvg / 2f;
+                // Radius in canvas space; PaintSegment applies per-axis scales internally.
+                float radius = (settings.StrokeWidth ?? (float)polyline.StrokeThickness) / 2f;
 
-                float px = (float)(pts[0].X * scaleX);
-                float py = (float)(pts[0].Y * scaleY);
+                float px = (float)pts[0].X;
+                float py = (float)pts[0].Y;
 
                 // First point: paint a filled circle (round cap).
-                PaintSegment(pixels, outW, outH, stride, px, py, px, py, sB, sG, sR, sA, radius);
+                PaintSegment(pixels, outW, outH, stride, px, py, px, py, sB, sG, sR, sA, radius, scaleX, scaleY);
 
                 for (int i = 1; i < pts.Count; i++)
                 {
-                    float cx = (float)(pts[i].X * scaleX);
-                    float cy = (float)(pts[i].Y * scaleY);
-                    PaintSegment(pixels, outW, outH, stride, px, py, cx, cy, sB, sG, sR, sA, radius);
+                    float cx = (float)pts[i].X;
+                    float cy = (float)pts[i].Y;
+                    PaintSegment(pixels, outW, outH, stride, px, py, cx, cy, sB, sG, sR, sA, radius, scaleX, scaleY);
                     px = cx;
                     py = cy;
                 }
@@ -322,26 +356,38 @@ namespace Maui.FreakyControls
         }
 
         // Rasterizes a thick anti-aliased capsule (widened line segment) into a BGRA8
-        // pixel buffer. When x0==x1 and y0==y1 the capsule degenerates to a filled circle.
+        // pixel buffer. x0/y0/x1/y1 and radius are in canvas space; scaleX/scaleY map to
+        // output pixels. Distance is computed in canvas space so strokes remain correctly
+        // proportioned under non-uniform DesiredSizeOrScale. When x0==x1 and y0==y1 the
+        // capsule degenerates to a filled circle.
         private static void PaintSegment(
             byte[] pixels, int w, int h, int stride,
             float x0, float y0, float x1, float y1,
-            byte sB, byte sG, byte sR, byte sA, float radius)
+            byte sB, byte sG, byte sR, byte sA, float radius,
+            float scaleX, float scaleY)
         {
-            int px0 = Math.Max(0, (int)(MathF.Min(x0, x1) - radius - 1));
-            int px1 = Math.Min(w - 1, (int)(MathF.Max(x0, x1) + radius + 1));
-            int py0 = Math.Max(0, (int)(MathF.Min(y0, y1) - radius - 1));
-            int py1 = Math.Min(h - 1, (int)(MathF.Max(y0, y1) + radius + 1));
+            float invScaleX = 1f / scaleX;
+            float invScaleY = 1f / scaleY;
+
+            // Bounding box in output-pixel space derived from canvas-space segment + radius.
+            int px0 = Math.Max(0, (int)((MathF.Min(x0, x1) - radius) * scaleX) - 1);
+            int px1 = Math.Min(w - 1, (int)((MathF.Max(x0, x1) + radius) * scaleX) + 1);
+            int py0 = Math.Max(0, (int)((MathF.Min(y0, y1) - radius) * scaleY) - 1);
+            int py1 = Math.Min(h - 1, (int)((MathF.Max(y0, y1) + radius) * scaleY) + 1);
 
             float dx = x1 - x0, dy = y1 - y0;
             float lenSq = dx * dx + dy * dy;
             float strokeAlpha = sA / 255f;
+            // AA transition width tracks the larger scale so the edge is never wider than 1 output pixel.
+            float aaScale = MathF.Max(scaleX, scaleY);
 
             for (int py = py0; py <= py1; py++)
             {
                 for (int px = px0; px <= px1; px++)
                 {
-                    float ex = px - x0, ey = py - y0;
+                    // Map output pixel back to canvas space for distance measurement.
+                    float ex = px * invScaleX - x0;
+                    float ey = py * invScaleY - y0;
 
                     if (lenSq > 0.0001f)
                     {
@@ -352,7 +398,7 @@ namespace Maui.FreakyControls
                     }
 
                     float dist = MathF.Sqrt(ex * ex + ey * ey);
-                    float ink = Math.Clamp(radius - dist + 0.5f, 0f, 1f) * strokeAlpha;
+                    float ink = Math.Clamp(0.5f + (radius - dist) * aaScale, 0f, 1f) * strokeAlpha;
                     if (ink <= 0f) continue;
 
                     int offset = py * stride + px * 4;
