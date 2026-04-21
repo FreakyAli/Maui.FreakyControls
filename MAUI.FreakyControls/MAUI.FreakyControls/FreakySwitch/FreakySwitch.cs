@@ -35,20 +35,17 @@ public class FreakySwitch : ContentView, IDisposable
         tapped.Tapped += SwitchTapped;
         GestureRecognizers.Add(tapped);
 
-        // Initalize animation field
         isAnimating = false;
     }
 
     private async Task AnimateThumbAsync()
     {
-        //if isAnimating == true. It does not execute animation.
         if (isAnimating)
             return;
 
         isAnimating = true;
         animationProgress = 0.0f;
 
-        //60 frames per sec... 60frames/sec
         const int frameRate = 60;
 
         double durationInSeconds = AnimationDuration / 1000.0;

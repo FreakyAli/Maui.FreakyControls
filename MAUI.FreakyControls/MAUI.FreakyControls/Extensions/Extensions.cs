@@ -63,7 +63,9 @@ public static class Extensions
 #if ANDROID || IOS || MACCATALYST
 
     /// <summary>
-    /// Get native <see cref="NativeImage"/> from Maui <see cref="ImageSource"/>
+    /// Gets the platform-native image for the given MAUI <see cref="ImageSource"/>.
+    /// Returns a <c>UIImage</c> on iOS/macCatalyst and an <c>Android.Graphics.Bitmap</c> on Android.
+    /// Returns <c>null</c> if the source cannot be resolved.
     /// </summary>
     public static async Task<NativeImage?> ToNativeImageSourceAsync(this ImageSource source)
     {

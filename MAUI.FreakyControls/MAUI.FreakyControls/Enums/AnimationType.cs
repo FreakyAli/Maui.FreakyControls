@@ -3,7 +3,7 @@ namespace Maui.FreakyControls.Enums;
 public enum AnimationType
 {
     /// <summary>
-    /// A defualt animaiton for your control
+    /// A default animation for your control
     /// </summary>
     Default,
 

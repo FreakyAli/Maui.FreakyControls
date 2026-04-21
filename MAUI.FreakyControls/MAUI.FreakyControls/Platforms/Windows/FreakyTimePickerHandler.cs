@@ -1,11 +1,25 @@
+#if WINDOWS
+using Maui.FreakyControls.Platforms.Windows.NativeControls;
+#endif
+
 namespace Maui.FreakyControls
 {
     public partial class FreakyTimePickerHandler
     {
-        internal Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
+        internal async Task HandleAndAlignImageSourceAsync(FreakyTimePicker entry)
         {
-            // TODO: Image alignment is not yet implemented for Windows TimePicker.
-            return Task.CompletedTask;
+#if WINDOWS
+            await WindowsIconInjector.InjectAsync(
+                PlatformView,
+                entry.ImageSource,
+                entry.ImageAlignment,
+                entry.ImageWidth,
+                entry.ImageHeight,
+                entry.ImagePadding,
+                () => entry.ImageCommand?.ExecuteWhenAvailable(entry.ImageCommandParameter));
+#else
+            await Task.CompletedTask;
+#endif
         }
     }
 }

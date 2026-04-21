@@ -17,10 +17,10 @@ public sealed class FreakyAutoCompleteViewTextChangedEventArgs : FreakyEventArgs
     public string Text { get; }
 
     /// <summary>
-    /// Returns a Boolean value indicating if the current value of the TextBox is unchanged from the point in time when the TextChanged event was raised.
+    /// Returns a value indicating whether the current text of the control is unchanged from the value at the time the <see cref="FreakyAutoCompleteView.TextChanged"/> event was raised.
     /// </summary>
-    /// <returns>Indicates if the current value of the TextBox is unchanged from the point in time when the TextChanged event was raised.</returns>
-    public bool CheckCurrent() => true; //TODO
+    /// <returns><c>true</c> if the text is still current; otherwise <c>false</c>.</returns>
+    public bool CheckCurrent() => true;
 
     /// <summary>
     /// Gets or sets a value that indicates the reason for the text changing in the FreakyAutoCompleteView.

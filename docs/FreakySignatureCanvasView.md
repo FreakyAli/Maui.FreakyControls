@@ -4,6 +4,8 @@ A freehand signature pad. Supports retrieving the signature as an image stream, 
 
 **Platforms:** iOS, macOS, Android, Windows
 
+> **Windows:** Rendering uses Polyline-based strokes. `StrokeColor`, `StrokeWidth`, `Points`, `Strokes`, `Clear`, and image export via `GetImageStreamAsync` are all fully supported.
+
 ---
 
 ## XAML Usage
