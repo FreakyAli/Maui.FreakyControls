@@ -29,6 +29,7 @@ namespace Maui.FreakyControls
 
 #if WINDOWS
         private bool _isDrawing;
+        private uint? _activePointerId;
         private Polyline? _currentStroke;
         private readonly List<Polyline> _strokes = new();
         private WinColor _strokeColor = Microsoft.UI.Colors.Black;
@@ -103,6 +104,10 @@ namespace Maui.FreakyControls
         {
             if (sender is not Canvas canvas) return;
 
+            // Ignore a second touch while another pointer is already drawing.
+            if (_activePointerId.HasValue) return;
+
+            _activePointerId = e.Pointer.PointerId;
             _isDrawing = true;
             var pt = e.GetCurrentPoint(canvas).Position;
 
@@ -123,27 +128,36 @@ namespace Maui.FreakyControls
 
         private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
         {
+            if (e.Pointer.PointerId != _activePointerId) return;
             if (!_isDrawing || _currentStroke is null || sender is not Canvas canvas) return;
             _currentStroke.Points.Add(e.GetCurrentPoint(canvas).Position);
         }
 
         private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
         {
+            if (e.Pointer.PointerId != _activePointerId) return;
             if (_isDrawing && sender is Canvas canvas)
                 canvas.ReleasePointerCapture(e.Pointer);
             EndCurrentStroke();
         }
 
         private void OnPointerCanceled(object sender, PointerRoutedEventArgs e)
-            => EndCurrentStroke();
+        {
+            if (e.Pointer.PointerId != _activePointerId) return;
+            EndCurrentStroke();
+        }
 
         private void OnPointerCaptureLost(object sender, PointerRoutedEventArgs e)
-            => EndCurrentStroke();
+        {
+            if (e.Pointer.PointerId != _activePointerId) return;
+            EndCurrentStroke();
+        }
 
         private void EndCurrentStroke()
         {
             if (!_isDrawing) return;
             _isDrawing = false;
+            _activePointerId = null;
             _currentStroke = null;
             VirtualView?.OnStrokeCompleted();
         }
@@ -342,11 +356,20 @@ namespace Maui.FreakyControls
                     if (ink <= 0f) continue;
 
                     int offset = py * stride + px * 4;
-                    float inv = 1f - ink;
-                    pixels[offset]     = (byte)(sB * ink + pixels[offset]     * inv);
-                    pixels[offset + 1] = (byte)(sG * ink + pixels[offset + 1] * inv);
-                    pixels[offset + 2] = (byte)(sR * ink + pixels[offset + 2] * inv);
-                    pixels[offset + 3] = (byte)(255  * ink + pixels[offset + 3] * inv);
+
+                    // Straight-alpha (source-over) composite.
+                    // out_a  = src_a + dst_a * (1 - src_a)
+                    // out_RGB = (src_RGB * src_a + dst_RGB * dst_a * (1 - src_a)) / out_a
+                    // Bytes are used directly: (sB * src_a + dst_B * wDst) * denom == result in [0,255].
+                    float srcAlpha = ink;
+                    float dstAlpha = pixels[offset + 3] * (1f / 255f);
+                    float outAlpha = srcAlpha + dstAlpha * (1f - srcAlpha);
+                    float wDst     = dstAlpha * (1f - srcAlpha);
+                    float denom    = outAlpha > 1e-6f ? 1f / outAlpha : 0f;
+                    pixels[offset]     = (byte)Math.Clamp((sB * srcAlpha + pixels[offset]     * wDst) * denom, 0f, 255f);
+                    pixels[offset + 1] = (byte)Math.Clamp((sG * srcAlpha + pixels[offset + 1] * wDst) * denom, 0f, 255f);
+                    pixels[offset + 2] = (byte)Math.Clamp((sR * srcAlpha + pixels[offset + 2] * wDst) * denom, 0f, 255f);
+                    pixels[offset + 3] = (byte)Math.Clamp(outAlpha * 255f, 0f, 255f);
                 }
             }
         }

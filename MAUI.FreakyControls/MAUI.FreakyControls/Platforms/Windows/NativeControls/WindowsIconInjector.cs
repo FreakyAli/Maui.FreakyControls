@@ -35,6 +35,17 @@ internal static class WindowsIconInjector
     // Mutable reference box so ConditionalWeakTable can hold a per-view integer.
     private sealed class EpochBox { public int Value; }
 
+    // Tracks the original Control.Padding and injected button so Remove can
+    // fully restore state regardless of whether the view is currently loaded.
+    private sealed class InjectedState
+    {
+        public WinThickness OriginalPadding;
+        public bool HasOriginalPadding;
+        public WinButton? Button;
+    }
+
+    private static readonly ConditionalWeakTable<FrameworkElement, InjectedState> _injected = new();
+
     /// <summary>
     /// Removes any previously injected icon button from the platform view.
     /// Also cancels any pending Loaded subscription for that view.
@@ -47,8 +58,29 @@ internal static class WindowsIconInjector
             _pending.Remove(platformView);
         }
 
-        if (platformView.IsLoaded)
+        if (_injected.TryGetValue(platformView, out var state))
+        {
+            // Restore original padding unconditionally — the Control property is live
+            // whether or not the view is currently in the visual tree.
+            if (state.HasOriginalPadding && platformView is Control control)
+                control.Padding = state.OriginalPadding;
+
+            if (state.Button is WinButton button)
+            {
+                // Explicitly clear Source so the image resource is released.
+                if (button.Content is WinImage img)
+                    img.Source = null;
+                // Remove via stored parent reference — works even when IsLoaded is false.
+                (button.Parent as WinGrid)?.Children.Remove(button);
+            }
+
+            _injected.Remove(platformView);
+        }
+        else if (platformView.IsLoaded)
+        {
+            // Fallback for views where Inject was never reached (e.g. always-pending).
             RemoveFromGrid(platformView);
+        }
     }
 
     /// <summary>
@@ -81,10 +113,16 @@ internal static class WindowsIconInjector
             ?? throw new InvalidOperationException("MauiContext is unavailable; ensure the application is fully initialized.");
         var winImageSource = (await mauiImageSource.GetPlatformImageAsync(mauiContext))?.Value;
 
-        // Bail if a newer InjectAsync call incremented the epoch while we awaited,
-        // or if the platform image could not be resolved.
-        if (epochBox.Value != capturedEpoch || winImageSource is null)
+        // Bail silently when superseded by a newer InjectAsync call.
+        if (epochBox.Value != capturedEpoch)
             return;
+
+        // Image could not be resolved; remove any previously injected overlay and padding.
+        if (winImageSource is null)
+        {
+            Remove(platformView);
+            return;
+        }
 
         var button = new WinButton
         {
@@ -101,7 +139,13 @@ internal static class WindowsIconInjector
                 Stretch = WinStretch.Uniform
             }
         };
-        button.Click += (_, _) => onTap?.Invoke();
+        if (onTap is not null)
+            button.Click += (_, _) => onTap.Invoke();
+        else
+        {
+            button.IsHitTestVisible = false;
+            button.IsTabStop = false;
+        }
 
         if (platformView.IsLoaded)
         {
@@ -150,9 +194,21 @@ internal static class WindowsIconInjector
 
         var totalPad = width + padding * 2;
 
+        // Record the injected button so Remove can clean up without a visual-tree walk.
+        var state = _injected.GetOrCreateValue(platformView);
+        state.Button = iconButton;
+
         // FrameworkElement doesn't expose Padding; only Control does.
         if (platformView is Control control)
         {
+            // Capture the original padding once; re-injections (e.g. alignment changes)
+            // must not overwrite it with the already-modified value.
+            if (!state.HasOriginalPadding)
+            {
+                state.OriginalPadding = control.Padding;
+                state.HasOriginalPadding = true;
+            }
+
             switch (alignment)
             {
                 case ImageAlignment.Left:
@@ -185,14 +241,11 @@ internal static class WindowsIconInjector
         while (queue.Count > 0)
         {
             var current = queue.Dequeue();
+            if (current is WinGrid grid)
+                return grid;
             int count = VisualTreeHelper.GetChildrenCount(current);
             for (int i = 0; i < count; i++)
-            {
-                var child = VisualTreeHelper.GetChild(current, i);
-                if (child is WinGrid grid)
-                    return grid;
-                queue.Enqueue(child);
-            }
+                queue.Enqueue(VisualTreeHelper.GetChild(current, i));
         }
         return null;
     }
@@ -203,7 +256,11 @@ internal static class WindowsIconInjector
             .OfType<WinButton>()
             .FirstOrDefault(b => b.Tag is string t && t == IconTag);
         if (existing is not null)
+        {
+            if (existing.Content is WinImage img)
+                img.Source = null;
             grid.Children.Remove(existing);
+        }
     }
 }
 #endif
