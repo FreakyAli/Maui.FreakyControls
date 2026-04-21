@@ -1,10 +1,8 @@
 using Microsoft.Maui.Handlers;
 #if WINDOWS
-using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Shapes;
 using Windows.Storage.Streams;
 using WinColor = Windows.UI.Color;
@@ -171,7 +169,7 @@ namespace Maui.FreakyControls
 
         private void OnPointsRequested(object? sender, PointsEventArgs e)
         {
-            e.Points = _strokes.SelectMany(s => s.Points.Select(p => new Point(p.X, p.Y)));
+            e.Points = _strokes.SelectMany(s => s.Points.Select(p => new Point(p.X, p.Y))).ToList();
         }
 
         private void OnPointsSpecified(object? sender, PointsEventArgs e)
@@ -188,7 +186,7 @@ namespace Maui.FreakyControls
 
         private void OnStrokesRequested(object? sender, StrokesEventArgs e)
         {
-            e.Strokes = _strokes.Select(s => s.Points.Select(p => new Point(p.X, p.Y)));
+            e.Strokes = _strokes.Select(s => s.Points.Select(p => new Point(p.X, p.Y)).ToList()).ToList();
         }
 
         private void OnStrokesSpecified(object? sender, StrokesEventArgs e)
@@ -215,54 +213,141 @@ namespace Maui.FreakyControls
 
         private async Task<Stream> RenderToStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
         {
-            var originalBackground = PlatformView.Background;
-            if (settings.BackgroundColor is Color bgColor)
+            int canvasW = Math.Max(1, (int)PlatformView.ActualWidth);
+            int canvasH = Math.Max(1, (int)PlatformView.ActualHeight);
+            int outW = canvasW, outH = canvasH;
+
+            if (settings.DesiredSizeOrScale is SizeOrScale sos && sos.IsValid)
             {
-                PlatformView.Background = new WinSolidColorBrush(WinColor.FromArgb(
-                    (byte)(bgColor.Alpha * 255),
-                    (byte)(bgColor.Red * 255),
-                    (byte)(bgColor.Green * 255),
-                    (byte)(bgColor.Blue * 255)));
+                var sz = sos.GetSize(canvasW, canvasH);
+                outW = Math.Max(1, (int)sz.Width);
+                outH = Math.Max(1, (int)sz.Height);
             }
 
-            try
-            {
-                var rtb = new RenderTargetBitmap();
+            float scaleX = (float)outW / canvasW;
+            float scaleY = (float)outH / canvasH;
+            float scaleAvg = (scaleX + scaleY) / 2f;
 
-                if (settings.DesiredSizeOrScale is SizeOrScale sos && sos.IsValid)
+            var bg = settings.BackgroundColor ?? ImageConstructionSettings.DefaultBackgroundColor;
+            byte bgB = (byte)(bg.Blue  * 255);
+            byte bgG = (byte)(bg.Green * 255);
+            byte bgR = (byte)(bg.Red   * 255);
+            byte bgA = (byte)(bg.Alpha * 255);
+
+            int stride = outW * 4;
+            var pixels = new byte[outH * stride];
+
+            // Pre-fill with background color.
+            for (int i = 0; i < pixels.Length; i += 4)
+            {
+                pixels[i]     = bgB;
+                pixels[i + 1] = bgG;
+                pixels[i + 2] = bgR;
+                pixels[i + 3] = bgA;
+            }
+
+            // Re-draw each captured stroke from its geometry — no PlatformView mutation.
+            foreach (var polyline in _strokes)
+            {
+                var pts = polyline.Points;
+                if (pts.Count == 0) continue;
+
+                byte sA, sR, sG, sB;
+                if (settings.StrokeColor is Color sc)
                 {
-                    var sz = sos.GetSize((float)PlatformView.ActualWidth, (float)PlatformView.ActualHeight);
-                    await rtb.RenderAsync(PlatformView, (int)sz.Width, (int)sz.Height);
+                    sA = (byte)(sc.Alpha * 255);
+                    sR = (byte)(sc.Red   * 255);
+                    sG = (byte)(sc.Green * 255);
+                    sB = (byte)(sc.Blue  * 255);
+                }
+                else if (polyline.Stroke is WinSolidColorBrush brush)
+                {
+                    sA = brush.Color.A;
+                    sR = brush.Color.R;
+                    sG = brush.Color.G;
+                    sB = brush.Color.B;
                 }
                 else
                 {
-                    await rtb.RenderAsync(PlatformView);
+                    sA = 255; sR = 0; sG = 0; sB = 0;
                 }
 
-                var pixelBuffer = await rtb.GetPixelsAsync();
-                var pixels = pixelBuffer.ToArray();
+                float radius = (settings.StrokeWidth ?? (float)polyline.StrokeThickness) * scaleAvg / 2f;
 
-                var memStream = new InMemoryRandomAccessStream();
-                var encoderId = format == SignatureImageFormat.Jpeg
-                    ? Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId
-                    : Windows.Graphics.Imaging.BitmapEncoder.PngEncoderId;
+                float px = (float)(pts[0].X * scaleX);
+                float py = (float)(pts[0].Y * scaleY);
 
-                var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(encoderId, memStream);
-                encoder.SetPixelData(
-                    Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
-                    Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
-                    (uint)rtb.PixelWidth,
-                    (uint)rtb.PixelHeight,
-                    96, 96,
-                    pixels);
+                // First point: paint a filled circle (round cap).
+                PaintSegment(pixels, outW, outH, stride, px, py, px, py, sB, sG, sR, sA, radius);
 
-                await encoder.FlushAsync();
-                memStream.Seek(0);
-                return memStream.AsStream();
+                for (int i = 1; i < pts.Count; i++)
+                {
+                    float cx = (float)(pts[i].X * scaleX);
+                    float cy = (float)(pts[i].Y * scaleY);
+                    PaintSegment(pixels, outW, outH, stride, px, py, cx, cy, sB, sG, sR, sA, radius);
+                    px = cx;
+                    py = cy;
+                }
             }
-            finally
+
+            var memStream = new InMemoryRandomAccessStream();
+            var encoderId = format == SignatureImageFormat.Jpeg
+                ? Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId
+                : Windows.Graphics.Imaging.BitmapEncoder.PngEncoderId;
+
+            var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(encoderId, memStream);
+            encoder.SetPixelData(
+                Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
+                Windows.Graphics.Imaging.BitmapAlphaMode.Straight,
+                (uint)outW, (uint)outH, 96, 96,
+                pixels);
+
+            await encoder.FlushAsync();
+            memStream.Seek(0);
+            return memStream.AsStream();
+        }
+
+        // Rasterizes a thick anti-aliased capsule (widened line segment) into a BGRA8
+        // pixel buffer. When x0==x1 and y0==y1 the capsule degenerates to a filled circle.
+        private static void PaintSegment(
+            byte[] pixels, int w, int h, int stride,
+            float x0, float y0, float x1, float y1,
+            byte sB, byte sG, byte sR, byte sA, float radius)
+        {
+            int px0 = Math.Max(0, (int)(MathF.Min(x0, x1) - radius - 1));
+            int px1 = Math.Min(w - 1, (int)(MathF.Max(x0, x1) + radius + 1));
+            int py0 = Math.Max(0, (int)(MathF.Min(y0, y1) - radius - 1));
+            int py1 = Math.Min(h - 1, (int)(MathF.Max(y0, y1) + radius + 1));
+
+            float dx = x1 - x0, dy = y1 - y0;
+            float lenSq = dx * dx + dy * dy;
+            float strokeAlpha = sA / 255f;
+
+            for (int py = py0; py <= py1; py++)
             {
-                PlatformView.Background = originalBackground;
+                for (int px = px0; px <= px1; px++)
+                {
+                    float ex = px - x0, ey = py - y0;
+
+                    if (lenSq > 0.0001f)
+                    {
+                        // Project onto segment, clamp to [0,1], find perpendicular offset.
+                        float t = Math.Clamp((ex * dx + ey * dy) / lenSq, 0f, 1f);
+                        ex -= t * dx;
+                        ey -= t * dy;
+                    }
+
+                    float dist = MathF.Sqrt(ex * ex + ey * ey);
+                    float ink = Math.Clamp(radius - dist + 0.5f, 0f, 1f) * strokeAlpha;
+                    if (ink <= 0f) continue;
+
+                    int offset = py * stride + px * 4;
+                    float inv = 1f - ink;
+                    pixels[offset]     = (byte)(sB * ink + pixels[offset]     * inv);
+                    pixels[offset + 1] = (byte)(sG * ink + pixels[offset + 1] * inv);
+                    pixels[offset + 2] = (byte)(sR * ink + pixels[offset + 2] * inv);
+                    pixels[offset + 3] = (byte)(255  * ink + pixels[offset + 3] * inv);
+                }
             }
         }
 

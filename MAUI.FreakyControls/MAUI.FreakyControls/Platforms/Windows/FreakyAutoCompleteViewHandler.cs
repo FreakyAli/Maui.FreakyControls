@@ -227,24 +227,39 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private async Task MapImageSourceAsync(IFreakyAutoCompleteView view, CancellationToken token)
     {
-        if (view.ImageSource is null)
+        try
         {
-            PlatformView.SetIcon(null, 0, 0, 0, 0, null);
-            return;
+            if (view.ImageSource is null)
+            {
+                PlatformView.SetIcon(null, 0, 0, 0, 0, null);
+                return;
+            }
+
+            var imageSource = (await view.ImageSource.GetPlatformImageAsync(MauiContext!))?.Value;
+
+            // Throws OperationCanceledException when a newer MapImageSource call has superseded this one
+            // or DisconnectHandler has cancelled _cts — caught and swallowed below.
+            token.ThrowIfCancellationRequested();
+
+            if (imageSource is null) return;
+
+            var column = view.ImageAlignment == ImageAlignment.Left ? 0 : 2;
+            PlatformView.SetIcon(
+                imageSource,
+                view.ImageWidth,
+                view.ImageHeight,
+                view.ImagePadding,
+                column,
+                () => view.ImageCommand?.ExecuteWhenAvailable(view.ImageCommandParameter));
         }
-
-        var imageSource = (await view.ImageSource.GetPlatformImageAsync(MauiContext!))?.Value;
-
-        if (token.IsCancellationRequested || imageSource is null) return;
-
-        var column = view.ImageAlignment == ImageAlignment.Left ? 0 : 2;
-        PlatformView.SetIcon(
-            imageSource,
-            view.ImageWidth,
-            view.ImageHeight,
-            view.ImagePadding,
-            column,
-            () => view.ImageCommand?.ExecuteWhenAvailable(view.ImageCommandParameter));
+        catch (OperationCanceledException)
+        {
+            // Superseded by a newer call or the handler was disconnected; discard silently.
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[FreakyAutoCompleteViewHandler] MapImageSourceAsync failed: {ex}");
+        }
     }
 
     public static void MapSuggestionListWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)

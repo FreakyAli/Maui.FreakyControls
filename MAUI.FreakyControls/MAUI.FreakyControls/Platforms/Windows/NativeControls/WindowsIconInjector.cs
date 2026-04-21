@@ -1,5 +1,6 @@
 #if WINDOWS
 using Maui.FreakyControls.Enums;
+using System.Runtime.CompilerServices;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
@@ -27,8 +28,12 @@ internal static class WindowsIconInjector
     // re-injection (e.g. ImageSource property changes before the view loads)
     // cancels the previous subscription instead of accumulating handlers.
     private static readonly ConditionalWeakTable<FrameworkElement, PendingLoad> _pending = new();
+    private static readonly ConditionalWeakTable<FrameworkElement, EpochBox> _epochs = new();
 
     private sealed class PendingLoad { public RoutedEventHandler? Handler; }
+
+    // Mutable reference box so ConditionalWeakTable can hold a per-view integer.
+    private sealed class EpochBox { public int Value; }
 
     /// <summary>
     /// Removes any previously injected icon button from the platform view.
@@ -61,6 +66,11 @@ internal static class WindowsIconInjector
         int padding,
         Action? onTap)
     {
+        // Increment the epoch before any async work so that any in-flight call
+        // that resumes after the GetPlatformImageAsync await knows it was superseded.
+        var epochBox = _epochs.GetOrCreateValue(platformView);
+        int capturedEpoch = ++epochBox.Value;
+
         if (mauiImageSource is null)
         {
             Remove(platformView);
@@ -71,7 +81,9 @@ internal static class WindowsIconInjector
             ?? throw new InvalidOperationException("MauiContext is unavailable; ensure the application is fully initialized.");
         var winImageSource = (await mauiImageSource.GetPlatformImageAsync(mauiContext))?.Value;
 
-        if (winImageSource is null)
+        // Bail if a newer InjectAsync call incremented the epoch while we awaited,
+        // or if the platform image could not be resolved.
+        if (epochBox.Value != capturedEpoch || winImageSource is null)
             return;
 
         var button = new WinButton
@@ -110,7 +122,10 @@ internal static class WindowsIconInjector
             {
                 platformView.Loaded -= loadedHandler;
                 _pending.Remove(platformView);
-                Inject(platformView, alignment, button, width, height, padding);
+                // Guard against a newer InjectAsync that superseded this one
+                // while the view was still loading.
+                if (epochBox.Value == capturedEpoch)
+                    Inject(platformView, alignment, button, width, height, padding);
             };
             pending.Handler = loadedHandler;
             platformView.Loaded += loadedHandler;
@@ -125,12 +140,10 @@ internal static class WindowsIconInjector
         int height,
         int padding)
     {
-        if (VisualTreeHelper.GetChildrenCount(platformView) == 0)
-            return;
-
-        var rootGrid = VisualTreeHelper.GetChild(platformView, 0) as WinGrid;
-        if (rootGrid is null)
-            return;
+        var rootGrid = FindFirstGrid(platformView)
+            ?? throw new InvalidOperationException(
+                $"WindowsIconInjector: no Grid found in the visual tree of {platformView.GetType().Name}. " +
+                "The control template must contain a Grid for icon injection to work.");
 
         // Remove any previously injected button so re-mapping is idempotent.
         RemoveFromGrid(rootGrid);
@@ -159,10 +172,29 @@ internal static class WindowsIconInjector
 
     private static void RemoveFromGrid(FrameworkElement platformView)
     {
-        if (VisualTreeHelper.GetChildrenCount(platformView) == 0)
-            return;
-        if (VisualTreeHelper.GetChild(platformView, 0) is WinGrid grid)
+        if (FindFirstGrid(platformView) is WinGrid grid)
             RemoveFromGrid(grid);
+    }
+
+    // BFS walk of the visual subtree rooted at <paramref name="root"/> returning
+    // the shallowest WinGrid found, or null when none exists.
+    private static WinGrid? FindFirstGrid(DependencyObject root)
+    {
+        var queue = new Queue<DependencyObject>();
+        queue.Enqueue(root);
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            int count = VisualTreeHelper.GetChildrenCount(current);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(current, i);
+                if (child is WinGrid grid)
+                    return grid;
+                queue.Enqueue(child);
+            }
+        }
+        return null;
     }
 
     private static void RemoveFromGrid(WinGrid grid)
