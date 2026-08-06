@@ -37,8 +37,8 @@ public partial class FreakyAutoCompleteViewHandler
             [nameof(IFreakyAutoCompleteView.FontFamily)] = MapFont,
             [nameof(IFreakyAutoCompleteView.FontSize)] = MapFont,
             [nameof(IFreakyAutoCompleteView.FontAttributes)] = MapFont,
-            [nameof(IFreakyAutoCompleteView.SuggestionListWidth)] = MapSuggestionListWidth,
-            [nameof(IFreakyAutoCompleteView.SuggestionListHeight)] = MapSuggestionListHeight,
+            [nameof(IFreakyAutoCompleteView.DropDownWidth)] = MapDropDownWidth,
+            [nameof(IFreakyAutoCompleteView.DropDownHeight)] = MapDropDownHeight,
         };
 
     /// <summary>

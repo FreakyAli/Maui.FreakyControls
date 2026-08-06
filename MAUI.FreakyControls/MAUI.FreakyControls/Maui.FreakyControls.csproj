@@ -5,7 +5,6 @@
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
-		<Nullable>enable</Nullable> 
 		<ImplicitUsings>enable</ImplicitUsings>
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
