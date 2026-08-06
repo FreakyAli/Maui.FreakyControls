@@ -316,22 +316,10 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private void UpdateBorderStyle(FreakyWindowsAutoCompleteView platformView)
     {
-        if (platformView == null || VirtualView == null)
-            return;
-
-        var asb = platformView.AutoSuggestBox;
-
-        // Apply border using WinUI Border element
-        var border = new Microsoft.UI.Xaml.Controls.Border
-        {
-            BorderBrush = new SolidColorBrush(VirtualView.DropDownBorderColor.ToPlatform()),
-            BorderThickness = new Microsoft.UI.Xaml.Thickness(VirtualView.DropDownBorderWidth),
-            CornerRadius = new Microsoft.UI.Xaml.CornerRadius(VirtualView.DropDownCornerRadius),
-            Child = asb
-        };
-
-        // Note: This is a simplified implementation. Full integration would require
-        // wrapping the AutoSuggestBox properly in the parent container.
+        // Note: WinUI AutoSuggestBox dropdown styling is not directly exposed via public APIs.
+        // The dropdown popup is internally managed and cannot be easily styled without custom
+        // control templates. Border customization is available on iOS, Android, and macOS.
+        // This is a platform limitation of WinUI 3.
     }
 }
 #endif

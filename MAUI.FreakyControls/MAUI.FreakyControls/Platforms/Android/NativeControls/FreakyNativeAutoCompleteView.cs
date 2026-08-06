@@ -291,11 +291,16 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         // Create a GradientDrawable for border and corner radius
         var drawable = new GradientDrawable();
         drawable.SetColor(Colors.White.ToPlatform()); // Background color
-        drawable.SetStroke((int)borderWidth, borderColor.ToPlatform());
+
+        // Convert DIP units to pixels for Android using density
+        var density = Context?.Resources?.DisplayMetrics?.Density ?? 1.0f;
+        int borderWidthPx = (int)(borderWidth * density);
+        drawable.SetStroke(borderWidthPx, borderColor.ToPlatform());
 
         if (cornerRadius > 0)
         {
-            drawable.SetCornerRadius((float)cornerRadius);
+            float cornerRadiusPx = (float)(cornerRadius * density);
+            drawable.SetCornerRadius(cornerRadiusPx);
         }
 
         // Apply to the dropdown popup, not the input field itself

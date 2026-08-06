@@ -39,6 +39,9 @@ public partial class FreakyAutoCompleteViewHandler
             [nameof(IFreakyAutoCompleteView.FontAttributes)] = MapFont,
             [nameof(IFreakyAutoCompleteView.DropDownWidth)] = MapDropDownWidth,
             [nameof(IFreakyAutoCompleteView.DropDownHeight)] = MapDropDownHeight,
+            [nameof(IFreakyAutoCompleteView.DropDownBorderColor)] = MapDropDownBorderColor,
+            [nameof(IFreakyAutoCompleteView.DropDownBorderWidth)] = MapDropDownBorderWidth,
+            [nameof(IFreakyAutoCompleteView.DropDownCornerRadius)] = MapDropDownCornerRadius,
         };
 
     /// <summary>

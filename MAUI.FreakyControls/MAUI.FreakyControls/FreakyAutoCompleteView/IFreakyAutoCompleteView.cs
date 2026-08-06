@@ -25,6 +25,13 @@ public interface IFreakyAutoCompleteView : IView, IDrawableImageView
     Color DropDownBorderColor { get; set; }
     double DropDownBorderWidth { get; set; }
     double DropDownCornerRadius { get; set; }
+
+    [Obsolete("Use DropDownWidth instead", false)]
+    double SuggestionListWidth { get; set; }
+
+    [Obsolete("Use DropDownHeight instead", false)]
+    double SuggestionListHeight { get; set; }
+
     void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
     void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
     void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);
