@@ -25,11 +25,12 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         UpdateIsEnabled(platformView);
         UpdateFont(platformView);
         UpdateTextAlignment(platformView);
+        UpdateBorderStyle(platformView);
         platformView.UpdateTextOnSelect = VirtualView.UpdateTextOnSelect;
         platformView.IsSuggestionListOpen = VirtualView.IsSuggestionListOpen;
         UpdateItemsSource(platformView);
-        UpdateSuggestionListWidth(platformView);
-        UpdateSuggestionListHeight(platformView);
+        UpdateDropDownWidth(platformView);
+        UpdateDropDownHeight(platformView);
         platformView.SuggestionChosen += OnPlatformViewSuggestionChosen;
         platformView.TextChanged += OnPlatformViewTextChanged;
         platformView.QuerySubmitted += OnPlatformViewQuerySubmitted;
@@ -155,14 +156,29 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         handler.UpdateFont(handler?.PlatformView);
     }
 
-    public static void MapSuggestionListWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    public static void MapDropDownWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.UpdateSuggestionListWidth(handler.PlatformView);
+        handler.UpdateDropDownWidth(handler.PlatformView);
     }
 
-    public static void MapSuggestionListHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    public static void MapDropDownHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.UpdateSuggestionListHeight(handler.PlatformView);
+        handler.UpdateDropDownHeight(handler.PlatformView);
+    }
+
+    public static void MapDropDownBorderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateBorderStyle(handler.PlatformView);
+    }
+
+    public static void MapDropDownBorderWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateBorderStyle(handler.PlatformView);
+    }
+
+    public static void MapDropDownCornerRadius(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateBorderStyle(handler.PlatformView);
     }
 
     public static void MapAllowCopyPaste(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -235,18 +251,18 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), (o) => FormatType(o, VirtualView?.DisplayMemberPath), (o) => FormatType(o, VirtualView?.TextMemberPath));
     }
 
-    public void UpdateSuggestionListWidth(FreakyNativeAutoCompleteView platformView)
+    public void UpdateDropDownWidth(FreakyNativeAutoCompleteView platformView)
     {
         if (platformView == null || VirtualView == null)
             return;
-        platformView.SuggestionListWidth = (float)VirtualView.SuggestionListWidth;
+        platformView.SuggestionListWidth = (float)VirtualView.DropDownWidth;
     }
 
-    public void UpdateSuggestionListHeight(FreakyNativeAutoCompleteView platformView)
+    public void UpdateDropDownHeight(FreakyNativeAutoCompleteView platformView)
     {
         if (platformView == null || VirtualView == null)
             return;
-        platformView.SuggestionListHeight = (float)VirtualView.SuggestionListHeight;
+        platformView.SuggestionListHeight = (float)VirtualView.DropDownHeight;
     }
 
     private static string FormatType(object instance, string memberPath)
@@ -309,5 +325,13 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
                 platformView.InputTextField.VerticalAlignment = UIControlContentVerticalAlignment.Bottom;
                 break;
         }
+    }
+
+    private void UpdateBorderStyle(FreakyNativeAutoCompleteView platformView)
+    {
+        if (platformView == null || VirtualView == null)
+            return;
+
+        platformView.SetBorderStyle(VirtualView.DropDownBorderColor, VirtualView.DropDownBorderWidth, VirtualView.DropDownCornerRadius);
     }
 }
