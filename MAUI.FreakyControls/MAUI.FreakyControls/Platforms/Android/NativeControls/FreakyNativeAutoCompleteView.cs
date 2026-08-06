@@ -286,6 +286,22 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         this.clickListener = listener;
     }
 
+    public virtual void SetBorderStyle(Color borderColor, double borderWidth, double cornerRadius)
+    {
+        // Create a GradientDrawable for border and corner radius
+        var drawable = new GradientDrawable();
+        drawable.SetColor(Colors.White.ToPlatform()); // Background color
+        drawable.SetStroke((int)borderWidth, borderColor.ToPlatform());
+
+        if (cornerRadius > 0)
+        {
+            drawable.SetCornerRadius((float)cornerRadius);
+        }
+
+        // Apply to the dropdown popup, not the input field itself
+        SetDropDownBackgroundDrawable(drawable);
+    }
+
     private class SuggestCompleteAdapter : ArrayAdapter, IFilterable
     {
         private SuggestFilter filter = new SuggestFilter();

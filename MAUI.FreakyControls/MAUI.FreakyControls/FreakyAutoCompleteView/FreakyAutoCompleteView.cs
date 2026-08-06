@@ -286,32 +286,85 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set => SetValue(ImageAlignmentProperty, value);
     }
 
-    public static readonly BindableProperty SuggestionListWidthProperty =
+    public static readonly BindableProperty DropDownWidthProperty =
     BindableProperty.Create(
-        nameof(SuggestionListWidth), 
-        typeof(double), 
-        typeof(FreakyAutoCompleteView), 
-        0.0);
-
-    public double SuggestionListWidth
-    {
-        get => (double)GetValue(SuggestionListWidthProperty);
-        set => SetValue(SuggestionListWidthProperty, value);
-    }
-
-    public static readonly BindableProperty SuggestionListHeightProperty =
-    BindableProperty.Create(
-        nameof(SuggestionListHeight),
+        nameof(DropDownWidth),
         typeof(double),
         typeof(FreakyAutoCompleteView),
         0.0);
-        
+
+    public double DropDownWidth
+    {
+        get => (double)GetValue(DropDownWidthProperty);
+        set => SetValue(DropDownWidthProperty, value);
+    }
+
+    [Obsolete("Use DropDownWidth instead", false)]
+    public double SuggestionListWidth
+    {
+        get => DropDownWidth;
+        set => DropDownWidth = value;
+    }
+
+    public static readonly BindableProperty DropDownHeightProperty =
+    BindableProperty.Create(
+        nameof(DropDownHeight),
+        typeof(double),
+        typeof(FreakyAutoCompleteView),
+        0.0);
+
+    public double DropDownHeight
+    {
+        get => (double)GetValue(DropDownHeightProperty);
+        set => SetValue(DropDownHeightProperty, value);
+    }
+
+    [Obsolete("Use DropDownHeight instead", false)]
     public double SuggestionListHeight
     {
-        get => (double)GetValue(SuggestionListHeightProperty);
-        set => SetValue(SuggestionListHeightProperty, value);
+        get => DropDownHeight;
+        set => DropDownHeight = value;
     }
-   
+
+    public static readonly BindableProperty DropDownBorderColorProperty =
+    BindableProperty.Create(
+        nameof(DropDownBorderColor),
+        typeof(Color),
+        typeof(FreakyAutoCompleteView),
+        Colors.Black);
+
+    public Color DropDownBorderColor
+    {
+        get => (Color)GetValue(DropDownBorderColorProperty);
+        set => SetValue(DropDownBorderColorProperty, value);
+    }
+
+    public static readonly BindableProperty DropDownBorderWidthProperty =
+    BindableProperty.Create(
+        nameof(DropDownBorderWidth),
+        typeof(double),
+        typeof(FreakyAutoCompleteView),
+        1.0);
+
+    public double DropDownBorderWidth
+    {
+        get => (double)GetValue(DropDownBorderWidthProperty);
+        set => SetValue(DropDownBorderWidthProperty, value);
+    }
+
+    public static readonly BindableProperty DropDownCornerRadiusProperty =
+    BindableProperty.Create(
+        nameof(DropDownCornerRadius),
+        typeof(double),
+        typeof(FreakyAutoCompleteView),
+        0.0);
+
+    public double DropDownCornerRadius
+    {
+        get => (double)GetValue(DropDownCornerRadiusProperty);
+        set => SetValue(DropDownCornerRadiusProperty, value);
+    }
+
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen
     {
         add => suggestionChosenEventManager.AddEventHandler(value);

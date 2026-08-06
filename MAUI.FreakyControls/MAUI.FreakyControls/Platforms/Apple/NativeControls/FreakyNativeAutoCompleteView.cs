@@ -293,6 +293,17 @@ public partial class FreakyNativeAutoCompleteView : UIView
         InputTextField.TextColor = color.ToPlatform();
     }
 
+    public virtual void SetBorderStyle(Color borderColor, double borderWidth, double cornerRadius)
+    {
+        if (SelectionList.Layer != null)
+        {
+            SelectionList.Layer.BorderColor = borderColor.ToPlatform().CGColor;
+            SelectionList.Layer.BorderWidth = (nfloat)borderWidth;
+            SelectionList.Layer.CornerRadius = (nfloat)cornerRadius;
+            SelectionList.ClipsToBounds = true;
+        }
+    }
+
     public event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
     public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
     public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;

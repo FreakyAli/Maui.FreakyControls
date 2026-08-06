@@ -43,8 +43,11 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
             [nameof(IFreakyAutoCompleteView.FontFamily)]            = MapFont,
             [nameof(IFreakyAutoCompleteView.FontSize)]              = MapFont,
             [nameof(IFreakyAutoCompleteView.FontAttributes)]        = MapFont,
-            [nameof(IFreakyAutoCompleteView.SuggestionListWidth)]   = MapSuggestionListWidth,
-            [nameof(IFreakyAutoCompleteView.SuggestionListHeight)]  = MapSuggestionListHeight,
+            [nameof(IFreakyAutoCompleteView.DropDownWidth)]         = MapDropDownWidth,
+            [nameof(IFreakyAutoCompleteView.DropDownHeight)]       = MapDropDownHeight,
+            [nameof(IFreakyAutoCompleteView.DropDownBorderColor)]  = MapDropDownBorderColor,
+            [nameof(IFreakyAutoCompleteView.DropDownBorderWidth)]  = MapDropDownBorderWidth,
+            [nameof(IFreakyAutoCompleteView.DropDownCornerRadius)] = MapDropDownCornerRadius,
         };
 
     public static CommandMapper<IFreakyAutoCompleteView, FreakyAutoCompleteViewHandler> CommandMapper = new(ViewCommandMapper);
@@ -262,14 +265,29 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         }
     }
 
-    public static void MapSuggestionListWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    public static void MapDropDownWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         // AutoSuggestBox sizes its popup to the control width by default; custom width not exposed natively.
     }
 
-    public static void MapSuggestionListHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    public static void MapDropDownHeight(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         // WinUI 3 AutoSuggestBox does not expose MaxDropDownHeight; no-op.
+    }
+
+    public static void MapDropDownBorderColor(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateBorderStyle(handler.PlatformView);
+    }
+
+    public static void MapDropDownBorderWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateBorderStyle(handler.PlatformView);
+    }
+
+    public static void MapDropDownCornerRadius(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
+    {
+        handler.UpdateBorderStyle(handler.PlatformView);
     }
 
     // ── Helpers ────────────────────────────────────────────────────────────
@@ -294,6 +312,26 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         if (!string.IsNullOrEmpty(memberPath))
             return instance?.GetType().GetProperty(memberPath)?.GetValue(instance)?.ToString() ?? string.Empty;
         return instance?.ToString() ?? string.Empty;
+    }
+
+    private void UpdateBorderStyle(FreakyWindowsAutoCompleteView platformView)
+    {
+        if (platformView == null || VirtualView == null)
+            return;
+
+        var asb = platformView.AutoSuggestBox;
+
+        // Apply border using WinUI Border element
+        var border = new Microsoft.UI.Xaml.Controls.Border
+        {
+            BorderBrush = new SolidColorBrush(VirtualView.DropDownBorderColor.ToPlatform()),
+            BorderThickness = new Microsoft.UI.Xaml.Thickness(VirtualView.DropDownBorderWidth),
+            CornerRadius = new Microsoft.UI.Xaml.CornerRadius(VirtualView.DropDownCornerRadius),
+            Child = asb
+        };
+
+        // Note: This is a simplified implementation. Full integration would require
+        // wrapping the AutoSuggestBox properly in the parent container.
     }
 }
 #endif

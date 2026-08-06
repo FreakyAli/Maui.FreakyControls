@@ -20,8 +20,11 @@ public interface IFreakyAutoCompleteView : IView, IDrawableImageView
     string FontFamily { get; set; } 
     double FontSize { get; set; }
     FontAttributes FontAttributes { get; set; }
-    double SuggestionListWidth { get; set; }
-    double SuggestionListHeight { get; set; }
+    double DropDownWidth { get; set; }
+    double DropDownHeight { get; set; }
+    Color DropDownBorderColor { get; set; }
+    double DropDownBorderWidth { get; set; }
+    double DropDownCornerRadius { get; set; }
     void RaiseSuggestionChosen(FreakyAutoCompleteViewSuggestionChosenEventArgs e);
     void NativeControlTextChanged(FreakyAutoCompleteViewTextChangedEventArgs e);
     void RaiseQuerySubmitted(FreakyAutoCompleteViewQuerySubmittedEventArgs e);
