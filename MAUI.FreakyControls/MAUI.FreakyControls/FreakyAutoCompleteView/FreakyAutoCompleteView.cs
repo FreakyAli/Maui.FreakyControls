@@ -286,6 +286,9 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set => SetValue(ImageAlignmentProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the width of the dropdown list. A value of 0 matches the input field width.
+    /// </summary>
     public static readonly BindableProperty DropDownWidthProperty =
     BindableProperty.Create(
         nameof(DropDownWidth),
@@ -293,6 +296,9 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         typeof(FreakyAutoCompleteView),
         0.0);
 
+    /// <summary>
+    /// Gets or sets the width of the dropdown list. A value of 0 matches the input field width.
+    /// </summary>
     public double DropDownWidth
     {
         get => (double)GetValue(DropDownWidthProperty);
@@ -306,6 +312,9 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set => DropDownWidth = value;
     }
 
+    /// <summary>
+    /// Gets or sets the maximum height of the dropdown list. A value of 0 uses dynamic/wrap content sizing.
+    /// </summary>
     public static readonly BindableProperty DropDownHeightProperty =
     BindableProperty.Create(
         nameof(DropDownHeight),
@@ -313,6 +322,9 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         typeof(FreakyAutoCompleteView),
         0.0);
 
+    /// <summary>
+    /// Gets or sets the maximum height of the dropdown list. A value of 0 uses dynamic/wrap content sizing.
+    /// </summary>
     public double DropDownHeight
     {
         get => (double)GetValue(DropDownHeightProperty);
@@ -326,6 +338,9 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         set => DropDownHeight = value;
     }
 
+    /// <summary>
+    /// Gets or sets the border colour of the dropdown list. Default is black.
+    /// </summary>
     public static readonly BindableProperty DropDownBorderColorProperty =
     BindableProperty.Create(
         nameof(DropDownBorderColor),
@@ -333,12 +348,18 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         typeof(FreakyAutoCompleteView),
         Colors.Black);
 
+    /// <summary>
+    /// Gets or sets the border colour of the dropdown list. Default is black.
+    /// </summary>
     public Color DropDownBorderColor
     {
         get => (Color)GetValue(DropDownBorderColorProperty);
         set => SetValue(DropDownBorderColorProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the border width of the dropdown list in device-independent pixels (DIPs). Default is 1.0.
+    /// </summary>
     public static readonly BindableProperty DropDownBorderWidthProperty =
     BindableProperty.Create(
         nameof(DropDownBorderWidth),
@@ -346,12 +367,18 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         typeof(FreakyAutoCompleteView),
         1.0);
 
+    /// <summary>
+    /// Gets or sets the border width of the dropdown list in device-independent pixels (DIPs). Default is 1.0.
+    /// </summary>
     public double DropDownBorderWidth
     {
         get => (double)GetValue(DropDownBorderWidthProperty);
         set => SetValue(DropDownBorderWidthProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the corner radius of the dropdown list in device-independent pixels (DIPs). Default is 0.0 (no rounding).
+    /// </summary>
     public static readonly BindableProperty DropDownCornerRadiusProperty =
     BindableProperty.Create(
         nameof(DropDownCornerRadius),
@@ -359,6 +386,9 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         typeof(FreakyAutoCompleteView),
         0.0);
 
+    /// <summary>
+    /// Gets or sets the corner radius of the dropdown list in device-independent pixels (DIPs). Default is 0.0 (no rounding).
+    /// </summary>
     public double DropDownCornerRadius
     {
         get => (double)GetValue(DropDownCornerRadiusProperty);

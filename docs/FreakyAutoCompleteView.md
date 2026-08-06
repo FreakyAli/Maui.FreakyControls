@@ -53,8 +53,13 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `ImagePadding` | `int` | `5` | |
 | `ImageCommand` | `ICommand` | `null` | Command fired when the icon is tapped |
 | `ImageCommandParameter` | `object` | `null` | |
-| `SuggestionListWidth` | `double` | `0` | Override dropdown width (`0` = match input width) |
-| `SuggestionListHeight` | `double` | `0` | Override dropdown max height (`0` = dynamic/wrap content) |
+| `DropDownWidth` | `double` | `0` | Override dropdown width (`0` = match input width) |
+| `DropDownHeight` | `double` | `0` | Override dropdown max height (`0` = dynamic/wrap content) |
+| `DropDownBorderColor` | `Color` | `Colors.Black` | Border colour of the dropdown list |
+| `DropDownBorderWidth` | `double` | `1.0` | Border width of the dropdown list (in DIPs) |
+| `DropDownCornerRadius` | `double` | `0.0` | Corner radius of the dropdown list (in DIPs) |
+| `SuggestionListWidth` | `double` | `0` | **Obsolete** — Use `DropDownWidth` instead |
+| `SuggestionListHeight` | `double` | `0` | **Obsolete** — Use `DropDownHeight` instead |
 
 ---
 
