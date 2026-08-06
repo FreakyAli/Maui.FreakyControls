@@ -10,6 +10,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
 {
     private nfloat keyboardHeight;
     private NSLayoutConstraint bottomConstraint;
+    private NSLayoutConstraint heightConstraint;
     private Func<object, string> textFunc;
 
     private nfloat _suggestionListHeight = -1;
@@ -169,6 +170,8 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
             if (SelectionList.Superview is null)
                 AttachSuggestionList(viewController);
+            else
+                UpdateHeightConstraint();
 
             SelectionList.UpdateConstraints();
         }
@@ -176,6 +179,23 @@ public partial class FreakyNativeAutoCompleteView : UIView
         {
             SelectionList.RemoveFromSuperview();
         }
+    }
+
+    private void UpdateHeightConstraint()
+    {
+        // Deactivate and remove the old height constraint
+        if (heightConstraint != null)
+        {
+            heightConstraint.Active = false;
+            heightConstraint.Dispose();
+        }
+
+        // For now, use the SuggestionListHeight directly if set, otherwise use a sensible default
+        const float defaultMaxHeight = 300f;
+        var desiredHeight = SuggestionListHeight > 0 ? (float)SuggestionListHeight : defaultMaxHeight;
+
+        heightConstraint = SelectionList.HeightAnchor.ConstraintEqualTo(desiredHeight);
+        heightConstraint.Active = true;
     }
 
     private UIViewController GetActiveViewController()
@@ -199,13 +219,10 @@ public partial class FreakyNativeAutoCompleteView : UIView
             : SelectionList.WidthAnchor.ConstraintEqualTo(InputTextField.WidthAnchor);
         widthConstraint.Active = true;
 
-        const float rowHeight = 44f;
-        var maxHeight = SuggestionListHeight > 0 ? (float)SuggestionListHeight : 200f;
-        var rowCount = SelectionList.Source.RowsInSection(SelectionList, 0);
-        SelectionList.HeightAnchor.ConstraintEqualTo(Math.Min(rowCount * rowHeight, maxHeight)).Active = true;
+        UpdateHeightConstraint();
 
-        bottomConstraint = SelectionList.BottomAnchor.ConstraintLessThanOrEqualTo(viewController.View.BottomAnchor, -keyboardHeight);
-        bottomConstraint.Active = true;
+        // Note: Removed bottom constraint to allow dropdown to expand to its full height.
+        // The parent ScrollView will handle any overflow scrolling.
     }
 
     public virtual bool UpdateTextOnSelect { get; set; } = true;
@@ -213,11 +230,6 @@ public partial class FreakyNativeAutoCompleteView : UIView
     private void OnKeyboardHide(object sender, UIKeyboardEventArgs e)
     {
         keyboardHeight = 0;
-        if (bottomConstraint != null)
-        {
-            bottomConstraint.Constant = keyboardHeight;
-            SelectionList.UpdateConstraints();
-        }
     }
 
     private void OnKeyboardShow(object sender, UIKeyboardEventArgs e)
@@ -225,12 +237,6 @@ public partial class FreakyNativeAutoCompleteView : UIView
         var nsKeyboardBounds = (NSValue)e.Notification.UserInfo.ObjectForKey(UIKeyboard.FrameBeginUserInfoKey);
         var keyboardBounds = nsKeyboardBounds.RectangleFValue;
         keyboardHeight = keyboardBounds.Height;
-
-        if (bottomConstraint != null)
-        {
-            bottomConstraint.Constant = -keyboardHeight;
-            SelectionList.UpdateConstraints();
-        }
     }
 
     private bool InputText_OnShouldReturn(UITextField field)

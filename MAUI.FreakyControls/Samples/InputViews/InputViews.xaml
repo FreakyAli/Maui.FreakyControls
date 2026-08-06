@@ -45,6 +45,7 @@
                     TextChanged="FreakyAutoCompleteView_TextChanged"
                     FontAttributes="Bold"
                     TextColor="Pink"
+                    SuggestionListHeight="500"
                     FontSize="20"
                     HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"
