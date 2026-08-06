@@ -70,7 +70,7 @@ public class FreakySwitch : ContentView, IDisposable
         isAnimating = false;
     }
 
-    private async void SwitchTapped(object sender, EventArgs e)
+    private async void SwitchTapped(object? sender, EventArgs e)
     {
         if (IsEnabled)
         {
@@ -127,7 +127,7 @@ public class FreakySwitch : ContentView, IDisposable
         }
     }
 
-    private void HandlePaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    private void HandlePaintSurface(object? sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
         canvas.Clear();

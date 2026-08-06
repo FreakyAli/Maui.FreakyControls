@@ -27,7 +27,7 @@ public class LeftImageAlignmentToVisibilityConverterTests
     [InlineData("Left")]
     [InlineData(null)]
     [InlineData(0)]
-    public void Convert_NonImageAlignmentValue_ReturnsFalse(object value)
+    public void Convert_NonImageAlignmentValue_ReturnsFalse(object? value)
     {
         var result = _converter.Convert(value, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.False((bool)result);
