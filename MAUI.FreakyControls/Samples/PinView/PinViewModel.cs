@@ -5,10 +5,10 @@ namespace Samples.PinView;
 public partial class PinViewModel : BaseViewModel
 {
     [ObservableProperty]
-    private double heightRequest;
+    public partial double HeightRequest {get; set;}
 
     [ObservableProperty]
-    private double widthRequest;
+    public partial double WidthRequest {get; set;}
 
     public PinViewModel()
     {

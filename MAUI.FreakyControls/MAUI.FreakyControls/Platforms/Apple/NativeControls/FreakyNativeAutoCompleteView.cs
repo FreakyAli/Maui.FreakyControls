@@ -9,7 +9,6 @@ namespace Maui.FreakyControls.Platforms.Apple.NativeControls;
 public partial class FreakyNativeAutoCompleteView : UIView
 {
     private nfloat keyboardHeight;
-    private NSLayoutConstraint bottomConstraint;
     private NSLayoutConstraint heightConstraint;
     private Func<object, string> textFunc;
 
