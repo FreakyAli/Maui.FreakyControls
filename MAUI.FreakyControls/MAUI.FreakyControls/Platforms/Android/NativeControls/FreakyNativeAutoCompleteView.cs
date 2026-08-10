@@ -294,7 +294,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
         // Convert DIP units to pixels for Android using density
         var density = Context?.Resources?.DisplayMetrics?.Density ?? 1.0f;
-        int borderWidthPx = (int)(borderWidth * density);
+        int borderWidthPx = (int)System.Math.Round(borderWidth * density);
         drawable.SetStroke(borderWidthPx, borderColor.ToPlatform());
 
         if (cornerRadius > 0)

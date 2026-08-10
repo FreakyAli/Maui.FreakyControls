@@ -313,7 +313,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     }
 
     /// <summary>
-    /// Gets or sets the maximum height of the dropdown list. A value of 0 uses dynamic/wrap content sizing.
+    /// Gets or sets the height of the dropdown list. A value of 0 uses dynamic/wrap content sizing; otherwise, the dropdown uses the specified height.
     /// </summary>
     public static readonly BindableProperty DropDownHeightProperty =
     BindableProperty.Create(
@@ -323,7 +323,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
         0.0);
 
     /// <summary>
-    /// Gets or sets the maximum height of the dropdown list. A value of 0 uses dynamic/wrap content sizing.
+    /// Gets or sets the height of the dropdown list. A value of 0 uses dynamic/wrap content sizing; otherwise, the dropdown uses the specified height.
     /// </summary>
     public double DropDownHeight
     {
