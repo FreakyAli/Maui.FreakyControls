@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 

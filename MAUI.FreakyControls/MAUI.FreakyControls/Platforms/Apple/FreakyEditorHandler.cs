@@ -1,3 +1,5 @@
+#nullable disable
+
 using Maui.FreakyControls.Platforms.Apple.NativeControls;
 using Microsoft.Maui.Platform;
 

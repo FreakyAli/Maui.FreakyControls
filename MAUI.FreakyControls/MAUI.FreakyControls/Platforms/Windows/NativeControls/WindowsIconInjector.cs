@@ -1,3 +1,5 @@
+#nullable disable
+
 #if WINDOWS
 using Maui.FreakyControls.Enums;
 using System.Runtime.CompilerServices;

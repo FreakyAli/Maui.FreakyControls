@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿namespace Maui.FreakyControls;
 
 public interface IAlphabetProvider

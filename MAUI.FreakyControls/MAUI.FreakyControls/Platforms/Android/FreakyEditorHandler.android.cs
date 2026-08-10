@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿using Android.Content.Res;
 using Android.Views;
 using Android.Views.InputMethods;

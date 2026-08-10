@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿namespace Maui.FreakyControls.Behaviors;
 
 public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject

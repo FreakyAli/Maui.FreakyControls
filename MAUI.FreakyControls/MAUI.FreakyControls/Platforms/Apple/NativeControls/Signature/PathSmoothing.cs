@@ -1,3 +1,5 @@
+#nullable disable
+
 using NativePath = UIKit.UIBezierPath;
 using NativePoint = CoreGraphics.CGPoint;
 

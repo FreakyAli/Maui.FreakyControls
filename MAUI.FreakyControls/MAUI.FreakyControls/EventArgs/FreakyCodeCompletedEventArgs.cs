@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿//Make sure .EventArgs is never created
 namespace Maui.FreakyControls;
 

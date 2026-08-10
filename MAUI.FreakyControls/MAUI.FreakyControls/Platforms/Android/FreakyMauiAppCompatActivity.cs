@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;

@@ -1,3 +1,5 @@
+#nullable disable
+
 using Maui.FreakyControls.Extensions;
 using System.ComponentModel;
 using System.Reflection;

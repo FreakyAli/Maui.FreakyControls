@@ -1,3 +1,5 @@
+#nullable disable
+
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Layouts;
 using System.Windows.Input;

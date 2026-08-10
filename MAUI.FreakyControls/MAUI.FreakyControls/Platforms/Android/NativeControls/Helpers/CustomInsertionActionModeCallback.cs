@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿using Android.Views;
 
 namespace Maui.FreakyControls.Platforms.Android.NativeControls

@@ -1,3 +1,5 @@
+#nullable disable
+
 #if WINDOWS
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;

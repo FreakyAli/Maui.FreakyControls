@@ -1,3 +1,5 @@
+#nullable disable
+
 using SkiaSharp;
 using SkiaSharp.Views.Maui.Controls;
 using System.Windows.Input;

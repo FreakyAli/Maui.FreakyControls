@@ -1,3 +1,5 @@
+#nullable disable
+
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Helpers;
 using SkiaSharp;

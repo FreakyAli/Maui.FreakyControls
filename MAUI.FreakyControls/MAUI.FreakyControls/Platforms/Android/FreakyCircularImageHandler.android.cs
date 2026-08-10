@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿using Android.Widget;
 using Maui.FreakyControls.Platforms.Android.NativeControls;
 

@@ -1,3 +1,5 @@
+#nullable disable
+
 using Microsoft.Maui.Handlers;
 #if WINDOWS
 using Microsoft.UI.Xaml.Controls;

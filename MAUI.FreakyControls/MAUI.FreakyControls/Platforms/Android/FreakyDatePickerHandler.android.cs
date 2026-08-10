@@ -1,3 +1,5 @@
+#nullable disable
+
 using Android.App;
 using Android.Content.Res;
 using Android.Graphics;

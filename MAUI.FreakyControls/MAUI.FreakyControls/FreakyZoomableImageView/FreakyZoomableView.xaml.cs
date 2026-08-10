@@ -1,3 +1,5 @@
+#nullable disable
+
 using Maui.FreakyEffects.TouchTracking;
 namespace Maui.FreakyControls;
 

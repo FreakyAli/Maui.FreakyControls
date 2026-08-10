@@ -1,3 +1,5 @@
+#nullable disable
+
 using Microsoft.Maui.Controls.Platform;
 namespace Maui.FreakyControls.Platforms.Windows;
 

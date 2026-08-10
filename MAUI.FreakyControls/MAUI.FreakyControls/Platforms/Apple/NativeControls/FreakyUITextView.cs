@@ -1,3 +1,5 @@
+#nullable disable
+
 using Foundation;
 using Microsoft.Maui.Platform;
 using ObjCRuntime;

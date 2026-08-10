@@ -1,3 +1,5 @@
+#nullable disable
+
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Maui.FreakyEffects;
 #if WINDOWS

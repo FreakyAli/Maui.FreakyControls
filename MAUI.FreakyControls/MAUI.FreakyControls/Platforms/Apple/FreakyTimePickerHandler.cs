@@ -1,3 +1,5 @@
+#nullable disable
+
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Apple;
 using Maui.FreakyControls.Enums;

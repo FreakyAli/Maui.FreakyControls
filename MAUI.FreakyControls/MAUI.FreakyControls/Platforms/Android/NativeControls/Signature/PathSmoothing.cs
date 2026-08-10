@@ -1,3 +1,5 @@
+#nullable disable
+
 using NativePath = Android.Graphics.Path;
 using NativePoint = System.Drawing.PointF;
 

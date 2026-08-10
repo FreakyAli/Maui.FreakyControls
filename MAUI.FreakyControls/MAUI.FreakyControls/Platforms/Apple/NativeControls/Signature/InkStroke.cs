@@ -1,3 +1,5 @@
+#nullable disable
+
 using NativeColor = UIKit.UIColor;
 using NativePath = UIKit.UIBezierPath;
 using NativePoint = CoreGraphics.CGPoint;

@@ -1,3 +1,5 @@
+#nullable disable
+
 ﻿using Microsoft.Maui.Handlers;
 
 namespace Maui.FreakyControls;
