@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿namespace Maui.FreakyControls.Extensions
 {
     public class AssemblyNotFoundException : Exception

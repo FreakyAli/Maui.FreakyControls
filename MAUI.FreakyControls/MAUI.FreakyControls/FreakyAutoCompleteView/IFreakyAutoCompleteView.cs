@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using System.Collections;
 
 namespace Maui.FreakyControls;

@@ -1,5 +1,3 @@
-#nullable disable
-
 using System.Diagnostics;
 using System.Threading;
 
@@ -8,14 +6,14 @@ namespace Maui.FreakyControls.Wrappers
     internal class StreamWrapper : Stream
     {
         private readonly Stream _wrapped;
-        private IDisposable _additionalDisposable;
+        private IDisposable? _additionalDisposable;
 
         public StreamWrapper(Stream wrapped)
             : this(wrapped, null)
         {
         }
 
-        public StreamWrapper(Stream wrapped, IDisposable additionalDisposable)
+        public StreamWrapper(Stream wrapped, IDisposable? additionalDisposable)
         {
             ArgumentNullException.ThrowIfNull(wrapped);
 
@@ -49,7 +47,7 @@ namespace Maui.FreakyControls.Wrappers
             set { _wrapped.Position = value; }
         }
 
-        public event EventHandler Disposed;
+        public event EventHandler? Disposed;
 
         public override void Flush()
         {
@@ -86,7 +84,7 @@ namespace Maui.FreakyControls.Wrappers
             base.Dispose(disposing);
         }
 
-        public static async Task<Stream> GetStreamAsync(Uri uri, HttpClient client, CancellationToken cancellationToken)
+        public static async Task<Stream?> GetStreamAsync(Uri uri, HttpClient client, CancellationToken cancellationToken)
         {
             var response = await client.GetAsync(uri, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
