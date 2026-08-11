@@ -135,6 +135,10 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     protected override void OnTouch(SKTouchEventArgs e)
     {
         base.OnTouch(e);
+
+        if (charLocationDictionary.Count == 0)
+            return;
+
         var closestPoint = GetClosestPoint(e);
         if (HasHapticFeedback)
         {

@@ -37,10 +37,14 @@ internal partial class InkPresenter : UIView
 
     public override void TouchesBegan(NSSet touches, UIEvent? evt)
     {
-        currentPath = new InkStroke(UIBezierPath.Create(), new List<CGPoint>(), StrokeColor, StrokeWidth);
-
         var touch = touches.AnyObject as UITouch;
-        if (touch is null) return;
+        if (touch is null)
+        {
+            currentPath = null;
+            return;
+        }
+
+        currentPath = new InkStroke(UIBezierPath.Create(), new List<CGPoint>(), StrokeColor, StrokeWidth);
         var touchLocation = touch.LocationInView(this);
 
         currentPath.Path.MoveTo(touchLocation);
@@ -78,7 +82,12 @@ internal partial class InkPresenter : UIView
     public override void TouchesEnded(NSSet touches, UIEvent? evt)
     {
         var touch = touches.AnyObject as UITouch;
-        if (touch is null) return;
+        if (touch is null)
+        {
+            currentPath = null;
+            return;
+        }
+
         var touchLocation = touch.LocationInView(this);
 
         if (currentPath is not null)
@@ -105,43 +114,48 @@ internal partial class InkPresenter : UIView
     {
         base.Draw(rect);
 
+        RefreshBufferIfNeeded();
+        DrawBufferImage();
+        DrawCurrentPath();
+    }
+
+    private void RefreshBufferIfNeeded()
+    {
         if (bitmapBuffer is not null && ShouldRedrawBufferImage)
         {
-            var temp = bitmapBuffer;
+            bitmapBuffer.Dispose();
             bitmapBuffer = null;
-
-            temp.Dispose();
-            temp = null;
         }
 
         if (bitmapBuffer is null)
-        {
             bitmapBuffer = CreateBufferImage();
-        }
+    }
 
+    private void DrawBufferImage()
+    {
         if (bitmapBuffer is not null)
-        {
             bitmapBuffer.Draw(CGPoint.Empty);
-        }
+    }
 
-        if (currentPath is not null)
-        {
-            var context = UIGraphics.GetCurrentContext();
-            if (context is not null)
-            {
-                context.SetLineCap(CGLineCap.Round);
-                context.SetLineJoin(CGLineJoin.Round);
-                context.SetStrokeColor(currentPath.Color.CGColor);
-                context.SetLineWidth(currentPath.Width);
+    private void DrawCurrentPath()
+    {
+        if (currentPath is null)
+            return;
 
-                var cgPath = currentPath.Path.CGPath;
-                if (cgPath is not null)
-                {
-                    context.AddPath(cgPath);
-                }
-                context.StrokePath();
-            }
-        }
+        var context = UIGraphics.GetCurrentContext();
+        if (context is null)
+            return;
+
+        context.SetLineCap(CGLineCap.Round);
+        context.SetLineJoin(CGLineJoin.Round);
+        context.SetStrokeColor(currentPath.Color.CGColor);
+        context.SetLineWidth(currentPath.Width);
+
+        var cgPath = currentPath.Path.CGPath;
+        if (cgPath is not null)
+            context.AddPath(cgPath);
+
+        context.StrokePath();
     }
 
     private NativeImage? CreateBufferImage()

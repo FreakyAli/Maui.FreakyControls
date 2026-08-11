@@ -71,8 +71,12 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
     {
         info = e.Info;
         surface = e.Surface;
-        Canvas = surface.Canvas;
-        Canvas.Clear();
+        var canvasLocal = surface.Canvas;
+        if (canvasLocal is null)
+            return;
+
+        Canvas = canvasLocal;
+        canvasLocal.Clear();
         if (Svg is null || Svg?.Picture is null)
         {
             return;
@@ -318,35 +322,60 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
     protected override async void OnPropertyChanged(string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
-        if (propertyName == nameof(ResourceId) || propertyName == nameof(SvgAssembly))
+
+        switch (propertyName)
         {
-            if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly is null)
-                return;
-            SetResourceId();
+            case nameof(ResourceId) or nameof(SvgAssembly):
+                HandleResourceIdChange();
+                break;
+
+            case nameof(Base64String):
+                HandleBase64StringChange();
+                break;
+
+            case nameof(Uri):
+                await HandleUriChange();
+                break;
+
+            case nameof(SvgMode):
+                HandleSvgModeChange();
+                break;
+
+            case nameof(ImageColor):
+                InvalidateSurface();
+                break;
         }
-        else if (propertyName == nameof(Base64String))
-        {
-            if (string.IsNullOrWhiteSpace(Base64String) && Svg is not null)
-                return;
-            SetBase64String();
-        }
-        else if (propertyName == nameof(Uri))
-        {
-            if (Uri == default || Svg is null)
-            {
-                return;
-            }
-            await SetUriAsync();
-        }
-        else if (propertyName == nameof(SvgMode))
-        {
-            if (Canvas is null || Svg is null || Svg.Picture is null)
-                return;
-            SetSvgMode();
-        }
-        else if (propertyName == nameof(ImageColor))
-        {
-            InvalidateSurface();
-        }
+    }
+
+    private void HandleResourceIdChange()
+    {
+        if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly is null)
+            return;
+
+        SetResourceId();
+    }
+
+    private void HandleBase64StringChange()
+    {
+        if (string.IsNullOrWhiteSpace(Base64String) || Svg is null)
+            return;
+
+        SetBase64String();
+    }
+
+    private async Task HandleUriChange()
+    {
+        if (Uri == default || Svg is null)
+            return;
+
+        await SetUriAsync();
+    }
+
+    private void HandleSvgModeChange()
+    {
+        if (Canvas is null || Svg is null || Svg.Picture is null)
+            return;
+
+        SetSvgMode();
     }
 }

@@ -256,7 +256,11 @@ public class FreakyScratchViewDrawable
         {
             var bitmap = await ImageSourceToSKBitmapAsync(_parent.FrontImageSource);
             if (cts.IsCancellationRequested)
+            {
+                bitmap?.Dispose();
                 return;
+            }
+
             if (bitmap != null && _maskBitmap != null && _maskCanvas != null)
             {
                 _frontBitmap = bitmap;
@@ -265,6 +269,10 @@ public class FreakyScratchViewDrawable
                 _maskCanvas.DrawImage(image, new SKRect(0, 0, width, height),
                     new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear));
                 MainThread.BeginInvokeOnMainThread(() => canvasView?.InvalidateSurface());
+            }
+            else
+            {
+                bitmap?.Dispose();
             }
         }
         finally
@@ -309,63 +317,82 @@ public class FreakyScratchViewDrawable
         switch (e.ActionType)
         {
             case SKTouchAction.Pressed:
-                _lastTouchPoint = e.Location;
-                _hasMoved = false;
+                HandleTouchPressed(e);
                 break;
 
             case SKTouchAction.Moved when _lastTouchPoint.HasValue:
-                _hasMoved = true;
-
-                using (var paint = new SKPaint
-                {
-                    Style = SKPaintStyle.Stroke,
-                    StrokeCap = SKStrokeCap.Round,
-                    StrokeWidth = _parent.BrushSize,
-                    Color = SKColors.Transparent,
-                    BlendMode = SKBlendMode.Clear,
-                    IsAntialias = true
-                })
-                using (var path = new SKPath())
-                {
-                    path.MoveTo(_lastTouchPoint.Value);
-                    path.LineTo(e.Location);
-                    _maskCanvas.DrawPath(path, paint);
-                }
-
-                _lastTouchPoint = e.Location;
-
-                if (!_scratchCompleted)
-                {
-                    var percent = (_maskBitmap is not null ? ScratchUtils.CalculateClearedPercent(_maskBitmap) : 0f);
-                    if (percent >= _parent.RevealThreshold)
-                    {
-                        _scratchCompleted = true;
-                        _parent.OnScratchCompleted();
-
-                        if (_parent.AutoRevealEnabled && !_isAutoRevealed)
-                        {
-                            _isAutoRevealed = true;
-                            AnimateReveal();
-                        }
-                    }
-                }
-
-                canvasView?.InvalidateSurface();
+                HandleTouchMoved(e, canvasView);
                 break;
 
             case SKTouchAction.Released:
-                _lastTouchPoint = null;
-
-                // Tap-to-reveal: only if finger didn’t move
-                if (_parent.IsTapToRevealEnabled && !_hasMoved && !_scratchCompleted)
-                {
-                    RevealAll();
-                }
-
+                HandleTouchReleased();
                 break;
         }
 
         e.Handled = true;
+    }
+
+    private void HandleTouchPressed(SKTouchEventArgs e)
+    {
+        _lastTouchPoint = e.Location;
+        _hasMoved = false;
+    }
+
+    private void HandleTouchMoved(SKTouchEventArgs e, SKCanvasView? canvasView)
+    {
+        _hasMoved = true;
+
+        DrawScratchLine(_lastTouchPoint!.Value, e.Location);
+        _lastTouchPoint = e.Location;
+
+        if (_scratchCompleted)
+            return;
+
+        CheckRevealThreshold();
+        canvasView?.InvalidateSurface();
+    }
+
+    private void DrawScratchLine(SKPoint from, SKPoint to)
+    {
+        using var paint = new SKPaint
+        {
+            Style = SKPaintStyle.Stroke,
+            StrokeCap = SKStrokeCap.Round,
+            StrokeWidth = _parent.BrushSize,
+            Color = SKColors.Transparent,
+            BlendMode = SKBlendMode.Clear,
+            IsAntialias = true
+        };
+        using var path = new SKPath();
+        path.MoveTo(from);
+        path.LineTo(to);
+        _maskCanvas?.DrawPath(path, paint);
+    }
+
+    private void CheckRevealThreshold()
+    {
+        var percent = _maskBitmap is not null ? ScratchUtils.CalculateClearedPercent(_maskBitmap) : 0f;
+
+        if (percent >= _parent.RevealThreshold)
+        {
+            _scratchCompleted = true;
+            _parent.OnScratchCompleted();
+
+            if (_parent.AutoRevealEnabled && !_isAutoRevealed)
+            {
+                _isAutoRevealed = true;
+                AnimateReveal();
+            }
+        }
+    }
+
+    private void HandleTouchReleased()
+    {
+        _lastTouchPoint = null;
+
+        // Tap-to-reveal: only if finger didn’t move
+        if (_parent.IsTapToRevealEnabled && !_hasMoved && !_scratchCompleted)
+            RevealAll();
     }
 
     private void AnimateReveal()

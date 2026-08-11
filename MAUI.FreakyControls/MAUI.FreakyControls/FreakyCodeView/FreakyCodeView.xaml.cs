@@ -170,66 +170,71 @@ public partial class FreakyCodeView : ContentView
             string newCode = newValue?.ToString() ?? string.Empty;
             string oldCode = oldValue?.ToString() ?? string.Empty;
 
-            int newCodeLength = newCode.Length;
-            int oldCodeLength = oldCode.Length;
-
-            if (newCodeLength == 0 && oldCodeLength == 0)
-            {
+            if (newCode.Length == 0 && oldCode.Length == 0)
                 return;
-            }
-
-            char[] newCodeChars = newCode.ToCharArray();
 
             control.hiddenTextEntry.Text = newCode;
-            var CodeItemArray = control.CodeItemContainer.Children.OfType<CodeView>().ToArray();
+            var codeItems = control.CodeItemContainer.Children.OfType<CodeView>().ToArray();
 
-            bool isCodeEnteredProgramatically = (oldCodeLength == 0 && newCodeLength == control.CodeLength) || newCodeLength == oldCodeLength;
+            bool isProgrammatic = IsProgrammaticEntry(oldCode, newCode, control.CodeLength);
 
-            if (isCodeEnteredProgramatically)
-            {
-                for (int i = 0; i < control.CodeLength; i++)
-                {
-                    CodeItemArray[i].ClearValueWithAnimation();
-                }
-            }
+            if (isProgrammatic)
+                ClearAllItems(codeItems, control.CodeLength);
 
-            for (int i = 0; i < control.CodeLength; i++)
-            {
-                if (i < newCodeLength)
-                {
-                    if (isCodeEnteredProgramatically)
-                    {
-                        await Task.Delay(50);
-                    }
+            await UpdateCodeItems(codeItems, newCode, isProgrammatic, control.CodeLength);
 
-                    CodeItemArray[i].SetValueWithAnimation(newCodeChars[i]);
-                }
-                else
-                {
-                    if (CodeItemArray.Length >= control.CodeLength)
-                    {
-                        CodeItemArray[i].ClearValueWithAnimation();
-                        CodeItemArray[i].UnfocusAnimate();
-                    }
-                }
-            }
-
-            if (control.hiddenTextEntry.IsFocused)
-            {
-                if (newCodeLength < control.CodeLength)
-                {
-                    CodeItemArray[newCodeLength].FocusAnimate();
-                }
-                else if (newCodeLength == control.CodeLength)
-                {
-                    CodeItemArray[newCodeLength - 1].FocusAnimate();
-                }
-            }
+            UpdateFocusIndicator(codeItems, newCode, control.CodeLength, control.hiddenTextEntry.IsFocused);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.ToString());
         }
+    }
+
+    private static bool IsProgrammaticEntry(string oldCode, string newCode, int codeLength)
+    {
+        int newLength = newCode.Length;
+        int oldLength = oldCode.Length;
+        return (oldLength == 0 && newLength == codeLength) || newLength == oldLength;
+    }
+
+    private static void ClearAllItems(CodeView[] codeItems, int codeLength)
+    {
+        for (int i = 0; i < codeLength; i++)
+            codeItems[i].ClearValueWithAnimation();
+    }
+
+    private static async Task UpdateCodeItems(CodeView[] codeItems, string newCode, bool isProgrammatic, int codeLength)
+    {
+        char[] codeChars = newCode.ToCharArray();
+
+        for (int i = 0; i < codeLength; i++)
+        {
+            if (i < newCode.Length)
+            {
+                if (isProgrammatic)
+                    await Task.Delay(50);
+
+                codeItems[i].SetValueWithAnimation(codeChars[i]);
+            }
+            else if (codeItems.Length >= codeLength)
+            {
+                codeItems[i].ClearValueWithAnimation();
+                codeItems[i].UnfocusAnimate();
+            }
+        }
+    }
+
+    private static void UpdateFocusIndicator(CodeView[] codeItems, string newCode, int codeLength, bool isFocused)
+    {
+        if (!isFocused)
+            return;
+
+        int newCodeLength = newCode.Length;
+        if (newCodeLength < codeLength)
+            codeItems[newCodeLength].FocusAnimate();
+        else if (newCodeLength == codeLength)
+            codeItems[newCodeLength - 1].FocusAnimate();
     }
 
     public int CodeLength
