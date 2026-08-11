@@ -20,7 +20,8 @@ public class RightImageAlignmentToVisibilityConverterTests
     public void Convert_NonRightAlignment_ReturnsFalse(ImageAlignment alignment)
     {
         var result = _converter.Convert(alignment, typeof(bool), null, CultureInfo.InvariantCulture);
-        Assert.False(result is true);
+        Assert.IsType<bool>(result);
+        Assert.False((bool)result);
     }
 
     [Theory]
@@ -30,7 +31,8 @@ public class RightImageAlignmentToVisibilityConverterTests
     public void Convert_NonImageAlignmentValue_ReturnsFalse(object? value)
     {
         var result = _converter.Convert(value, typeof(bool), null, CultureInfo.InvariantCulture);
-        Assert.False(result is true);
+        Assert.IsType<bool>(result);
+        Assert.False((bool)result);
     }
 
     [Fact]

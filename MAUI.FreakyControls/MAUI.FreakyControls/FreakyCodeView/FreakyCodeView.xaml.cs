@@ -8,6 +8,8 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyCodeView : ContentView
 {
+    private CancellationTokenSource? _codeUpdateCts;
+
     #region Events
     public event EventHandler<FreakyCodeCompletedEventArgs>? CodeEntryCompleted;
     #endregion Events
@@ -173,6 +175,12 @@ public partial class FreakyCodeView : ContentView
             if (newCode.Length == 0 && oldCode.Length == 0)
                 return;
 
+            // Cancel any previous code update operation
+            control._codeUpdateCts?.Cancel();
+            control._codeUpdateCts?.Dispose();
+            control._codeUpdateCts = new CancellationTokenSource();
+            var updateToken = control._codeUpdateCts.Token;
+
             control.hiddenTextEntry.Text = newCode;
             var codeItems = control.CodeItemContainer.Children.OfType<CodeView>().ToArray();
 
@@ -181,9 +189,11 @@ public partial class FreakyCodeView : ContentView
             if (isProgrammatic)
                 ClearAllItems(codeItems, control.CodeLength);
 
-            await UpdateCodeItems(codeItems, newCode, isProgrammatic, control.CodeLength);
+            await UpdateCodeItems(codeItems, newCode, isProgrammatic, control.CodeLength, updateToken);
 
-            UpdateFocusIndicator(codeItems, newCode, control.CodeLength, control.hiddenTextEntry.IsFocused);
+            // Only update focus if operation wasn't cancelled
+            if (!updateToken.IsCancellationRequested)
+                UpdateFocusIndicator(codeItems, newCode, control.CodeLength, control.hiddenTextEntry.IsFocused);
         }
         catch (Exception ex)
         {
@@ -204,7 +214,7 @@ public partial class FreakyCodeView : ContentView
             codeItems[i].ClearValueWithAnimation();
     }
 
-    private static async Task UpdateCodeItems(CodeView[] codeItems, string newCode, bool isProgrammatic, int codeLength)
+    private static async Task UpdateCodeItems(CodeView[] codeItems, string newCode, bool isProgrammatic, int codeLength, CancellationToken cancellationToken)
     {
         char[] codeChars = newCode.ToCharArray();
 
@@ -213,7 +223,12 @@ public partial class FreakyCodeView : ContentView
             if (i < newCode.Length)
             {
                 if (isProgrammatic)
-                    await Task.Delay(50);
+                {
+                    await Task.Delay(50, cancellationToken);
+                    // Check if this operation was cancelled before updating
+                    if (cancellationToken.IsCancellationRequested)
+                        return;
+                }
 
                 codeItems[i].SetValueWithAnimation(codeChars[i]);
             }
