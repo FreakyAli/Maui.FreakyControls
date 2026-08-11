@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Controls.Shapes;
@@ -15,12 +13,12 @@ internal class CodeView : Border
     public static Color DefaultColor = Colors.Black;
     public static Color DefaultItemBackgroundColor = Colors.Transparent;
 
-    private string inputChar;
-    private Color color;
-    private Color ItemBorderColor;
+    private string? inputChar;
+    private Color color = DefaultColor;
+    private Color ItemBorderColor = DefaultColor;
 
     public FocusAnimation FocusAnimationType { get; set; }
-    public Color ItemFocusColor { get; set; }
+    public Color ItemFocusColor { get; set; } = DefaultColor;
     public Border Item => this;
     public Border Dot { get; }
     public Label CharLabel { get; }
@@ -62,12 +60,14 @@ internal class CodeView : Border
 
     private async Task GrowAsync()
     {
-        await Content.ScaleToAsync(1.0, 100);
+        if (Content is not null)
+            await Content.ScaleToAsync(1.0, 100);
     }
 
     private async Task ShrinkAsync()
     {
-        await Content.ScaleToAsync(0, 100);
+        if (Content is not null)
+            await Content.ScaleToAsync(0, 100);
     }
 
     public void SetColor(Color color, Color ItemBorderColor)

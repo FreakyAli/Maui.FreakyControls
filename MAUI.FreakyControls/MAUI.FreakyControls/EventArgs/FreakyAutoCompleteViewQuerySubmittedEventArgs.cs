@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿namespace Maui.FreakyControls;
 
 public sealed class FreakyAutoCompleteViewQuerySubmittedEventArgs : FreakyEventArgs

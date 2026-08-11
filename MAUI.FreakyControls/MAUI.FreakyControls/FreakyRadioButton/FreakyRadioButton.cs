@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Extensions;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
@@ -42,7 +40,7 @@ namespace Maui.FreakyControls
             isAnimating = false;
         }
 
-        private void Radiobutton_Tapped(object sender, EventArgs e)
+        private void Radiobutton_Tapped(object? sender, EventArgs e)
         {
             if (IsEnabled)
             {
@@ -53,9 +51,10 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void Handle_PaintSurface(object? sender, SKPaintSurfaceEventArgs e)
         {
             e?.Surface?.Canvas?.Clear();
+            if (e is null) return;
             if (IsChecked)
                 DrawCheckFilled(e);
             else
@@ -70,7 +69,8 @@ namespace Maui.FreakyControls
         private void DrawCheckFilled(SKPaintSurfaceEventArgs e)
         {
             var imageInfo = e.Info;
-            var canvas = e?.Surface?.Canvas;
+            var canvas = e.Surface?.Canvas;
+            if (canvas is null) return;
 
             using (var checkfill = new SKPaint()
             {
@@ -125,7 +125,8 @@ namespace Maui.FreakyControls
         private void DrawOutline(SKPaintSurfaceEventArgs e)
         {
             var imageInfo = e.Info;
-            var canvas = e?.Surface?.Canvas;
+            var canvas = e.Surface?.Canvas;
+            if (canvas is null) return;
 
             using (var outline = new SKPaint
             {
@@ -149,7 +150,7 @@ namespace Maui.FreakyControls
         /// <summary>
         /// Raised when <see cref="FreakyRadioButton.IsChecked"/> changes.
         /// </summary>
-        public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
+        public event EventHandler<CheckedChangedEventArgs>? CheckedChanged;
 
         #endregion Events
 

@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Enums;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -24,14 +22,14 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
     /// <summary>
     /// raised when the user finalizes text in the <see cref="FreakyTextInputLayout"/> with the return key.
     /// </summary>
-    public event EventHandler Completed;
+    public event EventHandler? Completed;
 
     /// <summary>
     ///  raised when the text in the <see cref="FreakyTextInputLayout"/> changes.
     ///  The <see cref="TextChangedEventArgs"/> object that accompanies the TextChanged event has NewTextValue and OldTextValue properties,
     ///  which specify the new and old text, respectively.
     /// </summary>
-    public event EventHandler<TextChangedEventArgs> TextChanged;
+    public event EventHandler<TextChangedEventArgs>? TextChanged;
 
     #region Bindable Properties
 
@@ -678,7 +676,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     private static void BorderTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = bindable as FreakyTextInputLayout;
+        var control = (FreakyTextInputLayout)bindable;
         switch (control.BorderType)
         {
             case BorderType.Full:
@@ -708,13 +706,13 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     private static void OnTitleFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = bindable as FreakyTextInputLayout;
+        var control = (FreakyTextInputLayout)bindable;
         control._titleFontSize = (double)newValue;
     }
 
     private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = bindable as FreakyTextInputLayout;
+        var control = (FreakyTextInputLayout)bindable;
         control._placeholderFontSize = (double)newValue;
         control.LabelTitle.FontSize = control._placeholderFontSize;
     }
@@ -722,7 +720,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
     private static void OnImageSourceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         //fix placeholder width overlapping with the image if the image source changes
-        var control = bindable as FreakyTextInputLayout;
+        var control = (FreakyTextInputLayout)bindable;
         if (control.ImageWidth > 0)
         {
             control.LabelTitle.Margin = new Thickness(control.LabelTitle.Margin.Left, control.LabelTitle.Margin.Top, control.ImageWidth + (control.ImagePadding * 2), control.LabelTitle.Margin.Bottom);
@@ -735,7 +733,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
 
     private static void OnImageWidthChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = bindable as FreakyTextInputLayout;
+        var control = (FreakyTextInputLayout)bindable;
         if (control.ImageSource == null)
         {
             control.LabelTitle.Margin = new Thickness(control.LabelTitle.Margin.Left, control.LabelTitle.Margin.Top, 0, control.LabelTitle.Margin.Bottom);
@@ -756,7 +754,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
         }
     }
 
-    private async void Handle_Focused(object sender, FocusEventArgs e)
+    private async void Handle_Focused(object? sender, FocusEventArgs e)
     {
         if (string.IsNullOrEmpty(Text) && LabelTitle.Height > 0)
         {
@@ -765,7 +763,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
         }
     }
 
-    private async void Handle_Unfocused(object sender, FocusEventArgs e)
+    private async void Handle_Unfocused(object? sender, FocusEventArgs e)
     {
         if (string.IsNullOrEmpty(Text))
         {
@@ -815,7 +813,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
         }
     }
 
-    private void Handle_Tapped(object sender, EventArgs e)
+    private void Handle_Tapped(object? sender, EventArgs e)
     {
         if (IsEnabled)
         {
@@ -841,12 +839,12 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
         return taskCompletionSource.Task;
     }
 
-    private void Handle_Completed(object sender, EventArgs e)
+    private void Handle_Completed(object? sender, EventArgs e)
     {
         Completed?.Invoke(this, e);
     }
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
 
@@ -856,12 +854,12 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
         }
     }
 
-    private void EntryField_TextChanged(object sender, TextChangedEventArgs e)
+    private void EntryField_TextChanged(object? sender, TextChangedEventArgs e)
     {
         TextChanged?.Invoke(this, e);
     }
 
-    private void HiddenTitle_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void HiddenTitle_OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(Height) && BorderType == BorderType.Full)
         {
@@ -870,7 +868,7 @@ public partial class FreakyTextInputLayout : ContentView, IDisposable
         }
     }
 
-    private async void EntryField_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private async void EntryField_OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(IsFocused) && LabelTitle.Height <= 0)
         {

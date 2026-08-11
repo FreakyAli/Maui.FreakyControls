@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Extensions;
 using System.Windows.Input;
 
@@ -12,7 +10,7 @@ public class FreakyRadioGroup : StackLayout
     /// <summary>
     /// Triggered when <see cref="FreakyRadioGroup.SelectedIndex"/> changes.
     /// </summary>
-    public event EventHandler<FreakyRadioButtonEventArgs> SelectedRadioButtonChanged;
+    public event EventHandler<FreakyRadioButtonEventArgs>? SelectedRadioButtonChanged;
 
     public static readonly BindableProperty SelectedIndexProperty =
     BindableProperty.Create(
@@ -90,7 +88,7 @@ public class FreakyRadioGroup : StackLayout
         }
     }
 
-    private void RadioButton_CheckedChanged(object sender, EventArgs e)
+    private void RadioButton_CheckedChanged(object? sender, EventArgs e)
     {
         if (!(sender is FreakyRadioButton selectedRadioButton) || !selectedRadioButton.IsChecked)
         {

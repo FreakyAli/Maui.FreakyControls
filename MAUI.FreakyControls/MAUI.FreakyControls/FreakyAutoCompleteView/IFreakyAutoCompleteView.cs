@@ -12,7 +12,7 @@ public interface IFreakyAutoCompleteView : IView, IDrawableImageView
     string DisplayMemberPath { get; set; }
     bool IsSuggestionListOpen { get; set; }
     bool UpdateTextOnSelect { get; set; }
-    IList ItemsSource { get; set; }
+    IList? ItemsSource { get; set; }
     int Threshold { get; set; }
     bool AllowCopyPaste { get; set; }
     TextAlignment HorizontalTextAlignment { get; set; }

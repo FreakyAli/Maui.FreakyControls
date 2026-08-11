@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using System;
 #if ANDROID
 using PlatformView = Maui.FreakyControls.Platforms.Android.NativeControls.FreakyNativeAutoCompleteView;

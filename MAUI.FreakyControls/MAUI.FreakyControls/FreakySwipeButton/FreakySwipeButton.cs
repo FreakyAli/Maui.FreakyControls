@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Layouts;
 using System.Windows.Input;
@@ -13,7 +11,7 @@ public class FreakySwipeButton : AbsoluteLayout, IDisposable
     private const double _fadeEffect = 0.5;
     private const uint _animLength = 50;
 
-    public event EventHandler SlideCompleted;
+    public event EventHandler? SlideCompleted;
 
     public static readonly BindableProperty SlideCompleteCommandProperty = BindableProperty.Create(
            nameof(SlideCompleteCommand),
@@ -77,7 +75,7 @@ public class FreakySwipeButton : AbsoluteLayout, IDisposable
         gestureListener.GestureRecognizers.Add(panGesture);
     }
 
-    private async void OnPanGestureUpdated(object sender, PanUpdatedEventArgs e)
+    private async void OnPanGestureUpdated(object? sender, PanUpdatedEventArgs e)
     {
         if (Thumb == null || TrackBar == null || FillBar == null)
             return;
@@ -120,7 +118,7 @@ public class FreakySwipeButton : AbsoluteLayout, IDisposable
         }
     }
 
-    private void OnSizeChanged(object sender, EventArgs e)
+    private void OnSizeChanged(object? sender, EventArgs e)
     {
         if (Width == 0 || Height == 0)
             return;

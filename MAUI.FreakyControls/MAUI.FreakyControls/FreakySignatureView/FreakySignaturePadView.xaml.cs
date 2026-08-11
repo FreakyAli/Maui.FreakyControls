@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Extensions;
 using System.ComponentModel;
 using System.Reflection;
@@ -16,9 +14,9 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     private static readonly Color signaturePadDarkColor = Colors.Black;
     private static readonly Color signaturePadLightColor = Colors.White;
 
-    public event EventHandler StrokeCompleted;
+    public event EventHandler? StrokeCompleted;
 
-    public event EventHandler Cleared;
+    public event EventHandler? Cleared;
 
     public FreakySignaturePadView()
     {
@@ -326,7 +324,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
 
     #endregion Properties& BindableProperties
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
 
@@ -357,7 +355,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, shouldCrop, keepAspectRatio);
     }
@@ -365,7 +363,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature at the specified size.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, size, shouldCrop, keepAspectRatio);
     }
@@ -373,7 +371,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature at the specified scale.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, scale, shouldCrop, keepAspectRatio);
     }
@@ -381,7 +379,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature with the specified stroke color.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, strokeColor, shouldCrop, keepAspectRatio);
     }
@@ -389,7 +387,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature at the specified size with the specified stroke color.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, strokeColor, size, shouldCrop, keepAspectRatio);
     }
@@ -397,7 +395,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature at the specified scale with the specified stroke color.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, strokeColor, scale, shouldCrop, keepAspectRatio);
     }
@@ -405,7 +403,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature with the specified stroke and background colors.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, strokeColor, fillColor, shouldCrop, keepAspectRatio);
     }
@@ -413,7 +411,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature at the specified size with the specified stroke and background colors.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, strokeColor, fillColor, size, shouldCrop, keepAspectRatio);
     }
@@ -421,7 +419,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature at the specified scale with the specified stroke and background colors.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, strokeColor, fillColor, scale, shouldCrop, keepAspectRatio);
     }
@@ -429,7 +427,7 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
     /// <summary>
     /// Create an encoded image of the currently drawn signature using the specified settings.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
     {
         return SignaturePadCanvas.GetImageStreamAsync(format, settings);
     }

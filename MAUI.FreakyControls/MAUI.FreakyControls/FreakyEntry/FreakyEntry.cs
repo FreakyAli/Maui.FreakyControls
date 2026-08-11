@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Enums;
 using System.Windows.Input;
 

@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿//Make sure .EventArgs is never created as a namespace.
 namespace Maui.FreakyControls;
 
@@ -15,5 +13,5 @@ public class ImageStreamRequestedEventArgs : FreakyEventArgs
 
     public ImageConstructionSettings Settings { get; private set; }
 
-    public Task<Stream> ImageStreamTask { get; set; } = Task.FromResult<Stream>(null);
+    public Task<Stream?> ImageStreamTask { get; set; } = Task.FromResult<Stream?>(null);
 }

@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Enums;
 using System.ComponentModel;
@@ -11,7 +9,7 @@ namespace Maui.FreakyControls;
 public partial class FreakyCodeView : ContentView
 {
     #region Events
-    public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
+    public event EventHandler<FreakyCodeCompletedEventArgs>? CodeEntryCompleted;
     #endregion Events
 
     #region Constructor and Initializations
@@ -25,21 +23,21 @@ public partial class FreakyCodeView : ContentView
         Initialize();
     }
 
-    private void HiddenTextEntry_Unfocused(object sender, FocusEventArgs e)
+    private void HiddenTextEntry_Unfocused(object? sender, FocusEventArgs e)
     {
-        var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToList();
+        var CodeItemArray = CodeItemContainer.Children.OfType<CodeView>().ToList();
         for (int i = 0; i < CodeLength; i++)
         {
             CodeItemArray[i].UnfocusAnimate();
         }
     }
 
-    private void HiddenTextEntry_Focused(object sender, FocusEventArgs e)
+    private void HiddenTextEntry_Focused(object? sender, FocusEventArgs e)
     {
         var length = CodeValue is null ? 0 : CodeValue.Length;
         hiddenTextEntry.CursorPosition = length;
 
-        var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToArray();
+        var CodeItemArray = CodeItemContainer.Children.OfType<CodeView>().ToArray();
 
         if (length == CodeLength)
         {
@@ -129,7 +127,7 @@ public partial class FreakyCodeView : ContentView
 
     #region Events
 
-    private void FreakyCodeView_TextChanged(object sender, TextChangedEventArgs e)
+    private void FreakyCodeView_TextChanged(object? sender, TextChangedEventArgs e)
     {
         CodeValue = e.NewTextValue;
 
@@ -169,8 +167,8 @@ public partial class FreakyCodeView : ContentView
         {
             var control = (FreakyCodeView)bindable;
 
-            string newCode = newValue.ToString();
-            string oldCode = oldValue.ToString();
+            string newCode = newValue?.ToString() ?? string.Empty;
+            string oldCode = oldValue?.ToString() ?? string.Empty;
 
             int newCodeLength = newCode.Length;
             int oldCodeLength = oldCode.Length;
@@ -183,7 +181,7 @@ public partial class FreakyCodeView : ContentView
             char[] newCodeChars = newCode.ToCharArray();
 
             control.hiddenTextEntry.Text = newCode;
-            var CodeItemArray = control.CodeItemContainer.Children.Select(x => x as CodeView).ToArray();
+            var CodeItemArray = control.CodeItemContainer.Children.OfType<CodeView>().ToArray();
 
             bool isCodeEnteredProgramatically = (oldCodeLength == 0 && newCodeLength == control.CodeLength) || newCodeLength == oldCodeLength;
 

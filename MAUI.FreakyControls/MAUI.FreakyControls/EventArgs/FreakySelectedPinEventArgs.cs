@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿//Make sure .EventArgs is never created as a namespace.
 namespace Maui.FreakyControls;
 
@@ -8,5 +6,5 @@ namespace Maui.FreakyControls;
 /// </summary>
 public class FreakySelectedPinEventArgs : FreakyEventArgs
 {
-    public string SelectedCharacter { get; set; }
+    public string SelectedCharacter { get; set; } = string.Empty;
 }

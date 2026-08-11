@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿#if !ANDROID && !IOS && !MACCATALYST && !WINDOWS
 namespace Maui.FreakyControls;
 

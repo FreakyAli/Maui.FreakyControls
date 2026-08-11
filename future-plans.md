@@ -100,7 +100,23 @@ Rebuild the Samples application with a modern, polished UI that properly showcas
 
 ## Performance & Optimization
 
-*Planned items to be added as they are identified*
+### Trimming & AOT Compatibility
+Prepare FreakyControls and the Samples app for full .NET trimming and Native AOT support to reduce app size and improve startup performance.
+
+**Tasks:**
+- Enable `<EnableTrimAnalyzer>true</EnableTrimAnalyzer>` in Maui.FreakyControls.csproj
+- Fix all trim analysis warnings (reflection usage, dynamic type loading, etc.)
+- Ensure no trim-unsafe patterns exist in platform handlers or converters
+- Add `<IsTrimmable>true</IsTrimmable>` to Maui.FreakyControls.csproj
+- Add `[DynamicallyAccessedMembers]` annotations where reflection is required
+- Validate all bindable properties, converters, and handlers survive trimming
+- Update Samples app to be fully trimmable
+- Convert `[ObservableProperty]` fields to partial properties for WinRT AOT compatibility (MVVMTK0045)
+- Enable `<PublishTrimmed>true</PublishTrimmed>` and validate on all platforms
+- Test NativeAOT compilation where supported
+
+**Priority:** Medium  
+**Status:** Not Started
 
 ---
 

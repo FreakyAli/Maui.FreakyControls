@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Enums;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -101,7 +99,7 @@ public class FreakyAutoCompleteView : View, IFreakyAutoCompleteView
     public static readonly BindableProperty UpdateTextOnSelectProperty =
         BindableProperty.Create(nameof(UpdateTextOnSelect), typeof(bool), typeof(FreakyAutoCompleteView), true, BindingMode.OneWay, null, null);
 
-    public System.Collections.IList ItemsSource
+    public System.Collections.IList? ItemsSource
     {
         get { return GetValue(ItemsSourceProperty) as System.Collections.IList; }
         set { SetValue(ItemsSourceProperty, value); }

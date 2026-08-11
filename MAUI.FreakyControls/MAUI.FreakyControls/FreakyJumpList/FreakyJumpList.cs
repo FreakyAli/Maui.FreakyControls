@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Extensions;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
@@ -9,9 +7,9 @@ namespace Maui.FreakyControls;
 
 public class FreakyJumpList : SKCanvasView, IDisposable
 {
-    private IDictionary<string, SKPoint> charLocationDictionary;
+    private IDictionary<string, SKPoint> charLocationDictionary = new Dictionary<string, SKPoint>();
 
-    public event EventHandler<FreakyCharacterChangedEventArgs> SelectedCharacterChanged;
+    public event EventHandler<FreakyCharacterChangedEventArgs>? SelectedCharacterChanged;
 
     public static readonly BindableProperty CharacterColorProperty = BindableProperty.Create(
         nameof(CharacterColor),
@@ -130,7 +128,8 @@ public class FreakyJumpList : SKCanvasView, IDisposable
     {
         base.OnPaintSurface(e);
         e?.Surface?.Canvas?.Clear();
-        DrawJumpList(e);
+        if (e is not null)
+            DrawJumpList(e);
     }
 
     protected override void OnTouch(SKTouchEventArgs e)
@@ -180,9 +179,9 @@ public class FreakyJumpList : SKCanvasView, IDisposable
         var info = e.Info;
         var canvas = e.Surface?.Canvas;
         var provider = this.AlphabetProvider;
-        var maxCount = this.AlphabetProvider?.GetCount();
+        var maxCount = provider.GetCount();
         charLocationDictionary = new Dictionary<string, SKPoint>();
-        foreach (var (item, index) in provider?.GetAlphabet().WithIndex())
+        foreach (var (item, index) in provider.GetAlphabet().WithIndex())
         {
             var currentAlphabet = item.ToString();
             var currentIndex = index + 1;

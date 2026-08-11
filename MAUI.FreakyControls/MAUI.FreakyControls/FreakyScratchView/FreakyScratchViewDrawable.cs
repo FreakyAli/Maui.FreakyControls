@@ -1,5 +1,3 @@
-#nullable disable
-
 using SkiaSharp.Views.Maui.Controls;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
@@ -170,11 +168,11 @@ namespace Maui.FreakyControls;
 
 public class FreakyScratchViewDrawable
 {
-    private SKBitmap _maskBitmap;
-    private SKCanvas _maskCanvas;
-    private SKBitmap _frontBitmap;
+    private SKBitmap? _maskBitmap;
+    private SKCanvas? _maskCanvas;
+    private SKBitmap? _frontBitmap;
     private bool _isLoadingFrontImage;
-    private CancellationTokenSource _loadFrontCts;
+    private CancellationTokenSource? _loadFrontCts;
     private SKPoint? _lastTouchPoint = null;
     private bool _scratchCompleted = false;
     private bool _isAutoRevealed = false;
@@ -194,7 +192,7 @@ public class FreakyScratchViewDrawable
         // not used — handled by SKCanvasView
     }
 
-    public void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    public void OnPaintSurface(object? sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
         var info = e.Info;
@@ -211,10 +209,11 @@ public class FreakyScratchViewDrawable
             FillMask(info.Width, info.Height, sender as SkiaSharp.Views.Maui.Controls.SKCanvasView);
         }
 
-        canvas.DrawBitmap(_maskBitmap, SKPoint.Empty);
+        if (_maskBitmap is not null)
+            canvas.DrawBitmap(_maskBitmap, SKPoint.Empty);
     }
 
-    private void FillMask(int width, int height, SkiaSharp.Views.Maui.Controls.SKCanvasView canvasView)
+    private void FillMask(int width, int height, SkiaSharp.Views.Maui.Controls.SKCanvasView? canvasView)
     {
         if (_parent.FrontImageSource != null)
         {
@@ -222,7 +221,7 @@ public class FreakyScratchViewDrawable
             {
                 // Image already loaded — draw it scaled to fill the mask
                 using var image = SKImage.FromBitmap(_frontBitmap);
-                _maskCanvas.DrawImage(image, new SKRect(0, 0, width, height),
+                _maskCanvas?.DrawImage(image, new SKRect(0, 0, width, height),
                     new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear));
             }
             else if (!_isLoadingFrontImage)
@@ -241,11 +240,11 @@ public class FreakyScratchViewDrawable
     private void FillMaskWithColor()
     {
         var c = _parent.FrontColor;
-        _maskCanvas.Clear(new SKColor(
+        _maskCanvas?.Clear(new SKColor(
             (byte)(c.Red * 255), (byte)(c.Green * 255), (byte)(c.Blue * 255), (byte)(c.Alpha * 255)));
     }
 
-    private async Task LoadFrontImageAsync(int width, int height, SkiaSharp.Views.Maui.Controls.SKCanvasView canvasView)
+    private async Task LoadFrontImageAsync(int width, int height, SkiaSharp.Views.Maui.Controls.SKCanvasView? canvasView)
     {
         _loadFrontCts?.Cancel();
         _loadFrontCts?.Dispose();
@@ -258,7 +257,7 @@ public class FreakyScratchViewDrawable
             var bitmap = await ImageSourceToSKBitmapAsync(_parent.FrontImageSource);
             if (cts.IsCancellationRequested)
                 return;
-            if (bitmap != null && _maskBitmap != null)
+            if (bitmap != null && _maskBitmap != null && _maskCanvas != null)
             {
                 _frontBitmap = bitmap;
                 _maskCanvas.Clear(SKColors.Transparent);
@@ -275,11 +274,11 @@ public class FreakyScratchViewDrawable
         }
     }
 
-    private static async Task<SKBitmap> ImageSourceToSKBitmapAsync(ImageSource imageSource)
+    private static async Task<SKBitmap?> ImageSourceToSKBitmapAsync(ImageSource imageSource)
     {
         try
         {
-            Stream stream = imageSource switch
+            Stream? stream = imageSource switch
             {
                 StreamImageSource s => await s.Stream(CancellationToken.None),
                 FileImageSource f => await FileSystem.OpenAppPackageFileAsync(f.File),
@@ -297,7 +296,7 @@ public class FreakyScratchViewDrawable
         }
     }
 
-    public void OnTouch(object sender, SKTouchEventArgs e)
+    public void OnTouch(object? sender, SKTouchEventArgs e)
     {
         if (_maskCanvas == null)
             return;
@@ -337,7 +336,7 @@ public class FreakyScratchViewDrawable
 
                 if (!_scratchCompleted)
                 {
-                    var percent = ScratchUtils.CalculateClearedPercent(_maskBitmap);
+                    var percent = (_maskBitmap is not null ? ScratchUtils.CalculateClearedPercent(_maskBitmap) : 0f);
                     if (percent >= _parent.RevealThreshold)
                     {
                         _scratchCompleted = true;
@@ -371,7 +370,7 @@ public class FreakyScratchViewDrawable
 
     private void AnimateReveal()
     {
-        _maskCanvas.Clear(SKColors.Transparent); // Clear full mask
+        _maskCanvas?.Clear(SKColors.Transparent); // Clear full mask
         (_parent.Content as Grid)?.Children.OfType<SKCanvasView>().FirstOrDefault()?.InvalidateSurface();
 
         ScratchAnimationHelper.PlayRevealAnimation(_parent, _parent.RevealAnimationType);

@@ -1,5 +1,3 @@
-#nullable disable
-
 using SkiaSharp.Views.Maui.Controls;
 
 namespace Maui.FreakyControls;

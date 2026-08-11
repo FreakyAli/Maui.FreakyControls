@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Enums;
 using SkiaSharp;
@@ -33,7 +31,7 @@ public class FreakyCheckbox : ContentView, IDisposable
         GestureRecognizers.Add(tapped);
     }
 
-    private void CheckBox_Tapped(object sender, EventArgs e)
+    private void CheckBox_Tapped(object? sender, EventArgs e)
     {
         if (IsEnabled)
         {
@@ -194,9 +192,10 @@ public class FreakyCheckbox : ContentView, IDisposable
 
     #region Skia
 
-    private void Handle_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    private void Handle_PaintSurface(object? sender, SKPaintSurfaceEventArgs e)
     {
         e?.Surface?.Canvas?.Clear();
+        if (e is null) return;
         if (IsChecked)
             DrawCheckFilled(e);
         else
@@ -206,7 +205,8 @@ public class FreakyCheckbox : ContentView, IDisposable
     private void DrawCheckFilled(SKPaintSurfaceEventArgs e)
     {
         var imageInfo = e.Info;
-        var canvas = e?.Surface?.Canvas;
+        var canvas = e.Surface?.Canvas;
+        if (canvas is null) return;
 
         var shape = Design == Design.Unified ? Shape : FreakyCheckbox.shape;
         using var checkfill = new SKPaint()
@@ -320,7 +320,8 @@ public class FreakyCheckbox : ContentView, IDisposable
     private void DrawOutline(SKPaintSurfaceEventArgs e)
     {
         var imageInfo = e.Info;
-        var canvas = e?.Surface?.Canvas;
+        var canvas = e.Surface?.Canvas;
+        if (canvas is null) return;
 
         using (var outline = new SKPaint
         {
@@ -362,7 +363,7 @@ public class FreakyCheckbox : ContentView, IDisposable
     /// <summary>
     /// Raised when <see cref="FreakyCheckbox.IsChecked"/> changes.
     /// </summary>
-    public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
+    public event EventHandler<CheckedChangedEventArgs>? CheckedChanged;
 
     #endregion Events
 

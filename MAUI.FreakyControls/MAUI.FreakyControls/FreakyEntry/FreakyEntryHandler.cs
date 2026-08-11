@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Extensions;
 using Microsoft.Maui.Handlers;
 

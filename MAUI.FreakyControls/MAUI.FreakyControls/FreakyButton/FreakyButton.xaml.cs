@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Enums;
 using System.Runtime.CompilerServices;
@@ -12,7 +10,7 @@ public partial class FreakyButton : ContentView
 {
     public static readonly string IsBusyVisualState = "Busy";
 
-    public event EventHandler Clicked;
+    public event EventHandler? Clicked;
 
     #region Bindable properties
 
@@ -298,14 +296,14 @@ public partial class FreakyButton : ContentView
 
     private static void OnIconsAreExpandedChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var freakyButton = bindable as FreakyButton;
+        var freakyButton = (FreakyButton)bindable;
         var areIconsExpanded = (bool)newValue;
         freakyButton.mainGrid.HorizontalOptions = areIconsExpanded ? LayoutOptions.Fill : LayoutOptions.Center;
     }
 
     private static async void OnIsBusyPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var freakyButton = bindable as FreakyButton;
+        var freakyButton = (FreakyButton)bindable;
         var isBusy = (bool)newValue;
         if (isBusy)
         {
@@ -352,7 +350,7 @@ public partial class FreakyButton : ContentView
         }
     }
 
-    private async void Button_Tapped(object sender, TappedEventArgs e)
+    private async void Button_Tapped(object? sender, TappedEventArgs e)
     {
         if (!IsEnabled)
         {
@@ -386,7 +384,7 @@ public partial class FreakyButton : ContentView
         Command?.ExecuteWhenAvailable(CommandParameter);
     }
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
         if (propertyName == nameof(IsEnabled))

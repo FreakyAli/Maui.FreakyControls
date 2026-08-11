@@ -1,5 +1,3 @@
-#nullable disable
-
 using SkiaSharp;
 using SkiaSharp.Views.Maui.Controls;
 using System.Windows.Input;
@@ -132,19 +130,18 @@ public class FreakyScratchView : ContentView
         set => SetValue(ScratchCompletedCommandProperty, value);
     }
 
-    public event EventHandler ScratchCompleted;
+    public event EventHandler? ScratchCompleted;
 
     public FreakyScratchView()
     {
+        _mainLayout = new Grid();
+        _skiaCanvas = new SKCanvasView();
+        _drawable = new FreakyScratchViewDrawable(this);
         BuildLayout();
     }
 
     private void BuildLayout()
     {
-        _mainLayout = new Grid();
-
-        _skiaCanvas = new SKCanvasView();
-        _drawable = new FreakyScratchViewDrawable(this);
         _skiaCanvas.PaintSurface += _drawable.OnPaintSurface;
         _skiaCanvas.EnableTouchEvents = true;
         _skiaCanvas.Touch += _drawable.OnTouch;
