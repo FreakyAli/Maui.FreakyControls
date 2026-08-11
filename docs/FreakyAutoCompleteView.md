@@ -70,3 +70,16 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 | `TextChanged` | `FreakyAutoCompleteViewTextChangedEventArgs` | Fires on user input or programmatic text change. `Reason` indicates `UserInput`, `ProgrammaticChange`, or `SuggestionChosen` |
 | `QuerySubmitted` | `FreakyAutoCompleteViewQuerySubmittedEventArgs` | Fires when the user presses return or selects a suggestion |
 | `SuggestionChosen` | `FreakyAutoCompleteViewSuggestionChosenEventArgs` | Fires when a suggestion row is tapped |
+
+---
+
+## Platform Limitations
+
+### Windows (WinUI 3)
+
+The native `AutoSuggestBox` control in WinUI 3 has limitations that affect dropdown customization:
+
+- **Dropdown Sizing** — `DropDownWidth` and `DropDownHeight` cannot be customized; the underlying `AutoSuggestBox` dropdown sizing is not exposed via public APIs
+- **Dropdown Styling** — `DropDownBorderColor`, `DropDownBorderWidth`, and `DropDownCornerRadius` are not supported; the internal popup control is not directly accessible for customization
+
+These are platform limitations imposed by the WinUI 3 framework and cannot be worked around in the control implementation.

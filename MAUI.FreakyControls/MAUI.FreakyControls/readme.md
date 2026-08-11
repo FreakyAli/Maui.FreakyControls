@@ -1,6 +1,6 @@
 # FreakyControls
 
-A free, open-source UI kit for .NET MAUI. Provides a comprehensive set of controls and utilities for building modern cross-platform apps.
+A free, open-source UI kit for .NET MAUI. Provides a comprehensive set of controls and utilities for building modern cross-platform apps. Trim-safe.
 
 **Full documentation:** [github.com/FreakyAli/MAUI.FreakyControls](https://github.com/FreakyAli/MAUI.FreakyControls#readme)
 

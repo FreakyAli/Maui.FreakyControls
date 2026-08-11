@@ -40,21 +40,6 @@ Create unit tests for all FreakyControls to ensure reliability and maintainabili
 
 ---
 
-## Documentation
-
-### API Documentation
-Ensure all public properties and methods have comprehensive XML documentation comments for IntelliSense support across all controls.
-
-**Tasks:**
-- Add XML doc comments to all public members
-- Enable compiler warnings for missing documentation (CS1591)
-- Enforce CI checks to fail build when public members lack documentation
-- Remove documentation warning suppressions
-
-**Status:** Partially Complete
-
----
-
 ## Samples & UI/UX
 
 ### Modern Sample App Redesign
@@ -80,36 +65,4 @@ Rebuild the Samples application with a modern, polished UI that properly showcas
 **Priority:** Medium  
 **Status:** Not Started
 
----
-
-## Performance & Optimization
-
-### Trimming & AOT Compatibility
-Prepare FreakyControls and the Samples app for full .NET trimming and Native AOT support to reduce app size and improve startup performance.
-
-**Tasks:**
-- Enable `<EnableTrimAnalyzer>true</EnableTrimAnalyzer>` in Maui.FreakyControls.csproj
-- Fix all trim analysis warnings (reflection usage, dynamic type loading, etc.)
-- Ensure no trim-unsafe patterns exist in platform handlers or converters
-- Add `<IsTrimmable>true</IsTrimmable>` to Maui.FreakyControls.csproj
-- Add `[DynamicallyAccessedMembers]` annotations where reflection is required
-- Validate all bindable properties, converters, and handlers survive trimming
-- Update Samples app to be fully trimmable
-- Convert `[ObservableProperty]` fields to partial properties for WinRT AOT compatibility (MVVMTK0045)
-- Enable `<PublishTrimmed>true</PublishTrimmed>` and validate on all platforms
-- Test NativeAOT compilation where supported
-
-**Priority:** Medium  
-**Status:** Not Started
-
----
-
-## Known Limitations
-
-### FreakyAutoCompleteView — Windows (WinUI 3)
-- **DropDownWidth/Height** — AutoSuggestBox dropdown sizing is not exposed via public APIs
-- **DropDownBorderColor/Width/CornerRadius** — Dropdown border styling is not supported; the internal popup is not directly accessible for customization
-
----
-
-**Last Updated:** August 6, 2026
+**Last Updated:** August 11, 2026
