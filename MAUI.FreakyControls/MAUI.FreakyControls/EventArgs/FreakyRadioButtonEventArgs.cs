@@ -3,10 +3,10 @@ namespace Maui.FreakyControls;
 
 public class FreakyRadioButtonEventArgs : EventArgs
 {
-    public string RadioButtonName { get; }
+    public string? RadioButtonName { get; }
     public int RadioButtonIndex { get; }
 
-    public FreakyRadioButtonEventArgs(string name, int index)
+    public FreakyRadioButtonEventArgs(string? name, int index)
     {
         RadioButtonName = name;
         RadioButtonIndex = index;

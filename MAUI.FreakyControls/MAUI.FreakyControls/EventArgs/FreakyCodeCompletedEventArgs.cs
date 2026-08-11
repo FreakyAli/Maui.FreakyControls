@@ -3,9 +3,9 @@ namespace Maui.FreakyControls;
 
 public class FreakyCodeCompletedEventArgs : EventArgs
 {
-    public string Code { get; set; }
+    public string? Code { get; set; }
 
-    public FreakyCodeCompletedEventArgs(string code)
+    public FreakyCodeCompletedEventArgs(string? code)
     {
         this.Code = code;
     }
