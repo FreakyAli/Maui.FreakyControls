@@ -226,7 +226,7 @@ namespace Maui.FreakyControls
 
         // ── Image export ───────────────────────────────────────────────────
 
-        private async Task<Stream> RenderToStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
+        private async Task<Stream?> RenderToStreamAsync(SignatureImageFormat format, ImageConstructionSettings settings)
         {
             int canvasW = Math.Max(1, (int)PlatformView.ActualWidth);
             int canvasH = Math.Max(1, (int)PlatformView.ActualHeight);
