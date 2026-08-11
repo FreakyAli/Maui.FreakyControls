@@ -56,7 +56,8 @@ xmlns:freaky="clr-namespace:Maui.FreakyControls;assembly=Maui.FreakyControls"
 Call `GetImageStreamAsync` on the control to retrieve the signature as an encoded image stream:
 
 ```csharp
-Stream stream = await SignaturePad.GetImageStreamAsync(SignatureImageFormat.Png);
+Stream? stream = await SignaturePad.GetImageStreamAsync(SignatureImageFormat.Png);
+if (stream is null) return; // handle the case where the image could not be generated
 ```
 
 Overloads accept an optional `size`, `scale`, `strokeColor`, and `fillColor`. `ImageStreamRequested` is internal handler plumbing and is not part of the consumer API.

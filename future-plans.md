@@ -40,22 +40,6 @@ Create unit tests for all FreakyControls to ensure reliability and maintainabili
 
 ---
 
-## Code Quality & Safety
-
-### Enable Nullable Reference Types
-Enable `<Nullable>enable</Nullable>` in Maui.FreakyControls.csproj to enable nullable reference type checking and eliminate null-reference warnings across the codebase.
-
-**Tasks:**
-- Enable nullable in project file
-- Resolve null-safety warnings by adding null checks and null-coalescing operators
-- Update method signatures with proper null annotations (`?` for nullable, `null!` only when non-null invariant is proven)
-- Avoid using `!` as a blanket null-suppression tool; validate non-null contracts first
-
-**Priority:** Medium  
-**Status:** Not Started
-
----
-
 ## Documentation
 
 ### API Documentation

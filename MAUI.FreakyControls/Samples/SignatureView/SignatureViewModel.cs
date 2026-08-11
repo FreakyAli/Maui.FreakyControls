@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿#nullable enable
+using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 
 namespace Samples.SignatureView
@@ -7,7 +8,7 @@ namespace Samples.SignatureView
     {
         public ICommand ConversionCommand { get; }
 
-        public Stream ImageStream { get; set; }
+        public Stream? ImageStream { get; set; }
 
         public SignatureViewModel()
         {
