@@ -69,7 +69,10 @@ public static class Extensions
     /// </summary>
     public static async Task<NativeImage?> ToNativeImageSourceAsync(this ImageSource source)
     {
-        var provider = IPlatformApplication.Current?.Services.GetService<IImageSourceServiceProvider>();
+        var services = IPlatformApplication.Current?.Services;
+        if (services is null) return null;
+
+        var provider = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService<IImageSourceServiceProvider>(services);
         if (provider is null) return null;
         var service = provider.GetImageSourceService(source);
         if (service is null) return null;
