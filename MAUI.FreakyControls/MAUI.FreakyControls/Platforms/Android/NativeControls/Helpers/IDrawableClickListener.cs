@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
 public interface IDrawableClickListener

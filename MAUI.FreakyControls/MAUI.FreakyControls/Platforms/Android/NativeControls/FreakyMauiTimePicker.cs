@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Util;
@@ -11,14 +9,14 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 
 public class FreakyMauiTimePicker : MauiTimePicker
 {
-    private Drawable drawableRight;
-    private Drawable drawableLeft;
-    private Drawable drawableTop;
-    private Drawable drawableBottom;
+    private Drawable? drawableRight;
+    private Drawable? drawableLeft;
+    private Drawable? drawableTop;
+    private Drawable? drawableBottom;
 
     private int actionX, actionY;
 
-    private IDrawableClickListener clickListener;
+    private IDrawableClickListener? clickListener;
 
     public FreakyMauiTimePicker(Context context) : base(context)
     {
@@ -32,8 +30,8 @@ public class FreakyMauiTimePicker : MauiTimePicker
     {
     }
 
-    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
-           Drawable right, Drawable bottom)
+    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable? left, Drawable? top,
+           Drawable? right, Drawable? bottom)
     {
         if (left is not null)
         {
@@ -54,8 +52,9 @@ public class FreakyMauiTimePicker : MauiTimePicker
         base.SetCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
     }
 
-    public override bool OnTouchEvent(MotionEvent e)
+    public override bool OnTouchEvent(MotionEvent? e)
     {
+        if (e is null) return base.OnTouchEvent(e);
         Rect bounds;
         if (e.Action == MotionEventActions.Down)
         {
@@ -64,25 +63,24 @@ public class FreakyMauiTimePicker : MauiTimePicker
             if (drawableBottom is not null
                 && drawableBottom.Bounds.Contains(actionX, actionY))
             {
-                clickListener.OnClick(DrawablePosition.Bottom);
+                clickListener?.OnClick(DrawablePosition.Bottom);
                 return base.OnTouchEvent(e);
             }
 
             if (drawableTop is not null
                     && drawableTop.Bounds.Contains(actionX, actionY))
             {
-                clickListener.OnClick(DrawablePosition.Top);
+                clickListener?.OnClick(DrawablePosition.Top);
                 return base.OnTouchEvent(e);
             }
 
             // this works for left since container shares 0,0 origin with bounds
             if (drawableLeft is not null)
             {
-                bounds = null;
                 bounds = drawableLeft.Bounds;
 
                 int x, y;
-                int extraTapArea = (int)((13 * Resources.DisplayMetrics.Density) + 0.5);
+                int extraTapArea = (int)((13 * (Resources?.DisplayMetrics?.Density ?? 1f)) + 0.5);
 
                 x = actionX;
                 y = actionY;
@@ -115,7 +113,6 @@ public class FreakyMauiTimePicker : MauiTimePicker
 
             if (drawableRight is not null)
             {
-                bounds = null;
                 bounds = drawableRight.Bounds;
 
                 int x, y;

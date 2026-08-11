@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Android.App;
 using Android.Graphics;
 using System.Collections;
@@ -28,12 +26,12 @@ public static class NativeExtensions
     public static float GetDensity(this Activity activity)
     {
 #if ANDROID30_0_OR_GREATER
-        var displayMetrics = activity.Resources.DisplayMetrics;
-        var density = displayMetrics.Density;
+        var displayMetrics = activity.Resources?.DisplayMetrics;
+        var density = displayMetrics?.Density ?? 1f;
         return density;
 #else
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.WindowManager.DefaultDisplay.GetMetrics(displayMetrics);
+        activity.WindowManager?.DefaultDisplay?.GetMetrics(displayMetrics);
         return displayMetrics.Density;
 #endif
     }

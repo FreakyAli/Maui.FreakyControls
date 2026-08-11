@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Runtime;
@@ -17,26 +15,26 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 {
     private bool suppressTextChangedEvent;
-    private Func<object, string> textFunc;
+    private Func<object, string>? textFunc;
     private SuggestCompleteAdapter adapter;
-    private Drawable drawableRight;
-    private Drawable drawableLeft;
-    private Drawable drawableTop;
-    private Drawable drawableBottom;
+    private Drawable? drawableRight;
+    private Drawable? drawableLeft;
+    private Drawable? drawableTop;
+    private Drawable? drawableBottom;
     private int actionX, actionY;
-    private IDrawableClickListener clickListener;
+    private IDrawableClickListener? clickListener;
 
     public FreakyNativeAutoCompleteView(Context context) : base(context)
     {
         SetMaxLines(1);
         InputType = global::Android.Text.InputTypes.TextFlagNoSuggestions | global::Android.Text.InputTypes.TextVariationVisiblePassword; //Disables text suggestions as the auto-complete view is there to do that
         ItemClick += OnItemClick;
-        Adapter = adapter = new SuggestCompleteAdapter(Context, global::Android.Resource.Layout.SimpleDropDownItem1Line);
+        Adapter = adapter = new SuggestCompleteAdapter(context, global::Android.Resource.Layout.SimpleDropDownItem1Line);
     }
 
     public override bool EnoughToFilter() => true;
 
-    internal void SetItems(IEnumerable<object> items, Func<object, string> labelFunc, Func<object, string> textFunc)
+    internal void SetItems(IEnumerable<object>? items, Func<object, string> labelFunc, Func<object, string> textFunc)
     {
         this.textFunc = textFunc;
         if (items is null)
@@ -45,7 +43,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             adapter.UpdateList(items.OfType<object>(), labelFunc);
     }
 
-    public virtual new string Text
+    public virtual new string? Text
     {
         get => base.Text;
         set
@@ -53,7 +51,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             suppressTextChangedEvent = true;
             base.Text = value;
             suppressTextChangedEvent = false;
-            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, TextChangeReason.ProgrammaticChange));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value ?? string.Empty, TextChangeReason.ProgrammaticChange));
         }
     }
 
@@ -85,33 +83,34 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
-    protected override void OnTextChanged(ICharSequence text, int start, int lengthBefore, int lengthAfter)
+    protected override void OnTextChanged(ICharSequence? text, int start, int lengthBefore, int lengthAfter)
     {
         if (!suppressTextChangedEvent)
-            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text.ToString(), TextChangeReason.UserInput));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text?.ToString() ?? string.Empty, TextChangeReason.UserInput));
         base.OnTextChanged(text, start, lengthBefore, lengthAfter);
     }
 
     private void DismissKeyboard()
     {
-        var imm = (InputMethodManager)Context.GetSystemService(Context.InputMethodService);
-        imm.HideSoftInputFromWindow(WindowToken, 0);
+        if (Context?.GetSystemService(Context.InputMethodService) is InputMethodManager imm)
+            imm.HideSoftInputFromWindow(WindowToken, 0);
     }
 
-    private void OnItemClick(object sender, AdapterView.ItemClickEventArgs e)
+    private void OnItemClick(object? sender, AdapterView.ItemClickEventArgs e)
     {
         DismissKeyboard();
         var obj = adapter.GetObject(e.Position);
         if (UpdateTextOnSelect)
         {
             suppressTextChangedEvent = true;
-            string text = textFunc(obj);
+            string text = textFunc?.Invoke(obj) ?? obj?.ToString() ?? string.Empty;
             base.Text = text;
             suppressTextChangedEvent = false;
             TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text, TextChangeReason.SuggestionChosen));
         }
-        SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(obj));
-        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, obj));
+        if (obj is not null)
+            SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(obj));
+        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text ?? string.Empty, obj));
     }
 
     public override void OnEditorAction([GeneratedEnum] ImeAction actionCode)
@@ -120,25 +119,25 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         {
             DismissDropDown();
             DismissKeyboard();
-            QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, null));
+            QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text ?? string.Empty, null));
         }
         else
             base.OnEditorAction(actionCode);
     }
 
-    protected override void ReplaceText(ICharSequence text)
+    protected override void ReplaceText(ICharSequence? text)
     {
         //Override to avoid updating textbox on itemclick. We'll do this later using TextMemberPath and raise the proper TextChanged event then
     }
 
-    public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
+    public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs>? TextChanged;
 
-    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
+    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs>? QuerySubmitted;
 
-    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
+    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs>? SuggestionChosen;
 
-    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
-         Drawable right, Drawable bottom)
+    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable? left, Drawable? top,
+         Drawable? right, Drawable? bottom)
     {
         if (left is not null)
         {
@@ -159,8 +158,9 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         base.SetCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
     }
 
-    public override bool OnTouchEvent(MotionEvent e)
+    public override bool OnTouchEvent(MotionEvent? e)
     {
+        if (e is null) return base.OnTouchEvent(e);
         Rect bounds;
         if (e.Action == MotionEventActions.Down)
         {
@@ -169,25 +169,24 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             if (drawableBottom is not null
                 && drawableBottom.Bounds.Contains(actionX, actionY))
             {
-                clickListener.OnClick(DrawablePosition.Bottom);
+                clickListener?.OnClick(DrawablePosition.Bottom);
                 return base.OnTouchEvent(e);
             }
 
             if (drawableTop is not null
                     && drawableTop.Bounds.Contains(actionX, actionY))
             {
-                clickListener.OnClick(DrawablePosition.Top);
+                clickListener?.OnClick(DrawablePosition.Top);
                 return base.OnTouchEvent(e);
             }
 
             // this works for left since container shares 0,0 origin with bounds
             if (drawableLeft is not null)
             {
-                bounds = null;
                 bounds = drawableLeft.Bounds;
 
                 int x, y;
-                int extraTapArea = (int)((13 * Resources.DisplayMetrics.Density) + 0.5);
+                int extraTapArea = (int)((13 * (Resources?.DisplayMetrics?.Density ?? 1f)) + 0.5);
 
                 x = actionX;
                 y = actionY;
@@ -220,7 +219,6 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
             if (drawableRight is not null)
             {
-                bounds = null;
                 bounds = drawableRight.Bounds;
 
                 int x, y;
@@ -313,7 +311,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     {
         private SuggestFilter filter = new SuggestFilter();
         private List<object> resultList;
-        private Func<object, string> labelFunc;
+        private Func<object, string>? labelFunc;
 
         public SuggestCompleteAdapter(Context context, int textViewResourceId) : base(context, textViewResourceId)
         {
@@ -341,7 +339,9 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
         public override Java.Lang.Object GetItem(int position)
         {
-            return labelFunc(GetObject(position));
+            var obj = GetObject(position);
+            string label = labelFunc?.Invoke(obj) ?? obj?.ToString() ?? string.Empty;
+            return new Java.Lang.String(label);
         }
 
         public object GetObject(int position)
@@ -356,7 +356,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
         private class SuggestFilter : Filter
         {
-            private IEnumerable<string> resultList;
+            private IEnumerable<string>? resultList;
 
             public SuggestFilter()
             {
@@ -367,7 +367,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                 resultList = list;
             }
 
-            protected override FilterResults PerformFiltering(ICharSequence constraint)
+            protected override FilterResults PerformFiltering(ICharSequence? constraint)
             {
                 if (resultList is null)
                     return new FilterResults() { Count = 0, Values = null };
@@ -375,7 +375,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                 return new FilterResults() { Count = arr.Length, Values = arr };
             }
 
-            protected override void PublishResults(ICharSequence constraint, FilterResults results)
+            protected override void PublishResults(ICharSequence? constraint, FilterResults? results)
             {
             }
         }

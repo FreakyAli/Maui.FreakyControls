@@ -1,5 +1,3 @@
-#nullable disable
-
 using NativeColor = UIKit.UIColor;
 using NativePath = UIKit.UIBezierPath;
 using NativePoint = CoreGraphics.CGPoint;
@@ -8,7 +6,7 @@ namespace Maui.FreakyControls.Platforms.Apple;
 
 internal class InkStroke
 {
-    private NativeColor color;
+    private NativeColor color = NativeColor.Black;
     private float width;
     private IList<NativePoint> inkPoints;
 

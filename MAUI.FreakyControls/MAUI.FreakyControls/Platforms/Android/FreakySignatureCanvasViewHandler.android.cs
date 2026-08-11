@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
 
@@ -10,7 +8,7 @@ namespace Maui.FreakyControls
         protected override Platforms.Android.SignaturePadCanvasView
             CreatePlatformView() => new(this.Context);
 
-        private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
+        private void OnImageStreamRequested(object? sender, ImageStreamRequestedEventArgs e)
         {
             var ctrl = PlatformView;
             if (ctrl is not null)

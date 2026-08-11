@@ -432,19 +432,19 @@ public partial class FreakySignaturePadView : ContentView, IDisposable
         return SignaturePadCanvas.GetImageStreamAsync(format, settings);
     }
 
-    private void OnClearTapped(object sender, EventArgs e)
+    private void OnClearTapped(object? sender, EventArgs e)
     {
         Clear();
     }
 
-    private void OnSignatureCleared(object sender, EventArgs e)
+    private void OnSignatureCleared(object? sender, EventArgs e)
     {
         UpdateBindableProperties();
         Cleared?.Invoke(this, EventArgs.Empty);
         ClearedCommand.ExecuteWhenAvailable();
     }
 
-    private void OnSignatureStrokeCompleted(object sender, EventArgs e)
+    private void OnSignatureStrokeCompleted(object? sender, EventArgs e)
     {
         UpdateBindableProperties();
         StrokeCompleted?.Invoke(this, EventArgs.Empty);

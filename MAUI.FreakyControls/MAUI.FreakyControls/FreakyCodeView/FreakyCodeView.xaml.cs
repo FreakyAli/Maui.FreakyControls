@@ -518,7 +518,7 @@ public partial class FreakyCodeView : ContentView
           typeof(FreakyCodeView),
           true);
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void TapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
     {
         if (IsEnabled)
         {

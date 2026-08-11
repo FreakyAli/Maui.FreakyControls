@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Platforms.Apple.NativeControls;
 using Microsoft.Maui.Platform;
 
@@ -15,7 +13,10 @@ namespace Maui.FreakyControls
 
         internal void HandleAllowCopyPaste(FreakyEditor entry)
         {
-            (PlatformView as FreakyUITextView).AllowCopyPaste = entry.AllowCopyPaste;
+            if (PlatformView is FreakyUITextView textView)
+            {
+                textView.AllowCopyPaste = entry.AllowCopyPaste;
+            }
         }
     }
 }

@@ -1,5 +1,3 @@
-#nullable disable
-
 using CoreGraphics;
 using System.Drawing;
 using UIKit;

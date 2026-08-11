@@ -1,5 +1,3 @@
-#nullable disable
-
 using Microsoft.Maui.Handlers;
 #if WINDOWS
 using Microsoft.UI.Xaml.Controls;
@@ -102,7 +100,7 @@ namespace Maui.FreakyControls
 
         // ── Drawing ────────────────────────────────────────────────────────
 
-        private void OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        private void OnPointerPressed(object? sender, PointerRoutedEventArgs e)
         {
             if (sender is not Canvas canvas) return;
 
@@ -128,14 +126,14 @@ namespace Maui.FreakyControls
             canvas.CapturePointer(e.Pointer);
         }
 
-        private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
+        private void OnPointerMoved(object? sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerId != _activePointerId) return;
             if (!_isDrawing || _currentStroke is null || sender is not Canvas canvas) return;
             _currentStroke.Points.Add(e.GetCurrentPoint(canvas).Position);
         }
 
-        private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
+        private void OnPointerReleased(object? sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerId != _activePointerId) return;
             if (_isDrawing && sender is Canvas canvas)
@@ -143,13 +141,13 @@ namespace Maui.FreakyControls
             EndCurrentStroke();
         }
 
-        private void OnPointerCanceled(object sender, PointerRoutedEventArgs e)
+        private void OnPointerCanceled(object? sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerId != _activePointerId) return;
             EndCurrentStroke();
         }
 
-        private void OnPointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        private void OnPointerCaptureLost(object? sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerId != _activePointerId) return;
             EndCurrentStroke();

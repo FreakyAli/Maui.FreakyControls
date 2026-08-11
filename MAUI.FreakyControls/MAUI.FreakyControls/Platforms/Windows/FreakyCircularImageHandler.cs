@@ -1,5 +1,3 @@
-#nullable disable
-
 namespace Maui.FreakyControls
 {
     public sealed partial class FreakyCircularImageHandler
@@ -17,7 +15,7 @@ namespace Maui.FreakyControls
             base.DisconnectHandler(platformView);
         }
 
-        private void OnSizeChanged(object sender, Microsoft.UI.Xaml.SizeChangedEventArgs e)
+        private void OnSizeChanged(object? sender, Microsoft.UI.Xaml.SizeChangedEventArgs e)
         {
             if (sender is Microsoft.UI.Xaml.Controls.Image image)
             {

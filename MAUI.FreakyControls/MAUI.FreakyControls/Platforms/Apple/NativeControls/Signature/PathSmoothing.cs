@@ -1,5 +1,3 @@
-#nullable disable
-
 using NativePath = UIKit.UIBezierPath;
 using NativePoint = CoreGraphics.CGPoint;
 
@@ -15,7 +13,7 @@ internal static class PathSmoothing
     {
         var currentPoints = currentPath.GetPoints().ToList();
 
-        SmoothedPathWithGranularity(currentPoints, granularity, out NativePath smoothedPath, out List<NativePoint> smoothedPoints);
+        SmoothedPathWithGranularity(currentPoints, granularity, out NativePath? smoothedPath, out List<NativePoint> smoothedPoints);
         if (smoothedPath is null)
         {
             return currentPath;
@@ -23,12 +21,12 @@ internal static class PathSmoothing
         return new InkStroke(smoothedPath, smoothedPoints.ToList(), currentPath.Color, currentPath.Width);
     }
 
-    public static void SmoothedPathWithGranularity(List<NativePoint> currentPoints, int granularity, out NativePath smoothedPath, out List<NativePoint> smoothedPoints)
+    public static void SmoothedPathWithGranularity(List<NativePoint> currentPoints, int granularity, out NativePath? smoothedPath, out List<NativePoint> smoothedPoints)
     {
         if (currentPoints.Count < 4)
         {
             smoothedPath = null;
-            smoothedPoints = null;
+            smoothedPoints = new List<NativePoint>();
             return;
         }
 

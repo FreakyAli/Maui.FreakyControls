@@ -1,5 +1,3 @@
-#nullable disable
-
 #if WINDOWS
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

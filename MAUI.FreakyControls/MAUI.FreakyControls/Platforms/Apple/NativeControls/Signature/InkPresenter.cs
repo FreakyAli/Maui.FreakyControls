@@ -1,5 +1,3 @@
-#nullable disable
-
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -37,11 +35,12 @@ internal partial class InkPresenter : UIView
 
     public override bool GestureRecognizerShouldBegin(UIGestureRecognizer gestureRecognizer) => false;
 
-    public override void TouchesBegan(NSSet touches, UIEvent evt)
+    public override void TouchesBegan(NSSet touches, UIEvent? evt)
     {
         currentPath = new InkStroke(UIBezierPath.Create(), new List<CGPoint>(), StrokeColor, StrokeWidth);
 
         var touch = touches.AnyObject as UITouch;
+        if (touch is null) return;
         var touchLocation = touch.LocationInView(this);
 
         currentPath.Path.MoveTo(touchLocation);
@@ -50,7 +49,7 @@ internal partial class InkPresenter : UIView
         ResetBounds(touchLocation);
     }
 
-    public override void TouchesMoved(NSSet touches, UIEvent evt)
+    public override void TouchesMoved(NSSet touches, UIEvent? evt)
     {
         if (currentPath is null)
         {
@@ -58,26 +57,28 @@ internal partial class InkPresenter : UIView
         }
 
         var touch = touches.AnyObject as UITouch;
+        if (touch is null) return;
         var touchLocation = touch.LocationInView(this);
 
-        if (HasMovedFarEnough(currentPath, touchLocation.X, touchLocation.Y))
+        if (currentPath is not null && HasMovedFarEnough(currentPath, touchLocation.X, touchLocation.Y))
         {
-            currentPath.Path.AddLineTo(touchLocation);
-            currentPath.GetPoints().Add(touchLocation);
+            currentPath?.Path.AddLineTo(touchLocation);
+            currentPath?.GetPoints().Add(touchLocation);
 
             UpdateBounds(touchLocation);
             SetNeedsDisplayInRect(DirtyRect);
         }
     }
 
-    public override void TouchesCancelled(NSSet touches, UIEvent evt)
+    public override void TouchesCancelled(NSSet touches, UIEvent? evt)
     {
         TouchesEnded(touches, evt);
     }
 
-    public override void TouchesEnded(NSSet touches, UIEvent evt)
+    public override void TouchesEnded(NSSet touches, UIEvent? evt)
     {
         var touch = touches.AnyObject as UITouch;
+        if (touch is null) return;
         var touchLocation = touch.LocationInView(this);
 
         if (currentPath is not null)
@@ -126,17 +127,24 @@ internal partial class InkPresenter : UIView
         if (currentPath is not null)
         {
             var context = UIGraphics.GetCurrentContext();
-            context.SetLineCap(CGLineCap.Round);
-            context.SetLineJoin(CGLineJoin.Round);
-            context.SetStrokeColor(currentPath.Color.CGColor);
-            context.SetLineWidth(currentPath.Width);
+            if (context is not null)
+            {
+                context.SetLineCap(CGLineCap.Round);
+                context.SetLineJoin(CGLineJoin.Round);
+                context.SetStrokeColor(currentPath.Color.CGColor);
+                context.SetLineWidth(currentPath.Width);
 
-            context.AddPath(currentPath.Path.CGPath);
-            context.StrokePath();
+                var cgPath = currentPath.Path.CGPath;
+                if (cgPath is not null)
+                {
+                    context.AddPath(cgPath);
+                }
+                context.StrokePath();
+            }
         }
     }
 
-    private NativeImage CreateBufferImage()
+    private NativeImage? CreateBufferImage()
     {
         if (paths is null || paths.Count == 0)
         {
@@ -158,7 +166,11 @@ internal partial class InkPresenter : UIView
                 cgcontext.SetStrokeColor(path.Color.CGColor);
                 cgcontext.SetLineWidth(path.Width);
 
-                cgcontext.AddPath(path.Path.CGPath);
+                var pathCGPath = path.Path.CGPath;
+                if (pathCGPath is not null)
+                {
+                    cgcontext.AddPath(pathCGPath);
+                }
                 cgcontext.StrokePath();
 
                 path.IsDirty = false;
@@ -183,14 +195,14 @@ internal partial class InkPresenter
     public static float ScreenDensity;
 
     private readonly List<InkStroke> paths = new List<InkStroke>();
-    private InkStroke currentPath;
+    private InkStroke? currentPath;
 
     private float dirtyRectLeft;
     private float dirtyRectTop;
     private float dirtyRectRight;
     private float dirtyRectBottom;
 
-    private NativeImage bitmapBuffer;
+    private NativeImage? bitmapBuffer;
 
     public NativeColor StrokeColor { get; set; } = NativeColor.Black;
 
@@ -232,7 +244,7 @@ internal partial class InkPresenter
         }
     }
 
-    public event EventHandler StrokeCompleted;
+    public event EventHandler? StrokeCompleted;
 
     public IReadOnlyList<InkStroke> GetStrokes()
     {

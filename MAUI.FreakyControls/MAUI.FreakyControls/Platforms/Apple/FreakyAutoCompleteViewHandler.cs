@@ -1,5 +1,3 @@
-#nullable disable
-
 using Maui.FreakyControls.Extensions;
 using Maui.FreakyControls.Platforms.Apple;
 using Maui.FreakyControls.Platforms.Apple.NativeControls;
@@ -72,12 +70,12 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         return base.GetDesiredSize(baseResult.Width, height);
     }
 
-    void Control_EditingDidBegin(object sender, EventArgs e)
+    void Control_EditingDidBegin(object? sender, EventArgs e)
     {
         VirtualView.IsFocused = true;
     }
 
-    void Control_EditingDidEnd(object sender, EventArgs e)
+    void Control_EditingDidEnd(object? sender, EventArgs e)
     {
         VirtualView.IsFocused = false;
     }
@@ -150,12 +148,12 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.UpdateTextAlignment(handler?.PlatformView);
+        handler.UpdateTextAlignment(handler.PlatformView);
     }
 
     public static void MapFont(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.UpdateFont(handler?.PlatformView);
+        handler.UpdateFont(handler.PlatformView);
     }
 
     public static void MapDropDownWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -200,7 +198,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapDisplayMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView?.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
+        handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
 
     public static void MapIsSuggestionListOpen(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -220,7 +218,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapItemsSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
+        handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
 
     private void UpdateTextColor(FreakyNativeAutoCompleteView platformView)
@@ -267,7 +265,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.SuggestionListHeight = (float)VirtualView.DropDownHeight;
     }
 
-    private static string FormatType(object instance, string memberPath)
+    private static string FormatType(object instance, string? memberPath)
     {
         if (!string.IsNullOrEmpty(memberPath))
             return instance?.GetType().GetProperty(memberPath)?.GetValue(instance)?.ToString() ?? "";
@@ -277,11 +275,11 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private void UpdateFont(FreakyNativeAutoCompleteView platformView)
     {
-        if (platformView == null)
+        if (platformView is null || VirtualView is null)
             return;
 
-        var fontSize = (nfloat)(VirtualView?.FontSize ?? 14);
-        if (!string.IsNullOrEmpty(VirtualView?.FontFamily))
+        var fontSize = (nfloat)(VirtualView.FontSize > 0 ? VirtualView.FontSize : 14);
+        if (!string.IsNullOrEmpty(VirtualView.FontFamily))
         {
             platformView.Font = UIFont.FromName(VirtualView.FontFamily, fontSize);
         }

@@ -1,5 +1,3 @@
-#nullable disable
-
 using Foundation;
 using Maui.FreakyControls.Enums;
 using Microsoft.Maui.Platform;
@@ -11,8 +9,8 @@ namespace Maui.FreakyControls.Platforms.Apple.NativeControls;
 public partial class FreakyNativeAutoCompleteView : UIView
 {
     private nfloat keyboardHeight;
-    private NSLayoutConstraint heightConstraint;
-    private Func<object, string> textFunc;
+    private NSLayoutConstraint? heightConstraint;
+    private Func<object, string>? textFunc;
 
     private nfloat _suggestionListHeight = -1;
     private nfloat _suggestionListWidth = -1;
@@ -84,30 +82,30 @@ public partial class FreakyNativeAutoCompleteView : UIView
         UpdateSuggestionListOpenState();
     }
 
-    private void OnEditingDidBegin(object sender, EventArgs e)
+    private void OnEditingDidBegin(object? sender, EventArgs e)
     {
-        if (InputTextField.Text.Length > Threshold)
+        if ((InputTextField.Text?.Length ?? 0) > Threshold)
             IsSuggestionListOpen = true;
 
         EditingDidBegin?.Invoke(this, e);
     }
 
-    private void OnEditingDidEnd(object sender, EventArgs e)
+    private void OnEditingDidEnd(object? sender, EventArgs e)
     {
         IsSuggestionListOpen = false;
         EditingDidEnd?.Invoke(this, e);
     }
 
-    internal EventHandler EditingDidBegin;
-    internal EventHandler EditingDidEnd;
+    internal EventHandler? EditingDidBegin;
+    internal EventHandler? EditingDidEnd;
 
-    public virtual UIFont Font
+    public virtual UIFont? Font
     {
         get => InputTextField.Font;
         set => InputTextField.Font = value;
     }
 
-    internal void SetItems(IEnumerable<object> items, Func<object, string> labelFunc, Func<object, string> textFunc)
+    internal void SetItems(IEnumerable<object>? items, Func<object, string> labelFunc, Func<object, string> textFunc)
     {
         this.textFunc = textFunc;
 
@@ -124,7 +122,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
             SelectionList.Source = suggestionTableSource;
             SelectionList.ReloadData();
 
-            if (InputTextField.Text.Length > Threshold)
+            if ((InputTextField.Text?.Length ?? 0) > Threshold)
                 IsSuggestionListOpen = true;
         }
         else
@@ -133,14 +131,15 @@ public partial class FreakyNativeAutoCompleteView : UIView
         }
     }
 
-    public virtual string Placeholder
+    public virtual string? Placeholder
     {
         get => InputTextField.Placeholder;
         set => InputTextField.Placeholder = value;
     }
 
-    public virtual void SetPlaceholderColor(Color color)
+    public virtual void SetPlaceholderColor(Color? color)
     {
+        if (color is null) return;
         InputTextField.AttributedPlaceholder = new NSAttributedString(
             InputTextField.Placeholder ?? string.Empty,
             null,
@@ -199,7 +198,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
         heightConstraint.Active = true;
     }
 
-    private UIViewController GetActiveViewController()
+    private UIViewController? GetActiveViewController()
     {
         var viewController = InputTextField.Window?.RootViewController;
         if (viewController?.PresentedViewController is not null)
@@ -209,7 +208,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     private void AttachSuggestionList(UIViewController viewController)
     {
-        viewController.View.AddSubview(SelectionList);
+        viewController.View?.AddSubview(SelectionList);
         SelectionList.TranslatesAutoresizingMaskIntoConstraints = false;
 
         SelectionList.TopAnchor.ConstraintEqualTo(InputTextField.BottomAnchor).Active = true;
@@ -228,14 +227,17 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
-    private void OnKeyboardHide(object sender, UIKeyboardEventArgs e)
+    private void OnKeyboardHide(object? sender, UIKeyboardEventArgs e)
     {
         keyboardHeight = 0;
     }
 
-    private void OnKeyboardShow(object sender, UIKeyboardEventArgs e)
+    private void OnKeyboardShow(object? sender, UIKeyboardEventArgs e)
     {
-        var nsKeyboardBounds = (NSValue)e.Notification.UserInfo.ObjectForKey(UIKeyboard.FrameBeginUserInfoKey);
+        var userInfo = e.Notification.UserInfo;
+        if (userInfo is null) return;
+        var nsKeyboardBounds = userInfo.ObjectForKey(UIKeyboard.FrameBeginUserInfoKey) as NSValue;
+        if (nsKeyboardBounds is null) return;
         var keyboardBounds = nsKeyboardBounds.RectangleFValue;
         keyboardHeight = keyboardBounds.Height;
     }
@@ -245,7 +247,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
         if (string.IsNullOrWhiteSpace(field.Text)) return false;
 
         field.ResignFirstResponder();
-        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(InputTextField.Text, null));
+        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(InputTextField.Text ?? string.Empty, null));
         return true;
     }
 
@@ -255,42 +257,44 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
     public override bool IsFirstResponder => InputTextField.IsFirstResponder;
 
-    private void SuggestionTableSource_TableRowSelected(object sender, TableRowSelectedEventArgs<object> e)
+    private void SuggestionTableSource_TableRowSelected(object? sender, TableRowSelectedEventArgs<object> e)
     {
         SelectionList.DeselectRow(e.SelectedItemIndexPath, false);
         var selection = e.SelectedItem;
 
         if (UpdateTextOnSelect)
         {
-            InputTextField.Text = textFunc(selection);
-            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(textFunc(selection), TextChangeReason.SuggestionChosen));
+            var textValue = textFunc?.Invoke(selection) ?? selection?.ToString() ?? string.Empty;
+            InputTextField.Text = textValue;
+            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(textValue, TextChangeReason.SuggestionChosen));
         }
 
         SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(selection));
-        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, selection));
+        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text ?? string.Empty, selection));
 
         IsSuggestionListOpen = false;
     }
 
-    private void InputText_EditingChanged(object sender, EventArgs e)
+    private void InputText_EditingChanged(object? sender, EventArgs e)
     {
-        TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(Text, TextChangeReason.UserInput));
-        if (InputTextField.Text.Length > Threshold)
+        TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(Text ?? string.Empty, TextChangeReason.UserInput));
+        if ((InputTextField.Text?.Length ?? 0) > Threshold)
             IsSuggestionListOpen = true;
     }
 
-    public virtual string Text
+    public virtual string? Text
     {
         get => InputTextField.Text;
         set
         {
             InputTextField.Text = value;
-            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, TextChangeReason.ProgrammaticChange));
+            TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value ?? string.Empty, TextChangeReason.ProgrammaticChange));
         }
     }
 
-    public virtual void SetTextColor(Color color)
+    public virtual void SetTextColor(Color? color)
     {
+        if (color is null) return;
         InputTextField.TextColor = color.ToPlatform();
     }
 
@@ -305,9 +309,9 @@ public partial class FreakyNativeAutoCompleteView : UIView
         }
     }
 
-    public event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
-    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
-    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
+    public event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs>? TextChanged;
+    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs>? QuerySubmitted;
+    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs>? SuggestionChosen;
 
     private class TableSource<T> : UITableViewSource
     {
@@ -338,7 +342,7 @@ public partial class FreakyNativeAutoCompleteView : UIView
 
         public override nint RowsInSection(UITableView tableview, nint section) => _items.Count();
 
-        public event EventHandler<TableRowSelectedEventArgs<T>> TableRowSelected;
+        public event EventHandler<TableRowSelectedEventArgs<T>>? TableRowSelected;
     }
 
     private class TableRowSelectedEventArgs<T> : EventArgs

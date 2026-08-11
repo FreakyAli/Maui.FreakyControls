@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
@@ -26,7 +24,7 @@ public class CircularImageView : AppCompatImageView
 
     protected override void OnDraw(Canvas canvas)
     {
-        Drawable drawable = this.Drawable;
+        Drawable? drawable = this.Drawable;
 
         if (drawable is null)
         {
@@ -37,18 +35,26 @@ public class CircularImageView : AppCompatImageView
         {
             return;
         }
-        Bitmap b = ((BitmapDrawable)drawable).Bitmap;
-        Bitmap bitmap = b.Copy(Bitmap.Config.Argb8888, true);
+        Bitmap? b = ((BitmapDrawable)drawable).Bitmap;
+        if (b is null)
+            return;
+        var argb8888 = Bitmap.Config.Argb8888;
+        if (argb8888 is null)
+            return;
+        Bitmap? bitmap = b.Copy(argb8888, true);
+        if (bitmap is null)
+            return;
 
         int w = Width, h = Height;
 
-        Bitmap roundBitmap = GetRoundedCroppedBitmap(bitmap, w);
-        canvas.DrawBitmap(roundBitmap, 0, 0, null);
+        Bitmap? roundBitmap = GetRoundedCroppedBitmap(bitmap, w);
+        if (roundBitmap is not null)
+            canvas.DrawBitmap(roundBitmap, 0, 0, null);
     }
 
-    public static Bitmap GetRoundedCroppedBitmap(Bitmap bmp, int radius)
+    public static Bitmap? GetRoundedCroppedBitmap(Bitmap bmp, int radius)
     {
-        Bitmap sbmp;
+        Bitmap? sbmp;
 
         if (bmp.Width != radius || bmp.Height != radius)
         {
@@ -61,7 +67,15 @@ public class CircularImageView : AppCompatImageView
             sbmp = bmp;
         }
 
-        Bitmap output = Bitmap.CreateBitmap(radius, radius, Bitmap.Config.Argb8888);
+        if (sbmp is null)
+            return null;
+
+        var config = Bitmap.Config.Argb8888;
+        if (config is null)
+            return null;
+        Bitmap? output = Bitmap.CreateBitmap(radius, radius, config);
+        if (output is null)
+            return null;
         Canvas canvas = new Canvas(output);
 
         Paint paint = new Paint();

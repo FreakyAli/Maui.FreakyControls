@@ -1,5 +1,3 @@
-#nullable disable
-
 using Microsoft.Maui.Handlers;
 #if WINDOWS
 using Maui.FreakyControls.Enums;

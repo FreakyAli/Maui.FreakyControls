@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using Android.Content;
 using Android.Graphics;
 using Android.Views;
@@ -25,7 +23,7 @@ internal partial class InkPresenter
     public static float ScreenDensity;
 
     private readonly List<InkStroke> paths = new List<InkStroke>();
-    private InkStroke currentPath;
+    private InkStroke? currentPath;
 
     // used to determine rectangle that needs to be redrawn
     private float dirtyRectLeft;
@@ -34,7 +32,7 @@ internal partial class InkPresenter
     private float dirtyRectRight;
     private float dirtyRectBottom;
 
-    private NativeImage bitmapBuffer;
+    private NativeImage? bitmapBuffer;
 
     // public properties
 
@@ -76,7 +74,7 @@ internal partial class InkPresenter
 
     // public events
 
-    public event EventHandler StrokeCompleted;
+    public event EventHandler? StrokeCompleted;
 
     // public methods
 
@@ -226,8 +224,9 @@ internal partial class InkPresenter : View
     {
     }
 
-    public override bool OnTouchEvent(MotionEvent e)
+    public override bool OnTouchEvent(MotionEvent? e)
     {
+        if (e is null) return false;
         switch (e.Action)
         {
             case MotionEventActions.Down:
@@ -273,6 +272,10 @@ internal partial class InkPresenter : View
         {
             TouchesBegan(e);
         }
+
+        // After TouchesBegan, currentPath should be set - but guard anyway
+        if (currentPath is null)
+            return;
 
         var hasMoved = false;
 
@@ -399,7 +402,7 @@ internal partial class InkPresenter : View
         }
     }
 
-    private Bitmap CreateBufferImage()
+    private Bitmap? CreateBufferImage()
     {
         if (paths is null || paths.Count == 0)
         {
@@ -407,7 +410,9 @@ internal partial class InkPresenter : View
         }
 
         var size = new SizeF(Width, Height);
-        var image = Bitmap.CreateBitmap((int)size.Width, (int)size.Height, Bitmap.Config.Argb8888);
+        var config = Bitmap.Config.Argb8888;
+        if (config is null) return null;
+        var image = Bitmap.CreateBitmap((int)size.Width, (int)size.Height, config);
 
         using (var canvas = new Canvas(image))
         using (var paint = new Paint())

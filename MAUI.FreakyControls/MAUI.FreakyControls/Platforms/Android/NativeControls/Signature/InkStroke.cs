@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using NativeColor = Android.Graphics.Color;
 using NativePath = Android.Graphics.Path;
 using NativePoint = System.Drawing.PointF;

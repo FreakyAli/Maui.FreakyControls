@@ -1,5 +1,3 @@
-#nullable disable
-
 ﻿using NativeColor = Android.Graphics.Color;
 using NativeNullableColor = System.Nullable<Android.Graphics.Color>;
 

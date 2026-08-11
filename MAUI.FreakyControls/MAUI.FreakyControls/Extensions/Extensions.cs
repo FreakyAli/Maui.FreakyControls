@@ -1,5 +1,3 @@
-#nullable disable
-
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Maui.FreakyEffects;
 #if WINDOWS
@@ -71,8 +69,10 @@ public static class Extensions
     /// </summary>
     public static async Task<NativeImage?> ToNativeImageSourceAsync(this ImageSource source)
     {
-        var provider = IPlatformApplication.Current.Services.GetRequiredService<IImageSourceServiceProvider>();
+        var provider = IPlatformApplication.Current?.Services.GetRequiredService<IImageSourceServiceProvider>();
+        if (provider is null) return null;
         var service = provider.GetImageSourceService(source);
+        if (service is null) return null;
 #if IOS || MACCATALYST
         var result = await service.GetImageAsync(source);
         return result?.Value;
@@ -82,7 +82,9 @@ public static class Extensions
         if (drawable is null) return null;
         var w = drawable.IntrinsicWidth > 0 ? drawable.IntrinsicWidth : 1;
         var h = drawable.IntrinsicHeight > 0 ? drawable.IntrinsicHeight : 1;
-        var bitmap = Android.Graphics.Bitmap.CreateBitmap(w, h, Android.Graphics.Bitmap.Config.Argb8888);
+        var config = Android.Graphics.Bitmap.Config.Argb8888;
+        if (config is null) return null;
+        var bitmap = Android.Graphics.Bitmap.CreateBitmap(w, h, config);
         using var canvas = new Android.Graphics.Canvas(bitmap);
         drawable.SetBounds(0, 0, canvas.Width, canvas.Height);
         drawable.Draw(canvas);

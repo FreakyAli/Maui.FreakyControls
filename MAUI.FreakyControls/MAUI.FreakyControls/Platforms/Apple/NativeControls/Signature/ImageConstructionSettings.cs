@@ -1,5 +1,3 @@
-#nullable disable
-
 using NativeColor = UIKit.UIColor;
 using NativeNullableColor = UIKit.UIColor;
 
