@@ -7,12 +7,12 @@ public class FreakyImage : Image
     /// <summary>
     /// Called when image is loaded in your image control's viewport
     /// </summary>
-    public event EventHandler ImageLoaded;
+    public event EventHandler? ImageLoaded;
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
-        if (propertyName.Equals(IsLoadingProperty.PropertyName))
+        if (propertyName?.Equals(IsLoadingProperty.PropertyName) == true)
         {
             if (IsLoading && Source is not null)
                 ImageLoaded?.Invoke(this, EventArgs.Empty);

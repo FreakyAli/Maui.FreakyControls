@@ -13,5 +13,5 @@ public class ImageStreamRequestedEventArgs : FreakyEventArgs
 
     public ImageConstructionSettings Settings { get; private set; }
 
-    public Task<Stream> ImageStreamTask { get; set; } = Task.FromResult<Stream>(null);
+    public Task<Stream?> ImageStreamTask { get; set; } = Task.FromResult<Stream?>(null);
 }

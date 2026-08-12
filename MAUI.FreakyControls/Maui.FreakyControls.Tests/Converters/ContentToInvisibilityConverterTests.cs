@@ -11,7 +11,7 @@ public class ContentToInvisibilityConverterTests
     public void Convert_Null_ReturnsFalse()
     {
         var result = _converter.Convert(null, typeof(bool), null, CultureInfo.InvariantCulture);
-        Assert.False((bool)result);
+        Assert.False(result is bool b && b);
     }
 
     [Theory]
@@ -21,7 +21,7 @@ public class ContentToInvisibilityConverterTests
     public void Convert_NonNullValue_ReturnsTrue(object value)
     {
         var result = _converter.Convert(value, typeof(bool), null, CultureInfo.InvariantCulture);
-        Assert.True((bool)result);
+        Assert.True(result is true);
     }
 
     [Fact]

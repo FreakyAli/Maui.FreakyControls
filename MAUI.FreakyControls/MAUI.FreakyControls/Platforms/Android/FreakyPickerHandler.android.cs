@@ -29,17 +29,19 @@ public partial class FreakyPickerHandler
         {
             var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
                 Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
-            var freakyEditText = PlatformView as FreakyMauiPicker;
-            freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
-            switch (entry.ImageAlignment)
+            if (PlatformView is FreakyMauiPicker freakyEditText)
             {
-                case ImageAlignment.Left:
-                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
-                    break;
+                freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
+                switch (entry.ImageAlignment)
+                {
+                    case ImageAlignment.Left:
+                        freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
+                        break;
 
-                case ImageAlignment.Right:
-                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
-                    break;
+                    case ImageAlignment.Right:
+                        freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
+                        break;
+                }
             }
         }
         PlatformView.CompoundDrawablePadding = entry.ImagePadding;

@@ -17,8 +17,8 @@ internal static class PathSmoothing
     {
         var currentPoints = currentPath.GetPoints().ToList();
 
-        SmoothedPathWithGranularity(currentPoints, granularity, out NativePath smoothedPath, out List<NativePoint> smoothedPoints);
-        if (smoothedPath is null)
+        SmoothedPathWithGranularity(currentPoints, granularity, out NativePath? smoothedPath, out List<NativePoint>? smoothedPoints);
+        if (smoothedPath is null || smoothedPoints is null)
         {
             return currentPath;
         }
@@ -27,7 +27,7 @@ internal static class PathSmoothing
         return new InkStroke(smoothedPath, smoothedPoints.ToList(), currentPath.NativeColor, currentPath.Width);
     }
 
-    public static void SmoothedPathWithGranularity(List<NativePoint> currentPoints, int granularity, out NativePath smoothedPath, out List<NativePoint> smoothedPoints)
+    public static void SmoothedPathWithGranularity(List<NativePoint> currentPoints, int granularity, out NativePath? smoothedPath, out List<NativePoint>? smoothedPoints)
     {
         // not enough points to smooth effectively, so return the original path and points.
         if (currentPoints.Count < 4)

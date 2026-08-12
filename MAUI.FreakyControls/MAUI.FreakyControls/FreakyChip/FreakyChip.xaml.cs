@@ -15,7 +15,7 @@ public partial class FreakyChip : ContentView
     /// <summary>
     /// Raised when <see cref="FreakyChip.IsSelected"/> changes.
     /// </summary>
-    public event EventHandler<CheckedChangedEventArgs> SelectedChanged;
+    public event EventHandler<CheckedChangedEventArgs>? SelectedChanged;
 
     public FreakyChip()
     {
@@ -26,7 +26,7 @@ public partial class FreakyChip : ContentView
         leadingIcon.HeightRequest = leadingIcon.WidthRequest = size;
     }
 
-    private void CheckBox_Tapped(object sender, EventArgs e)
+    private void CheckBox_Tapped(object? sender, EventArgs e)
     {
         if (IsEnabled)
         {
@@ -320,7 +320,7 @@ public partial class FreakyChip : ContentView
             base.ChangeVisualState();
     }
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
 

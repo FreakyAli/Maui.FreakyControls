@@ -10,7 +10,7 @@ public class FreakyChipGroup : StackLayout
     /// <summary>
     /// Triggered when <see cref="FreakyChipGroup.SelectedIndex"/> changes.
     /// </summary>
-    public event EventHandler<FreakyRadioButtonEventArgs> SelectedFreakyChipChanged;
+    public event EventHandler<FreakyRadioButtonEventArgs>? SelectedFreakyChipChanged;
 
     public static readonly BindableProperty SelectedIndexProperty =
     BindableProperty.Create(
@@ -88,7 +88,7 @@ public class FreakyChipGroup : StackLayout
         }
     }
 
-    private void FreakyChip_CheckedChanged(object sender, EventArgs e)
+    private void FreakyChip_CheckedChanged(object? sender, EventArgs e)
     {
         if (sender is not FreakyChip selectedFreakyChip || !selectedFreakyChip.IsSelected)
         {

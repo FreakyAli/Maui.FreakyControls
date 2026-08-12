@@ -13,7 +13,7 @@ public class InverseBoolConverterTests
     public void Convert_BoolValue_ReturnsInverse(bool input, bool expected)
     {
         var result = _converter.Convert(input, typeof(bool), null, CultureInfo.InvariantCulture);
-        Assert.Equal(expected, (bool)result);
+        Assert.Equal(expected, result is true);
     }
 
     [Theory]

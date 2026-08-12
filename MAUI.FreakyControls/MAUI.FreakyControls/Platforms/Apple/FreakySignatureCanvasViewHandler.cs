@@ -8,7 +8,7 @@ public partial class FreakySignatureCanvasViewHandler
     protected override Platforms.Apple.SignaturePadCanvasView
         CreatePlatformView() => new();
 
-    private void OnImageStreamRequested(object sender, ImageStreamRequestedEventArgs e)
+    private void OnImageStreamRequested(object? sender, ImageStreamRequestedEventArgs e)
     {
         var ctrl = this.PlatformView;
         if (ctrl is not null)

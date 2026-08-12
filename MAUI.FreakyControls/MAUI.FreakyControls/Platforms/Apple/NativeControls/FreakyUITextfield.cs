@@ -8,7 +8,7 @@ namespace Maui.FreakyControls.Platforms.Apple.NativeControls
     {
         public bool AllowCopyPaste { get; set; } = true;
 
-        public override bool CanPerform(Selector action, NSObject withSender)
+        public override bool CanPerform(Selector action, NSObject? withSender)
         {
             if (action.Name == "paste:" || action.Name == "copy:" || action.Name == "cut:")
                 return AllowCopyPaste;

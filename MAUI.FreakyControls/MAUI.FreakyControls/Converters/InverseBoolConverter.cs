@@ -4,7 +4,7 @@ namespace Maui.FreakyControls.Converters;
 
 public class InverseBoolConverter : BaseOneWayValueConverter
 {
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not bool boolValue)
         {

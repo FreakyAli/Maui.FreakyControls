@@ -15,26 +15,26 @@ namespace Maui.FreakyControls.Platforms.Android.NativeControls;
 public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 {
     private bool suppressTextChangedEvent;
-    private Func<object, string> textFunc;
+    private Func<object, string>? textFunc;
     private SuggestCompleteAdapter adapter;
-    private Drawable drawableRight;
-    private Drawable drawableLeft;
-    private Drawable drawableTop;
-    private Drawable drawableBottom;
+    private Drawable? drawableRight;
+    private Drawable? drawableLeft;
+    private Drawable? drawableTop;
+    private Drawable? drawableBottom;
     private int actionX, actionY;
-    private IDrawableClickListener clickListener;
+    private IDrawableClickListener? clickListener;
 
     public FreakyNativeAutoCompleteView(Context context) : base(context)
     {
         SetMaxLines(1);
         InputType = global::Android.Text.InputTypes.TextFlagNoSuggestions | global::Android.Text.InputTypes.TextVariationVisiblePassword; //Disables text suggestions as the auto-complete view is there to do that
         ItemClick += OnItemClick;
-        Adapter = adapter = new SuggestCompleteAdapter(Context, global::Android.Resource.Layout.SimpleDropDownItem1Line);
+        Adapter = adapter = new SuggestCompleteAdapter(context, global::Android.Resource.Layout.SimpleDropDownItem1Line);
     }
 
     public override bool EnoughToFilter() => true;
 
-    internal void SetItems(IEnumerable<object> items, Func<object, string> labelFunc, Func<object, string> textFunc)
+    internal void SetItems(IEnumerable<object>? items, Func<object, string> labelFunc, Func<object, string> textFunc)
     {
         this.textFunc = textFunc;
         if (items is null)
@@ -43,7 +43,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             adapter.UpdateList(items.OfType<object>(), labelFunc);
     }
 
-    public virtual new string Text
+    public virtual new string? Text
     {
         get => base.Text;
         set
@@ -51,7 +51,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
             suppressTextChangedEvent = true;
             base.Text = value;
             suppressTextChangedEvent = false;
-            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value, TextChangeReason.ProgrammaticChange));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(value ?? string.Empty, TextChangeReason.ProgrammaticChange));
         }
     }
 
@@ -83,33 +83,34 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
     public virtual bool UpdateTextOnSelect { get; set; } = true;
 
-    protected override void OnTextChanged(ICharSequence text, int start, int lengthBefore, int lengthAfter)
+    protected override void OnTextChanged(ICharSequence? text, int start, int lengthBefore, int lengthAfter)
     {
         if (!suppressTextChangedEvent)
-            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text.ToString(), TextChangeReason.UserInput));
+            this.TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text?.ToString() ?? string.Empty, TextChangeReason.UserInput));
         base.OnTextChanged(text, start, lengthBefore, lengthAfter);
     }
 
     private void DismissKeyboard()
     {
-        var imm = (InputMethodManager)Context.GetSystemService(Context.InputMethodService);
-        imm.HideSoftInputFromWindow(WindowToken, 0);
+        if (Context?.GetSystemService(Context.InputMethodService) is InputMethodManager imm)
+            imm.HideSoftInputFromWindow(WindowToken, 0);
     }
 
-    private void OnItemClick(object sender, AdapterView.ItemClickEventArgs e)
+    private void OnItemClick(object? sender, AdapterView.ItemClickEventArgs e)
     {
         DismissKeyboard();
         var obj = adapter.GetObject(e.Position);
         if (UpdateTextOnSelect)
         {
             suppressTextChangedEvent = true;
-            string text = textFunc(obj);
+            string text = textFunc?.Invoke(obj) ?? obj?.ToString() ?? string.Empty;
             base.Text = text;
             suppressTextChangedEvent = false;
             TextChanged?.Invoke(this, new FreakyAutoCompleteViewTextChangedEventArgs(text, TextChangeReason.SuggestionChosen));
         }
-        SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(obj));
-        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, obj));
+        if (obj is not null)
+            SuggestionChosen?.Invoke(this, new FreakyAutoCompleteViewSuggestionChosenEventArgs(obj));
+        QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text ?? string.Empty, obj));
     }
 
     public override void OnEditorAction([GeneratedEnum] ImeAction actionCode)
@@ -118,158 +119,142 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
         {
             DismissDropDown();
             DismissKeyboard();
-            QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text, null));
+            QuerySubmitted?.Invoke(this, new FreakyAutoCompleteViewQuerySubmittedEventArgs(Text ?? string.Empty, null));
         }
         else
             base.OnEditorAction(actionCode);
     }
 
-    protected override void ReplaceText(ICharSequence text)
+    protected override void ReplaceText(ICharSequence? text)
     {
         //Override to avoid updating textbox on itemclick. We'll do this later using TextMemberPath and raise the proper TextChanged event then
     }
 
-    public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs> TextChanged;
+    public new event EventHandler<FreakyAutoCompleteViewTextChangedEventArgs>? TextChanged;
 
-    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs> QuerySubmitted;
+    public event EventHandler<FreakyAutoCompleteViewQuerySubmittedEventArgs>? QuerySubmitted;
 
-    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs> SuggestionChosen;
+    public event EventHandler<FreakyAutoCompleteViewSuggestionChosenEventArgs>? SuggestionChosen;
 
-    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
-         Drawable right, Drawable bottom)
+    public override void SetCompoundDrawablesWithIntrinsicBounds(Drawable? left, Drawable? top,
+         Drawable? right, Drawable? bottom)
     {
-        if (left is not null)
-        {
-            drawableLeft = left;
-        }
-        if (right is not null)
-        {
-            drawableRight = right;
-        }
-        if (top is not null)
-        {
-            drawableTop = top;
-        }
-        if (bottom is not null)
-        {
-            drawableBottom = bottom;
-        }
+        drawableLeft = left;
+        drawableRight = right;
+        drawableTop = top;
+        drawableBottom = bottom;
         base.SetCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
     }
 
-    public override bool OnTouchEvent(MotionEvent e)
+    public override bool OnTouchEvent(MotionEvent? e)
     {
-        Rect bounds;
-        if (e.Action == MotionEventActions.Down)
-        {
-            actionX = (int)e.GetX();
-            actionY = (int)e.GetY();
-            if (drawableBottom is not null
-                && drawableBottom.Bounds.Contains(actionX, actionY))
-            {
-                clickListener.OnClick(DrawablePosition.Bottom);
-                return base.OnTouchEvent(e);
-            }
+        if (e is null) return base.OnTouchEvent(e);
 
-            if (drawableTop is not null
-                    && drawableTop.Bounds.Contains(actionX, actionY))
-            {
-                clickListener.OnClick(DrawablePosition.Top);
-                return base.OnTouchEvent(e);
-            }
+        if (e.Action != MotionEventActions.Down)
+            return base.OnTouchEvent(e);
 
-            // this works for left since container shares 0,0 origin with bounds
-            if (drawableLeft is not null)
-            {
-                bounds = null;
-                bounds = drawableLeft.Bounds;
+        actionX = (int)e.GetX();
+        actionY = (int)e.GetY();
 
-                int x, y;
-                int extraTapArea = (int)((13 * Resources.DisplayMetrics.Density) + 0.5);
+        if (TryHandleSimpleDrawableClick())
+            return base.OnTouchEvent(e);
 
-                x = actionX;
-                y = actionY;
+        if (TryHandleLeftDrawableClick())
+            return false;
 
-                if (!bounds.Contains(actionX, actionY))
-                {
-                    // Gives the +20 area for tapping. /
-                    x = (int)(actionX - extraTapArea);
-                    y = (int)(actionY - extraTapArea);
+        if (TryHandleRightDrawableClick())
+            return false;
 
-                    if (x <= 0)
-                        x = actionX;
-                    if (y <= 0)
-                        y = actionY;
-
-                    // Creates square from the smallest value /
-                    if (x < y)
-                    {
-                        y = x;
-                    }
-                }
-
-                if (bounds.Contains(x, y) && clickListener is not null)
-                {
-                    clickListener.OnClick(DrawablePosition.Left);
-                    e.Action = (MotionEventActions.Cancel);
-                    return false;
-                }
-            }
-
-            if (drawableRight is not null)
-            {
-                bounds = null;
-                bounds = drawableRight.Bounds;
-
-                int x, y;
-                int extraTapArea = 13;
-
-                //
-                //  IF USER CLICKS JUST OUT SIDE THE RECTANGLE OF THE DRAWABLE
-                //  THAN ADD X AND SUBTRACT THE Y WITH SOME VALUE SO THAT AFTER
-                //  CALCULATING X AND Y CO-ORDINATE LIES INTO THE DRAWBABLE
-                //  BOUND. - this process help to increase the tappable area of
-                //  the rectangle.
-                //
-                x = (int)(actionX + extraTapArea);
-                y = (int)(actionY - extraTapArea);
-
-                // Since this is right drawable subtract the value of x from the width
-                // of view. so that width - tappedarea will result in x co-ordinate in drawable bound.
-                //
-                x = Width - x;
-
-                //x can be negative if user taps at x co-ordinate just near the width.
-                // e.g views width = 300 and user taps 290. Then as per previous calculation
-                // 290 + 13 = 303. So subtract X from getWidth() will result in negative value.
-                // So to avoid this add the value previous added when x goes negative.
-                //
-
-                if (x <= 0)
-                {
-                    x += extraTapArea;
-                }
-
-                // If result after calculating for extra tappable area is negative.
-                // assign the original value so that after subtracting
-                // extratapping area value doesn't go into negative value.
-                //
-
-                if (y <= 0)
-                    y = actionY;
-
-                //If drawble bounds contains the x and y points then move ahead./
-                if (bounds.Contains(x, y) && clickListener is not null)
-                {
-                    clickListener
-                            .OnClick(DrawablePosition.Right);
-                    e.Action = (MotionEventActions.Cancel);
-                    return false;
-                }
-                return base.OnTouchEvent(e);
-            }
-        }
         return base.OnTouchEvent(e);
+    }
+
+    private bool TryHandleSimpleDrawableClick()
+    {
+        if (drawableBottom is not null && drawableBottom.Bounds.Contains(actionX, actionY))
+        {
+            clickListener?.OnClick(DrawablePosition.Bottom);
+            return true;
+        }
+
+        if (drawableTop is not null && drawableTop.Bounds.Contains(actionX, actionY))
+        {
+            clickListener?.OnClick(DrawablePosition.Top);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryHandleLeftDrawableClick()
+    {
+        if (drawableLeft is null)
+            return false;
+
+        var bounds = drawableLeft.Bounds;
+        int extraTapArea = (int)((13 * (Resources?.DisplayMetrics?.Density ?? 1f)) + 0.5);
+        var (x, y) = AdjustCoordinatesForLeftDrawable(actionX, actionY, bounds, extraTapArea);
+
+        if (bounds.Contains(x, y) && clickListener is not null)
+        {
+            clickListener.OnClick(DrawablePosition.Left);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryHandleRightDrawableClick()
+    {
+        if (drawableRight is null)
+            return false;
+
+        var bounds = drawableRight.Bounds;
+        const int extraTapArea = 13;
+        var (x, y) = AdjustCoordinatesForRightDrawable(actionX, actionY, bounds, extraTapArea);
+
+        if (bounds.Contains(x, y) && clickListener is not null)
+        {
+            clickListener.OnClick(DrawablePosition.Right);
+            return true;
+        }
+
+        return false;
+    }
+
+    private (int, int) AdjustCoordinatesForLeftDrawable(int actionX, int actionY, Rect bounds, int extraTapArea)
+    {
+        int x = actionX;
+        int y = actionY;
+
+        if (!bounds.Contains(actionX, actionY))
+        {
+            x = (int)(actionX - extraTapArea);
+            y = (int)(actionY - extraTapArea);
+
+            if (x <= 0) x = actionX;
+            if (y <= 0) y = actionY;
+
+            if (x < y)
+                y = x;
+        }
+
+        return (x, y);
+    }
+
+    private (int, int) AdjustCoordinatesForRightDrawable(int actionX, int actionY, Rect bounds, int extraTapArea)
+    {
+        int x = (int)(actionX + extraTapArea);
+        int y = (int)(actionY - extraTapArea);
+
+        x = Width - x;
+
+        if (x <= 0)
+            x += extraTapArea;
+
+        if (y <= 0)
+            y = actionY;
+
+        return (x, y);
     }
 
     protected override void JavaFinalize()
@@ -311,7 +296,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
     {
         private SuggestFilter filter = new SuggestFilter();
         private List<object> resultList;
-        private Func<object, string> labelFunc;
+        private Func<object, string>? labelFunc;
 
         public SuggestCompleteAdapter(Context context, int textViewResourceId) : base(context, textViewResourceId)
         {
@@ -339,7 +324,9 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
         public override Java.Lang.Object GetItem(int position)
         {
-            return labelFunc(GetObject(position));
+            var obj = GetObject(position);
+            string label = labelFunc?.Invoke(obj) ?? obj?.ToString() ?? string.Empty;
+            return new Java.Lang.String(label);
         }
 
         public object GetObject(int position)
@@ -354,7 +341,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
 
         private class SuggestFilter : Filter
         {
-            private IEnumerable<string> resultList;
+            private IEnumerable<string>? resultList;
 
             public SuggestFilter()
             {
@@ -365,7 +352,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                 resultList = list;
             }
 
-            protected override FilterResults PerformFiltering(ICharSequence constraint)
+            protected override FilterResults PerformFiltering(ICharSequence? constraint)
             {
                 if (resultList is null)
                     return new FilterResults() { Count = 0, Values = null };
@@ -373,7 +360,7 @@ public class FreakyNativeAutoCompleteView : AppCompatAutoCompleteTextView
                 return new FilterResults() { Count = arr.Length, Values = arr };
             }
 
-            protected override void PublishResults(ICharSequence constraint, FilterResults results)
+            protected override void PublishResults(ICharSequence? constraint, FilterResults? results)
             {
             }
         }

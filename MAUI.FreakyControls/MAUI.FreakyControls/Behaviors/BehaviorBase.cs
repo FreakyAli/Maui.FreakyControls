@@ -2,7 +2,7 @@
 
 public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject
 {
-    public T AssociatedObject { get; private set; }
+    public T? AssociatedObject { get; private set; }
 
     protected override void OnAttachedTo(T bindable)
     {
@@ -24,7 +24,7 @@ public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject
         AssociatedObject = null;
     }
 
-    private void OnBindingContextChanged(object sender, EventArgs e)
+    private void OnBindingContextChanged(object? sender, EventArgs e)
     {
         OnBindingContextChanged();
     }
@@ -32,6 +32,6 @@ public abstract class BehaviorBase<T> : Behavior<T> where T : BindableObject
     protected override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
-        BindingContext = AssociatedObject.BindingContext;
+        BindingContext = AssociatedObject?.BindingContext;
     }
 }

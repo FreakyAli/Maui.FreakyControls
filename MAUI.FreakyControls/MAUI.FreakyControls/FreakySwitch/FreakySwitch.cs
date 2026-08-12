@@ -349,7 +349,7 @@ public class FreakySwitch : ContentView, IDisposable
             VisualStateManager.GoToState(this, Switch.SwitchOffVisualState);
     }
 
-    public event EventHandler<ToggledEventArgs> Toggled;
+    public event EventHandler<ToggledEventArgs>? Toggled;
 
     public static readonly BindableProperty AnimationDurationProperty =
         BindableProperty.Create(

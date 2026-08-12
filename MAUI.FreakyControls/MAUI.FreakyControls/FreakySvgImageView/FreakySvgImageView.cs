@@ -15,13 +15,13 @@ namespace Maui.FreakyControls;
 public class FreakySvgImageView : SKCanvasView, IDisposable
 {
     private SKImageInfo info;
-    private SKSurface surface;
-    private SKCanvas canvas;
+    private SKSurface? surface;
+    private SKCanvas? canvas;
     private readonly TapGestureRecognizer tapGestureRecognizer;
 
     private SKSvg Svg { get; }
 
-    private SKCanvas Canvas
+    private SKCanvas? Canvas
     {
         get => canvas;
         set
@@ -34,7 +34,7 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
     /// <summary>
     /// Tapped event for our control
     /// </summary>
-    public event EventHandler<TappedEventArgs> Tapped;
+    public event EventHandler<TappedEventArgs>? Tapped;
 
     #region Constructor, Destructor, Disposal and Assignments
 
@@ -71,8 +71,12 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
     {
         info = e.Info;
         surface = e.Surface;
-        Canvas = surface.Canvas;
-        Canvas.Clear();
+        var canvasLocal = surface.Canvas;
+        if (canvasLocal is null)
+            return;
+
+        Canvas = canvasLocal;
+        canvasLocal.Clear();
         if (Svg is null || Svg?.Picture is null)
         {
             return;
@@ -84,10 +88,10 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
                 ColorFilter = SKColorFilter.CreateBlendMode(ImageColor.ToSKColor(), SKBlendMode.SrcIn),
                 Style = SKPaintStyle.StrokeAndFill
             };
-            canvas.DrawPicture(Svg.Picture, paint);
+            Canvas?.DrawPicture(Svg.Picture, paint);
             return;
         }
-        canvas.DrawPicture(Svg.Picture);
+        Canvas?.DrawPicture(Svg.Picture);
     }
 
     #endregion Constructor, Destructor, Disposal and Assignments
@@ -218,12 +222,12 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
         set { SetValue(SvgModeProperty, value); }
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void TapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
     {
         Tapped?.Invoke(this, e);
     }
 
-    private void FreakySvgImageView_SizeChanged(object sender, EventArgs e)
+    private void FreakySvgImageView_SizeChanged(object? sender, EventArgs e)
     {
         InvalidateSurface();
     }
@@ -232,7 +236,7 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
     {
         try
         {
-            Stream svgStream;
+            Stream? svgStream;
             svgStream = SvgAssembly?.GetManifestResourceStream(ResourceId);
             if (svgStream is null)
             {
@@ -271,7 +275,8 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
 
     private void SetSvgMode()
     {
-        Canvas.Translate(info.Width / 2f, info.Height / 2f);
+        if (Svg.Picture is null) return;
+        Canvas?.Translate(info.Width / 2f, info.Height / 2f);
         var bounds = Svg.Picture.CullRect;
         var xRatio = info.Width / bounds.Width;
         var yRatio = info.Height / bounds.Height;
@@ -282,21 +287,21 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
         {
             case Aspect.AspectFill:
                 ratio = Math.Max(xRatio, yRatio);
-                Canvas.Scale(ratio);
+                Canvas?.Scale(ratio);
                 break;
 
             case Aspect.Fill:
-                Canvas.Scale(xRatio, yRatio);
+                Canvas?.Scale(xRatio, yRatio);
                 break;
 
             case Aspect.Center:
             case Aspect.AspectFit:
             default:
                 ratio = Math.Min(xRatio, yRatio);
-                Canvas.Scale(ratio);
+                Canvas?.Scale(ratio);
                 break;
         }
-        Canvas.Translate(-bounds.MidX, -bounds.MidY);
+        Canvas?.Translate(-bounds.MidX, -bounds.MidY);
     }
 
     private async Task SetUriAsync()
@@ -304,6 +309,7 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
         try
         {
             var stream = await DownloadHelper.GetStreamAsync(Uri);
+            if (stream is null) return;
             Svg.Load(stream);
             InvalidateSurface();
         }
@@ -313,38 +319,63 @@ public class FreakySvgImageView : SKCanvasView, IDisposable
         }
     }
 
-    protected override async void OnPropertyChanged(string propertyName = null)
+    protected override async void OnPropertyChanged(string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
-        if (propertyName == nameof(ResourceId) || propertyName == nameof(SvgAssembly))
+
+        switch (propertyName)
         {
-            if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly is null)
-                return;
-            SetResourceId();
+            case nameof(ResourceId) or nameof(SvgAssembly):
+                HandleResourceIdChange();
+                break;
+
+            case nameof(Base64String):
+                HandleBase64StringChange();
+                break;
+
+            case nameof(Uri):
+                await HandleUriChange();
+                break;
+
+            case nameof(SvgMode):
+                HandleSvgModeChange();
+                break;
+
+            case nameof(ImageColor):
+                InvalidateSurface();
+                break;
         }
-        else if (propertyName == nameof(Base64String))
-        {
-            if (string.IsNullOrWhiteSpace(Base64String) && Svg is not null)
-                return;
-            SetBase64String();
-        }
-        else if (propertyName == nameof(Uri))
-        {
-            if (Uri == default || Svg is null)
-            {
-                return;
-            }
-            await SetUriAsync();
-        }
-        else if (propertyName == nameof(SvgMode))
-        {
-            if (Canvas is null || Svg is null || Svg.Picture is null)
-                return;
-            SetSvgMode();
-        }
-        else if (propertyName == nameof(ImageColor))
-        {
-            InvalidateSurface();
-        }
+    }
+
+    private void HandleResourceIdChange()
+    {
+        if (string.IsNullOrWhiteSpace(ResourceId) || SvgAssembly is null)
+            return;
+
+        SetResourceId();
+    }
+
+    private void HandleBase64StringChange()
+    {
+        if (string.IsNullOrWhiteSpace(Base64String) || Svg is null)
+            return;
+
+        SetBase64String();
+    }
+
+    private async Task HandleUriChange()
+    {
+        if (Uri == default || Svg is null)
+            return;
+
+        await SetUriAsync();
+    }
+
+    private void HandleSvgModeChange()
+    {
+        if (Canvas is null || Svg is null || Svg.Picture is null)
+            return;
+
+        SetSvgMode();
     }
 }

@@ -78,7 +78,7 @@ public partial class FreakyZoomableView : ContentView
         set => SetValue(TranslateableProperty, value);
     }
 
-    private void PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
+    private void PinchUpdated(object? sender, PinchGestureUpdatedEventArgs e)
     {
         if (!Zoomable) return;
 
@@ -146,7 +146,7 @@ public partial class FreakyZoomableView : ContentView
         _yOffset = Content.TranslationY;
     }
 
-    public void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+    public void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
     {
         if (!Translateable) return;
 
@@ -203,7 +203,7 @@ public partial class FreakyZoomableView : ContentView
         _yOffset = Content.TranslationY;
     }
 
-    public async void DoubleTapped(object sender, TappedEventArgs e)
+    public async void DoubleTapped(object? sender, TappedEventArgs e)
     {
         if (!Zoomable || !DoubleTapToZoom) return;
 

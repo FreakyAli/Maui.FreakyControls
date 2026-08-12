@@ -8,8 +8,10 @@ namespace Maui.FreakyControls;
 
 public partial class FreakyCodeView : ContentView
 {
+    private CancellationTokenSource? _codeUpdateCts;
+
     #region Events
-    public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
+    public event EventHandler<FreakyCodeCompletedEventArgs>? CodeEntryCompleted;
     #endregion Events
 
     #region Constructor and Initializations
@@ -23,21 +25,21 @@ public partial class FreakyCodeView : ContentView
         Initialize();
     }
 
-    private void HiddenTextEntry_Unfocused(object sender, FocusEventArgs e)
+    private void HiddenTextEntry_Unfocused(object? sender, FocusEventArgs e)
     {
-        var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToList();
+        var CodeItemArray = CodeItemContainer.Children.OfType<CodeView>().ToList();
         for (int i = 0; i < CodeLength; i++)
         {
             CodeItemArray[i].UnfocusAnimate();
         }
     }
 
-    private void HiddenTextEntry_Focused(object sender, FocusEventArgs e)
+    private void HiddenTextEntry_Focused(object? sender, FocusEventArgs e)
     {
         var length = CodeValue is null ? 0 : CodeValue.Length;
         hiddenTextEntry.CursorPosition = length;
 
-        var CodeItemArray = CodeItemContainer.Children.Select(x => x as CodeView).ToArray();
+        var CodeItemArray = CodeItemContainer.Children.OfType<CodeView>().ToArray();
 
         if (length == CodeLength)
         {
@@ -127,7 +129,7 @@ public partial class FreakyCodeView : ContentView
 
     #region Events
 
-    private void FreakyCodeView_TextChanged(object sender, TextChangedEventArgs e)
+    private void FreakyCodeView_TextChanged(object? sender, TextChangedEventArgs e)
     {
         CodeValue = e.NewTextValue;
 
@@ -167,69 +169,87 @@ public partial class FreakyCodeView : ContentView
         {
             var control = (FreakyCodeView)bindable;
 
-            string newCode = newValue.ToString();
-            string oldCode = oldValue.ToString();
+            string newCode = newValue?.ToString() ?? string.Empty;
+            string oldCode = oldValue?.ToString() ?? string.Empty;
 
-            int newCodeLength = newCode.Length;
-            int oldCodeLength = oldCode.Length;
-
-            if (newCodeLength == 0 && oldCodeLength == 0)
-            {
+            if (newCode.Length == 0 && oldCode.Length == 0)
                 return;
-            }
 
-            char[] newCodeChars = newCode.ToCharArray();
+            // Cancel any previous code update operation
+            control._codeUpdateCts?.Cancel();
+            control._codeUpdateCts?.Dispose();
+            control._codeUpdateCts = new CancellationTokenSource();
+            var updateToken = control._codeUpdateCts.Token;
 
             control.hiddenTextEntry.Text = newCode;
-            var CodeItemArray = control.CodeItemContainer.Children.Select(x => x as CodeView).ToArray();
+            var codeItems = control.CodeItemContainer.Children.OfType<CodeView>().ToArray();
 
-            bool isCodeEnteredProgramatically = (oldCodeLength == 0 && newCodeLength == control.CodeLength) || newCodeLength == oldCodeLength;
+            bool isProgrammatic = IsProgrammaticEntry(oldCode, newCode, control.CodeLength);
 
-            if (isCodeEnteredProgramatically)
-            {
-                for (int i = 0; i < control.CodeLength; i++)
-                {
-                    CodeItemArray[i].ClearValueWithAnimation();
-                }
-            }
+            if (isProgrammatic)
+                ClearAllItems(codeItems, control.CodeLength);
 
-            for (int i = 0; i < control.CodeLength; i++)
-            {
-                if (i < newCodeLength)
-                {
-                    if (isCodeEnteredProgramatically)
-                    {
-                        await Task.Delay(50);
-                    }
+            await UpdateCodeItems(codeItems, newCode, isProgrammatic, control.CodeLength, updateToken);
 
-                    CodeItemArray[i].SetValueWithAnimation(newCodeChars[i]);
-                }
-                else
-                {
-                    if (CodeItemArray.Length >= control.CodeLength)
-                    {
-                        CodeItemArray[i].ClearValueWithAnimation();
-                        CodeItemArray[i].UnfocusAnimate();
-                    }
-                }
-            }
-
-            if (control.hiddenTextEntry.IsFocused)
-            {
-                if (newCodeLength < control.CodeLength)
-                {
-                    CodeItemArray[newCodeLength].FocusAnimate();
-                }
-                else if (newCodeLength == control.CodeLength)
-                {
-                    CodeItemArray[newCodeLength - 1].FocusAnimate();
-                }
-            }
+            // Only update focus if operation wasn't cancelled
+            if (!updateToken.IsCancellationRequested)
+                UpdateFocusIndicator(codeItems, newCode, control.CodeLength, control.hiddenTextEntry.IsFocused);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.ToString());
         }
+    }
+
+    private static bool IsProgrammaticEntry(string oldCode, string newCode, int codeLength)
+    {
+        int newLength = newCode.Length;
+        int oldLength = oldCode.Length;
+        return (oldLength == 0 && newLength == codeLength) || newLength == oldLength;
+    }
+
+    private static void ClearAllItems(CodeView[] codeItems, int codeLength)
+    {
+        for (int i = 0; i < codeLength; i++)
+            codeItems[i].ClearValueWithAnimation();
+    }
+
+    private static async Task UpdateCodeItems(CodeView[] codeItems, string newCode, bool isProgrammatic, int codeLength, CancellationToken cancellationToken)
+    {
+        char[] codeChars = newCode.ToCharArray();
+
+        for (int i = 0; i < codeLength; i++)
+        {
+            if (i < newCode.Length)
+            {
+                if (isProgrammatic)
+                {
+                    await Task.Delay(50, cancellationToken);
+                    // Check if this operation was cancelled before updating
+                    if (cancellationToken.IsCancellationRequested)
+                        return;
+                }
+
+                codeItems[i].SetValueWithAnimation(codeChars[i]);
+            }
+            else if (codeItems.Length >= codeLength)
+            {
+                codeItems[i].ClearValueWithAnimation();
+                codeItems[i].UnfocusAnimate();
+            }
+        }
+    }
+
+    private static void UpdateFocusIndicator(CodeView[] codeItems, string newCode, int codeLength, bool isFocused)
+    {
+        if (!isFocused)
+            return;
+
+        int newCodeLength = newCode.Length;
+        if (newCodeLength < codeLength)
+            codeItems[newCodeLength].FocusAnimate();
+        else if (newCodeLength == codeLength)
+            codeItems[newCodeLength - 1].FocusAnimate();
     }
 
     public int CodeLength
@@ -518,7 +538,7 @@ public partial class FreakyCodeView : ContentView
           typeof(FreakyCodeView),
           true);
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void TapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
     {
         if (IsEnabled)
         {

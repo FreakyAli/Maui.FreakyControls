@@ -55,7 +55,7 @@ public partial class FreakyAutoCompleteViewHandler
     /// <param name="mapper">Custom instance of <see cref="PropertyMapper"/>, if it's null the <see cref="CommandMapper"/> will be used</param>
     /// <param name="commandMapper">Custom instance of <see cref="CommandMapper"/></param>
     public FreakyAutoCompleteViewHandler(IPropertyMapper mapper, CommandMapper commandMapper)
-        : base(mapper ?? mapper, commandMapper ?? CommandMapper)
+        : base(mapper ?? PropertyMapper, commandMapper ?? CommandMapper)
     { }
 
     /// <summary>

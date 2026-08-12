@@ -6,7 +6,7 @@ public sealed class FreakyAutoCompleteViewSuggestionChosenEventArgs : FreakyEven
     /// Initializes a new instance of the <see cref="FreakyAutoCompleteViewSuggestionChosenEventArgs"/> class.
     /// </summary>
     /// <param name="selectedItem"></param>
-    internal FreakyAutoCompleteViewSuggestionChosenEventArgs(object selectedItem)
+    internal FreakyAutoCompleteViewSuggestionChosenEventArgs(object? selectedItem)
     {
         SelectedItem = selectedItem;
     }
@@ -15,5 +15,5 @@ public sealed class FreakyAutoCompleteViewSuggestionChosenEventArgs : FreakyEven
     /// Gets a reference to the selected item.
     /// </summary>
     /// <value>A reference to the selected item.</value>
-    public object SelectedItem { get; }
+    public object? SelectedItem { get; }
 }

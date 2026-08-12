@@ -89,17 +89,17 @@ namespace Maui.FreakyControls
                 signaturePadCanvasViewHandler.VirtualView.StrokeColor.ToPlatform();
         }
 
-        private void OnCleared(object sender, EventArgs e)
+        private void OnCleared(object? sender, EventArgs e)
         {
             VirtualView?.OnCleared();
         }
 
-        private void PlatformView_StrokeCompleted(object sender, EventArgs e)
+        private void PlatformView_StrokeCompleted(object? sender, EventArgs e)
         {
             VirtualView?.OnStrokeCompleted();
         }
 
-        private void OnIsBlankRequested(object sender, IsBlankRequestedEventArgs e)
+        private void OnIsBlankRequested(object? sender, IsBlankRequestedEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl is not null)
@@ -108,7 +108,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnPointsRequested(object sender, PointsEventArgs e)
+        private void OnPointsRequested(object? sender, PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl is not null)
@@ -117,7 +117,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnPointsSpecified(object sender, PointsEventArgs e)
+        private void OnPointsSpecified(object? sender, PointsEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl is not null)
@@ -126,7 +126,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnStrokesRequested(object sender, StrokesEventArgs e)
+        private void OnStrokesRequested(object? sender, StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl is not null)
@@ -135,7 +135,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnStrokesSpecified(object sender, StrokesEventArgs e)
+        private void OnStrokesSpecified(object? sender, StrokesEventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl is not null)
@@ -144,7 +144,7 @@ namespace Maui.FreakyControls
             }
         }
 
-        private void OnClearRequested(object sender, EventArgs e)
+        private void OnClearRequested(object? sender, EventArgs e)
         {
             var ctrl = this.PlatformView;
             if (ctrl is not null)

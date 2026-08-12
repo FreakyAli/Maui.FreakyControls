@@ -40,37 +40,6 @@ Create unit tests for all FreakyControls to ensure reliability and maintainabili
 
 ---
 
-## Code Quality & Safety
-
-### Enable Nullable Reference Types
-Enable `<Nullable>enable</Nullable>` in Maui.FreakyControls.csproj to enable nullable reference type checking and eliminate null-reference warnings across the codebase.
-
-**Tasks:**
-- Enable nullable in project file
-- Resolve null-safety warnings by adding null checks and null-coalescing operators
-- Update method signatures with proper null annotations (`?` for nullable, `null!` only when non-null invariant is proven)
-- Avoid using `!` as a blanket null-suppression tool; validate non-null contracts first
-
-**Priority:** Medium  
-**Status:** Not Started
-
----
-
-## Documentation
-
-### API Documentation
-Ensure all public properties and methods have comprehensive XML documentation comments for IntelliSense support across all controls.
-
-**Tasks:**
-- Add XML doc comments to all public members
-- Enable compiler warnings for missing documentation (CS1591)
-- Enforce CI checks to fail build when public members lack documentation
-- Remove documentation warning suppressions
-
-**Status:** Partially Complete
-
----
-
 ## Samples & UI/UX
 
 ### Modern Sample App Redesign
@@ -96,20 +65,4 @@ Rebuild the Samples application with a modern, polished UI that properly showcas
 **Priority:** Medium  
 **Status:** Not Started
 
----
-
-## Performance & Optimization
-
-*Planned items to be added as they are identified*
-
----
-
-## Known Limitations
-
-### FreakyAutoCompleteView — Windows (WinUI 3)
-- **DropDownWidth/Height** — AutoSuggestBox dropdown sizing is not exposed via public APIs
-- **DropDownBorderColor/Width/CornerRadius** — Dropdown border styling is not supported; the internal popup is not directly accessible for customization
-
----
-
-**Last Updated:** August 6, 2026
+**Last Updated:** August 11, 2026

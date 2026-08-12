@@ -6,5 +6,5 @@ namespace Maui.FreakyControls;
 /// </summary>
 public class FreakySelectedPinEventArgs : FreakyEventArgs
 {
-    public string SelectedCharacter { get; set; }
+    public string SelectedCharacter { get; set; } = string.Empty;
 }

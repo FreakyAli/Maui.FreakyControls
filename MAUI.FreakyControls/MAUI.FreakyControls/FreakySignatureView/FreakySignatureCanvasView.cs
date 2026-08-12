@@ -8,23 +8,23 @@ public class FreakySignatureCanvasView : View
 {
     #region Events
 
-    public event EventHandler StrokeCompleted;
+    public event EventHandler? StrokeCompleted;
 
-    public event EventHandler Cleared;
+    public event EventHandler? Cleared;
 
-    public event EventHandler<ImageStreamRequestedEventArgs> ImageStreamRequested;
+    public event EventHandler<ImageStreamRequestedEventArgs>? ImageStreamRequested;
 
-    public event EventHandler<IsBlankRequestedEventArgs> IsBlankRequested;
+    public event EventHandler<IsBlankRequestedEventArgs>? IsBlankRequested;
 
-    public event EventHandler<PointsEventArgs> PointsRequested;
+    public event EventHandler<PointsEventArgs>? PointsRequested;
 
-    public event EventHandler<PointsEventArgs> PointsSpecified;
+    public event EventHandler<PointsEventArgs>? PointsSpecified;
 
-    public event EventHandler<StrokesEventArgs> StrokesRequested;
+    public event EventHandler<StrokesEventArgs>? StrokesRequested;
 
-    public event EventHandler<StrokesEventArgs> StrokesSpecified;
+    public event EventHandler<StrokesEventArgs>? StrokesSpecified;
 
-    public event EventHandler ClearRequested;
+    public event EventHandler? ClearRequested;
 
     #endregion Events
 
@@ -120,7 +120,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -132,7 +132,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature at the specified size.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -144,7 +144,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature at the specified scale.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -156,7 +156,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature with the specified stroke color.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -169,7 +169,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature at the specified size with the specified stroke color.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -182,7 +182,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature at the specified scale with the specified stroke color.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -195,7 +195,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature with the specified stroke and background colors.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -209,7 +209,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature at the specified size with the specified stroke and background colors.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, Size size, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -223,7 +223,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature at the specified scale with the specified stroke and background colors.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat format, Color strokeColor, Color fillColor, float scale, bool shouldCrop = true, bool keepAspectRatio = true)
     {
         return GetImageStreamAsync(format, new ImageConstructionSettings
         {
@@ -237,7 +237,7 @@ public class FreakySignatureCanvasView : View
     /// <summary>
     /// Create an encoded image stream of the currently drawn signature using the specified settings.
     /// </summary>
-    public Task<Stream> GetImageStreamAsync(SignatureImageFormat imageFormat, ImageConstructionSettings settings)
+    public Task<Stream?> GetImageStreamAsync(SignatureImageFormat imageFormat, ImageConstructionSettings settings)
     {
         var args = new ImageStreamRequestedEventArgs(imageFormat, settings);
         ImageStreamRequested?.Invoke(this, args);
@@ -246,7 +246,7 @@ public class FreakySignatureCanvasView : View
 
     public void Clear()
     {
-        ClearRequested?.Invoke(this, null);
+        ClearRequested?.Invoke(this, EventArgs.Empty);
     }
 
     private IEnumerable<Point> GetSignaturePoints()

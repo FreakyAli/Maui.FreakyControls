@@ -8,10 +8,10 @@ public partial class FreakyPinCodeControl : ContentView
 {
     private const string CancelText = "Cancel";
 
-    public event EventHandler<FreakyCodeCompletedEventArgs> CodeEntryCompleted;
-    public event EventHandler<FreakySelectedPinEventArgs> KeyboardClicked;
-    public event EventHandler<EventArgs> CancelClicked;
-    public event EventHandler<EventArgs> BackSpaceClicked;
+    public event EventHandler<FreakyCodeCompletedEventArgs>? CodeEntryCompleted;
+    public event EventHandler<FreakySelectedPinEventArgs>? KeyboardClicked;
+    public event EventHandler<EventArgs>? CancelClicked;
+    public event EventHandler<EventArgs>? BackSpaceClicked;
 
     public FreakyPinCodeControl()
     {
@@ -256,7 +256,7 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(string),
       typeof(FreakyPinCodeControl));
 
-    private void FreakyCodeView_CodeEntryCompleted(object sender, FreakyCodeCompletedEventArgs e)
+    private void FreakyCodeView_CodeEntryCompleted(object? sender, FreakyCodeCompletedEventArgs e)
     {
         CodeEntryCompleted?.Invoke(this, e);
     }
@@ -408,9 +408,9 @@ public partial class FreakyPinCodeControl : ContentView
       typeof(FreakyPinCodeControl),
       10.0);
 
-    private void Keyboard_Clicked(object sender, EventArgs e)
+    private void Keyboard_Clicked(object? sender, EventArgs e)
     {
-        var button = (Button)sender;
+        if (sender is not Button button) return;
         var text = button.Text;
         KeyboardClicked?.Invoke(this,
             new FreakySelectedPinEventArgs
@@ -422,34 +422,34 @@ public partial class FreakyPinCodeControl : ContentView
 
     private static void OnKeyboardHeightRequestChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var pinCodeControl = bindable as FreakyPinCodeControl;
+        var pinCodeControl = (FreakyPinCodeControl)bindable;
         var height = (double)newValue;
         var children = pinCodeControl.mainGrid.Children;
         foreach (var child in children)
         {
-            var button = child as View;
-            button.HeightRequest = height;
+            if (child is View button)
+                button.HeightRequest = height;
         }
     }
 
     private static void OnKeyboardWidthRequestChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var pinCodeControl = bindable as FreakyPinCodeControl;
+        var pinCodeControl = (FreakyPinCodeControl)bindable;
         var width = (double)newValue;
         var children = pinCodeControl.mainGrid.Children;
         foreach (var child in children)
         {
-            var button = child as View;
-            button.WidthRequest = width;
+            if (child is View button)
+                button.WidthRequest = width;
         }
     }
 
-    private void Cancel_Clicked(object sender, EventArgs e)
+    private void Cancel_Clicked(object? sender, EventArgs e)
     {
         CancelClicked?.Invoke(this, e);
     }
 
-    private void ImageButton_Clicked(object sender, EventArgs e)
+    private void ImageButton_Clicked(object? sender, EventArgs e)
     {
         BackSpaceClicked?.Invoke(this, e);
         if (CodeValue.Length != 0)

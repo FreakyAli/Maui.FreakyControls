@@ -3,5 +3,5 @@ namespace Maui.FreakyControls;
 
 public class FreakyCharacterChangedEventArgs : FreakyEventArgs
 {
-    public string SelectedCharacter { get; set; }
+    public string SelectedCharacter { get; set; } = string.Empty;
 }

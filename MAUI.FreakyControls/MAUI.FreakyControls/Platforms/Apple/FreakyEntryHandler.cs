@@ -23,7 +23,10 @@ public partial class FreakyEntryHandler
 
     internal void HandleAllowCopyPaste(FreakyEntry entry)
     {
-        (PlatformView as FreakyUITextfield).AllowCopyPaste = entry.AllowCopyPaste;
+        if (PlatformView is FreakyUITextfield textField)
+        {
+            textField.AllowCopyPaste = entry.AllowCopyPaste;
+        }
     }
 
     internal async Task HandleAndAlignImageSourceAsync(FreakyEntry entry)

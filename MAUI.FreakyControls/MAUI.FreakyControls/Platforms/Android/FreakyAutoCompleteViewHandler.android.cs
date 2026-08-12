@@ -41,7 +41,8 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.SuggestionChosen += OnPlatformViewSuggestionChosen;
         platformView.TextChanged += OnPlatformViewTextChanged;
         platformView.QuerySubmitted += OnPlatformViewQuerySubmitted;
-        platformView.SetTextColor(VirtualView?.TextColor.ToPlatform() ?? VirtualView.TextColor.ToPlatform());
+        if (VirtualView?.TextColor is not null)
+            platformView.SetTextColor(VirtualView.TextColor.ToPlatform());
         UpdateTextColor(platformView);
         UpdatePlaceholder(platformView);
     }
@@ -74,12 +75,14 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapTextAlignment(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.UpdateTextAlignment(handler?.PlatformView);
+        if (handler.PlatformView is not null)
+            handler.UpdateTextAlignment(handler.PlatformView);
     }
 
     public static void MapFont(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.UpdateFont(handler?.PlatformView);
+        if (handler.PlatformView is not null)
+            handler.UpdateFont(handler.PlatformView);
     }
 
     public static void MapDropDownWidth(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -109,7 +112,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     public static void MapText(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        if (handler.PlatformView?.Text != view.Text)
+        if (handler.PlatformView is not null && handler.PlatformView.Text != view.Text)
             handler.PlatformView.Text = view.Text;
     }
 
@@ -151,31 +154,34 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
     public static async void MapImageSource(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
         var entry = handler.VirtualView;
-        if (entry.ImageSource is null)
+        if (entry?.ImageSource is null)
             return;
         var imageBitmap = await entry.ImageSource.ToNativeImageSourceAsync();
         if (imageBitmap is not null)
         {
-            var bitmapDrawable = new BitmapDrawable(CurrentActivity.Resources,
+            var bitmapDrawable = new BitmapDrawable(CurrentActivity?.Resources,
                 Bitmap.CreateScaledBitmap(imageBitmap, entry.ImageWidth * 2, entry.ImageHeight * 2, true));
-            var freakyEditText = (handler.PlatformView as FreakyNativeAutoCompleteView);
-            freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
-            switch (entry.ImageAlignment)
+            if (handler.PlatformView is FreakyNativeAutoCompleteView freakyEditText)
             {
-                case ImageAlignment.Left:
-                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
-                    break;
+                freakyEditText.SetDrawableClickListener(new DrawableHandlerCallback(entry));
+                switch (entry.ImageAlignment)
+                {
+                    case ImageAlignment.Left:
+                        freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(bitmapDrawable, null, null, null);
+                        break;
 
-                case ImageAlignment.Right:
-                    freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
-                    break;
+                    case ImageAlignment.Right:
+                        freakyEditText.SetCompoundDrawablesWithIntrinsicBounds(null, null, bitmapDrawable, null);
+                        break;
+                }
             }
         }
-        handler.PlatformView.CompoundDrawablePadding = entry.ImagePadding;
+        if (handler.PlatformView is not null)
+            handler.PlatformView.CompoundDrawablePadding = entry.ImagePadding;
     }
     public static void MapDisplayMemberPath(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
     {
-        handler.PlatformView.SetItems(view?.ItemsSource?.OfType<object>(), (o) => FormatType(o, view?.DisplayMemberPath), (o) => FormatType(o, view?.TextMemberPath));
+        handler.PlatformView?.SetItems(view.ItemsSource?.OfType<object>(), (o) => FormatType(o, view.DisplayMemberPath), (o) => FormatType(o, view.TextMemberPath));
     }
 
     public static void MapIsSuggestionListOpen(FreakyAutoCompleteViewHandler handler, IFreakyAutoCompleteView view)
@@ -268,7 +274,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private void UpdateDisplayMemberPath(FreakyNativeAutoCompleteView platformView)
     {
-        platformView.SetItems(VirtualView.ItemsSource?.OfType<object>(), o => FormatType(o, VirtualView.DisplayMemberPath), o => FormatType(o, VirtualView.TextMemberPath));
+        platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), o => FormatType(o, VirtualView?.DisplayMemberPath), o => FormatType(o, VirtualView?.TextMemberPath));
     }
 
     private void UpdateIsEnabled(FreakyNativeAutoCompleteView platformView)
@@ -278,7 +284,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
 
     private void UpdateItemsSource(FreakyNativeAutoCompleteView platformView)
     {
-        platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), o => FormatType(o, VirtualView.DisplayMemberPath), o => FormatType(o, VirtualView.TextMemberPath));
+        platformView.SetItems(VirtualView?.ItemsSource?.OfType<object>(), o => FormatType(o, VirtualView?.DisplayMemberPath), o => FormatType(o, VirtualView?.TextMemberPath));
     }
 
     private void UpdateFont(FreakyNativeAutoCompleteView platformView)
@@ -348,7 +354,7 @@ public partial class FreakyAutoCompleteViewHandler : ViewHandler<IFreakyAutoComp
         platformView.SetBorderStyle(VirtualView.DropDownBorderColor, VirtualView.DropDownBorderWidth, VirtualView.DropDownCornerRadius);
     }
 
-    private static string FormatType(object instance, string memberPath)
+    private static string FormatType(object instance, string? memberPath)
     {
         if (!string.IsNullOrEmpty(memberPath))
             return instance?.GetType().GetProperty(memberPath)?.GetValue(instance)?.ToString() ?? "";
