@@ -114,7 +114,7 @@ Full API docs for every control live in the [`docs/`](./docs/) folder.
 
 <div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=FreakyAli/Maui.FreakyControls&type=Date)](https://star-history.com/#FreakyAli/Maui.FreakyControls&type=Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=FreakyAli/Maui.FreakyControls&type=Date)](https://star-history.dera.page/#FreakyAli/Maui.FreakyControls&type=Date)
 
 ![RepoBeats](https://repobeats.axiom.co/api/embed/37b730ec7020123a37b048636c0babfac3b4a014.svg "Repobeats analytics image")
 
