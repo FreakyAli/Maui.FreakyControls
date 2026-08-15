@@ -55,10 +55,14 @@ jobs:
         id: nuget_auth
         uses: NuGet/login@v1
         with:
-          username: FreakyAli
+          user: FreakyAli
+          token-service-url: https://www.nuget.org/api/v2/token
+          audience: https://www.nuget.org
 
       - name: Push NuGet package to nuget.org
         shell: pwsh
+        env:
+          NUGET_API_KEY: ${{ steps.nuget_auth.outputs.NUGET_API_KEY }}
         run: |
           $version = "${{ steps.get_version.outputs.version_without_v }}"
           $nupkgs = Get-ChildItem -Recurse -Filter *.nupkg | Where-Object {
@@ -69,4 +73,4 @@ jobs:
             throw "Expected exactly one matching .nupkg, found $($nupkgs.Count)"
           }
 
-          dotnet nuget push $nupkgs[0].FullName --source https://api.nuget.org/v3/index.json
+          dotnet nuget push $nupkgs[0].FullName --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_API_KEY

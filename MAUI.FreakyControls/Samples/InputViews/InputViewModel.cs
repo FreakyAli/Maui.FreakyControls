@@ -17,8 +17,7 @@ public partial class InputViewModel : MainViewModel
     public ICommand SwitchImageCommand { get; set; }
 
     [ObservableProperty]
-    private string imageSource;
-
+    public partial string ImageSource { get; set; }
 
     public string Pin
     {

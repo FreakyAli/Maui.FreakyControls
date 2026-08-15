@@ -7,7 +7,7 @@ namespace Samples.SwipeCardView;
 public partial class SwipeCardViewModel : BaseViewModel
 {
     [ObservableProperty]
-    private ObservableCollection<Profile> profiles = new ObservableCollection<Profile>();
+    public partial ObservableCollection<Profile> Profiles { get; set; } = [];
 
     public SwipeCardViewModel()
     {
